@@ -56,6 +56,6 @@ namespace KvitkouNet.Logic.Common.Enums
         /// <summary>
         /// Удаление аккаунта
         /// </summary>
-        Delete = 1 << 7
+        Delete = 1 << 8
     }
 }
