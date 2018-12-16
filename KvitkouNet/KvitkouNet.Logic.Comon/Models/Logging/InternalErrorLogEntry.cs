@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using KvitkouNet.Logic.Common.Models.Logging.Abstraction;
 
 namespace KvitkouNet.Logic.Common.Models.Logging
 {
-    public class InternalErrorLogEntry
+    public class InternalErrorLogEntry : BaseLogEntry<int>
     {
-        public long Id { get; set; }
-        
         public string TypeString { get; set; }
 
         public int HResult { get; set; }
@@ -21,7 +17,5 @@ namespace KvitkouNet.Logic.Common.Models.Logging
         public string StackTrace { get; set; }
 
         public string TargetSiteName { get; set; }
-
-        public DateTime Created { get; set; }
     }
 }

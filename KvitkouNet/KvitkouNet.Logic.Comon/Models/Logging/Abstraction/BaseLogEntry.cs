@@ -6,7 +6,7 @@ namespace KvitkouNet.Logic.Common.Models.Logging.Abstraction
     /// Базовый класс для создания доменных моделей записей лога
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal abstract class BaseLogEntry<T> where T : struct 
+    public abstract class BaseLogEntry<T> where T : struct 
     {
         /// <summary>
         /// Идентификатор записи

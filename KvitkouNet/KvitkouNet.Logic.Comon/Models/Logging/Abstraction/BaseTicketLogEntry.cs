@@ -3,7 +3,7 @@
     /// <summary>
     /// Базовый класс для создание доменных моделей записей лога о билетах
     /// </summary>
-    internal abstract class BaseTicketLogEntry : BaseLogEntry<int>
+    public abstract class BaseTicketLogEntry : BaseLogEntry<long>
     {
         /// <summary>
         /// Билет
