@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KvitkouNet.Data\KvitkouNet.Data.csproj" />
+    <ProjectReference Include="..\KvitkouNet.Logic.Comon\KvitkouNet.Logic.Common.csproj" />
+  </ItemGroup>
+
+</Project>
