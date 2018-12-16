@@ -4,7 +4,7 @@ using KvitkouNet.Logic.Common.Enums;
 namespace KvitkouNet.Logic.Common.Models.Logging
 {
     /// <summary>
-    /// Запись в лог об операции обмена/продажи билета
+    /// Модель записи в лог о сделке по билету
     /// </summary>
     public class TicketDealLogEntry
     {
