@@ -46,11 +46,6 @@ namespace KvitkouNet.Logic.Common.Enums
         /// <summary>
         /// Удаление билета
         /// </summary>
-        Delete = 1 << 6,
-
-        /// <summary>
-        /// Обмен/продажа билета
-        /// </summary>
-        Exchange = 1 << 7,
+        Delete = 1 << 6
     }
 }
