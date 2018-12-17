@@ -1,5 +1,6 @@
 ﻿using KvitkouNet.Logic.Common.Enums;
 using KvitkouNet.Logic.Common.Models.Logging.Abstraction;
+using KvitkouNet.Logic.Common.Models.UserManagement;
 
 namespace KvitkouNet.Logic.Common.Models.Logging
 {
@@ -11,7 +12,7 @@ namespace KvitkouNet.Logic.Common.Models.Logging
         /// <summary>
         /// Покупатель/получатель билета
         /// </summary>
-        public User.User Reciever { get; set; }
+        public User Reciever { get; set; }
 
         /// <summary>
         /// Цена билета, т.е. сумма сделки

@@ -1,4 +1,5 @@
 ﻿using KvitkouNet.Logic.Common.Models.Logging.Mocks;
+using KvitkouNet.Logic.Common.Models.UserManagement;
 
 namespace KvitkouNet.Logic.Common.Models.Logging.Abstraction
 {
@@ -15,6 +16,6 @@ namespace KvitkouNet.Logic.Common.Models.Logging.Abstraction
         /// <summary>
         /// Пользователь-владелец билета
         /// </summary>
-        public User.User Owner { get; set; }
+        public User Owner { get; set; }
     }
 }

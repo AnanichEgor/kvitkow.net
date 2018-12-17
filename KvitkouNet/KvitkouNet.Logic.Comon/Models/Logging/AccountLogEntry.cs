@@ -1,5 +1,6 @@
 ﻿using KvitkouNet.Logic.Common.Enums;
 using KvitkouNet.Logic.Common.Models.Logging.Abstraction;
+using KvitkouNet.Logic.Common.Models.UserManagement;
 
 namespace KvitkouNet.Logic.Common.Models.Logging
 {
@@ -11,7 +12,7 @@ namespace KvitkouNet.Logic.Common.Models.Logging
         /// <summary>
         /// Пользователь
         /// </summary>
-        public User.User User { get; set; } 
+        public User User { get; set; } 
 
         /// <summary>
         /// Тип действия
