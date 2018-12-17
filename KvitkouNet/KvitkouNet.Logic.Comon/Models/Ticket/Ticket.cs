@@ -10,6 +10,11 @@ namespace KvitkouNet.Logic.Common.Models.Ticket
     public class Ticket
     {
         /// <summary>
+        ///     Пользователь разместивший билет
+        /// </summary>
+        public User.User UserName { get; set; }
+
+        /// <summary>
         ///     Платный/бесплатный билет
         /// </summary>
         public bool Free { get; set; }
