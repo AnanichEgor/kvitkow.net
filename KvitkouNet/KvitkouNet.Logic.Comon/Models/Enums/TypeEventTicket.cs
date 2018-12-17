@@ -3,7 +3,7 @@
 namespace KvitkouNet.Logic.Common.Models.Enums
 {
     /// <summary>
-    ///     Перечисление, описывающее действия с билетом
+    ///     Перечисление, описывающее типы билетов
     /// </summary>
     [Flags]
     public enum TypeEventTicket
