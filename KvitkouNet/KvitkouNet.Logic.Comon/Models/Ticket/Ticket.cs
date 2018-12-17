@@ -79,5 +79,10 @@ namespace KvitkouNet.Logic.Common.Models.Ticket
         ///     Ссылка на мероприятие
         /// </summary>
         public string EventLink { get; set; }
+
+        /// <summary>
+        ///     Статус билета
+        /// </summary>
+        public TicketStatusEnum Status { get; set; }
     }
 }
