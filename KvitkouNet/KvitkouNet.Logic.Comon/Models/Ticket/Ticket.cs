@@ -44,6 +44,7 @@ namespace KvitkouNet.Logic.Common.Models.Ticket
         /// <summary>
         /// Дополнительная информация билета
         /// </summary>
+        public string AdditionalData { get; set; }
 
         /// <summary>
         /// Уникальный номер группы
