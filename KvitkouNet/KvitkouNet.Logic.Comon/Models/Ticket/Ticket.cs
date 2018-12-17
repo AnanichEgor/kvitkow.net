@@ -1,4 +1,5 @@
-﻿using KvitkouNet.Logic.Common.Models.Enums;
+﻿using System;
+using KvitkouNet.Logic.Common.Models.Enums;
 
 namespace KvitkouNet.Logic.Common.Models.Ticket
 {
@@ -35,7 +36,7 @@ namespace KvitkouNet.Logic.Common.Models.Ticket
         /// <summary>
         ///     Дата проведения мероприятия
         /// </summary>
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
 
         /// <summary>
         ///     Цена билета
