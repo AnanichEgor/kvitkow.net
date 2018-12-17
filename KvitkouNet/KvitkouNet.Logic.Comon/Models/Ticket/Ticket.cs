@@ -25,19 +25,9 @@ namespace KvitkouNet.Logic.Common.Models.Ticket
         public int TicketId { get; set; }
 
         /// <summary>
-        ///     Страна проведения мероприятия
+        ///     Адрес проведения мероприятия
         /// </summary>
-        public string Country { get; set; }
-
-        /// <summary>
-        ///     Город проведения мероприятия
-        /// </summary>
-        public string City { get; set; }
-
-        /// <summary>
-        ///     Дата проведения мероприятия
-        /// </summary>
-        public DateTime Date { get; set; }
+        public Address LocationEvent { get; set; }
 
         /// <summary>
         ///     Цена билета
