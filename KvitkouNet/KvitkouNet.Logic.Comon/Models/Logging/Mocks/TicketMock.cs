@@ -1,8 +1,8 @@
 ﻿namespace KvitkouNet.Logic.Common.Models.Logging.Mocks
 {
 	/// <summary>
-	/// Данная модель будет замещать доменную модель Ticket в домене Logging,
-	/// до реализации Ticket
+	/// Данная модель будет замещать доменную модель Ticket (или аналогичную ей)
+	/// в домене Logging до ее создания
 	/// </summary>
 	public class TicketMock
 	{
