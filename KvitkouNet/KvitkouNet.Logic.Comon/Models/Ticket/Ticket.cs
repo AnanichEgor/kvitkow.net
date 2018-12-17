@@ -49,7 +49,7 @@ namespace KvitkouNet.Logic.Common.Models.Ticket
         public string AdditionalData { get; set; }
 
         /// <summary>
-        ///     Уникальный номер группы
+        ///     Телефон продавца
         /// </summary>
         public string SellerPhone { get; set; }
 
