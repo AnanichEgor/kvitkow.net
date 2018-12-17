@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using KvitkouNet.Logic.Common.Models.Enums;
-using KvitkouNet.Logic.Common.Models.User;
+using KvitkouNet.Logic.Common.Models.UserManagement;
 
 namespace KvitkouNet.Logic.Common.Models.Ticket
 {
@@ -13,12 +13,12 @@ namespace KvitkouNet.Logic.Common.Models.Ticket
         /// <summary>
         ///     Пользователь разместивший билет
         /// </summary>
-        public User.User UserName { get; set; }
+        public User UserName { get; set; }
 
         /// <summary>
         ///     Пользователи, которые добавили билет в “Я Пойду”
         /// </summary>
-        public List<User.User> RespondedUsers { get; set; }
+        public List<User> RespondedUsers { get; set; }
 
         /// <summary>
         ///     Платный/бесплатный билет
