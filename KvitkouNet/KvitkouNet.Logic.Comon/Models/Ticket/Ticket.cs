@@ -1,5 +1,6 @@
 ﻿using System;
 using KvitkouNet.Logic.Common.Models.Enums;
+using KvitkouNet.Logic.Common.Models.User;
 
 namespace KvitkouNet.Logic.Common.Models.Ticket
 {
@@ -56,7 +57,7 @@ namespace KvitkouNet.Logic.Common.Models.Ticket
         /// <summary>
         ///     Адрес продавца
         /// </summary>
-        public string SellerAdress { get; set; }
+        public Address SellerAdress { get; set; }
 
         /// <summary>
         ///     Платежная система
