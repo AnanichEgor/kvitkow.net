@@ -4,6 +4,9 @@ using System.Text;
 
 namespace KvitkouNet.Logic.Common.Models.Ticket
 {
+    /// <summary>
+    /// Класс описания доменной модели билета
+    /// </summary>
     public class Ticket
     {
         /// <summary>
