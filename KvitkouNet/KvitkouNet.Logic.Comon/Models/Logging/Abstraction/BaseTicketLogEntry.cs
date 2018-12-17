@@ -1,4 +1,6 @@
-﻿namespace KvitkouNet.Logic.Common.Models.Logging.Abstraction
+﻿using KvitkouNet.Logic.Common.Models.Logging.Mocks;
+
+namespace KvitkouNet.Logic.Common.Models.Logging.Abstraction
 {
     /// <summary>
     /// Базовый класс для создание доменных моделей записей лога о билетах
@@ -8,11 +10,11 @@
         /// <summary>
         /// Билет
         /// </summary>
-        public Ticket Ticket { get; set; }
+        public TicketMock Ticket { get; set; }
 
         /// <summary>
         /// Пользователь-владелец билета
         /// </summary>
-        public User Owner { get; set; }
+        public User.User Owner { get; set; }
     }
 }

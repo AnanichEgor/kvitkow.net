@@ -11,7 +11,7 @@ namespace KvitkouNet.Logic.Common.Models.Logging
         /// <summary>
         /// Покупатель/получатель билета
         /// </summary>
-        public User Reciever { get; set; }
+        public User.User Reciever { get; set; }
 
         /// <summary>
         /// Цена билета, т.е. сумма сделки

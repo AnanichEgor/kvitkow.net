@@ -11,7 +11,7 @@ namespace KvitkouNet.Logic.Common.Models.Logging
         /// <summary>
         /// Пользователь
         /// </summary>
-        public User User { get; set; } 
+        public User.User User { get; set; } 
 
         /// <summary>
         /// Тип действия
