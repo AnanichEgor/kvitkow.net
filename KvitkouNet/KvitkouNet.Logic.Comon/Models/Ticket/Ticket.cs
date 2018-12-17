@@ -32,7 +32,7 @@ namespace KvitkouNet.Logic.Common.Models.Ticket
         /// <summary>
         ///     Цена билета
         /// </summary>
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         ///     Дополнительная информация билета
