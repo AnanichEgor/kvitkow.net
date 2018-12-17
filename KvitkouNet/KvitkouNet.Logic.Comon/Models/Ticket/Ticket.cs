@@ -59,7 +59,7 @@ namespace KvitkouNet.Logic.Common.Models.Ticket
         public string SellerAdress { get; set; }
 
         /// <summary>
-        ///     Номер продавца
+        ///     Платежная система
         /// </summary>
         public string PaymentSystems { get; set; }
 
