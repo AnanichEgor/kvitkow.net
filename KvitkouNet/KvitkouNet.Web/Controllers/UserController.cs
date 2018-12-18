@@ -15,8 +15,11 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Register([FromBody]UserRegisterModel model)
         {
-            await Task.Delay(100);
-            return model.Password.Equals(model.ConfirmPassword, StringComparison.OrdinalIgnoreCase) ?
+            Task<bool> result = Task.FromResult(
+                model.Password.Equals(model.ConfirmPassword,
+                    StringComparison.OrdinalIgnoreCase));
+            
+            return await result?
                 (IActionResult) NoContent() : BadRequest("Password error");
         }
     }
