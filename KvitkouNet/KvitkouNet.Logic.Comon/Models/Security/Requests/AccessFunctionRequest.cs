@@ -1,4 +1,4 @@
-﻿namespace KvitkouNet.Logic.Common.Models.Security
+﻿namespace KvitkouNet.Logic.Common.Models.Security.Requests
 {
     /// <summary>
     /// Запрос на наличие прав на функцию у пользователя
