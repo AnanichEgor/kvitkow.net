@@ -231,3 +231,7 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+KvitkouNet/\.idea/\.idea\.KvitkouNet/\.idea/
+
+KvitkouNet/\.idea/\.idea\.KvitkouNet/
