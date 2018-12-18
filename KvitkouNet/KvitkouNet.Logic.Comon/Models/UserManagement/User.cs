@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace KvitkouNet.Logic.Common.Models.User
+
+namespace KvitkouNet.Logic.Common.Models.UserManagement
 {
     public class User
     {
