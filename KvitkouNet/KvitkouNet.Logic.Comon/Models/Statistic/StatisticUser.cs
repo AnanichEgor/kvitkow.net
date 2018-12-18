@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using KvitkouNet.Logic.Common.Models.UserManagement;
 
 namespace KvitkouNet.Logic.Common.Models.Statistic
 {
@@ -14,7 +15,7 @@ namespace KvitkouNet.Logic.Common.Models.Statistic
         /// <summary>
         /// Идентификатор пользователя
         /// </summary>
-        public User.User User { get; set;}
+        public User User { get; set;}
 
         /// <summary>
         /// Количество входов пользователя на сайт с момента регистрации
