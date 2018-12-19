@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace KvitkouNet.Web.Controllers
 {
+    /// <summary>
+    /// Контроллер, упраляющий запросами касающихся билетов
+    /// </summary>
     [Route("api/tickets")]
     public class TicketController : Controller
     {
