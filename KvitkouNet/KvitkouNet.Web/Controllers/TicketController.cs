@@ -11,6 +11,11 @@ namespace KvitkouNet.Web.Controllers
     [Route("api/tickets")]
     public class TicketController : Controller
     {
+        /// <summary>
+        /// Добавляет билет
+        /// </summary>
+        /// <param name="ticketModel">Модель билета</param>
+        /// <returns>Код ответа Create и добавленную модель</returns>
         [HttpPost]
         [Route("add")]
         [SwaggerResponse(HttpStatusCode.Created, typeof(object), Description = "Ticket created")]
@@ -24,6 +29,11 @@ namespace KvitkouNet.Web.Controllers
                 : BadRequest("Model not valid");
         }
 
+        /// <summary>
+        /// Обновление информации о билете
+        /// </summary>
+        /// <param name="ticketModel">Модель билета</param>
+        /// <returns></returns>
         [HttpPut]
         [Route("update")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Ticket update")]
@@ -35,6 +45,10 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
+        /// <summary>
+        /// Удаление всех билетов
+        /// </summary>
+        /// <returns></returns>
         [HttpDelete]
         [Route("delete")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Tickets delete")]
@@ -46,6 +60,11 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
+        /// <summary>
+        /// Удаление билета с определенным Id
+        /// </summary>
+        /// <param name="ticketIdGuid">Id билета</param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("delete")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Ticket delete")]
@@ -57,6 +76,10 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
+        /// <summary>
+        /// Получение всех билет имеющихся в системе
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("all")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(TicketModel), Description = "All Ok")]
@@ -68,6 +91,11 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
+        /// <summary>
+        /// Получение билета по Id
+        /// </summary>
+        /// <param name="ticketIdGuid">Id билета</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(TicketModel), Description = "All Ok")]
@@ -79,6 +107,10 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
+        /// <summary>
+        /// Получение только актуальных билетов
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("actual")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(TicketModel), Description = "All Ok")]
