@@ -34,5 +34,16 @@ namespace KvitkouNet.Web.Controllers
             var result = Task.FromResult(true);
             return Ok(await result);
         }
+
+        [HttpDelete]
+        [Route("delete")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Tickets delete")]
+        [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
+        public async Task<IActionResult> DeleteAllTickets()
+        {
+            var result = Task.FromResult(true);
+            return Ok(await result);
+        }
     }
 }
