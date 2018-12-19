@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using KvitkouNet.Logic.Common.Dtos.Logging;
 using KvitkouNet.Logic.Common.Models.Logging;
+using KvitkouNet.Logic.Common.Models.Logging.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
@@ -56,6 +57,28 @@ namespace KvitkouNet.Web.Controllers
             await Task.Delay(1000);
 
             return Ok(new List<InternalErrorLogEntry>());
+        }
+
+        /// <summary>
+        /// Получает логи действий с билетами
+        /// </summary>
+        /// <param name="filter">Фильтр логов действий с билетами</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("errors")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<BaseTicketLogEntry>), Description = "Ticket logs")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
+        public async Task<IActionResult> GetTicketLogs([FromQuery] TicketLogsFilterDto filter)
+        {
+            // имитируем некоторую валидацию
+            if (string.IsNullOrWhiteSpace(filter.TicketName))
+            {
+                return BadRequest($"Invalid filter! Property {nameof(TicketLogsFilterDto.TicketName)} is empty or whitespace!");
+            }
+
+            await Task.Delay(1000);
+
+            return Ok(new List<BaseTicketLogEntry>());
         }
     }
 }
