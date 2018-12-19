@@ -3,7 +3,6 @@ using System.Net;
 using System.Threading.Tasks;
 using KvitkouNet.Logic.Common.Dtos.Logging;
 using KvitkouNet.Logic.Common.Models.Logging;
-using KvitkouNet.Logic.Common.Models.Logging.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
