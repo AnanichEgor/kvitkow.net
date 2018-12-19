@@ -103,6 +103,11 @@ namespace KvitkouNet.Web.Controllers
 		    return Ok(new List<TicketDealLogEntry>());
 	    }
 
+		/// <summary>
+		/// Получает логи платежных операций
+		/// </summary>
+		/// <param name="filter">Фильтр логов по платежным операциям</param>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("payments")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<PaymentLogEntry>), Description = "Payment logs")]
@@ -119,7 +124,12 @@ namespace KvitkouNet.Web.Controllers
 		    return Ok(new List<PaymentLogEntry>());
 	    }
 
-	    [HttpGet]
+	    /// <summary>
+	    /// Получает логи поисковых запросов пользователей
+	    /// </summary>
+	    /// <param name="filter">Фильтр логов по поисковым запросам</param>
+	    /// <returns></returns>
+		[HttpGet]
 	    [Route("queries")]
 	    [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<SearchQueryLogEntry>), Description = "Search query logs")]
 	    [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
