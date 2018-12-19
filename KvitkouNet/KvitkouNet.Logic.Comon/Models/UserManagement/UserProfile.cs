@@ -34,7 +34,7 @@ namespace KvitkouNet.Logic.Common.Models.UserManagement
         /// <summary>
         /// Список телефонов пользователя
         /// </summary>
-        public IList<string> Mobile { get; set; }
+        public IList<string> PhoneNumbers { get; set; }
 
         /// <summary>
         /// Пол
@@ -42,9 +42,9 @@ namespace KvitkouNet.Logic.Common.Models.UserManagement
         public string Sex { get; set; }
 
         /// <summary>
-        /// Возраст пользователя
+        /// Дата рождения
         /// </summary>
-        public int Age { get; set; }
+        public DateTime Birthday { get; set; }
 
         /// <summary>
         /// Дата регистрации

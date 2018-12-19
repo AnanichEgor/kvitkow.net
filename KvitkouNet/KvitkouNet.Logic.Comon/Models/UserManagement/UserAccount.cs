@@ -25,15 +25,5 @@ namespace KvitkouNet.Logic.Common.Models.UserManagement
         /// Пароль пользователя
         /// </summary>
         public string Password { get; set; }
-
-        /// <summary>
-        /// Секретный вопрос для восстановления пароля
-        /// </summary>
-        public string SecretQuestion { get; set; }
-
-        /// <summary>
-        /// Ответ на секретный вопрос
-        /// </summary>
-        public string SecretAnswer { get; set; }
     }
 }
