@@ -62,13 +62,13 @@ namespace KvitkouNet.Web.Controllers
         /// <summary>
         /// Получает логи действий с билетами
         /// </summary>
-        /// <param name="filter">Фильтр логов действий с билетами</param>
+        /// <param name="filter">Фильтр логов по билетам</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("errors")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<BaseTicketLogEntry>), Description = "Ticket logs")]
+        [Route("tickets/actions")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<TicketActionLogEntry>), Description = "Ticket logs")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
-        public async Task<IActionResult> GetTicketLogs([FromQuery] TicketLogsFilterDto filter)
+        public async Task<IActionResult> GetTicketActionLogs([FromQuery] TicketLogsFilterDto filter)
         {
             // имитируем некоторую валидацию
             if (string.IsNullOrWhiteSpace(filter.TicketName))
@@ -78,7 +78,29 @@ namespace KvitkouNet.Web.Controllers
 
             await Task.Delay(1000);
 
-            return Ok(new List<BaseTicketLogEntry>());
+            return Ok(new List<TicketActionLogEntry>());
         }
-    }
+
+	    /// <summary>
+	    /// Получает логи сделок по билетам
+	    /// </summary>
+	    /// <param name="filter">Фильтр логов по билетам</param>
+	    /// <returns></returns>
+	    [HttpGet]
+	    [Route("tickets/deals")]
+	    [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<TicketDealLogEntry>), Description = "Ticket logs")]
+	    [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
+	    public async Task<IActionResult> GetTicketDealLogs([FromQuery] TicketLogsFilterDto filter)
+	    {
+		    // имитируем некоторую валидацию
+		    if (string.IsNullOrWhiteSpace(filter.TicketName))
+		    {
+			    return BadRequest($"Invalid filter! Property {nameof(TicketLogsFilterDto.TicketName)} is empty or whitespace!");
+		    }
+
+		    await Task.Delay(1000);
+
+		    return Ok(new List<TicketDealLogEntry>());
+	    }
+	}
 }
