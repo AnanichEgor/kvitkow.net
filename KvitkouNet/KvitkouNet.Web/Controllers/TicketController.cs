@@ -78,5 +78,16 @@ namespace KvitkouNet.Web.Controllers
             var result = Task.FromResult(new TicketModel { Name = "Fake" });
             return Ok(await result);
         }
+
+        [HttpGet]
+        [Route("actual")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(TicketModel), Description = "All Ok")]
+        [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        public async Task<IActionResult> GetAllTicketsActual()
+        {
+            var result = Task.FromResult(new TicketModel { Name = "Fake" });
+            return Ok(await result);
+        }
     }
 }
