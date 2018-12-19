@@ -29,7 +29,7 @@ namespace KvitkouNet.Web.Controllers
             // имитируем некоторую валидацию
             if (string.IsNullOrWhiteSpace(filter.UserName))
             {
-                return BadRequest($"Invalid filter! Property {nameof(AccountLogsFilterDto.UserName)} is empty or whitespace!");
+                return BadRequest($"Invalid filter! {nameof(AccountLogsFilterDto.UserName)} is empty or whitespace!");
             }
 
             await Task.Delay(1000);
@@ -51,7 +51,7 @@ namespace KvitkouNet.Web.Controllers
             // имитируем некоторую валидацию
             if (string.IsNullOrWhiteSpace(filter.ExceptionTypeName))
             {
-                return BadRequest($"Invalid filter! Property {nameof(ErrorLogsFilterDto.ExceptionTypeName)} is empty or whitespace!");
+                return BadRequest($"Invalid filter! {nameof(ErrorLogsFilterDto.ExceptionTypeName)} is empty or whitespace!");
             }
 
             await Task.Delay(1000);
@@ -66,14 +66,14 @@ namespace KvitkouNet.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("tickets/actions")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<TicketActionLogEntry>), Description = "Ticket logs")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<TicketActionLogEntry>), Description = "Ticket action logs")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
         public async Task<IActionResult> GetTicketActionLogs([FromQuery] TicketLogsFilterDto filter)
         {
             // имитируем некоторую валидацию
             if (string.IsNullOrWhiteSpace(filter.TicketName))
             {
-                return BadRequest($"Invalid filter! Property {nameof(TicketLogsFilterDto.TicketName)} is empty or whitespace!");
+                return BadRequest($"Invalid filter! {nameof(TicketLogsFilterDto.TicketName)} is empty or whitespace!");
             }
 
             await Task.Delay(1000);
@@ -88,14 +88,14 @@ namespace KvitkouNet.Web.Controllers
 	    /// <returns></returns>
 	    [HttpGet]
 	    [Route("tickets/deals")]
-	    [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<TicketDealLogEntry>), Description = "Ticket logs")]
+	    [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<TicketDealLogEntry>), Description = "Ticket deal logs")]
 	    [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
 	    public async Task<IActionResult> GetTicketDealLogs([FromQuery] TicketLogsFilterDto filter)
 	    {
 		    // имитируем некоторую валидацию
 		    if (string.IsNullOrWhiteSpace(filter.TicketName))
 		    {
-			    return BadRequest($"Invalid filter! Property {nameof(TicketLogsFilterDto.TicketName)} is empty or whitespace!");
+			    return BadRequest($"Invalid filter! {nameof(TicketLogsFilterDto.TicketName)} is empty or whitespace!");
 		    }
 
 		    await Task.Delay(1000);
@@ -111,7 +111,7 @@ namespace KvitkouNet.Web.Controllers
 	    {
 		    if (string.IsNullOrWhiteSpace(filter.UserName))
 		    {
-			    return BadRequest($"Invalid filter! Property {nameof(PaymentLogsFilterDto.UserName)} is empty or whitespace!");
+			    return BadRequest($"Invalid filter! {nameof(PaymentLogsFilterDto.UserName)} is empty or whitespace!");
 		    }
 
 		    await Task.Delay(100);
@@ -127,7 +127,7 @@ namespace KvitkouNet.Web.Controllers
 	    {
 		    if (string.IsNullOrWhiteSpace(filter.UserName))
 		    {
-			    return BadRequest($"Invalid filter! Property {nameof(SearchQueryLogsFilterDto.UserName)} is empty or whitespace!");
+			    return BadRequest($"Invalid filter! {nameof(SearchQueryLogsFilterDto.UserName)} is empty or whitespace!");
 		    }
 
 		    await Task.Delay(100);
