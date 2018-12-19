@@ -50,5 +50,15 @@ namespace KvitkouNet.Web.Controllers
             var result = Task.FromResult(new UserRights { UserLogin = "empty"});
             return Ok(await result);
         }
+
+        [HttpPost, Route("updateUserRights")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
+        public async Task<IActionResult> UpdateUserRights([FromBody]UserRights userRights)
+        {
+            var result = Task.FromResult(true);
+            return Ok(await result);
+        }
     }
 }
