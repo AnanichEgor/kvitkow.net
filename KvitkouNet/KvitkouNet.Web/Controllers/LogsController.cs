@@ -102,5 +102,21 @@ namespace KvitkouNet.Web.Controllers
 
 		    return Ok(new List<TicketDealLogEntry>());
 	    }
+
+		[HttpGet]
+		[Route("payments")]
+		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<TicketDealLogEntry>), Description = "Payment logs")]
+		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
+		public async Task<IActionResult> GetPaymentLogs([FromQuery] PaymentLogsFilterDto filter)
+	    {
+		    if (string.IsNullOrWhiteSpace(filter.UserName))
+		    {
+			    return BadRequest($"Invalid filter! Property {nameof(PaymentLogsFilterDto.UserName)} is empty or whitespace!");
+		    }
+
+		    await Task.Delay(100);
+
+		    return Ok(new List<PaymentLogEntry>());
+	    }
 	}
 }
