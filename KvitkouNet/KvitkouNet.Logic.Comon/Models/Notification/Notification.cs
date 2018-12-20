@@ -8,6 +8,11 @@ namespace KvitkouNet.Logic.Common.Models.Notification
 	public class Notification
 	{
 		/// <summary>
+		/// Получатель уведомления
+		/// </summary>
+		public long UserId { get; set; }
+
+		/// <summary>
 		/// Заголовок уведомления
 		/// </summary>
 		public string Title { get; set; }
@@ -21,10 +26,5 @@ namespace KvitkouNet.Logic.Common.Models.Notification
 		/// Дата отправки
 		/// </summary>
 		public DateTime Date { get; set; }
-
-		/// <summary>
-		/// Получатель
-		/// </summary>
-		public string Receiver { get; set; }
 	}
 }

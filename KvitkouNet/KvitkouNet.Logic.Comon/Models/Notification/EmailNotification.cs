@@ -6,9 +6,9 @@
 	class EmailNotification : Notification
 	{
 		/// <summary>
-		/// Отправитель
+		/// Отправитель уведомления
 		/// </summary>
-		public string Sender { get; set; }
+		public long SenderId { get; set; }
 
 		/// <summary>
 		/// Электронный ящик
