@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using KvitkouNet.Logic.Common.Models.Enums;
 using KvitkouNet.Logic.Common.Models.Search;
 using KvitkouNet.Logic.Common.Models.UserManagement;
@@ -33,7 +34,7 @@ namespace KvitkouNet.Logic.Common.Models.Ticket
         /// <summary>
         ///     Id билета
         /// </summary>
-        public int TicketId { get; set; }
+        public Guid TicketId { get; set; }
 
         /// <summary>
         ///     Адрес проведения мероприятия
