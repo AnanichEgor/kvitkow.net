@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace KvitkouNet.Web.Controllers
@@ -12,37 +13,65 @@ namespace KvitkouNet.Web.Controllers
 	[Route("api/{id}/usersettings")]
 	public class UserSettingsController : Controller
 	{
-		[HttpPut, Route("changename/first")]
+		[HttpPut, Route("changepforile")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangeFirstName([FromBody]ChangeNameModel model)
+		public async Task<IActionResult> ChangeUserProfile([FromBody]UserProfileModel model)
 		{
-			Task<bool> result = Task.FromResult(
-				string.IsNullOrEmpty(model.NewName));
-
-			return await result ? BadRequest("Is null or empty name") : (IActionResult)NoContent();
+			IEnumerable<string> result = await Task.Run(() => ValidateProfile(model));
+		
+			if(result.Count() == 0)
+			{
+				return (IActionResult)NoContent();
+			}
+			else
+			{
+				return BadRequest(result);
+			}
 		}
 
-		[HttpPut, Route("changename/middle")]
-		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
-		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangeMiddleName([FromBody]ChangeNameModel model)
+		private IEnumerable<string> ValidateProfile(UserProfileModel model)
 		{
-			Task<bool> result = Task.FromResult(
-				string.IsNullOrEmpty(model.NewName));
-
-			return await result ? BadRequest("Is null or empty name") : (IActionResult)NoContent();
+			List<String> result = new List<string>();
+			if(string.IsNullOrEmpty(model.FirstName))
+			{
+				result.Add("First name cannot be null or empty");
+			}
+			if(string.IsNullOrEmpty(model.LastName))
+			{
+				result.Add("Last name cannot be null or empty");
+			}
+			return result;
 		}
 
-		[HttpPut, Route("changename/middle")]
+		[HttpPut, Route("changepassword")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangeLastName([FromBody]ChangeNameModel model)
+		public async Task<IActionResult> ChangePassword([FromBody]UserAccountModel model)
 		{
 			Task<bool> result = Task.FromResult(
-				string.IsNullOrEmpty(model.NewName));
+				string.Equals(model.NewPassword, model.ConfirmPassword));
 
-			return await result ? BadRequest("Is null or empty name") : (IActionResult)NoContent();
+			return await result ? (IActionResult)NoContent() : BadRequest("New and confirm password do not match");
+		}
+
+		[HttpPut, Route("changeemail")]
+		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
+		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+		public async Task<IActionResult> ChangeEmail([FromBody]UserAccountModel model)
+		{
+			Task<bool> result = Task.FromResult(
+				ValidateEmail(model.Email)
+				);
+
+			return await result ? (IActionResult)NoContent() : BadRequest("New and confirm password do not match");
+		}
+
+		private bool ValidateEmail(string email)
+		{
+			string pattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
+			Match isMatch = Regex.Match(email, pattern, RegexOptions.IgnoreCase);
+			return isMatch.Success;
 		}
 	}
 }
