@@ -11,7 +11,7 @@ namespace KvitkouNet.Web.Controllers
     [Route("api/security")]
     public class SecurityController : Controller
     {
-        [HttpGet, Route("allRights")]
+        [HttpGet, Route("all/rights")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(List<AccessRight>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -21,7 +21,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("addRight")]
+        [HttpPost, Route("add/right")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -31,7 +31,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("deleteRight")]
+        [HttpPost, Route("delete/right")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -41,7 +41,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpGet, Route("allFunctions")]
+        [HttpGet, Route("all/functions")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(List<AccessFunction>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -51,7 +51,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("addFunction")]
+        [HttpPost, Route("add/function")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -61,7 +61,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("deleteFunction")]
+        [HttpPost, Route("delete/function")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -71,7 +71,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("updateFunction")]
+        [HttpPost, Route("update/function")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -81,7 +81,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpGet, Route("allFeatures")]
+        [HttpGet, Route("all/features")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(List<Feature>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -91,7 +91,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("addFeature")]
+        [HttpPost, Route("add/feature")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -101,7 +101,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("deleteFeature")]
+        [HttpPost, Route("delete/feature")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -111,7 +111,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("updateFeature")]
+        [HttpPost, Route("update/feature")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -121,7 +121,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpGet, Route("allRoles")]
+        [HttpGet, Route("all/roles")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(List<Role>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -131,7 +131,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
         
-        [HttpPost, Route("addRole")]
+        [HttpPost, Route("add/role")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -141,7 +141,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("deleteRole")]
+        [HttpPost, Route("delete/role")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -151,7 +151,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("updateRole")]
+        [HttpPost, Route("update/role")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -161,7 +161,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("finedUserRights")]
+        [HttpPost, Route("fined/user/rights")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(UserRights), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -172,7 +172,7 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("updateUserRights")]
+        [HttpPost, Route("update/user/rights")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
