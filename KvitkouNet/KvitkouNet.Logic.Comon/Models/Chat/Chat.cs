@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using KvitkouNet.Logic.Common.Models.Chat.Settings;
 
 namespace KvitkouNet.Logic.Common.Models.Chat
 {
     public class Chat
     {
         /// <summary>
-        /// Пользователь
+        /// Пользовательские настройки для чата
         /// </summary>
-        public User User { get; set; }
+        public Settings.UserSettings UserSettings { get; set; }
 
         /// <summary>
         /// Список комнат
