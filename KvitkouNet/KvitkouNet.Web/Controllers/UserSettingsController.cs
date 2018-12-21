@@ -21,9 +21,9 @@ namespace KvitkouNet.Web.Controllers
 		[HttpPut, Route("profile")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangeUserProfile([FromBody]UserProfileModel model)
+		public async Task<IActionResult> ChangeUserProfile([FromBody]ProfileDto model)
 		{
-			IEnumerable<string> result = await Task.Run(() => ValidateProfile(model));
+			IEnumerable<string> result = await Task.FromResult(ValidateProfile(model));
 		
 			if(result.Count() == 0)
 			{
@@ -41,7 +41,7 @@ namespace KvitkouNet.Web.Controllers
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		private IEnumerable<string> ValidateProfile(UserProfileModel model)
+		private IEnumerable<string> ValidateProfile(ProfileDto model)
 		{
 			List<String> result = new List<string>();
 			if(string.IsNullOrEmpty(model.FirstName))
@@ -63,7 +63,7 @@ namespace KvitkouNet.Web.Controllers
 		[HttpPut, Route("password")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangePassword([FromBody]UserAccountModel model)
+		public async Task<IActionResult> ChangePassword([FromBody]AccountDto model)
 		{
 			Task<bool> result = Task.FromResult(
 				string.Equals(model.NewPassword, model.ConfirmPassword));
@@ -79,7 +79,7 @@ namespace KvitkouNet.Web.Controllers
 		[HttpPut, Route("email")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangeEmail([FromBody]UserAccountModel model)
+		public async Task<IActionResult> ChangeEmail([FromBody]AccountDto model)
 		{
 			Task<bool> result = Task.FromResult(
 				ValidateEmail(model.Email)

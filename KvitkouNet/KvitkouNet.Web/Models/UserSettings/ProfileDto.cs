@@ -2,7 +2,7 @@
 
 namespace KvitkouNet.Web.Models
 {
-	public class UserProfileModel
+	public class ProfileDto
 	{
 		/// <summary>
 		/// Имя

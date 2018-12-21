@@ -1,6 +1,6 @@
 ﻿namespace KvitkouNet.Web.Models
 {
-	public class UserAccountModel
+	public class AccountDto
 	{
 		/// <summary>
 		/// Текущий пароль пользователя.
