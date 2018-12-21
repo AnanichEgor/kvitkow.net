@@ -92,8 +92,9 @@ namespace KvitkouNet.Logic.Common.Models.UserManagement
         public IList<string> CreditCards { get; set; }
 
         /// <summary>
-        /// Gets or sets the user rating.
+        /// Рейтинг пользователя
         /// </summary>
         public double Rating { get; set; }
     }
 }
+

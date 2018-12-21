@@ -1,4 +1,7 @@
-﻿namespace KvitkouNet.Logic.Common.Models.UserManagement
+﻿using KvitkouNet.Logic.Common.Models.Security;
+using System.Collections.Generic;
+
+namespace KvitkouNet.Logic.Common.Models.UserManagement
 {
     public class UserGroup
     {
@@ -18,8 +21,13 @@
         public string Description { get; set; }
 
         /// <summary>
-        /// Роль группы
+        /// Пользователи группы
         /// </summary>
-        public string GroupRole { get; set; }
+        public IList<User> GroupUsers { get; set; }
+
+        /// <summary>
+        /// Роли группы
+        /// </summary>
+        public IList<Role> GroupRoles { get; set; }
     }
 }

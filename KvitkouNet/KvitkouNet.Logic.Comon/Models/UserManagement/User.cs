@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace KvitkouNet.Logic.Common.Models.UserManagement
 {
@@ -11,7 +10,7 @@ namespace KvitkouNet.Logic.Common.Models.UserManagement
         /// </summary>
         public Guid UserId { get; set; }
 
-        public UserAccount UserAccount { get; set; }
+        public Account Account { get; set; }
 
         public UserProfile UserProfile { get; set; }
     }

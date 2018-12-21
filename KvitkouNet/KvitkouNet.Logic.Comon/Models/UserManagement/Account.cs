@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KvitkouNet.Logic.Common.Models.UserManagement
 {
-    public class UserAccount
+    public class Account
     {
         /// <summary>
         /// Уникальный идентификатор учетной записи
