@@ -1,21 +1,20 @@
-﻿using KvitkouNet.Logic.Common.Models.Ticket;
-using Microsoft.AspNetCore.Mvc;
-using NSwag.Annotations;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using KvitkouNet.Logic.Common.Models.Ticket;
+using Microsoft.AspNetCore.Mvc;
+using NSwag.Annotations;
 
 namespace KvitkouNet.Web.Controllers
 {
     /// <summary>
-    /// Контроллер, упраляющий запросами касающихся билетов
+    ///     Контроллер, упраляющий запросами касающихся билетов
     /// </summary>
     [Route("api/tickets")]
     public class TicketController : Controller
     {
         /// <summary>
-        /// Добавляет билет
+        ///     Добавляет билет
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
@@ -28,16 +27,16 @@ namespace KvitkouNet.Web.Controllers
         {
             var result = Task.FromResult(ModelState.IsValid);
             return await result
-                ? (IActionResult) Created(ticket.TicketId.ToString(), ticket)
+                ? (IActionResult) Created(ticket.TicketId, ticket)
                 : BadRequest("Model not valid");
         }
 
         /// <summary>
-        /// Обновление информации о билете
+        ///     Обновление информации о билете
         /// </summary>
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
-        /// <returns></returns> 
+        /// <returns></returns>
         [HttpPut]
         [Route("update/{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Ticket update")]
@@ -50,7 +49,7 @@ namespace KvitkouNet.Web.Controllers
         }
 
         /// <summary>
-        /// Удаление всех билетов
+        ///     Удаление всех билетов
         /// </summary>
         /// <returns></returns>
         [HttpDelete]
@@ -65,7 +64,7 @@ namespace KvitkouNet.Web.Controllers
         }
 
         /// <summary>
-        /// Удаление билета с определенным Id
+        ///     Удаление билета с определенным Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -81,7 +80,7 @@ namespace KvitkouNet.Web.Controllers
         }
 
         /// <summary>
-        /// Получение всех билет имеющихся в системе
+        ///     Получение всех билет имеющихся в системе
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -96,7 +95,7 @@ namespace KvitkouNet.Web.Controllers
         }
 
         /// <summary>
-        /// Получение билета по Id
+        ///     Получение билета по Id
         /// </summary>
         /// <param name="ticketIdGuid">Id билета</param>
         /// <returns></returns>
@@ -112,7 +111,7 @@ namespace KvitkouNet.Web.Controllers
         }
 
         /// <summary>
-        /// Получение только актуальных билетов
+        ///     Получение только актуальных билетов
         /// </summary>
         /// <returns></returns>
         [HttpGet]
