@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Уведомление по электронной почте
 	/// </summary>
-	class EmailNotification : Notification
+	public class EmailNotification : Notification
 	{
 		/// <summary>
 		/// Отправитель уведомления
