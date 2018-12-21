@@ -34,7 +34,7 @@ namespace KvitkouNet.Logic.Common.Models.Ticket
         /// <summary>
         ///     Id билета
         /// </summary>
-        public Guid TicketId { get; set; }
+        public string TicketId { get; set; }
 
         /// <summary>
         ///     Адрес проведения мероприятия
