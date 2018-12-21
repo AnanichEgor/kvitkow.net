@@ -17,32 +17,33 @@ namespace KvitkouNet.Web.Controllers
         /// <summary>
         /// Добавляет билет
         /// </summary>
-        /// <param name="ticketModel">Модель билета</param>
+        /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
         [HttpPost]
         [Route("add")]
         [SwaggerResponse(HttpStatusCode.Created, typeof(object), Description = "Ticket created")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> Add([FromBody] Ticket ticketModel)
+        public async Task<IActionResult> Add([FromBody] Ticket ticket)
         {
             var result = Task.FromResult(ModelState.IsValid);
             return await result
-                ? (IActionResult)Created(ticketModel.TicketId.ToString(), ticketModel)
+                ? (IActionResult) Created(ticket.TicketId.ToString(), ticket)
                 : BadRequest("Model not valid");
         }
 
         /// <summary>
         /// Обновление информации о билете
         /// </summary>
-        /// <param name="ticketModel">Модель билета</param>
+        /// <param name="id"></param>
+        /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
         [HttpPut]
-        [Route("update")]
+        [Route("update/{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Ticket update")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> Update([FromBody] Ticket ticketModel)
+        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Ticket ticket)
         {
             var result = Task.FromResult(true);
             return Ok(await result);
@@ -53,7 +54,7 @@ namespace KvitkouNet.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpDelete]
-        [Route("delete")]
+        [Route("delete/all")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Tickets delete")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
@@ -66,14 +67,14 @@ namespace KvitkouNet.Web.Controllers
         /// <summary>
         /// Удаление билета с определенным Id
         /// </summary>
-        /// <param name="ticketIdGuid">Id билета</param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("deleteId")]
+        [Route("delete/{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Ticket delete")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
-        public async Task<IActionResult> Delete([FromBody] Guid ticketIdGuid)
+        public async Task<IActionResult> Delete([FromRoute] string id)
         {
             var result = Task.FromResult(true);
             return Ok(await result);
@@ -90,7 +91,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAll()
         {
-            var result = Task.FromResult(new List<Ticket> { new Ticket { Name = "Fake" } });
+            var result = Task.FromResult(new List<Ticket> {new Ticket {Name = "Fake"}});
             return Ok(await result);
         }
 
@@ -100,13 +101,13 @@ namespace KvitkouNet.Web.Controllers
         /// <param name="ticketIdGuid">Id билета</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("")]
+        [Route("{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(Ticket), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> Get([FromBody] Guid ticketIdGuid)
+        public async Task<IActionResult> Get([FromRoute] string ticketIdGuid)
         {
-            var result = Task.FromResult(new Ticket { Name = "Fake" });
+            var result = Task.FromResult(new Ticket {Name = "Fake"});
             return Ok(await result);
         }
 
@@ -121,7 +122,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAllActual()
         {
-            var result = Task.FromResult(new List<Ticket> { new Ticket { Name = "Fake" } });
+            var result = Task.FromResult(new List<Ticket> {new Ticket {Name = "Fake"}});
             return Ok(await result);
         }
     }
