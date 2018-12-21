@@ -1,18 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace KvitkouNet.Logic.Common.Models.Chat
+namespace KvitkouNet.Web.Models.Chat
 {
     public class Message
     {
         /// <summary>
-        /// Id сообщения
+        /// Id комнаты
         /// </summary>
         public long Id { get; set; }
-
-        /// <summary>
-        /// Id пользователя
-        /// </summary>
-        public long UserId { get; set; }
 
         /// <summary>
         /// Время отправки
@@ -23,5 +21,10 @@ namespace KvitkouNet.Logic.Common.Models.Chat
         /// Текст сообщения
         /// </summary>
         public string Massage { get; set; }
+
+        /// <summary>
+        /// Имя отправителя
+        /// </summary>
+        public string UserName { get; set; }
     }
 }
