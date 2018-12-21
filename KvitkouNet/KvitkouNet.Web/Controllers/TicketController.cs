@@ -37,7 +37,7 @@ namespace KvitkouNet.Web.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
-        /// <returns></returns>
+        /// <returns></returns> 
         [HttpPut]
         [Route("update/{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Ticket update")]
@@ -86,7 +86,7 @@ namespace KvitkouNet.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("all")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(List<Ticket>), Description = "All Ok")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Ticket>), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAll()
@@ -117,7 +117,7 @@ namespace KvitkouNet.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("actual")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(List<Ticket>), Description = "All Ok")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Ticket>), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAllActual()
