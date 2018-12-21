@@ -9,7 +9,7 @@ namespace KvitkouNet.Logic.Common.Models.Ticket
     /// <summary>
     ///     Класс описания доменной модели билета
     /// </summary>
-    public class TicketModel
+    public class Ticket
     {
         /// <summary>
         ///     Пользователь разместивший билет
