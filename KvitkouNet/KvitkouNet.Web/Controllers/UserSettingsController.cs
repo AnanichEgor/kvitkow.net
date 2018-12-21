@@ -10,10 +10,15 @@ using System.Threading.Tasks;
 
 namespace KvitkouNet.Web.Controllers
 {
-	[Route("api/{id}/usersettings")]
+	[Route("api/users/settings/{id}")]
 	public class UserSettingsController : Controller
 	{
-		[HttpPut, Route("changepforile")]
+		/// <summary>
+		/// Запрос на изменение данных профиля пользователя
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
+		[HttpPut, Route("profile")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> ChangeUserProfile([FromBody]UserProfileModel model)
@@ -30,6 +35,12 @@ namespace KvitkouNet.Web.Controllers
 			}
 		}
 
+		// TODO при необходимости добавить другие проверки
+		/// <summary>
+		/// Валидация данных пользователя. Некоторые поля должны быть обязательно заполнены 
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
 		private IEnumerable<string> ValidateProfile(UserProfileModel model)
 		{
 			List<String> result = new List<string>();
@@ -44,7 +55,12 @@ namespace KvitkouNet.Web.Controllers
 			return result;
 		}
 
-		[HttpPut, Route("changepassword")]
+		/// <summary>
+		/// Запрос на изменение пароля
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
+		[HttpPut, Route("password")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> ChangePassword([FromBody]UserAccountModel model)
@@ -55,7 +71,12 @@ namespace KvitkouNet.Web.Controllers
 			return await result ? (IActionResult)NoContent() : BadRequest("New and confirm password do not match");
 		}
 
-		[HttpPut, Route("changeemail")]
+		/// <summary>
+		/// Запрос на изменение email
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
+		[HttpPut, Route("email")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> ChangeEmail([FromBody]UserAccountModel model)
@@ -64,9 +85,14 @@ namespace KvitkouNet.Web.Controllers
 				ValidateEmail(model.Email)
 				);
 
-			return await result ? (IActionResult)NoContent() : BadRequest("New and confirm password do not match");
+			return await result ? (IActionResult)NoContent() : BadRequest("Incorrect email");
 		}
 
+		/// <summary>
+		/// Валидация email
+		/// </summary>
+		/// <param name="email"></param>
+		/// <returns></returns>
 		private bool ValidateEmail(string email)
 		{
 			string pattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";

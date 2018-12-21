@@ -49,12 +49,6 @@ namespace KvitkouNet.Web.Models
 		/// </summary>
 		public IEnumerable<object> SocialNetwork { get; set; }
 
-		//TODO: object - заменить на класс статистики
-		/// <summary>
-		/// Статистика билетов пользователя.
-		/// </summary>
-		public object GetTicketStatistic { get; set; }
-
 		/// <summary>
 		/// Флаг, отвечающий за то что было выбрано изменение пароля.
 		/// </summary>
