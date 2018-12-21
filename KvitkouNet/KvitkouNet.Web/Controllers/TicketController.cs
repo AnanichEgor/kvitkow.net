@@ -24,7 +24,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.Created, typeof(object), Description = "Ticket created")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> AddTicket([FromBody] Ticket ticketModel)
+        public async Task<IActionResult> Add([FromBody] Ticket ticketModel)
         {
             var result = Task.FromResult(ModelState.IsValid);
             return await result
@@ -42,7 +42,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Ticket update")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> UpdateTicket([FromBody] Ticket ticketModel)
+        public async Task<IActionResult> Update([FromBody] Ticket ticketModel)
         {
             var result = Task.FromResult(true);
             return Ok(await result);
@@ -57,7 +57,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Tickets delete")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
-        public async Task<IActionResult> DeleteAllTickets()
+        public async Task<IActionResult> DeleteAll()
         {
             var result = Task.FromResult(true);
             return Ok(await result);
@@ -73,7 +73,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Ticket delete")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
-        public async Task<IActionResult> DeleteTicket([FromBody] Guid ticketIdGuid)
+        public async Task<IActionResult> Delete([FromBody] Guid ticketIdGuid)
         {
             var result = Task.FromResult(true);
             return Ok(await result);
@@ -88,7 +88,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(List<Ticket>), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetAllTickets()
+        public async Task<IActionResult> GetAll()
         {
             var result = Task.FromResult(new List<Ticket> { new Ticket { Name = "Fake" } });
             return Ok(await result);
@@ -104,7 +104,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(Ticket), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetTicket([FromBody] Guid ticketIdGuid)
+        public async Task<IActionResult> Get([FromBody] Guid ticketIdGuid)
         {
             var result = Task.FromResult(new Ticket { Name = "Fake" });
             return Ok(await result);
@@ -119,7 +119,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(List<Ticket>), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetAllTicketsActual()
+        public async Task<IActionResult> GetAllActual()
         {
             var result = Task.FromResult(new List<Ticket> { new Ticket { Name = "Fake" } });
             return Ok(await result);
