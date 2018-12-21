@@ -11,11 +11,11 @@ namespace KvitkouNet.Web.Controllers
     [Route("api/security")]
     public class SecurityController : Controller
     {
-        [HttpGet, Route("all/rights")]
+        [HttpGet, Route("rights")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(List<AccessRight>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> GetAllRights()
+        public async Task<IActionResult> GetRights()
         {
             var result = Task.FromResult(new List<AccessRight> {new AccessRight{Name = "FakeRight" } });
             return Ok(await result);
@@ -41,11 +41,11 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpGet, Route("all/functions")]
+        [HttpGet, Route("functions")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(List<AccessFunction>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> GetAllFunctions()
+        public async Task<IActionResult> GetFunctions()
         {
             var result = Task.FromResult(new List<AccessFunction> {new AccessFunction { Name = "FakeFunction" } });
             return Ok(await result);
@@ -81,11 +81,11 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpGet, Route("all/features")]
+        [HttpGet, Route("features")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(List<Feature>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> GetAllFeatures()
+        public async Task<IActionResult> GetFeatures()
         {
             var result = Task.FromResult(new List<Feature> {new Feature { Name = "FakeFeature" } });
             return Ok(await result);
@@ -121,11 +121,11 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpGet, Route("all/roles")]
+        [HttpGet, Route("roles")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(List<Role>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> GetAllRoles()
+        public async Task<IActionResult> GetRoles()
         {
             var result = Task.FromResult(new List<Role> {new Role { Name = "FakeRole" } });
             return Ok(await result);
