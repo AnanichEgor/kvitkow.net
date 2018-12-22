@@ -38,13 +38,13 @@ namespace KvitkouNet.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet, Route("")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<UserForViewModel>), Description = "All Ok")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<ForViewModel>), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAll()
         {
-            var result = Task.FromResult(new List<UserForViewModel> { new UserForViewModel { Login = "Fake1" },
-                                                               new UserForViewModel { Login = "Fake2" },
-                                                               new UserForViewModel { Login = "Fake3" }
+            var result = Task.FromResult(new List<ForViewModel> { new ForViewModel { Login = "Fake1" },
+                                                               new ForViewModel { Login = "Fake2" },
+                                                               new ForViewModel { Login = "Fake3" }
                                                              });
             return Ok(await result);
         }
@@ -71,7 +71,7 @@ namespace KvitkouNet.Web.Controllers
         [HttpPut, Route("{login}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User updated")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> UpdateByLogin(string userLogin, [FromBody] UserForUpdateModel userModel)
+        public async Task<IActionResult> UpdateByLogin(string userLogin, [FromBody] ForUpdateModel userModel)
         {
             var result = Task.FromResult(true);
             return Ok(await result);

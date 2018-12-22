@@ -5,20 +5,20 @@ using System.Threading.Tasks;
 
 namespace KvitkouNet.Web.Models.UserManagement
 {
-    public class UserGroupModel
+    public class GroupModel
     {
         /// <summary>
-        /// Уникальный номер группы
+        /// РЈРЅРёРєР°Р»СЊРЅС‹Р№ РЅРѕРјРµСЂ РіСЂСѓРїРїС‹
         /// </summary>
         public int GroupId { get; set; }
 
         /// <summary>
-        /// Имя группы
+        /// РРјСЏ РіСЂСѓРїРїС‹
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Описание назначения группы
+        /// РћРїРёСЃР°РЅРёРµ РЅР°Р·РЅР°С‡РµРЅРёСЏ РіСЂСѓРїРїС‹
         /// </summary>
         public string Description { get; set; }
     }

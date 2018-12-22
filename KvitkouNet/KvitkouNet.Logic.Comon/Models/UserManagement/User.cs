@@ -18,6 +18,6 @@ namespace KvitkouNet.Logic.Common.Models.UserManagement
         /// <summary>
         /// Профиль пользователя
         /// </summary>
-        public UserProfile UserProfile { get; set; }
+        public Profile Profile { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace KvitkouNet.Web.Models.UserManagement
 {
-    public class UserForViewModel
+    public class ForViewModel
     {
         /// <summary>
         /// Логин

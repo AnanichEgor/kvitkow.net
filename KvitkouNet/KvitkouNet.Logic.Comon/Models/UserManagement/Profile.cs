@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace KvitkouNet.Logic.Common.Models.UserManagement
 {
-    public class UserProfile
+    public class Profile
     {
         /// <summary>
         /// Уникальный идентификатор профиля пользователя

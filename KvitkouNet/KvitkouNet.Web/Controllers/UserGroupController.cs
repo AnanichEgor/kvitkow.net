@@ -23,7 +23,7 @@ namespace KvitkouNet.Web.Controllers
         [HttpPost, Route("{id}")]
         [SwaggerResponse(HttpStatusCode.Created, typeof(object), Description = "Group Created")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> Add(int id, [FromBody] UserGroupModel userGroupModel)
+        public async Task<IActionResult> Add(int id, [FromBody] GroupModel userGroupModel)
         {
             var result = Task.FromResult(true);
             return await result
@@ -36,13 +36,13 @@ namespace KvitkouNet.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet, Route("")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<UserGroupModel>), Description = "All Ok")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<GroupModel>), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAll()
         {
-            var result = Task.FromResult(new List<UserGroupModel> { new UserGroupModel { Name = "Fake1" },
-                                                               new UserGroupModel { Name = "Fake2" },
-                                                               new UserGroupModel { Name = "Fake3" }
+            var result = Task.FromResult(new List<GroupModel> { new GroupModel { Name = "Fake1" },
+                                                               new GroupModel { Name = "Fake2" },
+                                                               new GroupModel { Name = "Fake3" }
                                                              });
             return Ok(await result);
         }
@@ -69,7 +69,7 @@ namespace KvitkouNet.Web.Controllers
         [HttpPut, Route("{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Group updated")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> UpdateById(int id, [FromBody] UserGroupModel userModel)
+        public async Task<IActionResult> UpdateById(int id, [FromBody] GroupModel userModel)
         {
             var result = Task.FromResult(true);
             return Ok(await result);
@@ -95,7 +95,7 @@ namespace KvitkouNet.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet, Route("{id}/allusers")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<UserForViewModel>), Description = "All Ok")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<ForViewModel>), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAllUsersInGroup()
         {

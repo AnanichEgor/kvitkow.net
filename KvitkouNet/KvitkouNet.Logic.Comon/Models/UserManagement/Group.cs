@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace KvitkouNet.Logic.Common.Models.UserManagement
 {
-    public class UserGroup
+    public class Group
     {
         /// <summary>
         /// Уникальный номер группы
