@@ -23,11 +23,11 @@ namespace KvitkouNet.Logic.Common.Models.UserManagement
         /// <summary>
         /// Пользователи группы
         /// </summary>
-        public IList<User> GroupUsers { get; set; }
+        public ICollection<User> GroupUsers { get; set; }
 
         /// <summary>
         /// Роли группы
         /// </summary>
-        public IList<Role> GroupRoles { get; set; }
+        public ICollection<Role> GroupRoles { get; set; }
     }
 }

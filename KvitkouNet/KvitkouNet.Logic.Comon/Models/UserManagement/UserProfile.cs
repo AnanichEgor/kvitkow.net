@@ -9,7 +9,7 @@ namespace KvitkouNet.Logic.Common.Models.UserManagement
         /// <summary>
         /// Уникальный идентификатор профиля пользователя
         /// </summary>
-        public Guid UserId { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Имя пользователя
@@ -29,12 +29,12 @@ namespace KvitkouNet.Logic.Common.Models.UserManagement
         /// <summary>
         /// Список адресов пользователя 
         /// </summary>
-        public IList<Address> Adress { get; set; }
+        public ICollection<Address> Adress { get; set; }
 
         /// <summary>
         /// Список телефонов пользователя
         /// </summary>
-        public IList<string> PhoneNumbers { get; set; }
+        public ICollection<string> PhoneNumbers { get; set; }
 
         /// <summary>
         /// Пол
@@ -69,12 +69,12 @@ namespace KvitkouNet.Logic.Common.Models.UserManagement
         /// <summary>
         /// Группы, в которых состоит пользователь
         /// </summary>
-        public IList<UserGroup> UserGroups { get; set; }
+        public ICollection<UserGroup> UserGroups { get; set; }
 
         /// <summary>
         /// Роли доступа пользователя
         /// </summary>
-        public IList<Role> UserRoles { get; set; }
+        public ICollection<Role> UserRoles { get; set; }
 
         /// <summary>
         /// Настройки пользователя
@@ -84,12 +84,12 @@ namespace KvitkouNet.Logic.Common.Models.UserManagement
         /// <summary>
         /// Список билетов принадлежащих пользователю
         /// </summary>
-        public IList<string> Tickets { get; set; }
+        public ICollection<string> Tickets { get; set; }
 
         /// <summary>
         /// Список карточек принадлежащих пользователю
         /// </summary>
-        public IList<string> CreditCards { get; set; }
+        public ICollection<string> CreditCards { get; set; }
 
         /// <summary>
         /// Рейтинг пользователя

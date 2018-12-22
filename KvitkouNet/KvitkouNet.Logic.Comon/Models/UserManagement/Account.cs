@@ -9,12 +9,12 @@ namespace KvitkouNet.Logic.Common.Models.UserManagement
         /// <summary>
         /// Уникальный идентификатор учетной записи
         /// </summary>
-        public Guid AccountId { get; set; }
+        public string AccountId { get; set; }
 
         /// <summary>
         /// Логин пользователя
         /// </summary>
-        public string UserLogin { get; set; }
+        public string Login { get; set; }
 
         /// <summary>
         /// Электронный адрес пользователя

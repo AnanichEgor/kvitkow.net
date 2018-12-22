@@ -8,10 +8,16 @@ namespace KvitkouNet.Logic.Common.Models.UserManagement
         /// <summary>
         /// Уникальный идентификатор пользователя
         /// </summary>
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
+        /// <summary>
+        /// Учетная запись пользователя
+        /// </summary>
         public Account Account { get; set; }
 
+        /// <summary>
+        /// Профиль пользователя
+        /// </summary>
         public UserProfile UserProfile { get; set; }
     }
 }
