@@ -11,7 +11,7 @@ namespace KvitkouNet.Logic.Common.Models.Security
         /// <summary>
         /// Идентификатор роли
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Имя роли
