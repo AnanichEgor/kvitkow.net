@@ -19,7 +19,6 @@ namespace KvitkouNet.Web.Controllers
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
         [HttpPost]
-        [Route("add")]
         [SwaggerResponse(HttpStatusCode.Created, typeof(object), Description = "Ticket created")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
@@ -53,7 +52,7 @@ namespace KvitkouNet.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpDelete]
-        [Route("delete/all")]
+        [Route("all")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Tickets delete")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
@@ -69,7 +68,7 @@ namespace KvitkouNet.Web.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("delete/{id}")]
+        [Route("{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Ticket delete")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
@@ -84,7 +83,6 @@ namespace KvitkouNet.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("all")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Ticket>), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
