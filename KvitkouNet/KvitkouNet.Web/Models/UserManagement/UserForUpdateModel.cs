@@ -5,40 +5,35 @@ using System.Threading.Tasks;
 
 namespace KvitkouNet.Web.Models.UserManagement
 {
-    public class UserModelForUpdate
+    public class UserForUpdateModel
     {
-        /// <summary>
-        /// Имя пользователя
+        /// <summary>     
+        /// РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         /// </summary>
         public string FirstName { get; set; }
 
         /// <summary>
-        /// Отчество пользователя
-        /// </summary>
-        public string MiddleName { get; set; }
-
-        /// <summary>
-        /// Фамилия пользователя
+        /// Р¤Р°РјРёР»РёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         /// </summary>
         public string LastName { get; set; }
 
         /// <summary>
-        /// Список адресов пользователя 
+        /// РЎРїРёСЃРѕРє Р°РґСЂРµСЃСЃРѕРІ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         /// </summary>
-        public IList<string> Adress { get; set; }
+        public ICollection<string> Adress { get; set; }
 
         /// <summary>
-        /// Список телефонов пользователя
+        /// РЎРїРёСЃРѕРє С‚РµР»РµС„РѕРЅРѕРІ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         /// </summary>
-        public IList<string> PhoneNumbers { get; set; }
+        public ICollection<string> Phones { get; set; }
 
         /// <summary>
-        /// Пол
+        /// РџРѕР» РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         /// </summary>
         public string Sex { get; set; }
 
         /// <summary>
-        /// Дата рождения
+        /// Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         /// </summary>
         public DateTime Birthday { get; set; }
     }

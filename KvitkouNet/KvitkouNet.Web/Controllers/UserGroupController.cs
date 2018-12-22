@@ -10,17 +10,20 @@ using NSwag.Annotations;
 
 namespace KvitkouNet.Web.Controllers
 {
+    /// <summary>
+    /// РљРѕРЅС‚СЂРѕР»Р»РµСЂ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РіСЂСѓРїРїР°РјРё РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
+    /// </summary>
     [Route("api/groups")]
     public class UserGroupController : Controller
     {
         /// <summary>
-        /// Создание группы
+        /// Р”РѕР±Р°РІР»РµРЅРёРµ РіСЂСѓРїРїС‹ РїРѕ id
         /// </summary>
         /// <returns></returns>
-        [HttpPost, Route("add/{id}")]
+        [HttpPost, Route("{id}")]
         [SwaggerResponse(HttpStatusCode.Created, typeof(object), Description = "Group Created")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> AddUserGroup(int id, [FromBody] UserGroupModel userGroupModel)
+        public async Task<IActionResult> Add(int id, [FromBody] UserGroupModel userGroupModel)
         {
             var result = Task.FromResult(true);
             return await result
@@ -29,13 +32,13 @@ namespace KvitkouNet.Web.Controllers
         }
 
         /// <summary>
-        /// Получение всех групп
+        /// РџРѕР»СѓС‡РµРЅРёРµ РІСЃРµС… РіСЂСѓРїРї РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
         /// </summary>
         /// <returns></returns>
-        [HttpGet, Route("all")]
+        [HttpGet, Route("")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<UserGroupModel>), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetAllGroups()
+        public async Task<IActionResult> GetAll()
         {
             var result = Task.FromResult(new List<UserGroupModel> { new UserGroupModel { Name = "Fake1" },
                                                                new UserGroupModel { Name = "Fake2" },
@@ -45,42 +48,42 @@ namespace KvitkouNet.Web.Controllers
         }
 
         /// <summary>
-        /// Получение группы по id
+        /// РџРѕР»СѓС‡РµРЅРёРµ РіСЂСѓРїРїС‹ РїРѕ id
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet, Route("{groupId}")]
+        [HttpGet, Route("{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Group is returned")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid id")]
-        public async Task<IActionResult> GetGroupById(int groupId)
+        public async Task<IActionResult> GetById(int id)
         {
             var result = Task.FromResult(true);
             return Ok(await result);
         }
 
         /// <summary>
-        /// Обновление группы по id
+        /// РћР±РЅРѕРІР»РµРЅРёРµ РіСЂСѓРїРїС‹ РїРѕ id
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPut, Route("{groupId}")]
+        [HttpPut, Route("{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Group updated")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> UpdateGroup(int groupId, [FromBody] UserGroupModel userModel)
+        public async Task<IActionResult> UpdateById(int id, [FromBody] UserGroupModel userModel)
         {
             var result = Task.FromResult(true);
             return Ok(await result);
         }
 
         /// <summary>
-        /// Удаление группы по id
+        /// РЈРґР°Р»РµРЅРёРµ РіСЂСѓРїРїС‹ РїРѕ id
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete, Route("{groupId}")]
+        [HttpDelete, Route("{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Group delete")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid login")]
-        public async Task<IActionResult> DeleteGroup(int groupId)
+        public async Task<IActionResult> DeleteById(int id)
         {
             var result = Task.FromResult(true);
             return Ok(await result);
@@ -88,11 +91,11 @@ namespace KvitkouNet.Web.Controllers
 
 
         /// <summary>
-        /// Получение всех пользователей группы
+        /// РџРѕР»СѓС‡РµРЅРёРµ РІСЃРµС… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ РіСЂСѓРїРїС‹
         /// </summary>
         /// <returns></returns>
-        [HttpGet, Route("{groupId}/allusers")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<UserModelForView>), Description = "All Ok")]
+        [HttpGet, Route("{id}/allusers")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<UserForViewModel>), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAllUsersInGroup()
         {
