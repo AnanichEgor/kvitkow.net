@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using KvitkouNet.Logic.Common.Models.UserManagement;
+using KvitkouNet.Logic.Common.Services.User;
 using KvitkouNet.Web.Models;
 using KvitkouNet.Web.Models.UserManagement;
 using Microsoft.AspNetCore.Mvc;
@@ -13,21 +14,24 @@ namespace KvitkouNet.Web.Controllers
     [Route("api/users")]
     public class UserController : Controller
     {
+        private IUserService _service;
+
+        public UserController(IUserService service)
+        {
+            _service = service;
+        }
+        
         [HttpPost, Route("register")]
         [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Register([FromBody]UserRegisterModel model)
         {
-            Task<bool> result = Task.FromResult(
-                model.Password.Equals(model.ConfirmPassword,
-                    StringComparison.OrdinalIgnoreCase));
-            
-            return await result?
-                (IActionResult)NoContent() : BadRequest("Password error");
+            var result = await _service.Register(model);
+            return Ok(result);
         }
 
         /// <summary>
-        /// Получение всех пользователей в системе
+        /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         /// </summary>
         /// <returns></returns>
         [HttpGet, Route("all")]
@@ -43,7 +47,7 @@ namespace KvitkouNet.Web.Controllers
         }
 
         /// <summary>
-        /// Получение пользователя по логину
+        /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         /// </summary>
         /// <param name="userLogin"></param>
         /// <returns></returns>
@@ -57,7 +61,7 @@ namespace KvitkouNet.Web.Controllers
         }
 
         /// <summary>
-        /// Обновление пользователя по логину
+        /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         /// </summary>
         /// <param name="userModel"></param>
         /// <returns></returns>
@@ -71,7 +75,7 @@ namespace KvitkouNet.Web.Controllers
         }
 
         /// <summary>
-        /// Удаление пользователя по логину
+        /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         /// </summary>
         /// <param name="userLogin"></param>
         /// <returns></returns>
