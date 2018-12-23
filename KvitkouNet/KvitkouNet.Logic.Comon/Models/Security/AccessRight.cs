@@ -10,7 +10,7 @@ namespace KvitkouNet.Logic.Common.Models.Security
         /// <summary>
         /// Идентификатор права доступа
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Имя права доступа
