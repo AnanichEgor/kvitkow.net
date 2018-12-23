@@ -11,6 +11,9 @@ using NSwag.Annotations;
 
 namespace KvitkouNet.Web.Controllers
 {
+    /// <summary>
+    /// Контроллер для работы с пользователями
+    /// </summary>
     [Route("api/users")]
     public class UserController : Controller
     {
@@ -31,58 +34,58 @@ namespace KvitkouNet.Web.Controllers
         }
 
         /// <summary>
-        /// ��������� ���� ������������� � �������
+        /// Получение всех пользователей
         /// </summary>
         /// <returns></returns>
-        [HttpGet, Route("all")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<UserModelForView>), Description = "All Ok")]
+        [HttpGet, Route("")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<ForViewModel>), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetAllTickets()
+        public async Task<IActionResult> GetAll()
         {
-            var result = Task.FromResult(new List<UserModelForView> { new UserModelForView { UserLogin = "Fake1" },
-                                                               new UserModelForView { UserLogin = "Fake2" },
-                                                               new UserModelForView { UserLogin = "Fake3" }
+            var result = Task.FromResult(new List<ForViewModel> { new ForViewModel { Login = "Fake1" },
+                                                               new ForViewModel { Login = "Fake2" },
+                                                               new ForViewModel { Login = "Fake3" }
                                                              });
             return Ok(await result);
         }
 
         /// <summary>
-        /// ��������� ������������ �� ������
+        /// Получение пользователя по логину
         /// </summary>
         /// <param name="userLogin"></param>
         /// <returns></returns>
-        [HttpGet, Route("{userLogin}")]
+        [HttpGet, Route("{login}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User is returned")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid login")]
-        public async Task<IActionResult> GetUserByLogin(string userLogin)
+        public async Task<IActionResult> GetByLogin(string userLogin)
         {
             var result = Task.FromResult(true);
             return Ok(await result);
         }
 
         /// <summary>
-        /// ���������� ������������ �� ������
+        /// Редактирование пользователя по логину
         /// </summary>
         /// <param name="userModel"></param>
         /// <returns></returns>
-        [HttpPut, Route("{userLogin}")]
+        [HttpPut, Route("{login}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User updated")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> UpdateUser(string userLogin, [FromBody] UserModelForUpdate userModel)
+        public async Task<IActionResult> UpdateByLogin(string userLogin, [FromBody] ForUpdateModel userModel)
         {
             var result = Task.FromResult(true);
             return Ok(await result);
         }
 
         /// <summary>
-        /// �������� ������������ �� ������
+        /// Удаление пользователя по логину
         /// </summary>
         /// <param name="userLogin"></param>
         /// <returns></returns>
-        [HttpDelete, Route("{userLogin}")]
+        [HttpDelete, Route("{login}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User delete")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid login")]
-        public async Task<IActionResult> DeleteUser(string userLogin)
+        public async Task<IActionResult> DeleteByLogin(string userLogin)
         {
             var result = Task.FromResult(true);
             return Ok(await result);

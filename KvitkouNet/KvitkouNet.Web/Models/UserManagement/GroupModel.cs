@@ -1,11 +1,16 @@
-﻿namespace KvitkouNet.Logic.Common.Models.UserManagement
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace KvitkouNet.Web.Models.UserManagement
 {
-    public class UserGroup
+    public class GroupModel
     {
         /// <summary>
         /// Уникальный номер группы
         /// </summary>
-        public int Id { get; set; }
+        public int GroupId { get; set; }
 
         /// <summary>
         /// Имя группы
@@ -16,10 +21,5 @@
         /// Описание назначения группы
         /// </summary>
         public string Description { get; set; }
-
-        /// <summary>
-        /// Роль группы
-        /// </summary>
-        public string GroupRole { get; set; }
     }
 }
