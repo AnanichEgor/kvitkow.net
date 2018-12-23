@@ -7,7 +7,7 @@ namespace KvitkouNet.Logic.Common.Models.Chat
         /// <summary>
         /// номер комнаты
         /// </summary>
-        public string Id;
+        public int Id;
 
         /// <summary>
         /// Название комнаты

@@ -6,7 +6,7 @@ namespace KvitkouNet.Logic.Common.Models.Chat.Settings
         /// <summary>
         /// Уникальный UserId
         /// </summary>
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Фон чата

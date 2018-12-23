@@ -12,7 +12,7 @@ namespace KvitkouNet.Logic.Common.Models.Chat
         /// <summary>
         /// Id пользователя
         /// </summary>
-        public string UserId { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// Имя пользователя
