@@ -12,7 +12,7 @@ namespace KvitkouNet.Logic.Common.Models.Search
         /// <summary>
         /// Gets or sets the items after search request for 1 page.
         /// </summary>
-        public IList<T> Items { get; set; }
+        public IEnumerable<T> Items { get; set; }
 
         /// <summary>
         /// Gets or sets the total count of items after search request.
