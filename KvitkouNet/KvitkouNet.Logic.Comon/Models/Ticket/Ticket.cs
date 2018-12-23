@@ -14,7 +14,7 @@ namespace KvitkouNet.Logic.Common.Models.Ticket
         /// <summary>
         ///     Пользователь разместивший билет
         /// </summary>
-        public UserInfo UserName { get; set; }
+        public UserInfo User { get; set; }
 
         /// <summary>
         ///     Пользователи, которые добавили билет в “Я Пойду”

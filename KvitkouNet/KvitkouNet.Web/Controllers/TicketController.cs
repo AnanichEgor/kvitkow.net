@@ -37,7 +37,7 @@ namespace KvitkouNet.Web.Controllers
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
         [HttpPut]
-        [Route("update/{id}")]
+        [Route("{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Ticket update")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
