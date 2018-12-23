@@ -1,12 +1,12 @@
 ﻿
 namespace KvitkouNet.Logic.Common.Models.Chat.Settings
 {
-    public class UserSettings
+    public class Settings
     {
         /// <summary>
         /// Уникальный UserId
         /// </summary>
-        public long UserId { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Фон чата

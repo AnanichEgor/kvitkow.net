@@ -9,7 +9,7 @@ namespace KvitkouNet.Logic.Common.Models.Chat
         /// <summary>
         /// Пользовательские настройки для чата
         /// </summary>
-        public Settings.UserSettings UserSettings { get; set; }
+        public Settings.Settings Settings { get; set; }
 
         /// <summary>
         /// Список комнат
@@ -17,7 +17,7 @@ namespace KvitkouNet.Logic.Common.Models.Chat
         public List<Room> Rooms { get; set; }
 
         /// <summary>
-        /// Пользователь
+        /// Стартовая, общая комната
         /// </summary>
         public Room MainRoom { get; set; }
     }

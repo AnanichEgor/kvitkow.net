@@ -4,11 +4,10 @@ namespace KvitkouNet.Logic.Common.Models.Chat
 {
     public class Room
     {
-
         /// <summary>
         /// номер комнаты
         /// </summary>
-        public long Id;
+        public string Id;
 
         /// <summary>
         /// Название комнаты
@@ -18,7 +17,7 @@ namespace KvitkouNet.Logic.Common.Models.Chat
         /// <summary>
         /// Список Users в комнате
         /// </summary>
-        public  List<long> UserId;
+        public  List<string> UserId;
 
         /// <summary>
         /// Список сообщений в конате

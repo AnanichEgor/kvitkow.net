@@ -10,7 +10,7 @@ namespace KvitkouNet.Web.Models.Chat
         /// <summary>
         /// Id комнаты
         /// </summary>
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Время отправки
@@ -20,7 +20,7 @@ namespace KvitkouNet.Web.Models.Chat
         /// <summary>
         /// Текст сообщения
         /// </summary>
-        public string Massage { get; set; }
+        public string Text { get; set; }
 
         /// <summary>
         /// Имя отправителя

@@ -7,12 +7,17 @@ namespace KvitkouNet.Logic.Common.Models.Chat
         /// <summary>
         /// Id сообщения
         /// </summary>
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Id пользователя
         /// </summary>
-        public long UserId { get; set; }
+        public string UserId { get; set; }
+
+        /// <summary>
+        /// Имя пользователя
+        /// </summary>
+        public string UserName { get; set; }
 
         /// <summary>
         /// Время отправки
@@ -22,6 +27,6 @@ namespace KvitkouNet.Logic.Common.Models.Chat
         /// <summary>
         /// Текст сообщения
         /// </summary>
-        public string Massage { get; set; }
+        public string Text { get; set; }
     }
 }
