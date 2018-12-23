@@ -6,7 +6,6 @@ namespace KvitkouNet.Logic.Common.Models.Dashboard
 {
     class News
     {
-        
         /// <summary>
         /// Логин пользователя
         /// </summary>
