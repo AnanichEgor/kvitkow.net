@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using KvitkouNet.Logic.Common.Models.Tickets;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace KvitkouNet.Logic.Common.Services.Tickets
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        Task<IActionResult> Add(Ticket ticket);
+        Task<Ticket> Add(Ticket ticket);
 
         /// <summary>
         ///     Обновление информации о билете
@@ -23,38 +24,38 @@ namespace KvitkouNet.Logic.Common.Services.Tickets
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        Task<IActionResult> Update(string id, Ticket ticket);
+        Task Update(string id, Ticket ticket);
 
         /// <summary>
         ///     Удаление всех билетов
         /// </summary>
         /// <returns></returns>
-        Task<IActionResult> DeleteAll();
+        Task DeleteAll();
 
         /// <summary>
         ///     Удаление билета с определенным Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<IActionResult> Delete(string id);
+        Task Delete(string id);
 
         /// <summary>
         ///     Получение всех билет имеющихся в системе
         /// </summary>
         /// <returns></returns>
-        Task<IActionResult> GetAll();
+        Task<IEnumerable<Ticket>> GetAll();
 
         /// <summary>
         ///     Получение билета по Id
         /// </summary>
         /// <param name="ticketIdGuid">Id билета</param>
         /// <returns></returns>
-        Task<IActionResult> Get(string id);
+        Task<Ticket> Get(string id);
 
         /// <summary>
         ///     Получение только актуальных билетов
         /// </summary>
         /// <returns></returns>
-        Task<IActionResult> GetAllActual();
+        Task<IEnumerable<Ticket>> GetAllActual();
     }
 }
