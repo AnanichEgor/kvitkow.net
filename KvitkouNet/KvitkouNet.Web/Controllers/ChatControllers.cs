@@ -16,7 +16,7 @@ namespace KvitkouNet.Web.Controllers
     /// Контроллер, отвечающий за выполняемые действия с чатом
     ///  </summary>
     [Route("api/chat")]
-    public class ChatControllers : Controller
+    public class ChatController : Controller
     {
         /// <summary>
         /// Отдаем пользователю его настройки для чата
@@ -58,7 +58,6 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-
         /// <summary>
         /// При входе в комнату, отдадим все сообщения пользователю, согласно ограничению по истории
         /// </summary>
@@ -75,6 +74,21 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
+        /// <summary>
+        /// При входе в комнату, отдадим все сообщения пользователю, согласно ограничению по истории
+        /// </summary>
+        [HttpPost, Route("settings")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        public async Task<IActionResult> GetSettings([FromBody] string name)
+        {
+            var result = Task.FromResult(new List<Message>
+            {
+                new Message {UserName = "Андрей", Sended = DateTime.Now, Text = "Тестовое сообщение 1"},
+                new Message {UserName = "Артем", Sended = DateTime.Now, Text = "Тестовое сообщение 2" }
+            });
+            return Ok(await result);
+        }
 
 
     }
