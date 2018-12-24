@@ -64,8 +64,7 @@ namespace KvitkouNet.Web.Controllers
         /// </summary>
         [HttpPost, Route("romms/name")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
-        [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
-        [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetMessagesFromTheRoom([FromBody] string name)
         {
             var result = Task.FromResult(new List<Message>
@@ -75,5 +74,8 @@ namespace KvitkouNet.Web.Controllers
             });
             return Ok(await result);
         }
+
+
+
     }
 }
