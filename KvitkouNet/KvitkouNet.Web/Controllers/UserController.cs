@@ -40,52 +40,50 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAll()
         {
-            var result = Task.FromResult(new List<ForViewModel> { new ForViewModel { Login = "Fake1" },
-                                                               new ForViewModel { Login = "Fake2" },
-                                                               new ForViewModel { Login = "Fake3" }
-                                                             });
+            var result = _service.GetAll();
             return Ok(await result);
         }
 
         /// <summary>
         /// Получение пользователя по логину
         /// </summary>
-        /// <param name="userLogin"></param>
+        /// <param name="login"></param>
         /// <returns></returns>
         [HttpGet, Route("{login}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User is returned")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid login")]
-        public async Task<IActionResult> GetByLogin(string userLogin)
+        public async Task<IActionResult> GetByLogin(string login)
         {
-            var result = Task.FromResult(true);
+            var result = _service.GetByLogin(login);
             return Ok(await result);
         }
 
         /// <summary>
         /// Редактирование пользователя по логину
         /// </summary>
+        /// <param name="login"></param>
         /// <param name="userModel"></param>
         /// <returns></returns>
         [HttpPut, Route("{login}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User updated")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> UpdateByLogin(string userLogin, [FromBody] ForUpdateModel userModel)
+        public async Task<IActionResult> UpdateByLogin(string login, [FromBody] ForUpdateModel userModel)
         {
-            var result = Task.FromResult(true);
+            var result = _service.UpdateByLogin(login, userModel);
             return Ok(await result);
         }
 
         /// <summary>
         /// Удаление пользователя по логину
         /// </summary>
-        /// <param name="userLogin"></param>
+        /// <param name="login"></param>
         /// <returns></returns>
         [HttpDelete, Route("{login}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User delete")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid login")]
-        public async Task<IActionResult> DeleteByLogin(string userLogin)
+        public async Task<IActionResult> DeleteByLogin(string login)
         {
-            var result = Task.FromResult(true);
+            var result = _service.DeleteByLogin(login);
             return Ok(await result);
         }
     }
