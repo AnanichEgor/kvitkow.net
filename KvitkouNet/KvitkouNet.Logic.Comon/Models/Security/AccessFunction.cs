@@ -11,7 +11,7 @@ namespace KvitkouNet.Logic.Common.Models.Security
         /// <summary>
         /// Идентификатор функции
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Имя функции

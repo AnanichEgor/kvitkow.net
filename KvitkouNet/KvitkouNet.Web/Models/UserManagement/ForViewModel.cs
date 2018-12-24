@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace KvitkouNet.Web.Models.UserManagement
 {
-    public class UserModelForView
+    public class ForViewModel
     {
         /// <summary>
-        /// Логин пользователя
+        /// Логин
         /// </summary>
-        public string UserLogin { get; set; }
+        public string Login { get; set; }
 
         /// <summary>
         /// Пол

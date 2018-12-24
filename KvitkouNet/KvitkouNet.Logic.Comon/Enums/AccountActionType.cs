@@ -29,7 +29,7 @@ namespace KvitkouNet.Logic.Common.Enums
         LogOut = 1 << 2,
 
         /// <summary>
-        /// Регастрация аккаунта
+        /// Регистрация аккаунта
         /// </summary>
         Registration = 1 << 3,
 

@@ -11,7 +11,7 @@ namespace KvitkouNet.Logic.Common.Models.Security
         /// <summary>
         /// Идентификатор пользователя (null для незарегистрированного пользователя)
         /// </summary>
-        public Guid? UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// Логин пользователя
