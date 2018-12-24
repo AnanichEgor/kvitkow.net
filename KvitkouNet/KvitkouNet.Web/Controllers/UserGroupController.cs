@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using KvitkouNet.Logic.Common.Models.UserManagement;
-using KvitkouNet.Web.Models;
-using KvitkouNet.Web.Models.UserManagement;
+using KvitkouNet.Logic.Common.Services.User;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
@@ -16,6 +15,12 @@ namespace KvitkouNet.Web.Controllers
     [Route("api/groups")]
     public class UserGroupController : Controller
     {
+        private IUserService _service;
+
+        public UserGroupController(IUserService service)
+        {
+            _service = service;
+        }
         /// <summary>
         /// Добавление группы по id
         /// </summary>

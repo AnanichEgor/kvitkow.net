@@ -69,7 +69,7 @@ namespace KvitkouNet.Logic.Common.Models.UserManagement
         /// <summary>
         /// Группы, в которых состоит пользователь
         /// </summary>
-        public ICollection<UserGroup> UserGroups { get; set; }
+        public ICollection<Group> UserGroups { get; set; }
 
         /// <summary>
         /// Роли доступа пользователя

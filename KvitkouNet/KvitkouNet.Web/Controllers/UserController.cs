@@ -4,8 +4,6 @@ using System.Net;
 using System.Threading.Tasks;
 using KvitkouNet.Logic.Common.Models.UserManagement;
 using KvitkouNet.Logic.Common.Services.User;
-using KvitkouNet.Web.Models;
-using KvitkouNet.Web.Models.UserManagement;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
