@@ -30,7 +30,7 @@ namespace KvitkouNet.Web
             });
 
             services.AddSwaggerDocument();
-            services.RegisterTicketServices();
+            services.RegisterUserServices();
             services.RegisterSecurityService();
         }
 
