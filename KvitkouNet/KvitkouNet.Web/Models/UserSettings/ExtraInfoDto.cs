@@ -1,29 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace KvitkouNet.Web.Models
 {
-	public class ProfileDto
+	/// <summary>
+	/// Дополнительные настройки
+	/// </summary>
+	public class ExtraInfoDto
 	{
-		/// <summary>
-		/// Имя
-		/// </summary>
-		public string FirstName { get; set; }
-
-		/// <summary>
-		/// Отчество
-		/// </summary>
-		public string MiddleName { get; set; }
-
-		/// <summary>
-		/// Фамилия
-		/// </summary>
-		public string LastName { get; set; }
-
-		/// <summary>
-		/// Аватарка пользователся
-		/// </summary>
-		public object UserImage { get; set; }
-
 		/// <summary>
 		/// Флаг, отвечающий за закрытость аккаунта для гостей.
 		/// </summary>
@@ -48,11 +34,6 @@ namespace KvitkouNet.Web.Models
 		/// Ссылки на социальные сети.
 		/// </summary>
 		public IEnumerable<object> SocialNetwork { get; set; }
-
-		/// <summary>
-		/// Флаг, отвечающий за то что было выбрано изменение пароля.
-		/// </summary>
-		public bool IsChangePassword { get; set; }
 
 		/// <summary>
 		/// Предпочитаемое место посещения

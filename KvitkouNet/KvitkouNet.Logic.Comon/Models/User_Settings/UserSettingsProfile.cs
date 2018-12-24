@@ -11,7 +11,7 @@ namespace KvitkouNet.Logic.Common.Models
 		/// <summary>
 		/// Базовые свойства конретного пользователя.
 		/// </summary>
-		public Guid UserId { get; set; }
+		public string UserId { get; set; }
 
 		/// <summary>
 		/// Имя

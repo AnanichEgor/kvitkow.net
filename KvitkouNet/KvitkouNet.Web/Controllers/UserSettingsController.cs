@@ -10,20 +10,20 @@ using System.Threading.Tasks;
 
 namespace KvitkouNet.Web.Controllers
 {
-	[Route("api/users/settings/{id}")]
+	[Route("api/settings")]
 	public class UserSettingsController : Controller
 	{
 		/// <summary>
-		/// Запрос на изменение данных профиля пользователя
+		/// Запрос на изменение основных данных пользователя
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		[HttpPut, Route("profile")]
+		[HttpPut, Route("userinfo")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangeUserProfile([FromBody]ProfileDto model)
+		public async Task<IActionResult> ChangeUserInfo([FromBody]UserInfoDto model)
 		{
-			IEnumerable<string> result = await Task.FromResult(ValidateProfile(model));
+			IEnumerable<string> result = await Task.FromResult(ValidateUserInfo(model));
 		
 			if(result.Count() == 0)
 			{
@@ -41,7 +41,7 @@ namespace KvitkouNet.Web.Controllers
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		private IEnumerable<string> ValidateProfile(ProfileDto model)
+		private IEnumerable<string> ValidateUserInfo(UserInfoDto model)
 		{
 			List<String> result = new List<string>();
 			if(string.IsNullOrEmpty(model.FirstName))
@@ -56,6 +56,20 @@ namespace KvitkouNet.Web.Controllers
 		}
 
 		/// <summary>
+		/// Запрос на изменение дополнительной информации пользователя
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
+		[HttpPut, Route("extrainfo")]
+		[SwaggerResponse(HttpStatusCode.OK, typeof(void), Description = "All OK")]
+		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+		public async Task<IActionResult> ChangeExtraInfo([FromBody]ExtraInfoDto model)
+		{
+			var result = Task.FromResult(true);
+			return Ok(await result);
+		}
+
+		/// <summary>
 		/// Запрос на изменение пароля
 		/// </summary>
 		/// <param name="model"></param>
@@ -63,7 +77,7 @@ namespace KvitkouNet.Web.Controllers
 		[HttpPut, Route("password")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangePassword([FromBody]AccountDto model)
+		public async Task<IActionResult> ChangePassword([FromBody]PasswordDto model)
 		{
 			Task<bool> result = Task.FromResult(
 				string.Equals(model.NewPassword, model.ConfirmPassword));
@@ -79,12 +93,9 @@ namespace KvitkouNet.Web.Controllers
 		[HttpPut, Route("email")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangeEmail([FromBody]AccountDto model)
+		public async Task<IActionResult> ChangeEmail([FromBody]EmailDto model)
 		{
-			Task<bool> result = Task.FromResult(
-				ValidateEmail(model.Email)
-				);
-
+			Task<bool> result = Task.FromResult(ValidateEmail(model.Email));
 			return await result ? (IActionResult)NoContent() : BadRequest("Incorrect email");
 		}
 

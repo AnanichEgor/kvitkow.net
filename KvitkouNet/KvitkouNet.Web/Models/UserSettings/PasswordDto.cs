@@ -1,6 +1,6 @@
 ﻿namespace KvitkouNet.Web.Models
 {
-	public class AccountDto
+	public class PasswordDto
 	{
 		/// <summary>
 		/// Текущий пароль пользователя.
@@ -16,10 +16,5 @@
 		/// Подтверждение нового пароля.
 		/// </summary>
 		public string ConfirmPassword { get; set; }
-
-		/// <summary>
-		/// Почта пользователя.
-		/// </summary>
-		public string Email { get; set; }
 	}
 }
