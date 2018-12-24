@@ -8,11 +8,6 @@ namespace KvitkouNet.Web.Models.Chat
     public class Message
     {
         /// <summary>
-        /// Id комнаты
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
         /// Время отправки
         /// </summary>
         public DateTime Sended { get; set; }

@@ -10,6 +10,11 @@ namespace KvitkouNet.Logic.Common.Models.Chat
         public string Id { get; set; }
 
         /// <summary>
+        /// Id комнаты в которой было отправлено сообщение
+        /// </summary>
+        public string RoomId { get; set; }
+
+        /// <summary>
         /// Id пользователя
         /// </summary>
         public int UserId { get; set; }
