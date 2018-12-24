@@ -5,12 +5,12 @@ namespace KvitkouNet.Logic.Common.Models
 	/// <summary>
 	/// Класс для изменения данных пользователя
 	/// </summary>
-	public class UserSettingsAccount
+	public class AccountSettings
 	{
 		/// <summary>
 		/// Базовые свойства конретного пользователя.
 		/// </summary>
-		public Guid UserId { get; set; }
+		public string UserId { get; set; }
 
 		/// <summary>
 		/// Текущий пароль пользователя.

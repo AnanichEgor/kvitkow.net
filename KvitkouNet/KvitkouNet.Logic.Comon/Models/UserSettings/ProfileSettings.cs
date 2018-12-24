@@ -6,7 +6,7 @@ namespace KvitkouNet.Logic.Common.Models
 	/// <summary>
 	/// Класс настроек пользователя
 	/// </summary>
-	public class UserSettingsProfile
+	public class ProfileSettings
 	{
 		/// <summary>
 		/// Базовые свойства конретного пользователя.
