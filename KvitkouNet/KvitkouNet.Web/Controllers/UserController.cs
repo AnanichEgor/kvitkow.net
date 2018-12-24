@@ -40,8 +40,8 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAll()
         {
-            var result = _service.GetAll();
-            return Ok(await result);
+            var result = await _service.GetAll();
+            return Ok(result);
         }
 
         /// <summary>
@@ -54,8 +54,8 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid login")]
         public async Task<IActionResult> GetByLogin(string login)
         {
-            var result = _service.GetByLogin(login);
-            return Ok(await result);
+            var result = await _service.GetByLogin(login);
+            return Ok(result);
         }
 
         /// <summary>
@@ -69,8 +69,8 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> UpdateByLogin(string login, [FromBody] ForUpdateModel userModel)
         {
-            var result = _service.UpdateByLogin(login, userModel);
-            return Ok(await result);
+            var result = await _service.UpdateByLogin(login, userModel);
+            return Ok(result);
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid login")]
         public async Task<IActionResult> DeleteByLogin(string login)
         {
-            var result = _service.DeleteByLogin(login);
-            return Ok(await result);
+            var result = await _service.DeleteByLogin(login);
+            return Ok(result);
         }
     }
 }

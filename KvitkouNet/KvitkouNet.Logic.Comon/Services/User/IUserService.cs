@@ -41,5 +41,46 @@ namespace KvitkouNet.Logic.Common.Services.User
         /// <param name="login"></param>
         /// <returns></returns>
         Task<string> DeleteByLogin(string login);
+
+        /// <summary>
+        /// Добавление группы
+        /// </summary>
+        /// <param name="userGroupModel"></param>
+        /// <returns></returns>
+        Task<string> AddGroup(GroupModel userGroupModel);
+
+        /// <summary>
+        /// Получение всех групп
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<GroupModel>> GetAllGroups();
+
+        /// <summary>
+        /// Получение группы по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<GroupModel> GetGroupById(int id);
+
+        /// <summary>
+        /// Обновление группы по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<GroupModel> UpdateGroupById(int id);
+
+        /// <summary>
+        /// Удаление группы по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<string> DeleteGroupById(int id);
+
+        /// <summary>
+        /// Получение всех пользователей состоящих в группе с id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IEnumerable<ForViewModel>> GetAllUsersInGroupById(int id);
     }
 }
