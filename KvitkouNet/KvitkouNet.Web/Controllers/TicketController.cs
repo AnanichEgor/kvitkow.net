@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using KvitkouNet.Logic.Common.Models.Ticket;
+using KvitkouNet.Logic.Common.Models.Tickets;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
