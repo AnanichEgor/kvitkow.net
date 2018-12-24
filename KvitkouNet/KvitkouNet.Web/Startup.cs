@@ -32,6 +32,7 @@ namespace KvitkouNet.Web
             services.AddSwaggerDocument();
             services.RegisterUserServices();
             services.RegisterSecurityService();
+            services.RegisterTicketService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
