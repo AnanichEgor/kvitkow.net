@@ -1,4 +1,4 @@
-﻿namespace KvitkouNet.Logic.Common.Models.Enums
+﻿namespace KvitkouNet.Logic.Common.Models.Security.Enums
 {
     /// <summary>
     /// Статус доступа
