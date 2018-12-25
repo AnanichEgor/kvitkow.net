@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using KvitkouNet.Logic.Common.Models.Search;
 using KvitkouNet.Logic.Common.Models.UserManagement;
+using KvitkouNet.Logic.Common.Services.Chat;
 using KvitkouNet.Logic.Common.Services.Search;
 using KvitkouNet.Logic.Common.Services.Security;
 using KvitkouNet.Logic.Common.Services.User;
@@ -31,6 +32,19 @@ namespace KvitkouNet.Logic.Common
             var mock = new Mock<ISecurityService>();
 
             services.AddScoped<ISecurityService>(_ => mock.Object);
+            return services;
+        }
+
+        /// <summary>
+        /// Регистрация IChatService
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection RegisterChatService(this IServiceCollection services)
+        {
+            var mock = new Mock<IChatService>();
+
+            services.AddScoped<IChatService>(_ => mock.Object);
             return services;
         }
 
