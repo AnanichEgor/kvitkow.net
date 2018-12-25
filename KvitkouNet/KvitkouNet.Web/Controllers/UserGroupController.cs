@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using KvitkouNet.Logic.Common.Models.UserManagement;
-using KvitkouNet.Web.Models;
-using KvitkouNet.Web.Models.UserManagement;
+using KvitkouNet.Logic.Common.Services.User;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
@@ -16,19 +15,23 @@ namespace KvitkouNet.Web.Controllers
     [Route("api/groups")]
     public class UserGroupController : Controller
     {
+        private IUserService _service;
+
+        public UserGroupController(IUserService service)
+        {
+            _service = service;
+        }
         /// <summary>
-        /// Добавление группы по id
+        /// Добавление группы
         /// </summary>
         /// <returns></returns>
-        [HttpPost, Route("{id}")]
+        [HttpPost, Route("")]
         [SwaggerResponse(HttpStatusCode.Created, typeof(object), Description = "Group Created")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> Add(int id, [FromBody] GroupModel userGroupModel)
+        public async Task<IActionResult> Add([FromBody] GroupModel userGroupModel)
         {
-            var result = Task.FromResult(true);
-            return await result
-                ? (IActionResult)Created(userGroupModel.GroupId.ToString(), userGroupModel)
-                : BadRequest("Model not valid");
+            var result = await _service.AddGroup(userGroupModel);
+            return Ok(result);
         }
 
         /// <summary>
@@ -40,11 +43,8 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAll()
         {
-            var result = Task.FromResult(new List<GroupModel> { new GroupModel { Name = "Fake1" },
-                                                               new GroupModel { Name = "Fake2" },
-                                                               new GroupModel { Name = "Fake3" }
-                                                             });
-            return Ok(await result);
+            var result = await _service.GetAllGroups();
+            return Ok(result);
         }
 
         /// <summary>
@@ -57,8 +57,8 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid id")]
         public async Task<IActionResult> GetById(int id)
         {
-            var result = Task.FromResult(true);
-            return Ok(await result);
+            var result = await _service.GetGroupById(id);
+            return Ok(result);
         }
 
         /// <summary>
@@ -71,8 +71,8 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> UpdateById(int id, [FromBody] GroupModel userModel)
         {
-            var result = Task.FromResult(true);
-            return Ok(await result);
+            var result = await _service.UpdateGroupById(id);
+            return Ok(result);
         }
 
         /// <summary>
@@ -85,8 +85,8 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid login")]
         public async Task<IActionResult> DeleteById(int id)
         {
-            var result = Task.FromResult(true);
-            return Ok(await result);
+            var result = await _service.DeleteGroupById(id);
+            return Ok(result);
         }
 
 
@@ -97,10 +97,10 @@ namespace KvitkouNet.Web.Controllers
         [HttpGet, Route("{id}/allusers")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<ForViewModel>), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetAllUsersInGroup()
+        public async Task<IActionResult> GetAllUsersInGroupById(int id)
         {
-            var result = Task.FromResult(true);
-            return Ok(await result);
+            var result = await _service.GetAllUsersInGroupById(id);
+            return Ok(result);
         }
     }
 }
