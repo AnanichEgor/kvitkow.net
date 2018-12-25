@@ -1,24 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace KvitkouNet.Logic.Common.Models
 {
 	/// <summary>
 	/// Класс для изменения данных пользователя
 	/// </summary>
-	public class ChangePassword
+	public class AccountSettings
 	{
 		/// <summary>
-		/// Настройки пользователя в которые сохранятся изменения.
+		/// Базовые свойства конретного пользователя.
 		/// </summary>
-		private UserSettings _userSetting;
+		public string UserId { get; set; }
 
-		public ChangePassword(UserSettings settings)
-		{
-			_userSetting = settings;
-		}
-		
 		/// <summary>
 		/// Текущий пароль пользователя.
 		/// </summary>
@@ -34,5 +27,9 @@ namespace KvitkouNet.Logic.Common.Models
 		/// </summary>
 		public string ConfirmPassword { get; set; }
 
+		/// <summary>
+		/// Почта пользователя.
+		/// </summary>
+		public string Email { get; set; }
 	}
 }
