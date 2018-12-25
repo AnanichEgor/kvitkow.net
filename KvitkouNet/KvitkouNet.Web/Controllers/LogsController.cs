@@ -60,9 +60,8 @@ namespace KvitkouNet.Web.Controllers
                 return BadRequest($"Invalid filter! {nameof(ErrorLogsFilterDto.ExceptionTypeName)} is empty or whitespace!");
             }
 
-            await Task.Delay(1000);
-
-            return Ok(new List<InternalErrorLogEntry>());
+	        var result = await _loggingService.GetErrorLogs(filter);
+            return Ok(result);
         }
 
         /// <summary>
@@ -82,9 +81,8 @@ namespace KvitkouNet.Web.Controllers
                 return BadRequest($"Invalid filter! {nameof(TicketLogsFilterDto.TicketName)} is empty or whitespace!");
             }
 
-            await Task.Delay(1000);
-
-            return Ok(new List<TicketActionLogEntry>());
+	        var result = await _loggingService.GetTicketActionLogs(filter);
+            return Ok(result);
         }
 
 	    /// <summary>
@@ -104,9 +102,8 @@ namespace KvitkouNet.Web.Controllers
 			    return BadRequest($"Invalid filter! {nameof(TicketLogsFilterDto.TicketName)} is empty or whitespace!");
 		    }
 
-		    await Task.Delay(1000);
-
-		    return Ok(new List<TicketDealLogEntry>());
+		    var result = await _loggingService.GetTicketDealLogs(filter);
+		    return Ok(result);
 	    }
 
 		/// <summary>
@@ -125,9 +122,8 @@ namespace KvitkouNet.Web.Controllers
 			    return BadRequest($"Invalid filter! {nameof(PaymentLogsFilterDto.UserName)} is empty or whitespace!");
 		    }
 
-		    await Task.Delay(100);
-
-		    return Ok(new List<PaymentLogEntry>());
+		    var result = await _loggingService.GetPaymentLogs(filter);
+		    return Ok(result);
 	    }
 
 	    /// <summary>
@@ -146,9 +142,8 @@ namespace KvitkouNet.Web.Controllers
 			    return BadRequest($"Invalid filter! {nameof(SearchQueryLogsFilterDto.UserName)} is empty or whitespace!");
 		    }
 
-		    await Task.Delay(100);
-
-		    return Ok(new List<SearchQueryLogEntry>());
+		    var result = _loggingService.GetSearchQueryLogs(filter);
+		    return Ok(result);
 		}
 	}
 }
