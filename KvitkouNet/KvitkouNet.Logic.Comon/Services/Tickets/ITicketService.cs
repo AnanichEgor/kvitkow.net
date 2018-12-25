@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using KvitkouNet.Logic.Common.Models.Tickets;
-using Microsoft.AspNetCore.Mvc;
 
 namespace KvitkouNet.Logic.Common.Services.Tickets
 {
     /// <summary>
-    /// Сервис для работы с Tickets
+    ///     Сервис для работы с Tickets
     /// </summary>
     public interface ITicketService : IDisposable
     {
@@ -24,7 +23,7 @@ namespace KvitkouNet.Logic.Common.Services.Tickets
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        Task Update(string id, Ticket ticket);
+        Task<string> Update(string id, Ticket ticket);
 
         /// <summary>
         ///     Удаление всех билетов

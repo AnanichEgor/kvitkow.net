@@ -3,32 +3,29 @@ using System.Net;
 using System.Threading.Tasks;
 using KvitkouNet.Logic.Common.Models.Tickets;
 using KvitkouNet.Logic.Common.Services.Tickets;
-using KvitkouNet.Logic.Common.Services.User;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
 namespace KvitkouNet.Web.Controllers
 {
-
     /// <summary>
     ///     Контроллер, упраляющий запросами касающихся билетов
     /// </summary>
     [Route("api/tickets")]
-
     public class TicketController : Controller
     {
         private ITicketService _service;
 
         public TicketController(ITicketService service)
-            {
-                _service = service;
-            }
+        {
+            _service = service;
+        }
+
         /// <summary>
         ///     Добавляет билет
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-
         [HttpPost]
         [SwaggerResponse(HttpStatusCode.Created, typeof(object), Description = "Ticket created")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
@@ -52,7 +49,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Ticket ticket)
         {
-            var result = _service.Add(ticket);
+            var result = _service.Update(id, ticket);
             return Ok(await result);
         }
 
