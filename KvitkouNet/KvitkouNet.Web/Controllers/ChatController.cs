@@ -20,11 +20,11 @@ namespace KvitkouNet.Web.Controllers
     [Route("api/chat")]
     public class ChatController : Controller
     {
-        private IChatService _securityService;
+        private IChatService _chatService;
 
-        public ChatController(IChatService securityService)
+        public ChatController(IChatService chatService)
         {
-            _securityService = securityService;
+            _chatService = chatService;
         }
         /// <summary>
         /// Получение пользовательских настроек для чата
@@ -34,7 +34,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetUserSettings([FromBody] int userId)
         {
-            var result = _securityService.GetUserSettings(userId);
+            var result = _chatService.GetUserSettings(userId);
             return Ok(await result);
         }
 
@@ -46,7 +46,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetRooms([FromBody] int userId)
         {
-            //var result = _securityService.GetRooms(userId);
+            //var result = _chatService.GetRooms(userId);
             return Ok(/*await result*/);
         }
 
@@ -58,7 +58,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetMessagesFromTheRoom([FromBody] string name)
         {
-            var result = _securityService.GetMessagesFromTheRoom(name);
+            var result = _chatService.GetMessagesFromTheRoom(name);
             return Ok(await result);
         }
 
@@ -70,7 +70,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> AddMessage([FromBody] Message message)
         {
-            //var result = _securityService.AddMessage(message);
+            //var result = _chatService.AddMessage(message);
             return NoContent();
         }
 
@@ -84,7 +84,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> EditMessage([FromBody] ViewMessage message)
         {
-            //var result = _securityService.EditMessage(message);
+            //var result = _chatService.EditMessage(message);
             return NoContent();
         }
 
@@ -96,7 +96,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> DeleteMessage([FromBody] string messageId)
         {
-            var result = _securityService.DeleteMessage(messageId);
+            var result = _chatService.DeleteMessage(messageId);
             return NoContent();
         }
 
@@ -108,7 +108,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> EditSettings([FromBody] Settings settings)
         {
-            var result = _securityService.EditSettings(settings);
+            var result = _chatService.EditSettings(settings);
             return Ok(await result);
         }
 
