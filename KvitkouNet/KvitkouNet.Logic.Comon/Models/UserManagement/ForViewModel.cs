@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KvitkouNet.Web.Models.UserManagement
+namespace KvitkouNet.Logic.Common.Models.UserManagement
 {
     public class ForViewModel
     {
