@@ -39,9 +39,8 @@ namespace KvitkouNet.Web.Controllers
                 return BadRequest($"Invalid filter! {nameof(AccountLogsFilterDto.UserName)} is empty or whitespace!");
             }
 
-            await Task.Delay(1000);
-
-            return Ok(new List<AccountLogEntry>());
+	        var result = await _loggingService.GetAccountLogs(filter);
+            return Ok(result);
         }
 
         /// <summary>
