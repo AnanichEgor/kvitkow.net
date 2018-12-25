@@ -5,8 +5,13 @@ using System.Threading.Tasks;
 
 namespace KvitkouNet.Web.Models.Chat
 {
-    public class Message
+    public class ViewMessage
     {
+        /// <summary>
+        /// Id сообщения
+        /// </summary>
+        public string Id { get; set; }
+
         /// <summary>
         /// Время отправки
         /// </summary>

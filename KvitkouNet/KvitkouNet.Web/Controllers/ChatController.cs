@@ -38,17 +38,17 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        ///// <summary>
-        ///// Получение доступных комнат для пользователя согласно его роли
-        ///// </summary>
-        //[HttpPost, Route("rooms")]
-        //[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Room>), Description = "All OK")]
-        //[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        //public async Task<IActionResult> GetRooms([FromBody] int userId)
-        //{
-        //    var result = _securityService.GetRooms(userId);
-        //    return Ok(await result);
-        //}
+        /// <summary>
+        /// Получение доступных комнат для пользователя согласно его роли
+        /// </summary>
+        [HttpPost, Route("rooms")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Room>), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        public async Task<IActionResult> GetRooms([FromBody] int userId)
+        {
+            //var result = _securityService.GetRooms(userId);
+            return Ok(/*await result*/);
+        }
 
         /// <summary>
         /// Получение сообщений из комнаты, согласно ограничению по истории
@@ -62,6 +62,55 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
+        /// <summary>
+        /// Отправка сообщения
+        /// </summary>
+        [HttpPost, Route("romms/name/add")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        public async Task<IActionResult> AddMessage([FromBody] AddMessage message)
+        {
+            //var result = _securityService.AddMessage(message);
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Редактирование сообщения
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        [HttpPut, Route("romms/name/edit")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        public async Task<IActionResult> EditMessage([FromBody] Message message)
+        {
+            //var result = _securityService.EditMessage(message);
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Удаление сообщения
+        /// </summary>
+        [HttpDelete, Route("romms/name/delete")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        public async Task<IActionResult> DeleteMessage([FromBody] string messageId)
+        {
+            var result = _securityService.DeleteMessage(messageId);
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Изменение цвета фона чата
+        /// </summary>
+        [HttpPut, Route("settings/backgroundColor/edit")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        public async Task<IActionResult> EditSettings([FromBody] Settings settings)
+        {
+            var result = _securityService.EditSettings(settings);
+            return Ok(await result);
+        }
 
     }
 }

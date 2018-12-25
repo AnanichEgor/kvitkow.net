@@ -8,6 +8,11 @@ namespace KvitkouNet.Web.Models.Chat
     public class Room
     {
         /// <summary>
+        /// номер комнаты
+        /// </summary>
+        public string Id;
+
+        /// <summary>
         /// Название комнаты
         /// </summary>
         public string Name { get; set; }
