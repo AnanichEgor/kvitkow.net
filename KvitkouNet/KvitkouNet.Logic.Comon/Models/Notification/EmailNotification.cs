@@ -8,7 +8,7 @@
 		/// <summary>
 		/// Отправитель уведомления
 		/// </summary>
-		public long SenderId { get; set; }
+		public string SenderId { get; set; }
 
 		/// <summary>
 		/// Электронный ящик
