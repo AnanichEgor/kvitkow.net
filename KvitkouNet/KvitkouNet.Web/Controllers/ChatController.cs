@@ -94,11 +94,11 @@ namespace KvitkouNet.Web.Controllers
         [HttpPut, Route("romms/name/edit")]
         [SwaggerResponse(HttpStatusCode.NoContent, typeof(Message), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> EditMessage([FromBody] ViewMessage message)
-        {
-            //var result = _chatService.EditMessage(message);
-            //return Ok(await result);
-        }
+        //public async Task<IActionResult> EditMessage([FromBody] ViewMessage message)
+        //{
+        //    var result = _chatService.EditMessage(message);
+        //    return Ok(await result);
+        //}
 
         /// <summary>
         /// Удаление сообщения
