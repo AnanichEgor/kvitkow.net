@@ -29,7 +29,13 @@ namespace KvitkouNet.Logic.Common.Services.Chat
         /// Получение сообщений из комнаты, согласно ограничению по истории
         /// </summary>
         /// <returns></returns>
-        Task<Settings> GetMessagesFromTheRoom(string name);
+        Task<IEnumerable<Message>> GetMessagesFromTheRoom(string id);
+
+        /// <summary>
+        /// Поиск сообщения в комнате
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Message>> SearchMessage(string template, string roomId);
 
         /// <summary>
         /// Отправка сообщения
@@ -42,16 +48,16 @@ namespace KvitkouNet.Logic.Common.Services.Chat
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        //Task<Settings> EditMessage(ViewMessage message);
+        //Task<Message> EditMessage(ViewMessage message);
 
         /// <summary>
         /// Редактирование сообщения
         /// </summary>
         /// <returns></returns>
-        Task<Settings> DeleteMessage(string messageId);
+        Task DeleteMessage(string messageId);
 
         /// <summary>
-        /// Изменение цвета фона чата
+        /// Изменение пользовательских настроек
         /// </summary>
         Task<Settings> EditSettings(Settings settings);
     }

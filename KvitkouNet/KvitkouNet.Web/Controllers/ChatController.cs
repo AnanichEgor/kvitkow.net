@@ -56,9 +56,21 @@ namespace KvitkouNet.Web.Controllers
         [HttpPost, Route("romms/name")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetMessagesFromTheRoom([FromBody] string name)
+        public async Task<IActionResult> GetMessagesFromTheRoom([FromBody] string id)
         {
-            var result = _chatService.GetMessagesFromTheRoom(name);
+            var result = _chatService.GetMessagesFromTheRoom(id);
+            return Ok(await result);
+        }
+
+        /// <summary>
+        /// Поиск сообщения в комнате
+        /// </summary>
+        [HttpPost, Route("romms/name")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        public async Task<IActionResult> SearchMessage([FromBody] string template, string roomId)
+        {
+            var result = _chatService.SearchMessage(template, roomId);
             return Ok(await result);
         }
 
@@ -80,12 +92,12 @@ namespace KvitkouNet.Web.Controllers
         /// <param name="message"></param>
         /// <returns></returns>
         [HttpPut, Route("romms/name/edit")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(Message), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> EditMessage([FromBody] ViewMessage message)
         {
             //var result = _chatService.EditMessage(message);
-            return NoContent();
+            //return Ok(await result);
         }
 
         /// <summary>
@@ -101,7 +113,7 @@ namespace KvitkouNet.Web.Controllers
         }
 
         /// <summary>
-        /// Изменение цвета фона чата
+        /// Изменение пользовательских настроек
         /// </summary>
         [HttpPut, Route("settings/backgroundColor/edit")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
