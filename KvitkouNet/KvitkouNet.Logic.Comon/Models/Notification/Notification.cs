@@ -19,23 +19,13 @@ namespace KvitkouNet.Logic.Common.Models.Notification
 		public string UserId { get; set; }
 
 		/// <summary>
-		/// Заголовок уведомления
+		/// Сообщение уведомления
 		/// </summary>
-		public string Title { get; set; }
-
-		/// <summary>
-		/// Текст уведомления
-		/// </summary>
-		public string Message { get; set; }
+		public NotificationMessage Message { get; set; }
 
 		/// <summary>
 		/// Дата отправки
 		/// </summary>
 		public DateTime Date { get; set; }
-
-		/// <summary>
-		/// Тип уведомления
-		/// </summary>
-		public NotificationType Type { get; set; }
 	}
 }

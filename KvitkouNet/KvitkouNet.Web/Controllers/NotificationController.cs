@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using NSwag.Annotations;
 using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using NSwag.Annotations;
 using KvitkouNet.Logic.Common.Models.Notification;
-using KvitkouNet.Web.Models.Notification;
-using System.Collections.ObjectModel;
+using KvitkouNet.Logic.Common.Services.Notification;
+using KvitkouNet.Logic.Common.Models.Notification.Requests;
 
 namespace KvitkouNet.Web.Controllers
 {
@@ -15,45 +15,59 @@ namespace KvitkouNet.Web.Controllers
 	[Route("api/notification")]
 	public class NotificationController : Controller
 	{
+		private INotificationService m_service;
+
+		/// <summary>
+		/// Конструктор
+		/// </summary>
+		/// <param name="service"></param>
+		public NotificationController(INotificationService service)
+		{
+			m_service = service;
+		}
+
 		/// <summary>
 		/// Получить все уведомления
 		/// </summary>
-		/// <remarks>email уведомления не входят</remarks>
 		/// <returns>возвращает список уведомлений для пользователя</returns>
+		/// <remarks>email уведомления не входят</remarks>
 		[HttpGet, Route("all")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<UserNotification>), Description = "All OK")]
 		public async Task<IActionResult> GetAll()
-		{
-			IEnumerable<UserNotification> result = await Task.FromResult(new Collection<UserNotification>());
-			return Ok(result);
+		{			 
+			return Ok(await m_service.GetAll());
 		}
 
 		/// <summary>
 		/// Получить уведомление
 		/// </summary>
 		/// <param name="notificationId">ИД уведомления</param>
-		/// <returns>возвращает список уведомлений для пользователяй</returns>
+		/// <returns>возвращает уведомление для пользователя</returns>
 		[HttpGet, Route("id")]
-		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<UserNotification>))]
+		[SwaggerResponse(HttpStatusCode.OK, typeof(UserNotification))]
 		[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Notification not found")]
 		public async Task<IActionResult> GetNotification([FromBody] string notificationId)
 		{
-			IEnumerable<UserNotification> result = await Task.FromResult(new Collection<UserNotification>());
-			return Ok(result);
+			return Ok(await m_service.GetNotification(notificationId));
 		}
 
 		/// <summary>
 		/// Обновить уведомление
 		/// </summary>
 		/// <param name="notificationId">ИД уведомления</param>
-		/// <param name="notification">параметры уведомления</param>
+		/// <param name="messsage">Сообщение уведомления</param>
 		/// <remarks>email уведомления не обновляются</remarks>
 		[HttpPatch, Route("id")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(NoContentResult))]
 		[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Notification not found")]
-		public async Task<IActionResult> EditNotification(string notificationId, [FromBody] NotificationModel notification)
+		public async Task<IActionResult> EditNotification(string notificationId, [FromBody] NotificationMessage messsage)
 		{
-			string result = await Task.FromResult("");
+			await m_service.EditNotification(new UserNotification
+			{
+				NotificationId = notificationId,
+				Message = messsage
+			});
+
 			return NoContent();
 		}
 
@@ -66,23 +80,26 @@ namespace KvitkouNet.Web.Controllers
 		[HttpGet, Route("users/id")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<UserNotification>), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "User not found")]
-		public async Task<IActionResult> GetUserNotification(string userId, bool onlyOpen = true)
-		{
-			IEnumerable<UserNotification> result = await Task.FromResult(new Collection<UserNotification>());
-			return Ok(result);
+		public async Task<IActionResult> GetUserNotifications(string userId, bool onlyOpen = true)
+		{			
+			return Ok(await m_service.GetUserNotifications(userId, onlyOpen));
 		}
 
 		/// <summary>
 		/// Создать уведомление для пользователя
 		/// </summary>
-		/// <param name="userId"></param>
-		/// <param name="notification"></param>
+		/// <param name="userId">ИД пользователя</param>
+		/// <param name="messsage">Сообщение уведомления</param>
 		[HttpPost, Route("users/id")]
-		[SwaggerResponse(HttpStatusCode.Created, typeof(CreatedResult))]
-		public async Task<IActionResult> AddUserNotification(string userId, [FromBody] NotificationModel notification)
+		[SwaggerResponse(HttpStatusCode.NoContent, typeof(NoContentResult))]
+		public async Task<IActionResult> AddUserNotification(string userId, [FromBody] NotificationMessage messsage)
 		{
-			UserNotification result = await Task.FromResult(new UserNotification());
-			return Created("api/notification/users/id/" + 1, result);
+			await m_service.AddUserNotifications(new UserNotificationBulkRequest
+			{
+				UserIds = new string[] {userId},
+				Message = messsage
+			});
+			return NoContent();
 		}
 
 		/// <summary>
@@ -92,21 +109,20 @@ namespace KvitkouNet.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(NoContentResult))]
 		public async Task<IActionResult> SetStatusClosed([FromBody] string notificationId)
 		{
-			string result = await Task.FromResult("");
+			await m_service.SetStatusClosed(notificationId);
 			return NoContent();
 		}
 
 		/// <summary>
 		/// Создать уведомления для пользователей
 		/// </summary>
-		/// <param name="userIds"></param>
-		/// <param name="notification"></param>
+		/// <param name="request">Массовый запрос для пользователей</param>
 		/// <remarks>Для ненайденных пользователей уведомление не будет создано</remarks>
 		[HttpPost, Route("users/ids")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(NoContentResult))]
-		public async Task<IActionResult> AddNotificationForUsers([FromBody] NotificationBulkModel notification)
+		public async Task<IActionResult> AddNotifications([FromBody] UserNotificationBulkRequest request)
 		{
-			string result = await Task.FromResult("");
+			await m_service.AddUserNotifications(request);
 			return NoContent();
 		}
 
@@ -115,13 +131,13 @@ namespace KvitkouNet.Web.Controllers
 		/// </summary>
 		/// <param name="senderId">ИД пользователя, отправляющего соообщение</param>
 		/// <param name="email">Ящик почты</param>
-		/// <param name="notification">Уведомление</param>
+		/// <param name="messsage">Сообщение уведомления</param>
 		[HttpPost, Route("registration")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(NoContentResult))]
-		public async Task<IActionResult> SendRegistrationNotification(string senderId, string email, [FromBody] NotificationModel notification)
+		public async Task<IActionResult> SendRegistrationNotification(string senderId, string email, [FromBody] NotificationMessage messsage)
 		{
-			Task<bool> result = Task.FromResult(true);
-			return Ok(await result);
+			await m_service.SendRegistrationNotification(senderId, email, messsage);
+			return NoContent();
 		}
 
 		/// <summary>
@@ -130,10 +146,9 @@ namespace KvitkouNet.Web.Controllers
 		/// <returns>Список email уведомлений</returns>
 		[HttpGet, Route("all/email")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<EmailNotification>))]
-		public async Task<IActionResult> GetAllEmailNotification()
+		public async Task<IActionResult> GetAllEmailNotifications()
 		{
-			IEnumerable<EmailNotification> result = await Task.FromResult(new Collection<EmailNotification>());
-			return Ok(result);
+			return Ok(await m_service.GetAllEmailNotifications());
 		}
 
 		/// <summary>
@@ -143,10 +158,9 @@ namespace KvitkouNet.Web.Controllers
 		/// <returns>Список email уведомлений</returns>
 		[HttpGet, Route("users/id/email")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<EmailNotification>), Description = "All OK")]
-		public async Task<IActionResult> GetEmailNotification([FromBody] string userId)
+		public async Task<IActionResult> GetEmailNotifications([FromBody] string userId)
 		{
-			IEnumerable<EmailNotification> result = await Task.FromResult(new Collection<EmailNotification>());
-			return Ok(result);
+			return Ok(await m_service.GetEmailNotifications(userId));
 		}
 
 		/// <summary>
@@ -154,12 +168,16 @@ namespace KvitkouNet.Web.Controllers
 		/// </summary>
 		/// <param name="userId">ИД пользователя</param>
 		/// <param name="senderId">ИД пользователя, отправляющего соообщение</param>
-		/// <param name="notification">Уведомление</param>
+		/// <param name="messsage">Сообщение уведомления</param>
 		[HttpPost, Route("users/id/email")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(NoContentResult))]
-		public async Task<IActionResult> SendEmailNotification(string userId, string senderId, [FromBody] NotificationModel notification)
+		public async Task<IActionResult> SendEmailNotification(string userId, string senderId, [FromBody] NotificationMessage messsage)
 		{
-			string result = await Task.FromResult("");
+			await m_service.SendEmailNotifications(senderId, new UserNotificationBulkRequest
+			{
+				UserIds = new string[] { userId },
+				Message = messsage
+			});
 			return NoContent();
 		}
 
@@ -167,12 +185,12 @@ namespace KvitkouNet.Web.Controllers
 		/// Отправить email уведомление для пользователей
 		/// </summary>
 		/// <param name="senderId">ИД пользователя, отправляющего соообщение</param>
-		/// <param name="notification">Уведомление</param>
+		/// <param name="request">Массовый запрос для пользователей</param>
 		[HttpPost, Route("users/ids/email")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(NoContentResult))]
-		public async Task<IActionResult> SendEmailNotificationForUsers(string senderId, [FromBody] NotificationBulkModel notification)
+		public async Task<IActionResult> SendEmailNotifications(string senderId, [FromBody] UserNotificationBulkRequest request)
 		{
-			string result = await Task.FromResult("");
+			await m_service.SendEmailNotifications(senderId, request);
 			return NoContent();
 		}
 
@@ -180,12 +198,12 @@ namespace KvitkouNet.Web.Controllers
 		/// Отправить email уведомление всем пользователям
 		/// </summary>
 		/// <param name="senderId">ИД пользователя, отправляющего соообщение</param>
-		/// <param name="notification">Уведомление</param>
+		/// <param name="messsage">Сообщение уведомления</param>
 		[HttpPost, Route("users/email")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(NoContentResult))]
-		public async Task<IActionResult> SendEmailNotificationForAllUsers(string senderId, [FromBody] NotificationModel notification)
+		public async Task<IActionResult> SendEmailNotificationForAllUsers(string senderId, [FromBody] NotificationMessage messsage)
 		{
-			string result = await Task.FromResult("");
+			await m_service.SendEmailNotificationForAllUsers(senderId, messsage);
 			return NoContent();
 		}
 	}

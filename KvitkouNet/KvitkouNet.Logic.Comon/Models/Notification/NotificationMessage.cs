@@ -1,11 +1,11 @@
 ﻿using KvitkouNet.Logic.Common.Models.Notification.Enums;
 
-namespace KvitkouNet.Web.Models.Notification
+namespace KvitkouNet.Logic.Common.Models.Notification
 {
 	/// <summary>
-	/// Модель уведомления
+	/// Сообщение уведомления
 	/// </summary>
-	public class NotificationModel
+	public class NotificationMessage
 	{
 		/// <summary>
 		/// Заголовок уведомления
@@ -15,11 +15,11 @@ namespace KvitkouNet.Web.Models.Notification
 		/// <summary>
 		/// Текст уведомления
 		/// </summary>
-		public string Message { get; set; }
+		public string Text { get; set; }
 
 		/// <summary>
 		/// Тип уведомления
 		/// </summary>
 		public NotificationType Type { get; set; }
-	}
+	}	
 }

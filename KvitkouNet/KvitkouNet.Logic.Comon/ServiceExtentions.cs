@@ -1,4 +1,5 @@
 ﻿using KvitkouNet.Logic.Common.Models.UserManagement;
+using KvitkouNet.Logic.Common.Services.Notification;
 using KvitkouNet.Logic.Common.Services.Security;
 using KvitkouNet.Logic.Common.Services.User;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,5 +29,11 @@ namespace KvitkouNet.Logic.Common
             services.AddScoped<ISecurityService>(_ => mock.Object);
             return services;
         }
+
+		public static IServiceCollection RegisterNotificationService(this IServiceCollection services)
+		{
+			services.AddScoped(obj => new Mock<INotificationService>().Object);
+			return services;
+		}
     }
 }
