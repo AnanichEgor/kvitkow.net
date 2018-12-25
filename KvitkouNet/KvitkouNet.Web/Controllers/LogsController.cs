@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using KvitkouNet.Logic.Common.Dtos.Logging;
 using KvitkouNet.Logic.Common.Models.Logging;
+using KvitkouNet.Logic.Common.Services.Logging;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
@@ -14,7 +15,14 @@ namespace KvitkouNet.Web.Controllers
     [Route("api/logs")]
     public class LogsController : Controller
     {
-        /// <summary>
+	    private ILoggingService _loggingService;
+
+	    public LogsController(ILoggingService loggingService)
+	    {
+		    _loggingService = loggingService;
+	    }
+
+	    /// <summary>
         /// Получает логи действий с аккаунтами пользователей
         /// </summary>
         /// <param name="filter">Фильтр логов действий с аккаунтами</param>

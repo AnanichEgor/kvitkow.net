@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using KvitkouNet.Logic.Common.Models.Search;
 using KvitkouNet.Logic.Common.Models.UserManagement;
+using KvitkouNet.Logic.Common.Services.Logging;
 using KvitkouNet.Logic.Common.Services.Search;
 using KvitkouNet.Logic.Common.Services.Security;
 using KvitkouNet.Logic.Common.Services.User;
@@ -34,7 +35,18 @@ namespace KvitkouNet.Logic.Common
             return services;
         }
 
-        private static Mock<ISearchUserService> GetUserSearchMock()
+	    /// <summary>
+	    /// Регистрация ILoggingService
+	    /// </summary>
+	    /// <param name="services"></param>
+	    /// <returns></returns>
+	    public static IServiceCollection RegisterLoggingService(this IServiceCollection services)
+	    {
+		    services.AddScoped<ILoggingService>(_ => GetLoggingServiceMock().Object);
+		    return services;
+	    }
+
+		private static Mock<ISearchUserService> GetUserSearchMock()
         {
             var mock = new Mock<ISearchUserService>();
             var result = new SearchResult<UserInfo>
@@ -59,5 +71,8 @@ namespace KvitkouNet.Logic.Common
 
             return mock;
         }
-    }
+
+	    private static Mock<ILoggingService> GetLoggingServiceMock()
+			=> new Mock<ILoggingService>();
+	}
 }
