@@ -39,7 +39,7 @@ namespace KvitkouNet.Web.Controllers
                 return BadRequest($"Invalid filter! {nameof(AccountLogsFilterDto.UserName)} is empty or whitespace!");
             }
 
-	        var result = await _loggingService.GetAccountLogs(filter);
+	        var result = await _loggingService.GetAccountLogsAsync(filter);
             return Ok(result);
         }
 
@@ -60,7 +60,7 @@ namespace KvitkouNet.Web.Controllers
                 return BadRequest($"Invalid filter! {nameof(ErrorLogsFilterDto.ExceptionTypeName)} is empty or whitespace!");
             }
 
-	        var result = await _loggingService.GetErrorLogs(filter);
+	        var result = await _loggingService.GetErrorLogsAsync(filter);
             return Ok(result);
         }
 
@@ -81,7 +81,7 @@ namespace KvitkouNet.Web.Controllers
                 return BadRequest($"Invalid filter! {nameof(TicketLogsFilterDto.TicketName)} is empty or whitespace!");
             }
 
-	        var result = await _loggingService.GetTicketActionLogs(filter);
+	        var result = await _loggingService.GetTicketActionLogsAsync(filter);
             return Ok(result);
         }
 
@@ -102,7 +102,7 @@ namespace KvitkouNet.Web.Controllers
 			    return BadRequest($"Invalid filter! {nameof(TicketLogsFilterDto.TicketName)} is empty or whitespace!");
 		    }
 
-		    var result = await _loggingService.GetTicketDealLogs(filter);
+		    var result = await _loggingService.GetTicketDealLogsAsync(filter);
 		    return Ok(result);
 	    }
 
@@ -122,7 +122,7 @@ namespace KvitkouNet.Web.Controllers
 			    return BadRequest($"Invalid filter! {nameof(PaymentLogsFilterDto.UserName)} is empty or whitespace!");
 		    }
 
-		    var result = await _loggingService.GetPaymentLogs(filter);
+		    var result = await _loggingService.GetPaymentLogsAsync(filter);
 		    return Ok(result);
 	    }
 
@@ -142,7 +142,7 @@ namespace KvitkouNet.Web.Controllers
 			    return BadRequest($"Invalid filter! {nameof(SearchQueryLogsFilterDto.UserName)} is empty or whitespace!");
 		    }
 
-		    var result = _loggingService.GetSearchQueryLogs(filter);
+		    var result = _loggingService.GetSearchQueryLogsAsync(filter);
 		    return Ok(result);
 		}
 	}
