@@ -8,7 +8,7 @@ namespace KvitkouNet.Logic.Common
 {
     public static class ServiceExtentions
     {
-        public static IServiceCollection RegisterTicketServices(this IServiceCollection services)
+        public static IServiceCollection RegisterUserServices(this IServiceCollection services)
         {
             var mock = new Mock<IUserService>();
 
