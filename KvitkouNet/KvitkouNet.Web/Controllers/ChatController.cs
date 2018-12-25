@@ -5,10 +5,10 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using KvitkouNet.Logic.Common.Models.Chat.ChatSettings;
-using KvitkouNet.Logic.Common.Models.Security;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using KvitkouNet.Web.Models.Chat;
+using KvitkouNet.Logic.Common.Models.Chat;
 using KvitkouNet.Logic.Common.Services.Chat;
 
 
@@ -42,7 +42,7 @@ namespace KvitkouNet.Web.Controllers
         /// Получение доступных комнат для пользователя согласно его роли
         /// </summary>
         [HttpPost, Route("rooms")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Room>), Description = "All OK")]
+        //[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Room>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetRooms([FromBody] int userId)
         {
@@ -68,7 +68,7 @@ namespace KvitkouNet.Web.Controllers
         [HttpPost, Route("romms/name/add")]
         [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> AddMessage([FromBody] AddMessage message)
+        public async Task<IActionResult> AddMessage([FromBody] Message message)
         {
             //var result = _securityService.AddMessage(message);
             return NoContent();
@@ -82,7 +82,7 @@ namespace KvitkouNet.Web.Controllers
         [HttpPut, Route("romms/name/edit")]
         [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> EditMessage([FromBody] Message message)
+        public async Task<IActionResult> EditMessage([FromBody] ViewMessage message)
         {
             //var result = _securityService.EditMessage(message);
             return NoContent();
