@@ -1,15 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace KvitkouNet.Logic.Common.Models
 {
-	public class UserSettings
+	/// <summary>
+	/// Класс настроек пользователя
+	/// </summary>
+	public class ProfileSettings
 	{
+		/// <summary>
+		/// Идентификатор пользователя
+		/// </summary>
+		public string UserId { get; set; }
+
+		/// <summary>
+		/// Имя
+		/// </summary>
+		public string FirstName { get; set; }
+
+		/// <summary>
+		/// Отчество
+		/// </summary>
+		public string MiddleName { get; set; }
+
+		/// <summary>
+		/// Фамилия
+		/// </summary>
+		public string LastName { get; set; }
+
 		/// <summary>
 		/// Аватарка пользователся
 		/// </summary>
 		public object UserImage { get; set; }
+
+		/// <summary>
+		/// Логин пользователя. Доступен только для просмотра.
+		/// </summary>
+		public string Login { get; private set; }
 
 		/// <summary>
 		/// Флаг, отвечающий за закрытость аккаунта для гостей.

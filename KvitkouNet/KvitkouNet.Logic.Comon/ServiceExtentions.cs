@@ -60,5 +60,17 @@ namespace KvitkouNet.Logic.Common
 
             return mock;
         }
-    }
+
+		/// <summary>
+		/// Регистрация IUserSettingsService
+		/// </summary>
+		/// <param name="services"></param>
+		/// <returns></returns>
+		public static IServiceCollection RegisterUserSettingsService(this IServiceCollection services)
+		{
+			var mock = new Mock<IUserSettingsService>();
+			services.AddScoped<IUserSettingsService>(_ => mock.Object);
+			return services;
+		}
+	}
 }
