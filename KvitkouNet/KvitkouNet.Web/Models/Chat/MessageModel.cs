@@ -15,7 +15,7 @@ namespace KvitkouNet.Web.Models.Chat
         /// <summary>
         /// Время отправки
         /// </summary>
-        public DateTime Sended { get; set; }
+        public DateTime SendedTime { get; set; }
 
         /// <summary>
         /// Текст сообщения

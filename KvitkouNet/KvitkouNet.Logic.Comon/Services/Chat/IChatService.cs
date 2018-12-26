@@ -35,30 +35,35 @@ namespace KvitkouNet.Logic.Common.Services.Chat
         /// Поиск сообщения в комнате
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Message>> SearchMessage(string template, string roomId);
+        Task<IEnumerable<Message>> SearchMessage(string roomId, string template);
 
         /// <summary>
         /// Отправка сообщения
         /// </summary>
         /// <returns></returns>
-        Task AddMessage(Message message);
+        Task AddMessage(Message message, string roomId);
 
         /// <summary>
         /// Редактирование сообщения
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        Task EditMessage(Message message);
+        Task EditMessage(Message message, string roomId);
 
         /// <summary>
-        /// Редактирование сообщения
+        /// Удаление сообщения
         /// </summary>
         /// <returns></returns>
         Task DeleteMessage(string roomId, string messageId);
 
         /// <summary>
+        /// Проставить признак прочитанного сообщения
+        /// </summary>
+        Task EditSettingsForMessage(string roomId, string messageId);
+
+        /// <summary>
         /// Изменение пользовательских настроек
         /// </summary>
-        Task EditSettings(string settings);
+        Task EditUserSettings(Settings settings);
     }
 }
