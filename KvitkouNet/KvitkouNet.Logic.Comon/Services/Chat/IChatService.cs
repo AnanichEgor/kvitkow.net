@@ -48,17 +48,17 @@ namespace KvitkouNet.Logic.Common.Services.Chat
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        //Task<Message> EditMessage(ViewMessage message);
+        Task EditMessage(Message message);
 
         /// <summary>
         /// Редактирование сообщения
         /// </summary>
         /// <returns></returns>
-        Task DeleteMessage(string messageId);
+        Task DeleteMessage(string roomId, string messageId);
 
         /// <summary>
         /// Изменение пользовательских настроек
         /// </summary>
-        Task<Settings> EditSettings(Settings settings);
+        Task EditSettings(string settings);
     }
 }

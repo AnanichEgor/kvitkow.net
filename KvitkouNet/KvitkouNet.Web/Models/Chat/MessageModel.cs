@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace KvitkouNet.Web.Models.Chat
 {
-    public class ViewMessage
+    public class MessageModel
     {
         /// <summary>
         /// Id сообщения
@@ -25,6 +25,6 @@ namespace KvitkouNet.Web.Models.Chat
         /// <summary>
         /// Имя отправителя
         /// </summary>
-        public string UserName { get; set; }
+        public string UserId { get; set; }
     }
 }

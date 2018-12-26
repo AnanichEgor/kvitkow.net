@@ -17,7 +17,7 @@ namespace KvitkouNet.Logic.Common.Models.Chat
         /// <summary>
         /// Id пользователя кто отправил сообщение
         /// </summary>
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// Время отправки

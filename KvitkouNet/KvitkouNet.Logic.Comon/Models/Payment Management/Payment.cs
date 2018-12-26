@@ -12,7 +12,7 @@ namespace KvitkouNet.Logic.Common.Models.PaymentManagement
     {
         User Customer { get; set; }
         User Recepient { get; set; }
-        PaymentTransactionStatus Transaction { get; set; }
-        ICollection<Ticket.Ticket> Tickets { get; set; }
+        //PaymentTransactionStatus Transaction { get; set; }
+        //ICollection<Ticket.Ticket> Tickets { get; set; }
     }
 }

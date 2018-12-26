@@ -37,7 +37,7 @@ namespace KvitkouNet.Web.Controllers
         public async Task<IActionResult> GetUserSettings()
         {
             var result = _chatService.GetUserSettings((string)RouteData.Values["id"]);
-            return Ok(await result);
+            return Ok(result);
         }
 
         /// <summary>
@@ -67,24 +67,24 @@ namespace KvitkouNet.Web.Controllers
         /// <summary>
         /// Поиск сообщения в комнате
         /// </summary>
-        [HttpPost, Route("romms/name")]
+        [HttpGet, Route("romms/{id}/messages/{template}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> SearchMessage([FromBody] string template, string roomId)
+        public async Task<IActionResult> SearchMessage()
         {
-            var result = _chatService.SearchMessage(template, roomId);
+            var result = _chatService.SearchMessage((string)RouteData.Values["template"], (string)RouteData.Values["id"]);
             return Ok(await result);
         }
 
         /// <summary>
         /// Отправка сообщения
         /// </summary>
-        [HttpPost, Route("romms/name/add")]
+        [HttpPost, Route("romms/{id}/message")]
         [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> AddMessage([FromBody] Message message)
         {
-            //var result = _chatService.AddMessage(message);
+            await _chatService.AddMessage(message);
             return NoContent();
         }
 
@@ -93,37 +93,44 @@ namespace KvitkouNet.Web.Controllers
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        [HttpPut, Route("romms/name/edit")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(Message), Description = "All OK")]
+        [HttpPatch, Route("romms/{id}/mesagge")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        //public async Task<IActionResult> EditMessage([FromBody] ViewMessage message)
-        //{
-        //    var result = _chatService.EditMessage(message);
-        //    return Ok(await result);
-        //}
+        public async Task<IActionResult> EditMessage([FromBody] MessageModel message)
+        {
+            var result = _chatService.EditMessage(new Message()
+            {
+                RoomId = (string)RouteData.Values["id"],
+                Id = message.Id,
+                Sended = message.Sended,
+                Text = message.Text,
+                UserId = message.UserId
+            });
+            return NoContent();
+        }
 
         /// <summary>
         /// Удаление сообщения
         /// </summary>
-        [HttpDelete, Route("romms/name/delete")]
+        [HttpDelete, Route("romms/{roomid}/mesagges/{messageid}")]
         [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> DeleteMessage([FromBody] string messageId)
+        public async Task<IActionResult> DeleteMessage()
         {
-            var result = _chatService.DeleteMessage(messageId);
+            var result = _chatService.DeleteMessage((string)RouteData.Values["roomid"], (string)RouteData.Values["messageid"]);
             return NoContent();
         }
 
         /// <summary>
         /// Изменение пользовательских настроек
         /// </summary>
-        [HttpPut, Route("settings/backgroundColor/edit")]
+        [HttpPatch, Route("settings/{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> EditSettings([FromBody] Settings settings)
+        public async Task<IActionResult> EditSettings()
         {
-            var result = _chatService.EditSettings(settings);
-            return Ok(await result);
+            var result = _chatService.EditSettings((string)RouteData.Values["id"]);
+            return NoContent();
         }
 
     }
