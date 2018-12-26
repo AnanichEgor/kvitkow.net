@@ -79,7 +79,7 @@ namespace KvitkouNet.Logic.Common.Models.UserManagement
         /// <summary>
         /// Настройки пользователя
         /// </summary>
-        //public UserSettings UserSettings { get; set; }
+        public UserSettings UserSettings { get; set; }
 
         /// <summary>
         /// Список билетов принадлежащих пользователю

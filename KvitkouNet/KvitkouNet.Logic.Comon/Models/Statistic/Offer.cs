@@ -19,7 +19,7 @@ namespace KvitkouNet.Logic.Common.Models.Statistic
         /// <summary>
         /// Shows tickets, which have been using in the offer 
         /// </summary>
-        //public IEnumerable<Ticket.Ticket> Tickets { get; }
+        public IEnumerable<Ticket.Ticket> Tickets { get; }
         
         /// <summary>
         /// Provides the name of offer
