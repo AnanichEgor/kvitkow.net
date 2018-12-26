@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using KvitkouNet.Logic.Common.Models.Ticket;
+using KvitkouNet.Logic.Common.Models.Tickets;
+using KvitkouNet.Logic.Common.Services.Tickets;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
@@ -13,6 +14,13 @@ namespace KvitkouNet.Web.Controllers
     [Route("api/tickets")]
     public class TicketController : Controller
     {
+        private ITicketService _service;
+
+        public TicketController(ITicketService service)
+        {
+            _service = service;
+        }
+
         /// <summary>
         ///     Добавляет билет
         /// </summary>
@@ -24,10 +32,8 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Add([FromBody] Ticket ticket)
         {
-            var result = Task.FromResult(ModelState.IsValid);
-            return await result
-                ? (IActionResult) Created(ticket.TicketId, ticket)
-                : BadRequest("Model not valid");
+            var result = _service.Add(ticket);
+            return Ok(await result);
         }
 
         /// <summary>
@@ -43,7 +49,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Ticket ticket)
         {
-            var result = Task.FromResult(true);
+            var result = _service.Update(id, ticket);
             return Ok(await result);
         }
 
@@ -58,8 +64,8 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
         public async Task<IActionResult> DeleteAll()
         {
-            var result = Task.FromResult(true);
-            return Ok(await result);
+            var result = _service.DeleteAll();
+            return Ok();
         }
 
         /// <summary>
@@ -74,8 +80,8 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
-            var result = Task.FromResult(true);
-            return Ok(await result);
+            var result = _service.Delete(id);
+            return Ok();
         }
 
         /// <summary>
@@ -88,7 +94,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAll()
         {
-            var result = Task.FromResult(new List<Ticket> {new Ticket {Name = "Fake"}});
+            var result = _service.GetAll();
             return Ok(await result);
         }
 
@@ -104,7 +110,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
-            var result = Task.FromResult(new Ticket {Name = "Fake"});
+            var result = _service.Get(id);
             return Ok(await result);
         }
 
@@ -119,7 +125,7 @@ namespace KvitkouNet.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAllActual()
         {
-            var result = Task.FromResult(new List<Ticket> {new Ticket {Name = "Fake"}});
+            var result = _service.GetAllActual();
             return Ok(await result);
         }
     }

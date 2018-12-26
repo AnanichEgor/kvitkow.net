@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using KvitkouNet.Logic.Common.Models.Enums;
 using KvitkouNet.Logic.Common.Models.Search;
 using KvitkouNet.Logic.Common.Models.UserManagement;
 
-namespace KvitkouNet.Logic.Common.Models.Ticket
+namespace KvitkouNet.Logic.Common.Models.Tickets
 {
     /// <summary>
     ///     Класс описания доменной модели билета

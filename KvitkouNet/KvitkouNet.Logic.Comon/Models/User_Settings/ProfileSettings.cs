@@ -9,7 +9,7 @@ namespace KvitkouNet.Logic.Common.Models
 	public class ProfileSettings
 	{
 		/// <summary>
-		/// Базовые свойства конретного пользователя.
+		/// Идентификатор пользователя
 		/// </summary>
 		public string UserId { get; set; }
 
