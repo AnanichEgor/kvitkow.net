@@ -34,9 +34,9 @@ namespace KvitkouNet.Web.Controllers
         [HttpGet, Route("settings/{uid}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(Settings), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetUserSettings([FromRoute] string userId)
+        public async Task<IActionResult> GetUserSettings([FromRoute] string uid)
         {
-            var result = _chatService.GetUserSettings(userId);
+            var result = _chatService.GetUserSettings(uid);
             return Ok(result);
         }
 
@@ -46,9 +46,9 @@ namespace KvitkouNet.Web.Controllers
         [HttpGet, Route("rooms/users/{uid}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Room>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetRooms([FromRoute] string userId)
+        public async Task<IActionResult> GetRooms([FromRoute] string uid)
         {
-            var result = _chatService.GetRooms(userId);
+            var result = _chatService.GetRooms(uid);
             return Ok(await result);
         }
 
@@ -58,9 +58,9 @@ namespace KvitkouNet.Web.Controllers
         [HttpGet, Route("romms/{rid}/messages")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetMessagesFromTheRoom([FromRoute] string roomId)
+        public async Task<IActionResult> GetMessagesFromTheRoom([FromRoute] string rid)
         {
-            var result = _chatService.GetMessagesFromTheRoom(roomId);
+            var result = _chatService.GetMessagesFromTheRoom(rid);
             return Ok(await result);
         }
 
