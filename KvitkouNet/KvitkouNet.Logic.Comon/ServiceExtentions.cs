@@ -73,8 +73,6 @@ namespace KvitkouNet.Logic.Common
             services.AddScoped(_ => mock.Object);
             return services;
         }
-    }
-
 		/// <summary>
 		/// Регистрация IUserSettingsService
 		/// </summary>
