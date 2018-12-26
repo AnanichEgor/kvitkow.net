@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace KvitkouNet.Logic.Common.Models.Chat.Settings
+namespace KvitkouNet.Logic.Common.Models.Chat.ChatSettings
 {
     public enum BackgroundColor
     {

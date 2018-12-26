@@ -7,7 +7,12 @@ namespace KvitkouNet.Logic.Common.Models.Chat
         /// <summary>
         /// Id сообщения
         /// </summary>
-        public int MessageId { get; set; }
+        public string Id { get; set; }
+
+        /// <summary>
+        /// Id комнаты в которой было отправлено сообщение
+        /// </summary>
+        public string RoomId { get; set; }
 
         /// <summary>
         /// Id пользователя
@@ -15,8 +20,18 @@ namespace KvitkouNet.Logic.Common.Models.Chat
         public int UserId { get; set; }
 
         /// <summary>
+        /// Имя пользователя
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
         /// Время отправки
         /// </summary>
         public DateTime Sended { get; set; }
+
+        /// <summary>
+        /// Текст сообщения
+        /// </summary>
+        public string Text { get; set; }
     }
 }

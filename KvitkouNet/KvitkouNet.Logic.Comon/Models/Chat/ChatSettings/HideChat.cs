@@ -1,5 +1,5 @@
 ﻿
-namespace KvitkouNet.Logic.Common.Models.Chat.Settings
+namespace KvitkouNet.Logic.Common.Models.Chat.ChatSettings
 {
     public enum HideChat
     {

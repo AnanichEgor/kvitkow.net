@@ -1,8 +1,20 @@
 ﻿
-namespace KvitkouNet.Logic.Common.Models.Chat.Settings
+using KvitkouNet.Logic.Common.Models.Security;
+
+namespace KvitkouNet.Logic.Common.Models.Chat.ChatSettings
 {
-    public class UserSettingsChat
+    public class Settings
     {
+        /// <summary>
+        /// Уникальный UserId
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Роль пользователя в системе и его права
+        ///  </summary>
+        public string Role { get; set; }
+
         /// <summary>
         /// Фон чата
         /// </summary>
