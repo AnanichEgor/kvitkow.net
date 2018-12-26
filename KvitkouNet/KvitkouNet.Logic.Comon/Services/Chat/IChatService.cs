@@ -17,13 +17,13 @@ namespace KvitkouNet.Logic.Common.Services.Chat
         /// Получение пользовательских настроек для чата
         /// </summary>
         /// <returns></returns>
-        Task<Settings> GetUserSettings(int userId);
+        Task<Settings> GetUserSettings(string userId);
 
         /// <summary>
         /// Получение списка прав доступа
         /// </summary>
         /// <returns></returns>
-        //Task<IEnumerable<Room>> GetRooms(int userId);
+        Task<IEnumerable<Room>> GetRooms(string userId);
 
         /// <summary>
         /// Получение сообщений из комнаты, согласно ограничению по истории

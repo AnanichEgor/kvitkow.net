@@ -10,6 +10,7 @@ using NSwag.Annotations;
 using KvitkouNet.Web.Models.Chat;
 using KvitkouNet.Logic.Common.Models.Chat;
 using KvitkouNet.Logic.Common.Services.Chat;
+using Microsoft.AspNetCore.Routing;
 
 
 namespace KvitkouNet.Web.Controllers
@@ -26,39 +27,40 @@ namespace KvitkouNet.Web.Controllers
         {
             _chatService = chatService;
         }
+
         /// <summary>
         /// Получение пользовательских настроек для чата
         /// </summary>
-        [HttpPost, Route("")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Settings>), Description = "All OK")]
+        [HttpGet, Route("{id}")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(Settings), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetUserSettings([FromBody] int userId)
+        public async Task<IActionResult> GetUserSettings()
         {
-            var result = _chatService.GetUserSettings(userId);
+            var result = _chatService.GetUserSettings((string)RouteData.Values["id"]);
             return Ok(await result);
         }
 
         /// <summary>
-        /// Получение доступных комнат для пользователя согласно его роли
+        /// Получение доступных комнат для пользователя
         /// </summary>
-        [HttpPost, Route("rooms")]
-        //[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Room>), Description = "All OK")]
+        [HttpGet, Route("rooms/users/{id}")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Room>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetRooms([FromBody] int userId)
+        public async Task<IActionResult> GetRooms()
         {
-            //var result = _chatService.GetRooms(userId);
-            return Ok(/*await result*/);
+            var result = _chatService.GetRooms((string)RouteData.Values["id"]);
+            return Ok(await result);
         }
 
         /// <summary>
         /// Получение сообщений из комнаты, согласно ограничению по истории
         /// </summary>
-        [HttpPost, Route("romms/name")]
+        [HttpGet, Route("romms/{id}/messages")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetMessagesFromTheRoom([FromBody] string id)
+        public async Task<IActionResult> GetMessagesFromTheRoom()
         {
-            var result = _chatService.GetMessagesFromTheRoom(id);
+            var result = _chatService.GetMessagesFromTheRoom((string)RouteData.Values["id"]);
             return Ok(await result);
         }
 
