@@ -5,11 +5,21 @@ using System.Threading.Tasks;
 
 namespace KvitkouNet.Web.Models.Chat
 {
-    public class Room
+    public class RoomModel
     {
+        /// <summary>
+        /// номер комнаты
+        /// </summary>
+        public string Id;
+
         /// <summary>
         /// Название комнаты
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Модификатор доступа комнаты
+        /// </summary>
+        public bool IsPrivat;
     }
 }

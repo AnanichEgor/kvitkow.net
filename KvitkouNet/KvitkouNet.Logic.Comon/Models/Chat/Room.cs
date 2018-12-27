@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using KvitkouNet.Logic.Common.Models.Chat.RoomSettings;
 using KvitkouNet.Logic.Common.Models.Security;
 
 namespace KvitkouNet.Logic.Common.Models.Chat
@@ -24,7 +23,7 @@ namespace KvitkouNet.Logic.Common.Models.Chat
         /// <summary>
         /// Модификатор доступа комнаты
         /// </summary>
-        public AccessModifier AccessModifier { get; set; }
+        public bool IsPrivat;
 
         /// <summary>
         /// Доступность комнаты для определенной роли пользователя
@@ -34,7 +33,7 @@ namespace KvitkouNet.Logic.Common.Models.Chat
         /// <summary>
         /// Список Users в комнате
         /// </summary>
-        public List<int> UsersId;
+        public List<string> UsersId;
 
         /// <summary>
         /// Список сообщений в конате
