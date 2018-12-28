@@ -8,11 +8,6 @@ namespace KvitkouNet.Logic.Common.Models
 	public class AccountSettings
 	{
 		/// <summary>
-		/// Идентификатор пользователя
-		/// </summary>
-		public string UserId { get; set; }
-
-		/// <summary>
 		/// Текущий пароль пользователя.
 		/// </summary>
 		public string OldPassword { get; set; }

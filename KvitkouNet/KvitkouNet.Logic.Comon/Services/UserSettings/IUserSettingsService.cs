@@ -1,11 +1,9 @@
 ﻿using KvitkouNet.Logic.Common.Models;
-using KvitkouNet.Logic.Common.Models.User_Settings;
+using KvitkouNet.Logic.Common.Models.UserSettings;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace KvitkouNet.Logic.Common.Services.User_Settings
+namespace KvitkouNet.Logic.Common.Services.UserSettings
 {
 	/// <summary>
 	/// Сервис для обновления настроек пользователя
