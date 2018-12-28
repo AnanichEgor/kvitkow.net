@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace KvitkouNet.Logic.Common.Models.User_Settings
+﻿namespace KvitkouNet.Logic.Common.Models.UserSettings
 {
 	/// <summary>
 	/// Результат обновления данных

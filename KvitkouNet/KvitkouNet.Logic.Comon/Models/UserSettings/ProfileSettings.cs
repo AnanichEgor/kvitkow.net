@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace KvitkouNet.Logic.Common.Models
 {
@@ -8,11 +7,6 @@ namespace KvitkouNet.Logic.Common.Models
 	/// </summary>
 	public class ProfileSettings
 	{
-		/// <summary>
-		/// Идентификатор пользователя
-		/// </summary>
-		public string UserId { get; set; }
-
 		/// <summary>
 		/// Имя
 		/// </summary>

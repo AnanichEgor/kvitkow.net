@@ -6,7 +6,7 @@ using KvitkouNet.Logic.Common.Services.Search;
 using KvitkouNet.Logic.Common.Services.Security;
 using KvitkouNet.Logic.Common.Services.Tickets;
 using KvitkouNet.Logic.Common.Services.User;
-using KvitkouNet.Logic.Common.Services.User_Settings;
+using KvitkouNet.Logic.Common.Services.UserSettings;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
