@@ -5,9 +5,12 @@ using KvitkouNet.Logic.Common.Models.Logging;
 using KvitkouNet.Logic.Common.Models.Search;
 using KvitkouNet.Logic.Common.Models.UserManagement;
 using KvitkouNet.Logic.Common.Services.Logging;
+using KvitkouNet.Logic.Common.Services.Chat;
 using KvitkouNet.Logic.Common.Services.Search;
 using KvitkouNet.Logic.Common.Services.Security;
+using KvitkouNet.Logic.Common.Services.Tickets;
 using KvitkouNet.Logic.Common.Services.User;
+using KvitkouNet.Logic.Common.Services.UserSettings;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
@@ -50,7 +53,20 @@ namespace KvitkouNet.Logic.Common
 		    return services;
 	    }
 
-		private static Mock<ISearchUserService> GetUserSearchMock()
+        /// <summary>
+        /// Регистрация IChatService
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection RegisterChatService(this IServiceCollection services)
+        {
+            var mock = new Mock<IChatService>();
+
+            services.AddScoped<IChatService>(_ => mock.Object);
+            return services;
+        }
+
+        private static Mock<ISearchUserService> GetUserSearchMock()
         {
             var mock = new Mock<ISearchUserService>();
             var result = new SearchResult<UserInfo>
@@ -102,5 +118,29 @@ namespace KvitkouNet.Logic.Common
 
             return loggingServiceMock;
         }
-    }
+    
+
+        /// <summary>
+        /// Регистрация ITicketService
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection RegisterTicketService(this IServiceCollection services)
+        {
+            var mock = new Mock<ITicketService>();
+            services.AddScoped(_ => mock.Object);
+            return services;
+        }
+		/// <summary>
+		/// Регистрация IUserSettingsService
+		/// </summary>
+		/// <param name="services"></param>
+		/// <returns></returns>
+		public static IServiceCollection RegisterUserSettingsService(this IServiceCollection services)
+		{
+			var mock = new Mock<IUserSettingsService>();
+			services.AddScoped<IUserSettingsService>(_ => mock.Object);
+			return services;
+		}
+	}
 }

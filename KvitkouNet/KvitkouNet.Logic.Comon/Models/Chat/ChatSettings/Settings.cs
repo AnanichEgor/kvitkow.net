@@ -8,10 +8,10 @@ namespace KvitkouNet.Logic.Common.Models.Chat.ChatSettings
         /// <summary>
         /// Уникальный UserId
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
-        /// Роль пользователя в системе и его права
+        /// Роль пользователя в комнате
         ///  </summary>
         public string Role { get; set; }
 
