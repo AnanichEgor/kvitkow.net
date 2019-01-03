@@ -4,8 +4,8 @@ using KvitkouNet.Logic.Common.Models.Logging.Mocks;
 namespace KvitkouNet.Logic.Common.Models.Logging
 {
 	/// <summary>
-	/// Модель для записи в лог информации о платежах
-	/// В случае неудачи причина пишется в поле Content класса BaseLogEntry
+	/// Модель для записи в лог информации о платежах.
+	/// <para>В случае неудачи причина пишется в поле Content класса BaseLogEntry</para>
 	/// </summary>
 	public class PaymentLogEntry : BaseLogEntry<long>
 	{
