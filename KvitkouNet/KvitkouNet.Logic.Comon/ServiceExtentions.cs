@@ -104,5 +104,11 @@ namespace KvitkouNet.Logic.Common
 			services.AddScoped<IUserSettingsService>(_ => mock.Object);
 			return services;
 		}
-	}
+
+		public static IServiceCollection RegisterNotificationService(this IServiceCollection services)
+		{
+			services.AddScoped(obj => new Mock<INotificationService>().Object);
+			return services;
+		}
+    }
 }
