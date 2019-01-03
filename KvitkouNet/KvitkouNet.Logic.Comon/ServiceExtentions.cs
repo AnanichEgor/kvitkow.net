@@ -2,6 +2,7 @@
 using KvitkouNet.Logic.Common.Models.Search;
 using KvitkouNet.Logic.Common.Models.UserManagement;
 using KvitkouNet.Logic.Common.Services.Chat;
+using KvitkouNet.Logic.Common.Services.Notification;
 using KvitkouNet.Logic.Common.Services.Search;
 using KvitkouNet.Logic.Common.Services.Security;
 using KvitkouNet.Logic.Common.Services.Tickets;
@@ -102,12 +103,6 @@ namespace KvitkouNet.Logic.Common
 		{
 			var mock = new Mock<IUserSettingsService>();
 			services.AddScoped<IUserSettingsService>(_ => mock.Object);
-			return services;
-		}
-
-		public static IServiceCollection RegisterNotificationService(this IServiceCollection services)
-		{
-			services.AddScoped(obj => new Mock<INotificationService>().Object);
 			return services;
 		}
     }
