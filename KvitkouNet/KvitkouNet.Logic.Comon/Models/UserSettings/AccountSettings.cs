@@ -3,15 +3,10 @@
 namespace KvitkouNet.Logic.Common.Models
 {
 	/// <summary>
-	/// Класс для изменения данных пользователя
+	/// Обновление аккаунта
 	/// </summary>
 	public class AccountSettings
 	{
-		/// <summary>
-		/// Базовые свойства конретного пользователя.
-		/// </summary>
-		public string UserId { get; set; }
-
 		/// <summary>
 		/// Текущий пароль пользователя.
 		/// </summary>
