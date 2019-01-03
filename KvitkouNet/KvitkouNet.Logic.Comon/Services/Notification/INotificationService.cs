@@ -73,7 +73,7 @@ namespace KvitkouNet.Logic.Common.Services.Notification
 		/// <param name="email">Ящик почты</param>
 		/// <param name="notification">Уведомление</param>
 		/// <returns></returns>
-		Task SendRegistrationNotification(string senderId, string email, NotificationMessage messsage);
+		Task SendRegistrationNotification(string email, string senderId, NotificationMessage messsage);
 
 		/// <summary>
 		/// Отправить email уведомление для пользователей
