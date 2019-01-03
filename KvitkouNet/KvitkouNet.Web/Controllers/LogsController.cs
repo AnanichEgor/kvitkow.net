@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using KvitkouNet.Logic.Common.Dtos.Logging;
 using KvitkouNet.Logic.Common.Models.Logging;
+using KvitkouNet.Logic.Common.Services.Logging;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
@@ -14,7 +15,14 @@ namespace KvitkouNet.Web.Controllers
     [Route("api/logs")]
     public class LogsController : Controller
     {
-        /// <summary>
+	    private ILoggingService _loggingService;
+
+	    public LogsController(ILoggingService loggingService)
+	    {
+		    _loggingService = loggingService;
+	    }
+
+	    /// <summary>
         /// Получает логи действий с аккаунтами пользователей
         /// </summary>
         /// <param name="filter">Фильтр логов действий с аккаунтами</param>
@@ -31,9 +39,8 @@ namespace KvitkouNet.Web.Controllers
                 return BadRequest($"Invalid filter! {nameof(AccountLogsFilterDto.UserName)} is empty or whitespace!");
             }
 
-            await Task.Delay(1000);
-
-            return Ok(new List<AccountLogEntry>());
+	        var result = await _loggingService.GetAccountLogsAsync(filter);
+            return Ok(result);
         }
 
         /// <summary>
@@ -53,9 +60,8 @@ namespace KvitkouNet.Web.Controllers
                 return BadRequest($"Invalid filter! {nameof(ErrorLogsFilterDto.ExceptionTypeName)} is empty or whitespace!");
             }
 
-            await Task.Delay(1000);
-
-            return Ok(new List<InternalErrorLogEntry>());
+	        var result = await _loggingService.GetErrorLogsAsync(filter);
+            return Ok(result);
         }
 
         /// <summary>
@@ -75,9 +81,8 @@ namespace KvitkouNet.Web.Controllers
                 return BadRequest($"Invalid filter! {nameof(TicketLogsFilterDto.TicketName)} is empty or whitespace!");
             }
 
-            await Task.Delay(1000);
-
-            return Ok(new List<TicketActionLogEntry>());
+	        var result = await _loggingService.GetTicketActionLogsAsync(filter);
+            return Ok(result);
         }
 
 	    /// <summary>
@@ -97,9 +102,8 @@ namespace KvitkouNet.Web.Controllers
 			    return BadRequest($"Invalid filter! {nameof(TicketLogsFilterDto.TicketName)} is empty or whitespace!");
 		    }
 
-		    await Task.Delay(1000);
-
-		    return Ok(new List<TicketDealLogEntry>());
+		    var result = await _loggingService.GetTicketDealLogsAsync(filter);
+		    return Ok(result);
 	    }
 
 		/// <summary>
@@ -118,9 +122,8 @@ namespace KvitkouNet.Web.Controllers
 			    return BadRequest($"Invalid filter! {nameof(PaymentLogsFilterDto.UserName)} is empty or whitespace!");
 		    }
 
-		    await Task.Delay(100);
-
-		    return Ok(new List<PaymentLogEntry>());
+		    var result = await _loggingService.GetPaymentLogsAsync(filter);
+		    return Ok(result);
 	    }
 
 	    /// <summary>
@@ -139,9 +142,8 @@ namespace KvitkouNet.Web.Controllers
 			    return BadRequest($"Invalid filter! {nameof(SearchQueryLogsFilterDto.UserName)} is empty or whitespace!");
 		    }
 
-		    await Task.Delay(100);
-
-		    return Ok(new List<SearchQueryLogEntry>());
+		    var result = _loggingService.GetSearchQueryLogsAsync(filter);
+		    return Ok(result);
 		}
 	}
 }

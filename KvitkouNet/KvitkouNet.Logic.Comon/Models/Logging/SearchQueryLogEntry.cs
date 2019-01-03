@@ -5,7 +5,7 @@ namespace KvitkouNet.Logic.Common.Models.Logging
 {
 	/// <summary>
 	/// Модель для логирования поисковых запросов пользователей.
-	/// Сам запрос хранится в свойстве Content класса BaseLogEntry
+	/// <para>Текст запроса хранится в свойстве Content класса BaseLogEntry.</para>
 	/// </summary>
 	public class SearchQueryLogEntry : BaseLogEntry<long>
 	{
