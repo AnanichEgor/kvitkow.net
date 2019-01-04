@@ -1,4 +1,5 @@
 ﻿using System;
+using KvitkouNet.Logic.Common.Models.Notification.Enums;
 
 namespace KvitkouNet.Logic.Common.Models.Notification
 {
@@ -8,19 +9,19 @@ namespace KvitkouNet.Logic.Common.Models.Notification
 	public class Notification
 	{
 		/// <summary>
+		/// Id уведомления
+		/// </summary>
+		public string NotificationId { get; set; }
+
+		/// <summary>
 		/// Получатель уведомления
 		/// </summary>
-		public long UserId { get; set; }
+		public string UserId { get; set; }
 
 		/// <summary>
-		/// Заголовок уведомления
+		/// Сообщение уведомления
 		/// </summary>
-		public string Title { get; set; }
-
-		/// <summary>
-		/// Текст уведомления
-		/// </summary>
-		public string Message { get; set; }
+		public NotificationMessage Message { get; set; }
 
 		/// <summary>
 		/// Дата отправки
