@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using TicketManagement.Logic.Common;
 
 namespace TicketManagement.Web
 {
@@ -26,6 +27,7 @@ namespace TicketManagement.Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerDocument();
+            services.RegisterTicketService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
