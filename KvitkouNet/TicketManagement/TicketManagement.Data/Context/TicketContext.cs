@@ -14,6 +14,8 @@ namespace TicketManagement.Data.Context
 
         }
         public DbSet<Ticket> Tickets { get; set; }
-      
+        public DbSet<Address> Adresses { get; set; }
+        public DbSet<UserInfo> UserInfos { get; set; }
+
     }
 }

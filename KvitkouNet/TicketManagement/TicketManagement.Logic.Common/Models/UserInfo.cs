@@ -6,6 +6,11 @@
     public class UserInfo
     {
         /// <summary>
+        ///     Id инфоюзера
+        /// </summary>
+        public string UserInfoId { get; set; }
+
+        /// <summary>
         ///     Gets or sets the user identifier.
         /// </summary>
         public int UserId { get; set; }

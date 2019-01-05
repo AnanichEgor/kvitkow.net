@@ -24,7 +24,7 @@ namespace TicketManagement.Web.Controllers
         {
             _service = service;
             _context = context;
-            _context.Database.Migrate();
+           _context.Database.Migrate();
        
         }
 
