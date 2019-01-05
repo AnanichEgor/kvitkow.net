@@ -13,12 +13,14 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.2105168" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.6" />
     <PackageReference Include="NSwag.AspNetCore" Version="12.0.10" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TicketManagement.Data\TicketManagement.Data.csproj" />
     <ProjectReference Include="..\TicketManagement.Logic.Common\TicketManagement.Logic.Common.csproj" />
   </ItemGroup>
 
