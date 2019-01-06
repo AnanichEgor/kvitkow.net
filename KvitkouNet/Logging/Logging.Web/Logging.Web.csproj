@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Logging.Logic.Common\Logging.Logic.Common.csproj" />
+    <ProjectReference Include="..\Logging.Logic\Logging.Logic.csproj" />
   </ItemGroup>
 
 </Project>
