@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.10.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Notification.Data\Notification.Data.csproj" />
+    <ProjectReference Include="..\Notification.Logic.Common\Notification.Logic.Common.csproj" />
+  </ItemGroup>
+
+</Project>
