@@ -24,8 +24,6 @@ namespace KvitkouNet.Logic.Common
             var mock = new Mock<IUserService>();
 
             services.AddScoped<IUserService>(_ => mock.Object);
-            services.AddScoped<ISearchUserService>(_ => GetUserSearchMock().Object);
-            services.AddScoped<ISearchTicketService>(_ => GetTicketSearchMock().Object);
             return services;
         }
 
@@ -65,32 +63,6 @@ namespace KvitkouNet.Logic.Common
 
             services.AddScoped<IChatService>(_ => mock.Object);
             return services;
-        }
-
-        private static Mock<ISearchUserService> GetUserSearchMock()
-        {
-            var mock = new Mock<ISearchUserService>();
-            var result = new SearchResult<UserInfo>
-            {
-                Items = Enumerable.Empty<UserInfo>(),
-                Total = 10
-            };
-            mock.Setup(service => service.Search(It.IsAny<UserSearchRequest>())).ReturnsAsync(result);
-
-            return mock;
-        }
-
-        private static Mock<ISearchTicketService> GetTicketSearchMock()
-        {
-            var mock = new Mock<ISearchTicketService>();
-            var result = new SearchResult<TicketInfo>
-            {
-                Items = Enumerable.Empty<TicketInfo>(),
-                Total = 10
-            };
-            mock.Setup(service => service.Search(It.IsAny<TicketSearchRequest>())).ReturnsAsync(result);
-
-            return mock;
         }
 
 		public static IServiceCollection RegisterNotificationService(this IServiceCollection services)
