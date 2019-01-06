@@ -28,11 +28,6 @@ namespace KvitkouNet.Logic.Common.Models
 		public object UserImage { get; set; }
 
 		/// <summary>
-		/// Логин пользователя. Доступен только для просмотра.
-		/// </summary>
-		public string Login { get; private set; }
-
-		/// <summary>
 		/// Флаг, отвечающий за закрытость аккаунта для гостей.
 		/// </summary>
 		public bool IsPrivateAccount { get; set; }
@@ -56,17 +51,6 @@ namespace KvitkouNet.Logic.Common.Models
 		/// Ссылки на социальные сети.
 		/// </summary>
 		public IEnumerable<object> SocialNetwork { get; set; }
-
-		//TODO: object - заменить на класс статистики
-		/// <summary>
-		/// Статистика билетов пользователя.
-		/// </summary>
-		public object GetTicketStatistic { get; set; }
-
-		/// <summary>
-		/// Флаг, отвечающий за то что было выбрано изменение пароля.
-		/// </summary>
-		public bool IsChangePassword { get; set; }
 
 		/// <summary>
 		/// Предпочитаемое место посещения

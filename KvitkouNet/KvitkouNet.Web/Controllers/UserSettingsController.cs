@@ -1,4 +1,5 @@
-﻿using KvitkouNet.Web.Models;
+﻿using KvitkouNet.Logic.Common.Models;
+using KvitkouNet.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using System;
@@ -21,7 +22,7 @@ namespace KvitkouNet.Web.Controllers
 		[HttpPut, Route("userinfo")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangeUserInfo([FromBody]UserInfoDto model)
+		public async Task<IActionResult> ChangeUserInfo([FromBody]ProfileSettings model)
 		{
 			IEnumerable<string> result = await Task.FromResult(ValidateUserInfo(model));
 		
@@ -41,7 +42,7 @@ namespace KvitkouNet.Web.Controllers
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		private IEnumerable<string> ValidateUserInfo(UserInfoDto model)
+		private IEnumerable<string> ValidateUserInfo(ProfileSettings model)
 		{
 			List<String> result = new List<string>();
 			if(string.IsNullOrEmpty(model.FirstName))
@@ -54,21 +55,7 @@ namespace KvitkouNet.Web.Controllers
 			}
 			return result;
 		}
-
-		/// <summary>
-		/// Запрос на изменение дополнительной информации пользователя
-		/// </summary>
-		/// <param name="model"></param>
-		/// <returns></returns>
-		[HttpPut, Route("extrainfo")]
-		[SwaggerResponse(HttpStatusCode.OK, typeof(void), Description = "All OK")]
-		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangeExtraInfo([FromBody]ExtraInfoDto model)
-		{
-			var result = Task.FromResult(true);
-			return Ok(await result);
-		}
-
+		
 		/// <summary>
 		/// Запрос на изменение пароля
 		/// </summary>
