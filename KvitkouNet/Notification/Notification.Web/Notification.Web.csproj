@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Notification.Logic.Common\Notification.Logic.Common.csproj" />
+    <ProjectReference Include="..\Notification.Logic\Notification.Logic.csproj" />
   </ItemGroup>
 
 </Project>
