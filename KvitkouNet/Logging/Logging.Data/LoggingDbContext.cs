@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Logging.Data.DbModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Logging.Data
 {
@@ -8,5 +9,7 @@ namespace Logging.Data
         {
             Database.EnsureCreated();
         }
+
+        public DbSet<AccountLogEntryDbModel> AccountLogEntries { get; set; }
     }
 }
