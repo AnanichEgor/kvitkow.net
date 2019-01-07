@@ -23,11 +23,11 @@ namespace UserManagement.Logic.Common.Models
         /// <summary>
         /// Пользователи группы
         /// </summary>
-        public ICollection<User> GroupUsers { get; set; }
+        public virtual ICollection<User> GroupUsers { get; set; }
 
         /// <summary>
         /// Роли группы
         /// </summary>
-        public ICollection<Role> GroupRoles { get; set; }
+        public virtual ICollection<Role> GroupRoles { get; set; }
     }
 }

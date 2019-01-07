@@ -8,7 +8,7 @@ namespace UserManagement.Logic.Common.Models
         /// <summary>
         /// Уникальный идентификатор пользователя
         /// </summary>
-        public string UserId { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Учетная запись пользователя

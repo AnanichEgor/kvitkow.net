@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace UserManagement.Logic.Common.Models.Security
@@ -19,16 +20,19 @@ namespace UserManagement.Logic.Common.Models.Security
         /// </summary>
         public string Name { get; set; }
 
+        [NotMapped]
         /// <summary>
         /// Список предоставляемых прав
         /// </summary>
         public List<AccessRight> AccessRights { get; set; }
 
+        [NotMapped]
         /// <summary>
         /// Список запрещённых прав
         /// </summary>
         public List<AccessRight> DeniedRights { get; set; }
 
+        [NotMapped]
         /// <summary>
         /// Список предоставляемых функций
         /// </summary>

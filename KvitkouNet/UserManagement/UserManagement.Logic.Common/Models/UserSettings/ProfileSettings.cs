@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace UserManagement.Logic.Common.Models.UserSettings
@@ -9,6 +10,10 @@ namespace UserManagement.Logic.Common.Models.UserSettings
     /// </summary>
     public class ProfileSettings
     {
+        /// <summary>
+        /// Уникальный идентификатор настроек
+        /// </summary>
+        public string Id { get; set; }
         /// <summary>
         /// Имя
         /// </summary>
@@ -27,7 +32,7 @@ namespace UserManagement.Logic.Common.Models.UserSettings
         /// <summary>
         /// Аватарка пользователся
         /// </summary>
-        public object UserImage { get; set; }
+        public byte[] UserImage { get; set; }
 
         /// <summary>
         /// Логин пользователя. Доступен только для просмотра.
@@ -57,12 +62,14 @@ namespace UserManagement.Logic.Common.Models.UserSettings
         /// <summary>
         /// Ссылки на социальные сети.
         /// </summary>
-        public IEnumerable<object> SocialNetwork { get; set; }
+        [NotMapped]
+        public IEnumerable<object> SocialNetworks { get; set; }
 
         //TODO: object - заменить на класс статистики
         /// <summary>
         /// Статистика билетов пользователя.
         /// </summary>
+        [NotMapped]
         public object GetTicketStatistic { get; set; }
 
         /// <summary>
@@ -74,5 +81,7 @@ namespace UserManagement.Logic.Common.Models.UserSettings
         /// Предпочитаемое место посещения
         /// </summary>
         public string PreferPlace { get; set; }
+
+
     }
 }

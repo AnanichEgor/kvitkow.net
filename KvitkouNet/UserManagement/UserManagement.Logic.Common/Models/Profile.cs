@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using UserManagement.Logic.Common.Models.Security;
+using UserManagement.Logic.Common.Models.Tickets;
 using UserManagement.Logic.Common.Models.UserSettings;
 
 namespace UserManagement.Logic.Common.Models
@@ -30,12 +32,12 @@ namespace UserManagement.Logic.Common.Models
         /// <summary>
         /// Список адресов пользователя 
         /// </summary>
-        public ICollection<Address> Adress { get; set; }
+        public virtual ICollection<Address> Adresses { get; set; }
 
         /// <summary>
         /// Список телефонов пользователя
         /// </summary>
-        public ICollection<string> PhoneNumbers { get; set; }
+        public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
 
         /// <summary>
         /// Пол
@@ -70,12 +72,13 @@ namespace UserManagement.Logic.Common.Models
         /// <summary>
         /// Группы, в которых состоит пользователь
         /// </summary>
-        public ICollection<Group> UserGroups { get; set; }
+        public virtual ICollection<Group> UserGroups { get; set; }
 
         /// <summary>
         /// Роли доступа пользователя
         /// </summary>
-        public ICollection<Role> UserRoles { get; set; }
+        
+        public virtual ICollection<Role> UserRoles { get; set; }
 
         /// <summary>
         /// Настройки пользователя
@@ -85,12 +88,7 @@ namespace UserManagement.Logic.Common.Models
         /// <summary>
         /// Список билетов принадлежащих пользователю
         /// </summary>
-        public ICollection<string> Tickets { get; set; }
-
-        /// <summary>
-        /// Список карточек принадлежащих пользователю
-        /// </summary>
-        public ICollection<string> CreditCards { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
 
         /// <summary>
         /// Рейтинг пользователя

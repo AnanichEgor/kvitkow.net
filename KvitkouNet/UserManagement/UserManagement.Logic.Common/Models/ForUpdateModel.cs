@@ -20,12 +20,12 @@ namespace UserManagement.Logic.Common.Models
         /// <summary>
         /// Список адрессов пользователя
         /// </summary>
-        public ICollection<string> Adress { get; set; }
+        public virtual ICollection<string> Adress { get; set; }
 
         /// <summary>
         /// Список телефонов пользователя
         /// </summary>
-        public ICollection<string> Phones { get; set; }
+        public virtual ICollection<string> Phones { get; set; }
 
         /// <summary>
         /// Пол пользователя
