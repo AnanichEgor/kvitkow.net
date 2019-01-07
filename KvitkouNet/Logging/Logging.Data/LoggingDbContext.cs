@@ -15,5 +15,7 @@ namespace Logging.Data
         public DbSet<InternalErrorLogEntryDbModel> InternalErrorLogEntries { get; set; }
 
         public DbSet<PaymentLogEntryDbModel> PaymentLogEntries { get; set; }
+
+        public DbSet<SearchQueryLogEntryDbModel> SearchQueryLogEntries { get; set; }
     }
 }

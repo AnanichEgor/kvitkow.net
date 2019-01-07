@@ -8,10 +8,19 @@ namespace Logging.Data.DbModels.Abstraction
     /// <typeparam name="TKey"></typeparam>
     public abstract class Entity<TKey> where TKey : struct
     {
+        /// <summary>
+        /// Id записи
+        /// </summary>
         public TKey Id { get; set; }
 
+        /// <summary>
+        /// Дата создания записи
+        /// </summary>
         public DateTime Created { get; set; } = DateTime.Now;
 
+        /// <summary>
+        /// Дата изменения записи
+        /// </summary>
         public DateTime? Modified { get; set; }
     }
 }
