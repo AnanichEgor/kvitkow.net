@@ -3,6 +3,9 @@ using Logging.Logic.Common.Enums;
 
 namespace Logging.Data.DbModels
 {
+    /// <summary>
+    /// Модель записи в лог о сделке по билету
+    /// </summary>
     public class TicketDealLogEntryDbModel : Entity<long>
     {
         /// <summary>

@@ -2,6 +2,9 @@
 
 namespace Logging.Data.DbModels
 {
+    /// <summary>
+    /// Запись в лог ошибок в работе сервиса
+    /// </summary>
     public class InternalErrorLogEntryDbModel : Entity<long>
     {
         /// <summary>

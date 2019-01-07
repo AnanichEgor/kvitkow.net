@@ -3,6 +3,9 @@ using Logging.Logic.Common.Enums;
 
 namespace Logging.Data.DbModels
 {
+    /// <summary>
+    /// Запись в лог, описывающая действие с аккаунтом пользователя
+    /// </summary>
     public class AccountLogEntryDbModel : Entity<long>
     {
         /// <summary>
