@@ -1,4 +1,4 @@
-﻿namespace TicketManagement.Logic.Common.Models
+﻿namespace TicketManagement.Data.Models
 {
     public class Address
     {
@@ -6,7 +6,7 @@
         ///     Id адреса
         /// </summary>
         public string AddressId { get; set; }
-        
+
         /// <summary>
         ///     Страна проживания
         /// </summary>

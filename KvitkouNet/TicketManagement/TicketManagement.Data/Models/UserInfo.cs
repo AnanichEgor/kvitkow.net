@@ -1,4 +1,4 @@
-﻿namespace TicketManagement.Logic.Common.Models
+﻿namespace TicketManagement.Data.Models
 {
     /// <summary>
     ///     Вспомогательный класс пользователя для тикета

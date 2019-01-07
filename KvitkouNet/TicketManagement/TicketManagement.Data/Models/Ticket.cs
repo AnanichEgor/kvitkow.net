@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using TicketManagement.Data.Models.Enums;
 
-namespace TicketManagement.Logic.Common.Models
+namespace TicketManagement.Data.Models
 {
     /// <summary>
     ///     Класс описания доменной модели билета

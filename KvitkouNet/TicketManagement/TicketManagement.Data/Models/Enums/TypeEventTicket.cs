@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TicketManagement.Logic.Common.Models
+namespace TicketManagement.Data.Models.Enums
 {
     /// <summary>
     ///     Перечисление, описывающее типы билетов
