@@ -8,8 +8,8 @@ using TicketManagement.Data.Context;
 namespace TicketManagement.Data.Migrations
 {
     [DbContext(typeof(TicketContext))]
-    [Migration("20190105104007_init")]
-    partial class init
+    [Migration("20190107110216_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -17,7 +17,7 @@ namespace TicketManagement.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
 
-            modelBuilder.Entity("TicketManagement.Logic.Common.Models.Address", b =>
+            modelBuilder.Entity("TicketManagement.Data.Models.Address", b =>
                 {
                     b.Property<string>("AddressId")
                         .ValueGeneratedOnAdd();
@@ -37,7 +37,7 @@ namespace TicketManagement.Data.Migrations
                     b.ToTable("Adresses");
                 });
 
-            modelBuilder.Entity("TicketManagement.Logic.Common.Models.Ticket", b =>
+            modelBuilder.Entity("TicketManagement.Data.Models.Ticket", b =>
                 {
                     b.Property<string>("TicketId")
                         .ValueGeneratedOnAdd();
@@ -79,7 +79,7 @@ namespace TicketManagement.Data.Migrations
                     b.ToTable("Tickets");
                 });
 
-            modelBuilder.Entity("TicketManagement.Logic.Common.Models.UserInfo", b =>
+            modelBuilder.Entity("TicketManagement.Data.Models.UserInfo", b =>
                 {
                     b.Property<string>("UserInfoId")
                         .ValueGeneratedOnAdd();
@@ -92,8 +92,6 @@ namespace TicketManagement.Data.Migrations
 
                     b.Property<string>("TicketId");
 
-                    b.Property<int>("UserId");
-
                     b.HasKey("UserInfoId");
 
                     b.HasIndex("TicketId");
@@ -101,24 +99,24 @@ namespace TicketManagement.Data.Migrations
                     b.ToTable("UserInfos");
                 });
 
-            modelBuilder.Entity("TicketManagement.Logic.Common.Models.Ticket", b =>
+            modelBuilder.Entity("TicketManagement.Data.Models.Ticket", b =>
                 {
-                    b.HasOne("TicketManagement.Logic.Common.Models.Address", "LocationEvent")
+                    b.HasOne("TicketManagement.Data.Models.Address", "LocationEvent")
                         .WithMany()
                         .HasForeignKey("LocationEventAddressId");
 
-                    b.HasOne("TicketManagement.Logic.Common.Models.Address", "SellerAdress")
+                    b.HasOne("TicketManagement.Data.Models.Address", "SellerAdress")
                         .WithMany()
                         .HasForeignKey("SellerAdressAddressId");
 
-                    b.HasOne("TicketManagement.Logic.Common.Models.UserInfo", "User")
+                    b.HasOne("TicketManagement.Data.Models.UserInfo", "User")
                         .WithMany()
                         .HasForeignKey("UserInfoId");
                 });
 
-            modelBuilder.Entity("TicketManagement.Logic.Common.Models.UserInfo", b =>
+            modelBuilder.Entity("TicketManagement.Data.Models.UserInfo", b =>
                 {
-                    b.HasOne("TicketManagement.Logic.Common.Models.Ticket")
+                    b.HasOne("TicketManagement.Data.Models.Ticket")
                         .WithMany("RespondedUsers")
                         .HasForeignKey("TicketId");
                 });

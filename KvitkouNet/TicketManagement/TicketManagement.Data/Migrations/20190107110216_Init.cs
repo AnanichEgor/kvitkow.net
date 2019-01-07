@@ -2,7 +2,7 @@
 
 namespace TicketManagement.Data.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -63,7 +63,6 @@ namespace TicketManagement.Data.Migrations
                 columns: table => new
                 {
                     UserInfoId = table.Column<string>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Rating = table.Column<double>(nullable: false),
