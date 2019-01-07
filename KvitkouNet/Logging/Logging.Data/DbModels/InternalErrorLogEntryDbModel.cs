@@ -1,0 +1,47 @@
+﻿using Logging.Data.DbModels.Abstraction;
+
+namespace Logging.Data.DbModels
+{
+    public class InternalErrorLogEntryDbModel : Entity<long>
+    {
+        /// <summary>
+        /// Название типа исключения
+        /// </summary>
+        public string TypeName { get; set; }
+
+        /// <summary>
+        /// Числовое значение, ассоциированное с типом исключения
+        /// </summary>
+        public int HResult { get; set; }
+
+        /// <summary>
+        /// Строковое представление вложенных исключений
+        /// </summary>
+        public string InnerExceptionString { get; set; }
+
+        /// <summary>
+        /// Сообщение, описывающее исключение
+        /// </summary>
+        public string Message { get; set; }
+
+        /// <summary>
+        /// Источник исключения
+        /// </summary>
+        public string Source { get; set; }
+
+        /// <summary>
+        /// Трассировка стека вызовов
+        /// </summary>
+        public string StackTrace { get; set; }
+
+        /// <summary>
+        /// Имя метода, вызвавшего исключение
+        /// </summary>
+        public string TargetSiteName { get; set; }
+
+        /// <summary>
+        /// Дополнительное содержимое записи
+        /// </summary>
+        public string Content { get; set; }
+    }
+}
