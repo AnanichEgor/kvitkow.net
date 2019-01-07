@@ -1,9 +1,9 @@
 ﻿namespace KvitkouNet.Logic.Common.Models.Notification.Enums
 {
 	/// <summary>
-	/// тип уведомления
+	/// Строгость уведомления
 	/// </summary>
-	public enum NotificationType
+	public enum Severity
 	{
 		/// <summary>
 		/// Информация

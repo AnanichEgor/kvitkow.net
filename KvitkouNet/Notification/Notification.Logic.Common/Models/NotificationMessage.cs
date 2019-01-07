@@ -18,8 +18,8 @@ namespace KvitkouNet.Logic.Common.Models.Notification
 		public string Text { get; set; }
 
 		/// <summary>
-		/// Тип уведомления
+		/// Строгость уведомления
 		/// </summary>
-		public NotificationType Type { get; set; }
+		public Severity Severity { get; set; }
 	}	
 }
