@@ -28,10 +28,6 @@ namespace TicketManagement.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TicketContext>(opt => opt.UseSqlite("Data Source=./TicketDatabase.db"));
-            var optionBuilder = new DbContextOptionsBuilder<TicketContext>();
-            optionBuilder.UseSqlite("Data Source=./TicketDatabase.db");
-            var ctx = new TicketContext(optionBuilder.Options);
-            ctx.Database.EnsureCreated();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerDocument();
             services.RegisterTicketService();
