@@ -6,7 +6,7 @@ namespace Logging.Data.DbModels.Abstraction
     /// Базовый класс для всех моделей БД
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
-    public abstract class Entity<TKey> where TKey : struct
+    public abstract class Entity<TKey>
     {
         /// <summary>
         /// Id записи

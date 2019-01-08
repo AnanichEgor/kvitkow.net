@@ -6,7 +6,7 @@ namespace Logging.Data.DbModels
     /// <summary>
     /// Запись в лог, описывающая действие с аккаунтом пользователя
     /// </summary>
-    public class AccountLogEntryDbModel : Entity<long>
+    public class AccountLogEntryDbModel : Entity<string>
     {
         /// <summary>
         /// Имя пользователя
