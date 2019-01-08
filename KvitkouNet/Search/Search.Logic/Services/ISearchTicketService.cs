@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using KvitkouNet.Logic.Common.Models.Search;
+using Search.Logic.Common.Models;
 
-namespace KvitkouNet.Logic.Common.Services.Search
+namespace Search.Logic.Services
 {
     public interface ISearchTicketService : IDisposable
     {

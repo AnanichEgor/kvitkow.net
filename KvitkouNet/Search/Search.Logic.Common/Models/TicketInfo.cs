@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace KvitkouNet.Logic.Common.Models.Search
+namespace Search.Logic.Common.Models
 {
     /// <summary>
     /// Contains minimal information about ticket indexed by Elasticsearch
@@ -12,8 +10,8 @@ namespace KvitkouNet.Logic.Common.Models.Search
         /// <summary>
         /// Gets or sets the ticket identifier.
         /// </summary>
-        public int TicketId { get; set; }
-        
+        public string TicketId { get; set; }
+
         /// <summary>
         /// Gets or sets the name of ticket.
         /// </summary>
@@ -33,6 +31,11 @@ namespace KvitkouNet.Logic.Common.Models.Search
         /// Gets or sets the category of the event.
         /// </summary>
         public string Category { get; set; }
+
+        /// <summary>
+        /// Gets or sets the price of the even.
+        /// </summary>
+        public decimal Price { get; set; }
 
         //todo: Add other required properties after Ticket model is available and search criteria are clarified.
     }

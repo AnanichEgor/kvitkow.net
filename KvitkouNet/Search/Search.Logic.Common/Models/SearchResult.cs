@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace KvitkouNet.Logic.Common.Models.Search
+namespace Search.Logic.Common.Models
 {
     /// <summary>
     /// Contains result information after search request.

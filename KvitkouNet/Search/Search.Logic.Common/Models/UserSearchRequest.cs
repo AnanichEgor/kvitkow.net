@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace KvitkouNet.Logic.Common.Models.Search
+﻿namespace Search.Logic.Common.Models
 {
     /// <summary>
     /// Contains information for user search request.
     /// </summary>
-    /// <seealso cref="KvitkouNet.Logic.Common.Models.Search.SearchRequest" />
+    /// <seealso cref="SearchRequest" />
     public class UserSearchRequest : SearchRequest
     {
         /// <summary>

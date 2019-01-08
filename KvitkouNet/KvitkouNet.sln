@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KvitkouNet.Web", "KvitkouNet.Web\KvitkouNet.Web.csproj", "{CA8CA0C8-CD64-45F8-BA1B-33B0AD399341}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KvitkouNet.Web", "KvitkouNet.Web\KvitkouNet.Web.csproj", "{CA8CA0C8-CD64-45F8-BA1B-33B0AD399341}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KvitkouNet.Logic", "KvitkouNet.Logic\KvitkouNet.Logic.csproj", "{B9219E1B-8BD3-4FD4-BC02-084B54FB31D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KvitkouNet.Logic", "KvitkouNet.Logic\KvitkouNet.Logic.csproj", "{B9219E1B-8BD3-4FD4-BC02-084B54FB31D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KvitkouNet.Data", "KvitkouNet.Data\KvitkouNet.Data.csproj", "{55909918-0B9A-46A1-AB47-9B5BF6D13E8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KvitkouNet.Data", "KvitkouNet.Data\KvitkouNet.Data.csproj", "{55909918-0B9A-46A1-AB47-9B5BF6D13E8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KvitkouNet.Logic.Common", "KvitkouNet.Logic.Comon\KvitkouNet.Logic.Common.csproj", "{BBA9F4DB-0E2B-4169-8B2C-31BAB8710E2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KvitkouNet.Logic.Common", "KvitkouNet.Logic.Comon\KvitkouNet.Logic.Common.csproj", "{BBA9F4DB-0E2B-4169-8B2C-31BAB8710E2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

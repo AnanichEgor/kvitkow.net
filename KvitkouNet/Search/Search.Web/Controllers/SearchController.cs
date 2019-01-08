@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
-using KvitkouNet.Logic.Common.Models.Search;
-using KvitkouNet.Logic.Common.Services.Search;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using Search.Logic.Common.Models;
+using Search.Logic.Services;
 
-namespace KvitkouNet.Web.Controllers
+namespace Search.Web.Controllers
 {
     /// <summary>
     /// Controller for search domain.
