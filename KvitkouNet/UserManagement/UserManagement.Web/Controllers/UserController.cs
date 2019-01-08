@@ -18,14 +18,10 @@ namespace UserManagement.Web.Controllers
     public class UserController : Controller
     {
         private IUserService _service;
-        private UserContext _context;
 
-        public UserController(IUserService service, UserContext context)
+        public UserController(IUserService service)
         {
             _service = service;
-            _context = context;
-            //_context.Database.EnsureDeleted();
-            _context.Database.Migrate();
         }
         
         [HttpPost, Route("register")]

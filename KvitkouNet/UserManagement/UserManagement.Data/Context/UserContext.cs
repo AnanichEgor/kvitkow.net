@@ -1,11 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UserManagement.Logic.Common.Models;
-using UserManagement.Logic.Common.Models.Security;
-using UserManagement.Logic.Common.Models.Tickets;
-using UserManagement.Logic.Common.Models.UserSettings;
 
 namespace UserManagement.Data.Context
 {
@@ -14,7 +8,8 @@ namespace UserManagement.Data.Context
         public UserContext(DbContextOptions<UserContext> options)
        : base(options)
         {
-
+            //Database.EnsureDeleted();
+            Database.Migrate();
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Account> Accounts { get; set; }
