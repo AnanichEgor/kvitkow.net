@@ -18,7 +18,7 @@ namespace TicketManagement.Web.Controllers
     {
         private readonly ITicketService _service;
 
-        public TicketController(ITicketService service, TicketContext context)
+        public TicketController(ITicketService service)
         {
             _service = service;
         }
