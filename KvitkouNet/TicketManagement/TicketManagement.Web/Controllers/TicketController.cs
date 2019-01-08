@@ -17,15 +17,10 @@ namespace TicketManagement.Web.Controllers
     public class TicketController : Controller
     {
         private readonly ITicketService _service;
-        private readonly TicketContext _context;
-            
 
         public TicketController(ITicketService service, TicketContext context)
         {
             _service = service;
-            _context = context;
-           _context.Database.Migrate();
-       
         }
 
         /// <summary>
