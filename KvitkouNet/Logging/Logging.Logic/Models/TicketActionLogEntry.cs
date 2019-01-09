@@ -1,7 +1,7 @@
-﻿using Logging.Logic.Common.Enums;
-using Logging.Logic.Common.Models.Abstraction;
+﻿using Logging.Data.Enums;
+using Logging.Logic.Models.Abstraction;
 
-namespace Logging.Logic.Common.Models
+namespace Logging.Logic.Models
 {
 	/// <summary>
 	/// Модель записи в лог о действии с билетом

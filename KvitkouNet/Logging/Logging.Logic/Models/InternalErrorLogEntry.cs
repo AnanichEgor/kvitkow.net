@@ -1,6 +1,6 @@
-﻿using Logging.Logic.Common.Models.Abstraction;
+﻿using Logging.Logic.Models.Abstraction;
 
-namespace Logging.Logic.Common.Models
+namespace Logging.Logic.Models
 {
 	/// <summary>
 	/// Запись в лог ошибок в работе сервиса

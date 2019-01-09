@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Logging.Logic.Common.Models.UserManagement
+namespace Logging.Logic.Models.UserManagement
 {
 	public class Profile
 	{

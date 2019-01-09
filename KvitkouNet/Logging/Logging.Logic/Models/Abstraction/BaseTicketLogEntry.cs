@@ -1,7 +1,7 @@
-﻿using Logging.Logic.Common.Models.Mocks;
-using Logging.Logic.Common.Models.UserManagement;
+﻿using Logging.Logic.Models.Mocks;
+using Logging.Logic.Models.UserManagement;
 
-namespace Logging.Logic.Common.Models.Abstraction
+namespace Logging.Logic.Models.Abstraction
 {
 	/// <summary>
 	/// Базовый класс для создание доменных моделей записей лога о билетах

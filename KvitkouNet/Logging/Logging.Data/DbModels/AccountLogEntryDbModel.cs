@@ -1,5 +1,5 @@
 ﻿using Logging.Data.DbModels.Abstraction;
-using Logging.Logic.Common.Enums;
+using Logging.Data.Enums;
 
 namespace Logging.Data.DbModels
 {

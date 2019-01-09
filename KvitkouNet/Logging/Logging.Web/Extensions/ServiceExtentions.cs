@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Logging.Logic.Common.Dtos;
-using Logging.Logic.Common.Models;
-using Logging.Logic.Common.Services;
+using Logging.Logic.Dtos;
+using Logging.Logic.Models;
+using Logging.Logic.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
-namespace Logging.Logic.Common
+namespace Logging.Web.Extensions
 {
 	public static class ServiceExtentions
 	{

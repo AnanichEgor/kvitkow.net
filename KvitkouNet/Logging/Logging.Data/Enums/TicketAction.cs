@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Logging.Logic.Common.Enums
+namespace Logging.Data.Enums
 {
 	/// <summary>
 	/// Перечисление, описывающее действия с билетом

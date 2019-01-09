@@ -1,7 +1,7 @@
-﻿using Logging.Logic.Common.Models.Abstraction;
-using Logging.Logic.Common.Models.Mocks;
+﻿using Logging.Logic.Models.Abstraction;
+using Logging.Logic.Models.Mocks;
 
-namespace Logging.Logic.Common.Models
+namespace Logging.Logic.Models
 {
 	/// <summary>
 	/// Модель для записи в лог информации о платежах.

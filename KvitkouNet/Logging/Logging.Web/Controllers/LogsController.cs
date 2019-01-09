@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Logging.Logic.Common.Dtos;
-using Logging.Logic.Common.Models;
-using Logging.Logic.Common.Services;
+using Logging.Logic.Dtos;
+using Logging.Logic.Models;
+using Logging.Logic.Services;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 

@@ -1,4 +1,4 @@
-﻿namespace Logging.Logic.Common.Dtos
+﻿namespace Logging.Logic.Dtos
 {
 	public class ErrorLogsFilterDto
 	{

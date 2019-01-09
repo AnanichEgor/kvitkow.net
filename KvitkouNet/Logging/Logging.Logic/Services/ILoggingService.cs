@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Logging.Logic.Common.Dtos;
-using Logging.Logic.Common.Models;
+using Logging.Logic.Dtos;
+using Logging.Logic.Models;
 
-namespace Logging.Logic.Common.Services
+namespace Logging.Logic.Services
 {
 	/// <summary>
 	/// Интерфейс сервиса для работы с логами

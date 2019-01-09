@@ -1,8 +1,8 @@
-﻿using Logging.Logic.Common.Enums;
-using Logging.Logic.Common.Models.Abstraction;
-using Logging.Logic.Common.Models.UserManagement;
+﻿using Logging.Data.Enums;
+using Logging.Logic.Models.Abstraction;
+using Logging.Logic.Models.UserManagement;
 
-namespace Logging.Logic.Common.Models
+namespace Logging.Logic.Models
 {
 	/// <summary>
 	/// Запись в лог, описывающая действие с аккаунтом пользователя

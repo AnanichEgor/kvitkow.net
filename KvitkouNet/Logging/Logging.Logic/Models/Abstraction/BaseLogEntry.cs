@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Logging.Logic.Common.Models.Abstraction
+namespace Logging.Logic.Models.Abstraction
 {
 	/// <summary>
 	/// Базовый класс для создания доменных моделей записей лога

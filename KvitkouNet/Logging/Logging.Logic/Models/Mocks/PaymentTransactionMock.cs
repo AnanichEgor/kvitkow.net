@@ -1,4 +1,4 @@
-﻿namespace Logging.Logic.Common.Models.Mocks
+﻿namespace Logging.Logic.Models.Mocks
 {
 	/// <summary>
 	/// Данная модель будет замещать доменную модель PaymentTransaction (или аналогичную ей)
