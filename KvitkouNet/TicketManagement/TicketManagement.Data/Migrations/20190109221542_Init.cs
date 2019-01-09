@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TicketManagement.Data.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,7 +40,8 @@ namespace TicketManagement.Data.Migrations
                     TimeActual = table.Column<string>(nullable: true),
                     TypeEvent = table.Column<int>(nullable: false),
                     EventLink = table.Column<string>(nullable: true),
-                    Status = table.Column<int>(nullable: false)
+                    Status = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,7 +67,7 @@ namespace TicketManagement.Data.Migrations
                     UserInfoDbId = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    Rating = table.Column<double>(nullable: false),
+                    Rating = table.Column<double>(nullable: true),
                     TicketDbId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
