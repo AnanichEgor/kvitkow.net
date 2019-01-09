@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UserSettings.Logic.Models
+namespace UserSettings.Data.DbModels
 {
-	/// <summary>
-	/// Класс настроек пользователя
-	/// </summary>
-	public class ProfileSettings
+	public class ProfileDb
 	{
+		/// <summary>
+		/// Ключ
+		/// </summary>
+		public int Id { get; set; }
+
+		/// <summary>
+		/// Id пользователя
+		/// </summary>
+		public string UserId { get; set; }
+
 		/// <summary>
 		/// Имя
 		/// </summary>
@@ -27,7 +34,7 @@ namespace UserSettings.Logic.Models
 		/// <summary>
 		/// Аватарка пользователся
 		/// </summary>
-		public object UserImage { get; set; }
+		public byte[] UserImage { get; set; }
 
 		/// <summary>
 		/// Флаг, отвечающий за закрытость аккаунта для гостей.

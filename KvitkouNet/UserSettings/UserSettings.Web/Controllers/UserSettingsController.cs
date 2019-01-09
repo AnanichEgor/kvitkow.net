@@ -5,7 +5,9 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
+using UserSettings.Data.Context;
 using UserSettings.Logic.Models;
 using UserSettings.Web.Models;
 
@@ -14,6 +16,13 @@ namespace UserSettings.Web.Controllers
 	[Route("api/settings")]
 	public class UserSettingsController : Controller
     {
+		private readonly SettingsContext _context;
+		public UserSettingsController(SettingsContext context)
+		{
+			_context = context;
+			_context.Database.Migrate();
+		}
+
 		/// <summary>
 		/// Запрос на изменение основных данных пользователя
 		/// </summary>
