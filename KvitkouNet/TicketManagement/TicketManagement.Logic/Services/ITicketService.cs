@@ -15,8 +15,7 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-
-        Task<Ticket> Add(Ticket ticket);
+        Task<string> Add(Ticket ticket);
 
         /// <summary>
         ///     Обновление информации о билете
@@ -24,7 +23,7 @@ namespace TicketManagement.Logic.Services
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        Task<string> Update(string id, Ticket ticket);
+        Task Update(string id, Ticket ticket);
 
         /// <summary>
         ///     Удаление всех билетов
