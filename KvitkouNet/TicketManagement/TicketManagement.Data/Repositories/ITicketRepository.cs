@@ -11,7 +11,7 @@ namespace TicketManagement.Data.Repositories
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        Task Add(TicketDb ticket);
+        Task<string> Add(TicketDb ticket);
 
         /// <summary>
         ///     Обновление информации о билете в БД
