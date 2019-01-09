@@ -5,7 +5,7 @@ using AutoMapper;
 
 namespace TicketManagement.Logic.MappingProfiles
 {
-    class UserInfoProfile: Profile
+    public class UserInfoProfile: Profile
     {
     }
 }

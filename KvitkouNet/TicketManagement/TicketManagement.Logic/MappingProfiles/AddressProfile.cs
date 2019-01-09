@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TicketManagement.Logic.MappingProfiles
 {
-    class AddressProfile: Profile
+    public class AddressProfile: Profile
     {
     }
 }

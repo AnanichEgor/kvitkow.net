@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TicketManagement.Data.DbModels.Enums;
 
 namespace TicketManagement.Data.DbModels
@@ -82,5 +83,10 @@ namespace TicketManagement.Data.DbModels
         ///     Статус билета
         /// </summary>
         public TicketStatusDb Status { get; set; }
+
+        /// <summary>
+        ///     Дата создания билета
+        /// </summary>
+        public DateTime CreatedDate { get; set; }
     }
 }

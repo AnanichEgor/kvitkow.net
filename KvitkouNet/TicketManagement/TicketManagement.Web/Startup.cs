@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TicketManagement.Data.Context;
 using TicketManagement.Logic;
-
+using TicketManagement.Logic.Models;
+using TicketManagement.Logic.Validators;
 namespace TicketManagement.Web
 {
     public class Startup
@@ -33,6 +35,7 @@ namespace TicketManagement.Web
             services.AddSwaggerDocument();
             services.RegisterTicketService();
             services.AddAutoMapper();
+            services.AddScoped<IValidator<Ticket>, TicketValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

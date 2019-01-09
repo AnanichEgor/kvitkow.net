@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TicketManagement.Logic.Models
 {
@@ -81,5 +82,10 @@ namespace TicketManagement.Logic.Models
         ///     Статус билета
         /// </summary>
         public TicketStatus Status { get; set; }
+
+        /// <summary>
+        ///     Дата создания билета
+        /// </summary>
+        public DateTime CreatedDate { get; set; }
     }
 }
