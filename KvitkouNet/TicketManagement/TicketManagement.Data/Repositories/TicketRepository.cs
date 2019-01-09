@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TicketManagement.Data.Context;
@@ -10,7 +8,7 @@ using TicketManagement.Data.DbModels.Enums;
 
 namespace TicketManagement.Data.Repositories
 {
-   public class TicketRepository : ITicketRepository
+    public class TicketRepository : ITicketRepository
     {
         private readonly TicketContext _context;
 
@@ -24,11 +22,12 @@ namespace TicketManagement.Data.Repositories
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        public async Task Add(TicketDb ticket)
+        public async Task<string> Add(TicketDb ticket)
         {
-            if (ticket == null) return;
+            //if (ticket == null) return null;
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
+            return _context.Tickets.Last().TicketDbId;
         }
 
         /// <summary>
