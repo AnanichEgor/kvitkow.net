@@ -5,7 +5,7 @@ namespace TicketManagement.Logic.Models
     /// <summary>
     ///     Перечисление, описывающее статус билета
     /// </summary>
-    [Flags]
+    
     public enum TicketStatus
     {
         /// <summary>

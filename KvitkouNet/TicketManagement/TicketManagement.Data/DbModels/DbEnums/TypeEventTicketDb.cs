@@ -5,7 +5,7 @@ namespace TicketManagement.Data.DbModels.Enums
     /// <summary>
     ///     Перечисление, описывающее типы билетов
     /// </summary>
-    
+    [Flags]
     public enum TypeEventTicketDb
     {
         /// <summary>

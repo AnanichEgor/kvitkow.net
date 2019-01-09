@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TicketManagement.Data.Context;
 using TicketManagement.Logic;
+using TicketManagement.Logic.MappingProfiles;
 using TicketManagement.Logic.Models;
 using TicketManagement.Logic.Validators;
 namespace TicketManagement.Web
@@ -31,10 +32,29 @@ namespace TicketManagement.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TicketContext>(opt => opt.UseSqlite("Data Source=./TicketDatabase.db"));
+
+            var o = new DbContextOptionsBuilder<TicketContext>();
+            o.UseSqlite("Data Source=./MyFirstDatabase.db");
+
+            using (var ctx = new TicketContext(o.Options))
+            {
+                ctx.Database.Migrate();
+
+                if (!ctx.Tickets.Any())
+                {                    
+                    ctx.SaveChanges();
+                }
+            }
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerDocument();
             services.RegisterTicketService();
-            services.AddAutoMapper();
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<TicketProfile>();
+                cfg.AddProfile<AddressProfile>();
+            });
+
             services.AddScoped<IValidator<Ticket>, TicketValidator>();
         }
 

@@ -23,6 +23,6 @@
         /// <summary>
         ///     Gets or sets the user rating.
         /// </summary>
-        public double Rating { get; set; }
+        public double? Rating { get; set; }
     }
 }

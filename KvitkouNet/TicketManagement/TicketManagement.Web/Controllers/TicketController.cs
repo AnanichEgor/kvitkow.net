@@ -36,6 +36,7 @@ namespace TicketManagement.Web.Controllers
         {
             var result = await _service.Add(ticket);
             return Ok(result);
+
         }
 
         /// <summary>
