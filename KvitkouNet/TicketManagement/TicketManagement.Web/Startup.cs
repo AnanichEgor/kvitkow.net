@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TicketManagement.Data.Context;
+using TicketManagement.Data.Repositories;
 using TicketManagement.Logic;
 using TicketManagement.Logic.MappingProfiles;
 using TicketManagement.Logic.Models;
@@ -48,6 +49,7 @@ namespace TicketManagement.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerDocument();
+            services.AddScoped<ITicketRepository>(provider => new TicketRepository(provider.GetService<TicketContext>()));
             services.RegisterTicketService();
             services.AddAutoMapper(cfg =>
             {
