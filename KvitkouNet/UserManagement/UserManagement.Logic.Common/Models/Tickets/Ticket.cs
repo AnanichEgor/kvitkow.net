@@ -1,8 +1,8 @@
 ﻿
 using System.Collections.Generic;
-using UserManagement.Data.DbModels.Tickets.Enums;
+using UserManagement.Logic.Models.Tickets.Enums;
 
-namespace UserManagement.Data.DbModels.Tickets
+namespace UserManagement.Logic.Models.Tickets
 {
     /// <summary>
     ///     Класс описания доменной модели билета

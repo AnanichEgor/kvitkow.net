@@ -1,4 +1,4 @@
-﻿using UserManagement.Logic.Common;
+﻿using UserManagement.Logic;
 using UserManagement.Data.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

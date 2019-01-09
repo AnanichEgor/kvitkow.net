@@ -1,5 +1,5 @@
-﻿using UserManagement.Logic.Common.Models.Security;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UserManagement.Data.DbModels.Security;
 
 namespace UserManagement.Data.DbModels
 {

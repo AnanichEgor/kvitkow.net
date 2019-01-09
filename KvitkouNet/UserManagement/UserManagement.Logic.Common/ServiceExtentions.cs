@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
-namespace UserManagement.Common
+namespace UserManagement.Logic
 {
     public static class ServiceExtentions
     {

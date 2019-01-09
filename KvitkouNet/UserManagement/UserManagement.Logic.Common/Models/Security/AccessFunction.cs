@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UserManagement.Data.DbModels.Security
+namespace UserManagement.Logic.Models.Security
 {
     /// <summary>
     /// Функция доступа к фиче

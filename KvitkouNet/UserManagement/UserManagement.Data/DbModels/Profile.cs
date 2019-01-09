@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using UserManagement.Logic.Common.Models.Security;
-using UserManagement.Logic.Common.Models.Tickets;
-using UserManagement.Logic.Common.Models.UserSettings;
+using UserManagement.Logic.Models.Security;
+using UserManagement.Logic.Models.Tickets;
+using UserManagement.Logic.Models.UserSettings;
 
 namespace UserManagement.Data.DbModels
 {

@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
 using UserManagement.Data.Context;
-using UserManagement.Logic.Common.Models;
-using UserManagement.Logic.Common.Services;
+using UserManagement.Logic.Models;
+using UserManagement.Logic.Services;
 
 namespace UserManagement.Web.Controllers
 {

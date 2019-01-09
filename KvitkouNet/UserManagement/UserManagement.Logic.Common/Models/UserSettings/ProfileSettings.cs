@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace UserManagement.Data.DbModels.UserSettings
+namespace UserManagement.Logic.Models.UserSettings
 {
     /// <summary>
     /// Класс настроек пользователя
