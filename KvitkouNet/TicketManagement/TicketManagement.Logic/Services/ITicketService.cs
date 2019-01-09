@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using KvitkouNet.Logic.Common.Models.Tickets;
+using TicketManagement.Logic.Models;
 
-namespace KvitkouNet.Logic.Common.Services.Tickets
+namespace TicketManagement.Logic.Services
 {
     /// <summary>
     ///     Сервис для работы с Tickets
@@ -15,6 +15,7 @@ namespace KvitkouNet.Logic.Common.Services.Tickets
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
+
         Task<Ticket> Add(Ticket ticket);
 
         /// <summary>

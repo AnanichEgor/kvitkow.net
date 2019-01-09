@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using KvitkouNet.Logic.Common.Models.Enums;
-using KvitkouNet.Logic.Common.Models.Search;
-using KvitkouNet.Logic.Common.Models.UserManagement;
+﻿using System;
+using System.Collections.Generic;
 
-namespace KvitkouNet.Logic.Common.Models.Tickets
+namespace TicketManagement.Logic.Models
 {
     /// <summary>
     ///     Класс описания доменной модели билета
@@ -83,6 +81,11 @@ namespace KvitkouNet.Logic.Common.Models.Tickets
         /// <summary>
         ///     Статус билета
         /// </summary>
-        public TicketStatusEnum Status { get; set; }
+        public TicketStatus Status { get; set; }
+
+        /// <summary>
+        ///     Дата создания билета
+        /// </summary>
+        public DateTime CreatedDate { get; set; }
     }
 }

@@ -99,17 +99,6 @@ namespace KvitkouNet.Logic.Common
         }
     
 
-        /// <summary>
-        /// Регистрация ITicketService
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection RegisterTicketService(this IServiceCollection services)
-        {
-            var mock = new Mock<ITicketService>();
-            services.AddScoped(_ => mock.Object);
-            return services;
-        }
 		/// <summary>
 		/// Регистрация IUserSettingsService
 		/// </summary>

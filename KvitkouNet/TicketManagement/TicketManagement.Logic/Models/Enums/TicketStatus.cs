@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace KvitkouNet.Logic.Common.Models.Enums
+namespace TicketManagement.Logic.Models
 {
     /// <summary>
     ///     Перечисление, описывающее статус билета
     /// </summary>
-    [Flags]
-    public enum TicketStatusEnum
+    
+    public enum TicketStatus
     {
         /// <summary>
         ///     Тип не установлен
