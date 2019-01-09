@@ -1,6 +1,13 @@
-﻿namespace KvitkouNet.Web.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace UserSettings.Logic.Models
 {
-	public class PasswordDto
+	/// <summary>
+	/// Обновление аккаунта
+	/// </summary>
+	public class AccountSettings
 	{
 		/// <summary>
 		/// Текущий пароль пользователя.
@@ -16,5 +23,10 @@
 		/// Подтверждение нового пароля.
 		/// </summary>
 		public string ConfirmPassword { get; set; }
+
+		/// <summary>
+		/// Почта пользователя.
+		/// </summary>
+		public string Email { get; set; }
 	}
 }

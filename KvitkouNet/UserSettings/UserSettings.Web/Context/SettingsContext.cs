@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace UserSettings.Context
+namespace UserSettings.Web.Context
 {
 	public class SettingsContext: DbContext
 	{

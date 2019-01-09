@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using UserSettings.Logic.Common.Models;
-using UserSettings.Logic.Common.Models.Helper;
+using UserSettings.Logic.Models;
+using UserSettings.Logic.Models.Helper;
 
-namespace UserSettings.Logic.Common.Services
+namespace UserSettings.Logic.Services
 {
 	/// <summary>
 	/// Сервис для обновления настроек пользователя

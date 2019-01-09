@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace KvitkouNet.Web.Models
+﻿namespace UserSettings.Web.Models
 {
 	public class EmailDto
 	{

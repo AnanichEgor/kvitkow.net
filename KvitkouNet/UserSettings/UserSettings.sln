@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserSettings", "UserSettings\UserSettings.csproj", "{220471CE-1275-4B2B-8A9F-F79DB7D46F96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserSettings.Web", "UserSettings.Web\UserSettings.Web.csproj", "{220471CE-1275-4B2B-8A9F-F79DB7D46F96}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserSettings.Data", "UserSettings.Data\UserSettings.Data.csproj", "{5566B1A3-5331-4988-9BC4-7FD1F66D8206}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserSettings.Logic", "UserSettings.Logic\UserSettings.Logic.csproj", "{483E5D46-30A5-42F0-AFA5-824E5CF20EB7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserSettings.Logic.Common", "UserSettings.Logic.Common\UserSettings.Logic.Common.csproj", "{7C64201C-4F02-487D-8B81-28E2DC43CC98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserSettings.Logic", "UserSettings.Logic\UserSettings.Logic.csproj", "{7C64201C-4F02-487D-8B81-28E2DC43CC98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{5566B1A3-5331-4988-9BC4-7FD1F66D8206}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5566B1A3-5331-4988-9BC4-7FD1F66D8206}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5566B1A3-5331-4988-9BC4-7FD1F66D8206}.Release|Any CPU.Build.0 = Release|Any CPU
-		{483E5D46-30A5-42F0-AFA5-824E5CF20EB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{483E5D46-30A5-42F0-AFA5-824E5CF20EB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{483E5D46-30A5-42F0-AFA5-824E5CF20EB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{483E5D46-30A5-42F0-AFA5-824E5CF20EB7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C64201C-4F02-487D-8B81-28E2DC43CC98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7C64201C-4F02-487D-8B81-28E2DC43CC98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C64201C-4F02-487D-8B81-28E2DC43CC98}.Release|Any CPU.ActiveCfg = Release|Any CPU

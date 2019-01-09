@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UserSettings.Logic.Common.Models
+﻿namespace UserSettings.Web.Models
 {
-	/// <summary>
-	/// Обновление аккаунта
-	/// </summary>
-	public class AccountSettings
+	public class PasswordDto
 	{
 		/// <summary>
 		/// Текущий пароль пользователя.
@@ -23,10 +16,5 @@ namespace UserSettings.Logic.Common.Models
 		/// Подтверждение нового пароля.
 		/// </summary>
 		public string ConfirmPassword { get; set; }
-
-		/// <summary>
-		/// Почта пользователя.
-		/// </summary>
-		public string Email { get; set; }
 	}
 }

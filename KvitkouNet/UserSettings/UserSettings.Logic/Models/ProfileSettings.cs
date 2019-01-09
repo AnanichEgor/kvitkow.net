@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace KvitkouNet.Logic.Common.Models
+namespace UserSettings.Logic.Models
 {
 	/// <summary>
 	/// Класс настроек пользователя

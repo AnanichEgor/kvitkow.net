@@ -6,10 +6,10 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
-using UserSettings.Logic.Common.Models;
-using UserSettings.Models;
+using UserSettings.Logic.Models;
+using UserSettings.Web.Models;
 
-namespace UserSettings.Controllers
+namespace UserSettings.Web.Controllers
 {
 	[Route("api/settings")]
 	public class UserSettingsController : Controller

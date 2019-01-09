@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using UserSettings.Logic.Common;
+using UserSettings.Logic;
 
-namespace UserSettings
+namespace UserSettings.Web
 {
 	public class Startup
 	{

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using UserSettings.Logic.Common.Services;
+using UserSettings.Logic.Services;
 
-namespace UserSettings.Logic.Common
+namespace UserSettings.Logic
 {
 	public static class ServiceExtentions
 	{

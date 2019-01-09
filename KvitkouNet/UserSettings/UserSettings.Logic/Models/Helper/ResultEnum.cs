@@ -1,4 +1,8 @@
-﻿namespace KvitkouNet.Logic.Common.Models.UserSettings
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace UserSettings.Logic.Models.Helper
 {
 	/// <summary>
 	/// Результат обновления данных

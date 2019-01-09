@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UserSettings.Logic.Common\UserSettings.Logic.Common.csproj" />
+    <ProjectReference Include="..\UserSettings.Logic\UserSettings.Logic.csproj" />
   </ItemGroup>
 
 </Project>
