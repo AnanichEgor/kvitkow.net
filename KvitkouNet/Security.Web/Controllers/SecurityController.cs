@@ -28,7 +28,7 @@ namespace Security.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("add/right")]
+        [HttpPost, Route("right")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -38,11 +38,11 @@ namespace Security.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("delete/right")]
+        [HttpDelete, Route("right/{id:int}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> DeleteRight([FromBody]int rightId)
+        public async Task<IActionResult> DeleteRight(int rightId)
         {
             var result = _securityService.DeleteRight(rightId);
             return Ok(await result);
@@ -58,7 +58,7 @@ namespace Security.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("add/function")]
+        [HttpPost, Route("function")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -68,17 +68,17 @@ namespace Security.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("delete/function")]
+        [HttpDelete, Route("function/{id:int}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> DeleteFunction([FromBody]int functionId)
+        public async Task<IActionResult> DeleteFunction(int functionId)
         {
             var result = _securityService.DeleteFunction(functionId);
             return Ok(await result);
         }
 
-        [HttpPost, Route("edit/function")]
+        [HttpPut, Route("function")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -98,7 +98,7 @@ namespace Security.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("add/feature")]
+        [HttpPost, Route("feature")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -108,17 +108,17 @@ namespace Security.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("delete/feature")]
+        [HttpDelete, Route("feature/{id:int}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> DeleteFeature([FromBody]int featureId)
+        public async Task<IActionResult> DeleteFeature(int featureId)
         {
             var result = _securityService.DeleteFeature(featureId);
             return Ok(await result);
         }
 
-        [HttpPost, Route("edit/feature")]
+        [HttpPut, Route("feature")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -138,7 +138,7 @@ namespace Security.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("add/role")]
+        [HttpPost, Route("role")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -148,17 +148,17 @@ namespace Security.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("delete/role")]
+        [HttpDelete, Route("role/{id:int}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> DeleteRole([FromBody]int roleId)
+        public async Task<IActionResult> DeleteRole(int roleId)
         {
             var result = _securityService.DeleteRole(roleId);
             return Ok(await result);
         }
 
-        [HttpPost, Route("edit/role")]
+        [HttpPut, Route("role")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
@@ -168,18 +168,18 @@ namespace Security.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("fined/user/rights")]
+        [HttpGet, Route("rights/user/{id:string}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(UserRights), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
         [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "Nothing was found on this request")]
-        public async Task<IActionResult> GetUserRights([FromBody]string userId)
+        public async Task<IActionResult> GetUserRights(string userId)
         {
             var result = _securityService.GetUserRights(userId);
             return Ok(await result);
         }
 
-        [HttpPost, Route("edit/user/rights")]
+        [HttpPut, Route("rights/user")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
