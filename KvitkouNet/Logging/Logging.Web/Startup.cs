@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Logging.Data;
+using Logging.Logic.MappingProfiles;
 using Logging.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +30,11 @@ namespace Logging.Web
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<LoggingDbContext>(opt => opt.UseSqlite("Data Source=Logs.db"));
+
+			services.AddAutoMapper(cfg =>
+			{
+				cfg.AddProfile<InternalErrorLogProfile>();
+			});
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
