@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TicketManagement.Data.Context;
+using TicketManagement.Data.Repositories;
 using TicketManagement.Logic.Models;
 
 namespace TicketManagement.Logic.Services
@@ -12,11 +13,11 @@ namespace TicketManagement.Logic.Services
     public class TicketService : ITicketService
     {
 
-        private readonly TicketContext _context;
+        private readonly ITicketRepository _context;
         private readonly IMapper _mapper;
         private readonly IValidator _validator;
 
-        public TicketService(TicketContext context, IMapper mapper, IValidator validator)
+        public TicketService(ITicketRepository context, IMapper mapper, IValidator validator)
         {
             _context = context;
             _mapper = mapper;
