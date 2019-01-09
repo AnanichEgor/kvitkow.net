@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UserManagement.Logic.Common.Models;
+using UserManagement.Data.DbModels;
 
 namespace UserManagement.Data.Context
 {

@@ -1,5 +1,8 @@
-﻿
-namespace UserManagement.Logic.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace UserManagement.Data.DbModels
 {
     public class Account
     {

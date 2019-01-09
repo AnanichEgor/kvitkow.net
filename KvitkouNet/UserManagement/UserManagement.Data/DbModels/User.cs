@@ -1,4 +1,7 @@
-﻿namespace UserManagement.Logic.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace UserManagement.Data.DbModels
 {
     public class User
     {

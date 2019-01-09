@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UserManagement.Logic.Common.Services;
+﻿using UserManagement.Logic.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
-namespace UserManagement.Logic.Common
+namespace UserManagement.Common
 {
     public static class ServiceExtentions
     {

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using UserManagement.Logic.Models.Security;
-using UserManagement.Logic.Models.Tickets;
-using UserManagement.Logic.Models.UserSettings;
+using System.ComponentModel.DataAnnotations.Schema;
+using UserManagement.Logic.Common.Models.Security;
+using UserManagement.Logic.Common.Models.Tickets;
+using UserManagement.Logic.Common.Models.UserSettings;
 
-namespace UserManagement.Logic.Models
+namespace UserManagement.Data.DbModels
 {
     public class Profile
     {

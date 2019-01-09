@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UserManagement.Logic.Common.Models;
+using UserManagement.Logic.Models;
 
-namespace UserManagement.Logic.Common.Services
+namespace UserManagement.Logic.Services
 {
     public interface IUserService: IDisposable
     {

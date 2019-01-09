@@ -1,4 +1,4 @@
-﻿namespace UserManagement.Logic.Models
+﻿namespace UserManagement.Data.DbModels
 {
     public class PhoneNumber
     {
