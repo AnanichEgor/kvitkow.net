@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Logging.Data;
 using Logging.Data.Fakers;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Logging.Web
 {
