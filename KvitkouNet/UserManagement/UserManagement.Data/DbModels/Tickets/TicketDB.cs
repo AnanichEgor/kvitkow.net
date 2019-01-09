@@ -7,22 +7,22 @@ namespace UserManagement.Data.DbModels.Tickets
     /// <summary>
     ///     Класс описания доменной модели билета
     /// </summary>
-    public class Ticket
+    public class TicketDB
     {
         /// <summary>
         ///     Пользователь разместивший билет
         /// </summary>
-        public User User { get; set; }
+        public UserDB User { get; set; }
 
         /// <summary>
         ///     Пользователи, которые добавили билет в “Я Пойду”
         /// </summary>
-        public List<User> RespondedUsers { get; set; }
+        public List<UserDB> RespondedUsers { get; set; }
 
         /// <summary>
         ///     Платный/бесплатный билет
         /// </summary>
-        public bool Free { get; set; }
+        public bool Free { get; set; } 
 
         /// <summary>
         ///     Название билета
@@ -37,7 +37,7 @@ namespace UserManagement.Data.DbModels.Tickets
         /// <summary>
         ///     Адрес проведения мероприятия
         /// </summary>
-        public Address LocationEvent { get; set; }
+        public AddressDB LocationEvent { get; set; }
 
         /// <summary>
         ///     Цена билета
@@ -57,7 +57,7 @@ namespace UserManagement.Data.DbModels.Tickets
         /// <summary>
         ///     Адрес продавца
         /// </summary>
-        public Address SellerAdress { get; set; }
+        public AddressDB SellerAdress { get; set; }
 
         /// <summary>
         ///     Платежная система
@@ -72,7 +72,7 @@ namespace UserManagement.Data.DbModels.Tickets
         /// <summary>
         ///     Тип мероприятия
         /// </summary>
-        public TypeEventTicket TypeEvent { get; set; }
+        public TypeEventTicketDB TypeEvent { get; set; }
 
         /// <summary>
         ///     Ссылка на мероприятие
@@ -82,6 +82,6 @@ namespace UserManagement.Data.DbModels.Tickets
         /// <summary>
         ///     Статус билета
         /// </summary>
-        public TicketStatus Status { get; set; }
+        public TicketStatusDB Status { get; set; }
     }
 }

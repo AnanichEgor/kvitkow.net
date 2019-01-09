@@ -5,7 +5,7 @@ namespace UserManagement.Data.DbModels.Security
     /// <summary>
     /// Функция доступа к фиче
     /// </summary>
-    public class AccessFunction
+    public class AccessFunctionDB
     {
         /// <summary>
         /// Идентификатор функции
@@ -25,6 +25,6 @@ namespace UserManagement.Data.DbModels.Security
         /// <summary>
         /// Список прав предоставляемых функцией
         /// </summary>
-        public List<AccessRight> AccessRights { get; set; }
+        public List<AccessRightDB> AccessRights { get; set; }
     }
 }

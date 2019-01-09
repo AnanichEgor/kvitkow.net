@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UserManagement.Data.DbModels
 {
-    public class Account
+    public class AccountDB
     {
         /// <summary>
         /// Уникальный идентификатор учетной записи
@@ -25,5 +25,12 @@ namespace UserManagement.Data.DbModels
         /// Пароль пользователя
         /// </summary>
         public string Password { get; set; }
+
+        #region Связи между таблицами  
+        /// <summary>
+        /// Пользователь
+        /// </summary>
+        public UserDB UserDB { get; set; }
+        #endregion
     }
 }

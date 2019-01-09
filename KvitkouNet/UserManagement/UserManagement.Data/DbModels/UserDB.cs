@@ -3,21 +3,23 @@ using System.Collections.Generic;
 
 namespace UserManagement.Data.DbModels
 {
-    public class User
+    public class UserDB
     {
         /// <summary>
         /// Уникальный идентификатор пользователя
         /// </summary>
         public string Id { get; set; }
-
+        
+        #region Связи между таблицами  
         /// <summary>
         /// Учетная запись пользователя
         /// </summary>
-        public Account Account { get; set; }
+        public AccountDB Account { get; set; }
 
         /// <summary>
         /// Профиль пользователя
         /// </summary>
-        public Profile Profile { get; set; }
+        public ProfileDB Profile { get; set; }
+        #endregion 
     }
 }

@@ -6,7 +6,7 @@ namespace UserManagement.Data.DbModels.Security
     /// <summary>
     /// Роль
     /// </summary>
-    public class Role
+    public class RoleDB
     {
         /// <summary>
         /// Идентификатор роли
@@ -22,18 +22,18 @@ namespace UserManagement.Data.DbModels.Security
         /// <summary>
         /// Список предоставляемых прав
         /// </summary>
-        public List<AccessRight> AccessRights { get; set; }
+        public List<AccessRightDB> AccessRights { get; set; }
 
         [NotMapped]
         /// <summary>
         /// Список запрещённых прав
         /// </summary>
-        public List<AccessRight> DeniedRights { get; set; }
+        public List<AccessRightDB> DeniedRights { get; set; }
 
         [NotMapped]
         /// <summary>
         /// Список предоставляемых функций
         /// </summary>
-        public List<AccessFunction> AccessFunctions { get; set; }
+        public List<AccessFunctionDB> AccessFunctions { get; set; }
     }
 }

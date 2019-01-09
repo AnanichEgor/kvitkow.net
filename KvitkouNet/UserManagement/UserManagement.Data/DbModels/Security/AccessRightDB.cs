@@ -4,7 +4,7 @@ namespace UserManagement.Data.DbModels.Security
     /// <summary>
     /// Право доступа
     /// </summary>
-    public class AccessRight
+    public class AccessRightDB
     {
         /// <summary>
         /// Идентификатор права доступа

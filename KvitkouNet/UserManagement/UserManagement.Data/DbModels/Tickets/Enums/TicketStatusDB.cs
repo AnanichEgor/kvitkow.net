@@ -6,7 +6,7 @@ namespace UserManagement.Data.DbModels.Tickets.Enums
     ///     Перечисление, описывающее статус билета
     /// </summary>
     [Flags]
-    public enum TicketStatus
+    public enum TicketStatusDB
     {
         /// <summary>
         ///     Тип не установлен
