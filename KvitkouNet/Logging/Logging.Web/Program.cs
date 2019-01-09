@@ -29,7 +29,7 @@ namespace Logging.Web
 						context.SaveChanges();
 					}
 				}
-				catch (Exception e)
+				catch (Exception)
 				{
 					throw new DataException("Не удалось засидать базу");
 				}
