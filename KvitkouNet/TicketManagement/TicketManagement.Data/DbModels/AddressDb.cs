@@ -1,11 +1,11 @@
-﻿namespace TicketManagement.Data.Models
+﻿namespace TicketManagement.Data.DbModels
 {
-    public class Address
+    public class AddressDb
     {
         /// <summary>
         ///     Id адреса
         /// </summary>
-        public string AddressId { get; set; }
+        public string AddressDbId { get; set; }
 
         /// <summary>
         ///     Страна проживания

@@ -1,14 +1,14 @@
-﻿namespace TicketManagement.Data.Models
+﻿namespace TicketManagement.Data.DbModels
 {
     /// <summary>
     ///     Вспомогательный класс пользователя для тикета
     /// </summary>
-    public class UserInfo
+    public class UserInfoDb
     {
         /// <summary>
         ///     Id юзера
         /// </summary>
-        public string UserInfoId { get; set; }
+        public string UserInfoDbId { get; set; }
 
         /// <summary>
         ///     Имя юзера

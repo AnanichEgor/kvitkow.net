@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TicketManagement.Data.Models.Enums
+namespace TicketManagement.Logic.Models
 {
     /// <summary>
     ///     Перечисление, описывающее статус билета

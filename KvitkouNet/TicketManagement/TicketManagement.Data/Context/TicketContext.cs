@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TicketManagement.Data.Models;
+using TicketManagement.Data.DbModels;
 
 namespace TicketManagement.Data.Context
 {
@@ -9,8 +9,8 @@ namespace TicketManagement.Data.Context
         {
         }
 
-        public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<Address> Adresses { get; set; }
-        public DbSet<UserInfo> UserInfos { get; set; }
+        public DbSet<TicketDb> Tickets { get; set; }
+        public DbSet<AddressDb> Adresses { get; set; }
+        public DbSet<UserInfoDb> UserInfos { get; set; }
     }
 }

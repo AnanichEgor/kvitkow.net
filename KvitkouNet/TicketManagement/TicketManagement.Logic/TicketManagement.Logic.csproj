@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TicketManagement.Data\TicketManagement.Data.csproj" />
-    <ProjectReference Include="..\TicketManagement.Logic.Common\TicketManagement.Logic.Common.csproj" />
   </ItemGroup>
 
 </Project>

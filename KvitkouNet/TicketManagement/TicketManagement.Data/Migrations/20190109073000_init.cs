@@ -2,7 +2,7 @@
 
 namespace TicketManagement.Data.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,7 +10,7 @@ namespace TicketManagement.Data.Migrations
                 name: "Adresses",
                 columns: table => new
                 {
-                    AddressId = table.Column<string>(nullable: false),
+                    AddressDbId = table.Column<string>(nullable: false),
                     Country = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     Street = table.Column<string>(nullable: true),
@@ -19,22 +19,22 @@ namespace TicketManagement.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Adresses", x => x.AddressId);
+                    table.PrimaryKey("PK_Adresses", x => x.AddressDbId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Tickets",
                 columns: table => new
                 {
-                    UserInfoId = table.Column<string>(nullable: true),
+                    UserInfoDbId = table.Column<string>(nullable: true),
                     Free = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    TicketId = table.Column<string>(nullable: false),
-                    LocationEventAddressId = table.Column<string>(nullable: true),
+                    TicketDbId = table.Column<string>(nullable: false),
+                    LocationEventAddressDbId = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
                     AdditionalData = table.Column<string>(nullable: true),
                     SellerPhone = table.Column<string>(nullable: true),
-                    SellerAdressAddressId = table.Column<string>(nullable: true),
+                    SellerAdressAddressDbId = table.Column<string>(nullable: true),
                     PaymentSystems = table.Column<string>(nullable: true),
                     TimeActual = table.Column<string>(nullable: true),
                     TypeEvent = table.Column<int>(nullable: false),
@@ -43,18 +43,18 @@ namespace TicketManagement.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tickets", x => x.TicketId);
+                    table.PrimaryKey("PK_Tickets", x => x.TicketDbId);
                     table.ForeignKey(
-                        name: "FK_Tickets_Adresses_LocationEventAddressId",
-                        column: x => x.LocationEventAddressId,
+                        name: "FK_Tickets_Adresses_LocationEventAddressDbId",
+                        column: x => x.LocationEventAddressDbId,
                         principalTable: "Adresses",
-                        principalColumn: "AddressId",
+                        principalColumn: "AddressDbId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Tickets_Adresses_SellerAdressAddressId",
-                        column: x => x.SellerAdressAddressId,
+                        name: "FK_Tickets_Adresses_SellerAdressAddressDbId",
+                        column: x => x.SellerAdressAddressDbId,
                         principalTable: "Adresses",
-                        principalColumn: "AddressId",
+                        principalColumn: "AddressDbId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -62,64 +62,64 @@ namespace TicketManagement.Data.Migrations
                 name: "UserInfos",
                 columns: table => new
                 {
-                    UserInfoId = table.Column<string>(nullable: false),
+                    UserInfoDbId = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Rating = table.Column<double>(nullable: false),
-                    TicketId = table.Column<string>(nullable: true)
+                    TicketDbId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserInfos", x => x.UserInfoId);
+                    table.PrimaryKey("PK_UserInfos", x => x.UserInfoDbId);
                     table.ForeignKey(
-                        name: "FK_UserInfos_Tickets_TicketId",
-                        column: x => x.TicketId,
+                        name: "FK_UserInfos_Tickets_TicketDbId",
+                        column: x => x.TicketDbId,
                         principalTable: "Tickets",
-                        principalColumn: "TicketId",
+                        principalColumn: "TicketDbId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_LocationEventAddressId",
+                name: "IX_Tickets_LocationEventAddressDbId",
                 table: "Tickets",
-                column: "LocationEventAddressId");
+                column: "LocationEventAddressDbId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_SellerAdressAddressId",
+                name: "IX_Tickets_SellerAdressAddressDbId",
                 table: "Tickets",
-                column: "SellerAdressAddressId");
+                column: "SellerAdressAddressDbId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_UserInfoId",
+                name: "IX_Tickets_UserInfoDbId",
                 table: "Tickets",
-                column: "UserInfoId");
+                column: "UserInfoDbId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserInfos_TicketId",
+                name: "IX_UserInfos_TicketDbId",
                 table: "UserInfos",
-                column: "TicketId");
+                column: "TicketDbId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Tickets_UserInfos_UserInfoId",
+                name: "FK_Tickets_UserInfos_UserInfoDbId",
                 table: "Tickets",
-                column: "UserInfoId",
+                column: "UserInfoDbId",
                 principalTable: "UserInfos",
-                principalColumn: "UserInfoId",
+                principalColumn: "UserInfoDbId",
                 onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Tickets_Adresses_LocationEventAddressId",
+                name: "FK_Tickets_Adresses_LocationEventAddressDbId",
                 table: "Tickets");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Tickets_Adresses_SellerAdressAddressId",
+                name: "FK_Tickets_Adresses_SellerAdressAddressDbId",
                 table: "Tickets");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Tickets_UserInfos_UserInfoId",
+                name: "FK_Tickets_UserInfos_UserInfoDbId",
                 table: "Tickets");
 
             migrationBuilder.DropTable(

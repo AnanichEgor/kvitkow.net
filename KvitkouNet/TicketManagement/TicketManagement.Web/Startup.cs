@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TicketManagement.Data.Context;
-using TicketManagement.Logic.Common;
+using TicketManagement.Logic;
 
 namespace TicketManagement.Web
 {

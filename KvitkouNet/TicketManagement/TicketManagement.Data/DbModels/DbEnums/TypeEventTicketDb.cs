@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace TicketManagement.Data.Models.Enums
+namespace TicketManagement.Data.DbModels.Enums
 {
     /// <summary>
     ///     Перечисление, описывающее типы билетов
     /// </summary>
-    [Flags]
-    public enum TypeEventTicket
+    
+    public enum TypeEventTicketDb
     {
         /// <summary>
         ///     Тип не установлен

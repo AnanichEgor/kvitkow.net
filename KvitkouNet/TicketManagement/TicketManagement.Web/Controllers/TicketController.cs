@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
 using TicketManagement.Data.Context;
-using TicketManagement.Logic.Common.Models;
-using TicketManagement.Logic.Common.Services;
+using TicketManagement.Logic.Models;
+using TicketManagement.Logic.Services;
 
 namespace TicketManagement.Web.Controllers
 {
