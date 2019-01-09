@@ -12,11 +12,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.1916590" />
+    <PackageReference Include="Moq" Version="4.10.1" />
     <PackageReference Include="NSwag.AspNetCore" Version="12.0.7" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Logging.Logic.Common\Logging.Logic.Common.csproj" />
     <ProjectReference Include="..\Logging.Logic\Logging.Logic.csproj" />
   </ItemGroup>
 
