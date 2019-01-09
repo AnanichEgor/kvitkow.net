@@ -32,7 +32,7 @@ namespace Logging.Logic.Services
 
 		public async Task<IEnumerable<InternalErrorLogEntry>> GetErrorLogsAsync(ErrorLogsFilterDto filter)
 		{
-			return _mapper.Map<InternalErrorLogEntry[]>(await _context.InternalErrorLogEntries.ToArrayAsync());
+			return _mapper.Map<InternalErrorLogEntry[]>(await _context.InternalErrorLogEntries.AsNoTracking().ToArrayAsync());
 		}
 
 		public Task AddErrorLogAsync(InternalErrorLogEntry entry)

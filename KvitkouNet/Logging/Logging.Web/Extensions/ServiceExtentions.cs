@@ -16,7 +16,8 @@ namespace Logging.Web.Extensions
 		/// <returns></returns>
 		public static IServiceCollection RegisterLoggingService(this IServiceCollection services)
 		{
-			services.AddScoped(_ => GetLoggingServiceMock().Object);
+			// services.AddScoped(_ => GetLoggingServiceMock().Object);
+			services.AddScoped<ILoggingService, LoggingService>();
 
 			return services;
 		}
