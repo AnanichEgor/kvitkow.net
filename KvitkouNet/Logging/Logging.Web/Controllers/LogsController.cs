@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using Logging.Logic.Dtos;
+using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
 using Logging.Logic.Services;
 using Microsoft.AspNetCore.Mvc;
