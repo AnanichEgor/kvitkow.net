@@ -31,21 +31,11 @@ namespace TicketManagement.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TicketContext>(opt => opt.UseSqlite("Data Source=./TicketDatabase.db"));
-            var o = new DbContextOptionsBuilder<TicketContext>();
-            o.UseSqlite("Data Source=./TicketDatabase.db");
-            using (var ctx = new TicketContext(o.Options))
-            {
-                ctx.Database.Migrate();
-                if (!ctx.Tickets.Any())
-                {
-                    ctx.Tickets.AddRange(TicketFaker.Generate(100));
-                    ctx.SaveChanges();
-                }
-            }
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerDocument();
-            services.AddScoped<ITicketRepository>(provider => new TicketRepository(new TicketContext(o.Options)));
+            services.AddScoped<ITicketRepository>(provider =>
+                new TicketRepository(new TicketContext(new DbContextOptionsBuilder<TicketContext>()
+                    .UseSqlite("Data Source=./TicketDatabase.db").Options)));
             services.RegisterTicketService();
             services.AddScoped<ITicketService>(provider => new TicketService(provider.GetService<ITicketRepository>(),
                 provider.GetService<IMapper>(), provider.GetService<IValidator>()));
