@@ -77,7 +77,11 @@ namespace TicketManagement.Data.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<TicketDb>> GetAll()
         {
-            return await _context.Tickets.ToListAsync();
+            return await _context.Tickets.Include(db => db.User)
+                .Include(db => db.LocationEvent)
+                .Include(db => db.SellerAdress)
+                .AsNoTracking()
+                .ToArrayAsync();
         }
 
         /// <summary>
