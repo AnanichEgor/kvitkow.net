@@ -35,15 +35,11 @@ namespace TicketManagement.Data.Repositories
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        public async Task Update(string id,
-            TicketDb ticket)
+        public async Task Update(string id, TicketDb ticket)
         {
             var original = await _context.Tickets.FindAsync(ticket.Id);
-            if (original == null)
-                return;
+            if (original == null) return;
             original.Name = ticket.Name;
-            original.Price = ticket.Price;
-            //add more property
             await _context.SaveChangesAsync();
         }
 
@@ -53,11 +49,9 @@ namespace TicketManagement.Data.Repositories
         /// <returns></returns>
         public async Task DeleteAll()
         {
-            var first = _context.Tickets.First();
-            var last = _context.Tickets.Last();
-            _context.RemoveRange(first,
-                last);
+            _context.Tickets.RemoveRange(_context.Tickets);
             await _context.SaveChangesAsync();
+            
         }
 
         /// <summary>
@@ -67,11 +61,11 @@ namespace TicketManagement.Data.Repositories
         /// <returns></returns>
         public async Task Delete(string id)
         {
-            var original = _context.Tickets.Find(id);
-            if (original == null)
-                return;
+            //var original = await _context.Tickets.FindAsync(id);
+            var original=new TicketDb(){Id = id};
+           // if (original == null) return;
             _context.Tickets.Remove(original);
-            await _context.SaveChangesAsync();
+             _context.SaveChanges();
         }
 
         /// <summary>
@@ -93,9 +87,14 @@ namespace TicketManagement.Data.Repositories
         /// </summary>
         /// <param name="ticketIdGuid">Id билета</param>
         /// <returns></returns>
-        public async Task<TicketDb> Get(string id)
+        public Task<TicketDb> Get(string id)
         {
-            return await _context.Tickets.SingleOrDefaultAsync(x => x.Id == id);
+            return _context.Tickets.Include(db => db.User)
+                .Include(db => db.LocationEvent)
+                .Include(db => db.SellerAdress)
+                .Include(db => db.RespondedUsers)
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
         /// <summary>
@@ -104,7 +103,12 @@ namespace TicketManagement.Data.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<TicketDb>> GetAllActual()
         {
-            var res = _context.Tickets.Where(x => x.Status == (TicketStatusDb) 2);
+            var res = _context.Tickets.Include(db => db.User)
+                .Include(db => db.LocationEvent)
+                .Include(db => db.SellerAdress)
+                .Include(db => db.RespondedUsers)
+                .AsNoTracking()
+                .Where(x => x.Status == (TicketStatusDb) 2);
             return await res.ToListAsync();
         }
     }

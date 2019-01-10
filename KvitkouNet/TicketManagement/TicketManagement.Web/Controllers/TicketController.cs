@@ -44,7 +44,7 @@ namespace TicketManagement.Web.Controllers
             {
                 return StatusCode(500);
             }
-            return Ok(result);
+            return Ok(result.Item1);
         }
 
         /// <summary>

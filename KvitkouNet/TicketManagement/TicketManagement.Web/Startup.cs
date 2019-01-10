@@ -40,7 +40,7 @@ namespace TicketManagement.Web
                     .UseSqlite("Data Source=./TicketDatabase.db").Options)));
             services.RegisterTicketService();
             services.AddScoped<ITicketService>(provider => new TicketService(provider.GetService<ITicketRepository>(),
-                provider.GetService<IMapper>(), provider.GetService<IValidator<Ticket>>(),new RequestStatus()));
+                provider.GetService<IMapper>(), provider.GetService<IValidator<Ticket>>()));
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<TicketProfile>();
