@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using UserManagement.Logic.Models.Security;
-using UserManagement.Logic.Models.Tickets;
 using UserManagement.Logic.Models.UserSettings;
 
 namespace UserManagement.Data.DbModels
@@ -71,7 +68,7 @@ namespace UserManagement.Data.DbModels
         /// <summary>
         /// Пользователь
         /// </summary>
-        public UserDB UserDB { get; set; }
+        public UserDB User { get; set; }
 
         /// <summary>
         /// Настройки пользователя
@@ -87,21 +84,6 @@ namespace UserManagement.Data.DbModels
         /// Список телефонов пользователя
         /// </summary>
         public ICollection<PhoneNumberDB> PhoneNumbers { get; set; }
-
-        /// <summary>
-        /// Группы, в которых состоит пользователь
-        /// </summary>
-        public ICollection<GroupDB> UserGroups { get; set; }
-
-        /// <summary>
-        /// Роли доступа пользователя
-        /// </summary>
-        public ICollection<Role> UserRoles { get; set; }
-
-        /// <summary>
-        /// Список билетов принадлежащих пользователю
-        /// </summary>
-        public ICollection<Ticket> Tickets { get; set; }
         #endregion
     }
 }

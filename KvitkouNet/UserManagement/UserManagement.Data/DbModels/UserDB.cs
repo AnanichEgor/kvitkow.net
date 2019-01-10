@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using UserManagement.Data.DbModels.Security;
+using UserManagement.Data.DbModels.Tickets;
 
 namespace UserManagement.Data.DbModels
 {
@@ -20,6 +22,21 @@ namespace UserManagement.Data.DbModels
         /// Профиль пользователя
         /// </summary>
         public ProfileDB Profile { get; set; }
+
+        /// <summary>
+        /// Группы, в которых состоит пользователь
+        /// </summary>
+        public ICollection<UserGroupDB> UserGroups { get; set; }
+
+        /// <summary>
+        /// Роли доступа пользователя
+        /// </summary>
+        public ICollection<RoleDB> UserRoles { get; set; }
+
+        /// <summary>
+        /// Список билетов принадлежащих пользователю
+        /// </summary>
+        public ICollection<TicketDB> Tickets { get; set; }
         #endregion 
     }
 }

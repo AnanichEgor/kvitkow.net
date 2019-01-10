@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using UserManagement.Data.DbModels;
 
-namespace UserManagement.Data.Context
+namespace UserManagement.Data.ContextConfigurations
 {
     internal class AccountTypeConfiguration : IEntityTypeConfiguration<AccountDB>
     {
@@ -10,13 +10,8 @@ namespace UserManagement.Data.Context
         {
             builder.ToTable("Accounts")
                 .HasKey(keyExpression: x => x.Id);
-
-            //builder.HasOne(navigationExpression: x => x.Account)
-            //    .WithOne()
-            //    .OnDelete(DeleteBehavior.Cascade);
-            //builder.HasOne(navigationExpression: x => x.Account)
-            //    .WithOne()
-            //    .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(navigationExpression: x => x.User)
+                .WithOne();
         }
     }
 }

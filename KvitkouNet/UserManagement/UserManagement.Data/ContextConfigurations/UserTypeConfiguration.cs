@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using UserManagement.Data.DbModels;
 
-namespace UserManagement.Data.Context
+namespace UserManagement.Data.ContextConfigurations
 {
     public class UserTypeConfiguration : IEntityTypeConfiguration<UserDB>
     {
@@ -13,7 +13,7 @@ namespace UserManagement.Data.Context
             builder.HasOne(navigationExpression: x => x.Account)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(navigationExpression: x => x.Account)
+            builder.HasOne(navigationExpression: x => x.Profile)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
         }
