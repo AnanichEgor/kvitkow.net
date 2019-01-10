@@ -11,7 +11,6 @@ using KvitkouNet.Logic.Common.Services.Search;
 using KvitkouNet.Logic.Common.Services.Security;
 using KvitkouNet.Logic.Common.Services.Tickets;
 using KvitkouNet.Logic.Common.Services.User;
-using KvitkouNet.Logic.Common.Services.UserSettings;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
@@ -97,18 +96,5 @@ namespace KvitkouNet.Logic.Common
 
             return loggingServiceMock;
         }
-    
-
-		/// <summary>
-		/// Регистрация IUserSettingsService
-		/// </summary>
-		/// <param name="services"></param>
-		/// <returns></returns>
-		public static IServiceCollection RegisterUserSettingsService(this IServiceCollection services)
-		{
-			var mock = new Mock<IUserSettingsService>();
-			services.AddScoped<IUserSettingsService>(_ => mock.Object);
-			return services;
-		}
     }
 }
