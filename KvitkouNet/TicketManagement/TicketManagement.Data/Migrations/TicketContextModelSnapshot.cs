@@ -38,7 +38,7 @@ namespace TicketManagement.Data.Migrations
 
             modelBuilder.Entity("TicketManagement.Data.DbModels.TicketDb", b =>
                 {
-                    b.Property<string>("TicketDbId")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AdditionalData");
@@ -55,7 +55,7 @@ namespace TicketManagement.Data.Migrations
 
                     b.Property<string>("PaymentSystems");
 
-                    b.Property<decimal>("Price");
+                    b.Property<decimal?>("Price");
 
                     b.Property<string>("SellerAdressAddressDbId");
 
@@ -63,13 +63,13 @@ namespace TicketManagement.Data.Migrations
 
                     b.Property<int>("Status");
 
-                    b.Property<string>("TimeActual");
+                    b.Property<DateTime>("TimeActual");
 
                     b.Property<int>("TypeEvent");
 
                     b.Property<string>("UserInfoDbId");
 
-                    b.HasKey("TicketDbId");
+                    b.HasKey("Id");
 
                     b.HasIndex("LocationEventAddressDbId");
 

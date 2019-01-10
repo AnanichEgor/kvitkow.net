@@ -30,14 +30,14 @@ namespace TicketManagement.Data.Migrations
                     UserInfoDbId = table.Column<string>(nullable: true),
                     Free = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    TicketDbId = table.Column<string>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
                     LocationEventAddressDbId = table.Column<string>(nullable: true),
-                    Price = table.Column<decimal>(nullable: false),
+                    Price = table.Column<decimal>(nullable: true),
                     AdditionalData = table.Column<string>(nullable: true),
                     SellerPhone = table.Column<string>(nullable: true),
                     SellerAdressAddressDbId = table.Column<string>(nullable: true),
                     PaymentSystems = table.Column<string>(nullable: true),
-                    TimeActual = table.Column<string>(nullable: true),
+                    TimeActual = table.Column<DateTime>(nullable: false),
                     TypeEvent = table.Column<int>(nullable: false),
                     EventLink = table.Column<string>(nullable: true),
                     Status = table.Column<int>(nullable: false),
@@ -45,7 +45,7 @@ namespace TicketManagement.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tickets", x => x.TicketDbId);
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Tickets_Adresses_LocationEventAddressDbId",
                         column: x => x.LocationEventAddressDbId,
@@ -77,7 +77,7 @@ namespace TicketManagement.Data.Migrations
                         name: "FK_UserInfos_Tickets_TicketDbId",
                         column: x => x.TicketDbId,
                         principalTable: "Tickets",
-                        principalColumn: "TicketDbId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 

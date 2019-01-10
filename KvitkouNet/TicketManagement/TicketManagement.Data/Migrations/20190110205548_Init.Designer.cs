@@ -9,7 +9,7 @@ using TicketManagement.Data.Context;
 namespace TicketManagement.Data.Migrations
 {
     [DbContext(typeof(TicketContext))]
-    [Migration("20190109221542_Init")]
+    [Migration("20190110205548_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace TicketManagement.Data.Migrations
 
             modelBuilder.Entity("TicketManagement.Data.DbModels.TicketDb", b =>
                 {
-                    b.Property<string>("TicketDbId")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AdditionalData");
@@ -57,7 +57,7 @@ namespace TicketManagement.Data.Migrations
 
                     b.Property<string>("PaymentSystems");
 
-                    b.Property<decimal>("Price");
+                    b.Property<decimal?>("Price");
 
                     b.Property<string>("SellerAdressAddressDbId");
 
@@ -65,13 +65,13 @@ namespace TicketManagement.Data.Migrations
 
                     b.Property<int>("Status");
 
-                    b.Property<string>("TimeActual");
+                    b.Property<DateTime>("TimeActual");
 
                     b.Property<int>("TypeEvent");
 
                     b.Property<string>("UserInfoDbId");
 
-                    b.HasKey("TicketDbId");
+                    b.HasKey("Id");
 
                     b.HasIndex("LocationEventAddressDbId");
 
