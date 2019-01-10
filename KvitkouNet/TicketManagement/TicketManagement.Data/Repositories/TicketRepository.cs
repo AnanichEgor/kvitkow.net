@@ -26,7 +26,7 @@ namespace TicketManagement.Data.Repositories
         {
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
-            return _context.Tickets.Last().TicketDbId;
+            return _context.Tickets.Last().Id;
         }
 
         /// <summary>
@@ -35,10 +35,12 @@ namespace TicketManagement.Data.Repositories
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        public async Task Update(string id, TicketDb ticket)
+        public async Task Update(string id,
+            TicketDb ticket)
         {
-            var original = await _context.Tickets.FindAsync(ticket.TicketDbId);
-            if (original == null) return;
+            var original = await _context.Tickets.FindAsync(ticket.Id);
+            if (original == null)
+                return;
             original.Name = ticket.Name;
             original.Price = ticket.Price;
             //add more property
@@ -53,7 +55,8 @@ namespace TicketManagement.Data.Repositories
         {
             var first = _context.Tickets.First();
             var last = _context.Tickets.Last();
-            _context.RemoveRange(first, last);
+            _context.RemoveRange(first,
+                last);
             await _context.SaveChangesAsync();
         }
 
@@ -65,7 +68,8 @@ namespace TicketManagement.Data.Repositories
         public async Task Delete(string id)
         {
             var original = _context.Tickets.Find(id);
-            if (original == null) return;
+            if (original == null)
+                return;
             _context.Tickets.Remove(original);
             await _context.SaveChangesAsync();
         }
@@ -79,6 +83,7 @@ namespace TicketManagement.Data.Repositories
             return await _context.Tickets.Include(db => db.User)
                 .Include(db => db.LocationEvent)
                 .Include(db => db.SellerAdress)
+                .Include(db => db.RespondedUsers)
                 .AsNoTracking()
                 .ToArrayAsync();
         }
@@ -90,7 +95,7 @@ namespace TicketManagement.Data.Repositories
         /// <returns></returns>
         public async Task<TicketDb> Get(string id)
         {
-            return await _context.Tickets.SingleOrDefaultAsync(x => x.TicketDbId == id);
+            return await _context.Tickets.SingleOrDefaultAsync(x => x.Id == id);
         }
 
         /// <summary>
