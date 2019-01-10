@@ -1,4 +1,4 @@
-﻿namespace KvitkouNet.Web.Models
+﻿namespace UserSettings.Web.Models
 {
 	public class PasswordDto
 	{

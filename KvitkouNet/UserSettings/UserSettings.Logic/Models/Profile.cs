@@ -1,15 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace KvitkouNet.Web.Models
+﻿namespace UserSettings.Logic.Models
 {
 	/// <summary>
-	/// Дополнительные настройки
+	/// Класс настроек пользователя
 	/// </summary>
-	public class ExtraInfoDto
+	public class Profile
 	{
+		/// <summary>
+		/// Id пользователя
+		/// </summary>
+		public string UserId { get; set; }
+
+		/// <summary>
+		/// Имя
+		/// </summary>
+		public string FirstName { get; set; }
+
+		/// <summary>
+		/// Отчество
+		/// </summary>
+		public string MiddleName { get; set; }
+
+		/// <summary>
+		/// Фамилия
+		/// </summary>
+		public string LastName { get; set; }
+
+		/// <summary>
+		/// Аватарка пользователся
+		/// </summary>
+		public byte[] UserImage { get; set; }
+
 		/// <summary>
 		/// Флаг, отвечающий за закрытость аккаунта для гостей.
 		/// </summary>
@@ -29,11 +49,6 @@ namespace KvitkouNet.Web.Models
 		/// Флаг, отвечающий за получение информации о билетах.
 		/// </summary>
 		public bool IsGetTicketInfo { get; set; }
-
-		/// <summary>
-		/// Ссылки на социальные сети.
-		/// </summary>
-		public IEnumerable<object> SocialNetwork { get; set; }
 
 		/// <summary>
 		/// Предпочитаемое место посещения
