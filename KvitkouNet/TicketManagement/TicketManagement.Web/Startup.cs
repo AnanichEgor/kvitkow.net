@@ -33,19 +33,20 @@ namespace TicketManagement.Web
             services.AddDbContext<TicketContext>(opt => opt.UseSqlite("Data Source=./TicketDatabase.db"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerDocument();
+            services.AddScoped<IValidator<Ticket>, TicketValidator>();
             services.AddScoped<ITicketRepository>(provider =>
                 new TicketRepository(new TicketContext(new DbContextOptionsBuilder<TicketContext>()
                     .UseSqlite("Data Source=./TicketDatabase.db").Options)));
             services.RegisterTicketService();
             services.AddScoped<ITicketService>(provider => new TicketService(provider.GetService<ITicketRepository>(),
-                provider.GetService<IMapper>(), provider.GetService<IValidator>()));
+                provider.GetService<IMapper>(), provider.GetService<IValidator<Ticket>>()));
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<TicketProfile>();
                 cfg.AddProfile<AddressProfile>();
                 cfg.AddProfile<UserInfoProfile>();
             });
-            services.AddScoped<IValidator<Ticket>, TicketValidator>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
