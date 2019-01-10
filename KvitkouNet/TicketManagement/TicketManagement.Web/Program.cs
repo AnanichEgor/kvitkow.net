@@ -18,7 +18,7 @@ namespace TicketManagement.Web
                 ctx.Database.Migrate();
                 if (!ctx.Tickets.Any())
                 {
-                    ctx.Tickets.AddRange(TicketFaker.Generate(100));
+                    ctx.Tickets.AddRange(TicketFaker.Generate(50));
                     ctx.SaveChanges();
                 }
             }
