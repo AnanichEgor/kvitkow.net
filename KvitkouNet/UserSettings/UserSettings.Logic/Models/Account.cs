@@ -1,12 +1,10 @@
-﻿namespace UserSettings.Data.DbModels
+﻿namespace UserSettings.Logic.Models
 {
-	public class AccountDb
+	/// <summary>
+	/// Обновление аккаунта
+	/// </summary>
+	public class Account
 	{
-		/// <summary>
-		/// Ключ
-		/// </summary>
-		public int Id { get; set; }
-
 		/// <summary>
 		/// Пароль пользователя.
 		/// </summary>

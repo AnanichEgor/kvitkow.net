@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UserSettings.Data.DbModels
+﻿namespace UserSettings.Data.DbModels
 {
 	public class ProfileDb
 	{
@@ -10,11 +6,6 @@ namespace UserSettings.Data.DbModels
 		/// Ключ
 		/// </summary>
 		public int Id { get; set; }
-
-		/// <summary>
-		/// Id пользователя
-		/// </summary>
-		public string UserId { get; set; }
 
 		/// <summary>
 		/// Имя

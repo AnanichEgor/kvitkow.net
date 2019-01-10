@@ -15,13 +15,20 @@ namespace UserSettings.Logic.Services
 		/// </summary>
 		/// <param name="profile"></param>
 		/// <returns></returns>
-		Task<ActionResult> UpdateProfile(ProfileSettings profile);
+		Task<ActionResult> UpdateProfile(Profile profile);
 
 		/// <summary>
-		/// Обновление аккаунта.
+		/// Обновление пароля.
 		/// </summary>
 		/// <param name="account"></param>
 		/// <returns></returns>
-		Task<ActionResult> UpdateAccout(AccountSettings account);
+		Task<ActionResult> UpdatePassword(string current, string newPass, string confirm);
+
+		/// <summary>
+		/// Обновление почты.
+		/// </summary>
+		/// <param name="account"></param>
+		/// <returns></returns>
+		Task<ActionResult> UpdateEmail(string email);
 	}
 }

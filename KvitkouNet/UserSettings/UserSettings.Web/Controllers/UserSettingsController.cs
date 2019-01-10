@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
 using UserSettings.Data.Context;
 using UserSettings.Logic.Models;
+using UserSettings.Logic.Services;
 using UserSettings.Web.Models;
 
 namespace UserSettings.Web.Controllers
@@ -16,11 +17,10 @@ namespace UserSettings.Web.Controllers
 	[Route("api/settings")]
 	public class UserSettingsController : Controller
     {
-		private readonly SettingsContext _context;
-		public UserSettingsController(SettingsContext context)
+		private IUserSettingsService _service;
+		public UserSettingsController(IUserSettingsService service)
 		{
-			_context = context;
-			_context.Database.Migrate();
+			_service = service;
 		}
 
 		/// <summary>
@@ -31,27 +31,20 @@ namespace UserSettings.Web.Controllers
 		[HttpPut, Route("userinfo")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangeUserInfo([FromBody]ProfileSettings model)
+		public async Task<IActionResult> UpdateProfile([FromBody]Profile model)
 		{
-			IEnumerable<string> result = await Task.FromResult(ValidateUserInfo(model));
+			var result = await _service.UpdateProfile(model);
 
-			if (result.Count() == 0)
-			{
-				return (IActionResult)NoContent();
-			}
-			else
-			{
-				return BadRequest(result);
-			}
+			return (IActionResult)result;
 		}
 
-		// TODO при необходимости добавить другие проверки
+		// TODO перенести в валидацию
 		/// <summary>
 		/// Валидация данных пользователя. Некоторые поля должны быть обязательно заполнены 
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		private IEnumerable<string> ValidateUserInfo(ProfileSettings model)
+		private IEnumerable<string> ValidateUserInfo(Profile model)
 		{
 			List<String> result = new List<string>();
 			if (string.IsNullOrEmpty(model.FirstName))
@@ -75,10 +68,9 @@ namespace UserSettings.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> ChangePassword([FromBody]PasswordDto model)
 		{
-			Task<bool> result = Task.FromResult(
-				string.Equals(model.NewPassword, model.ConfirmPassword));
+			var result = await _service.UpdatePassword(model.OldPassword, model.NewPassword, model.ConfirmPassword);
 
-			return await result ? (IActionResult)NoContent() : BadRequest("New and confirm password do not match");
+			return (IActionResult)result;
 		}
 
 		/// <summary>
@@ -89,12 +81,14 @@ namespace UserSettings.Web.Controllers
 		[HttpPut, Route("email")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangeEmail([FromBody]EmailDto model)
+		public async Task<IActionResult> ChangeEmail([FromBody]string email)
 		{
-			Task<bool> result = Task.FromResult(ValidateEmail(model.Email));
-			return await result ? (IActionResult)NoContent() : BadRequest("Incorrect email");
+			var result = await _service.UpdateEmail(email);
+
+			return (IActionResult)result;
 		}
 
+		//TODO Перенести в валидацию
 		/// <summary>
 		/// Валидация email
 		/// </summary>

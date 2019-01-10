@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 using UserSettings.Data.Context;
 using UserSettings.Logic;
 
@@ -21,7 +22,16 @@ namespace UserSettings.Web
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<SettingsContext>(optionsAction: opt => opt.UseSqlite(connectionString: "DataSource=./Database.db"));
+			services.AddDbContext<SettingsContext>(
+				opt => {
+					opt.UseSqlite(connectionString: "DataSource=./Database.db");
+					using (var context = new SettingsContext(opt.Options))
+					{
+						context.Database.Migrate();
+						context.SaveChanges();
+					}
+				});
+
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 			services.AddSwaggerDocument();
 			services.RegisterUserSettingsService();

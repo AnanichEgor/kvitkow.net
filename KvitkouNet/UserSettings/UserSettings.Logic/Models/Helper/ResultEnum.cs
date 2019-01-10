@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UserSettings.Logic.Models.Helper
+﻿namespace UserSettings.Logic.Models.Helper
 {
 	/// <summary>
 	/// Результат обновления данных

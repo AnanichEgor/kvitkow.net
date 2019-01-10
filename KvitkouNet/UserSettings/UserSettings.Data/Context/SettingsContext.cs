@@ -10,7 +10,11 @@ namespace UserSettings.Data.Context
 		{
 
 		}
+
+		public DbSet<SettingsDb> Settings { get; set; }
+
 		public DbSet<ProfileDb> Profiles { get; set; }
+
 		public DbSet<AccountDb> Accounts { get; set; }
 	}
 }
