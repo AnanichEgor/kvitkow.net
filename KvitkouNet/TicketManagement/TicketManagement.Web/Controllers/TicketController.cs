@@ -29,14 +29,13 @@ namespace TicketManagement.Web.Controllers
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
         [HttpPost]
-        [SwaggerResponse(HttpStatusCode.Created, typeof(object), Description = "Ticket created")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(string), Description = "Ticket created")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Add([FromBody] Ticket ticket)
         {
             var result = await _service.Add(ticket);
             return Ok(result);
-
         }
 
         /// <summary>
@@ -47,13 +46,13 @@ namespace TicketManagement.Web.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("{id}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Ticket update")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(bool), Description = "Ticket update")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Ticket ticket)
         {
-            var result = await _service.Update(id, ticket);
-            return Ok(result);
+            await _service.Update(id, ticket);
+            return NoContent();
         }
 
         /// <summary>

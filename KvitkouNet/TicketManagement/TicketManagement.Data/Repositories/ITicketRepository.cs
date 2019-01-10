@@ -1,60 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TicketManagement.Logic.Models;
+using TicketManagement.Data.DbModels;
 
-namespace TicketManagement.Logic.Services
+namespace TicketManagement.Data.Repositories
 {
-    /// <summary>
-    ///     Сервис для работы с Tickets
-    /// </summary>
-    public interface ITicketService : IDisposable
+    public interface ITicketRepository
     {
         /// <summary>
-        ///     Добавляет билет
+        ///     Добавляет билет в БД
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        Task<string> Add(Ticket ticket);
+        Task<string> Add(TicketDb ticket);
 
         /// <summary>
-        ///     Обновление информации о билете
+        ///     Обновление информации о билете в БД
         /// </summary>
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        Task Update(string id, Ticket ticket);
+        Task Update(string id, TicketDb ticket);
 
         /// <summary>
-        ///     Удаление всех билетов
+        ///     Удаление всех билетов в БД
         /// </summary>
         /// <returns></returns>
         Task DeleteAll();
 
         /// <summary>
-        ///     Удаление билета с определенным Id
+        ///     Удаление билета с определенным Id в БД
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         Task Delete(string id);
 
         /// <summary>
-        ///     Получение всех билет имеющихся в системе
+        ///     Получение всех билет имеющихся в системе в БД
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Ticket>> GetAll();
+        Task<IEnumerable<TicketDb>> GetAll();
 
         /// <summary>
-        ///     Получение билета по Id
+        ///     Получение билета по Id в БД
         /// </summary>
         /// <param name="ticketIdGuid">Id билета</param>
         /// <returns></returns>
-        Task<Ticket> Get(string id);
+        Task<TicketDb> Get(string id);
 
         /// <summary>
-        ///     Получение только актуальных билетов
+        ///     Получение только актуальных билетов в БД
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Ticket>> GetAllActual();
+        Task<IEnumerable<TicketDb>> GetAllActual();
     }
 }
