@@ -6,6 +6,7 @@ using FluentValidation;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Data.Repositories;
 using TicketManagement.Logic.Models;
+using TicketManagement.Logic.Models.Enums;
 
 namespace TicketManagement.Logic.Services
 {
@@ -14,12 +15,14 @@ namespace TicketManagement.Logic.Services
         private readonly ITicketRepository _context;
         private readonly IMapper _mapper;
         private readonly IValidator _validator;
+        private RequestStatus _requestStatus;
 
-        public TicketService(ITicketRepository context, IMapper mapper, IValidator<Ticket> validator)
+        public TicketService(ITicketRepository context, IMapper mapper, IValidator<Ticket> validator, RequestStatus requestStatus)
         {
             _context = context;
             _mapper = mapper;
             _validator = validator;
+            _requestStatus = requestStatus;
         }
 
         /// <summary>
@@ -27,14 +30,14 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        public async Task<string> Add(Ticket ticket)
+        public async Task<(string, RequestStatus)> Add(Ticket ticket)
         {
             if (!_validator.Validate(ticket).IsValid)
             {
-                return null;
+                return (null,RequestStatus.BadRequest);
             }
             var res = await _context.Add(_mapper.Map<TicketDb>(ticket));
-            return res;
+            return (res,RequestStatus.Success);
         }
 
         /// <summary>
@@ -43,7 +46,7 @@ namespace TicketManagement.Logic.Services
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        public Task Update(string id, Ticket ticket)
+        public Task<RequestStatus> Update(string id, Ticket ticket)
         {
             throw new NotImplementedException();
         }
@@ -52,7 +55,7 @@ namespace TicketManagement.Logic.Services
         ///     Удаление всех билетов
         /// </summary>
         /// <returns></returns>
-        public Task DeleteAll()
+        public Task<RequestStatus> DeleteAll()
         {
             throw new NotImplementedException();
         }
@@ -62,7 +65,7 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task Delete(string id)
+        public Task<RequestStatus> Delete(string id)
         {
             throw new NotImplementedException();
         }
@@ -71,10 +74,11 @@ namespace TicketManagement.Logic.Services
         ///     Получение всех билет имеющихся в системе
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<Ticket>> GetAll()
+        public async Task<(IEnumerable<Ticket>, RequestStatus)> GetAll()
         {
             var res = _mapper.Map<IEnumerable<Ticket>>(await _context.GetAll());
-            return res;
+            if (res == null) return (null, RequestStatus.Error);
+            return (res,RequestStatus.Success);
         }
 
         /// <summary>
@@ -82,7 +86,7 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="ticketIdGuid">Id билета</param>
         /// <returns></returns>
-        public Task<Ticket> Get(string id)
+        public Task<(Ticket, RequestStatus)> Get(string id)
         {
             throw new NotImplementedException();
         }
@@ -91,7 +95,7 @@ namespace TicketManagement.Logic.Services
         ///     Получение только актуальных билетов
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<Ticket>> GetAllActual()
+        public Task<(IEnumerable<Ticket>, RequestStatus)> GetAllActual()
         {
             throw new NotImplementedException();
         }

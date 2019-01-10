@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
 using TicketManagement.Data.Context;
 using TicketManagement.Logic.Models;
+using TicketManagement.Logic.Models.Enums;
 using TicketManagement.Logic.Services;
 
 namespace TicketManagement.Web.Controllers
@@ -35,9 +36,13 @@ namespace TicketManagement.Web.Controllers
         public async Task<IActionResult> Add([FromBody] Ticket ticket)
         {
             var result = await _service.Add(ticket);
-            if (result==null)
+            if (result.Item2 == RequestStatus.BadRequest)
             {
                 return BadRequest();
+            }
+            if (result.Item2 == RequestStatus.Error)
+            {
+                return StatusCode(500);
             }
             return Ok(result);
         }
@@ -101,6 +106,10 @@ namespace TicketManagement.Web.Controllers
         public async Task<IActionResult> GetAll()
         {
             var result = await _service.GetAll();
+            if (result.Item2 != RequestStatus.Success)
+            {
+                return BadRequest();
+            }
             return Ok(result);
         }
 

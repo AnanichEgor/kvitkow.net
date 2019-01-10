@@ -13,6 +13,7 @@ using TicketManagement.Data.Repositories;
 using TicketManagement.Logic;
 using TicketManagement.Logic.MappingProfiles;
 using TicketManagement.Logic.Models;
+using TicketManagement.Logic.Models.Enums;
 using TicketManagement.Logic.Services;
 using TicketManagement.Logic.Validators;
 
@@ -39,7 +40,7 @@ namespace TicketManagement.Web
                     .UseSqlite("Data Source=./TicketDatabase.db").Options)));
             services.RegisterTicketService();
             services.AddScoped<ITicketService>(provider => new TicketService(provider.GetService<ITicketRepository>(),
-                provider.GetService<IMapper>(), provider.GetService<IValidator<Ticket>>()));
+                provider.GetService<IMapper>(), provider.GetService<IValidator<Ticket>>(),new RequestStatus()));
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<TicketProfile>();
