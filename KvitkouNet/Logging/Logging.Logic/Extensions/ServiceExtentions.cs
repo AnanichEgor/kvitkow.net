@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using FluentValidation;
 using Logging.Data;
 using Logging.Logic.Dtos;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
 using Logging.Logic.Services;
+using Logging.Logic.Validators;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -20,6 +22,12 @@ namespace Logging.Logic.Extensions
 		public static IServiceCollection RegisterLoggingService(this IServiceCollection services)
 		{
 			services.AddScoped<ILoggingService, LoggingService>();
+			return services;
+		}
+
+		public static IServiceCollection RegisterValidators(this IServiceCollection services)
+		{
+			services.AddScoped<IValidator<ErrorLogsFilterDto>, ErrorLogsFilterValidator>();
 			return services;
 		}
 

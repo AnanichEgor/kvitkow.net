@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Logging.Logic.Helpers
 {
+	//TODO избавиться от статики, если будет необходимость
 	public static class ContextInitializer
 	{
 		/// <summary>

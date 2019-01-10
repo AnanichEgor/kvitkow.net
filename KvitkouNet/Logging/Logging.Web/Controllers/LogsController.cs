@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using FluentValidation;
 using Logging.Logic.Dtos;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
-using Logging.Logic.Services;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
@@ -17,10 +17,12 @@ namespace Logging.Web.Controllers
 	public class LogsController : Controller
 	{
 		private readonly ILoggingService _loggingService;
+		private readonly IValidator<ErrorLogsFilterDto> _errorLogsFilterValidator;
 
-		public LogsController(ILoggingService loggingService)
+		public LogsController(ILoggingService loggingService, IValidator<ErrorLogsFilterDto> errorLogsFilterValidator)
 		{
 			_loggingService = loggingService;
+			_errorLogsFilterValidator = errorLogsFilterValidator;
 		}
 
 		/// <summary>
@@ -56,7 +58,7 @@ namespace Logging.Web.Controllers
 		public async Task<IActionResult> GetErrorLogs([FromQuery] ErrorLogsFilterDto filter)
 		{
 			// имитируем некоторую валидацию
-			if (string.IsNullOrWhiteSpace(filter.ExceptionTypeName))
+			if (!_errorLogsFilterValidator.Validate(filter).IsValid)
 			{
 				return BadRequest(
 					$"Invalid filter! {nameof(ErrorLogsFilterDto.ExceptionTypeName)} is empty or whitespace!");

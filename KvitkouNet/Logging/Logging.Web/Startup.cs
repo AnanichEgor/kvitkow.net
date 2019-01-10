@@ -33,6 +33,7 @@ namespace Logging.Web
 			services.AddSwaggerDocument();
 
 			services.RegisterLoggingService();
+			services.RegisterValidators();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
