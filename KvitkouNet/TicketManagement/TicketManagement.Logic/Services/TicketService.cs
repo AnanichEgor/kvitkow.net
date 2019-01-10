@@ -15,7 +15,7 @@ namespace TicketManagement.Logic.Services
         private readonly IMapper _mapper;
         private readonly IValidator _validator;
 
-        public TicketService(ITicketRepository context, IMapper mapper, IValidator validator)
+        public TicketService(ITicketRepository context, IMapper mapper, IValidator<Ticket> validator)
         {
             _context = context;
             _mapper = mapper;
@@ -29,6 +29,10 @@ namespace TicketManagement.Logic.Services
         /// <returns>Код ответа Create и добавленную модель</returns>
         public async Task<string> Add(Ticket ticket)
         {
+            if (!_validator.Validate(ticket).IsValid)
+            {
+                return null;
+            }
             var res = await _context.Add(_mapper.Map<TicketDb>(ticket));
             return res;
         }

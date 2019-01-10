@@ -35,6 +35,10 @@ namespace TicketManagement.Web.Controllers
         public async Task<IActionResult> Add([FromBody] Ticket ticket)
         {
             var result = await _service.Add(ticket);
+            if (result==null)
+            {
+                return BadRequest();
+            }
             return Ok(result);
         }
 
