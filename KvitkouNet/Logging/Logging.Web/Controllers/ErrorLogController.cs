@@ -14,12 +14,12 @@ namespace Logging.Web.Controllers
 	/// Контроллер, отвечающий за получение логов об ошибках
 	/// </summary>
 	[Route("api/logs/errors")]
-	public class ErrorLogsController : Controller
+	public class ErrorLogController : Controller
 	{
 		private readonly ILoggingService _loggingService;
 		private readonly IValidator<ErrorLogsFilterDto> _errorLogsFilterValidator;
 
-		public ErrorLogsController(ILoggingService loggingService, IValidator<ErrorLogsFilterDto> errorLogsFilterValidator)
+		public ErrorLogController(ILoggingService loggingService, IValidator<ErrorLogsFilterDto> errorLogsFilterValidator)
 		{
 			_loggingService = loggingService;
 			_errorLogsFilterValidator = errorLogsFilterValidator;

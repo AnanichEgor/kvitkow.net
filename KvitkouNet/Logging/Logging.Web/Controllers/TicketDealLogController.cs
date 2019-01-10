@@ -10,11 +10,11 @@ using NSwag.Annotations;
 namespace Logging.Web.Controllers
 {
     [Route("api/logs/deals")]
-    public class TicketDealController : Controller
+    public class TicketDealLogController : Controller
     {
         private readonly ILoggingService _loggingService;
 
-        public TicketDealController(ILoggingService loggingService)
+        public TicketDealLogController(ILoggingService loggingService)
         {
             _loggingService = loggingService;
         }
