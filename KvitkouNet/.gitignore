@@ -194,6 +194,9 @@ Backup*/
 UpgradeLog*.XML
 UpgradeLog*.htm
 
+# Sqlite files
+*.db
+
 # SQL Server files
 *.mdf
 *.ldf
