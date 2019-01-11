@@ -31,7 +31,10 @@ namespace UserSettings.Web
 			using (var context = new SettingsContext(o.Options))
 			{
 				context.Database.Migrate();
-				context.SaveChanges();
+				if(context.Settings.Any())
+				{
+					context.SaveChanges();
+				}
 			}
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 			services.AddSwaggerDocument();
