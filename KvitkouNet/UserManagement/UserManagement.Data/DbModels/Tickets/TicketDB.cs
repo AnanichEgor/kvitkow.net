@@ -9,6 +9,7 @@ namespace UserManagement.Data.DbModels.Tickets
     /// </summary>
     public class TicketDB
     {
+        public string Id { get; set; }
         /// <summary>
         ///     Пользователь разместивший билет
         /// </summary>

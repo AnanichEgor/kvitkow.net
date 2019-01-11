@@ -9,7 +9,6 @@ namespace UserManagement.Data.Context
         public UserContext(DbContextOptions<UserContext> options)
        : base(options)
         {
-            Database.EnsureCreated();
         }
         public DbSet<UserDB> Users { get; set; }
         public DbSet<AccountDB> Accounts { get; set; }
@@ -21,8 +20,8 @@ namespace UserManagement.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UserGroupTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
             modelBuilder.ApplyConfiguration(new AccountTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProfileTypeConfiguration());
             modelBuilder.ApplyConfiguration(new GroupTypeConfiguration());

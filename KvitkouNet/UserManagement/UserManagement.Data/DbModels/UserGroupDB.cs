@@ -8,7 +8,7 @@ namespace UserManagement.Data.DbModels
     {
         public string UserId { get; set; }
         public UserDB User { get; set; }
-        public string GroupId { get; set; }
+        public int GroupId { get; set; }
         public GroupDB Group { get; set; }
     }
 }

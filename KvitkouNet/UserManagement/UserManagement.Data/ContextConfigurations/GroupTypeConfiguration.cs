@@ -10,7 +10,7 @@ namespace UserManagement.Data.ContextConfigurations
         {
             builder.ToTable("Groups")
                 .HasKey(keyExpression: x => x.Id);
-            
+
         }
     }
 }

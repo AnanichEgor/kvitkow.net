@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using UserManagement.Logic.Models.UserSettings;
+using UserManagement.Data.DbModels.UserSettings;
 
 namespace UserManagement.Data.DbModels
 {
@@ -69,6 +69,8 @@ namespace UserManagement.Data.DbModels
         /// Пользователь
         /// </summary>
         public UserDB User { get; set; }
+
+        public string UserId { get; set; }
 
         /// <summary>
         /// Настройки пользователя

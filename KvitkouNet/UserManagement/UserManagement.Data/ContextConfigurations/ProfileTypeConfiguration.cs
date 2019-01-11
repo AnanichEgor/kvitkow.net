@@ -10,8 +10,6 @@ namespace UserManagement.Data.ContextConfigurations
         {
             builder.ToTable("Profiles")
                 .HasKey(keyExpression: x => x.Id);
-            builder.HasOne(navigationExpression: x => x.User)
-                .WithOne();
         }
     }
 }

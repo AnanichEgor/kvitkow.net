@@ -22,6 +22,14 @@ namespace UserManagement.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<UserContext>(opt => opt.UseSqlite("Data Source=./UserDatabase.db"));
+            var o = new DbContextOptionsBuilder<UserContext>();
+            o.UseSqlite("Data Source=./UserDatabase.db");
+
+            using (var context = new UserContext(o.Options))
+            {
+                context.Database.Migrate();
+            }
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerDocument();
             services.RegisterUserServices();

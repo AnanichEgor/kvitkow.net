@@ -12,10 +12,14 @@ namespace UserManagement.Data.ContextConfigurations
                 .HasKey(keyExpression: x => x.Id);
             builder.HasOne(navigationExpression: x => x.Account)
                 .WithOne()
+                .HasForeignKey<AccountDB>(x=>x.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(navigationExpression: x => x.Profile)
                 .WithOne()
+                .HasForeignKey<ProfileDB>(x => x.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(navigationExpression: x => x.Tickets)
+                .WithOne(x => x.User);
         }
     }
 }
