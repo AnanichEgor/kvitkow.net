@@ -37,9 +37,12 @@ namespace TicketManagement.Data.Repositories
         /// <returns></returns>
         public async Task Update(string id, TicketDb ticket)
         {
-            var original = await _context.Tickets.FindAsync(ticket.Id);
+            var original = await _context.Tickets.FindAsync(id);
             if (original == null) return;
             original.Name = ticket.Name;
+
+            // todo add more properties
+
             await _context.SaveChangesAsync();
         }
 
