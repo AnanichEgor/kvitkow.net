@@ -1,18 +1,28 @@
-﻿using KvitkouNet.Web.Models;
-using Microsoft.AspNetCore.Mvc;
-using NSwag.Annotations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NSwag.Annotations;
+using UserSettings.Data.Context;
+using UserSettings.Logic.Models;
+using UserSettings.Logic.Services;
+using UserSettings.Web.Models;
 
-namespace KvitkouNet.Web.Controllers
+namespace UserSettings.Web.Controllers
 {
 	[Route("api/settings")]
 	public class UserSettingsController : Controller
-	{
+    {
+		private IUserSettingsService _service;
+		public UserSettingsController(IUserSettingsService service)
+		{
+			_service = service;
+		}
+
 		/// <summary>
 		/// Запрос на изменение основных данных пользователя
 		/// </summary>
@@ -21,52 +31,31 @@ namespace KvitkouNet.Web.Controllers
 		[HttpPut, Route("userinfo")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangeUserInfo([FromBody]UserInfoDto model)
+		public async Task<IActionResult> UpdateProfile([FromBody]Profile model)
 		{
-			IEnumerable<string> result = await Task.FromResult(ValidateUserInfo(model));
-		
-			if(result.Count() == 0)
-			{
-				return (IActionResult)NoContent();
-			}
-			else
-			{
-				return BadRequest(result);
-			}
+			var result = await _service.UpdateProfile(model);
+
+			return (IActionResult)result;
 		}
 
-		// TODO при необходимости добавить другие проверки
+		// TODO перенести в валидацию
 		/// <summary>
 		/// Валидация данных пользователя. Некоторые поля должны быть обязательно заполнены 
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		private IEnumerable<string> ValidateUserInfo(UserInfoDto model)
+		private IEnumerable<string> ValidateUserInfo(Profile model)
 		{
 			List<String> result = new List<string>();
-			if(string.IsNullOrEmpty(model.FirstName))
+			if (string.IsNullOrEmpty(model.FirstName))
 			{
 				result.Add("First name cannot be null or empty");
 			}
-			if(string.IsNullOrEmpty(model.LastName))
+			if (string.IsNullOrEmpty(model.LastName))
 			{
 				result.Add("Last name cannot be null or empty");
 			}
 			return result;
-		}
-
-		/// <summary>
-		/// Запрос на изменение дополнительной информации пользователя
-		/// </summary>
-		/// <param name="model"></param>
-		/// <returns></returns>
-		[HttpPut, Route("extrainfo")]
-		[SwaggerResponse(HttpStatusCode.OK, typeof(void), Description = "All OK")]
-		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangeExtraInfo([FromBody]ExtraInfoDto model)
-		{
-			var result = Task.FromResult(true);
-			return Ok(await result);
 		}
 
 		/// <summary>
@@ -79,10 +68,9 @@ namespace KvitkouNet.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> ChangePassword([FromBody]PasswordDto model)
 		{
-			Task<bool> result = Task.FromResult(
-				string.Equals(model.NewPassword, model.ConfirmPassword));
+			var result = await _service.UpdatePassword(model.OldPassword, model.NewPassword, model.ConfirmPassword);
 
-			return await result ? (IActionResult)NoContent() : BadRequest("New and confirm password do not match");
+			return (IActionResult)result;
 		}
 
 		/// <summary>
@@ -93,12 +81,14 @@ namespace KvitkouNet.Web.Controllers
 		[HttpPut, Route("email")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangeEmail([FromBody]EmailDto model)
+		public async Task<IActionResult> ChangeEmail([FromBody]string email)
 		{
-			Task<bool> result = Task.FromResult(ValidateEmail(model.Email));
-			return await result ? (IActionResult)NoContent() : BadRequest("Incorrect email");
+			var result = await _service.UpdateEmail(email);
+
+			return (IActionResult)result;
 		}
 
+		//TODO Перенести в валидацию
 		/// <summary>
 		/// Валидация email
 		/// </summary>

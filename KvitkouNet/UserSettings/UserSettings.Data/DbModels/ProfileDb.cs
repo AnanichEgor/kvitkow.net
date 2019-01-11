@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-
-namespace KvitkouNet.Logic.Common.Models
+﻿namespace UserSettings.Data.DbModels
 {
-	/// <summary>
-	/// Класс настроек пользователя
-	/// </summary>
-	public class ProfileSettings
+	public class ProfileDb
 	{
+		/// <summary>
+		/// Ключ
+		/// </summary>
+		public int Id { get; set; }
+
 		/// <summary>
 		/// Имя
 		/// </summary>
@@ -25,12 +25,7 @@ namespace KvitkouNet.Logic.Common.Models
 		/// <summary>
 		/// Аватарка пользователся
 		/// </summary>
-		public object UserImage { get; set; }
-
-		/// <summary>
-		/// Логин пользователя. Доступен только для просмотра.
-		/// </summary>
-		public string Login { get; private set; }
+		public byte[] UserImage { get; set; }
 
 		/// <summary>
 		/// Флаг, отвечающий за закрытость аккаунта для гостей.
@@ -51,22 +46,6 @@ namespace KvitkouNet.Logic.Common.Models
 		/// Флаг, отвечающий за получение информации о билетах.
 		/// </summary>
 		public bool IsGetTicketInfo { get; set; }
-
-		/// <summary>
-		/// Ссылки на социальные сети.
-		/// </summary>
-		public IEnumerable<object> SocialNetwork { get; set; }
-
-		//TODO: object - заменить на класс статистики
-		/// <summary>
-		/// Статистика билетов пользователя.
-		/// </summary>
-		public object GetTicketStatistic { get; set; }
-
-		/// <summary>
-		/// Флаг, отвечающий за то что было выбрано изменение пароля.
-		/// </summary>
-		public bool IsChangePassword { get; set; }
 
 		/// <summary>
 		/// Предпочитаемое место посещения

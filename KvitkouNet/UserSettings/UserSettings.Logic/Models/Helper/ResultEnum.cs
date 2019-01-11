@@ -1,4 +1,4 @@
-﻿namespace KvitkouNet.Logic.Common.Models.UserSettings
+﻿namespace UserSettings.Logic.Models.Helper
 {
 	/// <summary>
 	/// Результат обновления данных

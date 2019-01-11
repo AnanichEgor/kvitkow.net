@@ -1,5 +1,8 @@
-﻿namespace KvitkouNet.Logic.Common.Models.UserSettings
+﻿namespace UserSettings.Logic.Models.Helper
 {
+	/// <summary>
+	/// Описание результата
+	/// </summary>
 	public class ActionResult
 	{
 		/// <summary>
