@@ -23,15 +23,19 @@ namespace UserSettings.Web
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<SettingsContext>(
-				opt => {
-					opt.UseSqlite(connectionString: "DataSource=./Database.db");
-					using (var context = new SettingsContext(opt.Options))
-					{
-						context.Database.Migrate();
-						context.SaveChanges();
-					}
-				});
+				opt => 	opt.UseSqlite(connectionString: "DataSource=./Database.db"));
 
+			var o = new DbContextOptionsBuilder<SettingsContext>();
+			o.UseSqlite("Data Source=./Database.db");
+
+			using (var context = new SettingsContext(o.Options))
+			{
+				context.Database.Migrate();
+				if(context.Settings.Any())
+				{
+					context.SaveChanges();
+				}
+			}
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 			services.AddSwaggerDocument();
 			services.RegisterUserSettingsService();
@@ -43,6 +47,7 @@ namespace UserSettings.Web
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+				//DBInitialize.Seed(app);
 			}
 
 			app.UseMvc();
