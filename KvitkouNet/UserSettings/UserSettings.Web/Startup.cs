@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using UserSettings.Data.Context;
 using UserSettings.Logic;
+using AutoMapper;
+using UserSettings.Logic.MappingProfile;
 
 namespace UserSettings.Web
 {
@@ -36,6 +38,15 @@ namespace UserSettings.Web
 					context.SaveChanges();
 				}
 			}
+
+			services.AddAutoMapper(cfg =>
+			{
+				cfg.AddProfile<SettingsProfile>();
+				cfg.AddProfile<SettingsProfile>();
+				cfg.AddProfile<SettingsProfile>();
+				cfg.AddProfile<SettingsProfile>();
+			});
+
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 			services.AddSwaggerDocument();
 			services.RegisterUserSettingsService();
