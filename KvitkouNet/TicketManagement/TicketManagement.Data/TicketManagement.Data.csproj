@@ -15,4 +15,10 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Migrations\20190111224050_Init.Designer.cs">
+      <DependentUpon>20190111224050_Init.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>
