@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UserManagement.Data.DbModels.UserSettings;
+using UserManagement.Data.DbModels.Enums;
 
 namespace UserManagement.Data.DbModels
 {
@@ -29,7 +30,7 @@ namespace UserManagement.Data.DbModels
         /// <summary>
         /// Пол
         /// </summary>
-        public string Sex { get; set; }
+        public SexDB Sex { get; set; }
 
         /// <summary>
         /// Дата рождения
@@ -80,7 +81,7 @@ namespace UserManagement.Data.DbModels
         /// <summary>
         /// Список адресов пользователя 
         /// </summary>
-        public ICollection<AddressDB> Adresses { get; set; }
+        public ICollection<AddressDB> Addresses { get; set; }
 
         /// <summary>
         /// Список телефонов пользователя

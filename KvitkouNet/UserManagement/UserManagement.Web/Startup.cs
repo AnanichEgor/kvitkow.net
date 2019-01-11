@@ -1,11 +1,13 @@
 ﻿using UserManagement.Logic;
 using UserManagement.Data.Context;
+using UserManagement.Data.Fakers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace UserManagement.Web
 {
@@ -28,6 +30,11 @@ namespace UserManagement.Web
             using (var context = new UserContext(o.Options))
             {
                 context.Database.Migrate();
+                //if (!context.Users.Any())
+                //{
+                //    context.Users.AddRange(UserFaker.Generate());
+                //    context.SaveChanges();
+                //}
             }
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

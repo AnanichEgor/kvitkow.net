@@ -8,8 +8,8 @@ namespace UserManagement.Data.ContextConfigurations
     {
         public void Configure(EntityTypeBuilder<UserDB> builder)
         {
-            builder.ToTable("Users")
-                .HasKey(keyExpression: x => x.Id);
+            //builder.ToTable("Users")
+            //    .HasKey(keyExpression: x => x.Id);
             builder.HasOne(navigationExpression: x => x.Account)
                 .WithOne()
                 .HasForeignKey<AccountDB>(x=>x.UserId)

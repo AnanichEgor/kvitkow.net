@@ -10,15 +10,11 @@ namespace UserManagement.Data.DbModels.Tickets
     public class TicketDB
     {
         public string Id { get; set; }
-        /// <summary>
-        ///     Пользователь разместивший билет
-        /// </summary>
-        public UserDB User { get; set; }
 
         /// <summary>
         ///     Пользователи, которые добавили билет в “Я Пойду”
         /// </summary>
-        public List<UserDB> RespondedUsers { get; set; }
+        //public List<UserDB> RespondedUsers { get; set; }
 
         /// <summary>
         ///     Платный/бесплатный билет
@@ -84,5 +80,12 @@ namespace UserManagement.Data.DbModels.Tickets
         ///     Статус билета
         /// </summary>
         public TicketStatusDB Status { get; set; }
+
+        /// <summary>
+        ///     Пользователь разместивший билет
+        /// </summary>
+        public UserDB User { get; set; }
+
+        public string UserDBId { get; set; }
     }
 }

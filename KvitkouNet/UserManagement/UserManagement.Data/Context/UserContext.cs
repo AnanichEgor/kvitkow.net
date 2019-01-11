@@ -19,7 +19,7 @@ namespace UserManagement.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            
             modelBuilder.ApplyConfiguration(new UserGroupTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
             modelBuilder.ApplyConfiguration(new AccountTypeConfiguration());
@@ -27,6 +27,7 @@ namespace UserManagement.Data.Context
             modelBuilder.ApplyConfiguration(new GroupTypeConfiguration());
             modelBuilder.ApplyConfiguration(new AddressTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PhoneTypeConfiguration());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
