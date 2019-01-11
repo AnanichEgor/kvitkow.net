@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Security.Logic.Models
+﻿namespace Security.Logic.Models
 {
     /// <summary>
     /// Право доступа

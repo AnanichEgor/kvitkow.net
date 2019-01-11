@@ -20,11 +20,11 @@ namespace Security.Data.Models
         /// <summary>
         /// Идентификатор фичи
         /// </summary>
-        public string FeatureId { get; set; }
+        public int FeatureId { get; set; }
 
         /// <summary>
         /// Список прав предоставляемых функцией
         /// </summary>
-        public List<AccessRight> AccessRights { get; set; }
+        public List<AccessFunctionAccessRight> AccessFunctionAccessRights { get; set; }
     }
 }

@@ -18,23 +18,33 @@ namespace Security.Data.Models
         public string UserLogin { get; set; }
 
         /// <summary>
-        /// Список предоставленных пользователю прав
+        /// Имя пользователя
         /// </summary>
-        public List<AccessRight> AccessRights { get; set; }
+        public string FirstName { get; set; }
 
         /// <summary>
-        /// Список запрещенных пользователю прав
+        /// Отчество пользователя
         /// </summary>
-        public List<AccessRight> DeniedRights { get; set; }
+        public string MiddleName { get; set; }
+
+        /// <summary>
+        /// Фамилия пользователя
+        /// </summary>
+        public string LastName { get; set; }
+
+        /// <summary>
+        /// Список прав
+        /// </summary>
+        public List<UserRightsAccessRight> AccessRights { get; set; }
 
         /// <summary>
         /// Список предоставленных пользователю функций
         /// </summary>
-        public List<AccessFunction> AccessFunctions { get; set; }
+        public List<UserRightsAccessFunction> AccessFunctions { get; set; }
 
         /// <summary>
         /// Список ролей пользователя
         /// </summary>
-        public List<Role> Roles { get; set; }
+        public List<UserRightsRole> Roles { get; set; }
     }
 }

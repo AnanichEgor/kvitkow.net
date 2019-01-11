@@ -1,10 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Moq;
+using Security.Data;
 using Security.Logic.Services;
 
 namespace Security.Logic
 {
-    public static class ServiceExtentions
+    public static class ServiceExtensions
     {
         /// <summary>
         /// Регистрация ISecurityService
@@ -14,10 +15,9 @@ namespace Security.Logic
         public static IServiceCollection RegisterSecurityService(this IServiceCollection services)
         {
             var mock = new Mock<ISecurityService>();
-
+            services.RegisterSecurityData();
             services.AddScoped<ISecurityService>(_ => mock.Object);
             return services;
         }
-
     }
 }

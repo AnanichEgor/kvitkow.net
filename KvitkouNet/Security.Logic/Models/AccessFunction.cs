@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Security.Logic.Models
 {
@@ -21,7 +20,7 @@ namespace Security.Logic.Models
         /// <summary>
         /// Идентификатор фичи
         /// </summary>
-        public string FeatureId { get; set; }
+        public int FeatureId { get; set; }
 
         /// <summary>
         /// Список прав предоставляемых функцией

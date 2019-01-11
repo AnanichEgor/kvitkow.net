@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Security.Data.Models
 {
@@ -21,6 +20,6 @@ namespace Security.Data.Models
         /// <summary>
         /// Список прав предоставляемых фичей
         /// </summary>
-        public List<AccessRight> AvailableAccessRights { get; set; }
+        public List<FeatureAccessRight> AvailableAccessRights { get; set; }
     }
 }

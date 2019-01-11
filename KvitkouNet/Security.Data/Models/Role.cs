@@ -18,18 +18,13 @@ namespace Security.Data.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// Список предоставляемых прав
+        /// Список прав
         /// </summary>
-        public List<AccessRight> AccessRights { get; set; }
-
-        /// <summary>
-        /// Список запрещённых прав
-        /// </summary>
-        public List<AccessRight> DeniedRights { get; set; }
+        public List<RoleAccessRight> AccessRights { get; set; }
 
         /// <summary>
         /// Список предоставляемых функций
         /// </summary>
-        public List<AccessFunction> AccessFunctions { get; set; }
+        public List<RoleAccessFunction> AccessFunctions { get; set; }
     }
 }
