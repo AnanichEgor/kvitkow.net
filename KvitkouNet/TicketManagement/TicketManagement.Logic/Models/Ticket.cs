@@ -27,12 +27,7 @@ namespace TicketManagement.Logic.Models
         ///     Название билета
         /// </summary>
         public string Name { get; set; }
-
-        /// <summary>
-        ///     Id билета
-        /// </summary>
-        public string Id { get; set; }
-
+        
         /// <summary>
         ///     Адрес проведения мероприятия
         /// </summary>
