@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using StatisticOnline.Logic.Services;
 
 namespace StatisticOnline.Web
 {
@@ -24,6 +25,8 @@ namespace StatisticOnline.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.StatisticOnlineServices();
+            services.AddSwaggerDocument();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -34,7 +37,7 @@ namespace StatisticOnline.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
         }
     }
