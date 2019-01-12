@@ -8,7 +8,6 @@ namespace UserSettings.Data.Context
 		public SettingsContext(DbContextOptions options)
 			: base(options)
 		{
-
 		}
 
 		public DbSet<SettingsDb> Settings { get; set; }

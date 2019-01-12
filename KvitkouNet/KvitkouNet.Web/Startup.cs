@@ -33,7 +33,6 @@ namespace KvitkouNet.Web
             services.RegisterUserServices();
             services.RegisterSecurityService();
 			services.RegisterNotificationService();
-			services.RegisterUserSettingsService();
             services.RegisterChatService();
 			services.RegisterLoggingService();
 		}

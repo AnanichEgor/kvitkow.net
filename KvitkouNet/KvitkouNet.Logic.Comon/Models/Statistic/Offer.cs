@@ -1,5 +1,5 @@
 ﻿using KvitkouNet.Logic.Common.Models.PaymentManagement;
-using KvitkouNet.Logic.Common.Models.Tickets;
+//using KvitkouNet.Logic.Common.Models.Tickets;
 using KvitkouNet.Logic.Common.Models.UserManagement;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace KvitkouNet.Logic.Common.Models.Statistic
         /// <summary>
         /// Shows tickets, which have been using in the offer 
         /// </summary>
-        public IEnumerable<Ticket> Tickets { get; }
+        //public IEnumerable<Ticket> Tickets { get; }
         
         /// <summary>
         /// Provides the name of offer
