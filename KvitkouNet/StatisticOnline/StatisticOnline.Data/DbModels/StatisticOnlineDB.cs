@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StatisticOnline.Data.Models
 {
-    public class StatisticOnlineModel
+    public class StatisticOnlineDb
     {
         public int Id { get; set; }
 
@@ -25,7 +25,7 @@ namespace StatisticOnline.Data.Models
         public int CountGuest { get; set; }
 
         /// <summary>
-        /// Тата и время на которую сформированы записи
+        /// Дата и время на которую сформированы записи
         /// </summary>
         public DateTime CurrenTime { get; set; }
     }
