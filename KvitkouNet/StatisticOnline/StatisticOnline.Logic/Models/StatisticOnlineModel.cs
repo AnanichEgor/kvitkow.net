@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StatisticOnline.Data.Models
+namespace StatisticOnline.Logic.Models
 {
-    public class StatisticOnlineDb
+    /// <summary>
+    /// Статистика состояния пользователей на сайте которые Online 
+    /// </summary>
+    public class StatisticOnlineModel
     {
-        public int Id { get; set; }
-
         /// <summary>
         /// число всех пользователей на сайте Online
         /// </summary>
@@ -23,10 +24,5 @@ namespace StatisticOnline.Data.Models
         /// число гостей на сайте Online
         /// </summary>
         public int CountGuest { get; set; }
-
-        /// <summary>
-        /// Дата и время на которую сформированы записи
-        /// </summary>
-        public DateTime CreateTime { get; set; }
     }
 }
