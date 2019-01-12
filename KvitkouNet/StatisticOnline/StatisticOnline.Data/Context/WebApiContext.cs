@@ -15,7 +15,7 @@ namespace StatisticOnline.Data.Context
 
         }
 
-        public DbSet<StatisticOnlineDb> Books { get; set; }
+        public DbSet<OnlineDb> Books { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,9 +24,9 @@ namespace StatisticOnline.Data.Context
             modelBuilder.ApplyConfiguration(new BookTypeConfiguration());
         }
 
-        public class BookTypeConfiguration : IEntityTypeConfiguration<StatisticOnlineDb>
+        public class BookTypeConfiguration : IEntityTypeConfiguration<OnlineDb>
         {
-            public void Configure(EntityTypeBuilder<StatisticOnlineDb> builder)
+            public void Configure(EntityTypeBuilder<OnlineDb> builder)
             {
                 builder.ToTable("StatisticOnline")
                     .HasKey(x => x.Id);
@@ -40,7 +40,7 @@ namespace StatisticOnline.Data.Context
                 builder.Property(x => x.CountRegistered)
                     .IsRequired();
 
-                builder.Property(x => x.CurrenTime)
+                builder.Property(x => x.CreateTime)
                     .IsRequired()
                     .HasDefaultValue(new DateTime());
             }
