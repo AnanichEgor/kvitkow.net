@@ -5,7 +5,7 @@ namespace Security.Data.Models
     /// <summary>
     /// Права пользователя
     /// </summary>
-    public class UserRights
+    internal class UserRights
     {
         /// <summary>
         /// Идентификатор пользователя (null для незарегистрированного пользователя)

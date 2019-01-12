@@ -2,7 +2,7 @@
 
 namespace Security.Data.Migrations
 {
-    public partial class Init : Migration
+    internal partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

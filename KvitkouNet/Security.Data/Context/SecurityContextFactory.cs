@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace Security.Data.Context
 {
-    public class SecurityContextFactory : IDesignTimeDbContextFactory<SecurityContext>
+    internal class SecurityContextFactory : IDesignTimeDbContextFactory<SecurityContext>
     {
         public SecurityContext CreateDbContext(string[] args)
         {

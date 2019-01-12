@@ -3,7 +3,7 @@
     /// <summary>
     /// Многие ко многим Feature и AccessRight
     /// </summary>
-    public class FeatureAccessRight
+    internal class FeatureAccessRight
     {
         public int FeatureId { get; set; }
 

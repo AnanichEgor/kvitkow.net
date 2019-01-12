@@ -3,7 +3,7 @@
     /// <summary>
     /// Право доступа
     /// </summary>
-    public class AccessRight
+    internal class AccessRight
     {
         /// <summary>
         /// Идентификатор права доступа

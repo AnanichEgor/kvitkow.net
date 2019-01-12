@@ -24,7 +24,7 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
         public async Task<IActionResult> GetRights()
         {
-            var result = _securityService.GetRights();
+            var result = _securityService.GetRights(50, 1);
             return Ok(await result);
         }
 
@@ -54,7 +54,7 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
         public async Task<IActionResult> GetFunctions()
         {
-            var result = _securityService.GetFunctions();
+            var result = _securityService.GetFunctions(50, 1);
             return Ok(await result);
         }
 
@@ -94,7 +94,7 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
         public async Task<IActionResult> GetFeatures()
         {
-            var result = _securityService.GetFeatures();
+            var result = _securityService.GetFeatures(50, 1);
             return Ok(await result);
         }
 
@@ -134,7 +134,7 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
         public async Task<IActionResult> GetRoles()
         {
-            var result = _securityService.GetRoles();
+            var result = _securityService.GetRoles(50, 1);
             return Ok(await result);
         }
 

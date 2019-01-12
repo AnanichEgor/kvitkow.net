@@ -5,7 +5,7 @@ namespace Security.Data.Models
     /// <summary>
     /// Фича
     /// </summary>
-    public class Feature
+    internal class Feature
     {
         /// <summary>
         /// Идентификатор фичи

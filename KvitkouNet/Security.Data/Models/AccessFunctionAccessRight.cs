@@ -3,7 +3,7 @@
     /// <summary>
     /// Многие ко многим AccessFunction и AccessRight
     /// </summary>
-    public class AccessFunctionAccessRight
+    internal class AccessFunctionAccessRight
     {
         public int AccessFunctionId { get; set; }
 

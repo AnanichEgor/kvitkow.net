@@ -5,7 +5,7 @@ using Security.Data.Models;
 namespace Security.Data.Context
 {
     //Контекст для Security
-    public class SecurityContext : DbContext
+    internal class SecurityContext : DbContext
     {
         public SecurityContext(DbContextOptions<SecurityContext> options)
             : base(options)

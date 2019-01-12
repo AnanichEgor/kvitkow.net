@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Security.Data.Context;
+using Security.Data;
 using Security.Logic.Models;
 using Security.Logic.Models.Enums;
 using Security.Logic.Models.Responses;
@@ -9,19 +10,38 @@ namespace Security.Logic.Services
 {
     public class SecurityService : ISecurityService
     {
-        private SecurityContext _securityContext;
+        private ISecurityData _securityContext;
 
-        public SecurityService(SecurityContext securityContext)
+        public SecurityService(ISecurityData securityContext)
         {
             _securityContext = securityContext;
         }
 
+        #region DisposeImp
+        
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
-        public Task<IEnumerable<AccessRight>> GetRights()
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+
+            }
+            _securityContext.Dispose();
+        }
+
+        ~SecurityService()
+        {
+            Dispose(false);
+        }
+
+        #endregion
+
+        public Task<IEnumerable<AccessRight>> GetRights(int itemsPerPage, int pageNumber, string mask = null)
         {
             throw new System.NotImplementedException();
         }
@@ -36,7 +56,7 @@ namespace Security.Logic.Services
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<AccessFunction>> GetFunctions()
+        public Task<IEnumerable<AccessFunction>> GetFunctions(int itemsPerPage, int pageNumber, string mask = null)
         {
             throw new System.NotImplementedException();
         }
@@ -56,7 +76,7 @@ namespace Security.Logic.Services
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<Feature>> GetFeatures()
+        public Task<IEnumerable<Feature>> GetFeatures(int itemsPerPage, int pageNumber, string mask = null)
         {
             throw new System.NotImplementedException();
         }
@@ -76,7 +96,7 @@ namespace Security.Logic.Services
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<Role>> GetRoles()
+        public Task<IEnumerable<Role>> GetRoles(int itemsPerPage, int pageNumber, string mask = null)
         {
             throw new System.NotImplementedException();
         }
@@ -107,6 +127,16 @@ namespace Security.Logic.Services
         }
 
         public Task<AccessStatus> CheckAccess(string userId, string rightName)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<IEnumerable<AccessRight>> SetDefaultRoleToNewUser()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<IEnumerable<AccessRight>> UpdateUserInfo(string userId, string userLogin, string firstName, string middleName, string lastName)
         {
             throw new System.NotImplementedException();
         }

@@ -9,7 +9,7 @@ namespace Security.Data.Migrations
 {
     [DbContext(typeof(SecurityContext))]
     [Migration("20190111204951_Init")]
-    partial class Init
+    internal partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

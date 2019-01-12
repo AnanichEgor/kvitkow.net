@@ -4,7 +4,7 @@ using Security.Data.Models;
 
 namespace Security.Data.Configuration
 {
-    class FeatureAccessRightConfiguration : IEntityTypeConfiguration<FeatureAccessRight>
+    internal class FeatureAccessRightConfiguration : IEntityTypeConfiguration<FeatureAccessRight>
     {
         public void Configure(EntityTypeBuilder<FeatureAccessRight> featureAccessRightEntity)
         {

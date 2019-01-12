@@ -4,7 +4,7 @@ using Security.Data.Models;
 
 namespace Security.Data.Configuration
 {
-    class FeatureConfiguration : IEntityTypeConfiguration<Feature>
+    internal class FeatureConfiguration : IEntityTypeConfiguration<Feature>
     {
         public void Configure(EntityTypeBuilder<Feature> featureEntity)
         {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Moq;
 using Security.Data.Context;
 
 namespace Security.Data
@@ -20,9 +21,12 @@ namespace Security.Data
             {
                 ctx.Database.EnsureCreated();
             }
-
             services.AddDbContext<SecurityContext>(
                 opt => opt.UseSqlite("Data Source=./SecurityDatabase.db"));
+
+            var mock = new Mock<ISecurityData>();
+            services.AddScoped<ISecurityData>(_ => mock.Object);
+
             return services;
         }
     }

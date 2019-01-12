@@ -4,7 +4,7 @@ using Security.Data.Models;
 
 namespace Security.Data.Configuration
 {
-    class UserRightsAccessRightConfiguration : IEntityTypeConfiguration<UserRightsAccessRight>
+    internal class UserRightsAccessRightConfiguration : IEntityTypeConfiguration<UserRightsAccessRight>
     {
         public void Configure(EntityTypeBuilder<UserRightsAccessRight> userRightsAccessRightEntity)
         {

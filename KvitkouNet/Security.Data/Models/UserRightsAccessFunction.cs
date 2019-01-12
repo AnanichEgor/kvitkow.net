@@ -3,7 +3,7 @@
     /// <summary>
     /// Многие ко многим UserRights и AccessFunction
     /// </summary>
-    public class UserRightsAccessFunction
+    internal class UserRightsAccessFunction
     {
         public string UserId { get; set; }
 

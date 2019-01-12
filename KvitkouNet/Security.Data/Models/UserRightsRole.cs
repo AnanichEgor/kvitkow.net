@@ -3,7 +3,7 @@
     /// <summary>
     /// Многие ко многим UserRights и Role
     /// </summary>
-    public class UserRightsRole
+    internal class UserRightsRole
     {
         public string UserId { get; set; }
 

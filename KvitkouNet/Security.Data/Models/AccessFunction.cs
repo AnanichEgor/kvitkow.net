@@ -5,7 +5,7 @@ namespace Security.Data.Models
     /// <summary>
     /// Функция доступа к фиче
     /// </summary>
-    public class AccessFunction
+    internal class AccessFunction
     {
         /// <summary>
         /// Идентификатор функции

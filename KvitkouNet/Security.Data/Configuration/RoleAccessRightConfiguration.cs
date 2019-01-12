@@ -4,7 +4,7 @@ using Security.Data.Models;
 
 namespace Security.Data.Configuration
 {
-    class RoleAccessRightConfiguration : IEntityTypeConfiguration<RoleAccessRight>
+    internal class RoleAccessRightConfiguration : IEntityTypeConfiguration<RoleAccessRight>
     {
         public void Configure(EntityTypeBuilder<RoleAccessRight> roleAccessRightEntity)
         {

@@ -12,11 +12,12 @@ namespace Security.Logic.Services
     /// </summary>
     public interface ISecurityService :IDisposable
     {
+        #region General Administation
         /// <summary>
         /// Получение списка прав доступа
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<AccessRight>> GetRights();
+        Task<IEnumerable<AccessRight>> GetRights(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
         /// Добавление права доступа
@@ -36,7 +37,7 @@ namespace Security.Logic.Services
         /// Получение списка функций
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<AccessFunction>> GetFunctions();
+        Task<IEnumerable<AccessFunction>> GetFunctions(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
         /// Добавление функции
@@ -63,7 +64,7 @@ namespace Security.Logic.Services
         /// Получение списка фич
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Feature>> GetFeatures();
+        Task<IEnumerable<Feature>> GetFeatures(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
         /// Добавление фичи
@@ -90,7 +91,7 @@ namespace Security.Logic.Services
         /// Получение списка ролей
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Role>> GetRoles();
+        Task<IEnumerable<Role>> GetRoles(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
         /// Добавление роли
@@ -134,5 +135,23 @@ namespace Security.Logic.Services
         /// <param name="rightName">Имя права доступа</param>
         /// <returns></returns>
         Task<AccessStatus> CheckAccess(string userId, string rightName);
+        #endregion
+
+        #region EventHandlers
+
+        /// <summary>
+        /// Предоставление прав доступа новому пользователю
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<AccessRight>> SetDefaultRoleToNewUser();
+
+        /// <summary>
+        /// Предоставление прав доступа новому пользователю
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<AccessRight>> UpdateUserInfo(string userId, 
+            string userLogin, string firstName, string middleName, string lastName);
+       
+        #endregion
     }
 }

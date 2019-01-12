@@ -5,7 +5,7 @@ namespace Security.Data.Models
     /// <summary>
     /// Роль
     /// </summary>
-    public class Role
+    internal class Role
     {
         /// <summary>
         /// Идентификатор роли
