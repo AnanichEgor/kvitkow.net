@@ -25,8 +25,6 @@ namespace UserSettings.Data.Migrations
 
                     b.Property<string>("Password");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
 
                     b.ToTable("Accounts");
@@ -53,13 +51,42 @@ namespace UserSettings.Data.Migrations
 
                     b.Property<string>("PreferRegion");
 
-                    b.Property<string>("UserId");
-
                     b.Property<byte[]>("UserImage");
 
                     b.HasKey("Id");
 
                     b.ToTable("Profiles");
+                });
+
+            modelBuilder.Entity("UserSettings.Data.DbModels.SettingsDb", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("AccountId");
+
+                    b.Property<int?>("ProfileId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("UserSettings.Data.DbModels.SettingsDb", b =>
+                {
+                    b.HasOne("UserSettings.Data.DbModels.AccountDb", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId");
+
+                    b.HasOne("UserSettings.Data.DbModels.ProfileDb", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId");
                 });
 #pragma warning restore 612, 618
         }
