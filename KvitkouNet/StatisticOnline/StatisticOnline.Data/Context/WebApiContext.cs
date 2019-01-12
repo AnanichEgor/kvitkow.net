@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using StatisticOnline.Data.Models;
 
 namespace StatisticOnline.Data.Context
 {
@@ -12,5 +14,37 @@ namespace StatisticOnline.Data.Context
         {
 
         }
+
+        public DbSet<StatisticOnlineDb> Books { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new BookTypeConfiguration());
+        }
+
+        public class BookTypeConfiguration : IEntityTypeConfiguration<StatisticOnlineDb>
+        {
+            public void Configure(EntityTypeBuilder<StatisticOnlineDb> builder)
+            {
+                builder.ToTable("StatisticOnline")
+                    .HasKey(x => x.Id);
+
+                builder.Property(x => x.CountAll)
+                    .IsRequired();
+
+                builder.Property(x => x.CountGuest)
+                    .IsRequired(); 
+
+                builder.Property(x => x.CountRegistered)
+                    .IsRequired();
+
+                builder.Property(x => x.CurrenTime)
+                    .IsRequired()
+                    .HasDefaultValue(new DateTime());
+            }
+        }
+
     }
 }
