@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Security.Data.Models
+namespace Security.Data.ContextModels
 {
     /// <summary>
     /// Права пользователя

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Security.Data;
+using Security.Data.Models;
 using Security.Logic.Models;
 using Security.Logic.Models.Enums;
 using Security.Logic.Models.Responses;
@@ -11,10 +14,12 @@ namespace Security.Logic.Services
     public class SecurityService : ISecurityService
     {
         private ISecurityData _securityContext;
+        private IMapper _mapper;
 
-        public SecurityService(ISecurityData securityContext)
+        public SecurityService(ISecurityData securityContext, IMapper mapper)
         {
             _securityContext = securityContext;
+            _mapper = mapper;
         }
 
         #region DisposeImp
@@ -43,7 +48,13 @@ namespace Security.Logic.Services
 
         public Task<IEnumerable<AccessRight>> GetRights(int itemsPerPage, int pageNumber, string mask = null)
         {
-            throw new System.NotImplementedException();
+            if (itemsPerPage < 1 || pageNumber < 1 || int.MaxValue / itemsPerPage < pageNumber)
+            {
+                return Task.FromResult(new AccessRight[0].AsEnumerable());
+            }
+
+            return Task.FromResult(_mapper.Map<AccessRight[]>(
+                _securityContext.GetRights(itemsPerPage, pageNumber, mask)).AsEnumerable());
         }
 
         public Task<AddRightResponse> AddRight(AccessRight right)

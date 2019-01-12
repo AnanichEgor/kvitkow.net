@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Security.Data.Configuration;
-using Security.Data.Models;
+using Security.Data.ContextModels;
 
 namespace Security.Data.Context
 {

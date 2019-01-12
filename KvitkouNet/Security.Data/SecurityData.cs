@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Security.Data.Context;
+using Security.Data.Models;
 
 namespace Security.Data
 {
@@ -18,6 +19,11 @@ namespace Security.Data
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public IEnumerable<AccessRightDb> GetRights(int itemsPerPage, int pageNumber, string mask)
+        {
+            throw new NotImplementedException();
         }
 
         protected virtual void Dispose(bool disposing)

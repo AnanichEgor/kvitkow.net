@@ -5,7 +5,7 @@ namespace Security.Data.Models
     /// <summary>
     /// Роль
     /// </summary>
-    internal class Role
+    public class RoleDb
     {
         /// <summary>
         /// Идентификатор роли
@@ -20,11 +20,16 @@ namespace Security.Data.Models
         /// <summary>
         /// Список прав
         /// </summary>
-        public List<RoleAccessRight> AccessRights { get; set; }
+        public List<AccessRightDb> AccessRights { get; set; }
+
+        /// <summary>
+        /// Список запрещённых прав
+        /// </summary>
+        public List<AccessRightDb> DeniedRights { get; set; }
 
         /// <summary>
         /// Список предоставляемых функций
         /// </summary>
-        public List<RoleAccessFunction> AccessFunctions { get; set; }
+        public List<AccessFunctionDb> AccessFunctions { get; set; }
     }
 }

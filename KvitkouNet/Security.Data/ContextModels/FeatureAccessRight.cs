@@ -1,4 +1,4 @@
-﻿namespace Security.Data.Models
+﻿namespace Security.Data.ContextModels
 {
     /// <summary>
     /// Многие ко многим Feature и AccessRight

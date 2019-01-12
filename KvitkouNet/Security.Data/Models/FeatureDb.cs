@@ -5,7 +5,7 @@ namespace Security.Data.Models
     /// <summary>
     /// Фича
     /// </summary>
-    internal class Feature
+    public class FeatureDb
     {
         /// <summary>
         /// Идентификатор фичи
@@ -20,6 +20,6 @@ namespace Security.Data.Models
         /// <summary>
         /// Список прав предоставляемых фичей
         /// </summary>
-        public List<FeatureAccessRight> AvailableAccessRights { get; set; }
+        public List<AccessRightDb> AvailableAccessRights { get; set; }
     }
 }

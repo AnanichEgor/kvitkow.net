@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Security.Data;
+using Security.Logic.MappingProfiles;
+using Security.Logic.Models.Requests;
 using Security.Logic.Services;
 
 namespace Security.Logic
@@ -16,6 +19,10 @@ namespace Security.Logic
         {
             var mock = new Mock<ISecurityService>();
             services.RegisterSecurityData();
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<AccessRightProfile>();
+            });
             services.AddScoped<ISecurityService>(_ => mock.Object);
             return services;
         }

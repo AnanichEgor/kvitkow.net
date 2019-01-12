@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Security.Data.Models;
+using Security.Data.ContextModels;
 
 namespace Security.Data.Configuration
 {
