@@ -12,4 +12,12 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.2105168" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StatisticOnline.Logic\StatisticOnline.Logic.csproj" />
+  </ItemGroup>
+
 </Project>
