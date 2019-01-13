@@ -1,4 +1,5 @@
 ﻿using AdminPanel.Logic.Infrastructure;
+using AdminPanel.Logic.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AdminPanel.Web.Extensions
@@ -12,7 +13,7 @@ namespace AdminPanel.Web.Extensions
 		/// <returns></returns>
 		public static IServiceCollection RegisterUserService(this IServiceCollection services)
 		{
-			services.AddScoped<IUserService, IUserService>();
+			services.AddScoped<IUserService, UserService>();
 
 			return services;
 		}
