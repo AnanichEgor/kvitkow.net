@@ -14,6 +14,8 @@ namespace StatisticOnline.Logic.Services
         {
             var mock = new Mock<IStatisticOnlineService>();
 
+         //   mock.Setup(_ => _.GetAllUsers().RunSynchronously())
+
             services.AddScoped<IStatisticOnlineService>(_ => mock.Object);
             return services;
         }
