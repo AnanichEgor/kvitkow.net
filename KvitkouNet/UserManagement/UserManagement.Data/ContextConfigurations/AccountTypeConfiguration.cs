@@ -8,8 +8,8 @@ namespace UserManagement.Data.ContextConfigurations
     {
         public void Configure(EntityTypeBuilder<AccountDB> builder)
         {
-            //builder.ToTable("Accounts")
-            //    .HasKey(keyExpression: x => x.Id);
+            builder.ToTable("Accounts")
+                .HasKey(keyExpression: x => x.Id);
         }
     }
 }
