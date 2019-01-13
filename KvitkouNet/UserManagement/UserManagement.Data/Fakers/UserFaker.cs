@@ -14,16 +14,15 @@ namespace UserManagement.Data.Fakers
         static UserFaker()
         {
             _faker = new Faker<UserDB>();
-            _faker.RuleFor(x => x.Id, f => f.Lorem.Word());
-            _faker.RuleFor(x => x.Account, a =>
+            _faker.RuleFor(x => x.Id, f => f.IndexFaker.ToString());
+            _faker.RuleFor(x => x.AccountDB, a =>
             {
                 var fakeAcc = new Faker<AccountDB>();
                 fakeAcc.RuleFor(x => x.Login, f => f.Lorem.Word());
                 fakeAcc.RuleFor(x => x.Password, f => f.Lorem.Word());
-                //fakeAcc.RuleFor(x => x.UserId);
                 return fakeAcc.Generate();
             });
-            _faker.RuleFor(x => x.Profile, a =>
+            _faker.RuleFor(x => x.ProfileDB, a =>
             {
                 var fakeAcc = new Faker<ProfileDB>();
                 fakeAcc.RuleFor(x => x.FirstName, f => f.Lorem.Word());
