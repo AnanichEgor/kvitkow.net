@@ -31,7 +31,7 @@ namespace Chat.Web
                 opt => opt.UseSqlite("Data Source=./ChatDatabase.db"));
 
             var o = new DbContextOptionsBuilder<ChatContext>();
-            o.UseSqlite(@"Data Source=f:\Git\kvitkou-net\KvitkouNet\UserSettings\ChatDatabase.db");
+            o.UseSqlite(@"Data Source=./ChatDatabase.db");
 
             using (var ctx = new ChatContext(o.Options))
             {
