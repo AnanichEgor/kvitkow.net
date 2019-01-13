@@ -13,4 +13,9 @@
     <ProjectReference Include="..\Notification.Logic.Common\Notification.Logic.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

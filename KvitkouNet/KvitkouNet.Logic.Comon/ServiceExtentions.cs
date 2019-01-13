@@ -2,10 +2,8 @@
 using System.Linq;
 using KvitkouNet.Logic.Common.Dtos.Logging;
 using KvitkouNet.Logic.Common.Models.Logging;
-using KvitkouNet.Logic.Common.Models.UserManagement;
 using KvitkouNet.Logic.Common.Services.Logging;
 using KvitkouNet.Logic.Common.Services.Chat;
-using KvitkouNet.Logic.Common.Services.Search;
 using KvitkouNet.Logic.Common.Services.Security;
 using KvitkouNet.Logic.Common.Services.User;
 using Microsoft.Extensions.DependencyInjection;
@@ -59,32 +57,6 @@ namespace KvitkouNet.Logic.Common
 
             services.AddScoped<IChatService>(_ => mock.Object);
             return services;
-        }
-
-        private static Mock<ISearchUserService> GetUserSearchMock()
-        {
-            var mock = new Mock<ISearchUserService>();
-            var result = new SearchResult<UserInfo>
-            {
-                Items = Enumerable.Empty<UserInfo>(),
-                Total = 10
-            };
-            mock.Setup(service => service.Search(It.IsAny<UserSearchRequest>())).ReturnsAsync(result);
-
-            return mock;
-        }
-
-        private static Mock<ISearchTicketService> GetTicketSearchMock()
-        {
-            var mock = new Mock<ISearchTicketService>();
-            var result = new SearchResult<TicketInfo>
-            {
-                Items = Enumerable.Empty<TicketInfo>(),
-                Total = 10
-            };
-            mock.Setup(service => service.Search(It.IsAny<TicketSearchRequest>())).ReturnsAsync(result);
-
-            return mock;
         }
 
         private static Mock<ILoggingService> GetLoggingServiceMock()
