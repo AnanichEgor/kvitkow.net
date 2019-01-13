@@ -6,7 +6,7 @@ namespace Notification.Data.Models
 	/// <summary>
 	/// Уведомление
 	/// </summary>
-	class Notification
+	public class Notification
 	{
 		/// <summary>
 		/// Id уведомления
@@ -48,5 +48,11 @@ namespace Notification.Data.Models
 		/// Тип уведомления
 		/// </summary>
 		public NotificationType Type { get; set; }
+
+		/// <summary>
+		/// Отметка для прочитанных уведомлений
+		/// </summary>
+		/// <remarks>для почтовых уведомлений будет закрыто, если успешно отправится</remarks>
+		public bool IsClosed { get; set; }
 	}
 }

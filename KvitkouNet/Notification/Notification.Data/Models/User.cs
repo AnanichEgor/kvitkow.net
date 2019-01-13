@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Пользователь
 	/// </summary>
-	class User
+	public class User
 	{
 		/// <summary>
 		/// Ид пользователя
@@ -14,5 +14,10 @@
 		/// Электронный ящик
 		/// </summary>
 		public string Email { get; set; }
+
+		/// <summary>
+		/// Имя пользователя
+		/// </summary>
+		public string FirstName { get; set; }
 	}
 }
