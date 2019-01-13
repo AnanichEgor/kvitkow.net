@@ -27,14 +27,14 @@ namespace Chat.Web
             services.AddDbContext<ChatContext>(
                 opt => opt.UseSqlite("Data Source=./ChatDatabase.db"));
 
-            //var o = new DbContextOptionsBuilder<ChatContext>();
-            //o.UseSqlite("Data Source=./ChatDatabase.db");
-            
-            //using (var ctx = new ChatContext(o.Options))
-            //{
-            //    ctx.Database.EnsureCreated();
+            var o = new DbContextOptionsBuilder<ChatContext>();
+            o.UseSqlite("Data Source=./ChatDatabase.db");
 
-            //}
+            using (var ctx = new ChatContext(o.Options))
+            {
+                ctx.Database.EnsureCreated();
+
+            }
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // In production, the Angular files will be served from this directory
