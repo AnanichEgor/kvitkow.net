@@ -26,14 +26,14 @@ namespace AdminPanel.Web.Controllers
 
 		[HttpPut]
 		[Route("ban/{id}")]
-		public async Task<IActionResult> BanUser()
+		public async Task<IActionResult> BanUser(int id)
 		{
 			return NoContent();
 		}
 
 		[HttpPut]
 		[Route("unban/{id}")]
-		public async Task<IActionResult> UnbanUser()
+		public async Task<IActionResult> UnbanUser(int id)
 		{
 			return NoContent();
 		}
