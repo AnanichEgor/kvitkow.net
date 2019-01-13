@@ -1,6 +1,8 @@
 ﻿using Notification.Logic.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
+using Notification.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Notification.Logic
 {
@@ -13,7 +15,7 @@ namespace Notification.Logic
 		/// <returns></returns>
 		public static IServiceCollection RegisterNotificationService(this IServiceCollection services)
 		{
-			services.AddScoped(obj => new Mock<INotificationService>().Object);
+			services.AddScoped<INotificationService, NotificationService>();
 			return services;
 		}
     }

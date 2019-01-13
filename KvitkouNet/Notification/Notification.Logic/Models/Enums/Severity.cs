@@ -1,4 +1,4 @@
-﻿namespace KvitkouNet.Notification.Logic.Models.Enums
+﻿namespace Notification.Logic.Models.Enums
 {
 	/// <summary>
 	/// Строгость уведомления

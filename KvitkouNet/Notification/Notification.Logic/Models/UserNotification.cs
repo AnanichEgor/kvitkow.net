@@ -1,4 +1,4 @@
-﻿namespace KvitkouNet.Logic.Models.Notification
+﻿namespace Notification.Logic.Models
 {
 	/// <summary>
 	/// уведомление для пользователя

@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
-using KvitkouNet.Logic.Common.Models.Notification;
-using KvitkouNet.Logic.Common.Services.Notification;
-using KvitkouNet.Logic.Common.Models.Notification.Requests;
+using Notification.Logic.Models;
+using Notification.Logic.Services;
+using Notification.Logic.Models.Requests;
 
-namespace KvitkouNet.Web.Controllers
+namespace Notification.Web.Controllers
 {
 	/// <summary>
 	/// api для уведомлений
@@ -34,7 +34,8 @@ namespace KvitkouNet.Web.Controllers
 		[HttpGet, Route("all")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<UserNotification>), Description = "All OK")]
 		public async Task<IActionResult> GetAll()
-		{			 
+		{
+			
 			return Ok(await m_service.GetAll());
 		}
 
