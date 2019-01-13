@@ -18,10 +18,32 @@ namespace Chat.Logic.Services
         Task<Settings> GetUserSettings(string userId);
 
         /// <summary>
-        /// Получение списка прав доступа
+        /// Изменение пользовательских настроек
+        /// </summary>
+        Task EditUserSettings(string userId, Settings settings);
+
+        /// <summary>
+        /// Изменение роли пользователя в чате
+        /// </summary>
+        Task EditUserRole(string userId, User settings);
+
+        /// <summary>
+        /// Создание комнаты.
+        /// </summary>
+        /// <returns></returns>
+        Task AddRoom(Room room, string userId);
+
+        /// <summary>
+        /// Получение доступных комнат
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<Room>> GetRooms(string userId);
+
+        /// <summary>
+        /// Поиск комнаты по названию
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Message>> SearchRoom(string template);
 
         /// <summary>
         /// Получение сообщений из комнаты, согласно ограничению по истории
@@ -58,10 +80,5 @@ namespace Chat.Logic.Services
         /// Проставить признак прочитанного сообщения
         /// </summary>
         Task EditSettingsForMessage(string roomId, string messageId);
-
-        /// <summary>
-        /// Изменение пользовательских настроек
-        /// </summary>
-        Task EditUserSettings(Settings settings);
     }
 }

@@ -36,6 +36,31 @@ namespace Chat.Web.Controllers
             return Ok(await result);
         }
 
+
+        /// <summary>
+        /// Изменение пользовательских настроек
+        /// </summary>
+        [HttpPatch, Route("settings/{uid}")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(string), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        public async Task<IActionResult> EditUserSettings([FromRoute] string uid, [FromBody] Settings settings)
+        {
+            await _chatService.EditUserSettings(uid, settings);
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Изменение роли пользователя в чате
+        /// </summary>
+        [HttpPatch, Route("users/{uid}")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(string), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        public async Task<IActionResult> EditUserRole([FromRoute] string uid, [FromBody] User settings)
+        {
+            await _chatService.EditUserRole(uid, settings);
+            return NoContent();
+        }
+
         /// <summary>
         /// Получение доступных комнат для пользователя
         /// </summary>
@@ -49,7 +74,31 @@ namespace Chat.Web.Controllers
         }
 
         /// <summary>
-        /// Получение сообщений из комнаты, согласно ограничению по истории
+        /// Создание комнаты.
+        /// </summary>
+        [HttpPost, Route("romms/room/{uid}")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        public async Task<IActionResult> AddRoom([FromBody] Room room, [FromRoute] string uid)
+        {
+            await _chatService.AddRoom(room, uid);
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Поиск комнаты по названию.
+        /// </summary>
+        [HttpGet, Route("rooms/{template}")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Room>), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        public async Task<IActionResult> SearchRoom([FromRoute] string template)
+        {
+            var result = _chatService.SearchRoom(template);
+            return Ok(await result);
+        }
+
+        /// <summary>
+        /// Получение сообщений из комнаты, согласно ограничению по истории.
         /// </summary>
         [HttpGet, Route("romms/{rid}/messages")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
@@ -61,7 +110,7 @@ namespace Chat.Web.Controllers
         }
 
         /// <summary>
-        /// Поиск сообщения в комнате
+        /// Поиск сообщения в комнате.
         /// </summary>
         [HttpGet, Route("romms/{rid}/messages/{template}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
@@ -113,7 +162,7 @@ namespace Chat.Web.Controllers
         /// <summary>
         /// Проставить признак прочитанного сообщения
         /// </summary>
-        [HttpPatch, Route("romms/{rid}/mesagges/{mid}/settings")]
+        [HttpPatch, Route("romms/{rid}/mesagges/{mid}")]
         [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> EditSettingsForMessage([FromRoute] string rid, [FromRoute] string mid)
@@ -121,18 +170,5 @@ namespace Chat.Web.Controllers
             await _chatService.EditSettingsForMessage(rid, mid);
             return NoContent();
         }
-
-        /// <summary>
-        /// Изменение пользовательских настроек
-        /// </summary>
-        [HttpPatch, Route("settings")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(string), Description = "All OK")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> EditUserSettings([FromBody] Settings settings)
-        {
-            await _chatService.EditUserSettings(settings);
-            return NoContent();
-        }
-
     }
 }
