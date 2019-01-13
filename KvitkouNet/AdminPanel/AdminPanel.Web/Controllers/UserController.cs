@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AdminPanel.Logic.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdminPanel.Web.Controllers
@@ -9,9 +10,11 @@ namespace AdminPanel.Web.Controllers
 	[Route("api/admin/users")]
 	public class UserController : Controller
 	{
-		public UserController()
+		private readonly IUserService _userService;
+
+		public UserController(IUserService userService)
 		{
-			
+			_userService = userService;
 		}
 
 		/// <summary>
@@ -21,13 +24,15 @@ namespace AdminPanel.Web.Controllers
 		[HttpGet]
 		public async Task<IActionResult> GetAll()
 		{
-			return Ok();
+			var result = await _userService.GetAll();
+			return Ok(result);
 		}
 
 		[HttpPut]
 		[Route("ban/{id}")]
 		public async Task<IActionResult> Ban(int id)
 		{
+			await _userService.Ban(id);
 			return NoContent();
 		}
 
@@ -35,6 +40,7 @@ namespace AdminPanel.Web.Controllers
 		[Route("unban/{id}")]
 		public async Task<IActionResult> Unban(int id)
 		{
+			await _userService.Unban(id);
 			return NoContent();
 		}
 	}
