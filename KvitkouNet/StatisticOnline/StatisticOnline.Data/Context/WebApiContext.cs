@@ -15,7 +15,7 @@ namespace StatisticOnline.Data.Context
 
         }
 
-        public DbSet<OnlineDb> Books { get; set; }
+        public DbSet<OnlineDb> StatisticOnline { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

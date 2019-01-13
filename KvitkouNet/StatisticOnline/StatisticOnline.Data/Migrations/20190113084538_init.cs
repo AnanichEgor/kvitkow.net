@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StatisticOnline.Data.Migrations
 {
-    public partial class StatisticOnline : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,7 @@ namespace StatisticOnline.Data.Migrations
                     CountAll = table.Column<int>(nullable: false),
                     CountRegistered = table.Column<int>(nullable: false),
                     CountGuest = table.Column<int>(nullable: false),
-                    CurrenTime = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
+                    CreateTime = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
                 },
                 constraints: table =>
                 {
