@@ -41,9 +41,9 @@ namespace KvitkouNet.Logic.Common.Models.Chat.ChatSettings
         public ViewTimestampsMessage ViewTimestampsMessage { get; set; }
 
         /// <summary>
-        /// Скрыть чат
+        /// True - Скрыть чат 
         /// </summary>
-        public HideChat HideChat { get; set; }
+        public bool HideChat;
 
         /// <summary>
         /// настройка отображения колличества сообщений из истории чата
