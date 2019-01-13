@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Chat.Data.Context;
 using Chat.Logic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using AutoMapper;
+using Chat.Logic.MappingProfiles;
 
 namespace Chat.Web
 {
@@ -26,6 +24,17 @@ namespace Chat.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ChatContext>(
+                opt => opt.UseSqlite("Data Source=./ChatDatabase.db"));
+
+            //var o = new DbContextOptionsBuilder<ChatContext>();
+            //o.UseSqlite("Data Source=./ChatDatabase.db");
+            
+            //using (var ctx = new ChatContext(o.Options))
+            //{
+            //    ctx.Database.EnsureCreated();
+
+            //}
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // In production, the Angular files will be served from this directory
@@ -36,6 +45,13 @@ namespace Chat.Web
 
             services.AddSwaggerDocument();
             services.RegisterChatService();
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<MessageProfile>();
+                cfg.AddProfile<RoomProfile>();
+                cfg.AddProfile<SettingsProfile>();
+                cfg.AddProfile<UserProfile>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

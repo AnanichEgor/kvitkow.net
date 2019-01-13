@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Chat.Logic.Models.ChatSettings
+namespace Chat.Data.DbModels
 {
-    public enum BackgroundColor
+    public enum BackgroundColorType
     {
         /// <summary>
         /// Фон чата белый

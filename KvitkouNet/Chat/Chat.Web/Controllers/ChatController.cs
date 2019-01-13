@@ -33,7 +33,7 @@ namespace Chat.Web.Controllers
         public async Task<IActionResult> GetUserSettings([FromRoute] string uid)
         {
             var result = _chatService.GetUserSettings(uid);
-            return Ok(result);
+            return Ok(await result);
         }
 
         /// <summary>

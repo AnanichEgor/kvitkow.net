@@ -1,18 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Chat.Data.DbModels.Abstraction;
 
-namespace Chat.Logic.Models
+namespace Chat.Data.DbModels
 {
-    public class Room
+    public class RoomDb : SystemDataDb<string>
     {
-        /// <summary>
-        /// Id комнаты.
-        /// </summary>
-        public string Id { get; set; }
-
         /// <summary>
         /// Id создателя комнаты.
         /// </summary>
-        public int UserId { get; set; }
+        public int OwnerId { get; set; }
 
         /// <summary>
         /// Название комнаты.
@@ -27,11 +25,12 @@ namespace Chat.Logic.Models
         /// <summary>
         /// Список Users в комнате.
         /// </summary>
-        public List<User> Users;
+        public List<UserDb> Users;
 
         /// <summary>
         /// Список сообщений в конате.
         /// </summary>
-        public List<Message> Messages;
+        public List<MessageDb> Messages;
     }
+
 }

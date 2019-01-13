@@ -1,14 +1,9 @@
-﻿using Chat.Data.DbModels;
+﻿using Chat.Data.DbModels.Abstraction;
 
-namespace Chat.Logic.Models.ChatSettings
+namespace Chat.Data.DbModels
 {
-    public class Settings
+    public class SettingsDb : SystemDataDb<string>
     {
-        /// <summary>
-        /// Уникальный Id
-        /// </summary>
-        public string Id { get; set; }
-
         /// <summary>
         /// Фон чата
         /// </summary>
@@ -45,9 +40,8 @@ namespace Chat.Logic.Models.ChatSettings
         public int HistoryCountsMessages { get; set; }
 
         /// <summary>
-        /// UserId пользователя из UserManagement которому принадлежат настройки.
+        /// Пользователь которому принадлежат настройки.
         /// </summary>
-        public User User { get; set; }
+        public UserDb User { get; set; }
     }
 }
-
