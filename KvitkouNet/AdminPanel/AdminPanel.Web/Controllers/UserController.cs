@@ -19,21 +19,21 @@ namespace AdminPanel.Web.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
-		public async Task<IActionResult> GetUsers()
+		public async Task<IActionResult> GetAll()
 		{
 			return Ok();
 		}
 
 		[HttpPut]
 		[Route("ban/{id}")]
-		public async Task<IActionResult> BanUser(int id)
+		public async Task<IActionResult> Ban(int id)
 		{
 			return NoContent();
 		}
 
 		[HttpPut]
 		[Route("unban/{id}")]
-		public async Task<IActionResult> UnbanUser(int id)
+		public async Task<IActionResult> Unban(int id)
 		{
 			return NoContent();
 		}
