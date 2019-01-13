@@ -16,12 +16,12 @@ namespace UserManagement.Data.DbModels
         /// <summary>
         /// Учетная запись пользователя
         /// </summary>
-        public AccountDB Account { get; set; }
+        public AccountDB AccountDB { get; set; }
 
         /// <summary>
         /// Профиль пользователя
         /// </summary>
-        public ProfileDB Profile { get; set; }
+        public ProfileDB ProfileDB { get; set; }
 
         /// <summary>
         /// Группы, в которых состоит пользователь

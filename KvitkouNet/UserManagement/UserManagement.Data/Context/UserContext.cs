@@ -13,9 +13,10 @@ namespace UserManagement.Data.Context
         public DbSet<UserDB> Users { get; set; }
         public DbSet<AccountDB> Accounts { get; set; }
         public DbSet<ProfileDB> Profiles { get; set; }
+        public DbSet<GroupDB> Groups { get; set; }
         public DbSet<PhoneNumberDB> PhoneNumbers { get; set; }
         public DbSet<AddressDB> Adresses { get; set; }
-        public DbSet<GroupDB> Groups { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

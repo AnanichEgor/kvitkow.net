@@ -9,7 +9,7 @@ namespace UserManagement.Data.DbModels
         /// <summary>
         /// Уникальный идентификатор учетной записи
         /// </summary>
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Логин пользователя
@@ -30,8 +30,9 @@ namespace UserManagement.Data.DbModels
         /// <summary>
         /// Пользователь
         /// </summary>
-        public UserDB User { get; set; }
-        public string UserId { get; set; }
+        public string UserDBId { get; set; }
+        public UserDB UserDB { get; set; }
+        
         #endregion
     }
 }

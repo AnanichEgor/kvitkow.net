@@ -10,7 +10,7 @@ namespace UserManagement.Data.DbModels
         /// <summary>
         /// Уникальный идентификатор профиля пользователя
         /// </summary>
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Имя пользователя
@@ -69,14 +69,14 @@ namespace UserManagement.Data.DbModels
         /// <summary>
         /// Пользователь
         /// </summary>
-        public UserDB User { get; set; }
+        public UserDB UserDB { get; set; }
 
-        public string UserId { get; set; }
+        public string UserDBId { get; set; }
 
         /// <summary>
         /// Настройки пользователя
         /// </summary>
-        public ProfileSettings UserSettings { get; set; }
+        public ProfileSettings ProfileSettings { get; set; }
 
         /// <summary>
         /// Список адресов пользователя 
