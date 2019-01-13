@@ -8,10 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
+using Chat.Logic.Fakers;
 using Chat.Logic.MappingProfiles;
 using Chat.Logic.Models;
 using Chat.Logic.Validators;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Chat.Web
 {
@@ -36,6 +38,11 @@ namespace Chat.Web
             using (var ctx = new ChatContext(o.Options))
             {
                 ctx.Database.EnsureCreated();
+                if (!ctx.Rooms.Any())
+                {
+                    ctx.Rooms.AddRange(RoomFaker.Generate(50));
+                    ctx.SaveChanges();
+                }
 
             }
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
