@@ -10,10 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UserManagement.Logic.Common\UserManagement.Logic.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="ef">
       <HintPath>C:\Program Files\dotnet\sdk\2.1.500\DotnetTools\dotnet-ef\2.1.4\tools\netcoreapp2.1\any\tools\netcoreapp2.0\any\ef.dll</HintPath>
     </Reference>

@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using UserManagement.Logic.Models;
+using FluentValidation;
+using UserManagement.Logic.Validators;
+using UserManagement.Logic.MappingProfiles;
+using AutoMapper;
 using System.Linq;
 
 namespace UserManagement.Web
@@ -29,14 +34,18 @@ namespace UserManagement.Web
 
             using (var context = new UserContext(o.Options))
             {
-                context.Database.Migrate();
-                //if (!context.Users.Any())
-                //{
-                //    context.Users.AddRange(UserFaker.Generate());
-                //    context.SaveChanges();
-                //}
+                context.Database.EnsureCreated();
+                if (!context.Users.Any())
+                {
+                    context.Users.AddRange(UserFaker.Generate());
+                    context.SaveChanges();
+                }
             }
-
+            services.AddAutoMapper(cfg=>
+            {
+                cfg.AddProfile<UserProfile>();
+            });
+            services.AddScoped<IValidator<User>, UserValidator>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerDocument();
             services.RegisterUserServices();
