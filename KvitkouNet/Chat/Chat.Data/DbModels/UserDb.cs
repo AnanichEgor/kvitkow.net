@@ -2,7 +2,7 @@
 
 namespace Chat.Data.DbModels
 {
-    public class UserDb : SystemDataDb<string>
+    public class UserDb : SystemDataForAllModelsDb<string>
     {
         /// <summary>
         /// Имя пользователя.

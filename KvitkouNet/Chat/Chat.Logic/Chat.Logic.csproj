@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="Bogus" Version="25.0.3" />
+    <PackageReference Include="FluentValidation" Version="8.1.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
     <PackageReference Include="Moq" Version="4.10.1" />
   </ItemGroup>

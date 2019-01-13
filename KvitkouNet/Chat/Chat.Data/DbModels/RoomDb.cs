@@ -5,7 +5,7 @@ using Chat.Data.DbModels.Abstraction;
 
 namespace Chat.Data.DbModels
 {
-    public class RoomDb : SystemDataDb<string>
+    public class RoomDb : SystemDataForAllModelsDb<string>
     {
         /// <summary>
         /// Id создателя комнаты.

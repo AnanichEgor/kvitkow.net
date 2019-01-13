@@ -2,7 +2,7 @@
 
 namespace Chat.Data.DbModels
 {
-    public class SettingsDb : SystemDataDb<string>
+    public class SettingsDb : SystemDataForAllModelsDb<string>
     {
         /// <summary>
         /// Фон чата

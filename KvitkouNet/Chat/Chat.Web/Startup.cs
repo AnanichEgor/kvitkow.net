@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
 using Chat.Logic.MappingProfiles;
+using Chat.Logic.Models;
+using Chat.Logic.Validators;
+using FluentValidation;
 
 namespace Chat.Web
 {
@@ -28,7 +31,7 @@ namespace Chat.Web
                 opt => opt.UseSqlite("Data Source=./ChatDatabase.db"));
 
             var o = new DbContextOptionsBuilder<ChatContext>();
-            o.UseSqlite("Data Source=./ChatDatabase.db");
+            o.UseSqlite(@"Data Source=f:\Git\kvitkou-net\KvitkouNet\UserSettings\ChatDatabase.db");
 
             using (var ctx = new ChatContext(o.Options))
             {
@@ -45,6 +48,7 @@ namespace Chat.Web
 
             services.AddSwaggerDocument();
             services.RegisterChatService();
+            services.AddScoped<IValidator<Room>, RoomValidator>();
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<MessageProfile>();

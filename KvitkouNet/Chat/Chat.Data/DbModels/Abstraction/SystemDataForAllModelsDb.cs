@@ -8,7 +8,7 @@ namespace Chat.Data.DbModels.Abstraction
     /// Базовый класс содержащий системную информацию для всех моделей БД
     /// </summary>
     /// <typeparam name="TKey">Тип свойства Id для конкретной модели</typeparam>
-    public abstract class SystemDataDb<TKey>
+    public abstract class SystemDataForAllModelsDb<TKey>
     {
         /// <summary>
         /// Id записи

@@ -3,7 +3,7 @@ using Chat.Data.DbModels.Abstraction;
 
 namespace Chat.Data.DbModels
 {
-    public class MessageDb : SystemDataDb<string>
+    public class MessageDb : SystemDataForAllModelsDb<string>
     {
         /// <summary>
         /// Id пользователя который отправил сообщение.
