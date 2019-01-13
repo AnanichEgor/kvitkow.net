@@ -33,11 +33,11 @@ namespace Chat.Web
                 opt => opt.UseSqlite("Data Source=./ChatDatabase.db"));
 
             var o = new DbContextOptionsBuilder<ChatContext>();
-            o.UseSqlite(@"Data Source=./ChatDatabase.db");
+            o.UseSqlite("Data Source=./ChatDatabase.db");
 
             using (var ctx = new ChatContext(o.Options))
             {
-                ctx.Database.EnsureCreated();
+                ctx.Database.Migrate();
                 if (!ctx.Rooms.Any())
                 {
                     ctx.Rooms.AddRange(RoomFaker.Generate(50));
