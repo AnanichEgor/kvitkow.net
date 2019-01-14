@@ -26,6 +26,17 @@ namespace TicketManagement.Logic.Models.Enums
         /// <summary>
         ///     Ошибка
         /// </summary>
-        Error = 1 << 2
+        Error = 1 << 2,
+
+        /// <summary>
+        ///     Неавторизованный пользователь
+        /// </summary>
+        Unauthorized = 1 << 3,
+
+        /// <summary>
+        ///     Пользователь имеет отрицательный рейтинг
+        /// </summary>
+        BadUserRating = 1 << 4,
+
     }
 }
