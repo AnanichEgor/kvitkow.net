@@ -11,7 +11,7 @@ namespace Notification.Data.Models
 		/// <summary>
 		/// Id уведомления
 		/// </summary>
-		public long Id { get; set; }
+		public string Id { get; set; }
 
 		/// <summary>
 		/// Получатель уведомления
