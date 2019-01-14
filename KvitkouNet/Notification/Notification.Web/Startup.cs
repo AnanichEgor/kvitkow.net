@@ -30,7 +30,7 @@ namespace Notification.Web
 
 			var o = new DbContextOptionsBuilder<NotificationContext>();
 			o.UseSqlite("Data Source=./Notification.db");
-
+			
 			using (var ctx = new NotificationContext(o.Options))
 			{
 				ctx.Database.Migrate();
@@ -52,6 +52,7 @@ namespace Notification.Web
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddSwaggerDocument();
+
 			services.RegisterNotificationService();
 		}
 
@@ -62,6 +63,8 @@ namespace Notification.Web
 			{
 				app.UseDeveloperExceptionPage();
 			}
+
+			app.UseSwagger().UseSwaggerUi3();
 
 			app.UseMvc();
 		}

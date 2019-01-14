@@ -9,8 +9,8 @@ using Notification.Data.Context;
 namespace Notification.Data.Migrations
 {
     [DbContext(typeof(NotificationContext))]
-    [Migration("20190114075831_change type of Id")]
-    partial class changetypeofId
+    [Migration("20190114135409_rebuild db")]
+    partial class rebuilddb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

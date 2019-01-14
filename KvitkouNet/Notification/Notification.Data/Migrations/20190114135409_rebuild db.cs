@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Notification.Data.Migrations
 {
-    public partial class init : Migration
+    public partial class rebuilddb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,8 @@ namespace Notification.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: true)
+                    Email = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -23,15 +24,15 @@ namespace Notification.Data.Migrations
                 name: "Notifications",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<string>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     Text = table.Column<string>(nullable: true),
                     Severity = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     SenderId = table.Column<string>(nullable: true),
-                    Type = table.Column<int>(nullable: false)
+                    Type = table.Column<int>(nullable: false),
+                    IsClosed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
