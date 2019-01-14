@@ -64,11 +64,21 @@ namespace TicketManagement.Data.Repositories
         /// <returns></returns>
         public async Task Delete(string id)
         {
-            //var original = await _context.Tickets.FindAsync(id);
-            var original=new TicketDb(){Id = id};
-           // if (original == null) return;
-            _context.Tickets.Remove(original);
-             _context.SaveChanges();
+            var origin = await _context.Tickets.FindAsync(id);
+            
+            if (origin != null)
+            {
+                _context.Tickets.Remove(origin);
+                _context.Tickets.AddRangeAsync(_context.Tickets.)
+                _context.SaveChanges();
+            }
+           
+            // _context.Entry(original).State = EntityState.Deleted;
+
+
+            // if (original == null) return;
+            // _context.Tickets.Remove(original);
+            //_context.SaveChanges();
         }
 
         /// <summary>
