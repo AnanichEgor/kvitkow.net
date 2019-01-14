@@ -17,8 +17,4 @@
     <PackageReference Include="Moq" Version="4.10.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\StatisticOnline.Data\StatisticOnline.Data.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using StatisticOnline.Data.Context;
+using StatisticOnline.Data.Fakers;
 using StatisticOnline.Logic.Services;
 
 namespace StatisticOnline.Web
@@ -37,6 +40,12 @@ namespace StatisticOnline.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                ContextInit.InitContext(serviceScope.ServiceProvider);
+            }
+
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
         }
