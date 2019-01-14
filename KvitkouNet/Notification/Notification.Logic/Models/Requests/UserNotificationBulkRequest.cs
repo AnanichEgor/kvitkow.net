@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace KvitkouNet.Logic.Common.Models.Notification.Requests
+namespace Notification.Logic.Models.Requests
 {
 	/// <summary>
 	/// Запрос для массового добавления уведомленний

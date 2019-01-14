@@ -1,7 +1,6 @@
 ﻿using System;
-using KvitkouNet.Logic.Common.Models.Notification.Enums;
 
-namespace KvitkouNet.Logic.Common.Models.Notification
+namespace Notification.Logic.Models
 {
 	/// <summary>
 	/// Уведомление

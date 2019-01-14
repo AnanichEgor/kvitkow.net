@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using KvitkouNet.Logic.Common.Models.Notification;
-using KvitkouNet.Logic.Common.Models.Notification.Requests;
+using Notification.Logic.Models;
+using Notification.Logic.Models.Requests;
 
-namespace KvitkouNet.Logic.Common.Services.Notification
+namespace Notification.Logic.Services
 {
 	/// <summary>
 	/// Интерфейс для работы с уведомлениями

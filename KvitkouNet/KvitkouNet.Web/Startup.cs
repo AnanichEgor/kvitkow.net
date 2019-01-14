@@ -32,7 +32,6 @@ namespace KvitkouNet.Web
             services.AddSwaggerDocument();
             services.RegisterUserServices();
             services.RegisterSecurityService();
-			services.RegisterNotificationService();
             services.RegisterChatService();
 			services.RegisterLoggingService();
 		}
