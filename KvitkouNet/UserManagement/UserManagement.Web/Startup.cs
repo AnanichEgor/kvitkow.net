@@ -34,7 +34,7 @@ namespace UserManagement.Web
 
             using (var context = new UserContext(o.Options))
             {
-                context.Database.EnsureCreated();
+                context.Database.Migrate();
                 if (!context.Users.Any())
                 {
                     context.Users.AddRange(UserFaker.Generate());
