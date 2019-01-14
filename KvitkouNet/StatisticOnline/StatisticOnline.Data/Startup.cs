@@ -40,7 +40,7 @@ namespace StatisticOnline.Data
                 context.Database.Migrate();
                 if (!context.StatisticOnline.Any())
                 {
-                    context.StatisticOnline.AddRange(StatisticOnlineFaker.Generate(50));
+                    context.StatisticOnline.AddRange(StatisticOnlineFaker.Generate(150));
                     context.SaveChanges();
                 }
             }
