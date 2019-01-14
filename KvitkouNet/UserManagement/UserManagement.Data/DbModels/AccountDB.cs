@@ -1,12 +1,15 @@
-﻿
-namespace UserManagement.Logic.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace UserManagement.Data.DbModels
 {
-    public class Account
+    public class AccountDB
     {
         /// <summary>
         /// Уникальный идентификатор учетной записи
         /// </summary>
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Логин пользователя
@@ -22,5 +25,14 @@ namespace UserManagement.Logic.Models
         /// Пароль пользователя
         /// </summary>
         public string Password { get; set; }
+
+        #region Связи между таблицами  
+        /// <summary>
+        /// Пользователь
+        /// </summary>
+        public string UserDBId { get; set; }
+        public UserDB UserDB { get; set; }
+        
+        #endregion
     }
 }

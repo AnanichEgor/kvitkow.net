@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using UserManagement.Logic.Models.Security;
-using UserManagement.Logic.Models.Tickets;
-using UserManagement.Logic.Models.UserSettings;
+using UserManagement.Data.DbModels.UserSettings;
+using UserManagement.Data.DbModels.Enums;
 
-namespace UserManagement.Logic.Models
+namespace UserManagement.Data.DbModels
 {
-    public class Profile
+    public class ProfileDB
     {
         /// <summary>
         /// Уникальный идентификатор профиля пользователя
         /// </summary>
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Имя пользователя
@@ -29,24 +28,21 @@ namespace UserManagement.Logic.Models
         public string LastName { get; set; }
 
         /// <summary>
-        /// Список адресов пользователя 
-        /// </summary>
-        public virtual ICollection<Address> Adresses { get; set; }
-
-        /// <summary>
-        /// Список телефонов пользователя
-        /// </summary>
-        public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
-
-        /// <summary>
         /// Пол
         /// </summary>
-        public string Sex { get; set; }
+        public SexDB Sex { get; set; }
 
         /// <summary>
         /// Дата рождения
         /// </summary>
         public DateTime Birthday { get; set; }
+
+
+        #region Поля для редактирования администратором 
+        /// <summary>
+        /// Рейтинг пользователя
+        /// </summary>
+        public double Rating { get; set; }
 
         /// <summary>
         /// Дата регистрации
@@ -67,32 +63,31 @@ namespace UserManagement.Logic.Models
         /// Проверен ли пользователь администратором
         /// </summary>
         public bool IsVerified { get; set; }
+        #endregion
 
+        #region Связи между таблицами  
         /// <summary>
-        /// Группы, в которых состоит пользователь
+        /// Пользователь
         /// </summary>
-        public virtual ICollection<Group> UserGroups { get; set; }
+        public UserDB UserDB { get; set; }
 
-        /// <summary>
-        /// Роли доступа пользователя
-        /// </summary>
-        
-        public virtual ICollection<Role> UserRoles { get; set; }
+        public string UserDBId { get; set; }
 
         /// <summary>
         /// Настройки пользователя
         /// </summary>
-        public ProfileSettings UserSettings { get; set; }
+        public ProfileSettings ProfileSettings { get; set; }
 
         /// <summary>
-        /// Список билетов принадлежащих пользователю
+        /// Список адресов пользователя 
         /// </summary>
-        public virtual ICollection<Ticket> Tickets { get; set; }
+        public ICollection<AddressDB> Addresses { get; set; }
 
         /// <summary>
-        /// Рейтинг пользователя
+        /// Список телефонов пользователя
         /// </summary>
-        public double Rating { get; set; }
+        public ICollection<PhoneNumberDB> PhoneNumbers { get; set; }
+        #endregion
     }
 }
 

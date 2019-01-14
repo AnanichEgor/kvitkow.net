@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using UserManagement.Logic.Common.Models;
-using UserManagement.Logic.Common.Services;
+using UserManagement.Logic.Models;
+using UserManagement.Logic.Services;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 

@@ -1,9 +1,9 @@
-﻿using UserManagement.Logic.Models.Security;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UserManagement.Data.DbModels.Security;
 
-namespace UserManagement.Logic.Models
+namespace UserManagement.Data.DbModels
 {
-    public class Group
+    public class GroupDB
     {
         /// <summary>
         /// Уникальный номер группы
@@ -20,14 +20,17 @@ namespace UserManagement.Logic.Models
         /// </summary>
         public string Description { get; set; }
 
+
+        #region Связи между таблицами  
         /// <summary>
         /// Пользователи группы
         /// </summary>
-        public virtual ICollection<User> GroupUsers { get; set; }
+        public ICollection<UserGroupDB> UserGroups { get; set; }
 
         /// <summary>
         /// Роли группы
         /// </summary>
-        public virtual ICollection<Role> GroupRoles { get; set; }
+        public virtual ICollection<RoleDB> GroupRoles { get; set; }
+        #endregion  
     }
 }
