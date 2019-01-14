@@ -18,22 +18,5 @@ namespace UserManagement.Data.DbModels.Security
         /// </summary>
         public string Name { get; set; }
 
-        [NotMapped]
-        /// <summary>
-        /// Список предоставляемых прав
-        /// </summary>
-        public List<AccessRightDB> AccessRights { get; set; }
-
-        [NotMapped]
-        /// <summary>
-        /// Список запрещённых прав
-        /// </summary>
-        public List<AccessRightDB> DeniedRights { get; set; }
-
-        [NotMapped]
-        /// <summary>
-        /// Список предоставляемых функций
-        /// </summary>
-        public List<AccessFunctionDB> AccessFunctions { get; set; }
     }
 }
