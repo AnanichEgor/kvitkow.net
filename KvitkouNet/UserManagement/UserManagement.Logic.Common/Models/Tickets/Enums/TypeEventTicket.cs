@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace UserManagement.Logic.Common.Models.Tickets.Enums
+namespace UserManagement.Logic.Models.Tickets.Enums
 {
     /// <summary>
     ///     Перечисление, описывающее типы билетов

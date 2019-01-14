@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace UserManagement.Logic.Common.Models
+namespace UserManagement.Logic.Models
 {
     public class ForViewModel
     {

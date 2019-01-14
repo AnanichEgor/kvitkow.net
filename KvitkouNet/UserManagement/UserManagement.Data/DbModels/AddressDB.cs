@@ -1,6 +1,6 @@
-﻿namespace UserManagement.Logic.Models
+﻿namespace UserManagement.Data.DbModels
 {
-    public class Address
+    public class AddressDB
     {
         /// <summary>
         /// Уникальный идентификатор адреса
@@ -31,5 +31,12 @@
         /// Номер квартиры
         /// </summary>
         public string Flat { get; set; }
+
+        #region Связи между таблицами  
+        /// <summary>
+        /// Профиль пользователя
+        /// </summary>
+        public ProfileDB Profile { get; set; }
+        #endregion
     }
 }
