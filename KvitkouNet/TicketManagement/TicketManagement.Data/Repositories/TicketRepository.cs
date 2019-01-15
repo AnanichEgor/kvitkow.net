@@ -69,7 +69,6 @@ namespace TicketManagement.Data.Repositories
             if (origin != null)
             {
                 _context.Tickets.Remove(origin);
-                _context.Tickets.AddRangeAsync(_context.Tickets.)
                 _context.SaveChanges();
             }
            
