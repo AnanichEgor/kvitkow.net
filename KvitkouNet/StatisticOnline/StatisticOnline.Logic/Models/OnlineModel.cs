@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace StatisticOnline.Logic.Models
 {
@@ -10,6 +10,8 @@ namespace StatisticOnline.Logic.Models
     /// </summary>
     public class OnlineModel
     {
+        public int Id { get; set; }
+
         /// <summary>
         /// число всех пользователей на сайте Online
         /// </summary>
@@ -24,5 +26,10 @@ namespace StatisticOnline.Logic.Models
         /// число гостей на сайте Online
         /// </summary>
         public int CountGuest { get; set; }
+
+        /// <summary>
+        /// Дата и время на которую сформирована записи
+        /// </summary>
+        public DateTime CreateTime { get; set; }
     }
 }

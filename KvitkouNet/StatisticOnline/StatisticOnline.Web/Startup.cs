@@ -40,6 +40,7 @@ namespace StatisticOnline.Web
             }
 
             app.UseSwagger().UseSwaggerUi3();
+
             app.UseMvc();
         }
     }
