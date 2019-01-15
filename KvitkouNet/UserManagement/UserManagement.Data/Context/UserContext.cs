@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UserManagement.Logic.Common.Models;
-using UserManagement.Logic.Common.Models.Security;
-using UserManagement.Logic.Common.Models.Tickets;
-using UserManagement.Logic.Common.Models.UserSettings;
+using UserManagement.Data.ContextConfigurations;
+using UserManagement.Data.DbModels;
 
 namespace UserManagement.Data.Context
 {
@@ -14,14 +9,26 @@ namespace UserManagement.Data.Context
         public UserContext(DbContextOptions<UserContext> options)
        : base(options)
         {
-
         }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Account> Accounts { get; set; }
-        public DbSet<Profile> Profiles { get; set; }
-        public DbSet<PhoneNumber> PhoneNumbers { get; set; }
-        public DbSet<Address> Adresses { get; set; }
-        public DbSet<Group> Groups { get; set; }
+        public DbSet<UserDB> Users { get; set; }
+        public DbSet<AccountDB> Accounts { get; set; }
+        public DbSet<ProfileDB> Profiles { get; set; }
+        public DbSet<GroupDB> Groups { get; set; }
+        public DbSet<PhoneNumberDB> PhoneNumbers { get; set; }
+        public DbSet<AddressDB> Adresses { get; set; }
+        
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+            modelBuilder.ApplyConfiguration(new UserGroupTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new AccountTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProfileTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new GroupTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new AddressTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PhoneTypeConfiguration());
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
