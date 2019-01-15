@@ -16,46 +16,46 @@ namespace TicketManagement.Data.DbModels.Enums
         /// <summary>
         ///     Тип кино
         /// </summary>
-        Movie = 1,
+        Movie = 1 << 0,
 
         /// <summary>
         ///     Тип концерт
         /// </summary>
-        Concerts = 2,
+        Concerts = 1 << 1,
 
         /// <summary>
         ///     Тип театр
         /// </summary>
-        Theater = 3,
+        Theater = 1 << 2,
 
         /// <summary>
         ///     Тип балет
         /// </summary>
-        Ballet = 4,
+        Ballet = 1 << 3,
 
         /// <summary>
         ///     Тип спорт
         /// </summary>
-        Sport = 5,
+        Sport = 1 << 4,
 
         /// <summary>
         ///     Тип вечеринка
         /// </summary>
-        Parties = 6,
+        Parties = 1 << 5,
 
         /// <summary>
         ///     Тип тренинг
         /// </summary>
-        Trainings = 7,
+        Trainings = 1 << 6,
 
         /// <summary>
         ///     Тип выставка
         /// </summary>
-        Exhibitions = 8,
+        Exhibitions = 1 << 7,
 
         /// <summary>
         ///     Тип цирк
         /// </summary>
-        Circus = 9
+        Circus = 1 << 8
     }
 }

@@ -32,7 +32,7 @@ namespace TicketManagement.Data.DbModels
         /// <summary>
         ///     Id билета
         /// </summary>
-        public string Id { get; set; }
+        public string TicketDbId { get; set; }
 
         /// <summary>
         ///     Адрес проведения мероприятия
@@ -42,7 +42,7 @@ namespace TicketManagement.Data.DbModels
         /// <summary>
         ///     Цена билета
         /// </summary>
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         ///     Дополнительная информация билета
@@ -67,7 +67,7 @@ namespace TicketManagement.Data.DbModels
         /// <summary>
         ///     Время актуальности билета
         /// </summary>
-        public DateTime TimeActual { get; set; }
+        public string TimeActual { get; set; }
 
         /// <summary>
         ///     Тип мероприятия

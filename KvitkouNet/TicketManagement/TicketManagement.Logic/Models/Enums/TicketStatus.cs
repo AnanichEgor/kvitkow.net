@@ -16,16 +16,16 @@ namespace TicketManagement.Logic.Models
         /// <summary>
         ///     Куплен
         /// </summary>
-        Purchased = 1,
+        Purchased = 1 << 0,
 
         /// <summary>
         ///     Актуален
         /// </summary>
-        Actual = 2,
+        Actual = 1 << 1,
 
         /// <summary>
         ///     Просрочен
         /// </summary>
-        Expired = 3
+        Expired = 1 << 2
     }
 }
