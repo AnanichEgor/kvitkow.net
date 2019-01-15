@@ -9,7 +9,7 @@ using TicketManagement.Data.Context;
 namespace TicketManagement.Data.Migrations
 {
     [DbContext(typeof(TicketContext))]
-    [Migration("20190115095905_init")]
+    [Migration("20190115123917_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
