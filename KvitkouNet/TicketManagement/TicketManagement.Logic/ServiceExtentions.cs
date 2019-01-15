@@ -1,6 +1,14 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AutoMapper;
+using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
+using TicketManagement.Data.Context;
+using TicketManagement.Data.Repositories;
+using TicketManagement.Logic.MappingProfiles;
+using TicketManagement.Logic.Models;
 using TicketManagement.Logic.Services;
+using TicketManagement.Logic.Validators;
 
 namespace TicketManagement.Logic
 {
@@ -13,7 +21,19 @@ namespace TicketManagement.Logic
         /// <returns></returns>
         public static IServiceCollection RegisterTicketService(this IServiceCollection services)
         {
+            services.AddDbContext<TicketContext>(opt => opt.UseSqlite("Data Source=./TicketDatabase.db"));
+
             services.AddScoped(_ => TicketServiceMock().Object);
+
+           services.AddScoped<IValidator<Ticket>, TicketValidator>();
+           services.AddScoped<ITicketRepository, TicketRepository>();
+           services.AddScoped<ITicketService, TicketService>();
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<TicketProfile>();
+                cfg.AddProfile<AddressProfile>();
+                cfg.AddProfile<UserInfoProfile>();
+            });
             return services;
         }
 

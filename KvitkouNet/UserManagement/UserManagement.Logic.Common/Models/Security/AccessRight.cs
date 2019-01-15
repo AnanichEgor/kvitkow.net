@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UserManagement.Logic.Common.Models.Security
+﻿
+namespace UserManagement.Logic.Models.Security
 {
     /// <summary>
     /// Право доступа
