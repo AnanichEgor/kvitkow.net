@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StatisticOnline.Logic.Interfaces
+namespace StatisticOnline.Logic.Models
 {
-    public interface IStatisticOnlineService : IDisposable
+    /// <summary>
+    /// Статистика состояния пользователей на сайте которые Online 
+    /// </summary>
+    public class OnlineModel
     {
         /// <summary>
         /// число всех пользователей на сайте Online
         /// </summary>
-        Task<int> GetAllUsers();
+        public int CountAll { get; set; }
 
         /// <summary>
         /// число зарегистрированных пользователей
         /// </summary>
-        Task<int> GetRegisteredUser();
+        public int CountRegistered { get; set; }
 
         /// <summary>
         /// число гостей на сайте Online
         /// </summary>
-        Task<int> GetGuestUser();
+        public int CountGuest { get; set; }
     }
 }

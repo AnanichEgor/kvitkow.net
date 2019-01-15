@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StatisticOnline.Logic.Interfaces
 {
-    public interface IStatisticOnlineService : IDisposable
+    public interface IStatisticOnlineService: IDisposable
     {
         /// <summary>
         /// число всех пользователей на сайте Online
