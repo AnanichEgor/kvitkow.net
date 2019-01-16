@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AdminPanel.Logic.Dtos.UserManagement;
 using AdminPanel.Logic.Models.UserManagement;
 
 namespace AdminPanel.Logic.Infrastructure
@@ -10,8 +11,6 @@ namespace AdminPanel.Logic.Infrastructure
 	{
 		Task<User> GetAll();
 
-		Task Ban(int id);
-
-		Task Unban(int id);
+		Task ChangeIsBannedStatus(IsBannedDto dto);
 	}
 }

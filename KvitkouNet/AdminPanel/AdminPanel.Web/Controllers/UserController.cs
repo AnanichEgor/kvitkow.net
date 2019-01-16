@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AdminPanel.Logic.Dtos.UserManagement;
 using AdminPanel.Logic.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,19 +29,11 @@ namespace AdminPanel.Web.Controllers
 			return Ok(result);
 		}
 
-		[HttpPut]
-		[Route("ban/{id}")]
-		public async Task<IActionResult> Ban(int id)
+		[HttpPatch]
+		[Route("ban/")]
+		public async Task<IActionResult> ChangeIsBannedStatus([FromBody] IsBannedDto dto)
 		{
-			await _userService.Ban(id);
-			return NoContent();
-		}
-
-		[HttpPut]
-		[Route("unban/{id}")]
-		public async Task<IActionResult> Unban(int id)
-		{
-			await _userService.Unban(id);
+			await _userService.ChangeIsBannedStatus(dto);
 			return NoContent();
 		}
 	}

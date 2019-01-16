@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPanel.Web", "AdminPanel.Web\AdminPanel.Web.csproj", "{141F18AF-9EE8-444B-963E-62D4F6B4AD88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminPanel.Web", "AdminPanel.Web\AdminPanel.Web.csproj", "{141F18AF-9EE8-444B-963E-62D4F6B4AD88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPanel.Logic", "AdminPanel.Logic\AdminPanel.Logic.csproj", "{A2C31A98-3AFF-4FA6-823A-9981263524D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminPanel.Logic", "AdminPanel.Logic\AdminPanel.Logic.csproj", "{A2C31A98-3AFF-4FA6-823A-9981263524D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPanel.Tests", "AdminPanel.Tests\AdminPanel.Tests.csproj", "{2990A65C-DBCC-47DE-B07B-AC8526B9A3F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminPanel.Tests", "AdminPanel.Tests\AdminPanel.Tests.csproj", "{2990A65C-DBCC-47DE-B07B-AC8526B9A3F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
