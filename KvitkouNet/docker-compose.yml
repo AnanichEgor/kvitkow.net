@@ -12,3 +12,5 @@ services:
     build:
       context: AdminPanel
       dockerfile: AdminPanel.Web/Dockerfile
+    ports:
+      - 5005:80
