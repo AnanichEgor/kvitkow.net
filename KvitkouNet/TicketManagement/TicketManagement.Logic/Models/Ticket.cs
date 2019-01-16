@@ -27,12 +27,7 @@ namespace TicketManagement.Logic.Models
         ///     Название билета
         /// </summary>
         public string Name { get; set; }
-
-        /// <summary>
-        ///     Id билета
-        /// </summary>
-        public string TicketId { get; set; }
-
+        
         /// <summary>
         ///     Адрес проведения мероприятия
         /// </summary>
@@ -41,7 +36,7 @@ namespace TicketManagement.Logic.Models
         /// <summary>
         ///     Цена билета
         /// </summary>
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
 
         /// <summary>
         ///     Дополнительная информация билета
@@ -66,7 +61,7 @@ namespace TicketManagement.Logic.Models
         /// <summary>
         ///     Время актуальности билета
         /// </summary>
-        public string TimeActual { get; set; }
+        public DateTime TimeActual { get; set; }
 
         /// <summary>
         ///     Тип мероприятия

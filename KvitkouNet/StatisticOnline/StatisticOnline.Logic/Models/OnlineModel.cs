@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
-namespace KvitkouNet.Logic.Common.Models.Statistic
-{  /// <summary>
-   /// Статистика состояния пользователей на сайте которые Online 
-   /// </summary>
-    public class StatisticOnline
+
+namespace StatisticOnline.Logic.Models
+{
+    /// <summary>
+    /// Статистика состояния пользователей на сайте которые Online 
+    /// </summary>
+    public class OnlineModel
     {
+        public int Id { get; set; }
+
         /// <summary>
         /// число всех пользователей на сайте Online
         /// </summary>
@@ -22,5 +26,10 @@ namespace KvitkouNet.Logic.Common.Models.Statistic
         /// число гостей на сайте Online
         /// </summary>
         public int CountGuest { get; set; }
+
+        /// <summary>
+        /// Дата и время на которую сформирована записи
+        /// </summary>
+        public DateTime CreateTime { get; set; }
     }
 }
