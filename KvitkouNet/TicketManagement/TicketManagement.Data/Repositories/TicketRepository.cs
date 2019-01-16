@@ -52,7 +52,10 @@ namespace TicketManagement.Data.Repositories
         /// <returns></returns>
         public async Task DeleteAll()
         {
+            _context.Adresses.RemoveRange(_context.Adresses);
+            _context.UserInfos.RemoveRange(_context.UserInfos);
             _context.Tickets.RemoveRange(_context.Tickets);
+            
             await _context.SaveChangesAsync();
             
         }
