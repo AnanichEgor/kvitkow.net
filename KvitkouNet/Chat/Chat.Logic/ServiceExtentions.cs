@@ -22,6 +22,7 @@ namespace Chat.Logic
         {
             services.AddDbContext<ChatContext>(opt => opt.UseSqlite("Data Source=./ChatDatabase.db"));
             services.AddScoped(_ => ChatServiceMock().Object);
+            services.AddScoped<IChatService, ChatService>();
             services.AddScoped<IValidator<Room>, RoomValidator>();
             services.AddAutoMapper(cfg =>
             {

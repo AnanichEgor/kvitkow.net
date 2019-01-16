@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Chat.Logic.Models;
-using Chat.Logic.Models.ChatSettings;
 using Chat.Logic.Services;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
@@ -12,7 +9,7 @@ using NSwag.Annotations;
 namespace Chat.Web.Controllers
 {
     /// <summary>
-    /// Контроллер, отвечающий за выполняемые действия с чатом
+    /// Контроллер, отвечающий за выполняемые действия с чатом.
     ///  </summary>
     [Route("api/chat")]
     public class ChatController : Controller
@@ -25,15 +22,17 @@ namespace Chat.Web.Controllers
         }
 
         /// <summary>
-        /// Получение пользовательских настроек для чата
+        /// Получение пользовательских настроек для чата.
         /// </summary>
+        /// <param name="uid">Id пользователя</param>
+        /// <returns>Модель Settings</returns>
         [HttpGet, Route("settings/{uid}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(Settings), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetUserSettings([FromRoute] string uid)
         {
-            var result = _chatService.GetUserSettings(uid);
-            return Ok(await result);
+            var result = await _chatService.GetUserSettings(uid);
+            return Ok(result);
         }
 
 
@@ -167,7 +166,7 @@ namespace Chat.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> EditSettingsForMessage([FromRoute] string rid, [FromRoute] string mid)
         {
-            await _chatService.EditSettingsForMessage(rid, mid);
+            await _chatService.EditSettingIsReeadForMessage(rid, mid);
             return NoContent();
         }
     }

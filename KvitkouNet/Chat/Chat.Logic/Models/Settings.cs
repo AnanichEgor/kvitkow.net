@@ -1,6 +1,6 @@
 ﻿using Chat.Data.DbModels;
 
-namespace Chat.Logic.Models.ChatSettings
+namespace Chat.Logic.Models
 {
     public class Settings
     {
@@ -45,7 +45,12 @@ namespace Chat.Logic.Models.ChatSettings
         public int HistoryCountsMessages { get; set; }
 
         /// <summary>
-        /// UserId пользователя из UserManagement которому принадлежат настройки.
+        /// Признак запрета для получения личных сообщений от других пользователей. default - false.
+        /// </summary>
+        public bool DisablePrivateMessages { get; set; }
+
+        /// <summary>
+        /// User которому принадлежат настройки.
         /// </summary>
         public User User { get; set; }
     }
