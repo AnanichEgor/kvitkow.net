@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  kvitkounet.web:
+    image: ${DOCKER_REGISTRY}kvitkounetweb
+    build:
+      context: .
+      dockerfile: KvitkouNet.Web/Dockerfile
