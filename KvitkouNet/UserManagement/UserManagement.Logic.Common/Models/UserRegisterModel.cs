@@ -1,4 +1,4 @@
-namespace UserManagement.Logic.Common.Models
+namespace UserManagement.Logic.Models
 {
     public class UserRegisterModel
     {

@@ -5,11 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bogus" Version="25.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UserManagement.Logic.Common\UserManagement.Logic.Common.csproj" />
+    <Reference Include="ef">
+      <HintPath>C:\Program Files\dotnet\sdk\2.1.500\DotnetTools\dotnet-ef\2.1.4\tools\netcoreapp2.1\any\tools\netcoreapp2.0\any\ef.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

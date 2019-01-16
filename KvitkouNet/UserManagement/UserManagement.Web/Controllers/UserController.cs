@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
 using UserManagement.Data.Context;
-using UserManagement.Logic.Common.Models;
-using UserManagement.Logic.Common.Services;
+using UserManagement.Logic.Models;
+using UserManagement.Logic.Services;
 
 namespace UserManagement.Web.Controllers
 {
@@ -18,14 +18,10 @@ namespace UserManagement.Web.Controllers
     public class UserController : Controller
     {
         private IUserService _service;
-        private UserContext _context;
 
-        public UserController(IUserService service, UserContext context)
+        public UserController(IUserService service)
         {
             _service = service;
-            _context = context;
-            //_context.Database.EnsureDeleted();
-            _context.Database.Migrate();
         }
         
         [HttpPost, Route("register")]
