@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using Chat.Data.Context;
+using Chat.Logic.Fakers;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Chat.Web
 {
@@ -14,6 +12,22 @@ namespace Chat.Web
     {
         public static void Main(string[] args)
         {
+            /// <summary>
+            /// Настраиваем дефолтную работу с контекстом
+            /// </summary>
+            var o = new DbContextOptionsBuilder<ChatContext>();
+            o.UseSqlite("Data Source=./ChatDatabase.db");
+
+            using (var ctx = new ChatContext(o.Options))
+            {
+                ctx.Database.Migrate();
+                if (!ctx.Rooms.Any())
+                {
+                    ctx.Rooms.AddRange(RoomFaker.Generate(50));
+                    ctx.SaveChanges();
+                }
+            }
+
             CreateWebHostBuilder(args).Build().Run();
         }
 
