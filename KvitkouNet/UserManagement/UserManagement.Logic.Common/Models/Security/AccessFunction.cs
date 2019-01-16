@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace UserManagement.Logic.Common.Models.Security
+namespace UserManagement.Logic.Models.Security
 {
     /// <summary>
     /// Функция доступа к фиче
