@@ -6,3 +6,9 @@ services:
     build:
       context: .
       dockerfile: KvitkouNet.Web/Dockerfile
+   
+   adminpanel.web:
+    image: ${DOCKER_REGISTRY}adminpanelweb
+    build:
+      context: AdminPanel
+      dockerfile: AdminPanel.Web/Dockerfile
