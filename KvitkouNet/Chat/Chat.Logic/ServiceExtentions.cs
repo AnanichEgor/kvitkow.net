@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Chat.Data.Context;
+using Chat.Data.Repositories;
 using Chat.Logic.MappingProfiles;
 using Chat.Logic.Models;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,7 @@ namespace Chat.Logic
         public static IServiceCollection RegisterChatService(this IServiceCollection services)
         {
             services.AddDbContext<ChatContext>(opt => opt.UseSqlite("Data Source=./ChatDatabase.db"));
+            services.AddScoped<IChatRepository, ChatRepository>();
             services.AddScoped(_ => ChatServiceMock().Object);
             services.AddScoped<IChatService, ChatService>();
             services.AddScoped<IValidator<Room>, RoomValidator>();

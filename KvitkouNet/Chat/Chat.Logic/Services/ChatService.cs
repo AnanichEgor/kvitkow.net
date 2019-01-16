@@ -20,51 +20,52 @@ namespace Chat.Logic.Services
            // _validator = validator;
         }
 
-        public Task<Settings> GetUserSettings(string userId)
+        public async Task<Settings> GetUserSettings(string userId)
+        {
+            var res = await _context.GetUserSettings(userId);
+            return res == null ? null : _mapper.Map<Settings>(res);
+        }
+        public async Task EditUserSettings(string userId, Settings settings)
         {
             throw new NotImplementedException();
         }
-        public Task EditUserSettings(string userId, Settings settings)
+        public async Task EditUserRole(string userId, User settings)
         {
             throw new NotImplementedException();
         }
-        public Task EditUserRole(string userId, User settings)
+        public async Task AddRoom(Room room, string userId)
         {
             throw new NotImplementedException();
         }
-        public Task AddRoom(Room room, string userId)
+        public async Task<IEnumerable<Room>> GetRooms(string userId)
         {
             throw new NotImplementedException();
         }
-        public Task<IEnumerable<Room>> GetRooms(string userId)
+        public async Task<IEnumerable<Room>> SearchRoom(string template)
         {
             throw new NotImplementedException();
         }
-        public Task<IEnumerable<Room>> SearchRoom(string template)
+        public async Task<IEnumerable<Message>> GetMessagesFromTheRoom(string roomId)
         {
             throw new NotImplementedException();
         }
-        public Task<IEnumerable<Message>> GetMessagesFromTheRoom(string roomId)
+        public async Task<IEnumerable<Message>> SearchMessage(string roomId, string template)
         {
             throw new NotImplementedException();
         }
-        public Task<IEnumerable<Message>> SearchMessage(string roomId, string template)
+        public async Task AddMessage(Message message, string roomId)
         {
             throw new NotImplementedException();
         }
-        public Task AddMessage(Message message, string roomId)
+        public async Task EditMessage(Message message, string roomId)
         {
             throw new NotImplementedException();
         }
-        public Task EditMessage(Message message, string roomId)
+        public async Task DeleteMessage(string roomId, string messageId)
         {
             throw new NotImplementedException();
         }
-        public Task DeleteMessage(string roomId, string messageId)
-        {
-            throw new NotImplementedException();
-        }
-        public Task EditSettingIsReeadForMessage(string roomId, string messageId)
+        public async Task EditSettingIsReeadForMessage(string roomId, string messageId)
         {
             throw new NotImplementedException();
         }
