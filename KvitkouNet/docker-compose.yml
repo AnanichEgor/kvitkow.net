@@ -12,5 +12,15 @@ services:
     build:
       context: AdminPanel
       dockerfile: AdminPanel.Web/Dockerfile
+    depends_on:
+      - logging.web
     ports:
       - 5005:80
+    
+   logging.web:
+    image: ${DOCKER_REGISTRY}loggingweb
+    build:
+      context: Logging
+      dockerfile: Logging.Web/Dockerfile
+    ports:
+      - 5006:80
