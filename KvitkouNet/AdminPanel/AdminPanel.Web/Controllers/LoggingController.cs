@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
+using AdminPanel.Logic.Generated.Logging;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AdminPanel.Web.Controllers
 {
@@ -13,9 +16,11 @@ namespace AdminPanel.Web.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet("errors")]
-		public IActionResult Index()
+		public async Task<IActionResult> GetErrors([FromQuery] string typeName)
 		{
-			return Ok();
+			var errorLogService = new ErrorLog(new MyTitle(new HttpClient(), true));
+			var res = await errorLogService.GetErrorLogsWithHttpMessagesAsync(typeName);
+			return Ok(res);
 		}
 	}
 }
