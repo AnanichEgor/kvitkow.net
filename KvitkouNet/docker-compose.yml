@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  kvitkounet.web:
+   kvitkounet.web:
     image: ${DOCKER_REGISTRY}kvitkounetweb
     build:
       context: .
