@@ -29,6 +29,11 @@ namespace AdminPanel.Web.Controllers
 			return Ok(result);
 		}
 
+		/// <summary>
+		/// Банит или снимает бан с пользователя с помощью панели администратора
+		/// </summary>
+		/// <param name="dto"></param>
+		/// <returns></returns>
 		[HttpPatch]
 		[Route("ban/")]
 		public async Task<IActionResult> ChangeIsBannedStatus([FromBody] IsBannedDto dto)

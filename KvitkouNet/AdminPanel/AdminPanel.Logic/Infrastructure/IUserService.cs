@@ -9,8 +9,17 @@ namespace AdminPanel.Logic.Infrastructure
 	/// </summary>
 	public interface IUserService
 	{
+		/// <summary>
+		/// Возвращает пользователей
+		/// </summary>
+		/// <returns></returns>
 		Task<User> GetAll();
 
+		/// <summary>
+		/// Банит/снимает бан с пользователя
+		/// </summary>
+		/// <param name="dto"></param>
+		/// <returns></returns>
 		Task ChangeIsBannedStatus(IsBannedDto dto);
 	}
 }
