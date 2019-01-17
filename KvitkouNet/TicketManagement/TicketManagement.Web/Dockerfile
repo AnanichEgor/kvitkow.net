@@ -4,12 +4,10 @@ EXPOSE 80
 
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
-COPY *.sln ./
-COPY TicketManagement.Web/*.csproj ./TicketManagement.Web/
-COPY TicketManagement.Data/*.csproj ./TicketManagement.Data/
-COPY TicketManagement.Logic/*.csproj ./TicketManagement.Logic/
-COPY TicketManagement.Test/*.csproj ./TicketManagement.Test/
-RUN dotnet restore
+COPY ["TicketManagement.Web/TicketManagement.Web.csproj", "TicketManagement.Web/"]
+COPY ["TicketManagement.Data/TicketManagement.Data.csproj", "TicketManagement.Data/"]
+COPY ["TicketManagement.Logic/TicketManagement.Logic.csproj", "TicketManagement.Logic/"]
+RUN dotnet restore "TicketManagement.Web/TicketManagement.Web.csproj"
 COPY . .
 WORKDIR "/src/TicketManagement.Web"
 RUN dotnet build "TicketManagement.Web.csproj" -c Release -o /app
