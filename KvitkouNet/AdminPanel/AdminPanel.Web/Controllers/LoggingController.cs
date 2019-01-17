@@ -11,6 +11,13 @@ namespace AdminPanel.Web.Controllers
 	[Route("api/admin/logs")]
 	public class LoggingController : Controller
 	{
+		private readonly IErrorLog _errorLogService;
+
+		public LoggingController(IErrorLog errorLogService)
+		{
+			_errorLogService = errorLogService;
+		}
+
 		/// <summary>
 		/// Возвращает список залогированных ошибок
 		/// </summary>
@@ -18,8 +25,7 @@ namespace AdminPanel.Web.Controllers
 		[HttpGet("errors")]
 		public async Task<IActionResult> GetErrors([FromQuery] string typeName)
 		{
-			var errorLogService = new ErrorLog(new MyTitle(new HttpClient(), true));
-			var res = await errorLogService.GetErrorLogsWithHttpMessagesAsync(typeName);
+			var res = await _errorLogService.GetErrorLogsWithHttpMessagesAsync(typeName);
 			return Ok(res);
 		}
 	}
