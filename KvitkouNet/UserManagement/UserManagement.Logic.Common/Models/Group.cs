@@ -1,7 +1,7 @@
-﻿using UserManagement.Logic.Common.Models.Security;
+﻿using UserManagement.Logic.Models.Security;
 using System.Collections.Generic;
 
-namespace UserManagement.Logic.Common.Models
+namespace UserManagement.Logic.Models
 {
     public class Group
     {
