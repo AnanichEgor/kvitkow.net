@@ -10,14 +10,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.1916590" />
-    <PackageReference Include="NSwag.AspNetCore" Version="12.0.7" />
+    <PackageReference Include="NSwag.AspNetCore" Version="12.0.11" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Logging.Logic\Logging.Logic.csproj" />
+    <ProjectReference Include="..\AdminPanel.Logic\AdminPanel.Logic.csproj" />
   </ItemGroup>
 
 </Project>

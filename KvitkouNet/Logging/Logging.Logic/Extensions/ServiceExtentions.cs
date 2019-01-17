@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
+using FluentValidation;
+using Logging.Data;
 using Logging.Logic.Dtos;
+using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
 using Logging.Logic.Services;
+using Logging.Logic.Validators;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
-namespace Logging.Web.Extensions
+namespace Logging.Logic.Extensions
 {
 	public static class ServiceExtentions
 	{
@@ -17,7 +22,24 @@ namespace Logging.Web.Extensions
 		public static IServiceCollection RegisterLoggingService(this IServiceCollection services)
 		{
 			services.AddScoped<ILoggingService, LoggingService>();
+			return services;
+		}
 
+		public static IServiceCollection RegisterValidators(this IServiceCollection services)
+		{
+			services.AddScoped<IValidator<ErrorLogsFilterDto>, ErrorLogsFilterValidator>();
+			return services;
+		}
+
+		/// <summary>
+		/// Добавление LoggingDbContext
+		/// </summary>
+		/// <param name="services"></param>
+		/// <returns></returns>
+		public static IServiceCollection AddDbContext(this IServiceCollection services)
+		{
+			const string connectionString = "Data Source=Logs.db";
+			services.AddDbContext<LoggingDbContext>(opt => opt.UseSqlite(connectionString));
 			return services;
 		}
 
