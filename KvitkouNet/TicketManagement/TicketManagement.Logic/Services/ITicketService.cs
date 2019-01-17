@@ -16,7 +16,7 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        Task<(string,RequestStatus)> Add(Ticket ticket);
+        Task<(string, RequestStatus)> Add(Ticket ticket);
 
         /// <summary>
         ///     Обновление информации о билете
@@ -43,19 +43,19 @@ namespace TicketManagement.Logic.Services
         ///     Получение всех билет имеющихся в системе
         /// </summary>
         /// <returns></returns>
-        Task<(IEnumerable<Ticket>,RequestStatus)> GetAll();
+        Task<(IEnumerable<Ticket>, RequestStatus)> GetAll();
 
         /// <summary>
         ///     Получение билета по Id
         /// </summary>
         /// <param name="ticketIdGuid">Id билета</param>
         /// <returns></returns>
-        Task<(Ticket,RequestStatus)> Get(string id);
+        Task<(Ticket, RequestStatus)> Get(string id);
 
         /// <summary>
         ///     Получение только актуальных билетов
         /// </summary>
         /// <returns></returns>
-        Task<(IEnumerable<Ticket>,RequestStatus)> GetAllActual();
+        Task<(IEnumerable<Ticket>, RequestStatus)> GetAllActual();
     }
 }

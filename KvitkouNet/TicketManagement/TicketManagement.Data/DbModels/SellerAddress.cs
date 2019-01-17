@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace TicketManagement.Data.DbModels
 {
-   public class SellerAddress
+    public class SellerAddress
     {
         /// <summary>
         ///     Id адреса

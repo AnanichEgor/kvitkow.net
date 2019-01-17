@@ -26,7 +26,7 @@ namespace TicketManagement.Data.DbModels
         ///     Gets or sets the user rating.
         /// </summary>
         public double? Rating { get; set; }
-        
+
         /// <summary>
         ///     Список билетов пользователя
         /// </summary>

@@ -8,6 +8,7 @@ namespace TicketManagement.Data.Context
         public TicketContext(DbContextOptions<TicketContext> options) : base(options)
         {
         }
+
         public DbSet<TicketDb> Tickets { get; set; }
         public DbSet<SellerAddress> SellerAddresses { get; set; }
 
@@ -31,7 +32,5 @@ namespace TicketManagement.Data.Context
                 .WithMany(b => b.UserTickets)
                 .OnDelete(DeleteBehavior.Restrict);
         }
-       
     }
-
 }
