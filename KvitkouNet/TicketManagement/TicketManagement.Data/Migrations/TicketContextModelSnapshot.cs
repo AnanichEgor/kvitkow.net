@@ -107,12 +107,14 @@ namespace TicketManagement.Data.Migrations
                         .HasForeignKey("LocationEventAddressDbId");
 
                     b.HasOne("TicketManagement.Data.DbModels.AddressDb", "SellerAdress")
-                        .WithMany()
-                        .HasForeignKey("SellerAdressAddressDbId");
+                        .WithMany("Tickets")
+                        .HasForeignKey("SellerAdressAddressDbId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("TicketManagement.Data.DbModels.UserInfoDb", "User")
-                        .WithMany()
-                        .HasForeignKey("UserInfoDbId");
+                        .WithMany("UserTickets")
+                        .HasForeignKey("UserInfoDbId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("TicketManagement.Data.DbModels.UserInfoDb", b =>

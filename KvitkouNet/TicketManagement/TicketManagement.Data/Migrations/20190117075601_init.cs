@@ -57,7 +57,7 @@ namespace TicketManagement.Data.Migrations
                         column: x => x.SellerAdressAddressDbId,
                         principalTable: "Adresses",
                         principalColumn: "AddressDbId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,7 +107,7 @@ namespace TicketManagement.Data.Migrations
                 column: "UserInfoDbId",
                 principalTable: "UserInfos",
                 principalColumn: "UserInfoDbId",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.SetNull);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

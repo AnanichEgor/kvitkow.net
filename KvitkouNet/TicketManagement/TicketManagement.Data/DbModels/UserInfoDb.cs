@@ -1,4 +1,6 @@
-﻿namespace TicketManagement.Data.DbModels
+﻿using System.Collections.Generic;
+
+namespace TicketManagement.Data.DbModels
 {
     /// <summary>
     ///     Вспомогательный класс пользователя для тикета
@@ -24,5 +26,10 @@
         ///     Gets or sets the user rating.
         /// </summary>
         public double? Rating { get; set; }
+        
+        /// <summary>
+        ///     Список билетов пользователя
+        /// </summary>
+        public List<TicketDb> UserTickets { get; set; }
     }
 }

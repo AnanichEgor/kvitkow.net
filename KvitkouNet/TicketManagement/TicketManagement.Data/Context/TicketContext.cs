@@ -11,5 +11,19 @@ namespace TicketManagement.Data.Context
         public DbSet<TicketDb> Tickets { get; set; }
         public DbSet<AddressDb> Adresses { get; set; }
         public DbSet<UserInfoDb> UserInfos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TicketDb>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.UserTickets)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<TicketDb>()
+               .HasOne(p => p.SellerAdress)
+               .WithMany(b => b.Tickets)
+               .OnDelete(DeleteBehavior.SetNull);
+        }
     }
+
 }
