@@ -1,7 +1,9 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AdminPanel.Logic.Generated.Logging;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Rest;
 
 namespace AdminPanel.Web.Controllers
 {
@@ -25,7 +27,16 @@ namespace AdminPanel.Web.Controllers
 		[HttpGet("errors")]
 		public async Task<IActionResult> GetErrors([FromQuery] string typeName)
 		{
-			var res = await _errorLogService.GetErrorLogsWithHttpMessagesAsync(typeName);
+			object res;
+			try
+			{
+				res = await _errorLogService.GetErrorLogsAsync(typeName);
+			}
+			catch (SerializationException e)
+			{
+				return BadRequest($"{e.Message} : {e.Content}");
+			}
+			
 			return Ok(res);
 		}
 	}
