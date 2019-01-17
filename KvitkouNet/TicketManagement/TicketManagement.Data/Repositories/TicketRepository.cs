@@ -54,7 +54,7 @@ namespace TicketManagement.Data.Repositories
         {
             //_context.Adresses.RemoveRange(_context.Adresses);
             //_context.UserInfos.RemoveRange(_context.UserInfos);
-            _context.Tickets.RemoveRange(_context.Tickets);
+            _context.Tickets.RemoveRange(_context.Tickets.First(),_context.Tickets.Last());
             
             await _context.SaveChangesAsync();
             
@@ -67,13 +67,18 @@ namespace TicketManagement.Data.Repositories
         /// <returns></returns>
         public async Task Delete(string id)
         {
-            var origin = await _context.Tickets.FindAsync(id);
+            var origin = await _context.Tickets.Include(db => db.User)
+                .Include(db => db.LocationEvent)
+                .Include(db => db.SellerAdress)
+                .Include(db => db.RespondedUsers).SingleOrDefaultAsync(x => x.Id == id);
             
             if (origin != null)
             {
+                _context.Tickets.Remove(origin);
+               // _context.Tickets.Remove(origin);
                 //_context.Tickets.D(origin);
-                _context.Entry(origin).State = EntityState.Deleted;
-                _context.SaveChanges();
+               // _context.Entry(origin).State = EntityState.Deleted;
+               await _context.SaveChangesAsync();
             }
            
             // 
