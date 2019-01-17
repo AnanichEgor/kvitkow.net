@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
-using UserSettings.Data.Context;
 using UserSettings.Logic;
 using AutoMapper;
 using UserSettings.Logic.MappingProfile;
@@ -24,30 +23,7 @@ namespace UserSettings.Web
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<SettingsContext>(
-				opt => 	opt.UseSqlite(connectionString: "DataSource=./Database.db"));
-
-			var o = new DbContextOptionsBuilder<SettingsContext>();
-			o.UseSqlite("Data Source=./Database.db");
-
-			using (var context = new SettingsContext(o.Options))
-			{
-				context.Database.Migrate();
-				if(context.Settings.Any())
-				{
-					context.SaveChanges();
-				}
-			}
-
-			services.AddAutoMapper(cfg =>
-			{
-				cfg.AddProfile<SettingsProfile>();
-				cfg.AddProfile<SettingsProfile>();
-				cfg.AddProfile<SettingsProfile>();
-				cfg.AddProfile<SettingsProfile>();
-			});
-
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 			services.AddSwaggerDocument();
 			services.RegisterUserSettingsService();
 		}
