@@ -20,15 +20,18 @@ namespace UserSettings.Logic.Services
 		/// <summary>
 		/// Обновление пароля.
 		/// </summary>
-		/// <param name="account"></param>
+		/// <param name="current"></param>
+		/// <param name="newPass"></param>
+		/// <param name="confirm"></param>
 		/// <returns></returns>
 		Task<ActionResult> UpdatePassword(string current, string newPass, string confirm);
 
 		/// <summary>
 		/// Обновление почты.
 		/// </summary>
-		/// <param name="account"></param>
+		/// <param name="id"></param>
+		/// <param name="email"></param>
 		/// <returns></returns>
-		Task<ActionResult> UpdateEmail(string email);
+		Task<bool> UpdateEmail(string id, string email);
 	}
 }

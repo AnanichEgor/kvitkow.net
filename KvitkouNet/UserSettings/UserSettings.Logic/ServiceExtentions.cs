@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -6,6 +7,7 @@ using System.Linq;
 using UserSettings.Data.Context;
 using UserSettings.Logic.MappingProfile;
 using UserSettings.Logic.Services;
+using UserSettings.Logic.Validators;
 
 namespace UserSettings.Logic
 {
@@ -21,17 +23,11 @@ namespace UserSettings.Logic
 			services.AddDbContext<SettingsContext>(
 				opt => opt.UseSqlite(connectionString: "DataSource=./Database.db"));
 
-			var o = new DbContextOptionsBuilder<SettingsContext>();
-			o.UseSqlite("Data Source=./Database.db");
-
-			using (var context = new SettingsContext(o.Options))
-			{
-				context.Database.Migrate();
-				if (context.Settings.Any())
-				{
-					context.SaveChanges();
-				}
-			}
+			var mock = new Mock<IUserSettingsService>();
+			services.AddScoped(_ => mock.Object);
+			services.AddScoped<IValidator, AccountValidator>();
+			services.AddScoped<IValidator, ProfileValidator>();
+			services.AddScoped<IUserSettingsService, UserSettingsService>();
 			services.AddAutoMapper(cfg =>
 			{
 				cfg.AddProfile<AccountProfile>();
@@ -39,8 +35,6 @@ namespace UserSettings.Logic
 				cfg.AddProfile<SettingsProfile>();
 			});
 
-			var mock = new Mock<IUserSettingsService>();
-			services.AddScoped<IUserSettingsService>(_ => mock.Object);
 			return services;
 		}
 	}

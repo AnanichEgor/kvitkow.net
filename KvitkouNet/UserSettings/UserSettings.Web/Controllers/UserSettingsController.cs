@@ -55,11 +55,11 @@ namespace UserSettings.Web.Controllers
 		[HttpPut, Route("email")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> UpdateEmail([FromBody]string email)
+		public async Task<IActionResult> UpdateEmail([FromBody]EmailDto model)
 		{
-			var result = await _service.UpdateEmail(email);
+			var result = await _service.UpdateEmail(model.Id, model.Email);
 
-			return (IActionResult)result;
+			return result == true ? (IActionResult)Ok(result) : BadRequest(); 
 		}
 	}
 }
