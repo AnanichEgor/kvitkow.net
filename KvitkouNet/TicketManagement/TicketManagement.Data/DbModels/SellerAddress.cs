@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace TicketManagement.Data.DbModels
 {
-    public class AddressDb
+   public class SellerAddress
     {
         /// <summary>
         ///     Id адреса
         /// </summary>
-        public string AddressDbId { get; set; }
+        public string SellerAddressId { get; set; }
 
         /// <summary>
         ///     Страна проживания

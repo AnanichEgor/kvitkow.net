@@ -23,7 +23,7 @@ namespace TicketManagement.Logic
         {
             services.AddDbContext<TicketContext>(opt => opt.UseSqlite("Data Source=./TicketDatabase.db"));
 
-            services.AddScoped(_ => TicketServiceMock().Object);
+           // services.AddScoped(_ => TicketServiceMock().Object);
 
            services.AddScoped<IValidator<Ticket>, TicketValidator>();
            services.AddScoped<ITicketRepository, TicketRepository>();

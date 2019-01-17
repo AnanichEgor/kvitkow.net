@@ -16,9 +16,9 @@ namespace TicketManagement.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
 
-            modelBuilder.Entity("TicketManagement.Data.DbModels.AddressDb", b =>
+            modelBuilder.Entity("TicketManagement.Data.DbModels.LocationAddress", b =>
                 {
-                    b.Property<string>("AddressDbId")
+                    b.Property<string>("LocationAddressId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("City");
@@ -31,9 +31,29 @@ namespace TicketManagement.Data.Migrations
 
                     b.Property<string>("Street");
 
-                    b.HasKey("AddressDbId");
+                    b.HasKey("LocationAddressId");
 
-                    b.ToTable("Adresses");
+                    b.ToTable("LocationAddresses");
+                });
+
+            modelBuilder.Entity("TicketManagement.Data.DbModels.SellerAddress", b =>
+                {
+                    b.Property<string>("SellerAddressId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("Country");
+
+                    b.Property<string>("Flat");
+
+                    b.Property<string>("House");
+
+                    b.Property<string>("Street");
+
+                    b.HasKey("SellerAddressId");
+
+                    b.ToTable("SellerAddresses");
                 });
 
             modelBuilder.Entity("TicketManagement.Data.DbModels.TicketDb", b =>
@@ -49,7 +69,7 @@ namespace TicketManagement.Data.Migrations
 
                     b.Property<bool>("Free");
 
-                    b.Property<string>("LocationEventAddressDbId");
+                    b.Property<string>("LocationEventLocationAddressId");
 
                     b.Property<string>("Name");
 
@@ -57,7 +77,7 @@ namespace TicketManagement.Data.Migrations
 
                     b.Property<decimal?>("Price");
 
-                    b.Property<string>("SellerAdressAddressDbId");
+                    b.Property<string>("SellerAdressSellerAddressId");
 
                     b.Property<string>("SellerPhone");
 
@@ -71,9 +91,9 @@ namespace TicketManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LocationEventAddressDbId");
+                    b.HasIndex("LocationEventLocationAddressId");
 
-                    b.HasIndex("SellerAdressAddressDbId");
+                    b.HasIndex("SellerAdressSellerAddressId");
 
                     b.HasIndex("UserInfoDbId");
 
@@ -102,19 +122,20 @@ namespace TicketManagement.Data.Migrations
 
             modelBuilder.Entity("TicketManagement.Data.DbModels.TicketDb", b =>
                 {
-                    b.HasOne("TicketManagement.Data.DbModels.AddressDb", "LocationEvent")
-                        .WithMany()
-                        .HasForeignKey("LocationEventAddressDbId");
-
-                    b.HasOne("TicketManagement.Data.DbModels.AddressDb", "SellerAdress")
+                    b.HasOne("TicketManagement.Data.DbModels.LocationAddress", "LocationEvent")
                         .WithMany("Tickets")
-                        .HasForeignKey("SellerAdressAddressDbId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("LocationEventLocationAddressId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("TicketManagement.Data.DbModels.SellerAddress", "SellerAdress")
+                        .WithMany("Tickets")
+                        .HasForeignKey("SellerAdressSellerAddressId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("TicketManagement.Data.DbModels.UserInfoDb", "User")
                         .WithMany("UserTickets")
                         .HasForeignKey("UserInfoDbId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("TicketManagement.Data.DbModels.UserInfoDb", b =>
