@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Search.Data;
 using Search.Data.Context;
 using Search.Logic;
 
@@ -22,6 +23,7 @@ namespace Search.Web
         public void ConfigureServices(IServiceCollection services)
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            string elasticSearchConnectionString = Configuration.GetConnectionString("ElasticSearchConnection");
 
             services.AddDbContext<SearchContext>(
                 opt => opt.UseSqlite(connectionString: connectionString));
@@ -29,6 +31,7 @@ namespace Search.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSwaggerDocument();
+            services.RegisterElasticSearch(elasticSearchConnectionString);
             services.RegisterServices();
         }
 
