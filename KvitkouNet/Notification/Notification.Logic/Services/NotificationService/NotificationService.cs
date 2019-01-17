@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 using Notification.Data.Context;
 using Notification.Logic.Models;
 using Notification.Logic.Models.Requests;
 
-namespace Notification.Logic.Services
+namespace Notification.Logic.Services.NotificationService
 {
 	public class NotificationService : INotificationService
 	{
@@ -73,7 +73,7 @@ namespace Notification.Logic.Services
 			throw new NotImplementedException();
 		}
 
-		public Task SendRegistrationNotification(string email, string senderId, NotificationMessage messsage)
+		public async Task SendRegistrationNotification(string email, string senderId, NotificationMessage messsage)
 		{
 			throw new NotImplementedException();
 		}
