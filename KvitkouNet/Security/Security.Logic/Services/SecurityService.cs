@@ -48,13 +48,13 @@ namespace Security.Logic.Services
 
         public Task<IEnumerable<AccessRight>> GetRights(int itemsPerPage, int pageNumber, string mask = null)
         {
-            if (itemsPerPage < 1 || pageNumber < 1 || int.MaxValue / itemsPerPage < pageNumber)
+            if (itemsPerPage < 1 || pageNumber < 1 || int.MaxValue / itemsPerPage < pageNumber || mask?.Trim().Length > 100)
             {
                 return Task.FromResult(new AccessRight[0].AsEnumerable());
             }
 
             return Task.FromResult(_mapper.Map<AccessRight[]>(
-                _securityContext.GetRights(itemsPerPage, pageNumber, mask)).AsEnumerable());
+                _securityContext.GetRights(itemsPerPage, pageNumber, mask?.Trim())).AsEnumerable());
         }
 
         public Task<AddRightResponse> AddRight(AccessRight right)

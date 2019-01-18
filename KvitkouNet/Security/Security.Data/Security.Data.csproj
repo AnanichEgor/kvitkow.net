@@ -10,12 +10,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Moq">
-      <HintPath>C:\Users\maria\.nuget\packages\moq\4.10.1\lib\netstandard1.3\Moq.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Moq" Version="4.10.1" />
   </ItemGroup>
 
 </Project>
