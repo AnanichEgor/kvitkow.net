@@ -3,7 +3,7 @@
 namespace TicketManagement.Logic.Models.Enums
 {
     /// <summary>
-    /// Перечисление описывающее успешность запроса
+    ///     Перечисление описывающее успешность запроса
     /// </summary>
     [Flags]
     public enum RequestStatus
@@ -36,7 +36,6 @@ namespace TicketManagement.Logic.Models.Enums
         /// <summary>
         ///     Пользователь имеет отрицательный рейтинг
         /// </summary>
-        BadUserRating = 1 << 4,
-
+        BadUserRating = 1 << 4
     }
 }

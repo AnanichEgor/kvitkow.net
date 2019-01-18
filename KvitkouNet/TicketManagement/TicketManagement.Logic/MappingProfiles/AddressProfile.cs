@@ -8,7 +8,8 @@ namespace TicketManagement.Logic.MappingProfiles
     {
         public AddressProfile()
         {
-            CreateMap<Address, AddressDb>().ReverseMap();
+            CreateMap<Address, SellerAddress>().ReverseMap();
+            CreateMap<Address, LocationAddress>().ReverseMap();
         }
     }
 }
