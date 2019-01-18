@@ -2,6 +2,7 @@
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UserSettings.Data;
@@ -26,6 +27,18 @@ namespace UserSettings.Logic.Services
 			_mapper = mapper;
 			_validator = validator;
 			_context = context;
+		}
+
+		public async Task<IEnumerable<Settings>> ShowAll()
+		{
+			var res =  await _context.ShowAll();
+			var temp = _mapper.Map<IEnumerable<Settings>>(res);
+			return _mapper.Map<IEnumerable<Settings>>(res);
+		}
+		public async Task<Settings> Get(int id)
+		{
+			var res = await _context.Get(id);
+			return _mapper.Map<Settings>(res);
 		}
 
 		public async Task<bool> UpdateEmail(string id, string email)

@@ -13,5 +13,9 @@ namespace UserSettings.Data
 		Task UpdatePassword(string id, string password);
 
 		Task UpdateProfile(string id, ProfileDb profile);
+
+		Task<IEnumerable<SettingsDb>> ShowAll();
+
+		Task<SettingsDb> Get(int id);
 	}
 }

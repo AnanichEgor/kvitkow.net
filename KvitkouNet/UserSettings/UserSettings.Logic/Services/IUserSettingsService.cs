@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UserSettings.Logic.Models;
 using UserSettings.Logic.Models.Helper;
@@ -33,5 +34,9 @@ namespace UserSettings.Logic.Services
 		/// <param name="email"></param>
 		/// <returns></returns>
 		Task<bool> UpdateEmail(string id, string email);
+
+		Task<IEnumerable<Settings>> ShowAll();
+
+		Task<Settings> Get(int id);
 	}
 }

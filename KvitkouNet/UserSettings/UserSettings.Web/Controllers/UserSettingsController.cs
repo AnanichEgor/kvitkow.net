@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
@@ -60,6 +61,28 @@ namespace UserSettings.Web.Controllers
 			var result = await _service.UpdateEmail(model.Id, model.Email);
 
 			return result == true ? (IActionResult)Ok(result) : BadRequest(); 
+		}
+		[HttpGet]
+		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Settings>), Description = "All Ok")]
+		[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
+		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+		public async Task<IActionResult> GetAll()
+		{
+			var result = await _service.ShowAll();
+			return Ok(result);
+		}
+
+		[HttpGet, Route("{id}")]
+		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Settings>), Description = "All Ok")]
+		[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
+		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+		public async Task<IActionResult> Get([FromRoute] string id)
+		{
+			int temp;
+			int.TryParse(id, out temp);
+			var resulttemp = await _service.ShowAll();
+			var result = await _service.Get(temp);
+			return Ok(result);
 		}
 	}
 }

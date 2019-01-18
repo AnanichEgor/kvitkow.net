@@ -2,7 +2,7 @@
 {
 	public class SettingsDb
 	{
-		public string Id { get; set; }
+		public int Id { get; set; }
 
 		public string UserId { get; set; }
 

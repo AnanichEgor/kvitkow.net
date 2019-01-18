@@ -27,8 +27,13 @@ namespace UserSettings.Data.Faker
 				fakerProfile.RuleFor(db => db.LastName, faker => faker.Name.LastName());
 				fakerProfile.RuleFor(db => db.IsPrivateAccount, true);
 				fakerProfile.RuleFor(db => db.PreferRegion, faker => faker.Address.StreetAddress());
+				fakerProfile.RuleFor(db => db.IsGetTicketInfo, true);
 				return fakerProfile.Generate();
 			});
+		}
+		public static IEnumerable<SettingsDb> Generate(int count = 10)
+		{
+			return _fakerSettings.Generate(count);
 		}
 	}
 }

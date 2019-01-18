@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UserSettings.Data.Context;
@@ -24,6 +26,24 @@ namespace UserSettings.Data
 				return true;
 			}
 			return false;
+		}
+
+		public async Task<IEnumerable<SettingsDb>> ShowAll()
+		{
+			return await _context.Settings
+				.Include(db => db.Profile)
+				.Include(db => db.Account)
+				.AsTracking()
+				.ToListAsync();
+		}
+
+		public async Task<SettingsDb> Get(int id)
+		{
+			return await _context.Settings
+				.Include(db => db.Profile)
+				.Include(db => db.Account)
+				.AsTracking()
+				.FirstAsync();
 		}
 
 		public Task UpdatePassword(string id, string password)
