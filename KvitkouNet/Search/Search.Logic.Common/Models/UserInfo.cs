@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace KvitkouNet.Logic.Common.Models.Search
+﻿namespace Search.Logic.Common.Models
 {
     /// <summary>
     /// Contains minimal information about user indexed by Elasticsearch
@@ -12,7 +8,7 @@ namespace KvitkouNet.Logic.Common.Models.Search
         /// <summary>
         /// Gets or sets the user identifier.
         /// </summary>
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the first name.

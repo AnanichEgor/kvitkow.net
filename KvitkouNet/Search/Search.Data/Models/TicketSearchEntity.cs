@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace KvitkouNet.Logic.Common.Models.Search
+namespace Search.Data.Models
 {
     /// <summary>
-    /// Contains information for ticket search request.
+    /// Contains information about last ticket search.
     /// </summary>
-    /// <seealso cref="KvitkouNet.Logic.Common.Models.Search.SearchRequest" />
-    public class TicketSearchRequest : SearchRequest
+    /// <seealso cref="Search.Data.Models.SearchEntity" />
+    public class TicketSearchEntity : SearchEntity
     {
         /// <summary>
         /// Gets or sets the date from for search.
