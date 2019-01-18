@@ -25,7 +25,7 @@ services:
     ports:
       - 5006:80
      
-   logging.web:
+   tickets.web:
     image: ${DOCKER_REGISTRY}ticketsweb
     build:
       context: TicketManagement
