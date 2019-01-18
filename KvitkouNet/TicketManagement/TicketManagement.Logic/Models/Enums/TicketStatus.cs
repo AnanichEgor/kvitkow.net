@@ -1,11 +1,8 @@
-﻿using System;
-
-namespace TicketManagement.Logic.Models
+﻿namespace TicketManagement.Logic.Models
 {
     /// <summary>
     ///     Перечисление, описывающее статус билета
     /// </summary>
-    
     public enum TicketStatus
     {
         /// <summary>

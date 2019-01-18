@@ -31,7 +31,7 @@ namespace TicketManagement.Data.Fakes
             _fakerTicket.RuleFor(db => db.TypeEvent, faker => (TypeEventTicketDb) faker.Random.Int(0, 9));
             _fakerTicket.RuleFor(db => db.LocationEvent, f =>
             {
-                var fakelocale = new Faker<AddressDb>();
+                var fakelocale = new Faker<LocationAddress>();
                 fakelocale.RuleFor(db => db.Country, faker => faker.Lorem.Word());
                 fakelocale.RuleFor(db => db.City, faker => faker.Lorem.Word());
                 fakelocale.RuleFor(db => db.Street, faker => faker.Lorem.Word());
@@ -41,7 +41,7 @@ namespace TicketManagement.Data.Fakes
             });
             _fakerTicket.RuleFor(db => db.SellerAdress, f =>
             {
-                var fakeaddress = new Faker<AddressDb>();
+                var fakeaddress = new Faker<SellerAddress>();
                 fakeaddress.RuleFor(db => db.Country, faker => faker.Lorem.Word());
                 fakeaddress.RuleFor(db => db.City, faker => faker.Lorem.Word());
                 fakeaddress.RuleFor(db => db.Street, faker => faker.Lorem.Word());
