@@ -1,4 +1,4 @@
-﻿using KvitkouNet.Logic.Common.Models.Tickets;
+﻿//using KvitkouNet.Logic.Common.Models.Tickets;
 using KvitkouNet.Logic.Common.Models.UserManagement;
 using System;
 using System.Collections.Generic;
@@ -18,13 +18,13 @@ namespace KvitkouNet.Logic.Common.Models.Statistic
         /// Provides total sell tickets count
         /// Предоставляет общее количество Проданных билетов
         /// </summary>
-        public IEnumerable<Ticket> RealisedTickets { get; set; }
+        //public IEnumerable<Ticket> RealisedTickets { get; set; }
 
         /// <summary>
         /// Provides total tickets, which have been presented
         /// Предоставляет общее количество билетов, которые были подарены
         /// </summary>
-        public IEnumerable<Ticket> DonatedTickets { get; set; }
+        //public IEnumerable<Ticket> DonatedTickets { get; set; }
 
         /// <summary>
         /// Provides users, who get in the black list
