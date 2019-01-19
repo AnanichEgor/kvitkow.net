@@ -14,7 +14,7 @@ namespace Logging.Web.Subscriber
 			_loggingService = loggingService;
 		}
 
-		[AutoSubscriberConsumer(SubscriptionId = "InternalErrorLogEntry.Added")]
+		[AutoSubscriberConsumer(SubscriptionId = "ErrorLogging.Added")]
 		public async Task ConsumeAsync(InternalErrorLogEntry entry)
 			=> await _loggingService.AddErrorLogAsync(entry);
 	}

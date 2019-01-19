@@ -57,7 +57,7 @@ namespace Logging.Web
 
 			app.UseMvc();
 
-			app.UseSubscriber("logging_of_errors_prefix", Assembly.GetExecutingAssembly());
+			app.UseSubscriber("ErrorLogging", Assembly.GetExecutingAssembly());
 		}
 	}
 }
