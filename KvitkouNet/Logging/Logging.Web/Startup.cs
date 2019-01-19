@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Reflection;
 using AutoMapper;
+using EasyNetQ;
 using Logging.Logic.Extensions;
+using Logging.Web.Subscriber;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,17 +27,19 @@ namespace Logging.Web
 		{
 			services.AddDbContext();
 
-		    var assemblyNamesToScan = Assembly
-		        .GetEntryAssembly()
-		        .GetReferencedAssemblies()
-		        .Where(an => an.FullName.StartsWith("Logging", StringComparison.OrdinalIgnoreCase))
-		        .Select(an => an.FullName);
+			var assemblyNamesToScan = Assembly
+				.GetEntryAssembly()
+				.GetReferencedAssemblies()
+				.Where(an => an.FullName.StartsWith("Logging", StringComparison.OrdinalIgnoreCase))
+				.Select(an => an.FullName);
 
-            services.AddAutoMapper(cfg => cfg.AddProfiles(assemblyNamesToScan));
+			services.AddAutoMapper(cfg => cfg.AddProfiles(assemblyNamesToScan));
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddSwaggerDocument();
+
+			services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=localhost"));
 
 			services.RegisterLoggingService();
 			services.RegisterValidators();
@@ -52,6 +56,8 @@ namespace Logging.Web
 			app.UseSwagger().UseSwaggerUi3();
 
 			app.UseMvc();
+
+			app.UseSubscriber("logging_of_errors_prefix", Assembly.GetExecutingAssembly());
 		}
 	}
 }

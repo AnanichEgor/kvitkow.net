@@ -36,9 +36,10 @@ namespace Logging.Logic.Services
 			return _mapper.Map<InternalErrorLogEntry[]>(await _context.InternalErrorLogEntries.AsNoTracking().ToArrayAsync());
 		}
 
-		public Task AddErrorLogAsync(InternalErrorLogEntry entry)
+		public async Task AddErrorLogAsync(InternalErrorLogEntry entry)
 		{
-			throw new System.NotImplementedException();
+			await _context.AddAsync(entry);
+			await _context.SaveChangesAsync();
 		}
 
 		public Task<IEnumerable<TicketActionLogEntry>> GetTicketActionLogsAsync(TicketLogsFilterDto filter)
