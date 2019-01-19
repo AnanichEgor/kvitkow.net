@@ -50,6 +50,7 @@ namespace Chat.Data.Repositories
             return _context.Rooms.Where(x => x.IsPrivat == false);
         }
 
+        // todo надо разобраться с  асинхронным запуском
         public async Task<IEnumerable<RoomDb>> SearchRoom(string template)
         {
             return _context.Rooms.Where(x => EF.Functions.Like(x.Name, $"%{template}%"));
