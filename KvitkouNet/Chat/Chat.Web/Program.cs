@@ -5,16 +5,12 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Chat.Web
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            /// <summary>
-            /// Настраиваем дефолтную работу с контекстом
-            /// </summary>
             var o = new DbContextOptionsBuilder<ChatContext>();
             o.UseSqlite("Data Source=./ChatDatabase.db");
 

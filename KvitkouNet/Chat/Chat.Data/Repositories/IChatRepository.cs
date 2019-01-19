@@ -23,7 +23,7 @@ namespace Chat.Data.Repositories
         /// <summary>
         /// Изменение роли пользователя в чате
         /// </summary>
-        Task UpdateUserRole(string userId, UserDb settings);
+        Task UpdateUserRole(string userId, UserDb user);
 
         /// <summary>
         /// Создание комнаты.
@@ -47,7 +47,7 @@ namespace Chat.Data.Repositories
         /// Получение сообщений из комнаты, согласно ограничению по истории
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<MessageDb>> GetMessagesFromTheRoom(string roomId);
+        Task<IEnumerable<MessageDb>> GetMessages(string roomId);
 
         /// <summary>
         /// Поиск сообщения в комнате

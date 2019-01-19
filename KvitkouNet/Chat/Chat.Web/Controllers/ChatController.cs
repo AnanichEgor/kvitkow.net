@@ -32,9 +32,15 @@ namespace Chat.Web.Controllers
         public async Task<IActionResult> GetUserSettings([FromRoute] string uid)
         {
             var result = await _chatService.GetUserSettings(uid);
-            return Ok(result);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return Ok(result);
+            }
         }
-
 
         /// <summary>
         /// Изменение пользовательских настроек
@@ -102,9 +108,9 @@ namespace Chat.Web.Controllers
         [HttpGet, Route("romms/{rid}/messages")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetMessagesFromTheRoom([FromRoute] string rid)
+        public async Task<IActionResult> GetMessages([FromRoute] string rid)
         {
-            var result = _chatService.GetMessagesFromTheRoom(rid);
+            var result = _chatService.GetMessages(rid);
             return Ok(await result);
         }
 

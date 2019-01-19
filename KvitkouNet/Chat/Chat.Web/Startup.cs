@@ -1,19 +1,9 @@
-﻿using Chat.Data.Context;
-using Chat.Logic;
+﻿using Chat.Logic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AutoMapper;
-using Chat.Logic.Fakers;
-using Chat.Logic.MappingProfiles;
-using Chat.Logic.Models;
-using Chat.Logic.Validators;
-using FluentValidation;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Chat.Web
 {

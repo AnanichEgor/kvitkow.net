@@ -48,7 +48,7 @@ namespace Chat.Logic.Services
         /// Получение сообщений из комнаты, согласно ограничению по истории
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Message>> GetMessagesFromTheRoom(string roomId);
+        Task<IEnumerable<Message>> GetMessages(string roomId);
 
         /// <summary>
         /// Поиск сообщения в комнате
