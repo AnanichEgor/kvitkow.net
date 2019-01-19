@@ -31,7 +31,7 @@ namespace AdminPanel.Web
 			var assemblyNamesToScan = Assembly
 				.GetEntryAssembly()
 				.GetReferencedAssemblies()
-				.Where(an => an.FullName.StartsWith("Logging", StringComparison.OrdinalIgnoreCase))
+				.Where(an => an.FullName.StartsWith("AdminPanel", StringComparison.OrdinalIgnoreCase))
 				.Select(an => an.FullName);
 
 			services.AddAutoMapper(cfg => cfg.AddProfiles(assemblyNamesToScan));
