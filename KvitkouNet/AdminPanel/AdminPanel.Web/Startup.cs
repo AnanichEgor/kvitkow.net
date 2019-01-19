@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AdminPanel.Web.Extensions;
+using EasyNetQ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,9 @@ namespace AdminPanel.Web
 
 			services.RegisterUserService();
 			services.RegisterLoggingService();
+			services.RegisterFilters();
+
+			services.AddSingleton(RabbitHutch.CreateBus("host=localhost"));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

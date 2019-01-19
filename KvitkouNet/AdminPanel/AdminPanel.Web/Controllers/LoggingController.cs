@@ -12,7 +12,7 @@ namespace AdminPanel.Web.Controllers
 	/// Контроллер для работы с логами через панель администратора
 	/// </summary>
 	[Route("api/admin/logs")]
-	[GlobalExceptionFilter]
+	[ServiceFilter(typeof(GlobalExceptionFilter))]
 	public class LoggingController : Controller
 	{
 		private readonly IErrorLog _errorLogService;
