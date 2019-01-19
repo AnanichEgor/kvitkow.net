@@ -5,7 +5,6 @@
     /// </summary>
     public class UserInfo
     {
-       
         /// <summary>
         ///     Имя юзера
         /// </summary>

@@ -37,7 +37,7 @@ namespace TicketManagement.Data.DbModels
         /// <summary>
         ///     Адрес проведения мероприятия
         /// </summary>
-        public AddressDb LocationEvent { get; set; }
+        public LocationAddress LocationEvent { get; set; }
 
         /// <summary>
         ///     Цена билета
@@ -57,7 +57,7 @@ namespace TicketManagement.Data.DbModels
         /// <summary>
         ///     Адрес продавца
         /// </summary>
-        public AddressDb SellerAdress { get; set; }
+        public SellerAddress SellerAdress { get; set; }
 
         /// <summary>
         ///     Платежная система

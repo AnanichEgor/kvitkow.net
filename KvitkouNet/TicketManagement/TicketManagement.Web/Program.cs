@@ -15,7 +15,6 @@ namespace TicketManagement.Web
             o.UseSqlite("Data Source=./TicketDatabase.db");
             using (var ctx = new TicketContext(o.Options))
             {
-                
                 ctx.Database.Migrate();
                 if (!ctx.Tickets.Any())
                 {
