@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using StatisticUser.Data;
 
@@ -16,6 +18,7 @@ namespace StatisticUser.Logic.Services
             const string connectionString = "Data Source=StatisticUsers.db";
             services.AddDbContext<WebApiContext>(opt => opt.UseSqlite(connectionString));
             return services;
+
         }
     }
 }
