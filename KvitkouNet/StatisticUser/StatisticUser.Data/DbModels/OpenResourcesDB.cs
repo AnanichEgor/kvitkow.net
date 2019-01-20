@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace StatisticUser.Data.DbModels
 {
     /// <summary>
     /// Статистика посещения ресурсов сайта
+    /// TimeOnResource время определяется от последней активности
+    /// из таблицы TimeOnSite
     /// </summary>
-    class OpenResourcesDB
+    public class OpenResourcesDb
     {
         public int Id { get; set; }
-
-        public string SerourceRout { get; set; }
-
-        public Data
+        public ResourcesUrlDB ResourceId { get; set; }
+        public DateTime Date { get; set; }
+        public TimeSpan TimeOnResource { get; set; }
     }
 }
