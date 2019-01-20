@@ -5,30 +5,21 @@ namespace Dashboard.Logic.Models
     public class News
     {
         /// <summary>
+        ///     Краткое описание события
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
         ///     Имя пользователя
         /// </summary>
-        public UserInfo FirstName { get; set; }
-
-        /// <summary>
-        ///     Фамилия пользователя
-        /// </summary>
-        public UserInfo LastName { get; set; }
-
-        /// <summary>
-        ///     Адрес проведения мероприятия
-        /// </summary>
-        public TicketInfo Name { get; set; }
-
+        public UserInfo UserInfo { get; set; }
+                 
         /// <summary>
         ///     Цена билета
         /// </summary>
-        public TicketInfo Price { get; set; }
+        public TicketInfo TicketInfo { get; set; }
 
-        /// <summary>
-        ///     Цена билета
-        /// </summary>
-        public TicketInfo LocationEvent { get; set; }
-
+        
         /// <summary>
         ///     Тип мероприятия
         /// </summary>

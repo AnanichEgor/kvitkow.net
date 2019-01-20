@@ -11,29 +11,21 @@ namespace Dashboard.Data.DbModels
         public int NewsId { get; set; }
 
         /// <summary>
-        ///     Имя пользователя
+        ///     Краткое описание события
         /// </summary>
-        public UserInfoDb FirstName { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
-        ///     Фамилия пользователя
+        ///     Имя пользователя
         /// </summary>
-        public UserInfoDb LastName { get; set; }
+        public UserInfoDb UserInfo { get; set; }
 
+       
         /// <summary>
         ///     Адрес проведения мероприятия
         /// </summary>
-        public TicketInfoDb Name { get; set; }
-
-        /// <summary>
-        ///     Цена билета
-        /// </summary>
-        public TicketInfoDb Price { get; set; }
-
-        /// <summary>
-        ///     Цена билета
-        /// </summary>
-        public TicketInfoDb LocationEvent { get; set; }
+        public TicketInfoDb TicketInfo { get; set; }
+               
 
         /// <summary>
         ///     Тип мероприятия

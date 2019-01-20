@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Dashboard.Logic.Models
 {
     public class TicketInfo
@@ -28,5 +30,10 @@ namespace Dashboard.Logic.Models
         ///     Ссылка на мероприятие
         /// </summary>
         public string EventLink { get; set; }
+
+        /// <summary>
+        ///     Время проведения мероприятия
+        /// </summary>
+        public DateTime TimeActual { get; set; }
     }
 }

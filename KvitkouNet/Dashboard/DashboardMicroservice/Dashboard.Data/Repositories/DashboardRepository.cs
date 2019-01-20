@@ -63,11 +63,12 @@ namespace Dashboard.Data.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<NewsDb>> GetAll()
         {
-            return await _context.News.Include(db => db.FirstName)
-                .Include(db => db.LastName)
-                .Include(db => db.LocationEvent)
-                .Include(db => db.Name)
-                .Include(db => db.Price)
+            return await _context.News.Include(db => db.Description)
+                .Include(db => db.UserInfo)
+                .Include(db => db.TicketInfo)
+                .Include(db => db.TypeEvent)
+                .Include(db => db.Status)
+                .Include(db => db.EventLink)
                 .AsNoTracking()
                 .ToArrayAsync();
         }
@@ -79,11 +80,12 @@ namespace Dashboard.Data.Repositories
         /// <returns></returns>
         public Task<NewsDb> Get(int newsId)
         {
-            return _context.News.Include(db => db.FirstName)
-                .Include(db => db.LastName)
-                .Include(db => db.LocationEvent)
-                .Include(db => db.Name)
-                .Include(db => db.Price)
+            return _context.News.Include(db => db.Description)
+                .Include(db => db.UserInfo)
+                .Include(db => db.TicketInfo)
+                .Include(db => db.TypeEvent)
+                .Include(db => db.Status)
+                .Include(db => db.EventLink)
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.NewsId == newsId);
         }
@@ -94,11 +96,12 @@ namespace Dashboard.Data.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<NewsDb>> GetAllActual()
         {
-            var res = _context.News.Include(db => db.FirstName)
-                .Include(db => db.LastName)
-                .Include(db => db.LocationEvent)
-                .Include(db => db.Name)
-                .Include(db => db.Price)
+            var res = _context.News.Include(db => db.Description)
+                .Include(db => db.UserInfo)
+                .Include(db => db.TicketInfo)
+                .Include(db => db.TypeEvent)
+                .Include(db => db.Status)
+                .Include(db => db.EventLink)
                 .AsNoTracking()
                 .Where(x => x.Status == (NewsStatusDb)2);
             return await res.ToListAsync();
