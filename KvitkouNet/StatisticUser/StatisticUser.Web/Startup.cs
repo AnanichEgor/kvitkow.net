@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using StatisticOnline.Logic.Services;
+using StatisticUser.Logic.Services;
 
 namespace StatisticUser.Web
 {
@@ -27,6 +27,7 @@ namespace StatisticUser.Web
         {
 
             services.AddDbContext();
+         
             services.AddSwaggerDocument();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

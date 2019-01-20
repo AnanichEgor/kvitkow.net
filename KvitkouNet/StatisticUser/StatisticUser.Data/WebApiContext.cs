@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
 using StatisticUser.Data.DbModels;
 
-namespace StatisticOnline.Data.Context
+namespace StatisticUser.Data
 {
     public class WebApiContext : DbContext
     {
@@ -15,46 +10,21 @@ namespace StatisticOnline.Data.Context
 
         }
 
-        public DbSet<MessagesUsersOnSiteDB> MessagesUsersOnSite { get; set; }
-        public DbSet<OpenResourcesDb> OpenResources { get; set; }
-        public DbSet<RatingDB> Rating { get; set; }
-        public DbSet<ResourcesUrlDB> ResourcesUrl { get; set; }
-        public DbSet<TimeOnSiteDB> TimeOnSite { get; set; }
+        public DbSet<MessagesUsersOnSiteDb> MessagesUsersOnSite { get; set; }
+        //public DbSet<OpenResourcesDb> OpenResources { get; set; }
+        //public DbSet<RatingDB> Rating { get; set; }
+        //public DbSet<ResourcesUrlDB> ResourcesUrl { get; set; }
+        //public DbSet<TimeOnSiteDB> TimeOnSite { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new BookTypeConfiguration());
-        }
-
-        public class BookTypeConfiguration : IEntityTypeConfiguration<StatisticUserDb>
-        {
-            public void Configure(EntityTypeBuilder<StatisticUserDb> builder)
-            {
-                builder.ToTable("StatisticUserDb")
-                    .HasKey(x => x.Id);
-
-                builder.Property(x => x.UserId)
-                    .IsRequired();
-
-                builder.Property(x => x.CountInputs)
-                    .IsRequired()
-                    .HasDefaultValue(0);
-
-                builder.Property(x => x.CountMessages)
-                    .IsRequired()
-                    .HasDefaultValue(0);
-
-                builder.Property(x => x.Rating)
-                    .IsRequired()
-                    .HasDefaultValue(0);
-
-                builder.Property(x => x.Rating)
-                    .IsRequired()
-                    .HasDefaultValue(0);
-            }
-        }
-
+        //    modelBuilder.Entity<MessagesUsersOnSiteDB>().ToTable("MessagesUsersOnSiteDB");
+        //    //modelBuilder.Entity<OpenResourcesDb>().ToTable("OpenResourcesDb");
+        //    //modelBuilder.Entity<RatingDB>().ToTable("RatingDB");
+        //    //modelBuilder.Entity<ResourcesUrlDB>().ToTable("ResourcesUrlDB");
+        //    //modelBuilder.Entity<TimeOnSiteDB>().ToTable("TimeOnSiteDB");
+        //}
     }
 }

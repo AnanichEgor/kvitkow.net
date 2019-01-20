@@ -1,14 +1,8 @@
-﻿
-using System;
-using System.Collections.Generic;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using StatisticOnline.Data.Context;
+using StatisticUser.Data;
 
-
-namespace StatisticOnline.Logic.Services
+namespace StatisticUser.Logic.Services
 {
     public static class ServiceExtentions
     {
@@ -19,7 +13,7 @@ namespace StatisticOnline.Logic.Services
         /// <returns></returns>
         public static IServiceCollection AddDbContext(this IServiceCollection services)
         {
-            const string connectionString = "Data Source=StatisticOnline.db";
+            const string connectionString = "Data Source=StatisticUsers.db";
             services.AddDbContext<WebApiContext>(opt => opt.UseSqlite(connectionString));
             return services;
         }

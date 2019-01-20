@@ -8,7 +8,7 @@ namespace StatisticUser.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class StatisticController : ControllerBase
     {
         // GET api/values
         [HttpGet]
