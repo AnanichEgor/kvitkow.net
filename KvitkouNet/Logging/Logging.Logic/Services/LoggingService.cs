@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Logging.Data;
-using Logging.Logic.Dtos;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
+using Logging.Logic.Models.Filters;
 using Microsoft.EntityFrameworkCore;
 
 namespace Logging.Logic.Services
@@ -21,7 +21,7 @@ namespace Logging.Logic.Services
 			_mapper = mapper;
 		}
 
-		public Task<IEnumerable<AccountLogEntry>> GetAccountLogsAsync(AccountLogsFilterDto filter)
+		public Task<IEnumerable<AccountLogEntry>> GetAccountLogsAsync(AccountLogsFilter filter)
 		{
 			throw new System.NotImplementedException();
 		}
@@ -31,7 +31,7 @@ namespace Logging.Logic.Services
 			throw new System.NotImplementedException();
 		}
 
-		public async Task<IEnumerable<InternalErrorLogEntry>> GetErrorLogsAsync(ErrorLogsFilterDto filter)
+		public async Task<IEnumerable<InternalErrorLogEntry>> GetErrorLogsAsync(ErrorLogsFilter filter)
 		{
 			return _mapper.Map<InternalErrorLogEntry[]>(await _context.InternalErrorLogEntries.AsNoTracking().ToArrayAsync());
 		}
@@ -42,7 +42,7 @@ namespace Logging.Logic.Services
 			await _context.SaveChangesAsync();
 		}
 
-		public Task<IEnumerable<TicketActionLogEntry>> GetTicketActionLogsAsync(TicketLogsFilterDto filter)
+		public Task<IEnumerable<TicketActionLogEntry>> GetTicketActionLogsAsync(TicketLogsFilter filter)
 		{
 			throw new System.NotImplementedException();
 		}
@@ -52,7 +52,7 @@ namespace Logging.Logic.Services
 			throw new System.NotImplementedException();
 		}
 
-		public Task<IEnumerable<TicketDealLogEntry>> GetTicketDealLogsAsync(TicketLogsFilterDto filter)
+		public Task<IEnumerable<TicketDealLogEntry>> GetTicketDealLogsAsync(TicketLogsFilter filter)
 		{
 			throw new System.NotImplementedException();
 		}
@@ -62,7 +62,7 @@ namespace Logging.Logic.Services
 			throw new System.NotImplementedException();
 		}
 
-		public Task<IEnumerable<PaymentLogEntry>> GetPaymentLogsAsync(PaymentLogsFilterDto filter)
+		public Task<IEnumerable<PaymentLogEntry>> GetPaymentLogsAsync(PaymentLogsFilter filter)
 		{
 			throw new System.NotImplementedException();
 		}
@@ -72,7 +72,7 @@ namespace Logging.Logic.Services
 			throw new System.NotImplementedException();
 		}
 
-		public Task<IEnumerable<SearchQueryLogEntry>> GetSearchQueryLogsAsync(SearchQueryLogsFilterDto filter)
+		public Task<IEnumerable<SearchQueryLogEntry>> GetSearchQueryLogsAsync(SearchQueryLogsFilter filter)
 		{
 			throw new System.NotImplementedException();
 		}

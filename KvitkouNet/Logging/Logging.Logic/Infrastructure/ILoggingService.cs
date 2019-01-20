@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Logging.Logic.Dtos;
 using Logging.Logic.Models;
+using Logging.Logic.Models.Filters;
 
 namespace Logging.Logic.Infrastructure
 {
@@ -16,7 +16,7 @@ namespace Logging.Logic.Infrastructure
 		/// </summary>
 		/// <param name="filter">Фильтр для получения логов</param>
 		/// <returns></returns>
-		Task<IEnumerable<AccountLogEntry>> GetAccountLogsAsync(AccountLogsFilterDto filter);
+		Task<IEnumerable<AccountLogEntry>> GetAccountLogsAsync(AccountLogsFilter filter);
 
 		/// <summary>
 		/// Записывает в лог информацию о действии с пользовательским аккаунтом
@@ -30,7 +30,7 @@ namespace Logging.Logic.Infrastructure
 		/// </summary>
 		/// <param name="filter">Фильтр для получения логов</param>
 		/// <returns></returns>
-		Task<IEnumerable<InternalErrorLogEntry>> GetErrorLogsAsync(ErrorLogsFilterDto filter);
+		Task<IEnumerable<InternalErrorLogEntry>> GetErrorLogsAsync(ErrorLogsFilter filter);
 
 		/// <summary>
 		/// Записывает в лог информацию об ошибке в работе сервиса
@@ -44,7 +44,7 @@ namespace Logging.Logic.Infrastructure
 		/// </summary>
 		/// <param name="filter">Фильтр для получения логов</param>
 		/// <returns></returns>
-		Task<IEnumerable<TicketActionLogEntry>> GetTicketActionLogsAsync(TicketLogsFilterDto filter);
+		Task<IEnumerable<TicketActionLogEntry>> GetTicketActionLogsAsync(TicketLogsFilter filter);
 
 		/// <summary>
 		/// Записывает в лог информацию о действии с билетом
@@ -58,7 +58,7 @@ namespace Logging.Logic.Infrastructure
 		/// </summary>
 		/// <param name="filter">Фильтр для получения логов</param>
 		/// <returns></returns>
-		Task<IEnumerable<TicketDealLogEntry>> GetTicketDealLogsAsync(TicketLogsFilterDto filter);
+		Task<IEnumerable<TicketDealLogEntry>> GetTicketDealLogsAsync(TicketLogsFilter filter);
 
 		/// <summary>
 		/// Записывает в лог информацию о сделке по билету
@@ -72,7 +72,7 @@ namespace Logging.Logic.Infrastructure
 		/// </summary>
 		/// <param name="filter">Фильтр для получения логов</param>
 		/// <returns></returns>
-		Task<IEnumerable<PaymentLogEntry>> GetPaymentLogsAsync(PaymentLogsFilterDto filter);
+		Task<IEnumerable<PaymentLogEntry>> GetPaymentLogsAsync(PaymentLogsFilter filter);
 
 		/// <summary>
 		/// Записывает в лог информацию о проведенном платеже
@@ -86,7 +86,7 @@ namespace Logging.Logic.Infrastructure
 		/// </summary>
 		/// <param name="filter">Фильтр для получения логов</param>
 		/// <returns></returns>
-		Task<IEnumerable<SearchQueryLogEntry>> GetSearchQueryLogsAsync(SearchQueryLogsFilterDto filter);
+		Task<IEnumerable<SearchQueryLogEntry>> GetSearchQueryLogsAsync(SearchQueryLogsFilter filter);
 
 		/// <summary>
 		/// Записывает в лог информацию о поисковом запросе пользователя

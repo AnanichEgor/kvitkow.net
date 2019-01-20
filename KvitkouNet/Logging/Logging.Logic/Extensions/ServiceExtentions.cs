@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using FluentValidation;
 using Logging.Data;
-using Logging.Logic.Dtos;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
+using Logging.Logic.Models.Filters;
 using Logging.Logic.Services;
 using Logging.Logic.Validators;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +27,7 @@ namespace Logging.Logic.Extensions
 
 		public static IServiceCollection RegisterValidators(this IServiceCollection services)
 		{
-			services.AddScoped<IValidator<ErrorLogsFilterDto>, ErrorLogsFilterValidator>();
+			services.AddScoped<IValidator<ErrorLogsFilter>, ErrorLogsFilterValidator>();
 			return services;
 		}
 
@@ -48,23 +48,23 @@ namespace Logging.Logic.Extensions
 			var loggingServiceMock = new Mock<ILoggingService>();
 
 			loggingServiceMock
-				.Setup(_ => _.GetAccountLogsAsync(It.IsAny<AccountLogsFilterDto>()))
+				.Setup(_ => _.GetAccountLogsAsync(It.IsAny<AccountLogsFilter>()))
 				.ReturnsAsync(new List<AccountLogEntry>());
 
 			loggingServiceMock
-				.Setup(_ => _.GetErrorLogsAsync(It.IsAny<ErrorLogsFilterDto>()))
+				.Setup(_ => _.GetErrorLogsAsync(It.IsAny<ErrorLogsFilter>()))
 				.ReturnsAsync(new List<InternalErrorLogEntry>());
 
 			loggingServiceMock
-				.Setup(_ => _.GetPaymentLogsAsync(It.IsAny<PaymentLogsFilterDto>()))
+				.Setup(_ => _.GetPaymentLogsAsync(It.IsAny<PaymentLogsFilter>()))
 				.ReturnsAsync(new List<PaymentLogEntry>());
 
 			loggingServiceMock
-				.Setup(_ => _.GetSearchQueryLogsAsync(It.IsAny<SearchQueryLogsFilterDto>()))
+				.Setup(_ => _.GetSearchQueryLogsAsync(It.IsAny<SearchQueryLogsFilter>()))
 				.ReturnsAsync(new List<SearchQueryLogEntry>());
 
 			loggingServiceMock
-				.Setup(_ => _.GetSearchQueryLogsAsync(It.IsAny<SearchQueryLogsFilterDto>()))
+				.Setup(_ => _.GetSearchQueryLogsAsync(It.IsAny<SearchQueryLogsFilter>()))
 				.ReturnsAsync(new List<SearchQueryLogEntry>());
 
 			return loggingServiceMock;

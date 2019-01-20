@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Logging.Logic.Dtos;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
+using Logging.Logic.Models.Filters;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
@@ -28,12 +28,12 @@ namespace Logging.Web.Controllers
         [Route("")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<AccountLogEntry>), Description = "Account logs")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
-        public async Task<IActionResult> GetAccountLogs([FromQuery] AccountLogsFilterDto filter)
+        public async Task<IActionResult> GetAccountLogs([FromQuery] AccountLogsFilter filter)
         {
             // имитируем некоторую валидацию
             if (string.IsNullOrWhiteSpace(filter.UserName))
             {
-                return BadRequest($"Invalid filter! {nameof(AccountLogsFilterDto.UserName)} is empty or whitespace!");
+                return BadRequest($"Invalid filter! {nameof(AccountLogsFilter.UserName)} is empty or whitespace!");
             }
 
             var result = await _loggingService.GetAccountLogsAsync(filter);
