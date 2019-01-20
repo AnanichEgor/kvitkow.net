@@ -18,7 +18,7 @@ namespace Logging.Data.Fakers
 			_faker.RuleFor(_ => _.Source, f => f.Lorem.Sentence(wordCount: 5));
 			_faker.RuleFor(_ => _.StackTrace, f => f.Lorem.Sentence(wordCount: 10));
 			_faker.RuleFor(_ => _.TargetSiteName, f => f.Lorem.Word());
-			_faker.RuleFor(_ => _.TypeName, f => f.Lorem.Word());
+			_faker.RuleFor(_ => _.ExceptionType, f => f.Lorem.Word());
 			_faker.RuleFor(_ => _.HResult, f => f.Random.Int(-100, 100));
 		}
 
