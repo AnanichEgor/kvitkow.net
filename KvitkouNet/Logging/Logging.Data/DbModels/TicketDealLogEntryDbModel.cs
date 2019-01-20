@@ -5,7 +5,7 @@ namespace Logging.Data.DbModels
     /// <summary>
     /// Модель записи в лог о сделке по билету
     /// </summary>
-    public class TicketDealLogEntryDbModel : BaseLogEntry
+    public class TicketDealLogEntryDbModel : BaseLogEntryDbModel
     {
         /// <summary>
         /// Покупатель/получатель билета

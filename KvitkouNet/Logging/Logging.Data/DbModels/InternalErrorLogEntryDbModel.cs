@@ -5,7 +5,7 @@ namespace Logging.Data.DbModels
     /// <summary>
     /// Запись в лог ошибок в работе сервиса
     /// </summary>
-    public class InternalErrorLogEntryDbModel : BaseLogEntry
+    public class InternalErrorLogEntryDbModel : BaseLogEntryDbModel
     {
         /// <summary>
         /// Название типа исключения

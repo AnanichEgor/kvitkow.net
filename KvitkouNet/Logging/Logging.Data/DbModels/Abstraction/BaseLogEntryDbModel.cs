@@ -5,7 +5,7 @@ namespace Logging.Data.DbModels.Abstraction
     /// <summary>
     /// Базовый класс для всех бд-моделей записей лога
     /// </summary>
-    public abstract class BaseLogEntry
+    public abstract class BaseLogEntryDbModel
     {
         /// <summary>
         /// Id записи
