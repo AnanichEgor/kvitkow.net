@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StatisticOnline.Data.Models;
+using StatisticUser.Data.DbModels;
 
 namespace StatisticOnline.Data.Context
 {
@@ -15,7 +15,11 @@ namespace StatisticOnline.Data.Context
 
         }
 
-        public DbSet<StatisticUserDb> StatisticOnline { get; set; }
+        public DbSet<MessagesUsersOnSiteDB> MessagesUsersOnSite { get; set; }
+        public DbSet<OpenResourcesDb> OpenResources { get; set; }
+        public DbSet<RatingDB> Rating { get; set; }
+        public DbSet<ResourcesUrlDB> ResourcesUrl { get; set; }
+        public DbSet<TimeOnSiteDB> TimeOnSite { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

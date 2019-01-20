@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using StatisticUser.Data.DbModels.AbstractionsDB;
 
 namespace StatisticUser.Data.DbModels
 {
@@ -10,9 +11,8 @@ namespace StatisticUser.Data.DbModels
     /// Может быть представлен как отношение Positive к Negative
     /// или как разница этих величин и т.д.
     /// </summary>
-    public class RatingDB
+    public class RatingDB: Entity<int>
     {
-        public int Id { get; set; }
         public int UserId { get; set; }
         public int Positive { get; set; }
         public int Negative { get; set; }

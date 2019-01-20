@@ -1,4 +1,5 @@
 ﻿using System;
+using StatisticUser.Data.DbModels.AbstractionsDB;
 
 namespace StatisticUser.Data.DbModels
 {
@@ -7,9 +8,11 @@ namespace StatisticUser.Data.DbModels
     /// TimeOnResource время определяется от последней активности
     /// из таблицы TimeOnSite
     /// </summary>
-    public class OpenResourcesDb
+    public class OpenResourcesDb: Entity<string>
     {
-        public int Id { get; set; }
+        /// <summary>
+        /// id ResourcesUrlDB
+        /// </summary>
         public ResourcesUrlDB ResourceId { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan TimeOnResource { get; set; }

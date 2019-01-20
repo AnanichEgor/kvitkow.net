@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using StatisticUser.Data.DbModels.AbstractionsDB;
 
 
 namespace StatisticUser.Data.DbModels
@@ -19,9 +20,8 @@ namespace StatisticUser.Data.DbModels
     /// ограничивают это время 4мя часами, после который требуется 15минутный перерыв.
     /// 
     /// </summary>
-    public class TimeOnSiteDB
+    public class TimeOnSiteDB: Entity<string>
     {
-        public int Id { get; set; }
         public int UserId { get; set; }
         public DateTime DataTimeAuthorization { get; set; }
         public TimeSpan TimeOnline { get; set; }

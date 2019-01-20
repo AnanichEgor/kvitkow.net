@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using StatisticUser.Data.DbModels.AbstractionsDB;
 
 namespace StatisticUser.Data.DbModels
 {
-    public class ResourcesUrlDB
+    /// <summary>
+    /// Список ресурсов сайта в строковом виде
+    /// которые запрашивали пользователи
+    /// </summary>
+    public class ResourcesUrlDB: Entity<int>
     {
-        public int Id { get; set; }
         public int ResourceUrl { get; set; }
     }
 }
