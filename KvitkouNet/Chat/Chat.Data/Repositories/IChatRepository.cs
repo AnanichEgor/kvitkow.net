@@ -47,7 +47,7 @@ namespace Chat.Data.Repositories
         /// Получение сообщений из комнаты, согласно ограничению по истории
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<MessageDb>> GetMessages(string roomId);
+        Task<IEnumerable<MessageDb>> GetMessages(string roomId, string userId);
 
         /// <summary>
         /// Поиск сообщения в комнате

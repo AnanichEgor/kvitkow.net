@@ -24,7 +24,7 @@ namespace Chat.Data.Repositories
 
         public async Task UpdateUserSettings(string userId, SettingsDb settings)
         {
-            await Task.Run(() =>_context.Settings.Update(settings));
+            await Task.Run(() => _context.Settings.Update(settings));
             await _context.SaveChangesAsync();
         }
 
@@ -34,16 +34,16 @@ namespace Chat.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddRoom(RoomDb room, string userId)
-        {
-            room.OwnerId = userId;
-            await _context.Rooms.AddAsync(room);
-        }
-
         // todo нужно добавить еще условие для выборки всех приватных комнат и соответственно доработать модель
         public async Task<IEnumerable<RoomDb>> GetRooms(string userId)
         {
             return await _context.Rooms.Where(x => x.IsPrivat == false).ToArrayAsync();
+        }
+
+        public async Task AddRoom(RoomDb room, string userId)
+        {
+            room.OwnerId = userId;
+            await _context.Rooms.AddAsync(room);
         }
 
         public async Task<IEnumerable<RoomDb>> SearchRoom(string template)
@@ -51,7 +51,8 @@ namespace Chat.Data.Repositories
             return await _context.Rooms.Where(x => EF.Functions.Like(x.Name, $"%{template}%")).ToArrayAsync();
         }
 
-        public async Task<IEnumerable<MessageDb>> GetMessages(string roomId)
+        // todo подумать как ограничить по истории. Или отдельно лезть в таблцу за значением и отсекать потом в БЛ или есть команды в БД
+        public async Task<IEnumerable<MessageDb>> GetMessages(string roomId, string userId)
         {
             return await _context.Messages.Where(x => x.RoomId.Equals(roomId)).ToArrayAsync();
         }
@@ -63,6 +64,7 @@ namespace Chat.Data.Repositories
                 .Where(x => EF.Functions.Like(x.Text, $"%{template}%")).ToArrayAsync();
         }
 
+        // todo надо окончательно понимать что будет приходить на вход в контроллер, полная модель или нужна доп инфа
         public async Task AddMessage(MessageDb message, string roomId)
         {
             message.RoomId = roomId;
@@ -84,10 +86,10 @@ namespace Chat.Data.Repositories
 
         public async Task UpdateSettingIsReeadForMessage(string roomId, string messageId)
         {
-            var message = _context.Messages.SingleOrDefaultAsync(x => x.Id.Equals(messageId));
+            var message = await _context.Messages.SingleOrDefaultAsync(x => x.Id.Equals(messageId));
             if (message != null)
             {
-                message.Result.IsRead = true;
+                message.IsRead = true;
             }
             await _context.SaveChangesAsync();
         }

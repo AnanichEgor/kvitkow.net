@@ -20,6 +20,7 @@ namespace Chat.Web
                 if (!ctx.Rooms.Any())
                 {
                     ctx.Rooms.AddRange(RoomFaker.Generate(50));
+                //    ctx.Users.AddRange(UserFaker.Generate(50));
                     ctx.SaveChanges();
                 }
             }
