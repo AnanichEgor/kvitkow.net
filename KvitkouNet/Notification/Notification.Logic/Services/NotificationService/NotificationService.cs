@@ -22,63 +22,38 @@ namespace Notification.Logic.Services.NotificationService
 			m_mapper = mapper;
 		}
 
-		public Task AddUserNotifications(UserNotificationBulkRequest request)
+		public async Task AddUserNotifications(UserNotificationBulkRequest request)
 		{			
 			throw new NotImplementedException();
 		}
 
-		public Task EditNotification(UserNotification userNotification)
+		public async Task EditNotification(UserNotification userNotification)
 		{
 			throw new NotImplementedException();
 		}
 
 		// проверочный метод
-		public Task<IEnumerable<UserNotification>> GetAll()
+		public async Task<IEnumerable<UserNotification>> GetAll()
 		{
 			var result = m_context.Notifications.AsNoTracking()
 				.Include(x => x.User).ToArray();
 
 			var mapped = m_mapper.Map<UserNotification[]>(result);
 
-			return Task.FromResult(mapped.AsEnumerable());
+			return await Task.FromResult(mapped.AsEnumerable());
 		}
 
-		public Task<IEnumerable<EmailNotification>> GetAllEmailNotifications()
+		public async Task<UserNotification> GetNotification(string notificationId)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<IEnumerable<EmailNotification>> GetEmailNotifications(string userId)
+		public async Task<IEnumerable<UserNotification>> GetUserNotifications(string userId, bool onlyOpen)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<UserNotification> GetNotification(string notificationId)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task<IEnumerable<UserNotification>> GetUserNotifications(string userId, bool onlyOpen)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task SendEmailNotificationForAllUsers(string senderId, NotificationMessage messsage)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task SendEmailNotifications(string senderId, UserNotificationBulkRequest request)
-		{
-			throw new NotImplementedException();
-		}
-
-		public async Task SendRegistrationNotification(string email, string senderId, NotificationMessage messsage)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task SetStatusClosed(string notificationId)
+		public async Task SetStatusClosed(string notificationId)
 		{
 			throw new NotImplementedException();
 		}

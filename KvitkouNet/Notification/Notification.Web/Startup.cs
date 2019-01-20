@@ -54,6 +54,8 @@ namespace Notification.Web
 			services.AddSwaggerDocument();
 
 			services.RegisterNotificationService();
+			services.RegisterEmailNotificationService();
+			services.RegisterEmailSenderService();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
