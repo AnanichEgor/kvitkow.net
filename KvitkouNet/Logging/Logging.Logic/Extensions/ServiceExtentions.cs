@@ -47,26 +47,6 @@ namespace Logging.Logic.Extensions
 		{
 			var loggingServiceMock = new Mock<ILoggingService>();
 
-			loggingServiceMock
-				.Setup(_ => _.GetAccountLogsAsync(It.IsAny<AccountLogsFilter>()))
-				.ReturnsAsync(new List<AccountLogEntry>());
-
-			loggingServiceMock
-				.Setup(_ => _.GetErrorLogsAsync(It.IsAny<ErrorLogsFilter>()))
-				.ReturnsAsync(new List<InternalErrorLogEntry>());
-
-			loggingServiceMock
-				.Setup(_ => _.GetPaymentLogsAsync(It.IsAny<PaymentLogsFilter>()))
-				.ReturnsAsync(new List<PaymentLogEntry>());
-
-			loggingServiceMock
-				.Setup(_ => _.GetSearchQueryLogsAsync(It.IsAny<SearchQueryLogsFilter>()))
-				.ReturnsAsync(new List<SearchQueryLogEntry>());
-
-			loggingServiceMock
-				.Setup(_ => _.GetSearchQueryLogsAsync(It.IsAny<SearchQueryLogsFilter>()))
-				.ReturnsAsync(new List<SearchQueryLogEntry>());
-
 			return loggingServiceMock;
 		}
 	}
