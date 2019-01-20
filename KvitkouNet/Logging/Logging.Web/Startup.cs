@@ -25,7 +25,7 @@ namespace Logging.Web
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext();
+			services.RegisterDbContext();
 
 			var assemblyNamesToScan = Assembly
 				.GetEntryAssembly()
@@ -41,7 +41,8 @@ namespace Logging.Web
 
 			services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=localhost"));
 
-			services.RegisterLoggingService();
+			services.RegisterServices();
+
 			services.RegisterValidators();
 		}
 
