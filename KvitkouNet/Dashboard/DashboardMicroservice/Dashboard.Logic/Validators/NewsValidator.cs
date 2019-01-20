@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FluentValidation;
+using Dashboard.Logic.Models;
 
 namespace Dashboard.Logic.Validators
 {
-    class NewsValidator
+    public class NewsValidator : AbstractValidator<News>
     {
+        public NewsValidator()
+        {
+            RuleFor(news => news.EventLink).NotEmpty();
+        }
     }
 }

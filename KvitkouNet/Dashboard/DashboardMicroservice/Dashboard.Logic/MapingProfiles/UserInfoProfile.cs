@@ -1,10 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AutoMapper;
+using Dashboard.Data.DbModels;
+using Dashboard.Logic.Models;
 
-namespace Dashboard.Logic.MapingProfiles
+namespace Dashboard.Logic.MappingProfiles
 {
-    class UserInfoProfile
+    public class UserInfoProfile : Profile
     {
+        public UserInfoProfile()
+        {
+            CreateMap<UserInfo, UserInfoDb>().ReverseMap();
+        }
     }
 }

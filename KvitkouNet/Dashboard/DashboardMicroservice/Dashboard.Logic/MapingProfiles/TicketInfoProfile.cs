@@ -1,10 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AutoMapper;
+using Dashboard.Data.DbModels;
+using Dashboard.Logic.Models;
 
-namespace Dashboard.Logic.MapingProfiles
+namespace Dashboard.Logic.MappingProfiles
 {
-    class TicketInfoProfile
+    public class TicketInfoProfile : Profile
     {
+        public TicketInfoProfile()
+        {
+            CreateMap<TicketInfo, TicketInfoDb>().ReverseMap();
+        }
     }
 }

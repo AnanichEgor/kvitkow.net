@@ -1,10 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AutoMapper;
+using Dashboard.Data.DbModels;
+using Dashboard.Logic.Models;
 
 namespace Dashboard.Logic.MppingProfiles
 {
-    class NewsProfile
+    public class NewsProfile : Profile
     {
+        public NewsProfile()
+        {
+            CreateMap<News, NewsDb>().ReverseMap();
+        }
     }
 }
