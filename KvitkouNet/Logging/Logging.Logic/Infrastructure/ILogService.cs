@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Logging.Data.DbModels.Abstraction;
+using Logging.Logic.Models.Abstraction;
 using Logging.Logic.Models.Filters.Abstraction;
 
 namespace Logging.Logic.Infrastructure
