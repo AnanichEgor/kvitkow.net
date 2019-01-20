@@ -12,9 +12,9 @@ namespace Logging.Web.Controllers
     [Route("api/logs/queries")]
     public class QueryLogController : Controller
     {
-        private readonly ILoggingService _loggingService;
+        private readonly ISearchLogService _loggingService;
 
-        public QueryLogController(ILoggingService loggingService)
+        public QueryLogController(ISearchLogService loggingService)
         {
             _loggingService = loggingService;
         }
@@ -37,7 +37,7 @@ namespace Logging.Web.Controllers
                     $"Invalid filter! {nameof(SearchQueryLogsFilter.UserName)} is empty or whitespace!");
             }
 
-            var result = await _loggingService.GetSearchQueryLogsAsync(filter);
+            var result = await _loggingService.GetLogsAsync(filter);
             return Ok(result);
         }
     }

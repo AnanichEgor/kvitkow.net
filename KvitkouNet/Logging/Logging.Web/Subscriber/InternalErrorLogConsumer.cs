@@ -7,15 +7,15 @@ namespace Logging.Web.Subscriber
 {
 	public class InternalErrorLogConsumer : IConsumeAsync<InternalErrorLogEntry>
 	{
-		private readonly ILoggingService _loggingService;
+		private readonly IErrorLogService _loggingService;
 
-		public InternalErrorLogConsumer(ILoggingService loggingService)
+		public InternalErrorLogConsumer(IErrorLogService loggingService)
 		{
 			_loggingService = loggingService;
 		}
 
 		[AutoSubscriberConsumer(SubscriptionId = "ErrorLogging.Added")]
 		public async Task ConsumeAsync(InternalErrorLogEntry entry)
-			=> await _loggingService.AddErrorLogAsync(entry);
+			=> await _loggingService.AddLogAsync(entry);
 	}
 }

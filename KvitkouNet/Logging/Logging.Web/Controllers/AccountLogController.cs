@@ -12,9 +12,9 @@ namespace Logging.Web.Controllers
     [Route("api/logs/accounts")]
     public class AccountLogController : Controller
     {
-        private readonly ILoggingService _loggingService;
+        private readonly IAccountLogService _loggingService;
 
-        public AccountLogController(ILoggingService loggingService)
+        public AccountLogController(IAccountLogService loggingService)
         {
             _loggingService = loggingService;
         }
@@ -36,7 +36,7 @@ namespace Logging.Web.Controllers
                 return BadRequest($"Invalid filter! {nameof(AccountLogsFilter.UserName)} is empty or whitespace!");
             }
 
-            var result = await _loggingService.GetAccountLogsAsync(filter);
+            var result = await _loggingService.GetLogsAsync(filter);
             return Ok(result);
         }
     }

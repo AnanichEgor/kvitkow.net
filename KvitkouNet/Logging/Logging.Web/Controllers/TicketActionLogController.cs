@@ -12,9 +12,9 @@ namespace Logging.Web.Controllers
     [Route("api/logs/tickets")]
     public class TicketActionLogController : Controller
     {
-        private readonly ILoggingService _loggingService;
+        private readonly ITicketLogService _loggingService;
 
-        public TicketActionLogController(ILoggingService loggingService)
+        public TicketActionLogController(ITicketLogService loggingService)
         {
             _loggingService = loggingService;
         }
@@ -37,7 +37,7 @@ namespace Logging.Web.Controllers
                 return BadRequest($"Invalid filter! {nameof(TicketLogsFilter.TicketName)} is empty or whitespace!");
             }
 
-            var result = await _loggingService.GetTicketActionLogsAsync(filter);
+            var result = await _loggingService.GetLogsAsync(filter);
             return Ok(result);
         }
     }

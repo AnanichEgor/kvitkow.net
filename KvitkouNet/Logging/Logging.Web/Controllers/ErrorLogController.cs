@@ -16,10 +16,10 @@ namespace Logging.Web.Controllers
 	[Route("api/logs/errors")]
 	public class ErrorLogController : Controller
 	{
-		private readonly ILoggingService _loggingService;
+		private readonly IErrorLogService _loggingService;
 		private readonly IValidator<ErrorLogsFilter> _errorLogsFilterValidator;
 
-		public ErrorLogController(ILoggingService loggingService, IValidator<ErrorLogsFilter> errorLogsFilterValidator)
+		public ErrorLogController(IErrorLogService loggingService, IValidator<ErrorLogsFilter> errorLogsFilterValidator)
 		{
 			_loggingService = loggingService;
 			_errorLogsFilterValidator = errorLogsFilterValidator;
@@ -43,7 +43,7 @@ namespace Logging.Web.Controllers
 					$"Invalid filter! {nameof(ErrorLogsFilter.ExceptionTypeName)} is empty or whitespace!");
 			}
 
-			var result = await _loggingService.GetErrorLogsAsync(filter);
+			var result = await _loggingService.GetLogsAsync(filter);
 			return Ok(result);
 		}
 	}

@@ -12,9 +12,9 @@ namespace Logging.Web.Controllers
     [Route("api/logs/payments")]
     public class PaymentLogController : Controller
     {
-        private readonly ILoggingService _loggingService;
+        private readonly IPaymentLogService _loggingService;
 
-        public PaymentLogController(ILoggingService loggingService)
+        public PaymentLogController(IPaymentLogService loggingService)
         {
             _loggingService = loggingService;
         }
@@ -35,7 +35,7 @@ namespace Logging.Web.Controllers
                 return BadRequest($"Invalid filter! {nameof(PaymentLogsFilter.UserName)} is empty or whitespace!");
             }
 
-            var result = await _loggingService.GetPaymentLogsAsync(filter);
+            var result = await _loggingService.GetLogsAsync(filter);
             return Ok(result);
         }
     }
