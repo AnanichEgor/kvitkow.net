@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+   kvitkounet.web:
+    image: ${DOCKER_REGISTRY}kvitkounetweb
+    build:
+      context: .
+      dockerfile: KvitkouNet.Web/Dockerfile
+   
+   adminpanel.web:
+    image: ${DOCKER_REGISTRY}adminpanelweb
+    build:
+      context: AdminPanel
+      dockerfile: AdminPanel.Web/Dockerfile
+    depends_on:
+      - logging.web
+    ports:
+      - 5005:80
+    
+   logging.web:
+    image: ${DOCKER_REGISTRY}loggingweb
+    build:
+      context: Logging
+      dockerfile: Logging.Web/Dockerfile
+    ports:
+      - 5006:80
+     
+   tickets.web:
+    image: ${DOCKER_REGISTRY}ticketsweb
+    build:
+      context: TicketManagement
+      dockerfile: TicketManagement.Web/Dockerfile
+    ports:
+      - 5007:80

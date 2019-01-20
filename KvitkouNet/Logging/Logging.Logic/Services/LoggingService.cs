@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Logging.Data;
 using Logging.Logic.Dtos;
+using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
 using Microsoft.EntityFrameworkCore;
 

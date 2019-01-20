@@ -2,7 +2,6 @@
 {
     public class Address
     {
-             
         /// <summary>
         ///     Страна проживания
         /// </summary>
