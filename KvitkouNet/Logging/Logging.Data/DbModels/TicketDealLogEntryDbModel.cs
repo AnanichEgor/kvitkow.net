@@ -1,5 +1,4 @@
 ﻿using Logging.Data.DbModels.Abstraction;
-using Logging.Data.Enums;
 
 namespace Logging.Data.DbModels
 {
@@ -21,7 +20,7 @@ namespace Logging.Data.DbModels
         /// <summary>
         /// Тип сделки
         /// </summary>
-        public DealType Type { get; set; }
+        public int Type { get; set; }
 
         /// <summary>
         /// Дополнительное содержимое записи

@@ -1,5 +1,4 @@
 ﻿using Logging.Data.DbModels.Abstraction;
-using Logging.Data.Enums;
 
 namespace Logging.Data.DbModels
 {
@@ -11,7 +10,7 @@ namespace Logging.Data.DbModels
         /// <summary>
         /// Тип действия с билетом
         /// </summary>
-        public TicketAction Action { get; set; }
+        public int Type { get; set; }
 
         /// <summary>
         /// Дополнительное содержимое записи

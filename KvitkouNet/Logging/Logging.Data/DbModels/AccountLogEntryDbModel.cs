@@ -1,5 +1,4 @@
 ﻿using Logging.Data.DbModels.Abstraction;
-using Logging.Data.Enums;
 
 namespace Logging.Data.DbModels
 {
@@ -16,7 +15,7 @@ namespace Logging.Data.DbModels
         /// <summary>
         /// Тип действия
         /// </summary>
-        public AccountActionType Type { get; set; }
+        public int Type { get; set; }
 
         /// <summary>
         /// Описание пользовательского устройства
