@@ -1,7 +1,9 @@
-﻿namespace Logging.Logic.Models.Filters
+﻿using Logging.Logic.Models.Filters.Abstraction;
+
+namespace Logging.Logic.Models.Filters
 {
-	public class PaymentLogsFilter
-	{
+	public class PaymentLogsFilter : BaseLogFilter
+    {
 		public string UserName { get; set; }
 	}
 }

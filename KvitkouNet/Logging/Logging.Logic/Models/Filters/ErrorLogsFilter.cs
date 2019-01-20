@@ -1,7 +1,9 @@
-﻿namespace Logging.Logic.Models.Filters
+﻿using Logging.Logic.Models.Filters.Abstraction;
+
+namespace Logging.Logic.Models.Filters
 {
-	public class ErrorLogsFilter
-	{
+	public class ErrorLogsFilter : BaseLogFilter
+    {
 		public string ExceptionTypeName { get; set; }
 	}
 }
