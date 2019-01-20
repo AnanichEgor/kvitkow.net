@@ -5,7 +5,7 @@ namespace Logging.Data.DbModels
     /// <summary>
     /// Модель записи в лог о сделке по билету
     /// </summary>
-    public class TicketDealLogEntryDbModel : Entity<string>
+    public class TicketDealLogEntryDbModel : BaseLogEntry
     {
         /// <summary>
         /// Покупатель/получатель билета
@@ -21,10 +21,5 @@ namespace Logging.Data.DbModels
         /// Тип сделки
         /// </summary>
         public int Type { get; set; }
-
-        /// <summary>
-        /// Дополнительное содержимое записи
-        /// </summary>
-        public string Content { get; set; }
     }
 }

@@ -5,7 +5,7 @@ namespace Logging.Data.DbModels
     /// <summary>
     /// Запись в лог, описывающая действие с аккаунтом пользователя
     /// </summary>
-    public class AccountLogEntryDbModel : Entity<string>
+    public class AccountLogEntryDbModel : BaseLogEntry
     {
         /// <summary>
         /// Имя пользователя
@@ -21,10 +21,5 @@ namespace Logging.Data.DbModels
         /// Описание пользовательского устройства
         /// </summary>
         public string DeviceDescription { get; set; }
-
-        /// <summary>
-        /// Дополнительное содержимое записи
-        /// </summary>
-        public string Content { get; set; }
     }
 }
