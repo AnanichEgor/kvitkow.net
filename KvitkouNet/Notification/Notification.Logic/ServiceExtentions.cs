@@ -1,7 +1,10 @@
 ﻿using Notification.Logic.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Notification.Data.Context;
+using Notification.Data.Helpers;
 using Notification.Logic.Services.NotificationService;
 using Notification.Logic.Services.EmailNotificationService;
+using Notification.Logic.Services.EmailSenderService;
 
 namespace Notification.Logic
 {
@@ -29,9 +32,25 @@ namespace Notification.Logic
 			return services;
 		}
 
+		/// <summary>
+		/// Регистрация IEmailSenderService
+		/// </summary>
+		/// <param name="services"></param>
+		/// <returns></returns>
 		public static IServiceCollection RegisterEmailSenderService(this IServiceCollection services)
 		{
-			services.AddScoped<IEmailSenderService, IEmailSenderService>();
+			services.AddScoped<IEmailSenderService, EmailSenderService>();
+			return services;
+		}
+
+		/// <summary>
+		/// Регистрация NotificationContext
+		/// </summary>
+		/// <param name="services"></param>
+		/// <returns></returns>
+		public static IServiceCollection RegisterNotificationContext(this IServiceCollection services)
+		{
+			services.AddDbContext<NotificationContext>(new RegisterContextHelper().GetOptionsBuilder());
 			return services;
 		}
     }

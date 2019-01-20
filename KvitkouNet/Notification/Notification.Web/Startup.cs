@@ -25,23 +25,6 @@ namespace Notification.Web
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<NotificationContext>(
-				opt => opt.UseSqlite(connectionString: "Data Source = ./Notification.db"));
-
-			var o = new DbContextOptionsBuilder<NotificationContext>();
-			o.UseSqlite("Data Source=./Notification.db");
-			
-			using (var ctx = new NotificationContext(o.Options))
-			{
-				ctx.Database.Migrate();
-
-				if (!ctx.Notifications.Any())
-				{
-					ctx.Notifications.AddRange(NotificationFaker.Generate(50));
-					ctx.SaveChanges();
-				}
-			}
-
 			services.AddAutoMapper(cfg =>
 			{
 				cfg.AddProfile<NotificationMessageProfile>();
@@ -53,6 +36,7 @@ namespace Notification.Web
 
 			services.AddSwaggerDocument();
 
+			services.RegisterNotificationContext();
 			services.RegisterNotificationService();
 			services.RegisterEmailNotificationService();
 			services.RegisterEmailSenderService();
