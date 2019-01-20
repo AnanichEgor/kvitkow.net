@@ -40,7 +40,8 @@ namespace TicketManagement.Data.Repositories
         {
             var original = await _context.Tickets.FindAsync(id);
             if (original == null) return;
-            original.UpdateModel(ticket);
+            await Delete(id);
+            _context.Tickets.Add(original.UpdateModel(ticket, id));
             await _context.SaveChangesAsync();
         }
 

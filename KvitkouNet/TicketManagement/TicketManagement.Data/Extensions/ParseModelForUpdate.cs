@@ -10,8 +10,9 @@ namespace TicketManagement.Data.Extensions
         /// <param name="original">Модель из базы</param>
         /// <param name="ticket">Модель из реквеста</param>
         /// <returns></returns>
-        public static TicketDb UpdateModel(this TicketDb original, TicketDb ticket)
+        public static TicketDb UpdateModel(this TicketDb original, TicketDb ticket, string id)
         {
+            original.Id = id;
             if (ticket.Name != null) original.Name = ticket.Name;
             if (ticket.LocationEvent != null) original.LocationEvent = ticket.LocationEvent;
             if (ticket.AdditionalData != null) original.AdditionalData = ticket.AdditionalData;
@@ -27,6 +28,7 @@ namespace TicketManagement.Data.Extensions
             original.TimeActual = ticket.TimeActual;
             original.TypeEvent = ticket.TypeEvent;
             if (ticket.User != null) original.User = ticket.User;
+            original.RespondedUsers = ticket.RespondedUsers.GetRange(0,ticket.RespondedUsers.Count);
             return original;
         }
     }
