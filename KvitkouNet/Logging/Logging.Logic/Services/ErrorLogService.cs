@@ -1,30 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Logging.Data;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
 using Logging.Logic.Models.Filters;
+using Microsoft.EntityFrameworkCore;
 
 namespace Logging.Logic.Services
 {
     public class ErrorLogService : IErrorLogService
     {
         protected readonly LoggingDbContext Context;
+        protected readonly IMapper Mapper;
 
-        public ErrorLogService(LoggingDbContext context)
+        public ErrorLogService(LoggingDbContext context, IMapper mapper)
         {
             Context = context;
+            Mapper = mapper;
         }
 
-        public Task<IEnumerable<InternalErrorLogEntry>> GetLogsAsync(ErrorLogsFilter filter)
+        public async Task<IEnumerable<InternalErrorLogEntry>> GetLogsAsync(ErrorLogsFilter filter)
         {
-            throw new NotImplementedException();
+            return Mapper.Map<InternalErrorLogEntry[]>(await Context.InternalErrorLogEntries.AsNoTracking().ToArrayAsync());
         }
 
-        public Task AddLogAsync(InternalErrorLogEntry entry)
+        public async Task AddLogAsync(InternalErrorLogEntry entry)
         {
-            throw new NotImplementedException();
+            await Context.AddAsync(entry);
+            await Context.SaveChangesAsync();
         }
 
         public void Dispose()
