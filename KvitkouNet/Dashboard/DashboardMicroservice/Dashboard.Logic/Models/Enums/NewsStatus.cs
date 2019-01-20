@@ -1,10 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Dashboard.Logic.Models.Enums
 {
-    class NewsStatus
+    /// <summary>
+    ///     Перечисление, описывающее статус новости
+    /// </summary>
+    public enum NewsStatus
     {
+        /// <summary>
+        ///     Тип не установлен
+        /// </summary>
+        Unknown = 0,
+
+        /// <summary>
+        ///     Актуальна
+        /// </summary>
+        Actual = 1,
+
+        /// <summary>
+        ///     Просрочена
+        /// </summary>
+        Expired = 2
     }
 }
