@@ -17,21 +17,21 @@ namespace TicketManagement.Data.Fakes
 
             _fakerNews.RuleFor(db => db.UserInfo, f =>
             {
-                var fakeaddress = new Faker<UserInfoDb>();
-                fakeaddress.RuleFor(db => db.FirstName, faker => faker.Lorem.Word());
-                fakeaddress.RuleFor(db => db.LastName, faker => faker.Lorem.Word());
-                fakeaddress.RuleFor(db => db.Rating, faker => faker.Random.Int(-50, 50));
-                return fakeaddress.Generate();
+                var fakerUserInfo = new Faker<UserInfoDb>();
+                fakerUserInfo.RuleFor(db => db.FirstName, faker => faker.Lorem.Word());
+                fakerUserInfo.RuleFor(db => db.LastName, faker => faker.Lorem.Word());
+                fakerUserInfo.RuleFor(db => db.Rating, faker => faker.Random.Int(-50, 50));
+                return fakerUserInfo.Generate();
             });
             _fakerNews.RuleFor(db => db.TicketInfo, f =>
             {
-                var fakeusercoll = new Faker<TicketInfoDb>();
-                fakeusercoll.RuleFor(db => db.Name, faker => faker.Lorem.Word());
-                fakeusercoll.RuleFor(db => db.LocationEvent, faker => faker.Lorem.Word());
-                fakeusercoll.RuleFor(db => db.Price, faker => faker.Finance.Amount(1,1000,2));
-                fakeusercoll.RuleFor(db => db.SellerPhone, faker => faker.Phone.PhoneNumber("###-###-##-##"));
-                fakeusercoll.RuleFor(db => db.EventLink, faker => faker.Lorem.Word());
-                return fakeusercoll.Generate();
+                var fakerTicketInfo = new Faker<TicketInfoDb>();
+                fakerTicketInfo.RuleFor(db => db.Name, faker => faker.Lorem.Word());
+                fakerTicketInfo.RuleFor(db => db.LocationEvent, faker => faker.Lorem.Word());
+                fakerTicketInfo.RuleFor(db => db.Price, faker => faker.Finance.Amount(1,1000,2));
+                fakerTicketInfo.RuleFor(db => db.SellerPhone, faker => faker.Phone.PhoneNumber("###-###-##-##"));
+                fakerTicketInfo.RuleFor(db => db.EventLink, faker => faker.Lorem.Word());
+                return fakerTicketInfo.Generate();
             });
         }
 
