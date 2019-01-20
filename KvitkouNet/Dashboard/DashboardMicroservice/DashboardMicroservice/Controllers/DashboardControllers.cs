@@ -7,17 +7,17 @@ using Dashboard.Logic.Models;
 using Dashboard.Logic.Models.Enums;
 using Dashboard.Logic.Services;
 
-namespace TicketManagement.Web.Controllers
+namespace Dashboard.Web.Controllers
 {
     /// <summary>
     ///     Контроллер, упраляющий запросами новостей
     /// </summary>
     [Route("api/news")]
-    public class TicketController : Controller
+    public class NewsController : Controller
     {
         private readonly IDashboardService _service;
 
-        public TicketController(IDashboardService service)
+        public NewsController(IDashboardService service)
         {
             _service = service;
         }
