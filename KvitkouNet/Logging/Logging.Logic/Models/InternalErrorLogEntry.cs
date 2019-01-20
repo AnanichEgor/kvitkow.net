@@ -5,7 +5,7 @@ namespace Logging.Logic.Models
 	/// <summary>
 	/// Запись в лог ошибок в работе сервиса
 	/// </summary>
-	public class InternalErrorLogEntry : BaseLogEntry<int>
+	public class InternalErrorLogEntry : BaseLogEntry
 	{
 		/// <summary>
 		/// Название типа исключения

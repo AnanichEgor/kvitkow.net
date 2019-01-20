@@ -7,7 +7,7 @@ namespace Logging.Logic.Models
 	/// <summary>
 	/// Запись в лог, описывающая действие с аккаунтом пользователя
 	/// </summary>
-	public class AccountLogEntry : BaseLogEntry<long>
+	public class AccountLogEntry : BaseLogEntry
 	{
 		/// <summary>
 		/// Пользователь
