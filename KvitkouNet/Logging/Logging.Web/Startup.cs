@@ -26,15 +26,7 @@ namespace Logging.Web
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.RegisterDbContext();
-
-			var assemblyNamesToScan = Assembly
-				.GetEntryAssembly()
-				.GetReferencedAssemblies()
-				.Where(an => an.FullName.StartsWith("Logging", StringComparison.OrdinalIgnoreCase))
-				.Select(an => an.FullName);
-
-			services.AddAutoMapper(cfg => cfg.AddProfiles(assemblyNamesToScan));
-
+            
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddSwaggerDocument();
@@ -44,6 +36,8 @@ namespace Logging.Web
 			services.RegisterServices();
 
 			services.RegisterValidators();
+
+		    services.RegisterAutoMapper();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

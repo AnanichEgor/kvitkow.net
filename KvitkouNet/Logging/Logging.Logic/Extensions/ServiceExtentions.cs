@@ -1,4 +1,8 @@
-﻿using FluentValidation;
+﻿using System;
+using System.Linq;
+using System.Reflection;
+using AutoMapper;
+using FluentValidation;
 using Logging.Data;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
@@ -47,5 +51,18 @@ namespace Logging.Logic.Extensions
 			services.AddDbContext<LoggingDbContext>(opt => opt.UseSqlite(connectionString));
 			return services;
 		}
+
+	    public static IServiceCollection RegisterAutoMapper(this IServiceCollection services)
+	    {
+	        var assemblyNamesToScan = Assembly
+	            .GetEntryAssembly()
+	            .GetReferencedAssemblies()
+	            .Where(an => an.FullName.StartsWith("Logging", StringComparison.OrdinalIgnoreCase))
+	            .Select(an => an.FullName);
+
+	        services.AddAutoMapper(cfg => cfg.AddProfiles(assemblyNamesToScan));
+
+	        return services;
+	    }
 	}
 }
