@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NSwag.Annotations;
+using StatisticUser.Logic.DTOs;
+using StatisticUser.Logic.Interfaces;
 
 namespace StatisticUser.Web.Controllers
 {
@@ -10,36 +14,26 @@ namespace StatisticUser.Web.Controllers
     [ApiController]
     public class StatisticController : ControllerBase
     {
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        IStatisticUserService _statisticService;
+
+        public StatisticController(IStatisticUserService statisticService)
         {
-            return new string[] { "value1", "value2" };
+            _statisticService = statisticService;
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
+        /// <summary>
+        /// возвращает cтатистику посещения ресурсов сайта
+        /// </summary>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [Route("resources")]
+        [SwaggerTag("Статистика посещения ресурсов сайта")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<ITimeOnResouces>), Description = "Statistics of site resources visiting")]
+        [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        public async Task<IActionResult> GetTimeOnResouces([FromBody]DateRange model)
         {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var result = await _statisticService.GetTimeOnResouces(model);
+            return Ok(result);
         }
     }
 }
