@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
+using EasyNetQ;
 using FluentValidation;
 using Logging.Logic.Dtos;
 using Logging.Logic.Infrastructure;
@@ -18,11 +22,13 @@ namespace Logging.Web.Controllers
 	{
 		private readonly ILoggingService _loggingService;
 		private readonly IValidator<ErrorLogsFilterDto> _errorLogsFilterValidator;
+		private readonly IBus _bus;
 
-		public ErrorLogController(ILoggingService loggingService, IValidator<ErrorLogsFilterDto> errorLogsFilterValidator)
+		public ErrorLogController(ILoggingService loggingService, IValidator<ErrorLogsFilterDto> errorLogsFilterValidator, IBus bus)
 		{
 			_loggingService = loggingService;
 			_errorLogsFilterValidator = errorLogsFilterValidator;
+			_bus = bus;
 		}
 
 		/// <summary>

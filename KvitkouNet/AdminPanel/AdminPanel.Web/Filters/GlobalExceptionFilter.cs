@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text;
+using System.Threading.Tasks;
 using AdminPanel.Logic.Generated.Logging.Models;
 using AutoMapper;
 using EasyNetQ;

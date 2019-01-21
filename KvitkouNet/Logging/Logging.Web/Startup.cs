@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using AutoMapper;
 using EasyNetQ;
+using EasyNetQ.AutoSubscribe;
 using Logging.Logic.Extensions;
 using Logging.Web.Subscriber;
 using Microsoft.AspNetCore.Builder;
