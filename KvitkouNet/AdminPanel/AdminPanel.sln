@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminPanel.Logic", "AdminPa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminPanel.Tests", "AdminPanel.Tests\AdminPanel.Tests.csproj", "{2990A65C-DBCC-47DE-B07B-AC8526B9A3F6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KvitkouNet.Logic.Common", "..\KvitkouNet.Logic.Comon\KvitkouNet.Logic.Common.csproj", "{9FF2FE1C-8682-4BB8-970D-1E59C2EFF16A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{2990A65C-DBCC-47DE-B07B-AC8526B9A3F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2990A65C-DBCC-47DE-B07B-AC8526B9A3F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2990A65C-DBCC-47DE-B07B-AC8526B9A3F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9FF2FE1C-8682-4BB8-970D-1E59C2EFF16A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9FF2FE1C-8682-4BB8-970D-1E59C2EFF16A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9FF2FE1C-8682-4BB8-970D-1E59C2EFF16A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9FF2FE1C-8682-4BB8-970D-1E59C2EFF16A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
