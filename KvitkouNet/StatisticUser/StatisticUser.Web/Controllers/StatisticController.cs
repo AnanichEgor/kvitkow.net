@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace StatisticUser.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/statistic/user")]
     [ApiController]
     public class StatisticController : ControllerBase
     {
