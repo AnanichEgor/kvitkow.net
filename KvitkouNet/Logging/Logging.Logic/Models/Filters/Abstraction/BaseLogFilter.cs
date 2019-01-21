@@ -8,7 +8,7 @@ namespace Logging.Logic.Models.Filters.Abstraction
     public class BaseLogFilter
     {
         /// <summary>
-        /// Пользователь
+        /// Имя или часть имени пользователя
         /// </summary>
         public string User { get; set; }
 
