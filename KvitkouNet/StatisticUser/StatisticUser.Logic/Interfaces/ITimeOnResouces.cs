@@ -4,6 +4,9 @@ using System.Text;
 
 namespace StatisticUser.Logic.Interfaces
 {
+    /// <summary>
+    /// время проведенное на ресуйсах сайта
+    /// </summary>
     public interface ITimeOnResouces
     {
         string Resource { get; set; }

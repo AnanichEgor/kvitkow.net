@@ -20,6 +20,31 @@ namespace StatisticUser.Logic.Interfaces
         /// <returns></returns>
         Task<IEnumerable<ITimeOnResouces>> GetTimeOnResouces(DateRange filter);
 
+        /// <summary>
+        /// Время проведенное пользователем на сайте
+        /// в текущем сеансе
+        /// </summary>
+        /// <param name="id">ID пользователя</param>
+        /// <returns></returns>
+        Task<IUserOnline> GetUserOnline(int id);
 
+        /// <summary>
+        /// Рейтинг пользователя
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IUserRating> GetUserRating(int id);
+
+        /// <summary>
+        /// Временной график с регистрациями новых пользователей
+        /// </summary>
+        /// <param name="filter">Диапазон дат</param>
+        /// <returns></returns>
+        Task<IEnumerable<IRegistrationTime>> GetRegistrationsTime(DateRange filter);
+
+        /// <summary>
+        /// Количество сообщений пользователя
+        /// </summary>
+        Task<IUserMessages> GetUserMessages(int id);
     }
 }
