@@ -10,7 +10,7 @@ namespace Chat.Data.DbModels
         /// <summary>
         /// Id создателя комнаты.
         /// </summary>
-        public int OwnerId { get; set; }
+        public string OwnerId { get; set; }
 
         /// <summary>
         /// Название комнаты.

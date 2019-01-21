@@ -1,73 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
-using Chat.Logic.Models;
+using Chat.Data.DbModels;
+using SQLitePCL;
 
-namespace Chat.Logic.Services
+namespace Chat.Data.Repositories
 {
-    /// <summary>
-    /// Сервис для работы с сущностями Chat
-    /// </summary>
-    public interface IChatService : IDisposable
+    public interface IChatRepository
     {
         /// <summary>
         /// Получение пользовательских настроек для чата
         /// </summary>
         /// <returns></returns>
-        Task<Settings> GetUserSettings(string userId);
+        Task<SettingsDb> GetUserSettings(string userId);
 
         /// <summary>
         /// Изменение пользовательских настроек
         /// </summary>
-        Task EditUserSettings(string userId, Settings settings);
+        Task UpdateUserSettings(string userId, SettingsDb settings);
 
         /// <summary>
         /// Изменение роли пользователя в чате
         /// </summary>
-        Task EditUserRole(string userId, User settings);
+        Task UpdateUserRole(string userId, UserDb user);
 
         /// <summary>
         /// Создание комнаты.
         /// </summary>
         /// <returns></returns>
-        Task AddRoom(Room room, string userId);
+        Task AddRoom(RoomDb room, string userId);
 
         /// <summary>
         /// Получение доступных комнат
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Room>> GetRooms(string userId);
+        Task<IEnumerable<RoomDb>> GetRooms(string userId);
 
         /// <summary>
         /// Поиск комнаты по названию
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Room>> SearchRoom(string template);
+        Task<IEnumerable<RoomDb>> SearchRoom(string template);
 
         /// <summary>
         /// Получение сообщений из комнаты, согласно ограничению по истории
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Message>> GetMessages(string roomId, string userId);
+        Task<IEnumerable<MessageDb>> GetMessages(string roomId, string userId);
 
         /// <summary>
         /// Поиск сообщения в комнате
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Message>> SearchMessage(string roomId, string template);
+        Task<IEnumerable<MessageDb>> SearchMessage(string roomId, string template);
 
         /// <summary>
         /// Отправка сообщения
         /// </summary>
         /// <returns></returns>
-        Task AddMessage(Message message, string roomId);
+        Task AddMessage(MessageDb message, string roomId);
 
         /// <summary>
         /// Редактирование сообщения
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
-        Task EditMessage(Message message, string roomId);
+        Task UpdateMessage(MessageDb message, string roomId);
 
         /// <summary>
         /// Удаление сообщения
@@ -78,6 +77,6 @@ namespace Chat.Logic.Services
         /// <summary>
         /// Проставить признак прочитанного сообщения
         /// </summary>
-        Task EditSettingIsReeadForMessage(string roomId, string messageId);
+        Task UpdateSettingIsReeadForMessage(string roomId, string messageId);
     }
 }

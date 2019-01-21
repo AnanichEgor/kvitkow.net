@@ -13,7 +13,7 @@ namespace Chat.Data.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     UpdateDate = table.Column<DateTime>(nullable: false),
-                    OwnerId = table.Column<int>(nullable: false),
+                    OwnerId = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     IsPrivat = table.Column<bool>(nullable: false)
                 },
@@ -34,7 +34,8 @@ namespace Chat.Data.Migrations
                     Tab = table.Column<bool>(nullable: false),
                     ViewTimestampsMessage = table.Column<bool>(nullable: false),
                     HideChat = table.Column<bool>(nullable: false),
-                    HistoryCountsMessages = table.Column<int>(nullable: false)
+                    HistoryCountsMessages = table.Column<int>(nullable: false),
+                    DisablePrivateMessages = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
