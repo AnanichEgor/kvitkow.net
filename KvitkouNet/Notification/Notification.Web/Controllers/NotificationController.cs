@@ -6,7 +6,6 @@ using NSwag.Annotations;
 using Notification.Logic.Models;
 using Notification.Logic.Services;
 using Notification.Logic.Models.Requests;
-using System;
 
 namespace Notification.Web.Controllers
 {
