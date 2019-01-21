@@ -33,27 +33,26 @@ namespace UserSettings.Logic.Services
 		{
 			var res =  await _context.ShowAll();
 			var temp = _mapper.Map<IEnumerable<Settings>>(res);
+			foreach(Settings item in temp)
+			{
+				
+			}
 			return _mapper.Map<IEnumerable<Settings>>(res);
-		}
-		public async Task<Settings> Get(int id)
-		{
-			var res = await _context.Get(id);
-			return _mapper.Map<Settings>(res);
 		}
 
 		public async Task<bool> UpdateEmail(string id, string email)
 		{
-			if (!_validator.Validate(email).IsValid)
-				return false;
+			//if (!_validator.Validate(email).IsValid)
+			//	return false;
 			return await _context.UpdateEmail(id, email); 
 		}
 
-		public Task<ActionResult> UpdatePassword(string current, string newPass, string confirm)
+		public Task<ActionResult> UpdatePassword(string id, string current, string newPass, string confirm)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<ActionResult> UpdateProfile(Models.Profile profile)
+		public Task<ActionResult> UpdateProfile(string id, Models.Profile profile)
 		{
 			throw new NotImplementedException();
 		}

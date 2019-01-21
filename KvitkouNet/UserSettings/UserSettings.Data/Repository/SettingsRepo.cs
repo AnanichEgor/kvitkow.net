@@ -18,7 +18,8 @@ namespace UserSettings.Data
 		}
 		public async Task<bool> UpdateEmail(string id, string email)
 		{
-			var origin = await _context.Settings.FindAsync(id);
+			var origin = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == id);
+			_context.Accounts.Load();
 			if(origin != null)
 			{
 				origin.Account.Email = email;

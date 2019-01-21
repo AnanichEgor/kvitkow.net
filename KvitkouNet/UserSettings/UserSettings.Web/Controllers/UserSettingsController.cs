@@ -23,12 +23,12 @@ namespace UserSettings.Web.Controllers
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		[HttpPut, Route("userinfo")]
+		[HttpPut, Route("{id}/userinfo")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> UpdateProfile([FromBody]Profile model)
+		public async Task<IActionResult> UpdateProfile([FromBody]Profile model, [FromRoute] string id)
 		{
-			var result = await _service.UpdateProfile(model);
+			var result = await _service.UpdateProfile(id, model);
 
 			return (IActionResult)result;
 		}
@@ -38,12 +38,12 @@ namespace UserSettings.Web.Controllers
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		[HttpPut, Route("password")]
+		[HttpPut, Route("{id}/password")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> UpdatePassword([FromBody]PasswordDto model)
+		public async Task<IActionResult> UpdatePassword([FromBody]PasswordDto model, [FromRoute] string id)
 		{
-			var result = await _service.UpdatePassword(model.OldPassword, model.NewPassword, model.ConfirmPassword);
+			var result = await _service.UpdatePassword(id, model.OldPassword, model.NewPassword, model.ConfirmPassword);
 
 			return (IActionResult)result;
 		}
@@ -53,12 +53,12 @@ namespace UserSettings.Web.Controllers
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		[HttpPut, Route("email")]
+		[HttpPut, Route("{id}/email")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> UpdateEmail([FromBody]EmailDto model)
+		public async Task<IActionResult> UpdateEmail([FromBody]string model, [FromRoute]string id)
 		{
-			var result = await _service.UpdateEmail(model.Id, model.Email);
+			var result = await _service.UpdateEmail(id, model);
 
 			return result == true ? (IActionResult)Ok(result) : BadRequest(); 
 		}
@@ -69,19 +69,6 @@ namespace UserSettings.Web.Controllers
 		public async Task<IActionResult> GetAll()
 		{
 			var result = await _service.ShowAll();
-			return Ok(result);
-		}
-
-		[HttpGet, Route("{id}")]
-		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Settings>), Description = "All Ok")]
-		[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
-		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> Get([FromRoute] string id)
-		{
-			int temp;
-			int.TryParse(id, out temp);
-			var resulttemp = await _service.ShowAll();
-			var result = await _service.Get(temp);
 			return Ok(result);
 		}
 	}

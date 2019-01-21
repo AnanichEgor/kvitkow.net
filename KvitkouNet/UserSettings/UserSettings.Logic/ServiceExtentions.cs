@@ -22,22 +22,6 @@ namespace UserSettings.Logic
 		/// <returns></returns>
 		public static IServiceCollection RegisterUserSettingsService(this IServiceCollection services)
 		{
-			services.AddDbContext<SettingsContext>(
-				opt => opt.UseSqlite(connectionString: "DataSource=./Database.db"));
-
-			var o = new DbContextOptionsBuilder<SettingsContext>();
-			o.UseSqlite("Data Source=./Database.db");
-			using (var ctx = new SettingsContext(o.Options))
-			{
-
-				ctx.Database.Migrate();
-				if (!ctx.Settings.Any())
-				{
-					ctx.Settings.AddRange(UserSettingsFaker.Generate(10));
-					ctx.SaveChanges();
-				}
-			}
-
 
 			var mock = new Mock<IUserSettingsService>();
 			services.AddScoped(_ => mock.Object);
@@ -47,11 +31,20 @@ namespace UserSettings.Logic
 			services.AddScoped<ISettingsRepo, SettingsRepo>();
 			services.AddAutoMapper(cfg =>
 			{
+				cfg.AddProfile<SettingsProfile>();
 				cfg.AddProfile<AccountProfile>();
 				cfg.AddProfile<ProfileProfile>();
-				cfg.AddProfile<SettingsProfile>();
 			});
 
+			return services;
+		}
+
+		public static IServiceCollection RegisterDataBase(this IServiceCollection services)
+		{
+			services.AddDbContext<SettingsContext>(
+				opt => opt.UseSqlite(connectionString: "DataSource=./Database.db"));
+
+			
 			return services;
 		}
 	}

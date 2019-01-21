@@ -16,7 +16,7 @@ namespace UserSettings.Logic.Services
 		/// </summary>
 		/// <param name="profile"></param>
 		/// <returns></returns>
-		Task<ActionResult> UpdateProfile(Profile profile);
+		Task<ActionResult> UpdateProfile(string id, Profile profile);
 
 		/// <summary>
 		/// Обновление пароля.
@@ -25,7 +25,7 @@ namespace UserSettings.Logic.Services
 		/// <param name="newPass"></param>
 		/// <param name="confirm"></param>
 		/// <returns></returns>
-		Task<ActionResult> UpdatePassword(string current, string newPass, string confirm);
+		Task<ActionResult> UpdatePassword(string id, string current, string newPass, string confirm);
 
 		/// <summary>
 		/// Обновление почты.
@@ -36,7 +36,5 @@ namespace UserSettings.Logic.Services
 		Task<bool> UpdateEmail(string id, string email);
 
 		Task<IEnumerable<Settings>> ShowAll();
-
-		Task<Settings> Get(int id);
 	}
 }

@@ -9,14 +9,14 @@ using UserSettings.Data.Context;
 namespace UserSettings.Data.Migrations
 {
     [DbContext(typeof(SettingsContext))]
-    [Migration("20190110185651_Init")]
-    partial class Init
+    [Migration("20190121193407_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
 
             modelBuilder.Entity("UserSettings.Data.DbModels.AccountDb", b =>
                 {
@@ -62,7 +62,7 @@ namespace UserSettings.Data.Migrations
 
             modelBuilder.Entity("UserSettings.Data.DbModels.SettingsDb", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("AccountId");
