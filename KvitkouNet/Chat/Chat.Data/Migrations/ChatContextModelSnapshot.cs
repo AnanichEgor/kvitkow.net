@@ -49,7 +49,7 @@ namespace Chat.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("OwnerId");
+                    b.Property<string>("OwnerId");
 
                     b.Property<DateTime>("UpdateDate");
 
@@ -64,6 +64,8 @@ namespace Chat.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("BackgroundColor");
+
+                    b.Property<bool>("DisablePrivateMessages");
 
                     b.Property<bool>("HideChat");
 

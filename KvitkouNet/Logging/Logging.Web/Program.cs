@@ -1,11 +1,6 @@
-﻿using System;
-using System.Data;
-using System.Linq;
-using Logging.Data;
-using Logging.Data.Fakers;
+﻿using Logging.Logic.Helpers;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Logging.Web
@@ -18,21 +13,8 @@ namespace Logging.Web
 
 			using (var scope = host.Services.CreateScope())
 			{
-				var services = scope.ServiceProvider;
-				try
-				{
-					var context = services.GetRequiredService<LoggingDbContext>();
-					context.Database.Migrate();
-					if (!context.InternalErrorLogEntries.Any())
-					{
-						context.InternalErrorLogEntries.AddRange(InternalErrorLogEntryFaker.Generate());
-						context.SaveChanges();
-					}
-				}
-				catch (Exception)
-				{
-					throw new DataException("Не удалось засидать базу");
-				}
+				var serviceProvider = scope.ServiceProvider;
+				ContextInitializer.InitializeContext(serviceProvider);
 			}
 
 			host.Run();
