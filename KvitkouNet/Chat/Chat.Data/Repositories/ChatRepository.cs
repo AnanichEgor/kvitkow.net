@@ -44,6 +44,7 @@ namespace Chat.Data.Repositories
         {
             room.OwnerId = userId;
             await _context.Rooms.AddAsync(room);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<RoomDb>> SearchRoom(string template)
