@@ -1,5 +1,5 @@
-﻿using Notification.Logic.Services;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Notification.Logic.Services;
 using Notification.Data.Context;
 using Notification.Data.Helpers;
 using Notification.Logic.Services.NotificationService;

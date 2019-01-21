@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notification.Logic", "Notif
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notification.Test", "Notification.Test\Notification.Test.csproj", "{DE120D83-B765-4A93-A96C-3E69039FBAE7}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{4A342CF9-BD9C-4F4E-921D-37F8041D1930}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{DE120D83-B765-4A93-A96C-3E69039FBAE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE120D83-B765-4A93-A96C-3E69039FBAE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE120D83-B765-4A93-A96C-3E69039FBAE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A342CF9-BD9C-4F4E-921D-37F8041D1930}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A342CF9-BD9C-4F4E-921D-37F8041D1930}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A342CF9-BD9C-4F4E-921D-37F8041D1930}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A342CF9-BD9C-4F4E-921D-37F8041D1930}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

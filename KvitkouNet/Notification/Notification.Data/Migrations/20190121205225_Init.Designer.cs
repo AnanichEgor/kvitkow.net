@@ -9,14 +9,14 @@ using Notification.Data.Context;
 namespace Notification.Data.Migrations
 {
     [DbContext(typeof(NotificationContext))]
-    [Migration("20190114135409_rebuild db")]
-    partial class rebuilddb
+    [Migration("20190121205225_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
 
             modelBuilder.Entity("Notification.Data.Models.Notification", b =>
                 {

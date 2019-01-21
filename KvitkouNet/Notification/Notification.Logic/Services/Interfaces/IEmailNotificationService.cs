@@ -27,11 +27,9 @@ namespace Notification.Logic.Services
 		/// <summary>
 		/// Отправляет сообщение для подтверждения регистрации
 		/// </summary>
-		/// <param name="senderId">ИД пользователя, отправляющего соообщение</param>
-		/// <param name="email">Ящик почты</param>
-		/// <param name="notification">Уведомление</param>
+		/// <param name="sendEmailRequest">Запрос на отправку сообщения</param>
 		/// <returns></returns>
-		Task SendRegistrationNotification(string email, string senderId, NotificationMessage messsage);
+		Task SendRegistrationNotification(SendEmailRequest sendEmailRequest);
 
 		/// <summary>
 		/// Отправить email уведомление для пользователей

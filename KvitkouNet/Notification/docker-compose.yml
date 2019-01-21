@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  notification.web:
+    image: ${DOCKER_REGISTRY}notificationweb
+    build:
+      context: .
+      dockerfile: Notification.Web/Dockerfile

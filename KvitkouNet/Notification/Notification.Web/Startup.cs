@@ -3,13 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using Notification.Data.Context;
 using Notification.Logic;
 using Notification.Logic.MappingProfiles;
-using System.Linq;
-using Notification.Data.Fakers;
+using Notification.Web.Configs;
 
 namespace Notification.Web
 {
@@ -30,7 +27,7 @@ namespace Notification.Web
 				cfg.AddProfile<NotificationMessageProfile>();
 				cfg.AddProfile<UserNotificationProfile>();
 				cfg.AddProfile<EmailNotificationProfile>();				
-			});
+			});				
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

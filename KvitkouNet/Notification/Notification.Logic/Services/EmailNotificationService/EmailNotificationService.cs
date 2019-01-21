@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Notification.Data.Context;
+using Notification.Data.Models;
 using Notification.Logic.Models;
 using Notification.Logic.Models.Requests;
 
@@ -13,10 +14,12 @@ namespace Notification.Logic.Services.EmailNotificationService
 	{
 		private NotificationContext m_context;
 		private IMapper m_mapper;
+		private IEmailSenderService m_emailSenderService;
 
-		public EmailNotificationService(NotificationContext context, IMapper mapper)
+		public EmailNotificationService(NotificationContext context, IEmailSenderService emailSenderService, IMapper mapper)
 		{
 			m_context = context;
+			m_emailSenderService = emailSenderService;
 			m_mapper = mapper;
 		}
 
@@ -40,14 +43,16 @@ namespace Notification.Logic.Services.EmailNotificationService
 			throw new NotImplementedException();
 		}
 
-		public async Task SendRegistrationNotification(string email, string senderId, NotificationMessage messsage)
+		public async Task SendRegistrationNotification(SendEmailRequest sendEmailRequest)
 		{
-			throw new NotImplementedException();
+			await m_emailSenderService.SendEmailAsync(sendEmailRequest);
+
+			m_context.SaveChanges();
 		}
 
 		public void Dispose()
 		{
 			m_context.Dispose();
-		}
+		}	
 	}
 }
