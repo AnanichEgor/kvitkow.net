@@ -32,3 +32,15 @@ services:
       dockerfile: TicketManagement.Web/Dockerfile
     ports:
       - 5007:80
+    depends_on:
+      - rabbit
+
+   rabbit:
+    image: rabbitmq:management
+    ports:
+      - 4369:4369
+      - 5671:5671
+      - 5672:5672
+      - 25672:25672
+      - 15671:15671
+      - 15672:15672
