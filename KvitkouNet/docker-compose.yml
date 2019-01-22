@@ -30,6 +30,8 @@ services:
     build:
       context: TicketManagement
       dockerfile: TicketManagement.Web/Dockerfile
+    env_file:
+      - host.env
     ports:
       - 5007:80
     depends_on:
