@@ -27,6 +27,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'admin', component: AdminComponent, pathMatch: 'full' },
+      { path: '**', component: NotFoundComponent},
     ])
   ],
   providers: [],
