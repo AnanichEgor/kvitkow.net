@@ -4,7 +4,7 @@ using Security.Logic.Models;
 
 namespace Security.Logic.Tests.Comparers
 {
-    public class AccessRightComparer : Comparer<AccessRight>
+    public class AccessRightComparer : Comparer<AccessRight>, IEqualityComparer<AccessRight>
     {
         public override int Compare(AccessRight x, AccessRight y)
         {
@@ -21,6 +21,16 @@ namespace Security.Logic.Tests.Comparers
             }
 
             return string.Compare(x.Name, y.Name, StringComparison.Ordinal);
+        }
+
+        public bool Equals(AccessRight x, AccessRight y)
+        {
+            return x.Id == y.Id && x.Name == y.Name;
+        }
+
+        public int GetHashCode(AccessRight obj)
+        {
+            return obj.GetHashCode();
         }
     }
 }

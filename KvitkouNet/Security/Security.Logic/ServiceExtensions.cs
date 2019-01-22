@@ -22,6 +22,7 @@ namespace Security.Logic
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<AccessRightProfile>();
+                cfg.AddProfile<AccessFunctionProfile>();
             });
             services.AddScoped<ISecurityService>(_ => mock.Object);
             return services;

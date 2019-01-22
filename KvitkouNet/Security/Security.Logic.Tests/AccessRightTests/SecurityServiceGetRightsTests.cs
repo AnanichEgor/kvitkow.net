@@ -10,7 +10,7 @@ using Security.Logic.Services;
 using Security.Logic.Tests.Comparers;
 using Security.Logic.Tests.Fakers;
 
-namespace Security.Logic.Tests
+namespace Security.Logic.Tests.AccessRightTests
 {
     public class SecurityServiceGetRightsTests
     {
@@ -40,7 +40,7 @@ namespace Security.Logic.Tests
             var pageNumber = 1;
 
             var rights = (await _securityData.GetRights(itemsPerPage, pageNumber)).ToArray();
-            var expected = _mapper.Map<AccessRight[]>(_dbFaker.AccessRights
+            var expected = _mapper.Map<Models.AccessRight[]>(_dbFaker.AccessRights
                 .OrderBy(l => l.Name).Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage).ToArray());
 
             CollectionAssert.AreEqual(expected, rights, new AccessRightComparer());

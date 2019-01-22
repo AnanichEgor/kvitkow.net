@@ -48,33 +48,137 @@ namespace Security.Logic.Services
 
         public Task<IEnumerable<AccessRight>> GetRights(int itemsPerPage, int pageNumber, string mask = null)
         {
-            if (itemsPerPage < 1 || pageNumber < 1 || int.MaxValue / itemsPerPage < pageNumber || mask?.Trim().Length > 100)
+            try
             {
-                return Task.FromResult(new AccessRight[0].AsEnumerable());
-            }
+                if (itemsPerPage < 1 || pageNumber < 1 || int.MaxValue / itemsPerPage < pageNumber || mask?.Trim().Length > 100)
+                {
+                    return Task.FromResult(new AccessRight[0].AsEnumerable());
+                }
 
-            return Task.FromResult(_mapper.Map<AccessRight[]>(
-                _securityContext.GetRights(itemsPerPage, pageNumber, mask?.Trim())).AsEnumerable());
+                return Task.FromResult(_mapper.Map<AccessRight[]>(
+                    _securityContext.GetRights(itemsPerPage, pageNumber, mask?.Trim())).AsEnumerable());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public Task<AddRightResponse> AddRight(AccessRight right)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                if (right.Name?.Trim().Length > 100)
+                {
+                    return Task.FromResult(new AddRightResponse() { Message = "Name is longer then 100", Status = ActionStatus.Error });
+                }
+                if (_securityContext.GetRights(int.MaxValue, 1, right.Name).Any(l => l.Name.Equals(right.Name)))
+                {
+                    return Task.FromResult(new AddRightResponse() { Message = "Name already exists", Status = ActionStatus.Error });
+                }
+
+                return Task.FromResult(new AddRightResponse()
+                {
+                    Id = _securityContext.AddRight(new AccessRightDb() {Name = right.Name}),
+                    Status = ActionStatus.Success
+                });
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Task.FromResult(new AddRightResponse()
+                {
+                    Message = "Unknown error",
+                    Status = ActionStatus.Error
+                });
+            }
         }
 
         public Task<ActionResponse> DeleteRight(int rightId)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                if (rightId == 0)
+                {
+                    return Task.FromResult(new ActionResponse()
+                    {
+                        Message = "Nothing was deleted on id = 0",
+                        Status = ActionStatus.Warning
+                    });
+                }
+                _securityContext.DeleteRight(rightId);
+                
+                return Task.FromResult(new ActionResponse()
+                {
+                    Status = ActionStatus.Success
+                });
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Task.FromResult(new ActionResponse()
+                {
+                    Message = "Unknown error",
+                    Status = ActionStatus.Error
+                });
+            }
         }
 
         public Task<IEnumerable<AccessFunction>> GetFunctions(int itemsPerPage, int pageNumber, string mask = null)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                if (itemsPerPage < 1 || pageNumber < 1 || int.MaxValue / itemsPerPage < pageNumber || mask?.Trim().Length > 100)
+                {
+                    return Task.FromResult(new AccessFunction[0].AsEnumerable());
+                }
+
+                return Task.FromResult(_mapper.Map<AccessFunction[]>(
+                    _securityContext.GetFunctions(itemsPerPage, pageNumber, mask?.Trim())).AsEnumerable());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public Task<AddFunctionResponse> AddFunction(AccessFunction function)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                if (function.Name?.Trim().Length > 100)
+                {
+                    return Task.FromResult(new AddFunctionResponse() { Message = "Name is longer then 100", Status = ActionStatus.Error });
+                }
+                if (_securityContext.GetFunctions(int.MaxValue, 1, function.Name).Any(l => l.Name.Equals(function.Name)))
+                {
+                    return Task.FromResult(new AddFunctionResponse() { Message = "Name already exists", Status = ActionStatus.Error });
+                }
+
+                return Task.FromResult(new AddFunctionResponse()
+                {
+                    Id = _securityContext.AddFunction(new AccessFunctionDb()
+                    {
+                        Name = function.Name,
+                        AccessRights = _mapper.Map<List<AccessRightDb>>(function.AccessRights)
+                    }),
+                    Status = ActionStatus.Success
+                });
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Task.FromResult(new AddFunctionResponse()
+                {
+                    Message = "Unknown error",
+                    Status = ActionStatus.Error
+                });
+            }
         }
 
         public Task<ActionResponse> DeleteFunction(int functionId)
@@ -89,7 +193,21 @@ namespace Security.Logic.Services
 
         public Task<IEnumerable<Feature>> GetFeatures(int itemsPerPage, int pageNumber, string mask = null)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                if (itemsPerPage < 1 || pageNumber < 1 || int.MaxValue / itemsPerPage < pageNumber || mask?.Trim().Length > 100)
+                {
+                    return Task.FromResult(new Feature[0].AsEnumerable());
+                }
+
+                return Task.FromResult(_mapper.Map<Feature[]>(
+                    _securityContext.GetFeatures(itemsPerPage, pageNumber, mask?.Trim())).AsEnumerable());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public Task<AddFeatureResponse> AddFeature(Feature feature)
@@ -109,7 +227,21 @@ namespace Security.Logic.Services
 
         public Task<IEnumerable<Role>> GetRoles(int itemsPerPage, int pageNumber, string mask = null)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                if (itemsPerPage < 1 || pageNumber < 1 || int.MaxValue / itemsPerPage < pageNumber || mask?.Trim().Length > 100)
+                {
+                    return Task.FromResult(new Role[0].AsEnumerable());
+                }
+
+                return Task.FromResult(_mapper.Map<Role[]>(
+                    _securityContext.GetRoles(itemsPerPage, pageNumber, mask?.Trim())).AsEnumerable());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public Task<ActionResponse> AddRole(Role role)
