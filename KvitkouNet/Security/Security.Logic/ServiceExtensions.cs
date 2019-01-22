@@ -17,14 +17,13 @@ namespace Security.Logic
         /// <returns></returns>
         public static IServiceCollection RegisterSecurityService(this IServiceCollection services)
         {
-            var mock = new Mock<ISecurityService>();
             services.RegisterSecurityData();
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<AccessRightProfile>();
                 cfg.AddProfile<AccessFunctionProfile>();
             });
-            services.AddScoped<ISecurityService>(_ => mock.Object);
+            services.AddScoped<ISecurityService, SecurityService>();
             return services;
         }
     }

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using AutoMapper;
 using Security.Data.Context;
+using Security.Data.ContextModels;
 using Security.Data.Models;
 
 namespace Security.Data
@@ -9,10 +12,12 @@ namespace Security.Data
     public class SecurityData : ISecurityData
     {
         private SecurityContext _context;
+        private IMapper _mapper;
 
-        private SecurityData(SecurityContext context)
+        internal SecurityData(SecurityContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public void Dispose()
@@ -23,7 +28,18 @@ namespace Security.Data
 
         public IEnumerable<AccessRightDb> GetRights(int itemsPerPage, int pageNumber, string mask)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<IEnumerable<AccessRightDb>>(_context.AccessRights
+                .Where(l => l.Name.Contains(mask))
+                .OrderBy(l => l.Name)
+                .Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).AsEnumerable());
+        }
+
+        public int AddRight(AccessRightDb accessRight)
+        {
+            var right = _mapper.Map<AccessRight>(accessRight);
+            _context.AccessRights.Add(right);
+            _context.SaveChanges();
+            return right.Id;
         }
 
         public int AddRight(AccessRightDb right)
