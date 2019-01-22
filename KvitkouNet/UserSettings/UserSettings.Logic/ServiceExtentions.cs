@@ -25,8 +25,7 @@ namespace UserSettings.Logic
 
 			var mock = new Mock<IUserSettingsService>();
 			services.AddScoped(_ => mock.Object);
-			services.AddScoped<IValidator, AccountValidator>();
-			services.AddScoped<IValidator, ProfileValidator>();
+			services.AddScoped<IValidator, SettingsValidator>();
 			services.AddScoped<IUserSettingsService, UserSettingsService>();
 			services.AddScoped<ISettingsRepo, SettingsRepo>();
 			services.AddAutoMapper(cfg =>
@@ -35,7 +34,6 @@ namespace UserSettings.Logic
 				cfg.AddProfile<AccountProfile>();
 				cfg.AddProfile<ProfileProfile>();
 			});
-
 			return services;
 		}
 

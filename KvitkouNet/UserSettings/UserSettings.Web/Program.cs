@@ -15,7 +15,6 @@ namespace UserSettings.Web
 			o.UseSqlite("Data Source=./Database.db");
 			using (var ctx = new SettingsContext(o.Options))
 			{
-
 				ctx.Database.Migrate();
 				if (!ctx.Settings.Any())
 				{

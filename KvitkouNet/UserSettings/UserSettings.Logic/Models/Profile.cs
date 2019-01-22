@@ -6,11 +6,6 @@
 	public class Profile
 	{
 		/// <summary>
-		/// Id пользователя
-		/// </summary>
-		public string UserId { get; set; }
-
-		/// <summary>
 		/// Имя
 		/// </summary>
 		public string FirstName { get; set; }

@@ -58,10 +58,11 @@ namespace UserSettings.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> UpdateEmail([FromBody]string model, [FromRoute]string id)
 		{
-			var result = await _service.UpdateEmail(id, model);
 
+			var result = await _service.UpdateEmail(id, model);
 			return result == true ? (IActionResult)Ok(result) : BadRequest(); 
 		}
+
 		[HttpGet]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Settings>), Description = "All Ok")]
 		[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]

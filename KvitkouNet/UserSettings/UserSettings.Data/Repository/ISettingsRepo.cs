@@ -16,6 +16,6 @@ namespace UserSettings.Data
 
 		Task<IEnumerable<SettingsDb>> ShowAll();
 
-		Task<SettingsDb> Get(int id);
+		Task<bool> CheckExistEmail(string email);
 	}
 }
