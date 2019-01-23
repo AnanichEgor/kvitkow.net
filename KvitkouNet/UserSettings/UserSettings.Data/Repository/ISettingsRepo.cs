@@ -10,12 +10,18 @@ namespace UserSettings.Data
 	{
 		Task<bool> UpdateEmail(string id, string email);
 
-		Task UpdatePassword(string id, string password);
+		Task<bool> UpdatePassword(string id, string currentPass, string newPass);
 
-		Task UpdateProfile(string id, ProfileDb profile);
+		Task<bool> UpdateProfile(string id, ProfileDb profile);
 
 		Task<IEnumerable<SettingsDb>> ShowAll();
 
 		Task<bool> CheckExistEmail(string email);
+
+		Task<bool> UpdateNotifications(string id, List<string> notifications);
+
+		Task<bool> UpdatePreferences(string id, string address, string region, string place);
+
+		Task DeleteAccount(string id);
 	}
 }

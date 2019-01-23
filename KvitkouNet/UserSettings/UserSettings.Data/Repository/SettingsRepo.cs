@@ -29,7 +29,7 @@ namespace UserSettings.Data
 		public async Task<bool> UpdateEmail(string id, string email)
 		{
 			var origin = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == id);
-			_context.Accounts.Load();
+			await _context.Accounts.LoadAsync();
 			if (origin != null)
 			{
 				origin.Account.Email = email;
@@ -48,12 +48,24 @@ namespace UserSettings.Data
 				.ToListAsync();
 		}
 
-		public Task UpdatePassword(string id, string password)
+		public async Task<bool> UpdatePassword(string id, string currentPass, string newPass)
 		{
-			throw new NotImplementedException();
+			var origin = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == id);
+			await _context.Accounts.LoadAsync();
+			if (origin != null)
+			{
+				if (origin.Account.Password == currentPass)
+				{
+					origin.Account.Password = newPass;
+					await _context.SaveChangesAsync();
+					return true;
+				}
+				return false;
+			}
+			return false;
 		}
 
-		public Task UpdateProfile(string id, ProfileDb profile)
+		public Task<bool> UpdateProfile(string id, ProfileDb profile)
 		{
 			throw new NotImplementedException();
 		}
@@ -62,6 +74,21 @@ namespace UserSettings.Data
 		{
 			var	result = await _context.Accounts.FirstOrDefaultAsync(x => x.Email == email);
 			return result == null ? false : true;
+		}
+
+		public Task<bool> UpdateNotifications(string id, List<string> notifications)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<bool> UpdatePreferences(string id, string address, string region, string place)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task DeleteAccount(string id)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

@@ -25,7 +25,7 @@ namespace UserSettings.Logic.Services
 		/// <param name="newPass"></param>
 		/// <param name="confirm"></param>
 		/// <returns></returns>
-		Task<ActionResult> UpdatePassword(string id, string current, string newPass, string confirm);
+		Task<bool> UpdatePassword(string id, string current, string newPass, string confirm);
 
 		/// <summary>
 		/// Обновление почты.
@@ -47,5 +47,11 @@ namespace UserSettings.Logic.Services
 		Task SendConfirmEmail(string email, string subject, string message);
 
 		Task<bool> CheckExistEmail(string email);
+
+		Task<bool> UpdateNotifications(string id, List<string> notifications);
+
+		Task<bool> UpdatePreferences(string id, string address, string region, string place);
+
+		Task<bool> DeleteAccount(string id);
 	}
 }

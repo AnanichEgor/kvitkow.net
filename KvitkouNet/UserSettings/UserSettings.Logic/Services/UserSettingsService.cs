@@ -56,40 +56,45 @@ namespace UserSettings.Logic.Services
 
 		public async Task SendConfirmEmail(string email, string subject, string message)
 		{
-			if (!_validator.Validate(email).IsValid)
-				return;
-
-			var emailMessage = new MimeMessage();
-
-			emailMessage.From.Add(new MailboxAddress("Confirm email", "login@yandex.ru"));
-			emailMessage.To.Add(new MailboxAddress("", email));
-			emailMessage.Subject = subject;
-			emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
-			{
-				Text = message
-			};
-			using (var client = new SmtpClient())
-			{
-				await client.ConnectAsync("smtp.yandex.ru", 25, false);
-				await client.AuthenticateAsync("login@yandex.ru", "password");
-				await client.SendAsync(emailMessage);
-				await client.DisconnectAsync(true);
-			}
+			return;
 		}
 
-		public Task<ActionResult> UpdatePassword(string id, string current, string newPass, string confirm)
+		public async Task<bool> UpdatePassword(string id, string current, string newPass, string confirm)
 		{
-			throw new NotImplementedException();
+			if(String.Equals(newPass, confirm))
+			{
+				if(await _context.UpdatePassword(id, current, newPass))
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		public Task<ActionResult> UpdateProfile(string id, Models.Profile profile)
 		{
-			throw new NotImplementedException();
+			//profile.Notifications = Helpers.NotificationsDict.Where(x => x.Value).Select(x=>x.Key).ToList();
+			return null;
 		}
 
 		public async Task<bool> CheckExistEmail(string email)
 		{
 			return await _context.CheckExistEmail(email);
+		}
+
+		public async Task<bool> UpdateNotifications(string id, List<string> notifications)
+		{
+			return false;
+		}
+
+		public Task<bool> UpdatePreferences(string id, string address, string region, string place)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<bool> DeleteAccount(string id)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

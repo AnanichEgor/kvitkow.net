@@ -1,4 +1,6 @@
-﻿namespace UserSettings.Data.DbModels
+﻿using System.Collections.Generic;
+
+namespace UserSettings.Data.DbModels
 {
 	public class ProfileDb
 	{
@@ -51,5 +53,10 @@
 		/// Предпочитаемое место посещения
 		/// </summary>
 		public string PreferPlace { get; set; }
+
+		///// <summary>
+		///// Уведомления которые будут отправлятся на почту
+		///// </summary>
+		//public List<string> Notifications { get; set; }
 	}
 }
