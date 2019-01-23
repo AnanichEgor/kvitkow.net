@@ -1,35 +1,27 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
-using UserManagement.Data.DbModels;
-using UserManagement.Data.Repositories;
 using UserManagement.Logic.Models;
-
 
 namespace UserManagement.Logic.Services
 {
     class UserService : IUserService
     {
-        
-        private readonly IMapper _mapper;
-        //private readonly IValidator _validator;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public UserService(IMapper mapper, IUnitOfWork unitOfWork)//,IValidator validator ) 
+        public void Dispose()
         {
-            _mapper = mapper;
-            //_validator = validator;
-            _unitOfWork = unitOfWork;
+            GC.SuppressFinalize(this);
         }
 
-        public async Task<string> Register(UserRegisterModel model)
+        private readonly IMapper _mapper;
+        private readonly IValidator _validator;
+
+        public UserService(IMapper mapper, IValidator validator)
         {
-            //_validator.Validate(model);
-            //var res = await _unitOfWork.Accounts.AddAsync(_mapper.Map<AccountDB>(model));
-            return "";// res.Login;
+            _mapper = mapper;
+            _validator = validator;
         }
 
         public Task<string> AddGroup(GroupModel userGroupModel)
@@ -47,11 +39,8 @@ namespace UserManagement.Logic.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<ForViewModel>> GetAll()
+        public Task<IEnumerable<ForViewModel>> GetAll()
         {
-            //var res = await _unitOfWork.Users.GetAllAsync();
-            //var temp = _mapper.Map<IEnumerable<ForViewModel>>(res);
-            //return temp;
             throw new NotImplementedException();
         }
 
@@ -75,7 +64,10 @@ namespace UserManagement.Logic.Services
             throw new NotImplementedException();
         }
 
-        
+        public Task<string> Register(UserRegisterModel model)
+        {
+            throw new NotImplementedException();
+        }
 
         public Task<ForUpdateModel> UpdateByLogin(string login, ForUpdateModel userModel)
         {
@@ -86,14 +78,5 @@ namespace UserManagement.Logic.Services
         {
             throw new NotImplementedException();
         }
-
-        #region IDisposable Support
-
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-        }
-
-        #endregion
     }
 }

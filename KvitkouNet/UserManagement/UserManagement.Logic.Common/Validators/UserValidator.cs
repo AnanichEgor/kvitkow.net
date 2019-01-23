@@ -7,8 +7,8 @@ namespace UserManagement.Logic.Validators
     {
         public UserValidator()
         {
-            //RuleFor(x => x.Account)
-            //    .NotEmpty();
+            RuleFor(x => x.Account)
+                .NotEmpty();
         }
     }
 }

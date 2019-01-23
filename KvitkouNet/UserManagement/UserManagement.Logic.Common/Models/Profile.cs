@@ -29,9 +29,19 @@ namespace UserManagement.Logic.Models
         public string LastName { get; set; }
 
         /// <summary>
+        /// Список адресов пользователя 
+        /// </summary>
+        public virtual ICollection<Address> Adresses { get; set; }
+
+        /// <summary>
+        /// Список телефонов пользователя
+        /// </summary>
+        public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
+
+        /// <summary>
         /// Пол
         /// </summary>
-        public Sex Sex { get; set; }
+        public string Sex { get; set; }
 
         /// <summary>
         /// Дата рождения
@@ -59,9 +69,15 @@ namespace UserManagement.Logic.Models
         public bool IsVerified { get; set; }
 
         /// <summary>
-        /// Рейтинг пользователя
+        /// Группы, в которых состоит пользователь
         /// </summary>
-        public double Rating { get; set; }
+        public virtual ICollection<Group> UserGroups { get; set; }
+
+        /// <summary>
+        /// Роли доступа пользователя
+        /// </summary>
+        
+        public virtual ICollection<Role> UserRoles { get; set; }
 
         /// <summary>
         /// Настройки пользователя
@@ -69,14 +85,14 @@ namespace UserManagement.Logic.Models
         public ProfileSettings UserSettings { get; set; }
 
         /// <summary>
-        /// Список адресов пользователя 
+        /// Список билетов принадлежащих пользователю
         /// </summary>
-        public virtual ICollection<Address> Adresses { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
 
         /// <summary>
-        /// Список телефонов пользователя
+        /// Рейтинг пользователя
         /// </summary>
-        public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
+        public double Rating { get; set; }
     }
 }
 

@@ -6,8 +6,13 @@ using UserManagement.Data.DbModels;
 
 namespace UserManagement.Data.Repositories
 {
-    class GroupRepository : BaseRepository<GroupDB>, IGroupRepository
+    class GroupRepository : BaseRepository<GroupDB>
     {
-        public GroupRepository(UserContext db) : base(db) { }
+        protected readonly UserContext _context;
+        public GroupRepository(UserContext context)
+            : base(context)
+        {
+            _context = context;
+        }
     }
 }
