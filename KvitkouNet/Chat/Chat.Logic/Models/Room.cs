@@ -12,7 +12,7 @@ namespace Chat.Logic.Models
         /// <summary>
         /// Id создателя комнаты.
         /// </summary>
-        public int OwnerId { get; set; }
+        public string OwnerId { get; set; }
 
         /// <summary>
         /// Название комнаты.

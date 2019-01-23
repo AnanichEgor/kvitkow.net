@@ -1,0 +1,48 @@
+version: '3.4'
+
+services:
+   kvitkounet.web:
+    image: ${DOCKER_REGISTRY}kvitkounetweb
+    build:
+      context: .
+      dockerfile: KvitkouNet.Web/Dockerfile
+   
+   adminpanel.web:
+    image: ${DOCKER_REGISTRY}adminpanelweb
+    build:
+      context: AdminPanel
+      dockerfile: AdminPanel.Web/Dockerfile
+    depends_on:
+      - logging.web
+    ports:
+      - 5005:80
+    
+   logging.web:
+    image: ${DOCKER_REGISTRY}loggingweb
+    build:
+      context: Logging
+      dockerfile: Logging.Web/Dockerfile
+    ports:
+      - 5006:80
+     
+   tickets.web:
+    image: ${DOCKER_REGISTRY}ticketsweb
+    build:
+      context: TicketManagement
+      dockerfile: TicketManagement.Web/Dockerfile
+    env_file:
+      - host.env
+    ports:
+      - 5007:80
+    depends_on:
+      - rabbit
+
+   rabbit:
+    image: rabbitmq:management
+    ports:
+      - 4369:4369
+      - 5671:5671
+      - 5672:5672
+      - 25672:25672
+      - 15671:15671
+      - 15672:15672

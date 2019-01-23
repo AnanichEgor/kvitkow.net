@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using TicketManagement.Data.Context;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Data.DbModels.Enums;
+using TicketManagement.Data.Extensions;
 
 namespace TicketManagement.Data.Repositories
 {
@@ -39,10 +40,8 @@ namespace TicketManagement.Data.Repositories
         {
             var original = await _context.Tickets.FindAsync(id);
             if (original == null) return;
-            original.Name = ticket.Name;
-
-            // todo add more properties
-
+            await Delete(id);
+            _context.Tickets.Add(original.UpdateModel(ticket, id));
             await _context.SaveChangesAsync();
         }
 
@@ -52,9 +51,11 @@ namespace TicketManagement.Data.Repositories
         /// <returns></returns>
         public async Task DeleteAll()
         {
-            _context.Tickets.RemoveRange(_context.Tickets);
+            _context.Tickets.RemoveRange(_context.Tickets.Include(db => db.User)
+                .Include(db => db.LocationEvent)
+                .Include(db => db.SellerAdress)
+                .Include(db => db.RespondedUsers));
             await _context.SaveChangesAsync();
-            
         }
 
         /// <summary>
@@ -64,20 +65,17 @@ namespace TicketManagement.Data.Repositories
         /// <returns></returns>
         public async Task Delete(string id)
         {
-            var origin = await _context.Tickets.FindAsync(id);
-            
+            var origin = await _context.Tickets.Include(db => db.User)
+                .Include(db => db.LocationEvent)
+                .Include(db => db.SellerAdress)
+                .Include(db => db.RespondedUsers)
+                .SingleOrDefaultAsync(x => x.Id == id);
+
             if (origin != null)
             {
                 _context.Tickets.Remove(origin);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
-           
-            // _context.Entry(original).State = EntityState.Deleted;
-
-
-            // if (original == null) return;
-            // _context.Tickets.Remove(original);
-            //_context.SaveChanges();
         }
 
         /// <summary>
