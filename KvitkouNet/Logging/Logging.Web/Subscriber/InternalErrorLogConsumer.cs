@@ -1,12 +1,12 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using EasyNetQ.AutoSubscribe;
-using Logging.Logic.Infrastructure;
+using KvitkouNet.Logic.Common.Messages.Logging;
 using Logging.Logic.Models;
 
 namespace Logging.Web.Subscriber
 {
-	public class InternalErrorLogConsumer : IConsumeAsync<InternalErrorLogEntry>
+	public class InternalErrorLogConsumer : IConsumeAsync<InternalErrorLogEntryMessage>
 	{
 		//private readonly ILoggingService _loggingService;
 		//
@@ -34,7 +34,7 @@ namespace Logging.Web.Subscriber
 		//}
 
 		[AutoSubscriberConsumer(SubscriptionId = "ErrorLogging.Added")]
-		public Task ConsumeAsync(InternalErrorLogEntry message)
+		public Task ConsumeAsync(InternalErrorLogEntryMessage message)
 		{
 			Debug.WriteLine("111111111111111111111111111111111");
 			return Task.CompletedTask;

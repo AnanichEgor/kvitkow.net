@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\KvitkouNet.Logic.Comon\KvitkouNet.Logic.Common.csproj" />
     <ProjectReference Include="..\AdminPanel.Logic\AdminPanel.Logic.csproj" />
   </ItemGroup>
 

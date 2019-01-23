@@ -1,14 +1,14 @@
-﻿using System;
-using AdminPanel.Logic.Generated.Logging.Models;
+﻿using KvitkouNet.Logic.Common.Messages.Logging;
+using System;
 using Profile = AutoMapper.Profile;
 
 namespace AdminPanel.Logic.MappingProfiles
 {
-	public class ExceptionToInternalErrorLogProfile : Profile
+	public class ExceptionToInternalErrorLogMessageProfile : Profile
 	{
-		public ExceptionToInternalErrorLogProfile()
+		public ExceptionToInternalErrorLogMessageProfile()
 		{
-			CreateMap<Exception, InternalErrorLogEntry>()
+			CreateMap<Exception, InternalErrorLogEntryMessage>()
 				.ForMember(_ => _.Message, opts => opts.MapFrom(src => src.Message))
 				.ForMember(_ => _.HResult, opts => opts.MapFrom(src => src.HResult))
 				.ForMember(_ => _.InnerExceptionString, opts => opts.MapFrom(src => src.InnerException.ToString()))

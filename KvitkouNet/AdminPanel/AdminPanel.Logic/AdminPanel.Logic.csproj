@@ -9,4 +9,8 @@
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.18" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\KvitkouNet.Logic.Comon\KvitkouNet.Logic.Common.csproj" />
+  </ItemGroup>
+
 </Project>

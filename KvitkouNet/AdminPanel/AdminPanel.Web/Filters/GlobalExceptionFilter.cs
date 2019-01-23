@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AdminPanel.Logic.Generated.Logging.Models;
 using AutoMapper;
 using EasyNetQ;
+using KvitkouNet.Logic.Common.Messages.Logging;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AdminPanel.Web.Filters
@@ -20,7 +21,7 @@ namespace AdminPanel.Web.Filters
 
 		public override Task OnExceptionAsync(ExceptionContext context)
 		{
-			_bus.Publish(_mapper.Map<InternalErrorLogEntry>(context.Exception));
+			_bus.Publish(_mapper.Map<InternalErrorLogEntryMessage>(context.Exception));
 			return base.OnExceptionAsync(context);
 		}
 	}
