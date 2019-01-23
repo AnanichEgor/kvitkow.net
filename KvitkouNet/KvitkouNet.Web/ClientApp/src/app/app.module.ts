@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { TicketComponent } from './ticket/ticket.component';
+import { TicketFormComponent } from './ticket-form/ticket-form.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TicketComponent } from './ticket/ticket.component';
     FooterComponent,
     AdminComponent,
     NotFoundComponent,
-    TicketComponent
+    TicketComponent,
+    TicketFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -29,8 +31,9 @@ import { TicketComponent } from './ticket/ticket.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'admin', component: AdminComponent, pathMatch: 'full' },
+      { path: 'ticket/add', component: TicketFormComponent, pathMatch: 'full' },
       { path: '**', component: NotFoundComponent},
-      { path: 'ticket', component: TicketComponent, pathMatch: 'full'},
+      { path: 'ticket', component: TicketComponent, pathMatch: 'full'}
     ])
   ],
   providers: [],
