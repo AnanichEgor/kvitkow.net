@@ -34,13 +34,9 @@ namespace AdminPanel.Web.Controllers
 			{
 				res = await _errorLogService.GetErrorLogsAsync(typeName);
 			}
-			//catch (SerializationException e)
-			//{
-			//	return BadRequest($"{e.Message} : {e.Content}");
-			//}
-			catch (ArgumentException e)
+			catch (SerializationException e)
 			{
-				res = null;
+				return BadRequest($"{e.Message} : {e.Content}");
 			}
 			
 			return Ok(res);
