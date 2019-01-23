@@ -13,7 +13,8 @@ namespace Security.Data.Configuration
             featureAccessRightEntity
                 .HasOne<Feature>(bc => bc.Feature)
                 .WithMany(b => b.AvailableAccessRights)
-                .HasForeignKey(bc => bc.FeatureId).OnDelete(DeleteBehavior.SetNull);
+                .HasForeignKey(bc => bc.FeatureId)
+                .OnDelete(DeleteBehavior.SetNull);
             featureAccessRightEntity
                 .HasOne<AccessRight>(bc => bc.AccessRight)
                 .WithMany(l=>l.AvailableAccessRights)

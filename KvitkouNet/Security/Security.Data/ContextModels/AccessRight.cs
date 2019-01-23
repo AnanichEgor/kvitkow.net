@@ -27,5 +27,15 @@ namespace Security.Data.ContextModels
         /// </summary>
         public List<FeatureAccessRight> AvailableAccessRights { get; set; }
 
+        /// <summary>
+        /// Список прав
+        /// </summary>
+        public List<RoleAccessRight> Roles { get; set; }
+
+        /// <summary>
+        /// Список прав
+        /// </summary>
+        public List<UserRightsAccessRight> UserRights { get; set; }
+
     }
 }

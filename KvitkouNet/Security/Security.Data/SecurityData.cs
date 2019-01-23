@@ -54,7 +54,7 @@ namespace Security.Data
             return _mapper.Map<AccessRightDb[]>(rights);
         }
 
-        public async void DeleteRight(int rightId)
+        public async Task<bool> DeleteRight(int rightId)
         {
             var right = await _context.AccessRights.SingleOrDefaultAsync(l => l.Id == rightId);
             if (right == null)
@@ -64,6 +64,7 @@ namespace Security.Data
 
             _context.AccessRights.Remove(right);
             await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<IEnumerable<AccessFunctionDb>> GetFunctions(int itemsPerPage, int pageNumber, string mask = null)
@@ -87,7 +88,7 @@ namespace Security.Data
             return featureMapped.Id;
         }
 
-        public async void DeleteFunction(int functionId)
+        public async Task<bool> DeleteFunction(int functionId)
         {
             var function = await _context.AccessFunctions.SingleOrDefaultAsync(l => l.Id == functionId);
             if (function == null)
@@ -97,9 +98,10 @@ namespace Security.Data
 
             _context.AccessFunctions.Remove(function);
             await _context.SaveChangesAsync();
+            return true;
         }
 
-        public async void EditFunctionRights(int functionId, int[] newRights)
+        public async Task<bool> EditFunctionRights(int functionId, int[] newRights)
         {
             var functionDb = await _context.AccessFunctions
                 .Include(l=>l.AccessFunctionAccessRights)
@@ -123,6 +125,7 @@ namespace Security.Data
                     AccessFunctionId = functionDb.Id
                 }));
             await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<IEnumerable<FeatureDb>> GetFeatures(int itemsPerPage, int pageNumber, string mask = null)
@@ -141,12 +144,20 @@ namespace Security.Data
             return featureMapped.Id;
         }
 
-        public void DeleteFeature(int featureId)
+        public async Task<bool> DeleteFeature(int featureId)
         {
-            throw new NotImplementedException();
+            var feature = await _context.Features.SingleOrDefaultAsync(l => l.Id == featureId);
+            if (feature == null)
+            {
+                throw new SecurityDbException($"Function with id = {featureId} was not found");
+            }
+
+            _context.Features.Remove(feature);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
-        public async void EditFeatureRules(int featureId, int[] newRights)
+        public async Task<bool> EditFeatureRules(int featureId, int[] newRights)
         {
             var featureDb = await _context.Features
                 .Include(l=>l.AvailableAccessRights)
@@ -171,36 +182,213 @@ namespace Security.Data
                     FeatureId = featureDb.Id
                 }));
             await _context.SaveChangesAsync();
+            return true;
         }
 
-        public Task<IEnumerable<RoleDb>> GetRoles(int itemsPerPage, int pageNumber, string mask = null)
+        public async Task<IEnumerable<RoleDb>> GetRoles(int itemsPerPage, int pageNumber, string mask = null)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<IEnumerable<RoleDb>>(await _context.Roles
+                .Include(l => l.AccessRights).ThenInclude(l=>l.AccessRight)
+                .Include(l=>l.AccessFunctions).ThenInclude(l=>l.AccessFunction)
+                .Where(l => l.Name.Contains(mask))
+                .OrderBy(l => l.Name)
+                .Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync());
         }
 
-        public int AddRole(RoleDb role)
+        public async Task<int> AddRole(RoleDb role)
         {
-            throw new NotImplementedException();
+            var roleMapped = _mapper.Map<Role>(role);
+            await _context.Roles.AddAsync(roleMapped);
+            await _context.SaveChangesAsync();
+            return roleMapped.Id;
         }
 
-        public void DeleteRole(int roleId)
+        public async Task<bool> DeleteRole(int roleId)
         {
-            throw new NotImplementedException();
+            var role = await _context.Roles.SingleOrDefaultAsync(l => l.Id == roleId);
+            if (role == null)
+            {
+                throw new SecurityDbException($"Role with id = {roleId} was not found");
+            }
+
+            _context.Roles.Remove(role);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
-        public void EditRole(RoleDb role)
+        public async Task<bool> EditRoleRights(int roleId, int[] accessedRightsIds, int[] deniedRightsIds)
         {
-            throw new NotImplementedException();
+            var roleDb = await _context.Roles
+                .Include(l => l.AccessRights)
+                .SingleOrDefaultAsync(l => l.Id == roleId);
+            if (roleDb == null)
+            {
+                throw new SecurityDbException($"Role with id = {roleId} was not found");
+            }
+
+            var rights = await _context.AccessRights
+                .Where(l => accessedRightsIds.Contains(l.Id) || deniedRightsIds.Contains(l.Id)).ToArrayAsync();
+            if (rights.Length != accessedRightsIds.Length + deniedRightsIds.Length)
+            {
+                var notFound = string.Join(",",
+                    accessedRightsIds.Except(rights.Select(l => l.Id)).Select(l => l.ToString()), 
+                    deniedRightsIds.Except(rights.Select(l => l.Id)).Select(l => l.ToString()));
+
+                throw new SecurityDbException(
+                    $"Access rights with id = {notFound} was not found");
+            }
+
+            roleDb.AccessRights.AddRange(accessedRightsIds
+                .Select(l => new RoleAccessRight()
+                {
+                    AccessRightId = l,
+                    RoleId = roleDb.Id,
+                    IsDenied = false
+                }));
+            roleDb.AccessRights.AddRange(deniedRightsIds
+                .Select(l => new RoleAccessRight()
+                {
+                    AccessRightId = l,
+                    RoleId = roleDb.Id,
+                    IsDenied = true
+                }));
+            await _context.SaveChangesAsync();
+            return true;
         }
 
-        public UserRightsDb GetUserRights(string userId)
+        public async Task<bool> EditRoleFunctions(int roleId, int[] functionIds)
         {
-            throw new NotImplementedException();
+            var roleDb = await _context.Roles
+                .Include(l => l.AccessFunctions)
+                .SingleOrDefaultAsync(l => l.Id == roleId);
+            if (roleDb == null)
+            {
+                throw new SecurityDbException($"Role with id = {roleId} was not found");
+            }
+
+            var functions = await _context.AccessFunctions
+                .Where(l => functionIds.Contains(l.Id)).ToArrayAsync();
+            if (functions.Length != functionIds.Length)
+            {
+                throw new SecurityDbException(
+                    $"Access rights with id = {string.Join(",", functionIds.Except(functions.Select(l => l.Id)).Select(l => l.ToString()).ToList())} was not found");
+            }
+
+            roleDb.AccessFunctions.AddRange(functionIds
+                .Select(l => new RoleAccessFunction()
+                {
+                    AccessFunctionId = l,
+                    RoleId = roleDb.Id
+                }));
+            await _context.SaveChangesAsync();
+            return true;
         }
 
-        public void EditUserRights(UserRightsDb userRights)
+        public async Task<UserRightsDb> GetUserRights(string userId)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<UserRightsDb>(await _context.UsersRights
+                .Include(l => l.AccessRights).ThenInclude(l => l.AccessRight)
+                .Include(l => l.AccessFunctions).ThenInclude(l => l.AccessFunction)
+                .Include(l => l.Roles).ThenInclude(l => l.Role)
+                .SingleOrDefaultAsync(l => l.UserId == userId));
+        }
+
+        public async Task<bool> AddNewUserRights(UserRightsDb userRights)
+        {
+            var userRightsMapped = _mapper.Map<UserRights>(userRights);
+            await _context.UsersRights.AddAsync(userRightsMapped);
+            await _context.SaveChangesAsync();
+            await EditUserRights(
+                userRights.UserId,
+                userRights.Roles.Select(l => l.Id).ToArray(),
+                userRights.AccessFunctions.Select(l => l.Id).ToArray(),
+                userRights.AccessRights.Select(l => l.Id).ToArray(),
+                userRights.DeniedRights.Select(l => l.Id).ToArray()
+            );
+            return true;
+        }
+
+        public async Task<bool> EditUserRights(string userId, int[] roleIds, int[] functionIds, int[] accessedRightsIds, int[] deniedRightsIds)
+        {
+            var userRightsDb = await _context.UsersRights
+                .Include(l => l.AccessRights)
+                .Include(l => l.AccessFunctions)
+                .Include(l => l.Roles)
+                .SingleOrDefaultAsync(l => l.UserId == userId);
+            
+            if (userRightsDb == null)
+            {
+                throw new SecurityDbException(
+                    $"User rights with id = {userId} was not found");
+            }
+
+            var rights = await _context.AccessRights
+                .Where(l => accessedRightsIds.Contains(l.Id) || deniedRightsIds.Contains(l.Id)).ToArrayAsync();
+            if (rights.Length != accessedRightsIds.Length + deniedRightsIds.Length)
+            {
+                var notFound = string.Join(",",
+                    accessedRightsIds.Except(rights.Select(l => l.Id)).Select(l => l.ToString()),
+                    deniedRightsIds.Except(rights.Select(l => l.Id)).Select(l => l.ToString()));
+
+                throw new SecurityDbException(
+                    $"Access rights with id = {notFound} was not found");
+            }
+
+            var functions = await _context.AccessFunctions
+                .Where(l => functionIds.Contains(l.Id)).ToArrayAsync();
+            if (functions.Length != functionIds.Length)
+            {
+                var notFound = string.Join(",",
+                    functionIds.Except(functions.Select(l => l.Id)).Select(l => l.ToString()));
+
+                throw new SecurityDbException(
+                    $"Access functions with id = {notFound} was not found");
+            }
+
+            var roles = await _context.Roles
+                .Where(l => roleIds.Contains(l.Id)).ToArrayAsync();
+            if (roles.Length != roleIds.Length)
+            {
+                var notFound = string.Join(",",
+                    roleIds.Except(roles.Select(l => l.Id)).Select(l => l.ToString()));
+
+                throw new SecurityDbException(
+                    $"Roles with id = {notFound} was not found");
+            }
+
+            userRightsDb.AccessRights.RemoveAll(right => true);
+            userRightsDb.AccessFunctions.RemoveAll(right => true);
+            userRightsDb.Roles.RemoveAll(right => true);
+
+            userRightsDb.AccessRights.AddRange(accessedRightsIds
+                .Select(l => new UserRightsAccessRight
+                {
+                    AccessRightId = l,
+                    UserId = userRightsDb.UserId,
+                    IsDenied = false
+                }));
+            userRightsDb.AccessRights.AddRange(deniedRightsIds
+                .Select(l => new UserRightsAccessRight
+                {
+                    AccessRightId = l,
+                    UserId = userRightsDb.UserId,
+                    IsDenied = true
+                }));
+            userRightsDb.AccessFunctions.AddRange(functionIds
+                .Select(l => new UserRightsAccessFunction
+                {
+                    AccessFunctionId = l,
+                    UserId = userRightsDb.UserId
+                }));
+            userRightsDb.Roles.AddRange(roleIds
+                .Select(l => new UserRightsRole
+                {
+                    RoleId = l,
+                    UserId = userRightsDb.UserId
+                }));
+
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         protected virtual void Dispose(bool disposing)

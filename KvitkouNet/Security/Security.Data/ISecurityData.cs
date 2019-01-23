@@ -26,7 +26,7 @@ namespace Security.Data
         /// </summary>
         /// <param name="rightId">Идентификатор права доступа</param>
         /// <returns></returns>
-        void DeleteRight(int rightId);
+        Task<bool> DeleteRight(int rightId);
 
         /// <summary>
         /// Получение списка функций
@@ -46,7 +46,7 @@ namespace Security.Data
         /// </summary>
         /// <param name="functionId">Идентификатор функции</param>
         /// <returns></returns>
-        void DeleteFunction(int functionId);
+        Task<bool> DeleteFunction(int functionId);
 
         /// <summary>
         /// Изменение функции
@@ -54,7 +54,7 @@ namespace Security.Data
         /// <param name="functionId"></param>
         /// <param name="newRights"></param>
         /// <returns></returns>
-        void EditFunctionRights(int functionId, int[] newRights);
+        Task<bool> EditFunctionRights(int functionId, int[] newRights);
 
         /// <summary>
         /// Получение списка фич
@@ -74,7 +74,7 @@ namespace Security.Data
         /// </summary>
         /// <param name="featureId">Идентификатор фичи</param>
         /// <returns></returns>
-        void DeleteFeature(int featureId);
+        Task<bool> DeleteFeature(int featureId);
 
         /// <summary>
         /// Изменение фичи
@@ -82,7 +82,7 @@ namespace Security.Data
         /// <param name="featureId">Изменяемая фича</param>
         /// <param name="newRulesList">Новый набор правил</param>
         /// <returns></returns>
-        void EditFeatureRules(int featureId, int[] newRulesList);
+        Task<bool> EditFeatureRules(int featureId, int[] newRulesList);
 
         /// <summary>
         /// Получение списка ролей
@@ -95,34 +95,48 @@ namespace Security.Data
         /// </summary>
         /// <param name="role">Добавляемая роль</param>
         /// <returns></returns>
-        int AddRole(RoleDb role);
+        Task<int> AddRole(RoleDb role);
 
         /// <summary>
         /// Удаление роли
         /// </summary>
         /// <param name="roleId">Идентификатор роли</param>
         /// <returns></returns>
-        void DeleteRole(int roleId);
+        Task<bool> DeleteRole(int roleId);
 
         /// <summary>
         /// Изменение роли
         /// </summary>
         /// <param name="role">Изменяемая роль</param>
         /// <returns></returns>
-        void EditRole(RoleDb role);
+        Task<bool> EditRoleRights(int roleId, int[] accessedRightsIds, int[] deniedRightsIds);
+
+        /// <summary>
+        /// Изменение роли
+        /// </summary>
+        /// <param name="role">Изменяемая роль</param>
+        /// <returns></returns>
+        Task<bool> EditRoleFunctions(int roleId, int[] functionIds);
 
         /// <summary>
         /// Получение списка прав доступа пользователя
         /// </summary>
         /// <param name="userId">Идентификатор пользователя</param>
         /// <returns></returns>
-        UserRightsDb GetUserRights(string userId);
+        Task<UserRightsDb> GetUserRights(string userId);
+
+        /// <summary>
+        /// Получение списка прав доступа пользователя
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя</param>
+        /// <returns></returns>
+        Task<bool> AddNewUserRights(UserRightsDb userRights);
 
         /// <summary>
         /// Изменение прав доступа пользователя
         /// </summary>
         /// <param name="userRights">Набор прав доступа пользователя</param>
         /// <returns></returns>
-        void EditUserRights(UserRightsDb userRights);
+        Task<bool> EditUserRights(string userId, int[]roleIds, int[] functionIds, int[] accessedRightsIds, int[] deniedRightsIds);
     }
 }

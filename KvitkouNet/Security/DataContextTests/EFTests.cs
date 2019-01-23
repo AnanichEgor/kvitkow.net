@@ -38,9 +38,9 @@ namespace Tests
                 Name = "3fi"
             });
 
-            _data.EditFeatureRules(fi, new[] { 1, 2 });
-            _data.EditFeatureRules(fi2, new[] { 1, 2 });
-            _data.EditFeatureRules(fi3, new[] { 3 });
+            Assert.IsTrue(await _data.EditFeatureRules(fi, new[] { 1, 2 }));
+            Assert.IsTrue(await _data.EditFeatureRules(fi2, new[] { 1, 2 }));
+            Assert.IsTrue(await _data.EditFeatureRules(fi3, new[] { 3 }));
 
             var fu1 = await _data.AddFunction(new AccessFunctionDb()
             {
@@ -57,9 +57,42 @@ namespace Tests
                 Name = "3fu",
                 FeatureId = 3
             });
-            _data.EditFunctionRights(fu1, new[] { 1, 2 });
-            _data.EditFunctionRights(fu2, new[] { 1, 2 });
-            _data.EditFunctionRights(fu3, new[] { 3 });
+            Assert.IsTrue(await _data.EditFunctionRights(fu1, new[] { 1, 2 }));
+            Assert.IsTrue(await _data.EditFunctionRights(fu2, new[] { 1, 2 }));
+            Assert.IsTrue(await _data.EditFunctionRights(fu3, new[] { 3 }));
+
+            var r1 = await _data.AddRole(new RoleDb()
+            {
+                Name = "r1"
+            });
+            var r2 = await _data.AddRole(new RoleDb()
+            {
+                Name = "r2"
+            });
+            var r3 = await _data.AddRole(new RoleDb()
+            {
+                Name = "r3"
+            });
+
+            Assert.IsTrue(await _data.EditRoleFunctions(1, new []{1}));
+            Assert.IsTrue(await _data.EditRoleFunctions(2, new []{2}));
+
+            Assert.IsTrue(await _data.EditRoleRights(1, new []{1}, new []{2}));
+            Assert.IsTrue(await _data.EditRoleRights(2, new []{2}, new []{1}));
+            Assert.IsTrue(await _data.EditRoleRights(3, new []{3}, new int [0]));
+
+            Assert.IsTrue(await _data.AddNewUserRights(new UserRightsDb()
+            {
+                UserId = "1",
+                UserLogin = "UserLogin",
+                FirstName = "FirstName",
+                LastName = "LastName",
+                MiddleName = "MiddleName",
+                AccessRights = new List<AccessRightDb>() {new AccessRightDb(){Id = 1} },
+                DeniedRights = new List<AccessRightDb>() { new AccessRightDb() { Id = 2 } },
+                AccessFunctions = new List<AccessFunctionDb>() { new AccessFunctionDb(){Id = 1}},
+                Roles = new List<RoleDb>() { new RoleDb() { Id = 1} }
+            }));
         }
 
         [Test]
@@ -75,6 +108,18 @@ namespace Tests
             var functions = await _data.GetFunctions(10, 1, "");
             Assert.IsTrue(functions.Count() == 3);
             Assert.IsTrue(functions.SelectMany(l => l.AccessRights).Count() == 5);
+
+            var roles = await _data.GetRoles(10, 1, "");
+            Assert.IsTrue(roles.Count() == 3);
+            Assert.IsTrue(roles.SelectMany(l => l.AccessRights).Count() == 3);
+            Assert.IsTrue(roles.SelectMany(l => l.DeniedRights).Count() == 2);
+            Assert.IsTrue(roles.SelectMany(l => l.AccessFunctions).Count() == 2);
+
+            var userRights = await _data.GetUserRights("1");
+            Assert.IsTrue(userRights.AccessRights.Count() == 1);
+            Assert.IsTrue(userRights.DeniedRights.Count() == 1);
+            Assert.IsTrue(userRights.AccessFunctions.Count() == 1);
+            Assert.IsTrue(userRights.Roles.Count() == 1);
 
         }
     }

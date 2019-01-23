@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,7 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
         public async Task<IActionResult> AddRight([FromBody]AccessRight right)
         {
-            var result = _securityService.AddRight(right);
+            var result = _securityService.AddRights(new[] {right});
             return Ok(await result);
         }
 
@@ -124,7 +125,7 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
         public async Task<IActionResult> EditFeature([FromBody]Feature feature)
         {
-            var result = _securityService.EditFeature(TODO, TODO);
+            var result = _securityService.EditFeature(feature.Id, feature.AvailableAccessRights.Select(l=>l.Id).ToArray());
             return Ok(await result);
         }
 
