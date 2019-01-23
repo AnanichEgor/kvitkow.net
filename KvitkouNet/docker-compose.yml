@@ -10,8 +10,8 @@ services:
    adminpanel.web:
     image: ${DOCKER_REGISTRY}adminpanelweb
     build:
-      context: AdminPanel
-      dockerfile: AdminPanel.Web/Dockerfile
+      context: ./
+      dockerfile: AdminPanel/AdminPanel.Web/Dockerfile
     depends_on:
       - logging.web
       - rabbit
@@ -21,8 +21,8 @@ services:
    logging.web:
     image: ${DOCKER_REGISTRY}loggingweb
     build:
-      context: Logging
-      dockerfile: Logging.Web/Dockerfile
+      context: ./
+      dockerfile: Logging/Logging.Web/Dockerfile
     depends_on:
       - rabbit
     ports:

@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using EasyNetQ.AutoSubscribe;
@@ -36,7 +37,7 @@ namespace Logging.Web.Subscriber
 		[AutoSubscriberConsumer(SubscriptionId = "ErrorLogging.Added")]
 		public Task ConsumeAsync(InternalErrorLogEntryMessage message)
 		{
-			Debug.WriteLine("111111111111111111111111111111111");
+			//throw new NotImplementedException("subscription works");
 			return Task.CompletedTask;
 		}
 	}

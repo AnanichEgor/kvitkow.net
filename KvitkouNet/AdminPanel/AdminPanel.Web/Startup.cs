@@ -44,7 +44,7 @@ namespace AdminPanel.Web
 			services.RegisterLoggingService();
 			services.RegisterFilters();
 
-			services.AddSingleton(RabbitHutch.CreateBus("host=localhost"));
+			services.AddSingleton(RabbitHutch.CreateBus("host=rabbit"));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

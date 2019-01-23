@@ -40,7 +40,7 @@ namespace Logging.Web
 
 			services.AddSwaggerDocument();
 
-			services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=localhost"));
+			services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=rabbit"));
 
 			services.RegisterLoggingService();
 			services.RegisterValidators();
