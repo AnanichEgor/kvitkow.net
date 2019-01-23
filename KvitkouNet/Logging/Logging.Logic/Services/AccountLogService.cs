@@ -7,18 +7,15 @@ using Logging.Data.DbModels;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
 using Logging.Logic.Models.Filters;
+using Logging.Logic.Services.Abstraction;
 
 namespace Logging.Logic.Services
 {
-    public class AccountLogService : IAccountLogService
+    public class AccountLogService : BaseService, IAccountLogService
     {
-        protected readonly LoggingDbContext Context;
-        protected readonly IMapper Mapper;
-
-        public AccountLogService(LoggingDbContext context, IMapper mapper)
+        public AccountLogService(LoggingDbContext context, IMapper mapper) 
+            : base(context, mapper)
         {
-            Context = context;
-            Mapper = mapper;
         }
 
         public Task<IEnumerable<AccountLogEntry>> GetLogsAsync(AccountLogsFilter filter)
@@ -33,11 +30,6 @@ namespace Logging.Logic.Services
             Context.AccountLogEntries.Add(dbModel);
 
             await Context.SaveChangesAsync().ConfigureAwait(false);
-        }
-
-        public void Dispose()
-        {
-            Context.Dispose();
         }
     }
 }

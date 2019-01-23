@@ -17,7 +17,8 @@ namespace Logging.Web.Controllers
 	public class ErrorLogController : Controller
 	{
 		private readonly IErrorLogService _loggingService;
-		private readonly IValidator<ErrorLogsFilter> _errorLogsFilterValidator;
+	    private bool _disposed;
+        private readonly IValidator<ErrorLogsFilter> _errorLogsFilterValidator;
 
 		public ErrorLogController(IErrorLogService loggingService, IValidator<ErrorLogsFilter> errorLogsFilterValidator)
 		{
@@ -46,5 +47,22 @@ namespace Logging.Web.Controllers
 			var result = await _loggingService.GetLogsAsync(filter);
 			return Ok(result);
 		}
-	}
+
+	    protected override void Dispose(bool disposing)
+	    {
+	        if (_disposed)
+	        {
+	            return;
+	        }
+
+	        if (disposing)
+	        {
+	            _loggingService?.Dispose();
+	        }
+
+	        _disposed = true;
+
+	        base.Dispose(disposing);
+	    }
+    }
 }

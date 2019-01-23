@@ -13,6 +13,7 @@ namespace Logging.Web.Controllers
     public class TicketActionLogController : Controller
     {
         private readonly ITicketLogService _loggingService;
+        private bool _disposed;
 
         public TicketActionLogController(ITicketLogService loggingService)
         {
@@ -39,6 +40,23 @@ namespace Logging.Web.Controllers
 
             var result = await _loggingService.GetLogsAsync(filter);
             return Ok(result);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                _loggingService?.Dispose();
+            }
+
+            _disposed = true;
+
+            base.Dispose(disposing);
         }
     }
 }

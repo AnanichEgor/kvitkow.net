@@ -7,18 +7,15 @@ using Logging.Data.DbModels;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
 using Logging.Logic.Models.Filters;
+using Logging.Logic.Services.Abstraction;
 
 namespace Logging.Logic.Services
 {
-    public class PaymentLogService : IPaymentLogService
+    public class PaymentLogService : BaseService, IPaymentLogService
     {
-        protected readonly LoggingDbContext Context;
-        protected readonly IMapper Mapper;
-
-        public PaymentLogService(LoggingDbContext context, IMapper mapper)
+        public PaymentLogService(LoggingDbContext context, IMapper mapper) 
+            : base(context, mapper)
         {
-            Context = context;
-            Mapper = mapper;
         }
 
         public Task<IEnumerable<PaymentLogEntry>> GetLogsAsync(PaymentLogsFilter filter)
@@ -33,11 +30,6 @@ namespace Logging.Logic.Services
             Context.PaymentLogEntries.Add(dbModel);
 
             await Context.SaveChangesAsync().ConfigureAwait(false);
-        }
-
-        public void Dispose()
-        {
-            Context.Dispose();
         }
     }
 }

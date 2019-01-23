@@ -7,18 +7,15 @@ using Logging.Data.DbModels;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
 using Logging.Logic.Models.Filters;
+using Logging.Logic.Services.Abstraction;
 
 namespace Logging.Logic.Services
 {
-    public class TicketLogService : ITicketLogService
+    public class TicketLogService : BaseService, ITicketLogService
     {
-        protected readonly LoggingDbContext Context;
-        protected readonly IMapper Mapper;
-
-        public TicketLogService(LoggingDbContext context, IMapper mapper)
+        public TicketLogService(LoggingDbContext context, IMapper mapper) 
+            : base(context, mapper)
         {
-            Context = context;
-            Mapper = mapper;
         }
 
         public Task<IEnumerable<TicketActionLogEntry>> GetLogsAsync(TicketLogsFilter filter)
@@ -33,11 +30,6 @@ namespace Logging.Logic.Services
             Context.TicketActionLogEntries.Add(dbModel);
 
             await Context.SaveChangesAsync().ConfigureAwait(false);
-        }
-
-        public void Dispose()
-        {
-            Context.Dispose();
         }
     }
 }
