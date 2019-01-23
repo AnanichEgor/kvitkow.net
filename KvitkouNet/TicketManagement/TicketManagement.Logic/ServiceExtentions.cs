@@ -25,7 +25,7 @@ namespace TicketManagement.Logic
 
             // services.AddScoped(_ => TicketServiceMock().Object);
 
-            services.AddScoped<IValidator<Ticket>, TicketValidator>();
+            //services.AddScoped<IValidator<Ticket>, TicketValidator>();
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<ITicketService, TicketService>();
             services.AddAutoMapper(cfg =>

@@ -1,8 +1,4 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UserManagement.Data.DbModels;
+﻿using UserManagement.Data.DbModels;
 using UserManagement.Logic.Models;
 
 namespace UserManagement.Logic.MappingProfiles
@@ -11,10 +7,12 @@ namespace UserManagement.Logic.MappingProfiles
     {
         public UserProfile()
         {
-            //CreateMap<User, UserDB>()
-            //    .ForMember(x => x.Account.UserId,
-            //        opt => opt.MapFrom(_ => _.Account))
-            //    .ReverseMap();
+            CreateMap<User, UserDB>()
+                .ForMember(x => x.AccountDB,
+                    opt => opt.MapFrom(_ => _.Account))
+                .ForMember(x => x.ProfileDB,
+                    opt => opt.MapFrom(_ => _.Profile))
+                .ReverseMap();
         }
     }
 }

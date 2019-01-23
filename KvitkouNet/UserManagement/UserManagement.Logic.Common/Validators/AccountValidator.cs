@@ -3,11 +3,11 @@ using UserManagement.Logic.Models;
 
 namespace UserManagement.Logic.Validators
 {
-    public class UserValidator : AbstractValidator<User>
+    public class AccountValidator : AbstractValidator<Account>
     {
-        public UserValidator()
+        public AccountValidator()
         {
-            //RuleFor(x => x.Account)
+            //RuleFor(x => x.Email)
             //    .NotEmpty();
         }
     }
