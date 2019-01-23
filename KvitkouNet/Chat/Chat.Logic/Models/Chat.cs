@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Chat.Logic.Models.ChatSettings;
 
 namespace Chat.Logic.Models
 {

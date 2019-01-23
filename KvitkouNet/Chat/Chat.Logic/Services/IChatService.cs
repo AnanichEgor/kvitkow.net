@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Chat.Logic.Models;
-using Chat.Logic.Models.ChatSettings;
 
 namespace Chat.Logic.Services
 {
@@ -43,13 +42,13 @@ namespace Chat.Logic.Services
         /// Поиск комнаты по названию
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Message>> SearchRoom(string template);
+        Task<IEnumerable<Room>> SearchRoom(string template);
 
         /// <summary>
         /// Получение сообщений из комнаты, согласно ограничению по истории
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Message>> GetMessagesFromTheRoom(string id);
+        Task<IEnumerable<Message>> GetMessages(string roomId, string userId);
 
         /// <summary>
         /// Поиск сообщения в комнате
@@ -79,6 +78,6 @@ namespace Chat.Logic.Services
         /// <summary>
         /// Проставить признак прочитанного сообщения
         /// </summary>
-        Task EditSettingsForMessage(string roomId, string messageId);
+        Task EditSettingIsReeadForMessage(string roomId, string messageId);
     }
 }

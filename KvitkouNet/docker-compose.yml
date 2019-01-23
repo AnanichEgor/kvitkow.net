@@ -27,6 +27,18 @@ services:
       - rabbit
     ports:
       - 5006:80
+     
+   tickets.web:
+    image: ${DOCKER_REGISTRY}ticketsweb
+    build:
+      context: TicketManagement
+      dockerfile: TicketManagement.Web/Dockerfile
+    env_file:
+      - host.env
+    ports:
+      - 5007:80
+    depends_on:
+      - rabbit
 
    rabbit:
     image: rabbitmq:management
