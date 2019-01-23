@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using TicketManagement.Data.Context;
 using TicketManagement.Data.Fakes;
 
@@ -23,12 +24,19 @@ namespace TicketManagement.Web
                 }
             }
 
-            CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args)
+                .Build()
+                .Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-            return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+            return WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(b => b.AddJsonFile("appsettings.json",
+                    true,
+                    true))
+                .ConfigureAppConfiguration(builder => builder.AddEnvironmentVariables())
+                .UseStartup<Startup>();
         }
     }
 }
