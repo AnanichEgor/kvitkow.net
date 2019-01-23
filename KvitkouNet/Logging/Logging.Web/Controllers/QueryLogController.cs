@@ -9,6 +9,9 @@ using NSwag.Annotations;
 
 namespace Logging.Web.Controllers
 {
+    /// <summary>
+    /// Контроллер для работы с логами поисковых запросов
+    /// </summary>
     [Route("api/logs/queries")]
     public class QueryLogController : Controller
     {
@@ -21,7 +24,7 @@ namespace Logging.Web.Controllers
         }
 
         /// <summary>
-        /// Получает логи поисковых запросов пользователей
+        /// Получает логи поисковых запросов пользователей по фильтру
         /// </summary>
         /// <param name="filter">Фильтр логов по поисковым запросам</param>
         /// <returns></returns>

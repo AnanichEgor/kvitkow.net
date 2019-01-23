@@ -11,7 +11,7 @@ using NSwag.Annotations;
 namespace Logging.Web.Controllers
 {
 	/// <summary>
-	/// Контроллер, отвечающий за получение логов об ошибках
+	/// Контроллер для работы с логами об ошибках
 	/// </summary>
 	[Route("api/logs/errors")]
 	public class ErrorLogController : Controller
@@ -27,7 +27,7 @@ namespace Logging.Web.Controllers
 		}
 
 		/// <summary>
-		/// Получает логи ошибок сервера
+		/// Получает логи ошибок сервера по фильтру
 		/// </summary>
 		/// <param name="filter">Фильтр логов ошибок сервера</param>
 		/// <returns></returns>

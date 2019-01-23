@@ -9,6 +9,9 @@ using NSwag.Annotations;
 
 namespace Logging.Web.Controllers
 {
+    /// <summary>
+    /// Контроллер для работы с логами о действиях с билетами
+    /// </summary>
     [Route("api/logs/tickets")]
     public class TicketActionLogController : Controller
     {
@@ -21,7 +24,7 @@ namespace Logging.Web.Controllers
         }
 
         /// <summary>
-        /// Получает логи действий с билетами
+        /// Получает логи действий с билетами по фильтру
         /// </summary>
         /// <param name="filter">Фильтр логов по билетам</param>
         /// <returns></returns>

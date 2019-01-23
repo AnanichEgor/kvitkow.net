@@ -9,6 +9,9 @@ using NSwag.Annotations;
 
 namespace Logging.Web.Controllers
 {
+    /// <summary>
+    /// Контроллер для работы с логами о платежах
+    /// </summary>
     [Route("api/logs/payments")]
     public class PaymentLogController : Controller
     {
@@ -21,7 +24,7 @@ namespace Logging.Web.Controllers
         }
 
         /// <summary>
-        /// Получает логи платежных операций
+        /// Получает логи платежных операций по фильтру
         /// </summary>
         /// <param name="filter">Фильтр логов по платежным операциям</param>
         /// <returns></returns>
