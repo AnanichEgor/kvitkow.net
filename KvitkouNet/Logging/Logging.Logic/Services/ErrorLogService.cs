@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Logging.Data;
+using Logging.Data.DbModels;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
 using Logging.Logic.Models.Filters;
@@ -22,13 +23,18 @@ namespace Logging.Logic.Services
 
         public async Task<IEnumerable<InternalErrorLogEntry>> GetLogsAsync(ErrorLogsFilter filter)
         {
-            return Mapper.Map<InternalErrorLogEntry[]>(await Context.InternalErrorLogEntries.AsNoTracking().ToArrayAsync());
+            var dbModels = await Context.InternalErrorLogEntries.ToListAsync().ConfigureAwait(false);
+
+            return Mapper.Map<IEnumerable<InternalErrorLogEntry>>(dbModels);
         }
 
         public async Task AddLogAsync(InternalErrorLogEntry entry)
         {
-            await Context.AddAsync(entry);
-            await Context.SaveChangesAsync();
+            var dbModel = Mapper.Map<InternalErrorLogEntryDbModel>(entry);
+
+            Context.InternalErrorLogEntries.Add(dbModel);
+
+            await Context.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public void Dispose()

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Logging.Data;
+using Logging.Data.DbModels;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
 using Logging.Logic.Models.Filters;
@@ -11,10 +13,12 @@ namespace Logging.Logic.Services
     public class AccountLogService : IAccountLogService
     {
         protected readonly LoggingDbContext Context;
+        protected readonly IMapper Mapper;
 
-        public AccountLogService(LoggingDbContext context)
+        public AccountLogService(LoggingDbContext context, IMapper mapper)
         {
             Context = context;
+            Mapper = mapper;
         }
 
         public Task<IEnumerable<AccountLogEntry>> GetLogsAsync(AccountLogsFilter filter)
@@ -22,9 +26,13 @@ namespace Logging.Logic.Services
             throw new NotImplementedException();
         }
 
-        public Task AddLogAsync(AccountLogEntry entry)
+        public async Task AddLogAsync(AccountLogEntry entry)
         {
-            throw new NotImplementedException();
+            var dbModel = Mapper.Map<AccountLogEntryDbModel>(entry);
+
+            Context.AccountLogEntries.Add(dbModel);
+
+            await Context.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public void Dispose()
