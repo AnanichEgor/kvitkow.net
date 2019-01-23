@@ -10,6 +10,7 @@ import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { TicketComponent } from './ticket/ticket.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MenuComponent,
     FooterComponent,
     AdminComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    TicketComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,6 +30,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'admin', component: AdminComponent, pathMatch: 'full' },
       { path: '**', component: NotFoundComponent},
+      { path: 'ticket', component: TicketComponent, pathMatch: 'full'},
     ])
   ],
   providers: [],
