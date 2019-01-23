@@ -5,6 +5,7 @@ using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using Security.Data;
+using Security.Data.Exceptions;
 using Security.Data.Models;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models.Enums;
@@ -29,15 +30,54 @@ namespace Security.Logic.Tests.AccessRightTests
             _mock = new Mock<ISecurityData>();
             _mock.Setup(x => x.GetRights(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
                 .Returns((int i, int p, string m) =>
-                    _dbFaker.AccessRights.Where(l => string.IsNullOrEmpty(m) || l.Name.Contains(m))
-                        .OrderBy(l => l.Name).Skip((p - 1) * i).Take(i));
-            _mock.Setup(x => x.AddRight(It.Is<AccessRightDb>(right => right.Id == 0)))
-                .Returns(() => _dbFaker.AccessRights.Max(l=>l.Id) + 1);
-            _mock.Setup(x => x.AddRight(It.Is<AccessRightDb>(right => right.Id != 0 && _dbFaker.AccessRights.All(l => l.Id != right.Id))))
-                .Returns<AccessRightDb>(right => right.Id);
-            _mock.Setup(x => x.AddRight(It.Is<AccessRightDb>(right => right.Id != 0 && _dbFaker.AccessRights.Any(l => l.Id == right.Id))))
-                .Returns(() => throw new InvalidOperationException());
-            _mock.Setup(x => x.AddRight(It.Is<AccessRightDb>(right => right.Name == "Error!")))
+                    Task.FromResult(
+                        _dbFaker.AccessRights.Where(l => string.IsNullOrEmpty(m) || l.Name.Contains(m))
+                        .OrderBy(l => l.Name).Skip((p - 1) * i).Take(i)));
+            //Id == 0
+            _mock.Setup(x => x.AddRights(
+                    It.Is<AccessRightDb[]>(right => right.Length == 1 && right[0].Id == 0)))
+                .Returns(() =>
+                {
+                    Console.WriteLine("Id == 0");
+                    return Task.FromResult(new AccessRightDb[]
+                    {
+                        new AccessRightDb()
+                        {
+                            Id = _dbFaker.AccessRights.OrderBy(l => l.Id).Last().Id + 1
+                        }
+                    });
+                });
+            //Id != 0
+            _mock.Setup(x => x.AddRights(
+                It.Is<AccessRightDb[]>(right => right.Length == 1 
+                       && right[0].Id != 0 && _dbFaker.AccessRights.All(l => l.Id != right[0].Id))))
+                .Returns<AccessRightDb[]>(right =>
+                {
+                    Console.WriteLine("Id != 0");
+                    return Task.FromResult(right);
+                });
+            //Id == existed
+            _mock.Setup(x => x.AddRights(
+                It.Is<AccessRightDb[]>(right => right.Length == 1 && right[0].Id != 0
+                    && _dbFaker.AccessRights.Any(l => l.Id == right[0].Id))))
+                .Returns(() =>
+                {
+                    Console.WriteLine("Id == existed");
+                    throw new InvalidOperationException();
+                });
+            //Name == existed
+            _mock.Setup(x => x.AddRights(
+                It.Is<AccessRightDb[]>(right => right.Length == 1
+                    && _dbFaker.AccessRights.Any(l => l.Name == right[0].Name))))
+                .Returns<AccessRightDb[]>(rights =>
+                {
+                    Console.WriteLine("Name == existed");
+                    throw new SecurityDbException(
+                            $"Names {string.Join(",", rights.Select(l => l.Name))} already exist");
+                });
+            //Some other error
+            _mock.Setup(x => x.AddRights(
+                It.Is<AccessRightDb[]>(right => right.Length == 1 && right[0].Name == "Error!")))
                 .Returns(() => throw new Exception());
 
             _securityData = new SecurityService(_mock.Object, _mapper);
@@ -52,12 +92,14 @@ namespace Security.Logic.Tests.AccessRightTests
                 Name = "NormalName"
             };
 
-            var rights = await _securityData.AddRight(right);
-            var expected = _dbFaker.AccessRights.Max(l => l.Id) + 1;
+            var rights = await _securityData.AddRights(new[] {right});
+            var expected = _dbFaker.AccessRights.OrderBy(l => l.Id).Last();
 
             Assert.AreEqual(ActionStatus.Success, rights.Status);
-            Assert.AreEqual(expected, rights.Id);
-            _mock.Verify(data => data.AddRight(It.Is<AccessRightDb>(db => db.Id == 0 && db.Name.Equals(right.Name))), () => Times.Exactly(1));
+            Assert.AreEqual(expected.Id + 1, rights.AccessRights.SingleOrDefault().Id);
+            _mock.Verify(
+                data => data.AddRights(It.Is<AccessRightDb[]>(db =>
+                    db.Length == 1 && db[0].Id == 0 && db[0].Name.Equals(right.Name))), () => Times.Exactly(1));
         }
 
         [Test]
@@ -70,30 +112,30 @@ namespace Security.Logic.Tests.AccessRightTests
                 Name = "NormalName"
             };
 
-            var rights = await _securityData.AddRight(right);
+            var rights = await _securityData.AddRights(new[] { right });
             var expected = _dbFaker.AccessRights.Max(l => l.Id) + 1;
 
             Assert.AreEqual(ActionStatus.Success, rights.Status);
-            Assert.AreEqual(expected, rights.Id);
-            _mock.Verify(data => data.AddRight(It.Is<AccessRightDb>(db => db.Id == 0 && db.Name.Equals(right.Name))), () => Times.Exactly(1));
+            Assert.AreEqual(expected, rights.AccessRights.SingleOrDefault().Id);
+            _mock.Verify(data => data.AddRights(It.Is<AccessRightDb[]>(db => db.Length == 1 && db[0].Id == 0 && db[0].Name.Equals(right.Name))), () => Times.Exactly(1));
         }
 
         [Test]
         public async Task AddRightExistedId()
         {
-            var existedId = _dbFaker.AccessRights.FirstOrDefault()?.Id??0;
+            var existedId = _dbFaker.AccessRights.Last()?.Id??0;
             var right = new Models.AccessRight
             {
                 Id = existedId,
                 Name = "NormalName"
             };
 
-            var rights = await _securityData.AddRight(right);
+            var rights = await _securityData.AddRights(new[] { right });
             var expected = _dbFaker.AccessRights.Max(l => l.Id) + 1;
 
             Assert.AreEqual(ActionStatus.Success, rights.Status);
-            Assert.AreEqual(expected, rights.Id);
-            _mock.Verify(data => data.AddRight(It.Is<AccessRightDb>(db => db.Id == 0 && db.Name.Equals(right.Name))), () => Times.Exactly(1));
+            Assert.AreEqual(expected, rights.AccessRights.SingleOrDefault().Id);
+            _mock.Verify(data => data.AddRights(It.Is<AccessRightDb[]>(db => db.Length == 1 && db[0].Id == 0 && db[0].Name.Equals(right.Name))), () => Times.Exactly(1));
         }
 
         [Test]
@@ -106,12 +148,12 @@ namespace Security.Logic.Tests.AccessRightTests
                 Name = existedName
             };
 
-            var rights = await _securityData.AddRight(right);
-            var expectedMessage = "Name already exists";
+            var rights = await _securityData.AddRights(new[] { right });
+            var expectedMessage = $"Names {existedName} already exist";
 
             Assert.AreEqual(ActionStatus.Error, rights.Status);
             Assert.AreEqual(expectedMessage, rights.Message);
-            _mock.Verify(data => data.AddRight(It.IsAny<AccessRightDb>()), () => Times.Exactly(0));
+            _mock.Verify(data => data.AddRights(new[] {It.IsAny<AccessRightDb>()}), () => Times.Exactly(0));
         }
 
         [Test]
@@ -123,12 +165,12 @@ namespace Security.Logic.Tests.AccessRightTests
                 Name = "In the fields of physical security and information security, access control(AC) is the selective restriction of access to a place or other resource"
             };
 
-            var rights = await _securityData.AddRight(right);
+            var rights = await _securityData.AddRights(new[] { right });
             var expectedMessage = "Name is longer then 100";
 
             Assert.AreEqual(ActionStatus.Error, rights.Status);
             Assert.AreEqual(expectedMessage, rights.Message);
-            _mock.Verify(data => data.AddRight(It.IsAny<AccessRightDb>()), () => Times.Exactly(0));
+            _mock.Verify(data => data.AddRights(new[] {It.IsAny<AccessRightDb>()}), () => Times.Exactly(0));
         }
 
         [Test]
@@ -140,12 +182,12 @@ namespace Security.Logic.Tests.AccessRightTests
                 Name = "Error!"
             };
 
-            var rights = await _securityData.AddRight(right);
+            var rights = await _securityData.AddRights(new[] { right });
             var expectedMessage = "Unknown error";
 
             Assert.AreEqual(ActionStatus.Error, rights.Status);
             Assert.AreEqual(expectedMessage, rights.Message);
-            _mock.Verify(data => data.AddRight(It.Is<AccessRightDb>(db => db.Id == 0 && db.Name.Equals(right.Name))), () => Times.Exactly(1));
+            _mock.Verify(data => data.AddRights(It.Is<AccessRightDb[]>(db => db.Length == 1 && db[0].Id == 0 && db[0].Name.Equals(right.Name))), () => Times.Exactly(1));
         }
     }
 }

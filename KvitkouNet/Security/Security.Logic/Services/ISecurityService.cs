@@ -20,14 +20,14 @@ namespace Security.Logic.Services
         Task<IEnumerable<AccessRight>> GetRights(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
-        /// Добавление права доступа
+        /// Добавление прав доступа
         /// </summary>
-        /// <param name="right">Добавляемое право доступа</param>
+        /// <param name="rights">Добавляемое право доступа</param>
         /// <returns></returns>
-        Task<AddRightResponse> AddRight(AccessRight right);
+        Task<AddRightResponse> AddRights(AccessRight[] rights);
 
         /// <summary>
-        /// Удаление права доступа
+        /// Удаление прав доступа
         /// </summary>
         /// <param name="rightId">Идентификатор права доступа</param>
         /// <returns></returns>
@@ -83,9 +83,10 @@ namespace Security.Logic.Services
         /// <summary>
         /// Изменение фичи
         /// </summary>
-        /// <param name="feature">Изменяемая фича</param>
+        /// <param name="featureId">Изменяемая фича</param>
+        /// <param name="newRightId">Новый набор прав</param>
         /// <returns></returns>
-        Task<ActionResponse> EditFeature(Feature feature);
+        Task<ActionResponse> EditFeature(int featureId, int[] newRightId);
 
         /// <summary>
         /// Получение списка ролей

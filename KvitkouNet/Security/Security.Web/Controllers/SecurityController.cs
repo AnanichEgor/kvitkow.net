@@ -124,7 +124,7 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
         public async Task<IActionResult> EditFeature([FromBody]Feature feature)
         {
-            var result = _securityService.EditFeature(feature);
+            var result = _securityService.EditFeature(TODO, TODO);
             return Ok(await result);
         }
 

@@ -8,6 +8,6 @@
         /// <summary>
         /// Идентификатор права доступа
         /// </summary>
-        public int Id { get; set; }
+        public AccessRight[] AccessRights { get; set; }
     }
 }

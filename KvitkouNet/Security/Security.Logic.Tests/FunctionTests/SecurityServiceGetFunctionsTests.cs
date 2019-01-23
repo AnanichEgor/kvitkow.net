@@ -33,8 +33,8 @@ namespace Security.Logic.Tests.FunctionTests
             _mock = new Mock<ISecurityData>();
             _mock.Setup(x => x.GetFunctions(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
                 .Returns((int i, int p, string m) =>
-                    _dbFaker.Functions.Where(l => string.IsNullOrEmpty(m) || l.Name.Contains(m))
-                        .OrderBy(l => l.Name).Skip((p - 1) * i).Take(i));
+                    Task.FromResult(_dbFaker.Functions.Where(l => string.IsNullOrEmpty(m) || l.Name.Contains(m))
+                        .OrderBy(l => l.Name).Skip((p - 1) * i).Take(i)));
             _securityData = new SecurityService(_mock.Object, _mapper);
         }
         
@@ -44,7 +44,7 @@ namespace Security.Logic.Tests.FunctionTests
             var itemsPerPage = 10;
             var pageNumber = 1;
 
-            var rights = (await _securityData.GetFunctions(itemsPerPage, pageNumber)).ToArray();
+            var rights = await _securityData.GetFunctions(itemsPerPage, pageNumber);
             var expected = _mapper.Map<AccessFunction[]>(_dbFaker.Functions
                 .OrderBy(l => l.Name).Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage).ToArray());
 

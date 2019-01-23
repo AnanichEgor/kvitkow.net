@@ -1,4 +1,6 @@
-﻿namespace Security.Data.ContextModels
+﻿using System.Collections.Generic;
+
+namespace Security.Data.ContextModels
 {
     /// <summary>
     /// Право доступа
@@ -14,5 +16,16 @@
         /// Имя права доступа
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Список прав предоставляемых функцией
+        /// </summary>
+        public List<AccessFunctionAccessRight> AccessFunctionAccessRights { get; set; }
+
+        /// <summary>
+        /// Список прав предоставляемых фичей
+        /// </summary>
+        public List<FeatureAccessRight> AvailableAccessRights { get; set; }
+
     }
 }

@@ -16,7 +16,8 @@ namespace Security.Data.Configuration
                 .HasForeignKey(bc => bc.FeatureId).OnDelete(DeleteBehavior.SetNull);
             featureAccessRightEntity
                 .HasOne<AccessRight>(bc => bc.AccessRight)
-                .WithOne()
+                .WithMany(l=>l.AvailableAccessRights)
+                .HasForeignKey(l=>l.AccessRightId)
                 .OnDelete(DeleteBehavior.SetNull);
         }
     }

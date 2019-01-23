@@ -6,6 +6,7 @@ using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using Security.Data;
+using Security.Data.Exceptions;
 using Security.Data.Models;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models;
@@ -35,12 +36,16 @@ namespace Security.Logic.Tests.FunctionTests
             _mock = new Mock<ISecurityData>();
             _mock.Setup(x => x.GetFunctions(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
                 .Returns((int i, int p, string m) =>
-                    _dbFaker.Functions.Where(l => string.IsNullOrEmpty(m) || l.Name.Contains(m))
-                        .OrderBy(l => l.Name).Skip((p - 1) * i).Take(i));
+                    Task.FromResult(_dbFaker.Functions.Where(l => string.IsNullOrEmpty(m) || l.Name.Contains(m))
+                        .OrderBy(l => l.Name).Skip((p - 1) * i).Take(i)));
             _mock.Setup(x => x.AddFunction(It.Is<AccessFunctionDb>(function => function.Id == 0)))
-                .Returns(() => _dbFaker.Functions.Max(l=>l.Id) + 1);
+                .Returns(() => Task.FromResult(_dbFaker.Functions.Max(l=>l.Id) + 1));
             _mock.Setup(x => x.AddFunction(It.Is<AccessFunctionDb>(function => function.Id != 0 && _dbFaker.Functions.All(l => l.Id != function.Id))))
-                .Returns<AccessFunctionDb>(function => function.Id);
+                .Returns<AccessFunctionDb>(function => Task.FromResult(function.Id));
+            _mock.Setup(x => x.AddFunction(
+                    It.Is<AccessFunctionDb>(function => _dbFaker.Functions.Any(l => l.Name.Equals(function.Name)))))
+                .Returns<AccessFunctionDb>(function => throw new SecurityDbException(
+                    $"Names {function.Name} already exist"));
             _mock.Setup(x => x.AddFunction(It.Is<AccessFunctionDb>(function => function.Id != 0 && _dbFaker.Functions.Any(l => l.Id == function.Id))))
                 .Returns(() => throw new InvalidOperationException());
             _mock.Setup(x => x.AddFunction(It.Is<AccessFunctionDb>(function => function.Name == "Error!")))
@@ -117,11 +122,11 @@ namespace Security.Logic.Tests.FunctionTests
             };
 
             var functions = await _securityData.AddFunction(function);
-            var expectedMessage = "Name already exists";
+            var expectedMessage = $"Names {existedName} already exist";
 
             Assert.AreEqual(ActionStatus.Error, functions.Status);
             Assert.AreEqual(expectedMessage, functions.Message);
-            _mock.Verify(data => data.AddFunction(It.IsAny<AccessFunctionDb>()), () => Times.Exactly(0));
+            _mock.Verify(data => data.AddFunction(It.Is<AccessFunctionDb>(db => db.Id == 0 && db.Name.Equals(function.Name))), () => Times.Exactly(1));
         }
 
         [Test]

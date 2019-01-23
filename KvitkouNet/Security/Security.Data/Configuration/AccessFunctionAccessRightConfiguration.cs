@@ -17,7 +17,8 @@ namespace Security.Data.Configuration
                 .OnDelete(DeleteBehavior.SetNull);
             accessFunctionAccessRightEntity
                 .HasOne<AccessRight>(bc => bc.AccessRight)
-                .WithOne()
+                .WithMany(l=>l.AccessFunctionAccessRights)
+                .HasForeignKey(l=>l.AccessRightId)
                 .OnDelete(DeleteBehavior.SetNull);
         }
     }

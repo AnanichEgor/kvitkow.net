@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Security.Data.Context;
 using Security.Data.ContextModels;
+using Security.Data.Exceptions;
 using Security.Data.Models;
 
 namespace Security.Data
@@ -26,60 +29,116 @@ namespace Security.Data
             GC.SuppressFinalize(this);
         }
 
-        public IEnumerable<AccessRightDb> GetRights(int itemsPerPage, int pageNumber, string mask)
+        public async Task<IEnumerable<AccessRightDb>> GetRights(int itemsPerPage, int pageNumber, string mask)
         {
-            return _mapper.Map<IEnumerable<AccessRightDb>>(_context.AccessRights
+            var rights = await _context.AccessRights
                 .Where(l => l.Name.Contains(mask))
                 .OrderBy(l => l.Name)
-                .Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).AsEnumerable());
+                .Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync();
+            return _mapper.Map<IEnumerable<AccessRightDb>>(rights);
         }
 
-        public int AddRight(AccessRightDb accessRight)
+        public async Task<AccessRightDb[]> AddRights(AccessRightDb[] accessRights)
         {
-            var right = _mapper.Map<AccessRight>(accessRight);
-            _context.AccessRights.Add(right);
-            _context.SaveChanges();
-            return right.Id;
+            var existed = await _context.AccessRights
+                .Where(l => accessRights.Any(k => k.Name.Equals(l.Name)))
+                .ToArrayAsync();
+            if (existed.Any())
+            {
+                throw new SecurityDbException(
+                    $"Names {string.Join(",", existed.Select(l => l.Name))} already exist");
+            }
+            var rights = _mapper.Map<AccessRight[]>(accessRights);
+            await _context.AccessRights.AddRangeAsync(rights);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<AccessRightDb[]>(rights);
         }
 
-        public int AddRight(AccessRightDb right)
+        public async void DeleteRight(int rightId)
         {
-            throw new NotImplementedException();
+            var right = await _context.AccessRights.SingleOrDefaultAsync(l => l.Id == rightId);
+            if (right == null)
+            {
+                throw new SecurityDbException($"AccessRight with id = {rightId} was not found");
+            }
+
+            _context.AccessRights.Remove(right);
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteRight(int rightId)
+        public async Task<IEnumerable<AccessFunctionDb>> GetFunctions(int itemsPerPage, int pageNumber, string mask = null)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<IEnumerable<AccessFunctionDb>>(await _context.AccessFunctions.Include(l=>l.AccessFunctionAccessRights).ThenInclude(l=>l.AccessFunction)
+                .Where(l => l.Name.Contains(mask))
+                .OrderBy(l => l.Name)
+                .Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync());
         }
 
-        public IEnumerable<AccessFunctionDb> GetFunctions(int itemsPerPage, int pageNumber, string mask = null)
+        public async Task<int> AddFunction(AccessFunctionDb function)
         {
-            throw new NotImplementedException();
+            if (await _context.AccessFunctions.AnyAsync(l => function.Name.Equals(l.Name)))
+            {
+                throw new SecurityDbException(
+                    $"Names {function.Name} already exist");
+            }
+            var featureMapped = _mapper.Map<AccessFunction>(function);
+            await _context.AccessFunctions.AddAsync(featureMapped);
+            await _context.SaveChangesAsync();
+            return featureMapped.Id;
         }
 
-        public int AddFunction(AccessFunctionDb function)
+        public async void DeleteFunction(int functionId)
         {
-            throw new NotImplementedException();
+            var function = await _context.AccessFunctions.SingleOrDefaultAsync(l => l.Id == functionId);
+            if (function == null)
+            {
+                throw new SecurityDbException($"Function with id = {functionId} was not found");
+            }
+
+            _context.AccessFunctions.Remove(function);
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteFunction(int functionId)
+        public async void EditFunctionRights(int functionId, int[] newRights)
         {
-            throw new NotImplementedException();
+            var functionDb = await _context.AccessFunctions
+                .Include(l=>l.AccessFunctionAccessRights)
+                .SingleOrDefaultAsync(l => l.Id == functionId);
+            if (functionDb == null)
+            {
+                throw new SecurityDbException($"Function with id = {functionId} was not found");
+            }
+
+            var rights = await _context.AccessRights.Where(l => newRights.Contains(l.Id)).ToArrayAsync();
+            if (rights.Length != newRights.Length)
+            {
+                throw new SecurityDbException(
+                    $"Access rights with id = {string.Join(",", newRights.Except(rights.Select(l => l.Id)).Select(l => l.ToString()).ToList())} was not found");
+            }
+
+            functionDb.AccessFunctionAccessRights.AddRange(rights
+                .Select(l => new AccessFunctionAccessRight()
+                {
+                    AccessRightId = l.Id,
+                    AccessFunctionId = functionDb.Id
+                }));
+            await _context.SaveChangesAsync();
         }
 
-        public void EditFunction(AccessFunctionDb function)
+        public async Task<IEnumerable<FeatureDb>> GetFeatures(int itemsPerPage, int pageNumber, string mask = null)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<IEnumerable<FeatureDb>>(await _context.Features.Include(l => l.AvailableAccessRights).ThenInclude(l => l.AccessRight)
+                .Where(l => l.Name.Contains(mask))
+                .OrderBy(l => l.Name)
+                .Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync());
         }
 
-        public IEnumerable<FeatureDb> GetFeatures(int itemsPerPage, int pageNumber, string mask = null)
+        public async Task<int> AddFeature(FeatureDb feature)
         {
-            throw new NotImplementedException();
-        }
-
-        public int AddFeature(FeatureDb feature)
-        {
-            throw new NotImplementedException();
+            var featureMapped = _mapper.Map<Feature>(feature);
+            await _context.Features.AddAsync(featureMapped);
+            await _context.SaveChangesAsync();
+            return featureMapped.Id;
         }
 
         public void DeleteFeature(int featureId)
@@ -87,12 +146,34 @@ namespace Security.Data
             throw new NotImplementedException();
         }
 
-        public void EditFeature(FeatureDb feature)
+        public async void EditFeatureRules(int featureId, int[] newRights)
         {
-            throw new NotImplementedException();
+            var featureDb = await _context.Features
+                .Include(l=>l.AvailableAccessRights)
+                .SingleOrDefaultAsync(l => l.Id == featureId);
+            if (featureDb == null)
+            {
+                throw new SecurityDbException($"Function with id = {featureId} was not found");
+            }
+
+            var rights = await _context.AccessRights
+                .Where(l => newRights.Contains(l.Id)).ToArrayAsync();
+            if (rights.Length != newRights.Length)
+            {
+                throw new SecurityDbException(
+                    $"Access rights with id = {string.Join(",", newRights.Except(rights.Select(l => l.Id)).Select(l => l.ToString()).ToList())} was not found");
+            }
+
+            featureDb.AvailableAccessRights.AddRange(rights
+                .Select(l => new FeatureAccessRight()
+                {
+                    AccessRightId = l.Id,
+                    FeatureId = featureDb.Id
+                }));
+            await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<RoleDb> GetRoles(int itemsPerPage, int pageNumber, string mask = null)
+        public Task<IEnumerable<RoleDb>> GetRoles(int itemsPerPage, int pageNumber, string mask = null)
         {
             throw new NotImplementedException();
         }

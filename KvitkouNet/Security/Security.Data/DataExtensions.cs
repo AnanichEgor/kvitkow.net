@@ -20,7 +20,12 @@ namespace Security.Data
             }
 
             return new SecurityData(new SecurityContext(o.Options),
-                new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<AccessRightProfile>())));
+                new Mapper(new MapperConfiguration(cfg =>
+                {
+                    cfg.AddProfile<AccessRightProfile>();
+                    cfg.AddProfile<AccessFunctionProfile>();
+                    cfg.AddProfile<FeatureProfile>();
+                })));
         }
 
         /// <summary>
@@ -44,6 +49,8 @@ namespace Security.Data
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<AccessRightProfile>();
+                cfg.AddProfile<AccessFunctionProfile>();
+                cfg.AddProfile<FeatureProfile>();
             });
             services.AddScoped<ISecurityData, SecurityData>();
 

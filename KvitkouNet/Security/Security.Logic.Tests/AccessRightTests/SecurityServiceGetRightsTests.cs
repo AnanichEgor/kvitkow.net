@@ -28,8 +28,8 @@ namespace Security.Logic.Tests.AccessRightTests
             _mock = new Mock<ISecurityData>();
             _mock.Setup(x => x.GetRights(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
                 .Returns((int i, int p, string m) =>
-                    _dbFaker.AccessRights.Where(l=> string.IsNullOrEmpty(m) || l.Name.Contains(m))
-                        .OrderBy(l=>l.Name).Skip((p-1)*i).Take(i));
+                    Task.FromResult(_dbFaker.AccessRights.Where(l=> string.IsNullOrEmpty(m) || l.Name.Contains(m))
+                        .OrderBy(l=>l.Name).Skip((p-1)*i).Take(i)));
             _securityData = new SecurityService(_mock.Object, _mapper);
         }
 
