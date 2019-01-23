@@ -14,9 +14,9 @@ namespace Logging.Logic.Services.Abstraction
             Mapper = mapper;
         }
 
-        public LoggingDbContext Context { get; }
+        protected LoggingDbContext Context { get; }
 
-        public IMapper Mapper { get; }
+        protected IMapper Mapper { get; }
 
         public void Dispose()
         {
