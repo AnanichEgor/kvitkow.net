@@ -297,15 +297,11 @@ namespace Security.Data
         {
             var userRightsMapped = _mapper.Map<UserRights>(userRights);
             await _context.UsersRights.AddAsync(userRightsMapped);
-            await _context.SaveChangesAsync();
-            await EditUserRights(
-                userRights.UserId,
+            return await EditUserRightsCtx(userRightsMapped,
                 userRights.Roles.Select(l => l.Id).ToArray(),
                 userRights.AccessFunctions.Select(l => l.Id).ToArray(),
                 userRights.AccessRights.Select(l => l.Id).ToArray(),
-                userRights.DeniedRights.Select(l => l.Id).ToArray()
-            );
-            return true;
+                userRights.DeniedRights.Select(l => l.Id).ToArray());
         }
 
         public async Task<bool> EditUserRights(string userId, int[] roleIds, int[] functionIds, int[] accessedRightsIds, int[] deniedRightsIds)
@@ -322,6 +318,11 @@ namespace Security.Data
                     $"User rights with id = {userId} was not found");
             }
 
+            return await EditUserRightsCtx(userRightsDb, roleIds, functionIds, accessedRightsIds, deniedRightsIds);
+        }
+
+        private async Task<bool> EditUserRightsCtx(UserRights userRightsDb, int[] roleIds, int[] functionIds, int[] accessedRightsIds, int[] deniedRightsIds)
+        {
             var rights = await _context.AccessRights
                 .Where(l => accessedRightsIds.Contains(l.Id) || deniedRightsIds.Contains(l.Id)).ToArrayAsync();
             if (rights.Length != accessedRightsIds.Length + deniedRightsIds.Length)
@@ -359,7 +360,7 @@ namespace Security.Data
             userRightsDb.AccessRights.RemoveAll(right => true);
             userRightsDb.AccessFunctions.RemoveAll(right => true);
             userRightsDb.Roles.RemoveAll(right => true);
-
+            
             userRightsDb.AccessRights.AddRange(accessedRightsIds
                 .Select(l => new UserRightsAccessRight
                 {

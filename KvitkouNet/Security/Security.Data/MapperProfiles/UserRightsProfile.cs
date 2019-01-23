@@ -73,9 +73,9 @@ namespace Security.Data.MapperProfiles
                                 }).ToList()
                         })))
                 .ReverseMap()
-                .ForMember(x => x.AccessFunctions, opt => opt.Ignore())
-                .ForMember(x => x.Roles, opt => opt.Ignore())
-                .ForMember(x => x.AccessRights, opt => opt.Ignore());
+                .ForMember(x => x.AccessFunctions, opt => opt.MapFrom(db => new List<UserRightsAccessFunction>()))
+                .ForMember(x => x.Roles, opt => opt.MapFrom(db => new List<UserRightsRole>()))
+                .ForMember(x => x.AccessRights, opt => opt.MapFrom(db => new List<UserRightsAccessRight>()));
         }
     }
 }

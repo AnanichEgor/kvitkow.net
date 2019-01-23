@@ -9,7 +9,6 @@ namespace Security.Data.Configuration
         public void Configure(EntityTypeBuilder<UserRightsAccessRight> userRightsAccessRightEntity)
         {
             userRightsAccessRightEntity.HasKey(bc => new { bc.UserId, bc.AccessRightId });
-            userRightsAccessRightEntity.HasKey(l => l.UserId);
             userRightsAccessRightEntity
                 .HasOne<UserRights>(bc => bc.UserRights)
                 .WithMany(b => b.AccessRights)
