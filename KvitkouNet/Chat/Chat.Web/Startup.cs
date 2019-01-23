@@ -22,7 +22,11 @@ namespace Chat.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerDocument();
             services.RegisterChatService();
-         }
+            services.RegisterRoomService();
+            services.RegisterDbContext();
+            services.RegisterChatRepositoryService();
+            services.RegisterAutoMapper();
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

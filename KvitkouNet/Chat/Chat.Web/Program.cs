@@ -12,7 +12,7 @@ namespace Chat.Web
         public static void Main(string[] args)
         {
             var o = new DbContextOptionsBuilder<ChatContext>();
-            o.UseSqlite("Data Source=./ChatDatabase.db");
+            o.UseSqlite("Data Source=f:\\Git\\kvitkou-net\\KvitkouNet\\Chat\\Chat.Web\\ChatDatabase.db");
 
             using (var ctx = new ChatContext(o.Options))
             {
