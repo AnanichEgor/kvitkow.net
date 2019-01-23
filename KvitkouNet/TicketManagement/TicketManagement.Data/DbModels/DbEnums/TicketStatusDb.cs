@@ -1,11 +1,8 @@
-﻿using System;
-
-namespace TicketManagement.Data.DbModels.Enums
+﻿namespace TicketManagement.Data.DbModels.Enums
 {
     /// <summary>
     ///     Перечисление, описывающее статус билета
     /// </summary>
-    
     public enum TicketStatusDb
     {
         /// <summary>

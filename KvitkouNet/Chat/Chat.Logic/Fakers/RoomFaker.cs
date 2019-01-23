@@ -12,7 +12,7 @@ namespace Chat.Logic.Fakers
         {
             _faker = new Faker<RoomDb>();
             _faker.RuleFor(x => x.Name, f => f.Lorem.Sentence(10));
-            _faker.RuleFor(x => x.OwnerId, f => f.Random.Int(10, 100));
+            _faker.RuleFor(x => x.OwnerId, f => f.Random.Int(10, 100).ToString());
             _faker.RuleFor(x => x.IsPrivat, f => f.Random.Bool());
             _faker.RuleFor(x => x.Id, f => f.Lorem.Sentence(10));
         }

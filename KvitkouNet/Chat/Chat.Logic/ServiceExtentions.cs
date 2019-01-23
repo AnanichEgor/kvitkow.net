@@ -1,5 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AutoMapper;
+using Chat.Data.Context;
+using Chat.Data.Repositories;
+using Chat.Logic.MappingProfiles;
+using Chat.Logic.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Chat.Logic.Services;
+using Chat.Logic.Validators;
+using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 
 namespace Chat.Logic
@@ -13,10 +21,26 @@ namespace Chat.Logic
         /// <returns></returns>
         public static IServiceCollection RegisterChatService(this IServiceCollection services)
         {
-            var mock = new Mock<IChatService>();
-
-            services.AddScoped<IChatService>(_ => mock.Object);
+            services.AddDbContext<ChatContext>(opt => opt.UseSqlite("Data Source=./ChatDatabase.db"));
+            services.AddScoped<IChatRepository, ChatRepository>();
+            services.AddScoped(_ => ChatServiceMock().Object);
+            services.AddScoped<IChatService, ChatService>();
+            services.AddScoped<IValidator<Room>, RoomValidator>();
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<MessageProfile>();
+                cfg.AddProfile<RoomProfile>();
+                cfg.AddProfile<SettingsProfile>();
+                cfg.AddProfile<UserProfile>();
+            });
             return services;
+        }
+
+        private static Mock<IChatService> ChatServiceMock()
+        {
+            var ticketServiceMock = new Mock<IChatService>();
+            return ticketServiceMock;
         }
     }
 }
+

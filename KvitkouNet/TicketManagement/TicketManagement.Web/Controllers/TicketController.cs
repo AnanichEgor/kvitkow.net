@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using EasyNetQ;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
-using TicketManagement.Data.Context;
 using TicketManagement.Logic.Models;
 using TicketManagement.Logic.Models.Enums;
+using TicketManagement.Logic.Models.Messages;
 using TicketManagement.Logic.Services;
 
 namespace TicketManagement.Web.Controllers
@@ -18,10 +18,12 @@ namespace TicketManagement.Web.Controllers
     public class TicketController : Controller
     {
         private readonly ITicketService _service;
+        private readonly IBus _bus;
 
-        public TicketController(ITicketService service)
+        public TicketController(ITicketService service,IBus bus)
         {
             _service = service;
+            _bus = bus;
         }
 
         /// <summary>
@@ -36,14 +38,9 @@ namespace TicketManagement.Web.Controllers
         public async Task<IActionResult> Add([FromBody] Ticket ticket)
         {
             var result = await _service.Add(ticket);
-            if (result.Item2 == RequestStatus.BadRequest)
-            {
-                return BadRequest();
-            }
-            if (result.Item2 == RequestStatus.Error)
-            {
-                return StatusCode(500);
-            }
+            if (result.Item2 == RequestStatus.BadRequest) return BadRequest();
+            if (result.Item2 == RequestStatus.Error) return StatusCode(500);
+           await _bus.PublishAsync(new TicketCreate{TicketId = result.Item1});
             return Ok(result.Item1);
         }
 
@@ -106,10 +103,7 @@ namespace TicketManagement.Web.Controllers
         public async Task<IActionResult> GetAll()
         {
             var result = await _service.GetAll();
-            if (result.Item2 != RequestStatus.Success)
-            {
-                return BadRequest();
-            }
+            if (result.Item2 != RequestStatus.Success) return BadRequest();
             return Ok(result);
         }
 

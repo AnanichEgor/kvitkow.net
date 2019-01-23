@@ -1,11 +1,13 @@
-﻿namespace TicketManagement.Data.DbModels
+﻿using System.Collections.Generic;
+
+namespace TicketManagement.Data.DbModels
 {
-    public class AddressDb
+    public class SellerAddress
     {
         /// <summary>
         ///     Id адреса
         /// </summary>
-        public string AddressDbId { get; set; }
+        public string SellerAddressId { get; set; }
 
         /// <summary>
         ///     Страна проживания
@@ -31,5 +33,10 @@
         ///     Номер квартиры
         /// </summary>
         public string Flat { get; set; }
+
+        /// <summary>
+        ///     Список билетов по этому адресу
+        /// </summary>
+        public List<TicketDb> Tickets { get; set; }
     }
 }

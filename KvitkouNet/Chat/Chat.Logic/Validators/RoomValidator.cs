@@ -1,4 +1,5 @@
-﻿using Chat.Logic.Models;
+﻿using System;
+using Chat.Logic.Models;
 using FluentValidation;
 
 namespace Chat.Logic.Validators
@@ -17,8 +18,7 @@ namespace Chat.Logic.Validators
             RuleFor(x => x.Name)
                 .MaximumLength(2)
                 .MaximumLength(5);
-            RuleFor(x => x.OwnerId)
-                .NotEmpty()
+            RuleFor(x => Convert.ToInt64(x.OwnerId))
                 .GreaterThanOrEqualTo(10);
         }
     }
