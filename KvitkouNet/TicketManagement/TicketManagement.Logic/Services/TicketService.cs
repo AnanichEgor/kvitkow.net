@@ -15,12 +15,14 @@ namespace TicketManagement.Logic.Services
         private readonly ITicketRepository _context;
         private readonly IMapper _mapper;
         private readonly IValidator _validator;
+        private readonly IConfiguration _configuration;
 
-        public TicketService(ITicketRepository context, IMapper mapper, IValidator<Ticket> validator)
+        public TicketService(ITicketRepository context, IMapper mapper, IValidator<Ticket> validator, IConfiguration configuration)
         {
             _context = context;
             _mapper = mapper;
             _validator = validator;
+            _configuration = configuration;
         }
 
         /// <summary>
