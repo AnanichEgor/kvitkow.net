@@ -29,6 +29,11 @@ namespace UserManagement.Logic.Services
         {
             var result = _validator.Validate(model);
             if (!result.IsValid) return result.Errors.First().ToString();
+            var findLogin = _unitOfWork.Accounts.FindAsync(x => x.Login == model.Username).Result.Count();
+            if (findLogin!=0)
+            {
+                return "Sorry, this username allready exist!";
+            }
             var res = await _unitOfWork.Users.AddAsync(_mapper.Map<UserDB>(model));
             _unitOfWork.SaveChanges();
             return "Ok";
