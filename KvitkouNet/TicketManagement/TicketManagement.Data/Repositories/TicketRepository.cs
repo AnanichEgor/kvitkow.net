@@ -30,6 +30,7 @@ namespace TicketManagement.Data.Repositories
         /// <returns>Код ответа Create и добавленную модель</returns>
         public async Task<string> Add(Ticket ticket)
         {
+            ticket.Id = null;
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
             return _context.Tickets.Last().Id;

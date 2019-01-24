@@ -10,7 +10,7 @@ namespace TicketManagement.Data.DbModels
         /// <summary>
         ///     Id юзера
         /// </summary>
-        public string Id { get; set; }
+        public string UserInfoId { get; set; }
 
         /// <summary>
         ///     Имя юзера

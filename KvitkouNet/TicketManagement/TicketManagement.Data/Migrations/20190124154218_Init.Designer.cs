@@ -9,7 +9,7 @@ using TicketManagement.Data.Context;
 namespace TicketManagement.Data.Migrations
 {
     [DbContext(typeof(TicketContext))]
-    [Migration("20190124123402_Init")]
+    [Migration("20190124154218_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,7 +89,7 @@ namespace TicketManagement.Data.Migrations
 
                     b.Property<int>("TypeEvent");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserInfoId");
 
                     b.HasKey("Id");
 
@@ -97,14 +97,14 @@ namespace TicketManagement.Data.Migrations
 
                     b.HasIndex("SellerAdressSellerAddressId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserInfoId");
 
                     b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("TicketManagement.Data.DbModels.UserInfo", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("UserInfoId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("FirstName");
@@ -115,7 +115,7 @@ namespace TicketManagement.Data.Migrations
 
                     b.Property<string>("TicketId");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserInfoId");
 
                     b.HasIndex("TicketId");
 
@@ -136,7 +136,7 @@ namespace TicketManagement.Data.Migrations
 
                     b.HasOne("TicketManagement.Data.DbModels.UserInfo", "User")
                         .WithMany("UserTickets")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserInfoId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
