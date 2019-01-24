@@ -10,9 +10,19 @@ namespace UserManagement.Logic.Models
         public string Login { get; set; }
 
         /// <summary>
+        /// Имя пользователя
+        /// </summary>
+        public string FirstName { get; set; }
+
+        /// <summary>
+        /// Фамилия пользователя
+        /// </summary>
+        public string LastName { get; set; }
+
+        /// <summary>
         /// Пол
         /// </summary>
-        public string Sex { get; set; }
+        public Sex Sex { get; set; }
 
         /// <summary>
         /// Дата рождения

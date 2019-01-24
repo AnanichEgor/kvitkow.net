@@ -42,7 +42,7 @@ namespace UserManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _service.GetAll();
+            var result = await _service.GetAllAsync();
             return Ok(result);
         }
 

@@ -18,7 +18,13 @@ namespace UserManagement.Logic.Services
         /// Получение всех пользователей
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<ForViewModel>> GetAll();
+        IEnumerable<ForViewModel> GetAll();
+
+        /// <summary>
+        /// Получение всех пользователей
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<ForViewModel>> GetAllAsync();
 
         /// <summary>
         /// Получение пользователя по логину
