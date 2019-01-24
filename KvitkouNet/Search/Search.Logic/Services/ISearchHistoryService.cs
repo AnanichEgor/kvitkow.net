@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Search.Data.Models;
+using Search.Logic.Common.Models;
 
 namespace Search.Logic.Services
 {
@@ -11,5 +12,7 @@ namespace Search.Logic.Services
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         Task<SearchEntity> GetLastSearch(string userId);
+
+        Task SaveLastSearch(SearchRequest request);
     }
 }
