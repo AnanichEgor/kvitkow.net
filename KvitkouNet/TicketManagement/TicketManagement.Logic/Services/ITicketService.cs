@@ -57,5 +57,13 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <returns></returns>
         Task<(IEnumerable<Ticket>, RequestStatus)> GetAllActual();
+
+        /// <summary>
+        ///     Получение всех билетов имеющихся в системе постранично
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        Task<(Page<TicketLite>, RequestStatus)> GetAllPagebyPage(int index);
     }
 }
