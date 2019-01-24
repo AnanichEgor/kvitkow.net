@@ -26,24 +26,19 @@ namespace Logging.Web
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext();
-
-			var assemblyNamesToScan = Assembly
-				.GetEntryAssembly()
-				.GetReferencedAssemblies()
-				.Where(an => an.FullName.StartsWith("Logging", StringComparison.OrdinalIgnoreCase))
-				.Select(an => an.FullName);
-
-			services.AddAutoMapper(cfg => cfg.AddProfiles(assemblyNamesToScan));
-
+			services.RegisterDbContext();
+            
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddSwaggerDocument();
 
 			services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=rabbit"));
 
-			services.RegisterLoggingService();
+			services.RegisterServices();
+
 			services.RegisterValidators();
+
+		    services.RegisterAutoMapper();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

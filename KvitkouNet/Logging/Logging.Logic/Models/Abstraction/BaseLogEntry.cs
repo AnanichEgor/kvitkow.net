@@ -5,13 +5,12 @@ namespace Logging.Logic.Models.Abstraction
 	/// <summary>
 	/// Базовый класс для создания доменных моделей записей лога
 	/// </summary>
-	/// <typeparam name="T"></typeparam>
-	public abstract class BaseLogEntry<T> where T : struct
+	public abstract class BaseLogEntry
 	{
 		/// <summary>
 		/// Идентификатор записи
 		/// </summary>
-		public T Id { get; set; }
+		public string Id { get; set; }
 
 		/// <summary>
 		/// Дополнительное содержимое записи

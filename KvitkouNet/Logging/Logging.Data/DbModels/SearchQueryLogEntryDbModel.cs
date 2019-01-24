@@ -6,16 +6,11 @@ namespace Logging.Data.DbModels
     /// Модель для логирования поисковых запросов пользователей.
     /// <para>Текст запроса хранится в свойстве Content класса BaseLogEntry.</para>
     /// </summary>
-    public class SearchQueryLogEntryDbModel : Entity<string>
+    public class SearchQueryLogEntryDbModel : BaseLogEntryDbModel
     {
         /// <summary>
         /// Состояние фильтров при выполнении запросов
         /// </summary>
         public string DashBoardFilterInfo { get; set; }
-
-        /// <summary>
-        /// Дополнительное содержимое записи
-        /// </summary>
-        public string Content { get; set; }
     }
 }

@@ -6,7 +6,7 @@ namespace Logging.Logic.Models.Abstraction
 	/// <summary>
 	/// Базовый класс для создание доменных моделей записей лога о билетах
 	/// </summary>
-	public abstract class BaseTicketLogEntry : BaseLogEntry<long>
+	public abstract class BaseTicketLogEntry : BaseLogEntry
 	{
 		/// <summary>
 		/// Билет

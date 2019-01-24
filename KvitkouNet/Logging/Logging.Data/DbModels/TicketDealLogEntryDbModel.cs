@@ -1,12 +1,11 @@
 ﻿using Logging.Data.DbModels.Abstraction;
-using Logging.Data.Enums;
 
 namespace Logging.Data.DbModels
 {
     /// <summary>
     /// Модель записи в лог о сделке по билету
     /// </summary>
-    public class TicketDealLogEntryDbModel : Entity<string>
+    public class TicketDealLogEntryDbModel : BaseLogEntryDbModel
     {
         /// <summary>
         /// Покупатель/получатель билета
@@ -21,11 +20,6 @@ namespace Logging.Data.DbModels
         /// <summary>
         /// Тип сделки
         /// </summary>
-        public DealType Type { get; set; }
-
-        /// <summary>
-        /// Дополнительное содержимое записи
-        /// </summary>
-        public string Content { get; set; }
+        public int Type { get; set; }
     }
 }

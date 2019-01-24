@@ -7,7 +7,7 @@ namespace Logging.Logic.Models
 	/// Модель для логирования поисковых запросов пользователей.
 	/// <para>Текст запроса хранится в свойстве Content класса BaseLogEntry.</para>
 	/// </summary>
-	public class SearchQueryLogEntry : BaseLogEntry<long>
+	public class SearchQueryLogEntry : BaseLogEntry
 	{
 		/// <summary>
 		/// Состояние фильтров при выполнении запросов

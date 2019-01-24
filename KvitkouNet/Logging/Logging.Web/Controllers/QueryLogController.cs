@@ -1,26 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Logging.Logic.Dtos;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
+using Logging.Logic.Models.Filters;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
 namespace Logging.Web.Controllers
 {
+    /// <summary>
+    /// Контроллер для работы с логами поисковых запросов
+    /// </summary>
     [Route("api/logs/queries")]
     public class QueryLogController : Controller
     {
-        private readonly ILoggingService _loggingService;
+        private readonly ISearchLogService _loggingService;
+        private bool _disposed;
 
-        public QueryLogController(ILoggingService loggingService)
+        public QueryLogController(ISearchLogService loggingService)
         {
             _loggingService = loggingService;
         }
 
         /// <summary>
-        /// Получает логи поисковых запросов пользователей
+        /// Получает логи поисковых запросов пользователей по фильтру
         /// </summary>
         /// <param name="filter">Фильтр логов по поисковым запросам</param>
         /// <returns></returns>
@@ -29,16 +33,33 @@ namespace Logging.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<SearchQueryLogEntry>), Description =
             "Search query logs")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
-        public async Task<IActionResult> GetSearchQueryLogs([FromQuery] SearchQueryLogsFilterDto filter)
+        public async Task<IActionResult> GetSearchQueryLogs([FromQuery] SearchQueryLogsFilter filter)
         {
             if (string.IsNullOrWhiteSpace(filter.UserName))
             {
                 return BadRequest(
-                    $"Invalid filter! {nameof(SearchQueryLogsFilterDto.UserName)} is empty or whitespace!");
+                    $"Invalid filter! {nameof(SearchQueryLogsFilter.UserName)} is empty or whitespace!");
             }
 
-            var result = await _loggingService.GetSearchQueryLogsAsync(filter);
+            var result = await _loggingService.GetLogsAsync(filter);
             return Ok(result);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                _loggingService?.Dispose();
+            }
+
+            _disposed = true;
+
+            base.Dispose(disposing);
         }
     }
 }

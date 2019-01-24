@@ -7,7 +7,7 @@ namespace Logging.Logic.Models
 	/// Модель для записи в лог информации о платежах.
 	/// <para>В случае неудачи причина пишется в поле Content класса BaseLogEntry</para>
 	/// </summary>
-	public class PaymentLogEntry : BaseLogEntry<long>
+	public class PaymentLogEntry : BaseLogEntry
 	{
 		/// <summary>
 		/// Модель платежной транзакции
