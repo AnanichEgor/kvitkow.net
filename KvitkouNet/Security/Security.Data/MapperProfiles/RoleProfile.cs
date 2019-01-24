@@ -9,13 +9,13 @@ using Security.Data.Models;
 
 namespace Security.Data.MapperProfiles
 {
-    class RoleProfile : Profile
+    public class RoleProfile : Profile
     {
         public RoleProfile()
         {
             CreateMap<Role, RoleDb>()
                 .ForMember(x => x.AccessFunctions, 
-                    opt => opt.MapFrom(_ => _.AccessFunctions
+                    opt => opt.MapFrom(_ => _.RoleAccessFunction
                         .Select(l=>new AccessFunctionDb{
                             Id = l.AccessFunction.Id,
                             Name = l.AccessFunction.Name,
@@ -27,22 +27,22 @@ namespace Security.Data.MapperProfiles
                             } ).ToList()
                         })))
                 .ForMember(x => x.AccessRights, 
-                    opt => opt.MapFrom(_ => _.AccessRights.Where(l=>!l.IsDenied)
+                    opt => opt.MapFrom(_ => _.RoleAccessRight.Where(l=>!l.IsDenied)
                         .Select(l=>new AccessRightDb
                         {
                             Id = l.AccessRight.Id,
                             Name = l.AccessRight.Name,
                         })))
                 .ForMember(x => x.DeniedRights, 
-                    opt => opt.MapFrom(_ => _.AccessRights.Where(l=>l.IsDenied)
+                    opt => opt.MapFrom(_ => _.RoleAccessRight.Where(l=>l.IsDenied)
                         .Select(l=>new AccessRightDb
                         {
                             Id = l.AccessRight.Id,
                             Name = l.AccessRight.Name,
                         })))
                 .ReverseMap()
-                .ForMember(x => x.AccessFunctions, opt => opt.Ignore())
-                .ForMember(x => x.AccessRights, opt => opt.Ignore());
+                .ForMember(x => x.RoleAccessFunction, opt => opt.Ignore())
+                .ForMember(x => x.RoleAccessRight, opt => opt.Ignore());
         }
     }
 }

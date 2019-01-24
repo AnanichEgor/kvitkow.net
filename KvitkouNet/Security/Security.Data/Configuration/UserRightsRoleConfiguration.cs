@@ -12,12 +12,14 @@ namespace Security.Data.Configuration
             userRightsRoleEntity.HasIndex(l => l.UserId);
             userRightsRoleEntity
                 .HasOne<UserRights>(bc => bc.UserRights)
-                .WithMany(b => b.Roles)
-                .HasForeignKey(bc => bc.UserId).OnDelete(DeleteBehavior.SetNull);
+                .WithMany(b => b.UserRightsRole)
+                .HasForeignKey(bc => bc.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
             userRightsRoleEntity
                 .HasOne<Role>(bc => bc.Role)
-                .WithOne()
-                .OnDelete(DeleteBehavior.SetNull);
+                .WithMany(b => b.UserRightsRole)
+                .HasForeignKey(bc => bc.RoleId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

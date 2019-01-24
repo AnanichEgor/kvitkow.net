@@ -18,13 +18,13 @@ namespace Security.Web.Controllers
             _securityService = securityService;
         }
 
-        [HttpGet, Route("rights")]
+        [HttpGet, Route("rights/{per_page:int}/{page:int}/{mask?}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(List<AccessRight>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> GetRights()
+        public async Task<IActionResult> GetRights(int per_page, int page, string mask)
         {
-            var result = _securityService.GetRights(50, 1);
+            var result = _securityService.GetRights(per_page, page, mask);
             return Ok(await result);
         }
 
@@ -42,9 +42,9 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> DeleteRight(int rightId)
+        public async Task<IActionResult> DeleteRight(int id)
         {
-            var result = _securityService.DeleteRight(rightId);
+            var result = _securityService.DeleteRight(id);
             return Ok(await result);
         }
     }

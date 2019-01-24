@@ -67,7 +67,7 @@ namespace Security.Logic.Implementations
                 return new RoleResponse
                 {
                     Roles = _mapper.Map<Role[]>(await
-                        _securityContext.GetRoles(itemsPerPage, pageNumber, mask?.Trim())),
+                        _securityContext.GetRoles(itemsPerPage, pageNumber, mask?.Trim()??"")),
                     Status = ActionStatus.Success
                 };
             }

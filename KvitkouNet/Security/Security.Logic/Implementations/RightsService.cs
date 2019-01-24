@@ -68,7 +68,7 @@ namespace Security.Logic.Implementations
                 return new AccessRightResponse
                 {
                     AccessRights = _mapper.Map<AccessRight[]>( await
-                    _securityContext.GetRights(itemsPerPage, pageNumber, mask?.Trim())),
+                    _securityContext.GetRights(itemsPerPage, pageNumber, mask?.Trim()??"")),
                     Status = ActionStatus.Success
                 };
             }

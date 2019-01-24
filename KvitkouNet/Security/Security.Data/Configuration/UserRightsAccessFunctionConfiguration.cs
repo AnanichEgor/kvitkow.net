@@ -12,14 +12,14 @@ namespace Security.Data.Configuration
             userRightsAccessFunctionEntity.HasKey(l => l.UserId);
             userRightsAccessFunctionEntity
                 .HasOne<UserRights>(bc => bc.UserRights)
-                .WithMany(b => b.AccessFunctions)
+                .WithMany(b => b.UserRightsAccessFunction)
                 .HasForeignKey(bc => bc.UserId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
             userRightsAccessFunctionEntity
                 .HasOne<AccessFunction>(bc => bc.AccessFunction)
-                .WithMany(b => b.UserRights)
+                .WithMany(b => b.UserRightsAccessFunction)
                 .HasForeignKey(bc => bc.AccessFunctionId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

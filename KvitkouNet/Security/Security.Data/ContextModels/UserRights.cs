@@ -5,7 +5,7 @@ namespace Security.Data.ContextModels
     /// <summary>
     /// Права пользователя
     /// </summary>
-    internal class UserRights
+    public class UserRights
     {
         /// <summary>
         /// Идентификатор пользователя (null для незарегистрированного пользователя)
@@ -35,16 +35,16 @@ namespace Security.Data.ContextModels
         /// <summary>
         /// Список прав
         /// </summary>
-        public List<UserRightsAccessRight> AccessRights { get; set; }
+        public List<UserRightsAccessRight> UserRightsAccessRight { get; set; }
 
         /// <summary>
         /// Список предоставленных пользователю функций
         /// </summary>
-        public List<UserRightsAccessFunction> AccessFunctions { get; set; }
+        public List<UserRightsAccessFunction> UserRightsAccessFunction { get; set; }
 
         /// <summary>
         /// Список ролей пользователя
         /// </summary>
-        public List<UserRightsRole> Roles { get; set; }
+        public List<UserRightsRole> UserRightsRole { get; set; }
     }
 }

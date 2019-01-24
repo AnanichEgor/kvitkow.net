@@ -8,18 +8,18 @@ using Security.Data.Models;
 
 namespace Security.Data.MapperProfiles
 {
-    class FeatureProfile : Profile
+    public class FeatureProfile : Profile
     {
         public FeatureProfile()
         {
             CreateMap<Feature, FeatureDb>()
                 .ForMember(x => x.AvailableAccessRights, 
-                    opt => opt.MapFrom(_ => _.AvailableAccessRights
+                    opt => opt.MapFrom(_ => _.FeatureAccessRight
                         .Select(l=>new AccessRightDb{
                             Id = l.AccessRight.Id,
                             Name = l.AccessRight.Name})))
                 .ReverseMap()
-                .ForMember(x => x.AvailableAccessRights, opt => opt.Ignore());
+                .ForMember(x => x.FeatureAccessRight, opt => opt.Ignore());
         }
     }
 }

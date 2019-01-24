@@ -12,14 +12,14 @@ namespace Security.Data.Configuration
             roleAccessFunctionEntity.HasIndex(l => l.RoleId);
             roleAccessFunctionEntity
                 .HasOne<Role>(bc => bc.Role)
-                .WithMany(b => b.AccessFunctions)
+                .WithMany(b => b.RoleAccessFunction)
                 .HasForeignKey(bc => bc.RoleId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
             roleAccessFunctionEntity
                 .HasOne<AccessFunction>(bc => bc.AccessFunction)
-                .WithMany(l=>l.Roles)
+                .WithMany(l=>l.RoleAccessFunction)
                 .HasForeignKey(bc => bc.AccessFunctionId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

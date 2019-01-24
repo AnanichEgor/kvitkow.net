@@ -4,9 +4,9 @@ using Security.Logic.Models;
 
 namespace Security.Logic.MappingProfiles
 {
-    public class FetureProfile : Profile
+    public class FeatureProfile : Profile
     {
-        public FetureProfile()
+        public FeatureProfile()
         {
             CreateMap<Feature, FeatureDb>().ReverseMap();
         }

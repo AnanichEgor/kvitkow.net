@@ -69,7 +69,7 @@ namespace Security.Logic.Implementations
                 {
                     Status = ActionStatus.Success,
                     AccessFunctions = _mapper.Map<AccessFunction[]>(await
-                        _securityContext.GetFunctions(itemsPerPage, pageNumber, mask?.Trim()))
+                        _securityContext.GetFunctions(itemsPerPage, pageNumber, mask?.Trim()??""))
                 }; 
             }
             catch (SecurityDbException e)
@@ -198,6 +198,8 @@ namespace Security.Logic.Implementations
                         Status = ActionStatus.Warning
                     };
                 }
+
+                function.AccessRights = function.AccessRights ?? new List<AccessRight>();
                 if (function.AccessRights.Any(l=>l.Id == 0))
                 {
                     return new ActionResponse

@@ -5,7 +5,7 @@ namespace Security.Data.ContextModels
     /// <summary>
     /// Роль
     /// </summary>
-    internal class Role
+    public class Role
     {
         /// <summary>
         /// Идентификатор роли
@@ -20,11 +20,16 @@ namespace Security.Data.ContextModels
         /// <summary>
         /// Список прав
         /// </summary>
-        public List<RoleAccessRight> AccessRights { get; set; }
+        public List<RoleAccessRight> RoleAccessRight { get; set; }
 
         /// <summary>
         /// Список предоставляемых функций
         /// </summary>
-        public List<RoleAccessFunction> AccessFunctions { get; set; }
+        public List<RoleAccessFunction> RoleAccessFunction { get; set; }
+
+        /// <summary>
+        /// Список ролей пользователя
+        /// </summary>
+        public List<UserRightsRole> UserRightsRole { get; set; }
     }
 }

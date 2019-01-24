@@ -44,9 +44,9 @@ namespace Security.Data
             {
                 ctx.Database.EnsureCreated();
             }
+
             services.AddDbContext<SecurityContext>(
                 opt => opt.UseSqlite("Data Source=./SecurityDatabase.db"));
-
 
             services.AddAutoMapper(cfg =>
             {
@@ -56,6 +56,7 @@ namespace Security.Data
                 cfg.AddProfile<RoleProfile>();
                 cfg.AddProfile<UserRightsProfile>();
             });
+
             services.AddScoped<ISecurityData, SecurityData>();
 
             return services;

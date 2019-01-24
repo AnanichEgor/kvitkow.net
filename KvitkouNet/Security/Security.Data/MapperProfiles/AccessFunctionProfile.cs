@@ -8,7 +8,7 @@ using Security.Data.Models;
 
 namespace Security.Data.MapperProfiles
 {
-    class AccessFunctionProfile : Profile
+    public class AccessFunctionProfile : Profile
     {
         public AccessFunctionProfile()
         {

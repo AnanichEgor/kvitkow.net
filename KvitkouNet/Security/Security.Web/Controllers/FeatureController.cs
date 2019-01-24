@@ -19,13 +19,13 @@ namespace Security.Web.Controllers
             _securityService = securityService;
         }
 
-        [HttpGet, Route("features")]
+        [HttpGet, Route("features/{per_page:int}/{page:int}/{mask?}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(List<Feature>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> GetFeatures()
+        public async Task<IActionResult> GetFeatures(int per_page, int page, string mask)
         {
-            var result = _securityService.GetFeatures(50, 1);
+            var result = _securityService.GetFeatures(per_page, page, mask);
             return Ok(await result);
         }
 
@@ -43,9 +43,9 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> DeleteFeature(int featureId)
+        public async Task<IActionResult> DeleteFeature(int id)
         {
-            var result = _securityService.DeleteFeature(featureId);
+            var result = _securityService.DeleteFeature(id);
             return Ok(await result);
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -67,7 +68,7 @@ namespace Security.Logic.Implementations
                 return new FeatureResponse
                 {
                     Features = _mapper.Map<Feature[]>(
-                        await _securityContext.GetFeatures(itemsPerPage, pageNumber, mask?.Trim())).ToArray(),
+                        await _securityContext.GetFeatures(itemsPerPage, pageNumber, mask?.Trim()??"")).ToArray(),
                     Status = ActionStatus.Success
                 };
 
@@ -117,7 +118,7 @@ namespace Security.Logic.Implementations
 
                 if(feature.AvailableAccessRights != null && feature.AvailableAccessRights.Any())
                 {
-                    await _securityContext.EditFunctionRights(id,feature.AvailableAccessRights.Select(l => l.Id).ToArray());
+                    await _securityContext.EditFeatureRules(id, feature.AvailableAccessRights.Select(l => l.Id).ToArray());
                 }
 
                 return new ActionResponse
@@ -197,6 +198,9 @@ namespace Security.Logic.Implementations
                         Status = ActionStatus.Warning
                     };
                 }
+
+                feature.AvailableAccessRights = feature.AvailableAccessRights ?? new List<AccessRight>();
+
                 if (feature.AvailableAccessRights.Any(l => l.Id == 0))
                 {
                     return new ActionResponse

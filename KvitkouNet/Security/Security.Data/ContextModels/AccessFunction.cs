@@ -5,7 +5,7 @@ namespace Security.Data.ContextModels
     /// <summary>
     /// Функция доступа к фиче
     /// </summary>
-    internal class AccessFunction
+    public class AccessFunction
     {
         /// <summary>
         /// Идентификатор функции
@@ -30,11 +30,11 @@ namespace Security.Data.ContextModels
         /// <summary>
         /// Список прав
         /// </summary>
-        public List<RoleAccessFunction> Roles { get; set; }
+        public List<RoleAccessFunction> RoleAccessFunction { get; set; }
 
         /// <summary>
         /// Список предоставленных пользователю функций
         /// </summary>
-        public List<UserRightsAccessFunction> UserRights { get; set; }
+        public List<UserRightsAccessFunction> UserRightsAccessFunction { get; set; }
     }
 }

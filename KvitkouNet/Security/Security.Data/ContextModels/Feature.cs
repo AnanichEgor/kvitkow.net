@@ -5,7 +5,7 @@ namespace Security.Data.ContextModels
     /// <summary>
     /// Фича
     /// </summary>
-    internal class Feature
+    public class Feature
     {
         /// <summary>
         /// Идентификатор фичи
@@ -20,6 +20,6 @@ namespace Security.Data.ContextModels
         /// <summary>
         /// Список прав предоставляемых фичей
         /// </summary>
-        public List<FeatureAccessRight> AvailableAccessRights { get; set; }
+        public List<FeatureAccessRight> FeatureAccessRight { get; set; }
     }
 }

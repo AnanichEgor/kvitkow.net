@@ -5,7 +5,7 @@ namespace Security.Data.ContextModels
     /// <summary>
     /// Право доступа
     /// </summary>
-    internal class AccessRight
+    public class AccessRight
     {
         /// <summary>
         /// Идентификатор права доступа
@@ -20,22 +20,22 @@ namespace Security.Data.ContextModels
         /// <summary>
         /// Список прав предоставляемых функцией
         /// </summary>
-        public List<AccessFunctionAccessRight> AccessFunctionAccessRights { get; set; }
+        public List<AccessFunctionAccessRight> AccessFunctionAccessRight { get; set; }
 
         /// <summary>
         /// Список прав предоставляемых фичей
         /// </summary>
-        public List<FeatureAccessRight> AvailableAccessRights { get; set; }
+        public List<FeatureAccessRight> FeatureAccessRight { get; set; }
 
         /// <summary>
         /// Список прав
         /// </summary>
-        public List<RoleAccessRight> Roles { get; set; }
+        public List<RoleAccessRight> RoleAccessRight { get; set; }
 
         /// <summary>
         /// Список прав
         /// </summary>
-        public List<UserRightsAccessRight> UserRights { get; set; }
+        public List<UserRightsAccessRight> UserRightsAccessRight { get; set; }
 
     }
 }

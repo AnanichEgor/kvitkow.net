@@ -14,12 +14,12 @@ namespace Security.Data.Configuration
                 .HasOne<AccessFunction>(bc => bc.AccessFunction)
                 .WithMany(b => b.AccessFunctionAccessRights)
                 .HasForeignKey(bc => bc.AccessFunctionId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
             accessFunctionAccessRightEntity
                 .HasOne<AccessRight>(bc => bc.AccessRight)
-                .WithMany(l=>l.AccessFunctionAccessRights)
+                .WithMany(l=>l.AccessFunctionAccessRight)
                 .HasForeignKey(l=>l.AccessRightId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

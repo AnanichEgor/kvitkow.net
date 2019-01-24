@@ -30,7 +30,7 @@ namespace Security.Logic.Tests.Tests.AccessRightTests
             {
                 cfg.AddProfile<AccessRightProfile>();
                 cfg.AddProfile<AccessFunctionProfile>();
-                cfg.AddProfile<FetureProfile>();
+                cfg.AddProfile<FeatureProfile>();
                 cfg.AddProfile<RoleProfile>();
                 cfg.AddProfile<UserRightsProfile>();
             }));

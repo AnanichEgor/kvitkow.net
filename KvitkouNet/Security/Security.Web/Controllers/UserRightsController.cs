@@ -19,7 +19,7 @@ namespace Security.Web.Controllers
             _securityService = securityService;
         }
 
-        [HttpGet, Route("rights/user/{id:string}")]
+        [HttpGet, Route("rights/user/{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(UserRights), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]

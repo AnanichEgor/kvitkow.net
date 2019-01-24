@@ -7,7 +7,7 @@ using Security.Data.Models;
 
 namespace Security.Data.MapperProfiles
 {
-    class AccessRightProfile : Profile
+    public class AccessRightProfile : Profile
     {
         public AccessRightProfile()
         {

@@ -23,7 +23,7 @@ namespace Security.Logic.Tests.Tests.FeatureTests
         {
             _mapper = new Mapper(new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile<FetureProfile>();
+                cfg.AddProfile<FeatureProfile>();
             }));
 
             _mock = new Mock<ISecurityData>();

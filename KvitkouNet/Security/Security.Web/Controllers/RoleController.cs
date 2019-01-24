@@ -19,13 +19,13 @@ namespace Security.Web.Controllers
             _securityService = securityService;
         }
 
-        [HttpGet, Route("roles")]
+        [HttpGet, Route("roles/{per_page:int}/{page:int}/{mask?}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(List<Role>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> GetRoles()
+        public async Task<IActionResult> GetRoles(int per_page, int page, string mask)
         {
-            var result = _securityService.GetRoles(50, 1);
+            var result = _securityService.GetRoles(per_page, page, mask);
             return Ok(await result);
         }
 
@@ -43,9 +43,9 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> DeleteRole(int roleId)
+        public async Task<IActionResult> DeleteRole(int id)
         {
-            var result = _securityService.DeleteRole(roleId);
+            var result = _securityService.DeleteRole(id);
             return Ok(await result);
         }
 
