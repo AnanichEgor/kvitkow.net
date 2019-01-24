@@ -17,7 +17,7 @@ namespace TicketManagement.Data.Fakes
             _fakerTicket = new Faker<Ticket>();
             _fakerTicket.RuleFor(db => db.Name, faker => faker.Lorem.Sentence(4, 10));
             _fakerTicket.RuleFor(db => db.AdditionalData, faker => faker.Lorem.Sentence(10, 20));
-            _fakerTicket.RuleFor(db => db.SellerPhone, faker => faker.Phone.PhoneNumber("###-###-####"));
+            _fakerTicket.RuleFor(db => db.SellerPhone, faker => faker.Phone.PhoneNumber("+###-##-##-##-###"));
             _fakerTicket.RuleFor(db => db.CreatedDate, faker => faker.Date.Past());
             _fakerTicket.RuleFor(db => db.EventLink, faker => faker.Lorem.Word());
             _fakerTicket.CustomInstantiator(faker => new Ticket()).Rules((faker, db) =>
