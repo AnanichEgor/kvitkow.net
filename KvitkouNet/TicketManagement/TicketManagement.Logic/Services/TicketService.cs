@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
+using Microsoft.Extensions.Configuration;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Data.Repositories;
 using TicketManagement.Logic.Models;
