@@ -6,6 +6,7 @@ using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Data.Repositories;
+using TicketManagement.Logic.Extentions;
 using TicketManagement.Logic.Models;
 using TicketManagement.Logic.Models.Enums;
 using Ticket = TicketManagement.Data.DbModels.Ticket;
@@ -38,6 +39,7 @@ namespace TicketManagement.Logic.Services
         public async Task<(string, RequestStatus)> Add(Models.Ticket ticket)
         {
             if (!_validator.Validate(ticket).IsValid) return (null, RequestStatus.BadRequest);
+            if (!ticket.PhoneValidate()) return (null, RequestStatus.BadRequest);
             var res = await _context.Add(_mapper.Map<Ticket>(ticket));
             return (res, RequestStatus.Success);
         }
