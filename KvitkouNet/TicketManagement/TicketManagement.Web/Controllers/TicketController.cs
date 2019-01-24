@@ -40,7 +40,7 @@ namespace TicketManagement.Web.Controllers
         {
             var result = await _service.Add(ticket);
             if (result.Item2 == RequestStatus.InvalidModel) return ValidationProblem();
-            if (result.Item2 == RequestStatus.BadUserRating) return Forbid();
+            if (result.Item2 == RequestStatus.BadUserRating) return StatusCode(403);
             if (result.Item2 == RequestStatus.Error) return StatusCode(500);
             await _bus.PublishAsync(new TicketCreate {TicketId = result.Item1});
             return Ok(result.Item1);
