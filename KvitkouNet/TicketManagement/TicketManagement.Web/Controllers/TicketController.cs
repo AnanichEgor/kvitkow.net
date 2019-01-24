@@ -33,8 +33,9 @@ namespace TicketManagement.Web.Controllers
         /// <returns>Код ответа Create и добавленную модель</returns>
         [HttpPost]
         [SwaggerResponse(HttpStatusCode.OK, typeof(string), Description = "Ticket created")]
-        [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
+        [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "User rating is negative")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(string), Description = "Unauthorized user")]
         public async Task<IActionResult> Add([FromBody] Ticket ticket)
         {
             var result = await _service.Add(ticket);
