@@ -3,10 +3,10 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>03d3bfce-aa19-4d29-a012-c634f119931d</ProjectGuid>
+    <ProjectGuid>eb9944bd-b670-4f62-bd7a-3e007b43fa0d</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/api/values</DockerServiceUrl>
-    <DockerServiceName>chat.web</DockerServiceName>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger/index.html</DockerServiceUrl>
+    <DockerServiceName>dashboardmicroservice</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
