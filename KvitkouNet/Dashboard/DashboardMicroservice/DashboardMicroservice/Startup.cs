@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Dashboard.Logic;
 using AutoMapper;
+<<<<<<< HEAD
 using Dashboard.Logic.Models;
 using Dashboard.Logic.Validators;
 using Dashboard.Data.Context;
@@ -13,6 +14,8 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Dashboard.Logic.MappingProfiles;
+=======
+>>>>>>> DashboardMicroservice
 
 namespace DashboardMicroService
 {
@@ -28,6 +31,7 @@ namespace DashboardMicroService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+<<<<<<< HEAD
             services.AddDbContext<DashboardContext>(opt => opt.UseSqlite("Data Source=./DashboardDatabase.db"));
             var o = new DbContextOptionsBuilder<DashboardContext>();
             o.UseSqlite("Data Source =./DashboardDatabase.db");
@@ -43,6 +47,12 @@ namespace DashboardMicroService
             services.AddAutoMapper();
             services.AddScoped<IValidator<News>, NewsValidator>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+=======
+            services.AddAutoMapper();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+>>>>>>> DashboardMicroservice
             services.AddSwaggerDocument();
             services.RegisterDashboardService();
         }

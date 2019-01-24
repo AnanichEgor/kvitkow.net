@@ -9,7 +9,11 @@ namespace Dashboard.Data.DbModels
         /// <summary>
         ///     Id юзера
         /// </summary>
+<<<<<<< HEAD
         public int UserInfoDbId { get; set; }
+=======
+        public string UserInfoDbId { get; set; }
+>>>>>>> DashboardMicroservice
 
         /// <summary>
         ///     Имя юзера

@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Dashboard.Data.DbModels;
+<<<<<<< HEAD
 using Dashboard.Data.ContextConfiguration;
+=======
+>>>>>>> DashboardMicroservice
 
 namespace Dashboard.Data.Context
 {
@@ -12,6 +15,7 @@ namespace Dashboard.Data.Context
         }
 
         public DbSet<NewsDb> News { get; set; }
+<<<<<<< HEAD
         public DbSet<TicketInfoDb> LocationAddresses { get; set; }
         public DbSet<UserInfoDb> UserInfos { get; set; }
 
@@ -23,5 +27,11 @@ namespace Dashboard.Data.Context
             base.OnModelCreating(modelBuilder);
 
         }
+=======
+
+        public DbSet<TicketInfoDb> LocationAddresses { get; set; }
+
+        public DbSet<UserInfoDb> UserInfos { get; set; }
+>>>>>>> DashboardMicroservice
     }
 }

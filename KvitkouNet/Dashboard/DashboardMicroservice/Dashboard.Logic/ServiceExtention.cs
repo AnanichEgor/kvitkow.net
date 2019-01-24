@@ -5,10 +5,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Dashboard.Data.Context;
 using Dashboard.Data.Repositories;
+<<<<<<< HEAD
 using Dashboard.Logic.Models;
 using Dashboard.Logic.Services;
 using Dashboard.Logic.Validators;
 using Dashboard.Logic.MappingProfiles;
+=======
+using Dashboard.Logic.MappingProfiles;
+using Dashboard.Logic.Models;
+using Dashboard.Logic.Services;
+using Dashboard.Logic.Validators;
+using Dashboard.Logic.MppingProfiles;
+>>>>>>> DashboardMicroservice
 
 namespace Dashboard.Logic
 {
