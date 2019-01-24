@@ -30,6 +30,10 @@ namespace UserManagement.Web.Controllers
         public async Task<IActionResult> Register([FromBody]UserRegisterModel model)
         {
             var result = await _service.Register(model);
+            if (result!="Ok")
+            {
+                return BadRequest(result);
+            }
             return Ok(result);
         }
 

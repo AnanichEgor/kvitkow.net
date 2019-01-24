@@ -2,6 +2,7 @@
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UserManagement.Data.DbModels;
 using UserManagement.Data.Repositories;
@@ -26,10 +27,11 @@ namespace UserManagement.Logic.Services
 
         public async Task<string> Register(UserRegisterModel model)
         {
-            _validator.Validate(model);
+            var result = _validator.Validate(model);
+            if (!result.IsValid) return result.Errors.First().ToString();
             var res = await _unitOfWork.Users.AddAsync(_mapper.Map<UserDB>(model));
             _unitOfWork.SaveChanges();
-            return res.AccountDB.Login;
+            return "Ok";
         }
 
         public Task<string> AddGroup(GroupModel userGroupModel)

@@ -7,9 +7,11 @@ namespace UserManagement.Logic.Validators
     {
         public UserRegisterValidator()
         {
-            RuleFor(x => x.Username).NotEmpty().Matches(@" ^[a - zA - Z][a - zA - Z0 - 9 - _\.]{5,15}$");
+            RuleFor(x => x.Username).NotEmpty().Length(4, 15)
+            .Matches(@"^[a-zA-Z0-9_-]");
             RuleFor(x => x.Email).EmailAddress();
-            RuleFor(x => x.Password).NotEmpty().Length(6, 12).Matches(@" ^[a - zA - Z][a - zA - Z0 - 9 - _\.]$");
+            RuleFor(x => x.Password).NotEmpty().Length(6, 12).Matches(@"^[a-zA-Z0-9_-]");
+            
             RuleFor(x => x.ConfirmPassword).Equal(x => x.Password);
         }
     }
