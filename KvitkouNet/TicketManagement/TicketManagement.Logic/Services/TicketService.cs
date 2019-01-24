@@ -101,6 +101,21 @@ namespace TicketManagement.Logic.Services
                 : (_mapper.Map<IEnumerable<Ticket>>(res), RequestStatus.Success);
         }
 
+        /// <summary>
+        ///     Получение всех билетов имеющихся в системе постранично
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public async Task<(Models.Page<TicketLite>, RequestStatus)> GetAllPagebyPage(int index)
+        {
+            var pageSize = _configuration.GetValue<int>("pageSize");
+            var res = await _context.GetAllPagebyPage(index, pageSize);
+            return res == null
+                ? (null, RequestStatus.BadRequest)
+                : (_mapper.Map<Models.Page<TicketLite>>(res), RequestStatus.Success);
+        }
+
         #region IDisposable Support
 
         public void Dispose()
