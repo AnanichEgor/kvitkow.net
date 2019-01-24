@@ -137,5 +137,21 @@ namespace TicketManagement.Web.Controllers
             var result = await _service.GetAllActual();
             return Ok(result);
         }
+
+        /// <summary>
+        ///     Получение всех билет имеющихся в системе постранично
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("page/{index}")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(Page<TicketLite>), Description = "All Ok")]
+        [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        public async Task<IActionResult> GetAllPagebyPage([FromRoute] int index)
+        {
+            var result = await _service.GetAllPagebyPage(index);
+            if (result.Item2 != RequestStatus.Success) return BadRequest();
+            return Ok(result.Item1);
+        }
     }
 }
