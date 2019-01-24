@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chat.Data.Migrations
 {
     [DbContext(typeof(ChatContext))]
-    [Migration("20190112135402_Init")]
+    [Migration("20190120131645_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,7 +51,7 @@ namespace Chat.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("OwnerId");
+                    b.Property<string>("OwnerId");
 
                     b.Property<DateTime>("UpdateDate");
 
@@ -66,6 +66,8 @@ namespace Chat.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("BackgroundColor");
+
+                    b.Property<bool>("DisablePrivateMessages");
 
                     b.Property<bool>("HideChat");
 

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using TicketManagement.Data.Context;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Data.DbModels.Enums;
+using TicketManagement.Data.Extensions;
 
 namespace TicketManagement.Data.Repositories
 {
@@ -39,10 +40,8 @@ namespace TicketManagement.Data.Repositories
         {
             var original = await _context.Tickets.FindAsync(id);
             if (original == null) return;
-            original.Name = ticket.Name;
-
-            // todo add more properties
-
+            await Delete(id);
+            _context.Tickets.Add(original.UpdateModel(ticket, id));
             await _context.SaveChangesAsync();
         }
 
