@@ -16,6 +16,8 @@ namespace TicketManagement.Logic.Validators
             RuleFor(ticket => ticket.User).SetValidator(new UserValidator());
             RuleFor(ticket => ticket.LocationEvent).SetValidator(new AddressValidator());
             RuleFor(ticket => ticket.SellerAdress).SetValidator(new AddressValidator());
+            RuleFor(ticket => ticket.TypeEvent).IsInEnum();
+            RuleFor(ticket => ticket.Status).IsInEnum();
         }
     }
 }
