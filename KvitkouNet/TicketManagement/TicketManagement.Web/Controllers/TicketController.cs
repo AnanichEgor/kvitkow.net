@@ -74,7 +74,7 @@ namespace TicketManagement.Web.Controllers
         public async Task<IActionResult> DeleteAll()
         {
             var result = await _service.DeleteAll();
-            return Ok();
+            return NoContent();
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace TicketManagement.Web.Controllers
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
             var result = await _service.Delete(id);
-            return Ok();
+            return NoContent();
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace TicketManagement.Web.Controllers
         {
             var result = await _service.GetAll();
             if (result.Item2 != RequestStatus.Success) return BadRequest();
-            return Ok(result);
+            return Ok(result.Item1);
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace TicketManagement.Web.Controllers
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             var result = await _service.Get(id);
-            return Ok(result);
+            return Ok(result.Item1);
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace TicketManagement.Web.Controllers
         public async Task<IActionResult> GetAllActual()
         {
             var result = await _service.GetAllActual();
-            return Ok(result);
+            return Ok(result.Item1);
         }
 
         /// <summary>

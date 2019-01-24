@@ -26,7 +26,7 @@ namespace TicketManagement.Web
             services.AddOptions();
             services.AddSingleton<IConfiguration>(Configuration);
             var value = Configuration["Hostname"];
-            services.AddSwaggerDocument();
+            services.AddSwaggerDocument(settings => settings.Title = "Ticket Management");
             services.AddSingleton(RabbitHutch.CreateBus(value));
             services.RegisterTicketService();
         }
