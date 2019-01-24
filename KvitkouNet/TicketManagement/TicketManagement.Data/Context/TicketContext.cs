@@ -3,6 +3,9 @@ using TicketManagement.Data.DbModels;
 
 namespace TicketManagement.Data.Context
 {
+    /// <summary>
+    ///     Класс контекста для работы с данными в базе
+    /// </summary>
     public class TicketContext : DbContext
     {
         public TicketContext(DbContextOptions<TicketContext> options) : base(options)
