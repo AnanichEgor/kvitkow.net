@@ -57,8 +57,9 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Ticket ticket)
         {
-            await _service.Update(id, ticket);
-            return NoContent();
+           var res= await _service.Update(id, ticket);
+           if (res != RequestStatus.Success) return BadRequest();
+           return NoContent();
         }
 
         /// <summary>
