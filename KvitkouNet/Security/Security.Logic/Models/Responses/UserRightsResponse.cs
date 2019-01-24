@@ -3,11 +3,11 @@
     /// <summary>
     /// Результат добавления фичи
     /// </summary>
-    public class AddFeatureResponse : ActionResponse
+    public class UserRightsResponse : ActionResponse
     {
         /// <summary>
         /// Идентификатор фичи
         /// </summary>
-        public int Id { get; set; }
+        public UserRights UserRights { get; set; }
     }
 }

@@ -16,5 +16,10 @@ namespace Security.Logic.Models.Responses
         /// Дополнительная информация о выполнении
         /// </summary>
         public string Message { get; set; }
+
+        /// <summary>
+        /// Идентификатор сущности
+        /// </summary>
+        public int Id { get; set; }
     }
 }

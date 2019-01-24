@@ -3,11 +3,11 @@
     /// <summary>
     /// Результат добавления роли
     /// </summary>
-    public class AddRoleResponse : ActionResponse
+    public class RoleResponse : ActionResponse
     {
         /// <summary>
         /// Идентификатор роли
         /// </summary>
-        public int Id { get; set; }
+        public Role[] Roles { get; set; }
     }
 }

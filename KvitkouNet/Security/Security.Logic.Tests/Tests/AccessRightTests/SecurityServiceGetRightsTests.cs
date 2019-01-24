@@ -6,11 +6,12 @@ using NUnit.Framework;
 using Security.Data;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models;
+using Security.Logic.Models.Enums;
 using Security.Logic.Services;
 using Security.Logic.Tests.Comparers;
 using Security.Logic.Tests.Fakers;
 
-namespace Security.Logic.Tests.AccessRightTests
+namespace Security.Logic.Tests.Tests.AccessRightTests
 {
     public class SecurityServiceGetRightsTests
     {
@@ -23,7 +24,14 @@ namespace Security.Logic.Tests.AccessRightTests
         public void Setup()
         {
             _dbFaker = new SecurityDbFaker();
-            _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<AccessRightProfile>()));
+            _mapper = new Mapper(new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<AccessRightProfile>();
+                cfg.AddProfile<AccessFunctionProfile>();
+                cfg.AddProfile<FetureProfile>();
+                cfg.AddProfile<RoleProfile>();
+                cfg.AddProfile<UserRightsProfile>();
+            }));
 
             _mock = new Mock<ISecurityData>();
             _mock.Setup(x => x.GetRights(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
@@ -39,11 +47,11 @@ namespace Security.Logic.Tests.AccessRightTests
             var itemsPerPage = 10;
             var pageNumber = 1;
 
-            var rights = (await _securityData.GetRights(itemsPerPage, pageNumber)).ToArray();
-            var expected = _mapper.Map<Models.AccessRight[]>(_dbFaker.AccessRights
+            var response = (await _securityData.GetRights(itemsPerPage, pageNumber)).AccessRights;
+            var expected = _mapper.Map<AccessRight[]>(_dbFaker.AccessRights
                 .OrderBy(l => l.Name).Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage).ToArray());
 
-            CollectionAssert.AreEqual(expected, rights, new AccessRightComparer());
+            CollectionAssert.AreEqual(expected, response, new AccessRightComparer());
             _mock.Verify(
                 data => data.GetRights(It.Is<int>(i => i == itemsPerPage), It.Is<int>(i => i == pageNumber),
                     It.Is<string>(i => i == null)), () => Times.Exactly(1));
@@ -55,12 +63,12 @@ namespace Security.Logic.Tests.AccessRightTests
             var pageNumber = 1;
             var mask = "no";
 
-            var rights = (await _securityData.GetRights(itemsPerPage, pageNumber, mask)).ToArray();
+            var response = (await _securityData.GetRights(itemsPerPage, pageNumber, mask)).AccessRights;
 
             var expected = _mapper.Map<AccessRight[]>(_dbFaker.AccessRights.Where(l => string.IsNullOrEmpty(mask) || l.Name.Contains(mask))
                 .OrderBy(l => l.Name).Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage).ToArray());
             
-            CollectionAssert.AreEqual(expected, rights, new AccessRightComparer());
+            CollectionAssert.AreEqual(expected, response, new AccessRightComparer());
             _mock.Verify(
                 data => data.GetRights(It.Is<int>(i => i == itemsPerPage), It.Is<int>(i => i == pageNumber),
                     It.Is<string>(i => i == mask)), () => Times.Exactly(1));
@@ -72,11 +80,10 @@ namespace Security.Logic.Tests.AccessRightTests
             var itemsPerPage = 0;
             var pageNumber = 1;
 
-            var rights = (await _securityData.GetRights(itemsPerPage, pageNumber)).ToArray();
+            var response = (await _securityData.GetRights(itemsPerPage, pageNumber));
 
-            var expected = new AccessRight[0];
-
-            CollectionAssert.AreEqual(expected, rights, new AccessRightComparer());
+            Assert.AreEqual(ActionStatus.Warning, response.Status);
+            CollectionAssert.AreEqual(null, response.AccessRights, new AccessRightComparer());
             _mock.Verify(data => data.GetRights(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()), () => Times.Exactly(0));
         }
 
@@ -86,11 +93,10 @@ namespace Security.Logic.Tests.AccessRightTests
             var itemsPerPage = -10;
             var pageNumber = 1;
 
-            var rights = (await _securityData.GetRights(itemsPerPage, pageNumber)).ToArray();
-
-            var expected = new AccessRight[0];
-
-            CollectionAssert.AreEqual(expected, rights, new AccessRightComparer());
+            var response = (await _securityData.GetRights(itemsPerPage, pageNumber));
+            
+            Assert.AreEqual(ActionStatus.Warning, response.Status);
+            CollectionAssert.AreEqual(null, response.AccessRights, new AccessRightComparer());
             _mock.Verify(data => data.GetRights(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()), () => Times.Exactly(0));
         }
 
@@ -100,11 +106,10 @@ namespace Security.Logic.Tests.AccessRightTests
             var itemsPerPage = 10;
             var pageNumber = 0;
 
-            var rights = (await _securityData.GetRights(itemsPerPage, pageNumber)).ToArray();
+            var response = await _securityData.GetRights(itemsPerPage, pageNumber);
 
-            var expected = new AccessRight[0];
-
-            CollectionAssert.AreEqual(expected, rights, new AccessRightComparer());
+            Assert.AreEqual(ActionStatus.Warning, response.Status);
+            CollectionAssert.AreEqual(null, response.AccessRights, new AccessRightComparer());
             _mock.Verify(data => data.GetRights(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()), () => Times.Exactly(0));
         }
 
@@ -114,11 +119,10 @@ namespace Security.Logic.Tests.AccessRightTests
             var itemsPerPage = 10;
             var pageNumber = -1;
 
-            var rights = (await _securityData.GetRights(itemsPerPage, pageNumber)).ToArray();
+            var response = (await _securityData.GetRights(itemsPerPage, pageNumber));
 
-            var expected = new AccessRight[0];
-
-            CollectionAssert.AreEqual(expected, rights, new AccessRightComparer());
+            Assert.AreEqual(ActionStatus.Warning, response.Status);
+            CollectionAssert.AreEqual(null, response.AccessRights, new AccessRightComparer());
             _mock.Verify(data => data.GetRights(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()), () => Times.Exactly(0));
         }
 
@@ -129,11 +133,10 @@ namespace Security.Logic.Tests.AccessRightTests
             var pageNumber = 1;
             var mask = "no423534645674tgdfbdfmgvbngdnty356y34gvt634fredgdfhnfgmytngv56t43c5t23rhfghnfgjgdfbdfmgvbngdnty356y34gvt634fredgdfhnfgmytngv56t43c5t23rhfghnfgj";
 
-            var rights = (await _securityData.GetRights(itemsPerPage, pageNumber, mask)).ToArray();
-
-            var expected = new AccessRight[0];
-
-            CollectionAssert.AreEqual(expected, rights, new AccessRightComparer());
+            var response = (await _securityData.GetRights(itemsPerPage, pageNumber, mask));
+            
+            Assert.AreEqual(ActionStatus.Warning, response.Status);
+            CollectionAssert.AreEqual(null, response.AccessRights, new AccessRightComparer());
             _mock.Verify(data => data.GetRights(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()), () => Times.Exactly(0));
         }
 
@@ -144,12 +147,12 @@ namespace Security.Logic.Tests.AccessRightTests
             var pageNumber = 1;
             var mask = " no ";
 
-            var rights = (await _securityData.GetRights(itemsPerPage, pageNumber, mask)).ToArray();
+            var response = (await _securityData.GetRights(itemsPerPage, pageNumber, mask)).AccessRights;
 
             var expected = _mapper.Map<AccessRight[]>(_dbFaker.AccessRights.Where(l => string.IsNullOrEmpty(mask) || l.Name.Contains(mask.Trim()))
                 .OrderBy(l => l.Name).Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage).ToArray());
 
-            CollectionAssert.AreEqual(expected, rights, new AccessRightComparer());
+            CollectionAssert.AreEqual(expected, response, new AccessRightComparer());
             _mock.Verify(data => data.GetRights(It.Is<int>(i => i == itemsPerPage), It.Is<int>(i => i == pageNumber),
                     It.Is<string>(i => i == mask.Trim())), () => Times.Exactly(1));
         }

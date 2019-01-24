@@ -8,7 +8,7 @@ using Security.Logic.Models.Enums;
 using Security.Logic.Services;
 using Security.Logic.Tests.Fakers;
 
-namespace Security.Logic.Tests.FunctionTests
+namespace Security.Logic.Tests.Tests.AccessRightTests
 {
     public class SecurityServiceDeleteFunctionsTests
     {

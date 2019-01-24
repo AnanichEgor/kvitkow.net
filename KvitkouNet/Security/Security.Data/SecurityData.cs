@@ -45,8 +45,7 @@ namespace Security.Data
                 .ToArrayAsync();
             if (existed.Any())
             {
-                throw new SecurityDbException(
-                    $"Names {string.Join(",", existed.Select(l => l.Name))} already exist");
+                throw new SecurityDbException("Names already exist", ExceptionType.NameExists, EntityType.Right, existed.Select(l => l.Name).ToArray());
             }
             var rights = _mapper.Map<AccessRight[]>(accessRights);
             await _context.AccessRights.AddRangeAsync(rights);
@@ -59,7 +58,7 @@ namespace Security.Data
             var right = await _context.AccessRights.SingleOrDefaultAsync(l => l.Id == rightId);
             if (right == null)
             {
-                throw new SecurityDbException($"AccessRight with id = {rightId} was not found");
+                throw new SecurityDbException("AccessRight was not found", ExceptionType.NotFound, EntityType.Right, new []{ rightId.ToString() });
             }
 
             _context.AccessRights.Remove(right);
@@ -80,7 +79,7 @@ namespace Security.Data
             if (await _context.AccessFunctions.AnyAsync(l => function.Name.Equals(l.Name)))
             {
                 throw new SecurityDbException(
-                    $"Names {function.Name} already exist");
+                    "Names already exist", ExceptionType.NameExists, EntityType.Function, new []{ function.Name});
             }
             var featureMapped = _mapper.Map<AccessFunction>(function);
             await _context.AccessFunctions.AddAsync(featureMapped);
@@ -93,7 +92,7 @@ namespace Security.Data
             var function = await _context.AccessFunctions.SingleOrDefaultAsync(l => l.Id == functionId);
             if (function == null)
             {
-                throw new SecurityDbException($"Function with id = {functionId} was not found");
+                throw new SecurityDbException("Function was not found", ExceptionType.NotFound, EntityType.Function, new []{ functionId .ToString()});
             }
 
             _context.AccessFunctions.Remove(function);
@@ -108,14 +107,15 @@ namespace Security.Data
                 .SingleOrDefaultAsync(l => l.Id == functionId);
             if (functionDb == null)
             {
-                throw new SecurityDbException($"Function with id = {functionId} was not found");
+                throw new SecurityDbException("Function was not found", ExceptionType.NotFound, EntityType.Function, new []{ functionId.ToString() });
             }
 
             var rights = await _context.AccessRights.Where(l => newRights.Contains(l.Id)).ToArrayAsync();
             if (rights.Length != newRights.Length)
             {
+                var rightsIds = newRights.Except(rights.Select(l => l.Id)).Select(l => l.ToString()).ToArray();
                 throw new SecurityDbException(
-                    $"Access rights with id = {string.Join(",", newRights.Except(rights.Select(l => l.Id)).Select(l => l.ToString()).ToList())} was not found");
+                    "Access rights was not found", ExceptionType.NotFound, EntityType.Right, rightsIds);
             }
 
             functionDb.AccessFunctionAccessRights.AddRange(rights
@@ -138,6 +138,11 @@ namespace Security.Data
 
         public async Task<int> AddFeature(FeatureDb feature)
         {
+            if (await _context.Features.AnyAsync(l => feature.Name.Equals(l.Name)))
+            {
+                throw new SecurityDbException(
+                    "Names already exist", ExceptionType.NameExists, EntityType.Feature, new []{ feature.Name });
+            }
             var featureMapped = _mapper.Map<Feature>(feature);
             await _context.Features.AddAsync(featureMapped);
             await _context.SaveChangesAsync();
@@ -149,7 +154,7 @@ namespace Security.Data
             var feature = await _context.Features.SingleOrDefaultAsync(l => l.Id == featureId);
             if (feature == null)
             {
-                throw new SecurityDbException($"Function with id = {featureId} was not found");
+                throw new SecurityDbException("Function was not found", ExceptionType.NotFound, EntityType.Feature, new []{featureId.ToString()});
             }
 
             _context.Features.Remove(feature);
@@ -164,15 +169,16 @@ namespace Security.Data
                 .SingleOrDefaultAsync(l => l.Id == featureId);
             if (featureDb == null)
             {
-                throw new SecurityDbException($"Function with id = {featureId} was not found");
+                throw new SecurityDbException("Function was not found", ExceptionType.NotFound, EntityType.Feature, new[] { featureId.ToString() });
             }
 
             var rights = await _context.AccessRights
                 .Where(l => newRights.Contains(l.Id)).ToArrayAsync();
             if (rights.Length != newRights.Length)
             {
+                var rightsIds = newRights.Except(rights.Select(l => l.Id)).Select(l => l.ToString()).ToArray();
                 throw new SecurityDbException(
-                    $"Access rights with id = {string.Join(",", newRights.Except(rights.Select(l => l.Id)).Select(l => l.ToString()).ToList())} was not found");
+                    "Access rights was not found", ExceptionType.NotFound, EntityType.Right, rightsIds);
             }
 
             featureDb.AvailableAccessRights.AddRange(rights
@@ -197,6 +203,11 @@ namespace Security.Data
 
         public async Task<int> AddRole(RoleDb role)
         {
+            if (await _context.Roles.AnyAsync(l => role.Name.Equals(l.Name)))
+            {
+                throw new SecurityDbException(
+                    "Names already exist", ExceptionType.NameExists, EntityType.Role, new []{ role.Name });
+            }
             var roleMapped = _mapper.Map<Role>(role);
             await _context.Roles.AddAsync(roleMapped);
             await _context.SaveChangesAsync();
@@ -208,7 +219,7 @@ namespace Security.Data
             var role = await _context.Roles.SingleOrDefaultAsync(l => l.Id == roleId);
             if (role == null)
             {
-                throw new SecurityDbException($"Role with id = {roleId} was not found");
+                throw new SecurityDbException("Role was not found", ExceptionType.NotFound, EntityType.Role, new []{ roleId.ToString() });
             }
 
             _context.Roles.Remove(role);
@@ -223,19 +234,18 @@ namespace Security.Data
                 .SingleOrDefaultAsync(l => l.Id == roleId);
             if (roleDb == null)
             {
-                throw new SecurityDbException($"Role with id = {roleId} was not found");
+                throw new SecurityDbException("Role was not found", ExceptionType.NotFound, EntityType.Role, new[] { roleId.ToString() });
             }
 
             var rights = await _context.AccessRights
                 .Where(l => accessedRightsIds.Contains(l.Id) || deniedRightsIds.Contains(l.Id)).ToArrayAsync();
             if (rights.Length != accessedRightsIds.Length + deniedRightsIds.Length)
             {
-                var notFound = string.Join(",",
-                    accessedRightsIds.Except(rights.Select(l => l.Id)).Select(l => l.ToString()), 
-                    deniedRightsIds.Except(rights.Select(l => l.Id)).Select(l => l.ToString()));
+                var notFound = accessedRightsIds.Except(rights.Select(l => l.Id)).Select(l => l.ToString()).Union( 
+                    deniedRightsIds.Except(rights.Select(l => l.Id)).Select(l => l.ToString())).ToArray();
 
                 throw new SecurityDbException(
-                    $"Access rights with id = {notFound} was not found");
+                    "Access rights was not found", ExceptionType.NotFound, EntityType.Right, notFound);
             }
 
             roleDb.AccessRights.AddRange(accessedRightsIds
@@ -263,15 +273,16 @@ namespace Security.Data
                 .SingleOrDefaultAsync(l => l.Id == roleId);
             if (roleDb == null)
             {
-                throw new SecurityDbException($"Role with id = {roleId} was not found");
+                throw new SecurityDbException("Role was not found", ExceptionType.NotFound, EntityType.Role, new[] { roleId.ToString() });
             }
 
             var functions = await _context.AccessFunctions
                 .Where(l => functionIds.Contains(l.Id)).ToArrayAsync();
             if (functions.Length != functionIds.Length)
             {
+                var ids = functionIds.Except(functions.Select(l => l.Id)).Select(l => l.ToString()).ToArray();
                 throw new SecurityDbException(
-                    $"Access rights with id = {string.Join(",", functionIds.Except(functions.Select(l => l.Id)).Select(l => l.ToString()).ToList())} was not found");
+                    "Access function was not found", ExceptionType.NotFound, EntityType.Function, ids);
             }
 
             roleDb.AccessFunctions.AddRange(functionIds
@@ -295,6 +306,11 @@ namespace Security.Data
 
         public async Task<bool> AddNewUserRights(UserRightsDb userRights)
         {
+            if (await _context.UsersRights.AnyAsync(l => userRights.UserId.Equals(l.UserId)))
+            {
+                throw new SecurityDbException(
+                    "UserId already exist", ExceptionType.NameExists, EntityType.UserRights, new []{ userRights.UserId});
+            }
             var userRightsMapped = _mapper.Map<UserRights>(userRights);
             await _context.UsersRights.AddAsync(userRightsMapped);
             return await EditUserRightsCtx(userRightsMapped,
@@ -315,7 +331,7 @@ namespace Security.Data
             if (userRightsDb == null)
             {
                 throw new SecurityDbException(
-                    $"User rights with id = {userId} was not found");
+                    "User rights was not found", ExceptionType.NotFound, EntityType.UserRights, new[] { userId });
             }
 
             return await EditUserRightsCtx(userRightsDb, roleIds, functionIds, accessedRightsIds, deniedRightsIds);
@@ -327,34 +343,31 @@ namespace Security.Data
                 .Where(l => accessedRightsIds.Contains(l.Id) || deniedRightsIds.Contains(l.Id)).ToArrayAsync();
             if (rights.Length != accessedRightsIds.Length + deniedRightsIds.Length)
             {
-                var notFound = string.Join(",",
-                    accessedRightsIds.Except(rights.Select(l => l.Id)).Select(l => l.ToString()),
-                    deniedRightsIds.Except(rights.Select(l => l.Id)).Select(l => l.ToString()));
+                var notFound = accessedRightsIds.Except(rights.Select(l => l.Id)).Select(l => l.ToString()).Union(
+                    deniedRightsIds.Except(rights.Select(l => l.Id)).Select(l => l.ToString())).ToArray();
 
                 throw new SecurityDbException(
-                    $"Access rights with id = {notFound} was not found");
+                    "Access rights was not found", ExceptionType.NotFound, EntityType.UserRights, notFound);
             }
 
             var functions = await _context.AccessFunctions
                 .Where(l => functionIds.Contains(l.Id)).ToArrayAsync();
             if (functions.Length != functionIds.Length)
             {
-                var notFound = string.Join(",",
-                    functionIds.Except(functions.Select(l => l.Id)).Select(l => l.ToString()));
+                var notFound = functionIds.Except(functions.Select(l => l.Id)).Select(l => l.ToString()).ToArray();
 
                 throw new SecurityDbException(
-                    $"Access functions with id = {notFound} was not found");
+                    "Access functions was not found", ExceptionType.NotFound, EntityType.Function, notFound);
             }
 
             var roles = await _context.Roles
                 .Where(l => roleIds.Contains(l.Id)).ToArrayAsync();
             if (roles.Length != roleIds.Length)
             {
-                var notFound = string.Join(",",
-                    roleIds.Except(roles.Select(l => l.Id)).Select(l => l.ToString()));
+                var notFound = roleIds.Except(roles.Select(l => l.Id)).Select(l => l.ToString()).ToArray();
 
                 throw new SecurityDbException(
-                    $"Roles with id = {notFound} was not found");
+                    "Roles was not found", ExceptionType.NotFound, EntityType.Role, notFound);
             }
 
             userRightsDb.AccessRights.RemoveAll(right => true);

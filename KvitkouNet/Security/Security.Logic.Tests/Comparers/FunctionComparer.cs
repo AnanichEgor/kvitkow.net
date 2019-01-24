@@ -5,7 +5,7 @@ using Security.Logic.Models;
 
 namespace Security.Logic.Tests.Comparers
 {
-    public class FunctionComparer : Comparer<AccessFunction>
+    public class FunctionComparer : Comparer<AccessFunction>, IEqualityComparer<AccessFunction>
     {
         public override int Compare(AccessFunction x, AccessFunction y)
         {
@@ -23,6 +23,16 @@ namespace Security.Logic.Tests.Comparers
             }
 
             return string.Compare(x.Name, y.Name, StringComparison.Ordinal);
+        }
+
+        public bool Equals(AccessFunction x, AccessFunction y)
+        {
+            return x.Id == y.Id && x.Name == y.Name && x.FeatureId == y.FeatureId;
+        }
+
+        public int GetHashCode(AccessFunction obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }

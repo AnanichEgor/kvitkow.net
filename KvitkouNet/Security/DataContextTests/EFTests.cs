@@ -121,6 +121,14 @@ namespace Tests
             Assert.IsTrue(userRights.AccessFunctions.Count() == 1);
             Assert.IsTrue(userRights.Roles.Count() == 1);
 
+            Assert.IsTrue(await _data.EditUserRights("1", new[] { 2, 3 }, new[] { 2 }, new[] { 2 }, new int[0]));
+
+            var userRights2 = await _data.GetUserRights("1");
+            Assert.IsTrue(userRights2.AccessRights.Count() == 1);
+            Assert.IsTrue(!userRights2.DeniedRights.Any());
+            Assert.IsTrue(userRights2.AccessFunctions.Count() == 1);
+            Assert.IsTrue(userRights2.Roles.Count() == 2);
+
         }
     }
 }

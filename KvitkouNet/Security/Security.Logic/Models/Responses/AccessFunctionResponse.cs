@@ -3,11 +3,11 @@
     /// <summary>
     /// Результат добавления функции
     /// </summary>
-    public class AddFunctionResponse : ActionResponse
+    public class AccessFunctionResponse : ActionResponse
     {
         /// <summary>
         /// Идентификатор функции
         /// </summary>
-        public int Id { get; set; }
+        public AccessFunction[] AccessFunctions { get; set; }
     }
 }

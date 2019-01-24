@@ -12,7 +12,7 @@ using Security.Logic.Models.Enums;
 using Security.Logic.Services;
 using Security.Logic.Tests.Fakers;
 
-namespace Security.Logic.Tests.AccessRightTests
+namespace Security.Logic.Tests.Tests.AccessRightTests
 {
     public class SecurityServiceGetFunctionsTests
     {
@@ -25,7 +25,14 @@ namespace Security.Logic.Tests.AccessRightTests
         public void Setup()
         {
             _dbFaker = new SecurityDbFaker();
-            _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<AccessRightProfile>()));
+            _mapper = new Mapper(new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<AccessRightProfile>();
+                cfg.AddProfile<AccessFunctionProfile>();
+                cfg.AddProfile<FetureProfile>();
+                cfg.AddProfile<RoleProfile>();
+                cfg.AddProfile<UserRightsProfile>();
+            }));
 
             _mock = new Mock<ISecurityData>();
             _mock.Setup(x => x.GetRights(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
@@ -72,8 +79,7 @@ namespace Security.Logic.Tests.AccessRightTests
                 .Returns<AccessRightDb[]>(rights =>
                 {
                     Console.WriteLine("Name == existed");
-                    throw new SecurityDbException(
-                            $"Names {string.Join(",", rights.Select(l => l.Name))} already exist");
+                    throw new SecurityDbException("Names already exist", ExceptionType.NameExists, EntityType.UserRights, rights.Select(l => l.Name).ToArray());
                 });
             //Some other error
             _mock.Setup(x => x.AddRights(
@@ -149,9 +155,9 @@ namespace Security.Logic.Tests.AccessRightTests
             };
 
             var rights = await _securityData.AddRights(new[] { right });
-            var expectedMessage = $"Names {existedName} already exist";
+            var expectedMessage = $"Names: {existedName} of User Rights already exist";
 
-            Assert.AreEqual(ActionStatus.Error, rights.Status);
+            Assert.AreEqual(ActionStatus.Warning, rights.Status);
             Assert.AreEqual(expectedMessage, rights.Message);
             _mock.Verify(data => data.AddRights(new[] {It.IsAny<AccessRightDb>()}), () => Times.Exactly(0));
         }
@@ -168,7 +174,7 @@ namespace Security.Logic.Tests.AccessRightTests
             var rights = await _securityData.AddRights(new[] { right });
             var expectedMessage = "Name is longer then 100";
 
-            Assert.AreEqual(ActionStatus.Error, rights.Status);
+            Assert.AreEqual(ActionStatus.Warning, rights.Status);
             Assert.AreEqual(expectedMessage, rights.Message);
             _mock.Verify(data => data.AddRights(new[] {It.IsAny<AccessRightDb>()}), () => Times.Exactly(0));
         }
@@ -183,7 +189,7 @@ namespace Security.Logic.Tests.AccessRightTests
             };
 
             var rights = await _securityData.AddRights(new[] { right });
-            var expectedMessage = "Unknown error";
+            var expectedMessage = "Something went wrong!";
 
             Assert.AreEqual(ActionStatus.Error, rights.Status);
             Assert.AreEqual(expectedMessage, rights.Message);

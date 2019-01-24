@@ -14,7 +14,7 @@ using Security.Logic.Models.Enums;
 using Security.Logic.Services;
 using Security.Logic.Tests.Fakers;
 
-namespace Security.Logic.Tests.FunctionTests
+namespace Security.Logic.Tests.Tests.FunctionTests
 {
     public class SecurityServiceAddFunctionTests
     {
@@ -45,11 +45,19 @@ namespace Security.Logic.Tests.FunctionTests
             _mock.Setup(x => x.AddFunction(
                     It.Is<AccessFunctionDb>(function => _dbFaker.Functions.Any(l => l.Name.Equals(function.Name)))))
                 .Returns<AccessFunctionDb>(function => throw new SecurityDbException(
-                    $"Names {function.Name} already exist"));
+                    $"Names already exist", ExceptionType.NameExists, EntityType.Function, new []{ function.Name }));
             _mock.Setup(x => x.AddFunction(It.Is<AccessFunctionDb>(function => function.Id != 0 && _dbFaker.Functions.Any(l => l.Id == function.Id))))
                 .Returns(() => throw new InvalidOperationException());
             _mock.Setup(x => x.AddFunction(It.Is<AccessFunctionDb>(function => function.Name == "Error!")))
                 .Returns(() => throw new Exception());
+            _mock.Setup(x => x.AddFunction(
+                    It.Is<AccessFunctionDb>(function => !_dbFaker.Features.Any(l => l.Id.Equals(function.FeatureId)))))
+                .Returns<AccessFunctionDb>(function => throw new SecurityDbException(
+                    $"Feature not Found", ExceptionType.NotFound, EntityType.Feature, new[] { function.FeatureId.ToString() }));
+            _mock.Setup(x => x.AddFunction(
+                    It.Is<AccessFunctionDb>(function => function.FeatureId == 0)))
+                .Returns<AccessFunctionDb>(function => throw new SecurityDbException(
+                    $"Feature not Found", ExceptionType.NotFound, EntityType.Feature, new[] { function.FeatureId.ToString() }));
 
             _securityData = new SecurityService(_mock.Object, _mapper);
         }
@@ -122,9 +130,9 @@ namespace Security.Logic.Tests.FunctionTests
             };
 
             var functions = await _securityData.AddFunction(function);
-            var expectedMessage = $"Names {existedName} already exist";
+            var expectedMessage = $"Names: {existedName} of Access Function already exist";
 
-            Assert.AreEqual(ActionStatus.Error, functions.Status);
+            Assert.AreEqual(ActionStatus.Warning, functions.Status);
             Assert.AreEqual(expectedMessage, functions.Message);
             _mock.Verify(data => data.AddFunction(It.Is<AccessFunctionDb>(db => db.Id == 0 && db.Name.Equals(function.Name))), () => Times.Exactly(1));
         }
@@ -142,7 +150,7 @@ namespace Security.Logic.Tests.FunctionTests
             var functions = await _securityData.AddFunction(function);
             var expectedMessage = "Name is longer then 100";
 
-            Assert.AreEqual(ActionStatus.Error, functions.Status);
+            Assert.AreEqual(ActionStatus.Warning, functions.Status);
             Assert.AreEqual(expectedMessage, functions.Message);
             _mock.Verify(data => data.AddFunction(It.IsAny<AccessFunctionDb>()), () => Times.Exactly(0));
         }
@@ -158,7 +166,7 @@ namespace Security.Logic.Tests.FunctionTests
             };
 
             var functions = await _securityData.AddFunction(function);
-            var expectedMessage = "Unknown error";
+            var expectedMessage = "Something went wrong!";
 
             Assert.AreEqual(ActionStatus.Error, functions.Status);
             Assert.AreEqual(expectedMessage, functions.Message);
@@ -201,6 +209,46 @@ namespace Security.Logic.Tests.FunctionTests
             Assert.AreEqual(ActionStatus.Success, functions.Status);
             Assert.AreEqual(expected, functions.Id);
             _mock.Verify(data => data.AddFunction(It.Is<AccessFunctionDb>(db => db.Id == 0 && db.Name.Equals(function.Name))), () => Times.Exactly(1));
+        }
+
+        [Test]
+        public async Task AddFunctionNotExistingFeature()
+        {
+            var fetureId = 20000;
+
+            var function = new AccessFunction()
+            {
+                Id = 0,
+                Name = "NormalName",
+                FeatureId = fetureId,
+                AccessRights = new List<AccessRight>() { new AccessRight() { Id = 2, Name = "1"} }
+            };
+
+            var functions = await _securityData.AddFunction(function);
+            var expectedMessage = $"Feature with id = {fetureId.ToString()} was not found";
+
+            Assert.AreEqual(ActionStatus.Warning, functions.Status);
+            Assert.AreEqual(expectedMessage, functions.Message);
+            _mock.Verify(data => data.AddFunction(It.Is<AccessFunctionDb>(db => db.Id == 0 && db.Name.Equals(function.Name))), () => Times.Exactly(1));
+        }
+
+        [Test]
+        public async Task AddFunctionFeatureIdZero()
+        {
+            var function = new AccessFunction()
+            {
+                Id = 0,
+                Name = "NormalName",
+                FeatureId = 0,
+                AccessRights = new List<AccessRight>() { new AccessRight() { Id = 2, Name = "1"} }
+            };
+
+            var functions = await _securityData.AddFunction(function);
+            var expectedMessage = "Wrong FeatureId id";
+
+            Assert.AreEqual(ActionStatus.Warning, functions.Status);
+            Assert.AreEqual(expectedMessage, functions.Message);
+            _mock.Verify(data => data.AddFunction(It.Is<AccessFunctionDb>(db => db.Id == 0 && db.Name.Equals(function.Name))), () => Times.Exactly(0));
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿namespace Security.Logic.Models.Responses
 {
     /// <summary>
-    /// Результат добавления права доступа
+    /// Результат изменения прав доступа
     /// </summary>
-    public class AddRightResponse : ActionResponse
+    public class AccessRightResponse : ActionResponse
     {
         /// <summary>
         /// Идентификатор права доступа

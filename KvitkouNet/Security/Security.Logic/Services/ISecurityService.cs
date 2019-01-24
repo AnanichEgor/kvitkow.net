@@ -17,14 +17,14 @@ namespace Security.Logic.Services
         /// Получение списка прав доступа
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<AccessRight>> GetRights(int itemsPerPage, int pageNumber, string mask = null);
+        Task<AccessRightResponse> GetRights(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
         /// Добавление прав доступа
         /// </summary>
         /// <param name="rights">Добавляемое право доступа</param>
         /// <returns></returns>
-        Task<AddRightResponse> AddRights(AccessRight[] rights);
+        Task<AccessRightResponse> AddRights(AccessRight[] rights);
 
         /// <summary>
         /// Удаление прав доступа
@@ -37,14 +37,14 @@ namespace Security.Logic.Services
         /// Получение списка функций
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<AccessFunction>> GetFunctions(int itemsPerPage, int pageNumber, string mask = null);
+        Task<AccessFunctionResponse> GetFunctions(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
         /// Добавление функции
         /// </summary>
         /// <param name="function">Идентификатор функции</param>
         /// <returns></returns>
-        Task<AddFunctionResponse> AddFunction(AccessFunction function);
+        Task<ActionResponse> AddFunction(AccessFunction function);
 
         /// <summary>
         /// Удаление функции
@@ -64,14 +64,14 @@ namespace Security.Logic.Services
         /// Получение списка фич
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Feature>> GetFeatures(int itemsPerPage, int pageNumber, string mask = null);
+        Task<FeatureResponse> GetFeatures(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
         /// Добавление фичи
         /// </summary>
         /// <param name="feature">Добавляемая фича</param>
         /// <returns></returns>
-        Task<AddFeatureResponse> AddFeature(Feature feature);
+        Task<ActionResponse> AddFeature(Feature feature);
 
         /// <summary>
         /// Удаление фичи
@@ -83,16 +83,15 @@ namespace Security.Logic.Services
         /// <summary>
         /// Изменение фичи
         /// </summary>
-        /// <param name="featureId">Изменяемая фича</param>
-        /// <param name="newRightId">Новый набор прав</param>
+        /// <param name="feature">Изменяемая фича</param>
         /// <returns></returns>
-        Task<ActionResponse> EditFeature(int featureId, int[] newRightId);
+        Task<ActionResponse> EditFeature(Feature feature);
 
         /// <summary>
         /// Получение списка ролей
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Role>> GetRoles(int itemsPerPage, int pageNumber, string mask = null);
+        Task<RoleResponse> GetRoles(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
         /// Добавление роли
@@ -120,7 +119,14 @@ namespace Security.Logic.Services
         /// </summary>
         /// <param name="userId">Идентификатор пользователя</param>
         /// <returns></returns>
-        Task<UserRights> GetUserRights(string userId);
+        Task<UserRightsResponse> GetUserRights(string userId);
+
+        /// <summary>
+        /// Добавление нового пользователя
+        /// </summary>
+        /// <param name="userRights"></param>
+        /// <returns></returns>
+        Task<ActionResponse> AddNewUserRights(UserRights userRights);
 
         /// <summary>
         /// Изменение прав доступа пользователя
