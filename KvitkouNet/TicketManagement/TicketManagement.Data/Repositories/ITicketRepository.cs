@@ -52,5 +52,13 @@ namespace TicketManagement.Data.Repositories
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<TicketDb>> GetAllActual();
+
+        /// <summary>
+        ///     Получение всех билетов имеющихся в системе постранично
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        Task<Page<TicketDb>> GetAllPagebyPage(int index, int pageSize);
     }
 }
