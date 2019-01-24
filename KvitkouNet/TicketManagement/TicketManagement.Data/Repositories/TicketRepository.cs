@@ -129,18 +129,20 @@ namespace TicketManagement.Data.Repositories
         }
 
         /// <summary>
-        ///     Получение всех билетов имеющихся в системе постранично
+        ///     Получение всех актуальных билетов имеющихся в системе постранично
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="pageSize"></param>
+        /// <param name="index">Номер текущей страницы</param>
+        /// <param name="pageSize">Количество тикетов на страницу</param>
+        /// <param name="onlyActual">Только актуальные билеты</param>
         /// <returns></returns>
         public async Task<Page<Ticket>> GetAllPagebyPage(int index,
-            int pageSize)
+            int pageSize,
+            bool onlyActual = false)
         {
             _page.CurrentPage = index;
             _page.PageSize = pageSize;
             var query = _context.Tickets.AsQueryable();
-            _page.TotalPages = await query.CountAsync();
+            _page.TotalPages = await query.CountAsync() / pageSize;
             _page.Tickets = await query.Include(db => db.User)
                 .Include(db => db.LocationEvent)
                 .Include(db => db.SellerAdress)
@@ -149,6 +151,9 @@ namespace TicketManagement.Data.Repositories
                 .Skip(index * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
+            if (onlyActual)
+                _page.Tickets = _page.Tickets.Where(x => x.Status == (TicketStatusDb) 2)
+                    .ToList();
             return _page;
         }
     }

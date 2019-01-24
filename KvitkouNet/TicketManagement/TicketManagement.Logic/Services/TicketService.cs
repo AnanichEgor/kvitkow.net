@@ -112,12 +112,27 @@ namespace TicketManagement.Logic.Services
         /// <summary>
         ///     Получение всех билетов имеющихся в системе постранично
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="index">Номер текущей страницы</param>
         /// <returns></returns>
         public async Task<(Models.Page<TicketLite>, RequestStatus)> GetAllPagebyPage(int index)
         {
             var pageSize = _configuration.GetValue<int>("pageSize");
             var res = await _context.GetAllPagebyPage(index, pageSize);
+            return res == null
+                ? (null, RequestStatus.BadRequest)
+                : (_mapper.Map<Models.Page<TicketLite>>(res), RequestStatus.Success);
+        }
+
+        /// <summary>
+        ///     Получение всех актуальных билетов имеющихся в системе постранично
+        /// </summary>
+        /// <param name="index">Номер текущей страницы</param>
+        /// <param name="onlyActual">Только актуальные билеты</param>
+        /// <returns></returns>
+        public async Task<(Models.Page<TicketLite>, RequestStatus)> GetAllPagebyPageActual(int index, bool onlyActual = true)
+        {
+            var pageSize = _configuration.GetValue<int>("pageSize");
+            var res = await _context.GetAllPagebyPage(index, pageSize,onlyActual);
             return res == null
                 ? (null, RequestStatus.BadRequest)
                 : (_mapper.Map<Models.Page<TicketLite>>(res), RequestStatus.Success);
