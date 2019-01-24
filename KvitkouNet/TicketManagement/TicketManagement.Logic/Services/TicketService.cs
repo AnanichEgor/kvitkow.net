@@ -11,6 +11,9 @@ using TicketManagement.Logic.Models.Enums;
 
 namespace TicketManagement.Logic.Services
 {
+    /// <summary>
+    ///     Сервис для работы с тикетами
+    /// </summary>
     public class TicketService : ITicketService
     {
         private readonly ITicketRepository _context;
