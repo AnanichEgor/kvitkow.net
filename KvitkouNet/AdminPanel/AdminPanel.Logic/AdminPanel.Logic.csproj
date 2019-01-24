@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\KvitkouNet.Logic.Comon\KvitkouNet.Logic.Common.csproj" />
+    <ProjectReference Include="..\..\KvitkouNet.Messages\KvitkouNet.Messages.csproj" />
   </ItemGroup>
 
 </Project>

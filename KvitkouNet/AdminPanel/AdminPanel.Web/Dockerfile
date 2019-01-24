@@ -6,7 +6,7 @@ FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
 COPY ["AdminPanel/AdminPanel.Web/AdminPanel.Web.csproj", "AdminPanel/AdminPanel.Web/"]
 COPY ["AdminPanel/AdminPanel.Logic/AdminPanel.Logic.csproj", "AdminPanel/AdminPanel.Logic/"]
-COPY ["KvitkouNet.Logic.Comon/KvitkouNet.Logic.Common.csproj", "KvitkouNet.Logic.Comon/"]
+COPY ["KvitkouNet.Messages/KvitkouNet.Messages.csproj", "KvitkouNet.Messages/"]
 RUN dotnet restore "AdminPanel/AdminPanel.Web/AdminPanel.Web.csproj"
 COPY . .
 WORKDIR "/src/AdminPanel/AdminPanel.Web"

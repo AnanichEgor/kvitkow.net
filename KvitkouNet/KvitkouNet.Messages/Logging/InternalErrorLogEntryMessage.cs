@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KvitkouNet.Logic.Common.Messages.Logging
+namespace KvitkouNet.Messages.Logging
 {
 	public class InternalErrorLogEntryMessage
 	{

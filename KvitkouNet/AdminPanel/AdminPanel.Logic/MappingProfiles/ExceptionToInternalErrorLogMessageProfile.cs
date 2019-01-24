@@ -1,4 +1,4 @@
-﻿using KvitkouNet.Logic.Common.Messages.Logging;
+﻿using KvitkouNet.Messages.Logging;
 using System;
 using Profile = AutoMapper.Profile;
 

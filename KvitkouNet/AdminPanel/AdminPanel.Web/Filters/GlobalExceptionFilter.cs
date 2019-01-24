@@ -1,9 +1,7 @@
-﻿using System.Text;
-using System.Threading.Tasks;
-using AdminPanel.Logic.Generated.Logging.Models;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using EasyNetQ;
-using KvitkouNet.Logic.Common.Messages.Logging;
+using KvitkouNet.Messages.Logging;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AdminPanel.Web.Filters
