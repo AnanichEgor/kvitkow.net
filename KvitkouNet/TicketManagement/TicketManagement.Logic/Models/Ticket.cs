@@ -10,6 +10,11 @@ namespace TicketManagement.Logic.Models
     public class Ticket
     {
         /// <summary>
+        ///     Id билета
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
         ///     Пользователь разместивший билет
         /// </summary>
         public UserInfo User { get; set; }

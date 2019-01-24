@@ -6,6 +6,11 @@
     public class UserInfo
     {
         /// <summary>
+        ///     Id билета
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
         ///     Имя юзера
         /// </summary>
         public string FirstName { get; set; }
