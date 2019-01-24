@@ -2,7 +2,6 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
 using TicketManagement.Data.Context;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Data.Repositories;
@@ -11,8 +10,11 @@ using TicketManagement.Logic.Models;
 using TicketManagement.Logic.Services;
 using TicketManagement.Logic.Validators;
 
-namespace TicketManagement.Logic
+namespace TicketManagement.Logic.Extentions
 {
+    /// <summary>
+    ///     Сервис для регистрации сущностей в di
+    /// </summary>
     public static class ServiceExtentions
     {
         /// <summary>
@@ -23,8 +25,6 @@ namespace TicketManagement.Logic
         public static IServiceCollection RegisterTicketService(this IServiceCollection services)
         {
             services.AddDbContext<TicketContext>(opt => opt.UseSqlite("Data Source=./TicketDatabase.db"));
-
-            // services.AddScoped(_ => TicketServiceMock().Object);
             services.AddScoped<IValidator<Ticket>, TicketValidator>();
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<ITicketService, TicketService>();
@@ -36,12 +36,6 @@ namespace TicketManagement.Logic
                 cfg.AddProfile<UserInfoProfile>();
             });
             return services;
-        }
-
-        private static Mock<ITicketService> TicketServiceMock()
-        {
-            var ticketServiceMock = new Mock<ITicketService>();
-            return ticketServiceMock;
         }
     }
 }
