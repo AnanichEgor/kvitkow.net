@@ -39,7 +39,8 @@ namespace TicketManagement.Web.Controllers
         public async Task<IActionResult> Add([FromBody] Ticket ticket)
         {
             var result = await _service.Add(ticket);
-            if (result.Item2 == RequestStatus.BadRequest) return BadRequest();
+            if (result.Item2 == RequestStatus.InvalidModel) return ValidationProblem();
+            if (result.Item2 == RequestStatus.BadUserRating) return Forbid();
             if (result.Item2 == RequestStatus.Error) return StatusCode(500);
             await _bus.PublishAsync(new TicketCreate {TicketId = result.Item1});
             return Ok(result.Item1);
