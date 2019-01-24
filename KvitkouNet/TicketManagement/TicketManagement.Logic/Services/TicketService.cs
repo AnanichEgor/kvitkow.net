@@ -94,7 +94,7 @@ namespace TicketManagement.Logic.Services
         public async Task<(Models.Ticket, RequestStatus)> Get(string id)
         {
             var res = await _context.Get(id);
-            return res == null ? (null, RequestStatus.BadRequest) : (_mapper.Map<Models.Ticket>(res), RequestStatus.Success);
+            return res == null ? (null, RequestStatus.InvalidModel) : (_mapper.Map<Models.Ticket>(res), RequestStatus.Success);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace TicketManagement.Logic.Services
         {
             var res = await _context.GetAllActual();
             return res == null
-                ? (null, RequestStatus.BadRequest)
+                ? (null, RequestStatus.InvalidModel)
                 : (_mapper.Map<IEnumerable<Models.Ticket>>(res), RequestStatus.Success);
         }
 
@@ -119,7 +119,7 @@ namespace TicketManagement.Logic.Services
             var pageSize = _configuration.GetValue<int>("pageSize");
             var res = await _context.GetAllPagebyPage(index, pageSize);
             return res == null
-                ? (null, RequestStatus.BadRequest)
+                ? (null, RequestStatus.InvalidModel)
                 : (_mapper.Map<Models.Page<TicketLite>>(res), RequestStatus.Success);
         }
 
@@ -134,7 +134,7 @@ namespace TicketManagement.Logic.Services
             var pageSize = _configuration.GetValue<int>("pageSize");
             var res = await _context.GetAllPagebyPage(index, pageSize,onlyActual);
             return res == null
-                ? (null, RequestStatus.BadRequest)
+                ? (null, RequestStatus.InvalidModel)
                 : (_mapper.Map<Models.Page<TicketLite>>(res), RequestStatus.Success);
         }
 
