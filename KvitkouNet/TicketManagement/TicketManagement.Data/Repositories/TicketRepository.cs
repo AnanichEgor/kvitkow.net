@@ -15,9 +15,9 @@ namespace TicketManagement.Data.Repositories
     public class TicketRepository : ITicketRepository
     {
         private readonly TicketContext _context;
-        private readonly Page<TicketDb> _page;
+        private readonly Page<Ticket> _page;
 
-        public TicketRepository(TicketContext context, Page<TicketDb> page)
+        public TicketRepository(TicketContext context, Page<Ticket> page)
         {
             _context = context;
             _page = page;
@@ -28,7 +28,7 @@ namespace TicketManagement.Data.Repositories
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        public async Task<string> Add(TicketDb ticket)
+        public async Task<string> Add(Ticket ticket)
         {
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
@@ -41,7 +41,7 @@ namespace TicketManagement.Data.Repositories
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        public async Task Update(string id, TicketDb ticket)
+        public async Task Update(string id, Ticket ticket)
         {
             var original = await _context.Tickets.FindAsync(id);
             if (original == null) return;
@@ -87,7 +87,7 @@ namespace TicketManagement.Data.Repositories
         ///     Получение всех билет имеющихся в системе в БД
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<TicketDb>> GetAll()
+        public async Task<IEnumerable<Ticket>> GetAll()
         {
             return await _context.Tickets.Include(db => db.User)
                 .Include(db => db.LocationEvent)
@@ -102,7 +102,7 @@ namespace TicketManagement.Data.Repositories
         /// </summary>
         /// <param name="ticketIdGuid">Id билета</param>
         /// <returns></returns>
-        public Task<TicketDb> Get(string id)
+        public Task<Ticket> Get(string id)
         {
             return _context.Tickets.Include(db => db.User)
                 .Include(db => db.LocationEvent)
@@ -116,7 +116,7 @@ namespace TicketManagement.Data.Repositories
         ///     Получение только актуальных билетов в БД
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<TicketDb>> GetAllActual()
+        public async Task<IEnumerable<Ticket>> GetAllActual()
         {
             var res = _context.Tickets.Include(db => db.User)
                 .Include(db => db.LocationEvent)
@@ -133,7 +133,7 @@ namespace TicketManagement.Data.Repositories
         /// <param name="index"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public async Task<Page<TicketDb>> GetAllPagebyPage(int index,
+        public async Task<Page<Ticket>> GetAllPagebyPage(int index,
             int pageSize)
         {
             _page.CurrentPage = index;

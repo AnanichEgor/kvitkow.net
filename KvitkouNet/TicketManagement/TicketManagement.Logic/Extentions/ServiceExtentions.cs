@@ -9,6 +9,7 @@ using TicketManagement.Logic.MappingProfiles;
 using TicketManagement.Logic.Models;
 using TicketManagement.Logic.Services;
 using TicketManagement.Logic.Validators;
+using Ticket = TicketManagement.Data.DbModels.Ticket;
 
 namespace TicketManagement.Logic.Extentions
 {
@@ -25,10 +26,10 @@ namespace TicketManagement.Logic.Extentions
         public static IServiceCollection RegisterTicketService(this IServiceCollection services)
         {
             services.AddDbContext<TicketContext>(opt => opt.UseSqlite("Data Source=./TicketDatabase.db"));
-            services.AddScoped<IValidator<Ticket>, TicketValidator>();
+            services.AddScoped<IValidator<Models.Ticket>, TicketValidator>();
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<ITicketService, TicketService>();
-            services.AddScoped<Data.DbModels.Page<TicketDb>>();
+            services.AddScoped<Data.DbModels.Page<Ticket>>();
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<TicketProfile>();

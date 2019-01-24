@@ -14,7 +14,7 @@ namespace TicketManagement.Data.Repositories
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        Task<string> Add(TicketDb ticket);
+        Task<string> Add(Ticket ticket);
 
         /// <summary>
         ///     Обновление информации о билете в БД
@@ -22,7 +22,7 @@ namespace TicketManagement.Data.Repositories
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        Task Update(string id, TicketDb ticket);
+        Task Update(string id, Ticket ticket);
 
         /// <summary>
         ///     Удаление всех билетов в БД
@@ -41,20 +41,20 @@ namespace TicketManagement.Data.Repositories
         ///     Получение всех билет имеющихся в системе в БД
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<TicketDb>> GetAll();
+        Task<IEnumerable<Ticket>> GetAll();
 
         /// <summary>
         ///     Получение билета по Id в БД
         /// </summary>
         /// <param name="ticketIdGuid">Id билета</param>
         /// <returns></returns>
-        Task<TicketDb> Get(string id);
+        Task<Ticket> Get(string id);
 
         /// <summary>
         ///     Получение только актуальных билетов в БД
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<TicketDb>> GetAllActual();
+        Task<IEnumerable<Ticket>> GetAllActual();
 
         /// <summary>
         ///     Получение всех билетов имеющихся в системе постранично
@@ -62,6 +62,6 @@ namespace TicketManagement.Data.Repositories
         /// <param name="index"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        Task<Page<TicketDb>> GetAllPagebyPage(int index, int pageSize);
+        Task<Page<Ticket>> GetAllPagebyPage(int index, int pageSize);
     }
 }

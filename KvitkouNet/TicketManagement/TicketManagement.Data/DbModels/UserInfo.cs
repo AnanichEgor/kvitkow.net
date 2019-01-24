@@ -5,12 +5,12 @@ namespace TicketManagement.Data.DbModels
     /// <summary>
     ///     Вспомогательный класс пользователя для тикета
     /// </summary>
-    public class UserInfoDb
+    public class UserInfo
     {
         /// <summary>
         ///     Id юзера
         /// </summary>
-        public string UserInfoDbId { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         ///     Имя юзера
@@ -30,6 +30,6 @@ namespace TicketManagement.Data.DbModels
         /// <summary>
         ///     Список билетов пользователя
         /// </summary>
-        public List<TicketDb> UserTickets { get; set; }
+        public List<Ticket> UserTickets { get; set; }
     }
 }

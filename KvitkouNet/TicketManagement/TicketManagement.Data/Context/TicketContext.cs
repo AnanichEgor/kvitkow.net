@@ -12,11 +12,11 @@ namespace TicketManagement.Data.Context
         {
         }
 
-        public DbSet<TicketDb> Tickets { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
         public DbSet<SellerAddress> SellerAddresses { get; set; }
 
         public DbSet<LocationAddress> LocationAddresses { get; set; }
-        public DbSet<UserInfoDb> UserInfos { get; set; }
+        public DbSet<UserInfo> UserInfos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,7 +30,7 @@ namespace TicketManagement.Data.Context
                 .HasMany(p => p.Tickets)
                 .WithOne(p => p.SellerAdress)
                 .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<TicketDb>()
+            modelBuilder.Entity<Ticket>()
                 .HasOne(p => p.User)
                 .WithMany(b => b.UserTickets)
                 .OnDelete(DeleteBehavior.Restrict);

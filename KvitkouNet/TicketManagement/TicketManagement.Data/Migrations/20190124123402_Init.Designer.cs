@@ -9,7 +9,7 @@ using TicketManagement.Data.Context;
 namespace TicketManagement.Data.Migrations
 {
     [DbContext(typeof(TicketContext))]
-    [Migration("20190117142826_Init")]
+    [Migration("20190124123402_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,7 +58,7 @@ namespace TicketManagement.Data.Migrations
                     b.ToTable("SellerAddresses");
                 });
 
-            modelBuilder.Entity("TicketManagement.Data.DbModels.TicketDb", b =>
+            modelBuilder.Entity("TicketManagement.Data.DbModels.Ticket", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -89,7 +89,7 @@ namespace TicketManagement.Data.Migrations
 
                     b.Property<int>("TypeEvent");
 
-                    b.Property<string>("UserInfoDbId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
@@ -97,14 +97,14 @@ namespace TicketManagement.Data.Migrations
 
                     b.HasIndex("SellerAdressSellerAddressId");
 
-                    b.HasIndex("UserInfoDbId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tickets");
                 });
 
-            modelBuilder.Entity("TicketManagement.Data.DbModels.UserInfoDb", b =>
+            modelBuilder.Entity("TicketManagement.Data.DbModels.UserInfo", b =>
                 {
-                    b.Property<string>("UserInfoDbId")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("FirstName");
@@ -113,16 +113,16 @@ namespace TicketManagement.Data.Migrations
 
                     b.Property<double?>("Rating");
 
-                    b.Property<string>("TicketDbId");
+                    b.Property<string>("TicketId");
 
-                    b.HasKey("UserInfoDbId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("TicketDbId");
+                    b.HasIndex("TicketId");
 
                     b.ToTable("UserInfos");
                 });
 
-            modelBuilder.Entity("TicketManagement.Data.DbModels.TicketDb", b =>
+            modelBuilder.Entity("TicketManagement.Data.DbModels.Ticket", b =>
                 {
                     b.HasOne("TicketManagement.Data.DbModels.LocationAddress", "LocationEvent")
                         .WithMany("Tickets")
@@ -134,17 +134,17 @@ namespace TicketManagement.Data.Migrations
                         .HasForeignKey("SellerAdressSellerAddressId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("TicketManagement.Data.DbModels.UserInfoDb", "User")
+                    b.HasOne("TicketManagement.Data.DbModels.UserInfo", "User")
                         .WithMany("UserTickets")
-                        .HasForeignKey("UserInfoDbId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("TicketManagement.Data.DbModels.UserInfoDb", b =>
+            modelBuilder.Entity("TicketManagement.Data.DbModels.UserInfo", b =>
                 {
-                    b.HasOne("TicketManagement.Data.DbModels.TicketDb")
+                    b.HasOne("TicketManagement.Data.DbModels.Ticket")
                         .WithMany("RespondedUsers")
-                        .HasForeignKey("TicketDbId");
+                        .HasForeignKey("TicketId");
                 });
 #pragma warning restore 612, 618
         }

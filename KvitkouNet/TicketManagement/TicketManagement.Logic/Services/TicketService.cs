@@ -8,6 +8,7 @@ using TicketManagement.Data.DbModels;
 using TicketManagement.Data.Repositories;
 using TicketManagement.Logic.Models;
 using TicketManagement.Logic.Models.Enums;
+using Ticket = TicketManagement.Data.DbModels.Ticket;
 
 namespace TicketManagement.Logic.Services
 {
@@ -21,7 +22,7 @@ namespace TicketManagement.Logic.Services
         private readonly IValidator _validator;
         private readonly IConfiguration _configuration;
 
-        public TicketService(ITicketRepository context, IMapper mapper, IValidator<Ticket> validator, IConfiguration configuration)
+        public TicketService(ITicketRepository context, IMapper mapper, IValidator<Models.Ticket> validator, IConfiguration configuration)
         {
             _context = context;
             _mapper = mapper;
@@ -34,10 +35,10 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        public async Task<(string, RequestStatus)> Add(Ticket ticket)
+        public async Task<(string, RequestStatus)> Add(Models.Ticket ticket)
         {
             if (!_validator.Validate(ticket).IsValid) return (null, RequestStatus.BadRequest);
-            var res = await _context.Add(_mapper.Map<TicketDb>(ticket));
+            var res = await _context.Add(_mapper.Map<Ticket>(ticket));
             return (res, RequestStatus.Success);
         }
 
@@ -47,9 +48,9 @@ namespace TicketManagement.Logic.Services
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        public async Task<RequestStatus> Update(string id, Ticket ticket)
+        public async Task<RequestStatus> Update(string id, Models.Ticket ticket)
         {
-            await _context.Update(id, _mapper.Map<TicketDb>(ticket));
+            await _context.Update(id, _mapper.Map<Ticket>(ticket));
             return RequestStatus.Success;
         }
 
@@ -78,9 +79,9 @@ namespace TicketManagement.Logic.Services
         ///     Получение всех билет имеющихся в системе
         /// </summary>
         /// <returns></returns>
-        public async Task<(IEnumerable<Ticket>, RequestStatus)> GetAll()
+        public async Task<(IEnumerable<Models.Ticket>, RequestStatus)> GetAll()
         {
-            var res = _mapper.Map<IEnumerable<Ticket>>(await _context.GetAll());
+            var res = _mapper.Map<IEnumerable<Models.Ticket>>(await _context.GetAll());
             return res == null ? (null, RequestStatus.Error) : (res, RequestStatus.Success);
         }
 
@@ -88,22 +89,22 @@ namespace TicketManagement.Logic.Services
         ///     Получение билета по Id
         /// </summary>
         /// <returns></returns>
-        public async Task<(Ticket, RequestStatus)> Get(string id)
+        public async Task<(Models.Ticket, RequestStatus)> Get(string id)
         {
             var res = await _context.Get(id);
-            return res == null ? (null, RequestStatus.BadRequest) : (_mapper.Map<Ticket>(res), RequestStatus.Success);
+            return res == null ? (null, RequestStatus.BadRequest) : (_mapper.Map<Models.Ticket>(res), RequestStatus.Success);
         }
 
         /// <summary>
         ///     Получение только актуальных билетов
         /// </summary>
         /// <returns></returns>
-        public async Task<(IEnumerable<Ticket>, RequestStatus)> GetAllActual()
+        public async Task<(IEnumerable<Models.Ticket>, RequestStatus)> GetAllActual()
         {
             var res = await _context.GetAllActual();
             return res == null
                 ? (null, RequestStatus.BadRequest)
-                : (_mapper.Map<IEnumerable<Ticket>>(res), RequestStatus.Success);
+                : (_mapper.Map<IEnumerable<Models.Ticket>>(res), RequestStatus.Success);
         }
 
         /// <summary>

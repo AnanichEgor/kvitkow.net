@@ -7,17 +7,17 @@ namespace TicketManagement.Data.DbModels
     /// <summary>
     ///     Класс описания модели билета
     /// </summary>
-    public class TicketDb
+    public class Ticket
     {
         /// <summary>
         ///     Пользователь разместивший билет
         /// </summary>
-        public UserInfoDb User { get; set; }
+        public UserInfo User { get; set; }
 
         /// <summary>
         ///     Пользователи, которые добавили билет в “Я Пойду”
         /// </summary>
-        public List<UserInfoDb> RespondedUsers { get; set; }
+        public List<UserInfo> RespondedUsers { get; set; }
 
         /// <summary>
         ///     Платный/бесплатный билет

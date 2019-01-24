@@ -13,7 +13,7 @@ namespace TicketManagement.Data.Extensions
         /// <param name="original">Модель из базы</param>
         /// <param name="ticket">Модель из реквеста</param>
         /// <returns></returns>
-        public static TicketDb UpdateModel(this TicketDb original, TicketDb ticket, string id)
+        public static Ticket UpdateModel(this Ticket original, Ticket ticket, string id)
         {
             original.Id = id;
             if (ticket.Name != null) original.Name = ticket.Name;

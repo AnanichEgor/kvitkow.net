@@ -4,6 +4,7 @@ using System.Text;
 using AutoMapper;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Logic.Models;
+using Ticket = TicketManagement.Data.DbModels.Ticket;
 
 namespace TicketManagement.Logic.MappingProfiles
 {
@@ -14,7 +15,7 @@ namespace TicketManagement.Logic.MappingProfiles
     {
         public PageTicketsProfile()
         {
-            CreateMap<Data.DbModels.Page<TicketDb>, Models.Page<TicketLite>>().ReverseMap();
+            CreateMap<Data.DbModels.Page<Ticket>, Models.Page<TicketLite>>().ReverseMap();
         }
     }
 }
