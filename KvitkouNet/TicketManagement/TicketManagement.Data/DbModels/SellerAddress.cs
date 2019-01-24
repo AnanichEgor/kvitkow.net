@@ -5,7 +5,7 @@ namespace TicketManagement.Data.DbModels
     /// <summary>
     /// Класс описывающий адресс нахождения продавца
     /// </summary>
-    public abstract class SellerAddress
+    public class SellerAddress
     {
         /// <summary>
         ///     Id адреса
