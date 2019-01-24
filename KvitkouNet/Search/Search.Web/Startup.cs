@@ -32,6 +32,7 @@ namespace Search.Web
 
             services.AddSwaggerDocument();
             services.RegisterElasticSearch(elasticSearchConnectionString);
+            services.RegisterHistoryRepository();
             services.RegisterServices();
         }
 

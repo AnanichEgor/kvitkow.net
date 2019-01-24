@@ -12,9 +12,9 @@ namespace Search.Logic
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
-            services.AddScoped<ISearchUserService>(_ => GetUserSearchMock().Object);
-            services.AddScoped<ISearchTicketService>(_ => GetTicketSearchMock().Object);
-            services.AddScoped<ISearchHistoryService>(_ => GetLastSearchMock().Object);
+            services.AddScoped<ISearchUserService, SearchUserService>();
+            services.AddScoped<ISearchTicketService, SearchTicketService>();
+            services.AddScoped<ISearchHistoryService, SearchHistoryService>();
             return services;
         }
 
