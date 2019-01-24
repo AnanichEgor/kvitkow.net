@@ -20,7 +20,7 @@ namespace Search.Data.Repositories
 
         public async Task SaveAsync(T item)
         {
-            var resp = await _client.IndexAsync(item, descriptor => descriptor
+            await _client.IndexAsync(item, descriptor => descriptor
                 .Index(typeof(T).Name.ToLowerInvariant())
                 .Id(item.Id)
                 .Type(typeof(T).Name)
