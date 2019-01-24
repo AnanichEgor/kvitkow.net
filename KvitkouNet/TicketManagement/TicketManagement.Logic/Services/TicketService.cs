@@ -38,8 +38,14 @@ namespace TicketManagement.Logic.Services
         /// <returns>Код ответа Create и добавленную модель</returns>
         public async Task<(string, RequestStatus)> Add(Models.Ticket ticket)
         {
-            if (!_validator.Validate(ticket).IsValid) return (null, RequestStatus.BadRequest);
-            if (!ticket.PhoneValidate()) return (null, RequestStatus.BadRequest);
+            //WARNING используется для замены стандартных значений swagerr'a
+            //при связи с фронтом надо убрать 
+            ticket.SellerPhone = "+375-29-76-23-371";
+            //WARNING
+
+            if (ticket.User.Rating < 0) return (null, RequestStatus.BadUserRating);
+            if (!_validator.Validate(ticket).IsValid) return (null, RequestStatus.InvalidModel);
+            if (!ticket.PhoneValidate()) return (null, RequestStatus.InvalidModel);
             var res = await _context.Add(_mapper.Map<Ticket>(ticket));
             return (res, RequestStatus.Success);
         }
