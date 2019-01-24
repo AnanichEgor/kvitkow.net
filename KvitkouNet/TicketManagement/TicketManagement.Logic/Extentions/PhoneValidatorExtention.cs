@@ -15,10 +15,19 @@ namespace TicketManagement.Logic.Extentions
         /// <returns></returns>
         public static bool PhoneValidate(this Ticket ticket)
         {
+            var number = ticket.SellerPhone.Replace('-',
+                    ' ')
+                .Replace('(',
+                    ' ')
+                .Replace(')',
+                    ' ')
+                .Replace('+',
+                    ' ');
+            var isNumber = double.TryParse(number, out var tResult);
+            if (!isNumber) return false;
             var phoneUtil = PhoneNumberUtil.GetInstance();
             var parse = phoneUtil.Parse(ticket.SellerPhone, null);
-            if (phoneUtil.IsValidNumber(parse)) return true;
-            return false;
+            return phoneUtil.IsValidNumber(parse);
         }
     }
 }
