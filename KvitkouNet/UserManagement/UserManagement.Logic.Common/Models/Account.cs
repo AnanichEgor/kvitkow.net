@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UserManagement.Logic.Common.Models
+﻿
+namespace UserManagement.Logic.Models
 {
     public class Account
     {

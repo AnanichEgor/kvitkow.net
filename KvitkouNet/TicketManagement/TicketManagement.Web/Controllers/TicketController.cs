@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using EasyNetQ;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
-using TicketManagement.Data.Context;
 using TicketManagement.Logic.Models;
+using TicketManagement.Logic.Models.Enums;
+using TicketManagement.Logic.Models.Messages;
 using TicketManagement.Logic.Services;
 
 namespace TicketManagement.Web.Controllers
@@ -17,10 +18,12 @@ namespace TicketManagement.Web.Controllers
     public class TicketController : Controller
     {
         private readonly ITicketService _service;
+        private readonly IBus _bus;
 
-        public TicketController(ITicketService service)
+        public TicketController(ITicketService service,IBus bus)
         {
             _service = service;
+            _bus = bus;
         }
 
         /// <summary>
@@ -29,14 +32,16 @@ namespace TicketManagement.Web.Controllers
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
         [HttpPost]
-        [SwaggerResponse(HttpStatusCode.Created, typeof(object), Description = "Ticket created")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(string), Description = "Ticket created")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Add([FromBody] Ticket ticket)
         {
             var result = await _service.Add(ticket);
-            return Ok(result);
-
+            if (result.Item2 == RequestStatus.BadRequest) return BadRequest();
+            if (result.Item2 == RequestStatus.Error) return StatusCode(500);
+           await _bus.PublishAsync(new TicketCreate{TicketId = result.Item1});
+            return Ok(result.Item1);
         }
 
         /// <summary>
@@ -47,13 +52,13 @@ namespace TicketManagement.Web.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("{id}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Ticket update")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(bool), Description = "Ticket update")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Ticket ticket)
         {
-            var result = await _service.Update(id, ticket);
-            return Ok(result);
+            await _service.Update(id, ticket);
+            return NoContent();
         }
 
         /// <summary>
@@ -98,6 +103,7 @@ namespace TicketManagement.Web.Controllers
         public async Task<IActionResult> GetAll()
         {
             var result = await _service.GetAll();
+            if (result.Item2 != RequestStatus.Success) return BadRequest();
             return Ok(result);
         }
 

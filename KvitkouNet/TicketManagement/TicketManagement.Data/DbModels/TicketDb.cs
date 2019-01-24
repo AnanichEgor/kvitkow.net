@@ -32,17 +32,17 @@ namespace TicketManagement.Data.DbModels
         /// <summary>
         ///     Id билета
         /// </summary>
-        public string TicketDbId { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         ///     Адрес проведения мероприятия
         /// </summary>
-        public AddressDb LocationEvent { get; set; }
+        public LocationAddress LocationEvent { get; set; }
 
         /// <summary>
         ///     Цена билета
         /// </summary>
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
 
         /// <summary>
         ///     Дополнительная информация билета
@@ -57,7 +57,7 @@ namespace TicketManagement.Data.DbModels
         /// <summary>
         ///     Адрес продавца
         /// </summary>
-        public AddressDb SellerAdress { get; set; }
+        public SellerAddress SellerAdress { get; set; }
 
         /// <summary>
         ///     Платежная система
@@ -67,7 +67,7 @@ namespace TicketManagement.Data.DbModels
         /// <summary>
         ///     Время актуальности билета
         /// </summary>
-        public string TimeActual { get; set; }
+        public DateTime TimeActual { get; set; }
 
         /// <summary>
         ///     Тип мероприятия

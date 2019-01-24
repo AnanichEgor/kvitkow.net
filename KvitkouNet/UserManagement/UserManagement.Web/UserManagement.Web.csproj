@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UserManagement.Data\UserManagement.Data.csproj" />
-    <ProjectReference Include="..\UserManagement.Logic.Common\UserManagement.Logic.Common.csproj" />
+    <ProjectReference Include="..\UserManagement.Logic.Common\UserManagement.Logic.csproj" />
   </ItemGroup>
 
 </Project>
