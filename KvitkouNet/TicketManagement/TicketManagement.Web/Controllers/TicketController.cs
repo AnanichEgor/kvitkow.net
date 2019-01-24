@@ -20,7 +20,7 @@ namespace TicketManagement.Web.Controllers
         private readonly ITicketService _service;
         private readonly IBus _bus;
 
-        public TicketController(ITicketService service,IBus bus)
+        public TicketController(ITicketService service, IBus bus)
         {
             _service = service;
             _bus = bus;
@@ -40,7 +40,7 @@ namespace TicketManagement.Web.Controllers
             var result = await _service.Add(ticket);
             if (result.Item2 == RequestStatus.BadRequest) return BadRequest();
             if (result.Item2 == RequestStatus.Error) return StatusCode(500);
-           await _bus.PublishAsync(new TicketCreate{TicketId = result.Item1});
+            await _bus.PublishAsync(new TicketCreate {TicketId = result.Item1});
             return Ok(result.Item1);
         }
 
