@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\KvitkouNet.Logic.Comon\KvitkouNet.Logic.Common.csproj" />
     <ProjectReference Include="..\Logging.Logic\Logging.Logic.csproj" />
   </ItemGroup>
 
