@@ -31,7 +31,7 @@ namespace UserManagement.Data.DbModels.Tickets
         /// <summary>
         ///     Пользователь разместивший билет
         /// </summary>
-        public UserDB User { get; set; }
+        public virtual UserDB User { get; set; }
 
         public string UserDBId { get; set; }
     }

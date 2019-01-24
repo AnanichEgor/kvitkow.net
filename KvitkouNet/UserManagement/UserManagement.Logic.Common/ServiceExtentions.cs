@@ -19,7 +19,7 @@ namespace UserManagement.Logic
             {
                 cfg.AddProfile<ForViewModelProfile>();
                 cfg.AddProfile<UserProfile>();
-                cfg.AddProfile<AccountProfile>();
+                cfg.AddProfile<UserRegisterProfile>();
                 cfg.AddProfile<ProfileProfile>();
 
             });

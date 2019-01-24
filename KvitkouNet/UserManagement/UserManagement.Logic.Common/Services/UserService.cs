@@ -27,9 +27,9 @@ namespace UserManagement.Logic.Services
         public async Task<string> Register(UserRegisterModel model)
         {
             _validator.Validate(model);
-            var res = await _unitOfWork.Accounts.AddAsync(_mapper.Map<AccountDB>(model));
+            var res = await _unitOfWork.Users.AddAsync(_mapper.Map<UserDB>(model));
             _unitOfWork.SaveChanges();
-            return res.Login;
+            return res.AccountDB.Login;
         }
 
         public Task<string> AddGroup(GroupModel userGroupModel)

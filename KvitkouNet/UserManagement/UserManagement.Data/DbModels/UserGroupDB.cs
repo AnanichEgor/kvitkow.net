@@ -7,8 +7,8 @@ namespace UserManagement.Data.DbModels
     public class UserGroupDB
     {
         public string UserId { get; set; }
-        public UserDB User { get; set; }
+        public virtual UserDB User { get; set; }
         public int GroupId { get; set; }
-        public GroupDB Group { get; set; }
+        public virtual GroupDB Group { get; set; }
     }
 }
