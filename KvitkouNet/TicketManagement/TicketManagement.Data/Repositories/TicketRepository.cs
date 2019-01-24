@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TicketManagement.Data.Context;
 using TicketManagement.Data.DbModels;
-using TicketManagement.Data.DbModels.Enums;
+using TicketManagement.Data.DbModels.DbEnums;
 using TicketManagement.Data.Extensions;
 
 namespace TicketManagement.Data.Repositories

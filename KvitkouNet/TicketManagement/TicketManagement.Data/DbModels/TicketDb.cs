@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TicketManagement.Data.DbModels.Enums;
+using TicketManagement.Data.DbModels.DbEnums;
 
 namespace TicketManagement.Data.DbModels
 {

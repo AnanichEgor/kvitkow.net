@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Bogus;
 using TicketManagement.Data.DbModels;
-using TicketManagement.Data.DbModels.Enums;
+using TicketManagement.Data.DbModels.DbEnums;
 
 namespace TicketManagement.Data.Fakes
 {
