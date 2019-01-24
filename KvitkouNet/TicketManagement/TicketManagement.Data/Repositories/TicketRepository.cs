@@ -12,10 +12,12 @@ namespace TicketManagement.Data.Repositories
     public class TicketRepository : ITicketRepository
     {
         private readonly TicketContext _context;
+        private readonly Page<TicketDb> _page;
 
-        public TicketRepository(TicketContext context)
+        public TicketRepository(TicketContext context, Page<TicketDb> page)
         {
             _context = context;
+            _page = page;
         }
 
         /// <summary>
@@ -120,6 +122,30 @@ namespace TicketManagement.Data.Repositories
                 .AsNoTracking()
                 .Where(x => x.Status == (TicketStatusDb) 2);
             return await res.ToListAsync();
+        }
+
+        /// <summary>
+        ///     Получение всех билетов имеющихся в системе постранично
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public async Task<Page<TicketDb>> GetAllPagebyPage(int index,
+            int pageSize)
+        {
+            _page.CurrentPage = index;
+            _page.PageSize = pageSize;
+            var query = _context.Tickets.AsQueryable();
+            _page.TotalPages = await query.CountAsync();
+            _page.Tickets = await query.Include(db => db.User)
+                .Include(db => db.LocationEvent)
+                .Include(db => db.SellerAdress)
+                .Include(db => db.RespondedUsers)
+                .OrderByDescending(p => p.CreatedDate)
+                .Skip(index * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            return _page;
         }
     }
 }
