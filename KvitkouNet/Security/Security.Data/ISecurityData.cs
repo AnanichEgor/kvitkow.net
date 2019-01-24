@@ -138,5 +138,12 @@ namespace Security.Data
         /// <param name="userRights">Набор прав доступа пользователя</param>
         /// <returns></returns>
         Task<bool> EditUserRights(string userId, int[]roleIds, int[] functionIds, int[] accessedRightsIds, int[] deniedRightsIds);
+
+        /// <summary>
+        /// Удаление пользователя
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<bool> DeleteUserRights(string userId);
     }
 }

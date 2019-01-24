@@ -8,17 +8,19 @@ using NUnit.Framework;
 using Security.Data;
 using Security.Data.Exceptions;
 using Security.Data.Models;
+using Security.Logic.Implementations;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models;
 using Security.Logic.Models.Enums;
 using Security.Logic.Services;
 using Security.Logic.Tests.Fakers;
+using Security.Logic.Validators;
 
 namespace Security.Logic.Tests.Tests.FunctionTests
 {
     public class SecurityServiceAddFunctionTests
     {
-        private ISecurityService _securityData;
+        private IFunctionService _securityData;
         private SecurityDbFaker _dbFaker;
         private IMapper _mapper;
         private Mock<ISecurityData> _mock;
@@ -59,17 +61,18 @@ namespace Security.Logic.Tests.Tests.FunctionTests
                 .Returns<AccessFunctionDb>(function => throw new SecurityDbException(
                     $"Feature not Found", ExceptionType.NotFound, EntityType.Feature, new[] { function.FeatureId.ToString() }));
 
-            _securityData = new SecurityService(_mock.Object, _mapper);
+            _securityData = new FunctionService(_mock.Object, _mapper, new AccessFunctionValidator());
         }
 
         [Test]
         public async Task AddFunction()
         {
-            var function = new AccessFunction()
+            var featureId = _dbFaker.Features.FirstOrDefault()?.Id ?? 0;
+            var function = new AccessFunction
             {
                 Id = 0,
                 Name = "NormalName",
-                FeatureId = 1
+                FeatureId = featureId
             };
 
             var functions = await _securityData.AddFunction(function);
@@ -83,17 +86,19 @@ namespace Security.Logic.Tests.Tests.FunctionTests
         [Test]
         public async Task AddFunctionGreaterId()
         {
+            var featureId = _dbFaker.Features.FirstOrDefault()?.Id ?? 0;
             var greaterId = _dbFaker.Functions.Max(l => l.Id) + 3;
             var function = new AccessFunction
             {
                 Id = greaterId,
                 Name = "NormalName",
-                FeatureId = 1
+                FeatureId = featureId
             };
 
             var functions = await _securityData.AddFunction(function);
             var expected = _dbFaker.Functions.Max(l => l.Id) + 1;
 
+            Console.WriteLine(functions.Message);
             Assert.AreEqual(ActionStatus.Success, functions.Status);
             Assert.AreEqual(expected, functions.Id);
             _mock.Verify(data => data.AddFunction(It.Is<AccessFunctionDb>(db => db.Id == 0 && db.Name.Equals(function.Name))), () => Times.Exactly(1));
@@ -103,11 +108,12 @@ namespace Security.Logic.Tests.Tests.FunctionTests
         public async Task AddFunctionExistedId()
         {
             var existedId = _dbFaker.Functions.FirstOrDefault()?.Id??0;
+            var featureId = _dbFaker.Features.FirstOrDefault()?.Id ?? 0;
             var function = new AccessFunction
             {
                 Id = existedId,
                 Name = "NormalName",
-                FeatureId = 1
+                FeatureId = featureId
             };
 
             var functions = await _securityData.AddFunction(function);
@@ -122,11 +128,12 @@ namespace Security.Logic.Tests.Tests.FunctionTests
         public async Task AddFunctionExistedName()
         {
             var existedName = _dbFaker.Functions.FirstOrDefault()?.Name;
+            var featureId = _dbFaker.Features.FirstOrDefault()?.Id ?? 0;
             var function = new AccessFunction
             {
                 Id = 0,
                 Name = existedName,
-                FeatureId = 1
+                FeatureId = featureId
             };
 
             var functions = await _securityData.AddFunction(function);
@@ -140,15 +147,17 @@ namespace Security.Logic.Tests.Tests.FunctionTests
         [Test]
         public async Task AddFunctionToLongName()
         {
+            var featureId = _dbFaker.Features.FirstOrDefault()?.Id ?? 0;
+
             var function = new AccessFunction
             {
                 Id = 0,
                 Name = "In the fields of physical security and information security, access control(AC) is the selective restriction of access to a place or other resource",
-                FeatureId = 1
+                FeatureId = featureId
             };
 
             var functions = await _securityData.AddFunction(function);
-            var expectedMessage = "Name is longer then 100";
+            var expectedMessage = "'Name' must be between 1 and 100 characters. You entered 147 characters.";
 
             Assert.AreEqual(ActionStatus.Warning, functions.Status);
             Assert.AreEqual(expectedMessage, functions.Message);
@@ -158,11 +167,12 @@ namespace Security.Logic.Tests.Tests.FunctionTests
         [Test]
         public async Task AddFunctionUnknownError()
         {
+            var featureId = _dbFaker.Features.FirstOrDefault()?.Id ?? 0;
             var function = new AccessFunction
             {
                 Id = 0,
                 Name = "Error!",
-                FeatureId = 1
+                FeatureId = featureId
             };
 
             var functions = await _securityData.AddFunction(function);
@@ -176,11 +186,12 @@ namespace Security.Logic.Tests.Tests.FunctionTests
         [Test]
         public async Task AddFunctionExistingRights()
         {
+            var featureId = _dbFaker.Features.FirstOrDefault()?.Id ?? 0;
             var function = new AccessFunction()
             {
                 Id = 0,
                 Name = "NormalName",
-                FeatureId = 1,
+                FeatureId = featureId,
                 AccessRights = _mapper.Map<List<AccessRight>>(_dbFaker.AccessRights.Take(3).ToList())
             };
 
@@ -195,11 +206,12 @@ namespace Security.Logic.Tests.Tests.FunctionTests
         [Test]
         public async Task AddFunctionNotExistingRights()
         {
+            var featureId = _dbFaker.Features.FirstOrDefault()?.Id ?? 0;
             var function = new AccessFunction()
             {
                 Id = 0,
                 Name = "NormalName",
-                FeatureId = 1,
+                FeatureId = featureId,
                 AccessRights = new List<AccessRight>() { new AccessRight() { Id = 2, Name = "1"} }
             };
 
@@ -214,18 +226,18 @@ namespace Security.Logic.Tests.Tests.FunctionTests
         [Test]
         public async Task AddFunctionNotExistingFeature()
         {
-            var fetureId = 20000;
+            var featureId = 20000;
 
             var function = new AccessFunction()
             {
                 Id = 0,
                 Name = "NormalName",
-                FeatureId = fetureId,
+                FeatureId = featureId,
                 AccessRights = new List<AccessRight>() { new AccessRight() { Id = 2, Name = "1"} }
             };
 
             var functions = await _securityData.AddFunction(function);
-            var expectedMessage = $"Feature with id = {fetureId.ToString()} was not found";
+            var expectedMessage = $"Feature with id = {featureId.ToString()} was not found";
 
             Assert.AreEqual(ActionStatus.Warning, functions.Status);
             Assert.AreEqual(expectedMessage, functions.Message);
@@ -244,7 +256,7 @@ namespace Security.Logic.Tests.Tests.FunctionTests
             };
 
             var functions = await _securityData.AddFunction(function);
-            var expectedMessage = "Wrong FeatureId id";
+            var expectedMessage = "'Feature Id' must be greater than '0'.";
 
             Assert.AreEqual(ActionStatus.Warning, functions.Status);
             Assert.AreEqual(expectedMessage, functions.Message);

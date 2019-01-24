@@ -4,15 +4,17 @@ using Moq;
 using NUnit.Framework;
 using Security.Data;
 using Security.Data.Exceptions;
+using Security.Logic.Implementations;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models.Enums;
 using Security.Logic.Services;
+using Security.Logic.Validators;
 
 namespace Security.Logic.Tests.Tests.RoleTests
 {
     public class SecurityServiceDeleteRoleTests
     {
-        private ISecurityService _securityData;
+        private IRoleService _securityData;
         private IMapper _mapper;
         private Mock<ISecurityData> _mock;
 
@@ -34,7 +36,7 @@ namespace Security.Logic.Tests.Tests.RoleTests
             _mock.Setup(x => x.DeleteRole(It.Is<int>(id => id != 0)))
                 .Returns(() => Task.FromResult(true));
 
-            _securityData = new SecurityService(_mock.Object, _mapper);
+            _securityData = new RoleService(_mock.Object, _mapper, new RoleValidator());
         }
 
         [Test]

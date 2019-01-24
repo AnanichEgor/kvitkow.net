@@ -4,15 +4,17 @@ using Moq;
 using NUnit.Framework;
 using Security.Data;
 using Security.Data.Exceptions;
+using Security.Logic.Implementations;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models.Enums;
 using Security.Logic.Services;
+using Security.Logic.Validators;
 
 namespace Security.Logic.Tests.Tests.UserRights
 {
     public class SecurityServiceDeleteUserRightsTests
     {
-        private ISecurityService _securityData;
+        private IUserRightsService _securityData;
         private IMapper _mapper;
         private Mock<ISecurityData> _mock;
 
@@ -26,39 +28,33 @@ namespace Security.Logic.Tests.Tests.UserRights
             }));
 
             _mock = new Mock<ISecurityData>();
-            _mock.Setup(x => x.DeleteRole(It.Is<int>(id => id == 0)))
-                .Returns<int>(id =>
-                {
-                    throw new SecurityDbException("Role was not found", ExceptionType.NotFound, EntityType.Role, new []{id.ToString()});
-                });
-            _mock.Setup(x => x.DeleteRole(It.Is<int>(id => id != 0)))
+            _mock.Setup(x => x.DeleteUserRights(It.Is<string>(id => string.IsNullOrEmpty(id))))
+                .Returns<string>(id => 
+                    throw new SecurityDbException("User Rights was not found", ExceptionType.NotFound, EntityType.Role, new []{id}));
+            _mock.Setup(x => x.DeleteUserRights(It.Is<string>(id => !string.IsNullOrEmpty(id))))
                 .Returns(() => Task.FromResult(true));
 
-            _securityData = new SecurityService(_mock.Object, _mapper);
+            _securityData = new UserRightsService(_mock.Object, _mapper, new UserRightsValidator());
         }
 
         [Test]
-        public async Task DeleteRoleZero()
+        public async Task DeleteUserRightsEmpty()
         {
-            var id = 0;
-
-            var result = await _securityData.DeleteRole(id);
-            var expectedMessage = "Nothing was deleted on id = 0";
+            var result = await _securityData.DeleteUserRights("");
+            var expectedMessage = "Nothing was deleted on empty id";
 
             Assert.AreEqual(ActionStatus.Warning, result.Status);
             Assert.AreEqual(expectedMessage, result.Message);
-            _mock.Verify(data => data.DeleteRole(It.Is<int>(db => db == 0 )), () => Times.Exactly(0));
+            _mock.Verify(data => data.DeleteUserRights(It.Is<string>(db => db == "" )), () => Times.Exactly(0));
         }
 
         [Test]
         public async Task DeleteRole()
         {
-            var id = 2;
-
-            var result = await _securityData.DeleteRole(id);
+            var result = await _securityData.DeleteUserRights("UserId");
 
             Assert.AreEqual(ActionStatus.Success, result.Status);
-            _mock.Verify(data => data.DeleteRole(It.Is<int>(db => db == id )), () => Times.Exactly(1));
+            _mock.Verify(data => data.DeleteUserRights(It.Is<string>(db => db == "UserId")), () => Times.Exactly(1));
         }
     }
 }

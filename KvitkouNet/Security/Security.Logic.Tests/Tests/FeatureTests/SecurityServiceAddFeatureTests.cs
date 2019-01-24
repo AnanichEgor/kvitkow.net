@@ -8,17 +8,19 @@ using NUnit.Framework;
 using Security.Data;
 using Security.Data.Exceptions;
 using Security.Data.Models;
+using Security.Logic.Implementations;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models;
 using Security.Logic.Models.Enums;
 using Security.Logic.Services;
 using Security.Logic.Tests.Fakers;
+using Security.Logic.Validators;
 
 namespace Security.Logic.Tests.Tests.FeatureTests
 {
     public class SecurityServiceAddFeatureTests
     {
-        private ISecurityService _securityData;
+        private IFeatureService _securityData;
         private SecurityDbFaker _dbFaker;
         private IMapper _mapper;
         private Mock<ISecurityData> _mock;
@@ -51,7 +53,7 @@ namespace Security.Logic.Tests.Tests.FeatureTests
             _mock.Setup(x => x.AddFeature(It.Is<FeatureDb>(feature => feature.Name == "Error!")))
                 .Returns(() => throw new Exception());
 
-            _securityData = new SecurityService(_mock.Object, _mapper);
+            _securityData = new FeatureService(_mock.Object, _mapper, new FeatureValidator());
         }
 
         [Test]
@@ -135,7 +137,7 @@ namespace Security.Logic.Tests.Tests.FeatureTests
             };
 
             var features = await _securityData.AddFeature(feature);
-            var expectedMessage = "Name is longer then 100";
+            var expectedMessage = "'Name' must be between 1 and 100 characters. You entered 147 characters.";
 
             Assert.AreEqual(ActionStatus.Warning, features.Status);
             Assert.AreEqual(expectedMessage, features.Message);

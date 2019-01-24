@@ -3,16 +3,18 @@ using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using Security.Data;
+using Security.Logic.Implementations;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models.Enums;
 using Security.Logic.Services;
 using Security.Logic.Tests.Fakers;
+using Security.Logic.Validators;
 
 namespace Security.Logic.Tests.Tests.AccessRightTests
 {
     public class SecurityServiceDeleteFunctionsTests
     {
-        private ISecurityService _securityData;
+        private IRightsService _securityData;
         private SecurityDbFaker _dbFaker;
         private IMapper _mapper;
         private Mock<ISecurityData> _mock;
@@ -28,7 +30,7 @@ namespace Security.Logic.Tests.Tests.AccessRightTests
 
             _mock = new Mock<ISecurityData>();
 
-            _securityData = new SecurityService(_mock.Object, _mapper);
+            _securityData = new RightsService(_mock.Object, _mapper, new AccessRightValidator());
         }
 
         [Test]

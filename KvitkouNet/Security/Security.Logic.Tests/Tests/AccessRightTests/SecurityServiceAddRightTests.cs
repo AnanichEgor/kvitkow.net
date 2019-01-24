@@ -7,16 +7,18 @@ using NUnit.Framework;
 using Security.Data;
 using Security.Data.Exceptions;
 using Security.Data.Models;
+using Security.Logic.Implementations;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models.Enums;
 using Security.Logic.Services;
 using Security.Logic.Tests.Fakers;
+using Security.Logic.Validators;
 
 namespace Security.Logic.Tests.Tests.AccessRightTests
 {
     public class SecurityServiceGetFunctionsTests
     {
-        private ISecurityService _securityData;
+        private IRightsService _securityData;
         private SecurityDbFaker _dbFaker;
         private IMapper _mapper;
         private Mock<ISecurityData> _mock;
@@ -86,7 +88,7 @@ namespace Security.Logic.Tests.Tests.AccessRightTests
                 It.Is<AccessRightDb[]>(right => right.Length == 1 && right[0].Name == "Error!")))
                 .Returns(() => throw new Exception());
 
-            _securityData = new SecurityService(_mock.Object, _mapper);
+            _securityData = new RightsService(_mock.Object, _mapper, new AccessRightValidator());
         }
 
         [Test]
@@ -172,7 +174,7 @@ namespace Security.Logic.Tests.Tests.AccessRightTests
             };
 
             var rights = await _securityData.AddRights(new[] { right });
-            var expectedMessage = "Name is longer then 100";
+            var expectedMessage = "'Name' must be between 1 and 100 characters. You entered 147 characters.";
 
             Assert.AreEqual(ActionStatus.Warning, rights.Status);
             Assert.AreEqual(expectedMessage, rights.Message);

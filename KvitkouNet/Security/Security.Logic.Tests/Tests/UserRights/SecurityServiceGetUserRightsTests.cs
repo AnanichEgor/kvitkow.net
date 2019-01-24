@@ -5,17 +5,19 @@ using Moq;
 using NUnit.Framework;
 using Security.Data;
 using Security.Data.Exceptions;
+using Security.Logic.Implementations;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models.Enums;
 using Security.Logic.Services;
 using Security.Logic.Tests.Comparers;
 using Security.Logic.Tests.Fakers;
+using Security.Logic.Validators;
 
 namespace Security.Logic.Tests.Tests.UserRights
 {
     public class SecurityServiceGetUserRightsTests
     {
-        private ISecurityService _securityData;
+        private IUserRightsService _securityData;
         private SecurityDbFaker _dbFaker;
         private IMapper _mapper;
         private Mock<ISecurityData> _mock;
@@ -39,7 +41,7 @@ namespace Security.Logic.Tests.Tests.UserRights
                     throw new SecurityDbException(
                         "User rights was not found", ExceptionType.NotFound, EntityType.UserRights, new[] { userId });
                 });
-            _securityData = new SecurityService(_mock.Object, _mapper);
+            _securityData = new UserRightsService(_mock.Object, _mapper, new UserRightsValidator());
         }
         
         [Test]

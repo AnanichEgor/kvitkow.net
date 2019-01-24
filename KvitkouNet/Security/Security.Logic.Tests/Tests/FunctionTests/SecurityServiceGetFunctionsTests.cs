@@ -4,18 +4,20 @@ using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using Security.Data;
+using Security.Logic.Implementations;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models;
 using Security.Logic.Models.Enums;
 using Security.Logic.Services;
 using Security.Logic.Tests.Comparers;
 using Security.Logic.Tests.Fakers;
+using Security.Logic.Validators;
 
 namespace Security.Logic.Tests.Tests.FunctionTests
 {
     public class SecurityServiceGetFunctionsTests
     {
-        private ISecurityService _securityData;
+        private IFunctionService _securityData;
         private SecurityDbFaker _dbFaker;
         private IMapper _mapper;
         private Mock<ISecurityData> _mock;
@@ -34,7 +36,7 @@ namespace Security.Logic.Tests.Tests.FunctionTests
                 .Returns((int i, int p, string m) =>
                     Task.FromResult(_dbFaker.Functions.Where(l => string.IsNullOrEmpty(m) || l.Name.Contains(m))
                         .OrderBy(l => l.Name).Skip((p - 1) * i).Take(i)));
-            _securityData = new SecurityService(_mock.Object, _mapper);
+            _securityData = new FunctionService(_mock.Object, _mapper, new AccessFunctionValidator());
         }
         
         [Test]

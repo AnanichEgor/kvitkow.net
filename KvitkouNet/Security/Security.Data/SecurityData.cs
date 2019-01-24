@@ -337,6 +337,19 @@ namespace Security.Data
             return await EditUserRightsCtx(userRightsDb, roleIds, functionIds, accessedRightsIds, deniedRightsIds);
         }
 
+        public async Task<bool> DeleteUserRights(string userId)
+        {
+            var userRights = await _context.UsersRights.SingleOrDefaultAsync(l => l.UserId == userId);
+            if (userRights == null)
+            {
+                throw new SecurityDbException("User Rights was not found", ExceptionType.NotFound, EntityType.Role, new[] { userId });
+            }
+
+            _context.UsersRights.Remove(userRights);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         private async Task<bool> EditUserRightsCtx(UserRights userRightsDb, int[] roleIds, int[] functionIds, int[] accessedRightsIds, int[] deniedRightsIds)
         {
             var rights = await _context.AccessRights

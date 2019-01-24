@@ -8,17 +8,19 @@ using NUnit.Framework;
 using Security.Data;
 using Security.Data.Exceptions;
 using Security.Data.Models;
+using Security.Logic.Implementations;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models;
 using Security.Logic.Models.Enums;
 using Security.Logic.Services;
 using Security.Logic.Tests.Fakers;
+using Security.Logic.Validators;
 
 namespace Security.Logic.Tests.Tests.UserRights
 {
     public class SecurityServiceAddNewUserRightsTests
     {
-        private ISecurityService _securityData;
+        private IUserRightsService _securityData;
         private SecurityDbFaker _dbFaker;
         private IMapper _mapper;
         private Mock<ISecurityData> _mock;
@@ -48,7 +50,7 @@ namespace Security.Logic.Tests.Tests.UserRights
             _mock.Setup(x => x.AddNewUserRights(It.Is<UserRightsDb>(userRights => userRights.UserLogin == "Error!")))
                 .Returns(() => throw new Exception());
 
-            _securityData = new SecurityService(_mock.Object, _mapper);
+            _securityData = new UserRightsService(_mock.Object, _mapper, new UserRightsValidator());
         }
 
         [Test]
@@ -93,7 +95,7 @@ namespace Security.Logic.Tests.Tests.UserRights
             };
 
             var response = await _securityData.AddNewUserRights(userRights);
-            var expectedMessage = "UserId is empty";
+            var expectedMessage = "'User Id' must not be empty.";
 
             Assert.AreEqual(ActionStatus.Warning, response.Status);
             Assert.AreEqual(expectedMessage, response.Message);
@@ -110,7 +112,7 @@ namespace Security.Logic.Tests.Tests.UserRights
             };
 
             var response = await _securityData.AddNewUserRights(userRights);
-            var expectedMessage = "UserId is empty";
+            var expectedMessage = "'User Id' must be between 1 and 100 characters. You entered 0 characters.";
 
             Assert.AreEqual(ActionStatus.Warning, response.Status);
             Assert.AreEqual(expectedMessage, response.Message);
@@ -127,7 +129,7 @@ namespace Security.Logic.Tests.Tests.UserRights
             };
 
             var response = await _securityData.AddNewUserRights(userRights);
-            var expectedMessage = "UserLogin is longer then 100";
+            var expectedMessage = "'User Login' must be between 1 and 100 characters. You entered 147 characters.";
 
             Assert.AreEqual(ActionStatus.Warning, response.Status);
             Assert.AreEqual(expectedMessage, response.Message);
