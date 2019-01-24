@@ -6,8 +6,8 @@ using UserManagement.Data.DbModels;
 
 namespace UserManagement.Data.Repositories
 {
-    class GroupRepository : BaseRepository<GroupDB>, IGroupRepository
+    public class AccountRepository : BaseRepository<AccountDB>, IAccountRepository
     {
-        public GroupRepository(UserContext db) : base(db) { }
+        public AccountRepository(UserContext db) : base(db) { }
     }
 }

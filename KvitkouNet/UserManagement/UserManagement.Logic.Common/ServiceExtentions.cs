@@ -5,11 +5,8 @@ using FluentValidation;
 using UserManagement.Logic.Validators;
 using UserManagement.Logic.Models;
 using AutoMapper;
-using UserManagement.Data.Fakers;
-using UserManagement.Data.Context;
 using UserManagement.Logic.MappingProfiles;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+using UserManagement.Data;
 
 namespace UserManagement.Logic
 {
@@ -17,26 +14,19 @@ namespace UserManagement.Logic
     {
         public static IServiceCollection RegisterUserServices(this IServiceCollection services)
         {
-            var o = new DbContextOptionsBuilder<UserContext>();
-            o.UseSqlite("Data Source=./UserDatabase.db");
-
-            using (var context = new UserContext(o.Options))
-            {
-                context.Database.Migrate();
-                if (!context.Users.Any())
-                {
-                    context.Users.AddRange(UserFaker.Generate());
-                    context.SaveChanges();
-                }
-            }
+            services.RegisterUserServicesData();
             services.AddAutoMapper(cfg =>
             {
+                cfg.AddProfile<ForViewModelProfile>();
                 cfg.AddProfile<UserProfile>();
-            });
-            services.AddScoped<IValidator<User>, UserValidator>();
-            var mock = new Mock<IUserService>();
+                cfg.AddProfile<AccountProfile>();
+                cfg.AddProfile<ProfileProfile>();
 
-            services.AddScoped<IUserService>(_ => mock.Object);
+            });
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IValidator<UserRegisterModel>, UserRegisterValidator>();
+            //services.AddScoped<IValidator<User>, UserValidator>();
+            //services.AddScoped<IValidator<Account>, AccountValidator>();
             return services;
         }
     }
