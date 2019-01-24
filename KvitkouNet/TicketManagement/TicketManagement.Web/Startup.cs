@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TicketManagement.Logic;
+using TicketManagement.Logic.Extentions;
 
 namespace TicketManagement.Web
 {

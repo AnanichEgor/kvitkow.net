@@ -4,6 +4,9 @@ using TicketManagement.Logic.Models;
 
 namespace TicketManagement.Logic.MappingProfiles
 {
+    /// <summary>
+    ///     Настройка маппинга для юзеров
+    /// </summary>
     public class UserInfoProfile : Profile
     {
         public UserInfoProfile()

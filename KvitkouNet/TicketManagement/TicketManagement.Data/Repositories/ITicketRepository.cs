@@ -4,6 +4,9 @@ using TicketManagement.Data.DbModels;
 
 namespace TicketManagement.Data.Repositories
 {
+    /// <summary>
+    ///     Интерфейс для работы с базой
+    /// </summary>
     public interface ITicketRepository
     {
         /// <summary>

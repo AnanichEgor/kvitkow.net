@@ -5,7 +5,7 @@ using TicketManagement.Data.DbModels.DbEnums;
 namespace TicketManagement.Data.DbModels
 {
     /// <summary>
-    ///     Класс описания доменной модели билета
+    ///     Класс описания модели билета
     /// </summary>
     public class TicketDb
     {

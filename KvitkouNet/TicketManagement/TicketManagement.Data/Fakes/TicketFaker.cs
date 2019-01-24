@@ -5,6 +5,9 @@ using TicketManagement.Data.DbModels.DbEnums;
 
 namespace TicketManagement.Data.Fakes
 {
+    /// <summary>
+    ///     Класс заполняющий базу базовыми значениями
+    /// </summary>
     public static class TicketFaker
     {
         private static readonly Faker<TicketDb> _fakerTicket;

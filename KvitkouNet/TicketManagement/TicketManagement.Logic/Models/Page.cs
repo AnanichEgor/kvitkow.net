@@ -4,6 +4,10 @@ using System.Text;
 
 namespace TicketManagement.Logic.Models
 {
+   /// <summary>
+   ///  Класс описывающий страницу
+   /// </summary>
+   /// <typeparam name="T"></typeparam>
    public class Page<T>
     {
         /// <summary>

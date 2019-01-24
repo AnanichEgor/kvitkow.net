@@ -1,7 +1,11 @@
 ﻿using System;
+using TicketManagement.Logic.Models.Enums;
 
 namespace TicketManagement.Logic.Models
 {
+    /// <summary>
+    ///     Класс описывающий минимальный набор необходимых свойств для вывода на странице
+    /// </summary>
     public class TicketLite
     {
         /// <summary>

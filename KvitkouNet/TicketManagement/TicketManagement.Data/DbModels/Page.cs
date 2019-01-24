@@ -28,14 +28,21 @@ namespace TicketManagement.Data.DbModels
         /// </summary>
         public List<T> Tickets { get; set; }
 
+        /// <summary>
+        ///     Конструктор по умолчанию
+        /// </summary>
         public Page()
         {
             Tickets = new List<T>();
         }
 
-        public Page(IEnumerable<T> records)
+        /// <summary>
+        ///     Инициализация коллекции сразу тикетами
+        /// </summary>
+        /// <param name="tickets"></param>
+        public Page(IEnumerable<T> tickets)
         {
-            Tickets = new List<T>(records);
+            Tickets = new List<T>(tickets);
         }
     }
 }

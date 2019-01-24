@@ -48,7 +48,6 @@ namespace TicketManagement.Logic.Services
         /// <summary>
         ///     Получение билета по Id
         /// </summary>
-        /// <param name="ticketIdGuid">Id билета</param>
         /// <returns></returns>
         Task<(Ticket, RequestStatus)> Get(string id);
 
@@ -62,7 +61,6 @@ namespace TicketManagement.Logic.Services
         ///     Получение всех билетов имеющихся в системе постранично
         /// </summary>
         /// <param name="index"></param>
-        /// <param name="pageSize"></param>
         /// <returns></returns>
         Task<(Page<TicketLite>, RequestStatus)> GetAllPagebyPage(int index);
     }

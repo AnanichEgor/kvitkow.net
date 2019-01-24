@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TicketManagement.Logic.Models.Enums;
 
 namespace TicketManagement.Logic.Models
 {

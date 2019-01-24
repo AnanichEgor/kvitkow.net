@@ -87,7 +87,6 @@ namespace TicketManagement.Logic.Services
         /// <summary>
         ///     Получение билета по Id
         /// </summary>
-        /// <param name="ticketIdGuid">Id билета</param>
         /// <returns></returns>
         public async Task<(Ticket, RequestStatus)> Get(string id)
         {
@@ -111,7 +110,6 @@ namespace TicketManagement.Logic.Services
         ///     Получение всех билетов имеющихся в системе постранично
         /// </summary>
         /// <param name="index"></param>
-        /// <param name="pageSize"></param>
         /// <returns></returns>
         public async Task<(Models.Page<TicketLite>, RequestStatus)> GetAllPagebyPage(int index)
         {
@@ -122,13 +120,12 @@ namespace TicketManagement.Logic.Services
                 : (_mapper.Map<Models.Page<TicketLite>>(res), RequestStatus.Success);
         }
 
-        #region IDisposable Support
-
+        /// <summary>
+        ///     Disposing
+        /// </summary>
         public void Dispose()
         {
             GC.SuppressFinalize(this);
         }
-
-        #endregion
     }
 }

@@ -3,6 +3,9 @@ using TicketManagement.Logic.Models;
 
 namespace TicketManagement.Logic.Validators
 {
+    /// <summary>
+    ///     Настройка валидации
+    /// </summary>
     public class TicketValidator : AbstractValidator<Ticket>
     {
         public TicketValidator()

@@ -9,6 +9,9 @@ using TicketManagement.Data.Extensions;
 
 namespace TicketManagement.Data.Repositories
 {
+    /// <summary>
+    /// Класс для работы с базой
+    /// </summary>
     public class TicketRepository : ITicketRepository
     {
         private readonly TicketContext _context;

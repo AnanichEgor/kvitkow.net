@@ -7,7 +7,10 @@ using TicketManagement.Logic.Models;
 
 namespace TicketManagement.Logic.MappingProfiles
 {
-   public class PageTicketsProfile:Profile
+    /// <summary>
+    ///  Настройка маппинга для страниц тикетов
+    /// </summary>
+    public class PageTicketsProfile:Profile
     {
         public PageTicketsProfile()
         {

@@ -2,6 +2,9 @@
 
 namespace TicketManagement.Data.Extensions
 {
+    /// <summary>
+    ///     Класс для обновления модели
+    /// </summary>
     public static class ParseModelForUpdate
     {
         /// <summary>
