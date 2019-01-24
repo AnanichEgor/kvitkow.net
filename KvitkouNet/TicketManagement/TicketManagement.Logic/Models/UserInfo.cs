@@ -8,7 +8,7 @@
         /// <summary>
         ///     Id билета
         /// </summary>
-        public string Id { get; set; }
+        public string UserInfoId { get; set; }
 
         /// <summary>
         ///     Имя юзера
