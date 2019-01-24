@@ -9,6 +9,7 @@ namespace TicketManagement.Logic.MappingProfiles
         public TicketProfile()
         {
             CreateMap<Ticket, TicketDb>().ReverseMap();
+            CreateMap<TicketDb, TicketLite>().ReverseMap();
         }
     }
 }
