@@ -2,6 +2,9 @@
 
 namespace TicketManagement.Data.DbModels
 {
+    /// <summary>
+    ///  Класс описывающий адресс мероприятия
+    /// </summary>
     public class LocationAddress
     {
         /// <summary>
@@ -37,6 +40,6 @@ namespace TicketManagement.Data.DbModels
         /// <summary>
         ///     Список билетов по этому адресу
         /// </summary>
-        public List<TicketDb> Tickets { get; set; }
+        public List<Ticket> Tickets { get; set; }
     }
 }
