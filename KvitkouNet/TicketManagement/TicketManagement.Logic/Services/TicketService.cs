@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using EasyNetQ;
 using FluentValidation;
+using KvitkouNet.Messages.TicketManagement;
 using Microsoft.Extensions.Configuration;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Data.Repositories;
@@ -22,13 +24,16 @@ namespace TicketManagement.Logic.Services
         private readonly IMapper _mapper;
         private readonly IValidator _validator;
         private readonly IConfiguration _configuration;
+        private readonly IBus _bus;
 
-        public TicketService(ITicketRepository context, IMapper mapper, IValidator<Models.Ticket> validator, IConfiguration configuration)
+        public TicketService(ITicketRepository context, IMapper mapper, IValidator<Models.Ticket> validator,
+            IConfiguration configuration, IBus bus)
         {
             _context = context;
             _mapper = mapper;
             _validator = validator;
             _configuration = configuration;
+            _bus = bus;
         }
 
         /// <summary>
@@ -47,6 +52,10 @@ namespace TicketManagement.Logic.Services
             if (!_validator.Validate(ticket).IsValid) return (null, RequestStatus.InvalidModel);
             if (!ticket.PhoneValidate()) return (null, RequestStatus.InvalidModel);
             var res = await _context.Add(_mapper.Map<Ticket>(ticket));
+            await _bus.PublishAsync(new TicketCreateMessage
+            {
+                TicketId = res, Create = DateTime.Now, UserId = ticket.User.UserInfoId
+            });
             return (res, RequestStatus.Success);
         }
 
