@@ -41,7 +41,7 @@ namespace Security.Logic.Tests.Tests.UserRights
                     throw new SecurityDbException(
                         "User rights was not found", ExceptionType.NotFound, EntityType.UserRights, new[] { userId });
                 });
-            _securityData = new UserRightsService(_mock.Object, _mapper, new UserRightsValidator());
+            _securityData = new UserRightsService(_mock.Object, _mapper, new UserRightsValidator(), new AccessRequestValidator());
         }
         
         [Test]

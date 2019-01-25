@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using Security.Logic.Models;
+using Security.Logic.Models.Requests;
 using Security.Logic.Services;
 
 namespace Security.Web.Controllers
@@ -37,6 +38,16 @@ namespace Security.Web.Controllers
         public async Task<IActionResult> EditUserRights([FromBody]UserRights userRights)
         {
             var result = _securityService.EditUserRights(userRights);
+            return Ok(await result);
+        }
+
+        [HttpPut, Route("rights/check")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
+        public async Task<IActionResult> CheckUserRights([FromBody]AccessRequest accessRequest)
+        {
+            var result = _securityService.CheckAccess(accessRequest);
             return Ok(await result);
         }
     }

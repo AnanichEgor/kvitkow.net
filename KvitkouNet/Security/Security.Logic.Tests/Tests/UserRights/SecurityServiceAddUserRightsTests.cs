@@ -50,7 +50,7 @@ namespace Security.Logic.Tests.Tests.UserRights
             _mock.Setup(x => x.AddNewUserRights(It.Is<UserRightsDb>(userRights => userRights.UserLogin == "Error!")))
                 .Returns(() => throw new Exception());
 
-            _securityData = new UserRightsService(_mock.Object, _mapper, new UserRightsValidator());
+            _securityData = new UserRightsService(_mock.Object, _mapper, new UserRightsValidator(), new AccessRequestValidator());
         }
 
         [Test]

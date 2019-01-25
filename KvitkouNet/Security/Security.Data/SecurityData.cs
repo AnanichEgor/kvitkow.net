@@ -353,6 +353,44 @@ namespace Security.Data
             return true;
         }
 
+        public async Task<Dictionary<string, bool>> CheckAccess(string userId, string[] accessRightNames)
+        {
+
+            var all = new Dictionary<string, bool>(
+                accessRightNames.Select(l => new KeyValuePair<string, bool>(l, false)));
+            var accessRightIds = _context.AccessRights.Where(l => accessRightNames.Contains(l.Name)).Select(l => l.Id);
+
+            var rights = await _context.UsersRights.Where(l => l.UserId == userId)
+                .Include(l => l.UserRightsAccessRight)
+                .SelectMany(l => l.UserRightsAccessRight)
+                .Where(l => accessRightIds.Contains(l.AccessRightId)).ToArrayAsync();
+
+            var functionsRights = await _context.UsersRights.Where(l => l.UserId == userId)
+                .Include(l => l.UserRightsAccessFunction).
+                ThenInclude(l=>l.AccessFunction)
+                .ThenInclude(l=>l.AccessFunctionAccessRights)
+                .SelectMany(l => l.UserRightsAccessFunction.SelectMany(k=>k.AccessFunction.AccessFunctionAccessRights))
+                .Where(l => accessRightIds.Contains(l.AccessRightId)).ToArrayAsync();
+
+            var roleRights = await _context.UsersRights.Where(l => l.UserId == userId)
+                .Include(l => l.UserRightsRole).
+                ThenInclude(l=>l.Role)
+                .ThenInclude(l=>l.RoleAccessRight)
+                .SelectMany(l => l.UserRightsRole.SelectMany(k=>k.Role.RoleAccessRight))
+                .Where(l => accessRightIds.Contains(l.AccessRightId)).ToArrayAsync();
+
+            var roleFunctionRights = await _context.UsersRights.Where(l => l.UserId == userId)
+                .Include(l => l.UserRightsRole).
+                ThenInclude(l=>l.Role)
+                .ThenInclude(l=>l.RoleAccessFunction)
+                .ThenInclude(l=>l.AccessFunction)
+                .ThenInclude(l=>l.AccessFunctionAccessRights)
+                .SelectMany(l => l.UserRightsRole.SelectMany(k=>k.Role.RoleAccessFunction).SelectMany(k=>k.AccessFunction.AccessFunctionAccessRights))
+                .Where(l => accessRightIds.Contains(l.AccessRightId)).ToArrayAsync();
+
+            return new Dictionary<string, bool>();
+        }
+
         private async Task<bool> EditUserRightsCtx(UserRights userRightsDb, int[] roleIds, int[] functionIds, int[] accessedRightsIds, int[] deniedRightsIds)
         {
             var rights = await _context.AccessRights

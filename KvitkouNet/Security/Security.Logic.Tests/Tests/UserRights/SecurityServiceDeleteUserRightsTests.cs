@@ -34,7 +34,7 @@ namespace Security.Logic.Tests.Tests.UserRights
             _mock.Setup(x => x.DeleteUserRights(It.Is<string>(id => !string.IsNullOrEmpty(id))))
                 .Returns(() => Task.FromResult(true));
 
-            _securityData = new UserRightsService(_mock.Object, _mapper, new UserRightsValidator());
+            _securityData = new UserRightsService(_mock.Object, _mapper, new UserRightsValidator(), new AccessRequestValidator());
         }
 
         [Test]

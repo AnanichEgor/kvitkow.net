@@ -10,6 +10,7 @@ using Security.Data.Models;
 using Security.Logic.Helpers;
 using Security.Logic.Models;
 using Security.Logic.Models.Enums;
+using Security.Logic.Models.Requests;
 using Security.Logic.Models.Responses;
 using Security.Logic.Services;
 
@@ -19,13 +20,18 @@ namespace Security.Logic.Implementations
     {
         private ISecurityData _securityContext;
         private IMapper _mapper;
-        private IValidator<UserRights> _validator;
+        private IValidator<UserRights> _userRightsValidator;
+        private IValidator<AccessRequest> _accessRequestValidator;
 
-        public UserRightsService(ISecurityData securityContext, IMapper mapper, IValidator<UserRights> validator)
+        public UserRightsService(ISecurityData securityContext, 
+            IMapper mapper, 
+            IValidator<UserRights> userRightsValidator, 
+            IValidator<AccessRequest> accessRequestValidator)
         {
             _securityContext = securityContext;
             _mapper = mapper;
-            _validator = validator;
+            _userRightsValidator = userRightsValidator;
+            _accessRequestValidator = accessRequestValidator;
         }
 
         #region DisposeImp
@@ -103,7 +109,7 @@ namespace Security.Logic.Implementations
         {
             try
             {
-                var validationResult = await _validator.ValidateAsync(userRights);
+                var validationResult = await _userRightsValidator.ValidateAsync(userRights);
                 if (!validationResult.IsValid)
                 {
                     return ValidationResponseHelper.GetResponse(validationResult);
@@ -270,9 +276,48 @@ namespace Security.Logic.Implementations
             }
         }
 
-        public async Task<AccessStatus> CheckAccess(string userId, string rightName)
+        public async Task<AccessResponse> CheckAccess(AccessRequest accessRequest)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var validationResult = await _accessRequestValidator.ValidateAsync(accessRequest);
+                if (!validationResult.IsValid)
+                {
+                    var response = ValidationResponseHelper.GetResponse(validationResult);
+                    return new AccessResponse
+                    {
+                        Status = response.Status,
+                        Message = response.Message
+                    };
+                }
+                
+
+                var result = await _securityContext.CheckAccess(accessRequest.UserId, accessRequest.AccessRightNames);
+
+                return new AccessResponse
+                {
+                    Status = ActionStatus.Success,
+                    AccessRightNames = result
+                };
+
+            }
+            catch (SecurityDbException e)
+            {
+                return new AccessResponse
+                {
+                    Status = ActionStatus.Warning,
+                    Message = PrettyExceptionHelper.GetMessage(e)
+                };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new AccessResponse
+                {
+                    Status = ActionStatus.Error,
+                    Message = "Something went wrong!"
+                };
+            }
         }
 
         public async Task<IEnumerable<AccessRight>> SetDefaultRoleToNewUser()

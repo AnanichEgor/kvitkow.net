@@ -145,5 +145,13 @@ namespace Security.Data
         /// <param name="userId"></param>
         /// <returns></returns>
         Task<bool> DeleteUserRights(string userId);
+
+        /// <summary>
+        /// Проверка доступности прав
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="accessRightNames"></param>
+        /// <returns></returns>
+        Task<Dictionary<string, bool>> CheckAccess(string userId, string[] accessRightNames);
     }
 }

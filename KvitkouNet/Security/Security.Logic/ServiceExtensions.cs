@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Security.Data;
 using Security.Logic.Implementations;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models;
+using Security.Logic.Models.Requests;
 using Security.Logic.Services;
 using Security.Logic.Validators;
 
@@ -34,12 +36,15 @@ namespace Security.Logic
             services.AddScoped<IValidator<Feature>, FeatureValidator>();
             services.AddScoped<IValidator<Role>, RoleValidator>();
             services.AddScoped<IValidator<UserRights>, UserRightsValidator>();
+            services.AddScoped<IValidator<AccessRequest>, AccessRequestValidator>();
 
             services.AddScoped<IRightsService, RightsService>();
             services.AddScoped<IFeatureService, FeatureService>();
             services.AddScoped<IFunctionService, FunctionService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IUserRightsService, UserRightsService>();
+
+            services.AddMediatR();
 
             return services;
         }

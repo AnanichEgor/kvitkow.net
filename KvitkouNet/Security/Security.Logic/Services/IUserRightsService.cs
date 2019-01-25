@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Security.Logic.Models;
 using Security.Logic.Models.Enums;
+using Security.Logic.Models.Requests;
 using Security.Logic.Models.Responses;
 
 namespace Security.Logic.Services
@@ -43,10 +44,9 @@ namespace Security.Logic.Services
         /// <summary>
         /// Проверка прав доступа пользователя
         /// </summary>
-        /// <param name="userId">Идентификатор пользователя</param>
-        /// <param name="rightName">Имя права доступа</param>
+        /// <param name="accessRequest">Запрос наличия доступа</param>
         /// <returns></returns>
-        Task<AccessStatus> CheckAccess(string userId, string rightName);
+        Task<AccessResponse> CheckAccess(AccessRequest accessRequest);
 
         #region EventHandlers
 
