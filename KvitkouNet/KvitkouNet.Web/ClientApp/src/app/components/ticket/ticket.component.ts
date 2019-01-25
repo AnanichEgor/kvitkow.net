@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Tickets } from '../../models/tickets' ;
+import { GetallticketsService } from './../../services/getalltickets.service' ;
 
 @Component({
   selector: 'app-ticket',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ticket.component.css']
 })
 export class TicketComponent implements OnInit {
+tickets: Tickets[] = [];
 
-  constructor() { }
+  constructor(private ticketsSrv: GetallticketsService) {
+
+   }
 
   ngOnInit() {
+    this.ticketsSrv.getAllTickets().subscribe(result => (this.tickets = result), err => console.error(err));
   }
 
 }

@@ -31,9 +31,9 @@ import { TicketFormComponent } from './components/ticket-form/ticket-form.compon
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'admin', component: AdminComponent, pathMatch: 'full' },
+      { path: 'tickets', component: TicketComponent, pathMatch: 'full'},
       { path: 'ticket/add', component: TicketFormComponent, pathMatch: 'full' },
-      { path: '**', component: NotFoundComponent},
-      { path: 'ticket', component: TicketComponent, pathMatch: 'full'}
+      { path: '**', component: NotFoundComponent}
     ])
   ],
   providers: [],
