@@ -1,0 +1,104 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
+using FluentValidation;
+using Dashboard.Data.DbModels;
+using Dashboard.Data.Repositories;
+using Dashboard.Logic.Models;
+using Dashboard.Logic.Models.Enums;
+
+
+
+namespace Dashboard.Logic.Services
+{
+    public class DashboardService : IDashboardService
+    {
+        private readonly IDashboardRepository _context;
+        private readonly IMapper _mapper;
+        private readonly IValidator _validator;
+
+        public DashboardService(IDashboardRepository context, IMapper mapper, IValidator<News> validator)
+        {
+            _context = context;
+            _mapper = mapper;
+            _validator = validator;
+        }
+
+        /// <summary>
+        ///     Добавляет новость
+        /// </summary>
+        /// <param name="news">Модель новости</param>
+        /// <returns>Код ответа Create и добавленную модель</returns>
+        public async Task<(int, RequestStatus)> Add(News news)
+        {
+            if (!_validator.Validate(news).IsValid) return (0, RequestStatus.BadRequest);
+            var res = await _context.Add(_mapper.Map<NewsDb>(news));
+            return (res, RequestStatus.Success);
+        }
+
+
+        /// <summary>
+        ///     Удаление всех новостей
+        /// </summary>
+        /// <returns></returns>
+        public async Task<RequestStatus> DeleteAll()
+        {
+            await _context.DeleteAll();
+            return RequestStatus.Success;
+        }
+
+        /// <summary>
+        ///     Удаление новости с определенным Id
+        /// </summary>
+        /// <param name="newsId"></param>
+        /// <returns></returns>
+        public async Task<RequestStatus> Delete(int newsId)
+        {
+            await _context.Delete(newsId);
+            return RequestStatus.Success;
+        }
+
+        /// <summary>
+        ///     Получение всех новостей имеющихся в системе
+        /// </summary>
+        /// <returns></returns>
+        public async Task<(IEnumerable<News>, RequestStatus)> GetAll()
+        {
+            var res = _mapper.Map<IEnumerable<News>>(await _context.GetAll());
+            return res == null ? (null, RequestStatus.Error) : (res, RequestStatus.Success);
+        }
+
+        /// <summary>
+        ///     Получение новости по Id
+        /// </summary>
+        /// <param name="ticketIdGuid">Id билета</param>
+        /// <returns></returns>
+        public async Task<(News, RequestStatus)> Get(int newsId)
+        {
+            var res = await _context.Get(newsId);
+            return res == null ? (null, RequestStatus.BadRequest) : (_mapper.Map<News>(res), RequestStatus.Success);
+        }
+
+        /// <summary>
+        ///     Получение только актуальных новостей
+        /// </summary>
+        /// <returns></returns>
+        public async Task<(IEnumerable<News>, RequestStatus)> GetAllActual()
+        {
+            var res = await _context.GetAllActual();
+            return res == null
+                ? (null, RequestStatus.BadRequest)
+                : (_mapper.Map<IEnumerable<News>>(res), RequestStatus.Success);
+        }
+
+        #region IDisposable Support
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
+    }
+}

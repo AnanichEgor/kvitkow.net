@@ -1,8 +1,0 @@
-version: '3.4'
-
-services:
-  chat.web:
-    image: ${DOCKER_REGISTRY-}chatweb
-    build:
-      context: .
-      dockerfile: Chat.Web/Dockerfile

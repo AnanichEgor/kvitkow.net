@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TicketManagement.Logic.Models.Enums;
 
 namespace TicketManagement.Logic.Models
 {
@@ -8,6 +9,11 @@ namespace TicketManagement.Logic.Models
     /// </summary>
     public class Ticket
     {
+        /// <summary>
+        ///     Id билета
+        /// </summary>
+        public string Id { get; set; }
+
         /// <summary>
         ///     Пользователь разместивший билет
         /// </summary>
