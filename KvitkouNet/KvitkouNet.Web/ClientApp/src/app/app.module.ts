@@ -29,6 +29,7 @@ import { ChatComponent } from './chat/chat.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'admin', component: AdminComponent, pathMatch: 'full' },
+      { path: 'chat', component: ChatComponent, pathMatch: 'full' },
       { path: '**', component: NotFoundComponent},
     ])
   ],
