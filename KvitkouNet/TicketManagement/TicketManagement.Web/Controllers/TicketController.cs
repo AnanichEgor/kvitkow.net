@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using TicketManagement.Logic.Models;
 using TicketManagement.Logic.Models.Enums;
-using TicketManagement.Logic.Models.Messages;
 using TicketManagement.Logic.Services;
 
 namespace TicketManagement.Web.Controllers
@@ -20,10 +19,9 @@ namespace TicketManagement.Web.Controllers
         private readonly ITicketService _service;
         private readonly IBus _bus;
 
-        public TicketController(ITicketService service, IBus bus)
+        public TicketController(ITicketService service)
         {
             _service = service;
-            _bus = bus;
         }
 
         /// <summary>
@@ -42,7 +40,6 @@ namespace TicketManagement.Web.Controllers
             if (result.Item2 == RequestStatus.InvalidModel) return ValidationProblem();
             if (result.Item2 == RequestStatus.BadUserRating) return StatusCode(403);
             if (result.Item2 == RequestStatus.Error) return StatusCode(500);
-            await _bus.PublishAsync(new TicketCreate {TicketId = result.Item1});
             return Ok(result.Item1);
         }
 
