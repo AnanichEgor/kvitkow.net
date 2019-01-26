@@ -29,6 +29,7 @@ namespace Security.Logic
                 cfg.AddProfile<FeatureProfile>();
                 cfg.AddProfile<RoleProfile>();
                 cfg.AddProfile<UserRightsProfile>();
+                cfg.AddProfile<UserInfoProfile>();
             });
 
             services.AddScoped<IValidator<AccessRight>, AccessRightValidator>();

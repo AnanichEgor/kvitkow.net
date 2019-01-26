@@ -2,7 +2,7 @@
 
 namespace Security.Logic.Notifications
 {
-    public class ChangedUserNotification : INotification
+    public class UserChangedNotification : INotification
     {
         /// <summary>
         /// Идентификатор пользователя (null для незарегистрированного пользователя)
