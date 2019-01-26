@@ -14,6 +14,7 @@ namespace Chat.Web.Controllers
     /// Контроллер
     ///  </summary>
     [Route("api/chat/rooms")]
+
     public class RoomController : Controller
     {
         private IRoomService _roomService;
@@ -67,7 +68,7 @@ namespace Chat.Web.Controllers
         /// <summary>
         /// Получение сообщений из комнаты, согласно ограничению по истории.
         /// </summary>
-        [HttpGet, Route("{rid}/messages/{uid}")]
+        [HttpGet, Route("{rid}/messages/{uid}/history")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetMessages([FromRoute] string rid, [FromRoute] string uid)

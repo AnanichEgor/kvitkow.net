@@ -7,7 +7,7 @@ using SQLitePCL;
 
 namespace Chat.Data.Repositories
 {
-    public interface IChatRepository
+    public interface IChatRepository : IDisposable
     {
         /// <summary>
         /// Получение пользовательских настроек для чата

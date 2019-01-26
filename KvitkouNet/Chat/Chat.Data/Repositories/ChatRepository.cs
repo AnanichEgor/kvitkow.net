@@ -61,7 +61,7 @@ namespace Chat.Data.Repositories
         //todo  здесь where.where - это как условие AND ?
         public async Task<IEnumerable<MessageDb>> SearchMessage(string roomId, string template)
         {
-            return await _context.Messages.Where(x => x.Room.Id.Equals(roomId))
+            return await _context.Messages.Where(x => x.RoomId.Equals(roomId))
                 .Where(x => EF.Functions.Like(x.Text, $"%{template}%")).ToArrayAsync();
         }
 
@@ -94,5 +94,13 @@ namespace Chat.Data.Repositories
             }
             await _context.SaveChangesAsync();
         }
+
+        #region IDisposable Support
+
+        public void Dispose()
+        {
+            _context.Dispose();
+        }
+        #endregion
     }
 }

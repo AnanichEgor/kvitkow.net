@@ -43,7 +43,7 @@ namespace Chat.Logic.Services
 
         public void Dispose()
         {
-            GC.SuppressFinalize(this);
+             _context.Dispose();
         }
 
         #endregion

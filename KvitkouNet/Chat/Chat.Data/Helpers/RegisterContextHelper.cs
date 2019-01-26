@@ -9,7 +9,7 @@ namespace Chat.Data.Helpers
 {
     public class RegisterContextHelper
     {
-        private string m_dataSource = "Data Source=./Notification.db";
+        private string m_dataSource = @"Data Source=f:\Git\kvitkou-net\KvitkouNet\Chat\Chat.Web\ChatDB.db";
 
         public RegisterContextHelper()
         {
@@ -18,13 +18,13 @@ namespace Chat.Data.Helpers
 
             using (var ctx = new ChatContext(o.Options))
             {
-                ctx.Database.Migrate();
+                ctx.Database.EnsureCreated();
 
-                if (!ctx.Rooms.Any())
-                {
-                    ctx.Rooms.AddRange(RoomFaker.Generate(50));
-                    ctx.SaveChanges();
-                }
+                //if (!ctx.Rooms.Any())
+                //{
+                //    ctx.Rooms.AddRange(RoomFaker.Generate(50));
+                //    ctx.SaveChanges();
+                //}
             }
         }
 
