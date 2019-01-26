@@ -3,7 +3,7 @@ using Security.Logic.Models.Requests;
 
 namespace Security.Logic.Validators
 {
-    public class AccessRequestValidator : AbstractValidator<AccessRequest>
+    public class AccessRequestValidator : AbstractValidator<CheckAccessRequest>
     {
         public AccessRequestValidator()
         {

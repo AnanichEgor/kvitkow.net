@@ -36,7 +36,7 @@ namespace Security.Logic.Tests.Tests.FunctionTests
                 .Returns((int i, int p, string m) =>
                     Task.FromResult(_dbFaker.Functions.Where(l => string.IsNullOrEmpty(m) || l.Name.Contains(m))
                         .OrderBy(l => l.Name).Skip((p - 1) * i).Take(i)));
-            _securityData = new FunctionService(_mock.Object, _mapper, new AccessFunctionValidator());
+            _securityData = new FunctionService(_mock.Object, _mapper);
         }
         
         [Test]
@@ -51,8 +51,7 @@ namespace Security.Logic.Tests.Tests.FunctionTests
 
             CollectionAssert.AreEqual(expected, response.AccessFunctions, new FunctionComparer());
             _mock.Verify(
-                data => data.GetFunctions(It.Is<int>(i => i == itemsPerPage), It.Is<int>(i => i == pageNumber),
-                    It.Is<string>(i => i == null)), () => Times.Exactly(1));
+                data => data.GetFunctions(itemsPerPage, pageNumber, ""), () => Times.Exactly(1));
         }
 
         [Test]

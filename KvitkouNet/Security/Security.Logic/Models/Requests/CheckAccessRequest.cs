@@ -1,7 +1,13 @@
 ﻿namespace Security.Logic.Models.Requests
 {
-    public class AccessRequest
+    /// <summary>
+    /// Запрос на наличие прав на функцию у пользователя
+    /// </summary>
+    public class CheckAccessRequest
     {
+        /// <summary>
+        /// Идентификатор пользователя
+        /// </summary>
         public string UserId { get; set; }
 
         /// <summary>

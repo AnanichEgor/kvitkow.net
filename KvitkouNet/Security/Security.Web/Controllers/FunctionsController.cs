@@ -33,9 +33,9 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> AddFunction([FromBody]AccessFunction function)
+        public async Task<IActionResult> AddFunction([FromBody]string functionName, [FromBody]int featureId)
         {
-            var result = _securityService.AddFunction(function);
+            var result = _securityService.AddFunction(functionName, featureId);
             return Ok(await result);
         }
 
@@ -53,9 +53,9 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> EditFunction([FromBody]AccessFunction function)
+        public async Task<IActionResult> EditFunction([FromBody]int functionId, [FromBody]int[] rightIds)
         {
-            var result = _securityService.EditFunction(function);
+            var result = _securityService.EditFunctionRights(functionId, rightIds);
             return Ok(await result);
         }
     }

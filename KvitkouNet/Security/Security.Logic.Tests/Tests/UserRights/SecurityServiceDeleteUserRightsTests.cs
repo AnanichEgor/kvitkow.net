@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Moq;
@@ -8,6 +9,7 @@ using Security.Logic.Implementations;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models.Enums;
 using Security.Logic.Services;
+using Security.Logic.Tests.Fakers;
 using Security.Logic.Validators;
 
 namespace Security.Logic.Tests.Tests.UserRights
@@ -17,6 +19,7 @@ namespace Security.Logic.Tests.Tests.UserRights
         private IUserRightsService _securityData;
         private IMapper _mapper;
         private Mock<ISecurityData> _mock;
+        private SecurityDbFaker _dbFaker;
 
         [SetUp]
         public void Setup()
@@ -27,12 +30,27 @@ namespace Security.Logic.Tests.Tests.UserRights
                 cfg.AddProfile<RoleProfile>();
             }));
 
+
+            _dbFaker = new SecurityDbFaker();
+
             _mock = new Mock<ISecurityData>();
-            _mock.Setup(x => x.DeleteUserRights(It.Is<string>(id => string.IsNullOrEmpty(id))))
-                .Returns<string>(id => 
-                    throw new SecurityDbException("User Rights was not found", ExceptionType.NotFound, EntityType.Role, new []{id}));
-            _mock.Setup(x => x.DeleteUserRights(It.Is<string>(id => !string.IsNullOrEmpty(id))))
-                .Returns(() => Task.FromResult(true));
+
+            //success
+            _mock.Setup(x => x.DeleteUserRights(It.Is<string>(id =>
+                    _dbFaker.UserRights.Any(l => l.UserId == id))))
+                .Returns<string>(id =>
+                {
+                    return Task.FromResult(true);
+                });
+
+            //not exists
+            _mock.Setup(x => x.DeleteUserRights(It.Is<string>(id =>
+                    _dbFaker.UserRights.All(l => l.UserId != id))))
+                .Returns<string>(id =>
+                {
+                    throw new SecurityDbException("not exists", ExceptionType.NotFound,
+                        EntityType.Role, new[] { id.ToString() });
+                });
 
             _securityData = new UserRightsService(_mock.Object, _mapper, new UserRightsValidator(), new AccessRequestValidator());
         }
@@ -45,16 +63,29 @@ namespace Security.Logic.Tests.Tests.UserRights
 
             Assert.AreEqual(ActionStatus.Warning, result.Status);
             Assert.AreEqual(expectedMessage, result.Message);
-            _mock.Verify(data => data.DeleteUserRights(It.Is<string>(db => db == "" )), () => Times.Exactly(0));
+            _mock.Verify(data => data.DeleteUserRights(""), () => Times.Exactly(0));
         }
 
         [Test]
-        public async Task DeleteRole()
+        public async Task DeleteUserRightsNotExisted()
         {
-            var result = await _securityData.DeleteUserRights("UserId");
+            var id = "NotExisted";
+            var result = await _securityData.DeleteUserRights(id);
+            var expectedMessage = $"Role with id = {id} was not found";
+
+            Assert.AreEqual(ActionStatus.Warning, result.Status);
+            Assert.AreEqual(expectedMessage, result.Message);
+            _mock.Verify(data => data.DeleteUserRights(id), () => Times.Exactly(1));
+        }
+
+        [Test]
+        public async Task DeleteUserRights()
+        {
+            var id = _dbFaker.UserRights.FirstOrDefault().UserId;
+            var result = await _securityData.DeleteUserRights(id);
 
             Assert.AreEqual(ActionStatus.Success, result.Status);
-            _mock.Verify(data => data.DeleteUserRights(It.Is<string>(db => db == "UserId")), () => Times.Exactly(1));
+            _mock.Verify(data => data.DeleteUserRights(id), () => Times.Exactly(1));
         }
     }
 }

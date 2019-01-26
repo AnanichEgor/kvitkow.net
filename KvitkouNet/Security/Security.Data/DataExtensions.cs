@@ -27,6 +27,7 @@ namespace Security.Data
                     cfg.AddProfile<FeatureProfile>();
                     cfg.AddProfile<RoleProfile>();
                     cfg.AddProfile<UserRightsProfile>();
+                    cfg.AddProfile<UserInfoProfile>();
                 })));
         }
 
@@ -55,6 +56,7 @@ namespace Security.Data
                 cfg.AddProfile<FeatureProfile>();
                 cfg.AddProfile<RoleProfile>();
                 cfg.AddProfile<UserRightsProfile>();
+                cfg.AddProfile<UserInfoProfile>();
             });
 
             services.AddScoped<ISecurityData, SecurityData>();

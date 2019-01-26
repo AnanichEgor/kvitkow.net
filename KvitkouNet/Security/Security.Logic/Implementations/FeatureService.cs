@@ -19,13 +19,11 @@ namespace Security.Logic.Implementations
     {
         private ISecurityData _securityContext;
         private IMapper _mapper;
-        private IValidator<Feature> _validator;
 
-        public FeatureService(ISecurityData securityContext, IMapper mapper, IValidator<Feature> validator)
+        public FeatureService(ISecurityData securityContext, IMapper mapper)
         {
             _securityContext = securityContext;
             _mapper = mapper;
-            _validator = validator;
         }
 
         #region DisposeImp
@@ -92,34 +90,20 @@ namespace Security.Logic.Implementations
             }
         }
 
-        public async Task<ActionResponse> AddFeature(Feature feature)
+        public async Task<ActionResponse> AddFeature(string featureName)
         {
             try
             {
-                var validationResult = await _validator.ValidateAsync(feature);
-                if (!validationResult.IsValid)
+                if (string.IsNullOrEmpty(featureName) || featureName.Trim().Length > 100)
                 {
-                    return ValidationResponseHelper.GetResponse(validationResult);
-                }
-
-                if (feature.AvailableAccessRights!= null && feature.AvailableAccessRights.Any(l => l.Id == 0))
-                {
-                    return new ActionResponse
+                    return new AccessRightResponse
                     {
-                        Message = "Wrong Access Right id",
+                        Message = "Name must be between 1 and 100 characters",
                         Status = ActionStatus.Warning
                     };
                 }
 
-                var id = await _securityContext.AddFeature(new FeatureDb
-                {
-                    Name = feature.Name
-                });
-
-                if(feature.AvailableAccessRights != null && feature.AvailableAccessRights.Any())
-                {
-                    await _securityContext.EditFeatureRules(id, feature.AvailableAccessRights.Select(l => l.Id).ToArray());
-                }
+                var id = await _securityContext.AddFeature(featureName);
 
                 return new ActionResponse
                 {
@@ -185,33 +169,15 @@ namespace Security.Logic.Implementations
                 };
             }
         }
-
-        public async Task<ActionResponse> EditFeature(Feature feature)
+        
+        public async Task<ActionResponse> EditFeatureRights(int featureId, int[] featureRights)
         {
             try
             {
-                if (feature.Id == 0)
-                {
-                    return new ActionResponse
-                    {
-                        Message = "Wrong id",
-                        Status = ActionStatus.Warning
-                    };
-                }
-
-                feature.AvailableAccessRights = feature.AvailableAccessRights ?? new List<AccessRight>();
-
-                if (feature.AvailableAccessRights.Any(l => l.Id == 0))
-                {
-                    return new ActionResponse
-                    {
-                        Message = "Wrong Access Right id",
-                        Status = ActionStatus.Warning
-                    };
-                }
-
-                await _securityContext.EditFeatureRules(feature.Id,
-                    feature.AvailableAccessRights.Select(l => l.Id).ToArray());
+                featureRights = featureRights ?? new int[0];
+                
+                await _securityContext.EditFeatureRights(featureId,
+                    featureRights.Select(l => l).ToArray());
 
                 return new ActionResponse
                 {

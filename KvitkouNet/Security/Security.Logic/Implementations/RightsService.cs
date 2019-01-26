@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using FluentValidation;
 using Security.Data;
 using Security.Data.Exceptions;
-using Security.Data.Models;
 using Security.Logic.Helpers;
 using Security.Logic.Models;
 using Security.Logic.Models.Enums;
@@ -19,13 +17,11 @@ namespace Security.Logic.Implementations
     {
         private ISecurityData _securityContext;
         private IMapper _mapper;
-        private IValidator<AccessRight> _validator;
 
-        public RightsService(ISecurityData securityContext, IMapper mapper, IValidator<AccessRight> validator)
+        public RightsService(ISecurityData securityContext, IMapper mapper)
         {
             _securityContext = securityContext;
             _mapper = mapper;
-            _validator = validator;
         }
 
         #region DisposeImp
@@ -91,25 +87,15 @@ namespace Security.Logic.Implementations
             }
         }
 
-        public async Task<AccessRightResponse> AddRights(AccessRight[] rights)
+        public async Task<AccessRightResponse> AddRights(string[] rights)
         {
             try
             {
-                var validationFaults = rights.Select(l => _validator.Validate(l)).Where(l => !l.IsValid);
-                if (validationFaults.Any())
-                {
-                    var response = ValidationResponseHelper.GetResponse(validationFaults);
-                    return new AccessRightResponse
-                    {
-                        Status = response.Status,
-                        Message = response.Message
-                    };
-                }
-                if (rights.Any(l=>l.Name?.Trim().Length > 100))
+                if (rights.Any(l=>string.IsNullOrEmpty(l) || l.Trim().Length > 100))
                 {
                     return new AccessRightResponse
                     {
-                        Message = "Name is longer then 100",
+                        Message = "Name must be between 1 and 100 characters",
                         Status = ActionStatus.Warning
                     };
                 }
@@ -117,8 +103,7 @@ namespace Security.Logic.Implementations
                 return new AccessRightResponse
                 {
                     AccessRights = _mapper.Map<IEnumerable<AccessRight>>(
-                        await _securityContext
-                            .AddRights(rights.Select(l => new AccessRightDb {Name = l.Name}).ToArray())).ToArray(),
+                        await _securityContext.AddRights(rights)).ToArray(),
                     Status = ActionStatus.Success
                 };
 

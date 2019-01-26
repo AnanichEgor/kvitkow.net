@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Security.Logic.Models;
-using Security.Logic.Models.Enums;
 using Security.Logic.Models.Responses;
 
 namespace Security.Logic.Services
@@ -21,9 +18,9 @@ namespace Security.Logic.Services
         /// <summary>
         /// Добавление фичи
         /// </summary>
-        /// <param name="feature">Добавляемая фича</param>
+        /// <param name="featureName"></param>
         /// <returns></returns>
-        Task<ActionResponse> AddFeature(Feature feature);
+        Task<ActionResponse> AddFeature(string featureName);
 
         /// <summary>
         /// Удаление фичи
@@ -35,8 +32,9 @@ namespace Security.Logic.Services
         /// <summary>
         /// Изменение фичи
         /// </summary>
-        /// <param name="feature">Изменяемая фича</param>
+        /// <param name="featureId"></param>
+        /// <param name="featureRights"></param>
         /// <returns></returns>
-        Task<ActionResponse> EditFeature(Feature feature);
+        Task<ActionResponse> EditFeatureRights(int featureId, int[] featureRights);
     }
 }

@@ -36,7 +36,7 @@ namespace Security.Logic.Tests.Tests.RoleTests
                 .Returns((int i, int p, string m) =>
                     Task.FromResult(_dbFaker.Roles.Where(l => string.IsNullOrEmpty(m) || l.Name.Contains(m))
                         .OrderBy(l => l.Name).Skip((p - 1) * i).Take(i)));
-            _securityData = new RoleService(_mock.Object, _mapper, new RoleValidator());
+            _securityData = new RoleService(_mock.Object, _mapper);
         }
         
         [Test]
@@ -50,9 +50,7 @@ namespace Security.Logic.Tests.Tests.RoleTests
                 .OrderBy(l => l.Name).Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage).ToArray());
 
             CollectionAssert.AreEqual(expected, response.Roles, new RoleComparer());
-            _mock.Verify(
-                data => data.GetRoles(It.Is<int>(i => i == itemsPerPage), It.Is<int>(i => i == pageNumber),
-                    It.Is<string>(i => i == null)), () => Times.Exactly(1));
+            _mock.Verify(data => data.GetRoles(itemsPerPage, pageNumber, ""), () => Times.Exactly(1));
         }
 
         [Test]

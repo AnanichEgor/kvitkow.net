@@ -38,10 +38,10 @@ namespace Security.Data
             return _mapper.Map<IEnumerable<AccessRightDb>>(rights);
         }
 
-        public async Task<AccessRightDb[]> AddRights(AccessRightDb[] accessRights)
+        public async Task<AccessRightDb[]> AddRights(string[] accessRights)
         {
             var existed = await _context.AccessRights
-                .Where(l => accessRights.Any(k => k.Name.Equals(l.Name)))
+                .Where(l => accessRights.Any(k => k.Equals(l.Name)))
                 .ToArrayAsync();
             if (existed.Any())
             {
@@ -74,20 +74,20 @@ namespace Security.Data
                 .Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync());
         }
 
-        public async Task<int> AddFunction(AccessFunctionDb function)
+        public async Task<int> AddFunction(string functionName, int featureId)
         {
-            if (await _context.AccessFunctions.AnyAsync(l => function.Name.Equals(l.Name)))
+            if (await _context.AccessFunctions.AnyAsync(l => functionName.Equals(l.Name)))
             {
                 throw new SecurityDbException(
-                    "Names already exist", ExceptionType.NameExists, EntityType.Function, new []{ function.Name});
+                    "Names already exist", ExceptionType.NameExists, EntityType.Function, new []{ functionName });
             }
 
-            CheckFeaturesExist(new[] {function.FeatureId});
+            CheckFeaturesExist(new[] { featureId });
 
-            var featureMapped = _mapper.Map<AccessFunction>(function);
-            await _context.AccessFunctions.AddAsync(featureMapped);
+            var functionMapped = _mapper.Map<AccessFunction>(functionName);
+            await _context.AccessFunctions.AddAsync(functionMapped);
             await _context.SaveChangesAsync();
-            return featureMapped.Id;
+            return functionMapped.Id;
         }
 
         public async Task<bool> DeleteFunction(int functionId)
@@ -138,14 +138,14 @@ namespace Security.Data
                 .Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync());
         }
 
-        public async Task<int> AddFeature(FeatureDb feature)
+        public async Task<int> AddFeature(string featureName)
         {
-            if (await _context.Features.AnyAsync(l => feature.Name.Equals(l.Name)))
+            if (await _context.Features.AnyAsync(l => featureName.Equals(l.Name)))
             {
                 throw new SecurityDbException(
-                    "Names already exist", ExceptionType.NameExists, EntityType.Feature, new []{ feature.Name });
+                    "Names already exist", ExceptionType.NameExists, EntityType.Feature, new []{ featureName });
             }
-            var featureMapped = _mapper.Map<Feature>(feature);
+            var featureMapped = _mapper.Map<Feature>(featureName);
             await _context.Features.AddAsync(featureMapped);
             await _context.SaveChangesAsync();
             return featureMapped.Id;
@@ -164,7 +164,7 @@ namespace Security.Data
             return true;
         }
 
-        public async Task<bool> EditFeatureRules(int featureId, int[] newRights)
+        public async Task<bool> EditFeatureRights(int featureId, int[] newRights)
         {
             var featureDb = await _context.Features
                 .Include(l=>l.FeatureAccessRight)
@@ -201,14 +201,14 @@ namespace Security.Data
                 .Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync());
         }
 
-        public async Task<int> AddRole(RoleDb role)
+        public async Task<int> AddRole(string roleName)
         {
-            if (await _context.Roles.AnyAsync(l => role.Name.Equals(l.Name)))
+            if (await _context.Roles.AnyAsync(l => roleName.Equals(l.Name)))
             {
                 throw new SecurityDbException(
-                    "Names already exist", ExceptionType.NameExists, EntityType.Role, new []{ role.Name });
+                    "Names already exist", ExceptionType.NameExists, EntityType.Role, new []{ roleName });
             }
-            var roleMapped = _mapper.Map<Role>(role);
+            var roleMapped = _mapper.Map<Role>(roleName);
             await _context.Roles.AddAsync(roleMapped);
             await _context.SaveChangesAsync();
             return roleMapped.Id;
@@ -307,22 +307,6 @@ namespace Security.Data
                 .SingleOrDefaultAsync(l => l.UserId == userId));
         }
 
-        public async Task<bool> AddNewUserRights(UserRightsDb userRights)
-        {
-            if (await _context.UsersRights.AnyAsync(l => userRights.UserId.Equals(l.UserId)))
-            {
-                throw new SecurityDbException(
-                    "UserId already exist", ExceptionType.NameExists, EntityType.UserRights, new []{ userRights.UserId});
-            }
-            var userRightsMapped = _mapper.Map<UserRights>(userRights);
-            await _context.UsersRights.AddAsync(userRightsMapped);
-            return await EditUserRightsCtx(userRightsMapped,
-                userRights.Roles.Select(l => l.Id).ToArray(),
-                userRights.AccessFunctions.Select(l => l.Id).ToArray(),
-                userRights.AccessRights.Select(l => l.Id).ToArray(),
-                userRights.DeniedRights.Select(l => l.Id).ToArray());
-        }
-
         public async Task<bool> EditUserRights(string userId, int[] roleIds, int[] functionIds, int[] accessedRightsIds, int[] deniedRightsIds)
         {
             var userRightsDb = await _context.UsersRights
@@ -353,31 +337,61 @@ namespace Security.Data
             return true;
         }
 
+        public async Task<bool> AddUser(UserInfoDb userInfo)
+        {
+            if (await _context.UsersRights.AnyAsync(l => userInfo.UserId.Equals(l.UserId)))
+            {
+                throw new SecurityDbException(
+                    "UserId already exist", ExceptionType.NameExists, EntityType.UserRights, new[] { userInfo.UserId });
+            }
+            var userRightsMapped = _mapper.Map<UserRights>(userInfo);
+            await _context.UsersRights.AddAsync(userRightsMapped);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateUser(UserInfoDb userInfo)
+        {
+            var user = await _context.UsersRights.SingleOrDefaultAsync(l => userInfo.UserId.Equals(l.UserId));
+            if (user == null)
+            {
+                throw new SecurityDbException(
+                    "UserId not exists", ExceptionType.NotFound, EntityType.UserRights, new[] { userInfo.UserId });
+            }
+
+            user.UserLogin = userInfo.UserLogin;
+            user.FirstName = userInfo.FirstName;
+            user.MiddleName = userInfo.MiddleName;
+            user.LastName = userInfo.LastName;
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<Dictionary<string, bool>> CheckAccess(string userId, string[] accessRightNames)
         {
 
-            var all = new Dictionary<string, bool>(
-                accessRightNames.Select(l => new KeyValuePair<string, bool>(l, false)));
-            var accessRightIds = _context.AccessRights.Where(l => accessRightNames.Contains(l.Name)).Select(l => l.Id);
+            var result = new Dictionary<string, bool>(accessRightNames.Select(l => new KeyValuePair<string, bool>(l, false)));
+            var accessRightIds = _context.AccessRights.Where(l => accessRightNames.Contains(l.Name)).ToDictionary(l => l.Id, k => k.Name);
 
             var rights = await _context.UsersRights.Where(l => l.UserId == userId)
                 .Include(l => l.UserRightsAccessRight)
                 .SelectMany(l => l.UserRightsAccessRight)
-                .Where(l => accessRightIds.Contains(l.AccessRightId)).ToArrayAsync();
+                .Where(l => accessRightIds.ContainsKey(l.AccessRightId)).ToArrayAsync();
 
             var functionsRights = await _context.UsersRights.Where(l => l.UserId == userId)
                 .Include(l => l.UserRightsAccessFunction).
                 ThenInclude(l=>l.AccessFunction)
                 .ThenInclude(l=>l.AccessFunctionAccessRights)
                 .SelectMany(l => l.UserRightsAccessFunction.SelectMany(k=>k.AccessFunction.AccessFunctionAccessRights))
-                .Where(l => accessRightIds.Contains(l.AccessRightId)).ToArrayAsync();
+                .Where(l => accessRightIds.ContainsKey(l.AccessRightId)).ToArrayAsync();
 
             var roleRights = await _context.UsersRights.Where(l => l.UserId == userId)
                 .Include(l => l.UserRightsRole).
                 ThenInclude(l=>l.Role)
                 .ThenInclude(l=>l.RoleAccessRight)
                 .SelectMany(l => l.UserRightsRole.SelectMany(k=>k.Role.RoleAccessRight))
-                .Where(l => accessRightIds.Contains(l.AccessRightId)).ToArrayAsync();
+                .Where(l => accessRightIds.ContainsKey(l.AccessRightId)).ToArrayAsync();
 
             var roleFunctionRights = await _context.UsersRights.Where(l => l.UserId == userId)
                 .Include(l => l.UserRightsRole).
@@ -386,23 +400,27 @@ namespace Security.Data
                 .ThenInclude(l=>l.AccessFunction)
                 .ThenInclude(l=>l.AccessFunctionAccessRights)
                 .SelectMany(l => l.UserRightsRole.SelectMany(k=>k.Role.RoleAccessFunction).SelectMany(k=>k.AccessFunction.AccessFunctionAccessRights))
-                .Where(l => accessRightIds.Contains(l.AccessRightId)).ToArrayAsync();
+                .Where(l => accessRightIds.ContainsKey(l.AccessRightId)).ToArrayAsync();
 
-            return new Dictionary<string, bool>();
+            var accessed = rights.Where(l => !l.IsDenied).Select(l => l.AccessRightId)
+                .Union(functionsRights.Select(l => l.AccessRightId))
+                .Union(roleFunctionRights.Select(l => l.AccessRightId))
+                .Union(roleRights.Where(l => !l.IsDenied).Select(l => l.AccessRightId)).ToHashSet();
+                
+            var denied = rights.Where(l => l.IsDenied).Select(l => l.AccessRightId)
+                .Union(roleRights.Where(l => l.IsDenied).Select(l => l.AccessRightId)).ToHashSet();
+
+            foreach (var item in accessRightIds)
+            {
+                result[item.Value] = accessed.Contains(item.Key) && !denied.Contains(item.Key);
+            }
+
+            return result;
         }
 
         private async Task<bool> EditUserRightsCtx(UserRights userRightsDb, int[] roleIds, int[] functionIds, int[] accessedRightsIds, int[] deniedRightsIds)
         {
-            var rights = await _context.AccessRights
-                .Where(l => accessedRightsIds.Contains(l.Id) || deniedRightsIds.Contains(l.Id)).ToArrayAsync();
-            if (rights.Length != accessedRightsIds.Length + deniedRightsIds.Length)
-            {
-                var notFound = accessedRightsIds.Except(rights.Select(l => l.Id)).Select(l => l.ToString()).Union(
-                    deniedRightsIds.Except(rights.Select(l => l.Id)).Select(l => l.ToString())).ToArray();
-
-                throw new SecurityDbException(
-                    "Access rights was not found", ExceptionType.NotFound, EntityType.UserRights, notFound);
-            }
+            CheckRightsExist(accessedRightsIds.Union(deniedRightsIds).ToArray());
 
             CheckFunctionsExist(functionIds);
 

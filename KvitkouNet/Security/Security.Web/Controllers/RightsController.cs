@@ -28,13 +28,13 @@ namespace Security.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("right")]
+        [HttpPost, Route("rights")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> AddRight([FromBody]AccessRight right)
+        public async Task<IActionResult> AddRights([FromBody]string[] rightNames)
         {
-            var result = _securityService.AddRights(new[] {right});
+            var result = _securityService.AddRights(rightNames);
             return Ok(await result);
         }
 

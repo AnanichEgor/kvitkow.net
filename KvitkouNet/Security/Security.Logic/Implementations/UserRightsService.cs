@@ -21,12 +21,12 @@ namespace Security.Logic.Implementations
         private ISecurityData _securityContext;
         private IMapper _mapper;
         private IValidator<UserRights> _userRightsValidator;
-        private IValidator<AccessRequest> _accessRequestValidator;
+        private IValidator<CheckAccessRequest> _accessRequestValidator;
 
         public UserRightsService(ISecurityData securityContext, 
             IMapper mapper, 
             IValidator<UserRights> userRightsValidator, 
-            IValidator<AccessRequest> accessRequestValidator)
+            IValidator<CheckAccessRequest> accessRequestValidator)
         {
             _securityContext = securityContext;
             _mapper = mapper;
@@ -105,45 +105,18 @@ namespace Security.Logic.Implementations
             }
         }
 
-        public async Task<ActionResponse> AddNewUserRights(UserRights userRights)
+        public async Task<ActionResponse> AddNewUser(UserInfo userInfo)
         {
             try
             {
-                var validationResult = await _userRightsValidator.ValidateAsync(userRights);
+                var validationResult = await _userRightsValidator.ValidateAsync(userInfo);
                 if (!validationResult.IsValid)
                 {
                     return ValidationResponseHelper.GetResponse(validationResult);
                 }
 
-                if (userRights.AccessRights != null && userRights.AccessRights.Any(l => l.Id == 0) ||
-                    userRights.DeniedRights != null && userRights.DeniedRights.Any(l => l.Id == 0))
-                {
-                    return new ActionResponse
-                    {
-                        Message = "Wrong Access Right id",
-                        Status = ActionStatus.Warning
-                    };
-                }
-
-                if (userRights.AccessFunctions != null && userRights.AccessFunctions.Any(l => l.Id == 0))
-                {
-                    return new ActionResponse
-                    {
-                        Message = "Wrong Access Function id",
-                        Status = ActionStatus.Warning
-                    };
-                }
-
-                if (userRights.Roles != null && userRights.Roles.Any(l => l.Id == 0))
-                {
-                    return new ActionResponse
-                    {
-                        Message = "Wrong Access Function id",
-                        Status = ActionStatus.Warning
-                    };
-                }
-
-                await _securityContext.AddNewUserRights(_mapper.Map<UserRightsDb>(userRights));
+                
+                await _securityContext.AddUser(_mapper.Map<UserInfoDb>(userInfo));
 
                 return new ActionResponse
                 {
@@ -169,11 +142,12 @@ namespace Security.Logic.Implementations
             }
         }
 
-        public async Task<ActionResponse> EditUserRights(UserRights userRights)
+        public async Task<ActionResponse> EditUserRights(string userId, int[] roleIds, int[] functionIds,
+            int[] accessedRightsIds, int[] deniedRightsIds)
         {
             try
             {
-                if (string.IsNullOrEmpty(userRights.UserId))
+                if (string.IsNullOrEmpty(userId))
                 {
                     return new ActionResponse
                     {
@@ -181,36 +155,25 @@ namespace Security.Logic.Implementations
                         Status = ActionStatus.Warning
                     };
                 }
-                if (userRights.AccessRights.Any(l => l.Id == 0) || userRights.DeniedRights.Any(l => l.Id == 0))
+
+                if (accessedRightsIds.Intersect(deniedRightsIds).Any())
                 {
                     return new ActionResponse
                     {
-                        Message = "Wrong Access Right id",
-                        Status = ActionStatus.Warning
-                    };
-                }
-                if (userRights.AccessFunctions.Any(l => l.Id == 0))
-                {
-                    return new ActionResponse
-                    {
-                        Message = "Wrong Access Function id",
-                        Status = ActionStatus.Warning
-                    };
-                }
-                if (userRights.Roles.Any(l => l.Id == 0))
-                {
-                    return new ActionResponse
-                    {
-                        Message = "Wrong Role id",
-                        Status = ActionStatus.Warning
+                        Status = ActionStatus.Warning,
+                        Message = "Accessed and denied must not have same Rights"
                     };
                 }
 
-                await _securityContext.EditUserRights(userRights.UserId,
-                    userRights.Roles.Select(l => l.Id).ToArray(),
-                    userRights.AccessFunctions.Select(l => l.Id).ToArray(),
-                    userRights.AccessRights.Select(l => l.Id).ToArray(),
-                    userRights.DeniedRights.Select(l => l.Id).ToArray());
+                roleIds = roleIds ?? new int[0];
+                functionIds = functionIds ?? new int[0];
+                accessedRightsIds = accessedRightsIds ?? new int[0];
+                deniedRightsIds = deniedRightsIds ?? new int[0];
+
+                await _securityContext.EditUserRights(userId,roleIds,
+                    functionIds,
+                    accessedRightsIds,
+                    deniedRightsIds);
 
                 return new ActionResponse
                 {
@@ -276,7 +239,7 @@ namespace Security.Logic.Implementations
             }
         }
 
-        public async Task<AccessResponse> CheckAccess(AccessRequest accessRequest)
+        public async Task<AccessResponse> CheckAccess(CheckAccessRequest accessRequest)
         {
             try
             {
@@ -325,9 +288,41 @@ namespace Security.Logic.Implementations
             throw new System.NotImplementedException();
         }
 
-        public async Task<IEnumerable<AccessRight>> UpdateUserInfo(string userId, string userLogin, string firstName, string middleName, string lastName)
+        public async Task<ActionResponse> UpdateUserInfo(UserInfo userInfo)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var validationResult = await _userRightsValidator.ValidateAsync(userInfo);
+                if (!validationResult.IsValid)
+                {
+                    return ValidationResponseHelper.GetResponse(validationResult);
+                }
+
+
+                await _securityContext.UpdateUser(_mapper.Map<UserInfoDb>(userInfo));
+
+                return new ActionResponse
+                {
+                    Status = ActionStatus.Success
+                };
+            }
+            catch (SecurityDbException e)
+            {
+                return new ActionResponse
+                {
+                    Status = ActionStatus.Warning,
+                    Message = PrettyExceptionHelper.GetMessage(e)
+                };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new ActionResponse
+                {
+                    Status = ActionStatus.Error,
+                    Message = "Something went wrong!"
+                };
+            }
         }
     }
 }

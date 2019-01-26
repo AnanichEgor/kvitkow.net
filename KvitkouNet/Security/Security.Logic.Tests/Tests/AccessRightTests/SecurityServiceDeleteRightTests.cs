@@ -1,8 +1,11 @@
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore.Internal;
 using Moq;
 using NUnit.Framework;
 using Security.Data;
+using Security.Data.Exceptions;
 using Security.Logic.Implementations;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models.Enums;
@@ -30,16 +33,33 @@ namespace Security.Logic.Tests.Tests.AccessRightTests
 
             _mock = new Mock<ISecurityData>();
 
-            _securityData = new RightsService(_mock.Object, _mapper, new AccessRightValidator());
+            //success
+            _mock.Setup(x => x.DeleteRight(It.Is<int>(right =>
+                    _dbFaker.AccessRights.Any(l=>l.Id == right))))
+                .Returns<int>(id =>
+                {
+                    return Task.FromResult(true);
+                });
+
+            //not exists
+            _mock.Setup(x => x.DeleteRight(It.Is<int>(right =>
+                    _dbFaker.AccessRights.All(l => l.Id != right))))
+                .Returns<int>(id =>
+                {
+                    throw new SecurityDbException("not exists", ExceptionType.NotFound,
+                        EntityType.Right, new[] {id.ToString()});
+                });
+
+            _securityData = new RightsService(_mock.Object, _mapper);
         }
 
         [Test]
-        public async Task DeleteRightZero()
+        public async Task DeleteRightNotExisted()
         {
-            var id = 0;
+            var id = _dbFaker.AccessRights.Max(l=>l.Id) + 1;
 
             var result = await _securityData.DeleteRight(id);
-            var expectedMessage = "Nothing was deleted on id = 0";
+            var expectedMessage = $"Access Right with id = {id} was not found";
 
             Assert.AreEqual(ActionStatus.Warning, result.Status);
             Assert.AreEqual(expectedMessage, result.Message);
@@ -49,7 +69,7 @@ namespace Security.Logic.Tests.Tests.AccessRightTests
         [Test]
         public async Task DeleteRight()
         {
-            var id = 2;
+            var id = _dbFaker.AccessRights.Max(l => l.Id);
 
             var result = await _securityData.DeleteRight(id);
 

@@ -1,10 +1,7 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using Security.Data;
-using Security.Data.Context;
 using Security.Data.Models;
 
 namespace Tests
@@ -20,59 +17,29 @@ namespace Tests
 
             var id1 = await _data.AddRights(new[]
             {
-                new AccessRightDb() {Name = "1"},
-                new AccessRightDb() {Name = "2"},
-                new AccessRightDb() {Name = "3"}
+                "1",
+                "2",
+                "3"
             });
 
-            var fi = await _data.AddFeature(new FeatureDb()
-            {
-                Name = "1fi"
-            });
-            var fi2 = await _data.AddFeature(new FeatureDb()
-            {
-                Name = "2fi"
-            });
-            var fi3 = await _data.AddFeature(new FeatureDb()
-            {
-                Name = "3fi"
-            });
+            var fi = await _data.AddFeature("1fi");
+            var fi2 = await _data.AddFeature("2fi");
+            var fi3 = await _data.AddFeature("3fi");
 
-            Assert.IsTrue(await _data.EditFeatureRules(fi, new[] { 1, 2 }));
-            Assert.IsTrue(await _data.EditFeatureRules(fi2, new[] { 1, 2 }));
-            Assert.IsTrue(await _data.EditFeatureRules(fi3, new[] { 3 }));
+            Assert.IsTrue(await _data.EditFeatureRights(fi, new[] { 1, 2 }));
+            Assert.IsTrue(await _data.EditFeatureRights(fi2, new[] { 1, 2 }));
+            Assert.IsTrue(await _data.EditFeatureRights(fi3, new[] { 3 }));
 
-            var fu1 = await _data.AddFunction(new AccessFunctionDb()
-            {
-                Name = "1fu",
-                FeatureId = 1
-            });
-            var fu2 = await _data.AddFunction(new AccessFunctionDb()
-            {
-                Name = "2fu",
-                FeatureId = 2
-            });
-            var fu3 = await _data.AddFunction(new AccessFunctionDb()
-            {
-                Name = "3fu",
-                FeatureId = 3
-            });
+            var fu1 = await _data.AddFunction("1fu", 1);
+            var fu2 = await _data.AddFunction("2fu", 2);
+            var fu3 = await _data.AddFunction("3fu", 3);
             Assert.IsTrue(await _data.EditFunctionRights(fu1, new[] { 1, 2 }));
             Assert.IsTrue(await _data.EditFunctionRights(fu2, new[] { 1, 2 }));
             Assert.IsTrue(await _data.EditFunctionRights(fu3, new[] { 3 }));
 
-            var r1 = await _data.AddRole(new RoleDb()
-            {
-                Name = "r1"
-            });
-            var r2 = await _data.AddRole(new RoleDb()
-            {
-                Name = "r2"
-            });
-            var r3 = await _data.AddRole(new RoleDb()
-            {
-                Name = "r3"
-            });
+            var r1 = await _data.AddRole("r1");
+            var r2 = await _data.AddRole("r2");
+            var r3 = await _data.AddRole("r3");
 
             Assert.IsTrue(await _data.EditRoleFunctions(1, new []{1}));
             Assert.IsTrue(await _data.EditRoleFunctions(2, new []{2}));
@@ -81,18 +48,20 @@ namespace Tests
             Assert.IsTrue(await _data.EditRoleRights(2, new []{2}, new []{1}));
             Assert.IsTrue(await _data.EditRoleRights(3, new []{3}, new int [0]));
 
-            Assert.IsTrue(await _data.AddNewUserRights(new UserRightsDb()
+            Assert.IsTrue(await _data.AddUser(new UserInfoDb()
             {
                 UserId = "1",
                 UserLogin = "UserLogin",
                 FirstName = "FirstName",
                 LastName = "LastName",
-                MiddleName = "MiddleName",
-                AccessRights = new List<AccessRightDb>() {new AccessRightDb(){Id = 1} },
-                DeniedRights = new List<AccessRightDb>() { new AccessRightDb() { Id = 2 } },
-                AccessFunctions = new List<AccessFunctionDb>() { new AccessFunctionDb(){Id = 1}},
-                Roles = new List<RoleDb>() { new RoleDb() { Id = 1} }
+                MiddleName = "MiddleName"
             }));
+            Assert.IsTrue(await _data.EditUserRights("1",
+                new[] {1},
+                new[] {2, 3},
+                new[] {1},
+                new[] {3}
+            ));
         }
 
         [Test]

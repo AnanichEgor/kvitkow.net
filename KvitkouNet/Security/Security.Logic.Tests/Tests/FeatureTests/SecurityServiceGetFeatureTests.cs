@@ -36,7 +36,7 @@ namespace Security.Logic.Tests.Tests.FeatureTests
                 .Returns((int i, int p, string m) =>
                     Task.FromResult(_dbFaker.Features.Where(l => string.IsNullOrEmpty(m) || l.Name.Contains(m))
                         .OrderBy(l => l.Name).Skip((p - 1) * i).Take(i)));
-            _securityData = new FeatureService(_mock.Object, _mapper, new FeatureValidator());
+            _securityData = new FeatureService(_mock.Object, _mapper);
         }
         
         [Test]
@@ -50,9 +50,7 @@ namespace Security.Logic.Tests.Tests.FeatureTests
                 .OrderBy(l => l.Name).Skip((pageNumber - 1) * itemsPerPage).Take(itemsPerPage).ToArray());
 
             CollectionAssert.AreEqual(expected, response.Features, new FeatureComparer());
-            _mock.Verify(
-                data => data.GetFeatures(It.Is<int>(i => i == itemsPerPage), It.Is<int>(i => i == pageNumber),
-                    It.Is<string>(i => i == null)), () => Times.Exactly(1));
+            _mock.Verify(data => data.GetFeatures(itemsPerPage, pageNumber, ""), () => Times.Exactly(1));
         }
 
         [Test]

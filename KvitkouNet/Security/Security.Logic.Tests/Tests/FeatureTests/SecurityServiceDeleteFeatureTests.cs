@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Moq;
@@ -8,6 +9,7 @@ using Security.Logic.Implementations;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models.Enums;
 using Security.Logic.Services;
+using Security.Logic.Tests.Fakers;
 using Security.Logic.Validators;
 
 namespace Security.Logic.Tests.Tests.FeatureTests
@@ -17,34 +19,47 @@ namespace Security.Logic.Tests.Tests.FeatureTests
         private IFeatureService _securityData;
         private IMapper _mapper;
         private Mock<ISecurityData> _mock;
+        private SecurityDbFaker _dbFaker;
 
         [SetUp]
         public void Setup()
         {
+            _dbFaker = new SecurityDbFaker();
             _mapper = new Mapper(new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<FeatureProfile>();
             }));
 
             _mock = new Mock<ISecurityData>();
-            _mock.Setup(x => x.DeleteFeature(It.Is<int>(id => id == 0)))
+
+            //success
+            _mock.Setup(x => x.DeleteFeature(It.Is<int>(id =>
+                    _dbFaker.Features.Any(l => l.Id == id))))
                 .Returns<int>(id =>
                 {
-                    throw new SecurityDbException("Feature was not found", ExceptionType.NotFound, EntityType.Function, new []{id.ToString()});
+                    return Task.FromResult(true);
                 });
-            _mock.Setup(x => x.DeleteFeature(It.Is<int>(id => id != 0)))
-                .Returns(() => Task.FromResult(true));
 
-            _securityData = new FeatureService(_mock.Object, _mapper, new FeatureValidator());
+            //not exists
+            _mock.Setup(x => x.DeleteFeature(It.Is<int>(id =>
+                    _dbFaker.Features.All(l => l.Id != id))))
+                .Returns<int>(id =>
+                {
+                    throw new SecurityDbException("not exists", ExceptionType.NotFound,
+                        EntityType.Feature, new[] { id.ToString() });
+                });
+
+
+            _securityData = new FeatureService(_mock.Object, _mapper);
         }
 
         [Test]
-        public async Task DeleteFunctionZero()
+        public async Task DeleteFeatureNotExisted()
         {
-            var id = 0;
+            var id = _dbFaker.Features.Max(l => l.Id) + 1;
 
             var result = await _securityData.DeleteFeature(id);
-            var expectedMessage = "Nothing was deleted on id = 0";
+            var expectedMessage = $"Feature with id = {id} was not found";
 
             Assert.AreEqual(ActionStatus.Warning, result.Status);
             Assert.AreEqual(expectedMessage, result.Message);
@@ -52,9 +67,9 @@ namespace Security.Logic.Tests.Tests.FeatureTests
         }
 
         [Test]
-        public async Task DeleteFunction()
+        public async Task DeleteFeature()
         {
-            var id = 2;
+            var id = _dbFaker.Features.Max(l => l.Id);
 
             var result = await _securityData.DeleteFeature(id);
 

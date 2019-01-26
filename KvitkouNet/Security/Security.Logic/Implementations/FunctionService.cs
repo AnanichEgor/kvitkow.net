@@ -19,13 +19,11 @@ namespace Security.Logic.Implementations
     {
         private ISecurityData _securityContext;
         private IMapper _mapper;
-        private IValidator<AccessFunction> _validator;
 
-        public FunctionService(ISecurityData securityContext, IMapper mapper, IValidator<AccessFunction> validator)
+        public FunctionService(ISecurityData securityContext, IMapper mapper)
         {
             _securityContext = securityContext;
             _mapper = mapper;
-            _validator = validator;
         }
 
         #region DisposeImp
@@ -91,35 +89,20 @@ namespace Security.Logic.Implementations
             }
         }
 
-        public async Task<ActionResponse> AddFunction(AccessFunction function)
+        public async Task<ActionResponse> AddFunction(string functionName, int featureId)
         {
             try
             {
-                var validationResult = await _validator.ValidateAsync(function);
-                if (!validationResult.IsValid)
+                if (string.IsNullOrEmpty(functionName) || functionName.Trim().Length > 100)
                 {
-                    return ValidationResponseHelper.GetResponse(validationResult);
-                }
-                if (function.AccessRights != null && function.AccessRights.Any(l => l.Id == 0))
-                {
-                    return new ActionResponse
+                    return new AccessRightResponse
                     {
-                        Message = "Wrong Access Right id",
+                        Message = "Name must be between 1 and 100 characters",
                         Status = ActionStatus.Warning
                     };
                 }
 
-                var id = await _securityContext.AddFunction(new AccessFunctionDb
-                {
-                    Name = function.Name,
-                    FeatureId = function.FeatureId
-                });
-
-                if (function.AccessRights != null && function.AccessRights.Any())
-                {
-                    await _securityContext.EditFunctionRights(id,
-                        function.AccessRights.Select(l => l.Id).ToArray());
-                }
+                var id = await _securityContext.AddFunction(functionName, featureId);
 
                 return new ActionResponse
                 {
@@ -186,37 +169,19 @@ namespace Security.Logic.Implementations
             }
         }
 
-        public async Task<ActionResponse> EditFunction(AccessFunction function)
+        public async Task<ActionResponse> EditFunctionRights(int functionId, int[] rightsId)
         {
             try
             {
-                if (function.Id == 0)
-                {
-                    return new ActionResponse
-                    {
-                        Message = "Wrong id",
-                        Status = ActionStatus.Warning
-                    };
-                }
+                rightsId = rightsId ?? new int[0];
 
-                function.AccessRights = function.AccessRights ?? new List<AccessRight>();
-                if (function.AccessRights.Any(l=>l.Id == 0))
-                {
-                    return new ActionResponse
-                    {
-                        Message = "Wrong Access Right id",
-                        Status = ActionStatus.Warning
-                    };
-                }
-
-                await _securityContext.EditFunctionRights(function.Id,
-                    function.AccessRights.Select(l => l.Id).ToArray());
+                await _securityContext.EditFunctionRights(functionId,
+                    rightsId.Select(l => l).ToArray());
 
                 return new ActionResponse
                 {
                     Status = ActionStatus.Success
                 };
-
             }
             catch (SecurityDbException e)
             {

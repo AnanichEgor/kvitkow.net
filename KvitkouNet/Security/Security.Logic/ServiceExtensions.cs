@@ -36,7 +36,7 @@ namespace Security.Logic
             services.AddScoped<IValidator<Feature>, FeatureValidator>();
             services.AddScoped<IValidator<Role>, RoleValidator>();
             services.AddScoped<IValidator<UserRights>, UserRightsValidator>();
-            services.AddScoped<IValidator<AccessRequest>, AccessRequestValidator>();
+            services.AddScoped<IValidator<CheckAccessRequest>, AccessRequestValidator>();
 
             services.AddScoped<IRightsService, RightsService>();
             services.AddScoped<IFeatureService, FeatureService>();

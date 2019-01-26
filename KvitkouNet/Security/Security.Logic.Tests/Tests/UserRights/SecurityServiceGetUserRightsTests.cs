@@ -34,14 +34,20 @@ namespace Security.Logic.Tests.Tests.UserRights
             _mock = new Mock<ISecurityData>();
             _mock.Setup(x => x.GetUserRights(It.IsAny<string>()))
                 .Returns((string userId) =>
-                    Task.FromResult(_dbFaker.UserRights.Single(l => l.UserId == userId)));
-            _mock.Setup(x => x.GetUserRights(It.Is<string>(s => _dbFaker.UserRights.All(l => l.UserId != s))))
-                .Returns((string userId) =>
-                {
-                    throw new SecurityDbException(
-                        "User rights was not found", ExceptionType.NotFound, EntityType.UserRights, new[] { userId });
-                });
-            _securityData = new UserRightsService(_mock.Object, _mapper, new UserRightsValidator(), new AccessRequestValidator());
+                    Task.FromResult(
+                        _dbFaker.UserRights
+                            .Single(l => l.UserId == userId)));
+
+            _mock.Setup(x => x.GetUserRights(It.Is<string>(s => 
+                    _dbFaker.UserRights.All(l => l.UserId != s))))
+                .Returns((string userId) => 
+                    throw new SecurityDbException("User rights was not found", 
+                        ExceptionType.NotFound, 
+                        EntityType.UserRights, 
+                        new[] { userId }));
+
+            _securityData = new UserRightsService(_mock.Object, _mapper, 
+                new UserRightsValidator(), new AccessRequestValidator());
         }
         
         [Test]

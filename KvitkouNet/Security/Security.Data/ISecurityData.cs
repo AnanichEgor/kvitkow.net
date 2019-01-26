@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Security.Data.Models;
 
@@ -17,9 +16,9 @@ namespace Security.Data
         /// <summary>
         /// Добавление права доступа
         /// </summary>
-        /// <param name="rights">Добавляемые право доступа</param>
+        /// <param name="rightNames"></param>
         /// <returns></returns>
-        Task<AccessRightDb[]> AddRights(AccessRightDb[] rights);
+        Task<AccessRightDb[]> AddRights(string[] rightNames);
 
         /// <summary>
         /// Удаление права доступа
@@ -37,9 +36,10 @@ namespace Security.Data
         /// <summary>
         /// Добавление функции
         /// </summary>
-        /// <param name="function">Идентификатор функции</param>
+        /// <param name="functionName"></param>
+        /// <param name="featureId"></param>
         /// <returns></returns>
-        Task<int> AddFunction(AccessFunctionDb function);
+        Task<int> AddFunction(string functionName, int featureId);
 
         /// <summary>
         /// Удаление функции
@@ -65,9 +65,9 @@ namespace Security.Data
         /// <summary>
         /// Добавление фичи
         /// </summary>
-        /// <param name="feature">Добавляемая фича</param>
+        /// <param name="featureName"></param>
         /// <returns></returns>
-        Task<int> AddFeature(FeatureDb feature);
+        Task<int> AddFeature(string featureName);
 
         /// <summary>
         /// Удаление фичи
@@ -82,7 +82,7 @@ namespace Security.Data
         /// <param name="featureId">Изменяемая фича</param>
         /// <param name="newRulesList">Новый набор правил</param>
         /// <returns></returns>
-        Task<bool> EditFeatureRules(int featureId, int[] newRulesList);
+        Task<bool> EditFeatureRights(int featureId, int[] newRulesList);
 
         /// <summary>
         /// Получение списка ролей
@@ -93,9 +93,9 @@ namespace Security.Data
         /// <summary>
         /// Добавление роли
         /// </summary>
-        /// <param name="role">Добавляемая роль</param>
+        /// <param name="roleName"></param>
         /// <returns></returns>
-        Task<int> AddRole(RoleDb role);
+        Task<int> AddRole(string roleName);
 
         /// <summary>
         /// Удаление роли
@@ -124,14 +124,7 @@ namespace Security.Data
         /// <param name="userId">Идентификатор пользователя</param>
         /// <returns></returns>
         Task<UserRightsDb> GetUserRights(string userId);
-
-        /// <summary>
-        /// Получение списка прав доступа пользователя
-        /// </summary>
-        /// <param name="userId">Идентификатор пользователя</param>
-        /// <returns></returns>
-        Task<bool> AddNewUserRights(UserRightsDb userRights);
-
+        
         /// <summary>
         /// Изменение прав доступа пользователя
         /// </summary>
@@ -145,6 +138,20 @@ namespace Security.Data
         /// <param name="userId"></param>
         /// <returns></returns>
         Task<bool> DeleteUserRights(string userId);
+
+        /// <summary>
+        /// Добавление пользователя
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
+        Task<bool> AddUser(UserInfoDb userInfo);
+
+        /// <summary>
+        /// Обновление пользователя
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
+        Task<bool> UpdateUser(UserInfoDb userInfo);
 
         /// <summary>
         /// Проверка доступности прав

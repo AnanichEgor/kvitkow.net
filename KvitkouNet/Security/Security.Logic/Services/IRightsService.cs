@@ -19,9 +19,9 @@ namespace Security.Logic.Services
         /// <summary>
         /// Добавление прав доступа
         /// </summary>
-        /// <param name="rights">Добавляемое право доступа</param>
+        /// <param name="rightsNames">Добавляемое право доступа</param>
         /// <returns></returns>
-        Task<AccessRightResponse> AddRights(AccessRight[] rights);
+        Task<AccessRightResponse> AddRights(string[] rightsNames);
 
         /// <summary>
         /// Удаление прав доступа

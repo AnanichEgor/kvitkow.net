@@ -25,14 +25,18 @@ namespace Security.Logic.Services
         /// </summary>
         /// <param name="userRights"></param>
         /// <returns></returns>
-        Task<ActionResponse> AddNewUserRights(UserRights userRights);
+        Task<ActionResponse> AddNewUser(UserInfo userRights);
 
         /// <summary>
         /// Изменение прав доступа пользователя
         /// </summary>
-        /// <param name="userRights">Набор прав доступа пользователя</param>
+        /// <param name="userId"></param>
+        /// <param name="roleIds"></param>
+        /// <param name="functionIds"></param>
+        /// <param name="accessedRightsIds"></param>
+        /// <param name="deniedRightsIds"></param>
         /// <returns></returns>
-        Task<ActionResponse> EditUserRights(UserRights userRights);
+        Task<ActionResponse> EditUserRights(string userId, int[] roleIds, int[] functionIds, int[] accessedRightsIds, int[] deniedRightsIds);
 
         /// <summary>
         /// Удаление пользователя из системы
@@ -46,7 +50,7 @@ namespace Security.Logic.Services
         /// </summary>
         /// <param name="accessRequest">Запрос наличия доступа</param>
         /// <returns></returns>
-        Task<AccessResponse> CheckAccess(AccessRequest accessRequest);
+        Task<AccessResponse> CheckAccess(CheckAccessRequest accessRequest);
 
         #region EventHandlers
 
@@ -60,8 +64,7 @@ namespace Security.Logic.Services
         /// Предоставление прав доступа новому пользователю
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<AccessRight>> UpdateUserInfo(string userId, 
-            string userLogin, string firstName, string middleName, string lastName);
+        Task<ActionResponse> UpdateUserInfo(UserInfo userInfo);
        
         #endregion
     }

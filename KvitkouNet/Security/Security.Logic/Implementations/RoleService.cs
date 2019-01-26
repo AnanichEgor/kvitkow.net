@@ -18,13 +18,11 @@ namespace Security.Logic.Implementations
     {
         private ISecurityData _securityContext;
         private IMapper _mapper;
-        private IValidator<Role> _validator;
 
-        public RoleService(ISecurityData securityContext, IMapper mapper, IValidator<Role> validator)
+        public RoleService(ISecurityData securityContext, IMapper mapper)
         {
             _securityContext = securityContext;
             _mapper = mapper;
-            _validator = validator;
         }
 
         #region DisposeImp
@@ -90,48 +88,20 @@ namespace Security.Logic.Implementations
             }
         }
 
-        public async Task<ActionResponse> AddRole(Role role)
+        public async Task<ActionResponse> AddRole(string roleName)
         {
             try
             {
-                var validationResult = await _validator.ValidateAsync(role);
-                if (!validationResult.IsValid)
+                if (string.IsNullOrEmpty(roleName) || roleName.Trim().Length > 100)
                 {
-                    return ValidationResponseHelper.GetResponse(validationResult);
-                }
-                if (role.AccessRights!=null && role.AccessRights.Any(l => l.Id == 0) || role.DeniedRights != null && role.DeniedRights.Any(l => l.Id == 0))
-                {
-                    return new ActionResponse
+                    return new AccessRightResponse
                     {
-                        Message = "Wrong Access Right id",
-                        Status = ActionStatus.Warning
-                    };
-                }
-                if (role.AccessFunctions != null && role.AccessFunctions.Any(l => l.Id == 0))
-                {
-                    return new ActionResponse
-                    {
-                        Message = "Wrong Access Function id",
+                        Message = "Name must be between 1 and 100 characters",
                         Status = ActionStatus.Warning
                     };
                 }
 
-                var id = await _securityContext.AddRole(new RoleDb
-                {
-                    Name = role.Name
-                });
-
-                if (role.AccessFunctions != null)
-                {
-                    await _securityContext.EditRoleFunctions(id, role.AccessFunctions.Select(l => l.Id).ToArray());
-                }
-
-                if (role.AccessFunctions != null || role.DeniedRights != null)
-                {
-                    await _securityContext.EditRoleRights(id,
-                        role.AccessRights?.Select(l => l.Id).ToArray() ?? new int[0],
-                        role.DeniedRights?.Select(l => l.Id).ToArray() ?? new int[0]);
-                }
+                var id = await _securityContext.AddRole(roleName);
 
                 return new ActionResponse
                 {
@@ -198,43 +168,29 @@ namespace Security.Logic.Implementations
             }
         }
 
-        public async Task<ActionResponse> EditRole(Role role)
+        public async Task<ActionResponse> EditRole(int roleId, int[] accessRightsIds, int[] deniedRightsIds, int[] functionIds)
         {
             try
             {
-                if (role.Id == 0)
+                accessRightsIds = accessRightsIds ?? new int[0];
+                deniedRightsIds = deniedRightsIds ?? new int[0];
+
+                if (accessRightsIds.Intersect(deniedRightsIds).Any())
                 {
                     return new ActionResponse
                     {
-                        Message = "Wrong id",
-                        Status = ActionStatus.Warning
-                    };
-                }
-                if (role.AccessRights.Any(l => l.Id == 0) || role.DeniedRights.Any(l => l.Id == 0))
-                {
-                    return new ActionResponse
-                    {
-                        Message = "Wrong Access Right id",
-                        Status = ActionStatus.Warning
-                    };
-                }
-                if (role.AccessFunctions.Any(l => l.Id == 0))
-                {
-                    return new ActionResponse
-                    {
-                        Message = "Wrong Access Function id",
-                        Status = ActionStatus.Warning
+                        Status = ActionStatus.Warning,
+                        Message = "Accessed and denied must not have same Rights"
                     };
                 }
 
-                await _securityContext.EditRoleFunctions(role.Id, role.AccessFunctions.Select(l => l.Id).ToArray());
-                await _securityContext.EditRoleRights(role.Id, role.AccessRights.Select(l => l.Id).ToArray(), role.DeniedRights.Select(l => l.Id).ToArray());
+                await _securityContext.EditRoleFunctions(roleId, functionIds);
+                await _securityContext.EditRoleRights(roleId, accessRightsIds, deniedRightsIds);
 
                 return new ActionResponse
                 {
                     Status = ActionStatus.Success
                 };
-
             }
             catch (SecurityDbException e)
             {

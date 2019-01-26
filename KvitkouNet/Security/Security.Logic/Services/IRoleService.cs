@@ -19,9 +19,9 @@ namespace Security.Logic.Services
         /// <summary>
         /// Добавление роли
         /// </summary>
-        /// <param name="role">Добавляемая роль</param>
+        /// <param name="roleName"></param>
         /// <returns></returns>
-        Task<ActionResponse> AddRole(Role role);
+        Task<ActionResponse> AddRole(string roleName);
 
         /// <summary>
         /// Удаление роли
@@ -33,8 +33,11 @@ namespace Security.Logic.Services
         /// <summary>
         /// Изменение роли
         /// </summary>
-        /// <param name="role">Изменяемая роль</param>
+        /// <param name="roleId"></param>
+        /// <param name="accessRightsIds"></param>
+        /// <param name="deniedRightsIds"></param>
+        /// <param name="functionIds"></param>
         /// <returns></returns>
-        Task<ActionResponse> EditRole(Role role);
+        Task<ActionResponse> EditRole(int roleId, int[] accessRightsIds, int[] deniedRightsIds, int[] functionIds);
     }
 }

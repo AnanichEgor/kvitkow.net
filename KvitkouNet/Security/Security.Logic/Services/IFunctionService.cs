@@ -21,9 +21,10 @@ namespace Security.Logic.Services
         /// <summary>
         /// Добавление функции
         /// </summary>
-        /// <param name="function">Идентификатор функции</param>
+        /// <param name="functionName"></param>
+        /// <param name="featureId"></param>
         /// <returns></returns>
-        Task<ActionResponse> AddFunction(AccessFunction function);
+        Task<ActionResponse> AddFunction(string functionName, int featureId);
 
         /// <summary>
         /// Удаление функции
@@ -35,8 +36,9 @@ namespace Security.Logic.Services
         /// <summary>
         /// Изменение функции
         /// </summary>
-        /// <param name="function">Изменяемая функция</param>
+        /// <param name="functionId"></param>
+        /// <param name="rightsId"></param>
         /// <returns></returns>
-        Task<ActionResponse> EditFunction(AccessFunction function);
+        Task<ActionResponse> EditFunctionRights(int functionId, int[] rightsId);
     }
 }

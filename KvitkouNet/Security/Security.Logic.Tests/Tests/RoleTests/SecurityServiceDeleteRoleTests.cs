@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Moq;
@@ -8,6 +9,7 @@ using Security.Logic.Implementations;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models.Enums;
 using Security.Logic.Services;
+using Security.Logic.Tests.Fakers;
 using Security.Logic.Validators;
 
 namespace Security.Logic.Tests.Tests.RoleTests
@@ -17,6 +19,7 @@ namespace Security.Logic.Tests.Tests.RoleTests
         private IRoleService _securityData;
         private IMapper _mapper;
         private Mock<ISecurityData> _mock;
+        private SecurityDbFaker _dbFaker;
 
         [SetUp]
         public void Setup()
@@ -27,25 +30,37 @@ namespace Security.Logic.Tests.Tests.RoleTests
                 cfg.AddProfile<RoleProfile>();
             }));
 
+            _dbFaker = new SecurityDbFaker();
+
             _mock = new Mock<ISecurityData>();
-            _mock.Setup(x => x.DeleteRole(It.Is<int>(id => id == 0)))
+
+            //success
+            _mock.Setup(x => x.DeleteRole(It.Is<int>(id =>
+                    _dbFaker.Roles.Any(l => l.Id == id))))
                 .Returns<int>(id =>
                 {
-                    throw new SecurityDbException("Role was not found", ExceptionType.NotFound, EntityType.Role, new []{id.ToString()});
+                    return Task.FromResult(true);
                 });
-            _mock.Setup(x => x.DeleteRole(It.Is<int>(id => id != 0)))
-                .Returns(() => Task.FromResult(true));
 
-            _securityData = new RoleService(_mock.Object, _mapper, new RoleValidator());
+            //not exists
+            _mock.Setup(x => x.DeleteRole(It.Is<int>(id =>
+                    _dbFaker.Roles.All(l => l.Id != id))))
+                .Returns<int>(id =>
+                {
+                    throw new SecurityDbException("not exists", ExceptionType.NotFound,
+                        EntityType.Role, new[] { id.ToString() });
+                });
+
+            _securityData = new RoleService(_mock.Object, _mapper);
         }
 
         [Test]
-        public async Task DeleteRoleZero()
+        public async Task DeleteRoleNotExisted()
         {
-            var id = 0;
+            var id = _dbFaker.Roles.Max(l => l.Id) + 1;
 
             var result = await _securityData.DeleteRole(id);
-            var expectedMessage = "Nothing was deleted on id = 0";
+            var expectedMessage = $"Role with id = {id} was not found";
 
             Assert.AreEqual(ActionStatus.Warning, result.Status);
             Assert.AreEqual(expectedMessage, result.Message);
@@ -55,7 +70,7 @@ namespace Security.Logic.Tests.Tests.RoleTests
         [Test]
         public async Task DeleteRole()
         {
-            var id = 2;
+            var id = _dbFaker.Roles.Max(l => l.Id);
 
             var result = await _securityData.DeleteRole(id);
 
