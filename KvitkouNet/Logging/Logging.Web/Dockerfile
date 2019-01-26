@@ -7,7 +7,7 @@ WORKDIR /src
 COPY ["Logging/Logging.Web/Logging.Web.csproj", "Logging/Logging.Web/"]
 COPY ["Logging/Logging.Logic/Logging.Logic.csproj", "Logging/Logging.Logic/"]
 COPY ["Logging/Logging.Data/Logging.Data.csproj", "Logging/Logging.Data/"]
-COPY ["KvitkouNet.Logic.Comon/KvitkouNet.Logic.Common.csproj", "KvitkouNet.Logic.Comon/"]
+COPY ["KvitkouNet.Messages/KvitkouNet.Messages.csproj", "KvitkouNet.Messages/"]
 RUN dotnet restore "Logging/Logging.Web/Logging.Web.csproj"
 COPY . .
 WORKDIR "/src/Logging/Logging.Web"
