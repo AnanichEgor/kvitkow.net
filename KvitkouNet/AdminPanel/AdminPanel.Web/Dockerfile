@@ -8,7 +8,8 @@ COPY ["AdminPanel/AdminPanel.Web/AdminPanel.Web.csproj", "AdminPanel/AdminPanel.
 COPY ["AdminPanel/AdminPanel.Logic/AdminPanel.Logic.csproj", "AdminPanel/AdminPanel.Logic/"]
 COPY ["KvitkouNet.Messages/KvitkouNet.Messages.csproj", "KvitkouNet.Messages/"]
 RUN dotnet restore "AdminPanel/AdminPanel.Web/AdminPanel.Web.csproj"
-COPY . .
+COPY AdminPanel AdminPanel
+COPY KvitkouNet.Messages KvitkouNet.Messages
 WORKDIR "/src/AdminPanel/AdminPanel.Web"
 RUN dotnet build "AdminPanel.Web.csproj" -c Release -o /app
 
