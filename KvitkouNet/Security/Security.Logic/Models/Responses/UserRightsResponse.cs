@@ -1,12 +1,9 @@
 ﻿namespace Security.Logic.Models.Responses
 {
-    /// <summary>
-    /// Результат добавления фичи
-    /// </summary>
     public class UserRightsResponse : ActionResponse
     {
         /// <summary>
-        /// Идентификатор фичи
+        /// Права пользователя
         /// </summary>
         public UserRights UserRights { get; set; }
     }

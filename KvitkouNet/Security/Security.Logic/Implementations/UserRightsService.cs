@@ -70,7 +70,7 @@ namespace Security.Logic.Implementations
                         Message = "BadRequest"
                     };
                 }
-                if (userId?.Trim().Length > 100)
+                if (userId.Trim().Length > 100)
                 {
                     return new UserRightsResponse
                     {
@@ -156,6 +156,11 @@ namespace Security.Logic.Implementations
                     };
                 }
 
+                roleIds = roleIds ?? new int[0];
+                functionIds = functionIds ?? new int[0];
+                accessedRightsIds = accessedRightsIds ?? new int[0];
+                deniedRightsIds = deniedRightsIds ?? new int[0];
+
                 if (accessedRightsIds.Intersect(deniedRightsIds).Any())
                 {
                     return new ActionResponse
@@ -164,11 +169,6 @@ namespace Security.Logic.Implementations
                         Message = "Accessed and denied must not have same Rights"
                     };
                 }
-
-                roleIds = roleIds ?? new int[0];
-                functionIds = functionIds ?? new int[0];
-                accessedRightsIds = accessedRightsIds ?? new int[0];
-                deniedRightsIds = deniedRightsIds ?? new int[0];
 
                 await _securityContext.EditUserRights(userId,roleIds,
                     functionIds,

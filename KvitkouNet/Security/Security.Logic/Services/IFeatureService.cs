@@ -12,13 +12,16 @@ namespace Security.Logic.Services
         /// <summary>
         /// Получение списка фич
         /// </summary>
+        /// <param name="itemsPerPage">Элементов на странице</param>
+        /// <param name="pageNumber">Номер страницы</param>
+        /// <param name="mask">Маска поиска</param>
         /// <returns></returns>
         Task<FeatureResponse> GetFeatures(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
         /// Добавление фичи
         /// </summary>
-        /// <param name="featureName"></param>
+        /// <param name="featureName">Имя фичи</param>
         /// <returns></returns>
         Task<ActionResponse> AddFeature(string featureName);
 
@@ -32,8 +35,8 @@ namespace Security.Logic.Services
         /// <summary>
         /// Изменение фичи
         /// </summary>
-        /// <param name="featureId"></param>
-        /// <param name="featureRights"></param>
+        /// <param name="featureId">Идентификатор фичи</param>
+        /// <param name="featureRights">Набор прав</param>
         /// <returns></returns>
         Task<ActionResponse> EditFeatureRights(int featureId, int[] featureRights);
     }

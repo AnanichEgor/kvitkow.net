@@ -36,6 +36,5 @@ namespace Security.Data.ContextModels
         /// Список прав
         /// </summary>
         public List<UserRightsAccessRight> UserRightsAccessRight { get; set; }
-
     }
 }

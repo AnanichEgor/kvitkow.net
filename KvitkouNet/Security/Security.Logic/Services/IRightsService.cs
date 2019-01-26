@@ -13,13 +13,16 @@ namespace Security.Logic.Services
         /// <summary>
         /// Получение списка прав доступа
         /// </summary>
+        /// <param name="itemsPerPage">Элементов на странице</param>
+        /// <param name="pageNumber">Номер страницы</param>
+        /// <param name="mask">Маска поиска</param>
         /// <returns></returns>
         Task<AccessRightResponse> GetRights(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
         /// Добавление прав доступа
         /// </summary>
-        /// <param name="rightsNames">Добавляемое право доступа</param>
+        /// <param name="rightsNames">Имена прав</param>
         /// <returns></returns>
         Task<AccessRightResponse> AddRights(string[] rightsNames);
 

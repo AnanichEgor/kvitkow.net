@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Security.Logic.Models
+﻿namespace Security.Logic.Models
 {
     public class UserInfo
     {

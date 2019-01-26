@@ -2,8 +2,16 @@
 
 namespace Security.Logic.Helpers
 {
+    /// <summary>
+    /// Helper обработки ошибок
+    /// </summary>
     static class PrettyExceptionHelper
     {
+        /// <summary>
+        /// Преобразовывает SecurityDbException в строку
+        /// </summary>
+        /// <param name="e">SecurityDbException</param>
+        /// <returns>Типизированное сообщение об ошибке</returns>
         public static string GetMessage(SecurityDbException e)
         {
             var entityName = string.Empty;
@@ -26,7 +34,7 @@ namespace Security.Logic.Helpers
                     entityName = "User Rights";
                     break;
             }
-            switch (e.Code)
+            switch (e.ExceptionType)
             {
                 case ExceptionType.NameExists:
                     return $"Names: {string.Join(",", e.Items)} of {entityName} already exist";

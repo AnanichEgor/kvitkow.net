@@ -1,8 +1,6 @@
-﻿using System.IO;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
 using Security.Data.Context;
 using Security.Data.MapperProfiles;
 
@@ -10,6 +8,10 @@ namespace Security.Data
 {
     public static class DataExtensions
     {
+        /// <summary>
+        /// for local ef tests
+        /// </summary>
+        /// <returns></returns>
         public static ISecurityData GetISecurityData()
         {
             var o = new DbContextOptionsBuilder<SecurityContext>();

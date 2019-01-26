@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FluentValidation.Results;
 using Security.Logic.Models.Enums;
 using Security.Logic.Models.Responses;
 
 namespace Security.Logic.Helpers
 {
+    /// <summary>
+    /// Helper валидации
+    /// </summary>
     static class ValidationResponseHelper
     {
         public static ActionResponse GetResponse(ValidationResult validationResult)

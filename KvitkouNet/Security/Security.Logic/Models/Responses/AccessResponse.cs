@@ -4,6 +4,9 @@ namespace Security.Logic.Models.Responses
 {
     public class AccessResponse : ActionResponse
     {
+        /// <summary>
+        /// Идентификатор пользователя
+        /// </summary>
         public string UserId { get; set; }
 
         /// <summary>

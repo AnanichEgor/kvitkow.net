@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using FluentValidation;
 using Security.Data;
 using Security.Data.Exceptions;
-using Security.Data.Models;
 using Security.Logic.Helpers;
 using Security.Logic.Models;
 using Security.Logic.Models.Enums;

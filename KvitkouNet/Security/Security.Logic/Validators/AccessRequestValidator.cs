@@ -17,7 +17,6 @@ namespace Security.Logic.Validators
                 .NotNull()
                 .NotEmpty()
                 .Length(1, 100);
-
         }
     }
 }

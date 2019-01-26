@@ -13,13 +13,16 @@ namespace Security.Logic.Services
         /// <summary>
         /// Получение списка ролей
         /// </summary>
+        /// <param name="itemsPerPage">Элементов на странице</param>
+        /// <param name="pageNumber">Номер страницы</param>
+        /// <param name="mask">Маска поиска</param>
         /// <returns></returns>
         Task<RoleResponse> GetRoles(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
         /// Добавление роли
         /// </summary>
-        /// <param name="roleName"></param>
+        /// <param name="roleName">Имя роли</param>
         /// <returns></returns>
         Task<ActionResponse> AddRole(string roleName);
 
@@ -33,10 +36,10 @@ namespace Security.Logic.Services
         /// <summary>
         /// Изменение роли
         /// </summary>
-        /// <param name="roleId"></param>
-        /// <param name="accessRightsIds"></param>
-        /// <param name="deniedRightsIds"></param>
-        /// <param name="functionIds"></param>
+        /// <param name="roleId">Идентификатор роли</param>
+        /// <param name="accessRightsIds">Набор доступных прав</param>
+        /// <param name="deniedRightsIds">Набор запрещённых прав</param>
+        /// <param name="functionIds">Набор функций</param>
         /// <returns></returns>
         Task<ActionResponse> EditRole(int roleId, int[] accessRightsIds, int[] deniedRightsIds, int[] functionIds);
     }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Security.Logic.Models;
-using Security.Logic.Models.Enums;
 using Security.Logic.Models.Requests;
 using Security.Logic.Models.Responses;
 
@@ -23,25 +22,25 @@ namespace Security.Logic.Services
         /// <summary>
         /// Добавление нового пользователя
         /// </summary>
-        /// <param name="userRights"></param>
+        /// <param name="userInfo">Информация пользователя</param>
         /// <returns></returns>
-        Task<ActionResponse> AddNewUser(UserInfo userRights);
+        Task<ActionResponse> AddNewUser(UserInfo userInfo);
 
         /// <summary>
         /// Изменение прав доступа пользователя
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="roleIds"></param>
-        /// <param name="functionIds"></param>
-        /// <param name="accessedRightsIds"></param>
-        /// <param name="deniedRightsIds"></param>
+        /// <param name="userId">Идентификатор пользователя</param>
+        /// <param name="roleIds">Набор ролей</param>
+        /// <param name="functionIds">Набор функций</param>
+        /// <param name="accessedRightsIds">Набор доступных прав</param>
+        /// <param name="deniedRightsIds">Набор запрещённых прав</param>
         /// <returns></returns>
         Task<ActionResponse> EditUserRights(string userId, int[] roleIds, int[] functionIds, int[] accessedRightsIds, int[] deniedRightsIds);
 
         /// <summary>
         /// Удаление пользователя из системы
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="userId">Идентификатор пользователя</param>
         /// <returns></returns>
         Task<ActionResponse> DeleteUserRights(string userId);
 
@@ -63,6 +62,7 @@ namespace Security.Logic.Services
         /// <summary>
         /// Предоставление прав доступа новому пользователю
         /// </summary>
+        /// <param name="userInfo">Информация пользователя</param>
         /// <returns></returns>
         Task<ActionResponse> UpdateUserInfo(UserInfo userInfo);
        
