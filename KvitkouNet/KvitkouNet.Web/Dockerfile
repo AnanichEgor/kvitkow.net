@@ -5,6 +5,8 @@ EXPOSE 44330
 
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
+RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
+RUN apt-get install -y nodejs
 COPY KvitkouNet.Web/KvitkouNet.Web.csproj KvitkouNet.Web/
 COPY KvitkouNet.Logic.Comon/KvitkouNet.Logic.Common.csproj KvitkouNet.Logic.Comon/
 RUN dotnet restore KvitkouNet.Web/KvitkouNet.Web.csproj
