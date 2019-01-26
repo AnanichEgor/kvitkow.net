@@ -7,11 +7,14 @@ using Search.Data.Repositories;
 
 namespace Search.Data
 {
-    public static class HistoryRepositoryExtension
+    public static class RepositoryExtension
     {
         public static IServiceCollection RegisterHistoryRepository(this IServiceCollection services)
         {
             services.AddScoped<IHistoryRepository, HistoryRepository>();
+            services.AddScoped<ITicketRepository, ElasticSearchTicketRepository>();
+            services.AddScoped<IUserRepository, ElasticSearchUserRepository>();
+
             return services;
         }
     }
