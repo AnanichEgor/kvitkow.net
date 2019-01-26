@@ -13,10 +13,15 @@ namespace Security.Data.MapperProfiles
     {
         public RoleProfile()
         {
+            CreateMap<string, Role>()
+                .ForMember(x => x.Name, 
+                    opt => opt.MapFrom(_ => _));
+
             CreateMap<Role, RoleDb>()
-                .ForMember(x => x.AccessFunctions, 
+                .ForMember(x => x.AccessFunctions,
                     opt => opt.MapFrom(_ => _.RoleAccessFunction
-                        .Select(l=>new AccessFunctionDb{
+                        .Select(l => new AccessFunctionDb
+                        {
                             Id = l.AccessFunction.Id,
                             Name = l.AccessFunction.Name,
                             FeatureId = l.AccessFunction.FeatureId,
@@ -24,25 +29,22 @@ namespace Security.Data.MapperProfiles
                             {
                                 Name = k.AccessRight.Name,
                                 Id = k.AccessRight.Id
-                            } ).ToList()
+                            }).ToList()
                         })))
-                .ForMember(x => x.AccessRights, 
-                    opt => opt.MapFrom(_ => _.RoleAccessRight.Where(l=>!l.IsDenied)
-                        .Select(l=>new AccessRightDb
+                .ForMember(x => x.AccessRights,
+                    opt => opt.MapFrom(_ => _.RoleAccessRight.Where(l => !l.IsDenied)
+                        .Select(l => new AccessRightDb
                         {
                             Id = l.AccessRight.Id,
                             Name = l.AccessRight.Name,
                         })))
-                .ForMember(x => x.DeniedRights, 
-                    opt => opt.MapFrom(_ => _.RoleAccessRight.Where(l=>l.IsDenied)
-                        .Select(l=>new AccessRightDb
+                .ForMember(x => x.DeniedRights,
+                    opt => opt.MapFrom(_ => _.RoleAccessRight.Where(l => l.IsDenied)
+                        .Select(l => new AccessRightDb
                         {
                             Id = l.AccessRight.Id,
                             Name = l.AccessRight.Name,
-                        })))
-                .ReverseMap()
-                .ForMember(x => x.RoleAccessFunction, opt => opt.Ignore())
-                .ForMember(x => x.RoleAccessRight, opt => opt.Ignore());
+                        })));
         }
     }
 }

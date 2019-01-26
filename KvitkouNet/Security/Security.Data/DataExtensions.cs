@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.IO;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -12,7 +13,7 @@ namespace Security.Data
         public static ISecurityData GetISecurityData()
         {
             var o = new DbContextOptionsBuilder<SecurityContext>();
-            o.UseSqlite("Data Source=./SecurityDatabase.db");
+            o.UseSqlite("Data Source=D:\\kursi\\rep\\kvitkou-net\\KvitkouNet\\Security\\Security.Web\\SecurityDatabase.db");
             using (var ctx = new SecurityContext(o.Options))
             {
                 ctx.Database.EnsureDeleted();
@@ -43,7 +44,7 @@ namespace Security.Data
 
             using (var ctx = new SecurityContext(o.Options))
             {
-                ctx.Database.EnsureCreated();
+                var can = ctx.Database.CanConnect();
             }
 
             services.AddDbContext<SecurityContext>(

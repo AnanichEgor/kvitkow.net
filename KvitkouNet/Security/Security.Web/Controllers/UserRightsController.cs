@@ -5,6 +5,7 @@ using NSwag.Annotations;
 using Security.Logic.Models;
 using Security.Logic.Models.Requests;
 using Security.Logic.Services;
+using Security.Web.Models;
 
 namespace Security.Web.Controllers
 {
@@ -23,9 +24,9 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
         [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "Nothing was found on this request")]
-        public async Task<IActionResult> GetUserRights(string userId)
+        public async Task<IActionResult> GetUserRights(string id)
         {
-            var result = _securityService.GetUserRights(userId);
+            var result = _securityService.GetUserRights(id);
             return Ok(await result);
         }
 
@@ -33,11 +34,10 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> EditUserRights([FromBody]string userRightsId, 
-            [FromBody]int[] roleIds, [FromBody]int[] functionIds,
-            [FromBody]int[] accessedRightsIds, [FromBody]int[] deniedRightsIds)
+        public async Task<IActionResult> EditUserRights([FromBody]EditUserRightsRequest request)
         {
-            var result = _securityService.EditUserRights(userRightsId, roleIds, functionIds, accessedRightsIds, deniedRightsIds);
+            var result = _securityService.EditUserRights(request.UserId, request.RoleIds,
+                request.FunctionIds, request.AccessedRightsIds, request.DeniedRightsIds);
             return Ok(await result);
         }
 

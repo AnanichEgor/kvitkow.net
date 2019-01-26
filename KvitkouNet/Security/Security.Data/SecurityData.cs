@@ -84,7 +84,11 @@ namespace Security.Data
 
             CheckFeaturesExist(new[] { featureId });
 
-            var functionMapped = _mapper.Map<AccessFunction>(functionName);
+            var functionMapped = new AccessFunction
+            {
+                Name = functionName,
+                FeatureId = featureId
+            };
             await _context.AccessFunctions.AddAsync(functionMapped);
             await _context.SaveChangesAsync();
             return functionMapped.Id;
@@ -300,11 +304,17 @@ namespace Security.Data
 
         public async Task<UserRightsDb> GetUserRights(string userId)
         {
-            return _mapper.Map<UserRightsDb>(await _context.UsersRights
+            var result = await _context.UsersRights
                 .Include(l => l.UserRightsAccessRight).ThenInclude(l => l.AccessRight)
                 .Include(l => l.UserRightsAccessFunction).ThenInclude(l => l.AccessFunction)
-                .Include(l => l.UserRightsRole).ThenInclude(l => l.Role)
-                .SingleOrDefaultAsync(l => l.UserId == userId));
+                    .ThenInclude(l=>l.AccessFunctionAccessRights).ThenInclude(l=>l.AccessRight)
+                .Include(l => l.UserRightsRole).ThenInclude(l => l.Role).
+                    ThenInclude(l=>l.RoleAccessFunction).ThenInclude(l=>l.AccessFunction)
+                    .ThenInclude(l=>l.AccessFunctionAccessRights).ThenInclude(l=>l.AccessRight)
+                .Include(l => l.UserRightsRole).ThenInclude(l => l.Role).
+                    ThenInclude(l=>l.RoleAccessRight).ThenInclude(l=>l.AccessRight)
+                .SingleOrDefaultAsync(l => l.UserId == userId);
+            return _mapper.Map<UserRightsDb>(result);
         }
 
         public async Task<bool> EditUserRights(string userId, int[] roleIds, int[] functionIds, int[] accessedRightsIds, int[] deniedRightsIds)
@@ -429,7 +439,7 @@ namespace Security.Data
             userRightsDb.UserRightsAccessRight.RemoveAll(right => true);
             userRightsDb.UserRightsAccessFunction.RemoveAll(right => true);
             userRightsDb.UserRightsRole.RemoveAll(right => true);
-            
+
             userRightsDb.UserRightsAccessRight.AddRange(accessedRightsIds
                 .Select(l => new UserRightsAccessRight
                 {
@@ -457,7 +467,7 @@ namespace Security.Data
                     UserId = userRightsDb.UserId
                 }));
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return true;
         }
 

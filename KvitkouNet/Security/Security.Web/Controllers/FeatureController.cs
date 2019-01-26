@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using Security.Logic.Models;
 using Security.Logic.Services;
+using Security.Web.Models;
 
 namespace Security.Web.Controllers
 {
@@ -53,9 +54,9 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> EditFeature([FromBody]int featureId, [FromBody]int[]rightsIds)
+        public async Task<IActionResult> EditFeature([FromBody]EditFeatureRequest request)
         {
-            var result = _securityService.EditFeatureRights(featureId, rightsIds);
+            var result = _securityService.EditFeatureRights(request.FeatureId, request.RightsIds);
             return Ok(await result);
         }
     }

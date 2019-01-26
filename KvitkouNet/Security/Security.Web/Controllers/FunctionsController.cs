@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using Security.Logic.Models;
 using Security.Logic.Services;
+using Security.Web.Models;
 
 namespace Security.Web.Controllers
 {
@@ -33,9 +34,9 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> AddFunction([FromBody]string functionName, [FromBody]int featureId)
+        public async Task<IActionResult> AddFunction([FromBody]AddFunctionRequest request)
         {
-            var result = _securityService.AddFunction(functionName, featureId);
+            var result = _securityService.AddFunction(request.FunctionName, request.FeatureId);
             return Ok(await result);
         }
 
@@ -53,9 +54,9 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> EditFunction([FromBody]int functionId, [FromBody]int[] rightIds)
+        public async Task<IActionResult> EditFunction([FromBody]EditFunctionRequest request)
         {
-            var result = _securityService.EditFunctionRights(functionId, rightIds);
+            var result = _securityService.EditFunctionRights(request.FunctionId, request.RightIds);
             return Ok(await result);
         }
     }

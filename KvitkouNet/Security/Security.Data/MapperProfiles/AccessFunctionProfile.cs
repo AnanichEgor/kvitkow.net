@@ -18,9 +18,7 @@ namespace Security.Data.MapperProfiles
                     {
                         Id = l.AccessRight.Id,
                         Name = l.AccessRight.Name
-                    })))
-                .ReverseMap()
-                .ForMember(x => x.AccessFunctionAccessRights, opt => opt.Ignore());
+                    })));
         }
     }
 }

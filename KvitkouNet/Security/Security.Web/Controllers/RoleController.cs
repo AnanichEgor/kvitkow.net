@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using Security.Logic.Models;
 using Security.Logic.Services;
+using Security.Web.Models;
 
 namespace Security.Web.Controllers
 {
@@ -53,10 +54,10 @@ namespace Security.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
-        public async Task<IActionResult> EditRole([FromBody]int roleId,
-            [FromBody]int[] accessRightsIds, [FromBody]int[] deniedRightsIds, [FromBody]int[] functionIds)
+        public async Task<IActionResult> EditRole([FromBody]EditRoleRequest request)
         {
-            var result = _securityService.EditRole(roleId, accessRightsIds, deniedRightsIds, functionIds);
+            var result = _securityService.EditRole(request.RoleId, request.AccessRightsIds,
+                request.DeniedRightsIds, request.FunctionIds);
             return Ok(await result);
         }
     }

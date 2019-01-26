@@ -30,9 +30,9 @@ namespace Tests
             Assert.IsTrue(await _data.EditFeatureRights(fi2, new[] { 1, 2 }));
             Assert.IsTrue(await _data.EditFeatureRights(fi3, new[] { 3 }));
 
-            var fu1 = await _data.AddFunction("1fu", 1);
-            var fu2 = await _data.AddFunction("2fu", 2);
-            var fu3 = await _data.AddFunction("3fu", 3);
+            var fu1 = await _data.AddFunction("1fu", fi);
+            var fu2 = await _data.AddFunction("2fu", fi2);
+            var fu3 = await _data.AddFunction("3fu", fi3);
             Assert.IsTrue(await _data.EditFunctionRights(fu1, new[] { 1, 2 }));
             Assert.IsTrue(await _data.EditFunctionRights(fu2, new[] { 1, 2 }));
             Assert.IsTrue(await _data.EditFunctionRights(fu3, new[] { 3 }));
@@ -87,7 +87,7 @@ namespace Tests
             var userRights = await _data.GetUserRights("1");
             Assert.IsTrue(userRights.AccessRights.Count() == 1);
             Assert.IsTrue(userRights.DeniedRights.Count() == 1);
-            Assert.IsTrue(userRights.AccessFunctions.Count() == 1);
+            Assert.IsTrue(userRights.AccessFunctions.Count() == 2);
             Assert.IsTrue(userRights.Roles.Count() == 1);
 
             Assert.IsTrue(await _data.EditUserRights("1", new[] { 2, 3 }, new[] { 2 }, new[] { 2 }, new int[0]));

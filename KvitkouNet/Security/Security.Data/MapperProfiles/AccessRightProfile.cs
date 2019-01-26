@@ -11,8 +11,9 @@ namespace Security.Data.MapperProfiles
     {
         public AccessRightProfile()
         {
-            CreateMap<AccessRight, AccessRightDb>()
-                .ReverseMap();
+            CreateMap<string, AccessRight>()
+                .ForMember(x => x.Name,
+                    opt => opt.MapFrom(_ => _));
         }
     }
 }
