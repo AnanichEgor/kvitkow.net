@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Search.Data.Context;
 using Search.Data.Models;
 
@@ -15,7 +18,9 @@ namespace Search.Data.Repositories
 
         public Task<SearchEntity> GetLastSearch(string userId)
         {
-            return _context.SearchEntities.FindAsync(userId);
+            return _context.SearchEntities
+                .OrderByDescending(x => x.SearchTime)
+                .FirstOrDefaultAsync(x => x.UserId == userId);
         }
 
         public async Task SaveLastSearchAsync(SearchEntity entity)
