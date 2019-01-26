@@ -22,8 +22,9 @@ namespace Logging.Logic.Helpers
 			try
 			{
 				var context = serviceProvider.GetRequiredService<LoggingDbContext>();
-				context.Database.Migrate();
-				SeedInternalErrorLogEntries(context);
+				context.Database.EnsureCreated();
+				//context.Database.Migrate();
+				//SeedInternalErrorLogEntries(context);
 			}
 			catch (Exception)
 			{

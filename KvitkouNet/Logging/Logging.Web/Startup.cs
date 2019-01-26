@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using AutoMapper;
+﻿using System.Reflection;
 using EasyNetQ;
 using EasyNetQ.AutoSubscribe;
+using KvitkouNet.Messages.Logging;
 using Logging.Logic.Extensions;
 using Logging.Web.Subscriber;
 using Microsoft.AspNetCore.Builder;
@@ -27,18 +25,20 @@ namespace Logging.Web
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.RegisterDbContext();
-            
+
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddSwaggerDocument();
-
-			services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=rabbit"));
 
 			services.RegisterServices();
 
 			services.RegisterValidators();
 
-		    services.RegisterAutoMapper();
+			services.RegisterAutoMapper();
+
+			services.AddScoped<IConsumeAsync<InternalErrorLogEntryMessage>, InternalErrorLogConsumer>();
+
+			services.RegisterEasyNetQ("host=rabbit");
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
