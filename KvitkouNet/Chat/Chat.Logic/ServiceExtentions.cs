@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Chat.Data.Context;
+using Chat.Data.Helpers;
 using Chat.Data.Repositories;
 using Chat.Logic.MappingProfiles;
 using Chat.Logic.Models;
@@ -7,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Chat.Logic.Services;
 using Chat.Logic.Validators;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
 
 namespace Chat.Logic
 {
@@ -43,7 +43,7 @@ namespace Chat.Logic
         /// <returns></returns>
         public static IServiceCollection RegisterDbContext(this IServiceCollection services)
         {
-            services.AddDbContext<ChatContext>(opt => opt.UseSqlite("Data Source=./ChatDatabase.db"));
+            services.AddDbContext<ChatContext>(new RegisterContextHelper().GetOptionsBuilder());
             return services;
         }
 

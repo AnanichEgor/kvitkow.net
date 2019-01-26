@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Data", "Chat.Data\Chat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Logic", "Chat.Logic\Chat.Logic.csproj", "{74EC3758-A023-4F78-903E-310BEC5E36BD}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{03D3BFCE-AA19-4D29-A012-C634F119931D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{74EC3758-A023-4F78-903E-310BEC5E36BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74EC3758-A023-4F78-903E-310BEC5E36BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74EC3758-A023-4F78-903E-310BEC5E36BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{03D3BFCE-AA19-4D29-A012-C634F119931D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03D3BFCE-AA19-4D29-A012-C634F119931D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03D3BFCE-AA19-4D29-A012-C634F119931D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03D3BFCE-AA19-4D29-A012-C634F119931D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
