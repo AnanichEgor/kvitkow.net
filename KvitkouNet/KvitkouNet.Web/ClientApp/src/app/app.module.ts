@@ -12,6 +12,8 @@ import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { TicketComponent } from './ticket/ticket.component';
 import { TicketFormComponent } from './ticket-form/ticket-form.component';
+import { UsersComponent } from './users/users.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { TicketFormComponent } from './ticket-form/ticket-form.component';
     AdminComponent,
     NotFoundComponent,
     TicketComponent,
-    TicketFormComponent
+    TicketFormComponent,
+    UsersComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,6 +36,8 @@ import { TicketFormComponent } from './ticket-form/ticket-form.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'admin', component: AdminComponent, pathMatch: 'full' },
       { path: 'ticket/add', component: TicketFormComponent, pathMatch: 'full' },
+      { path: 'users', component: UsersComponent, pathMatch: 'full'},
+      { path: 'users/registration', component: RegistrationComponent, pathMatch: 'full'},
       { path: '**', component: NotFoundComponent},
       { path: 'ticket', component: TicketComponent, pathMatch: 'full'}
     ])
