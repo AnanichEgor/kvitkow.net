@@ -4,10 +4,7 @@ using System.Text;
 
 namespace KvitkouNet.Messages.UserManagement
 {
-    /// <summary>
-    /// Модель сообщения о создании нового пользователя
-    /// </summary>
-    public class UserCreationMessage
+    public class UserUpdatedMessage
     {
         /// <summary>
         /// Gets or sets the identifier.
@@ -25,13 +22,8 @@ namespace KvitkouNet.Messages.UserManagement
         public string LastName { get; set; }
 
         /// <summary>
-        /// Email пользователя
+        /// Gets or sets the user rating.
         /// </summary>
-        public string Email { get; set; }
-
-        /// <summary>
-        /// Дата и время создания нового пользователя
-        /// </summary>
-        public DateTime Created { get; set; }
+        public double Rating { get; set; }
     }
 }
