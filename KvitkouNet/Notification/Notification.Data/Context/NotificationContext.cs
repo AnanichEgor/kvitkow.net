@@ -11,5 +11,7 @@ namespace Notification.Data.Context
 		public DbSet<User> Users { get; set; }
 
 		public DbSet<Models.Notification> Notifications { get; set; }
+
+		public DbSet<TemporaryUser> TemporaryUsers { get; set; }
 	}
 }
