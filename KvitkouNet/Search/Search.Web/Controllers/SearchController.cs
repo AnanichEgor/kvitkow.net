@@ -1,5 +1,8 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
+using EasyNetQ;
+using KvitkouNet.Messages.TicketManagement;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using Search.Logic.Common.Models;
@@ -16,16 +19,18 @@ namespace Search.Web.Controllers
     {
         private readonly ISearchUserService _userService;
         private readonly ISearchTicketService _ticketService;
+        private readonly IBus _bus;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchController"/> class.
         /// </summary>
         /// <param name="userService">The user service.</param>
         /// <param name="ticketService">The ticket service.</param>
-        public SearchController(ISearchUserService userService, ISearchTicketService ticketService)
+        public SearchController(ISearchUserService userService, ISearchTicketService ticketService, IBus bus)
         {
             _userService = userService;
             _ticketService = ticketService;
+            _bus = bus;
         }
 
         /// <summary>

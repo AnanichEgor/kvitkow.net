@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Search.Logic.Common.Models
+namespace KvitkouNet.Messages.TicketManagement
 {
-    /// <summary>
-    /// Contains minimal information about ticket indexed by Elasticsearch
-    /// </summary>
-    public class TicketInfo : EntityInfo
+    public class TicketCreationMessage
     {
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        public string TicketId { get; set; }
+
         /// <summary>
         /// Gets or sets the name of ticket.
         /// </summary>
@@ -31,7 +35,5 @@ namespace Search.Logic.Common.Models
         /// Gets or sets the price of the even.
         /// </summary>
         public decimal Price { get; set; }
-
-        //todo: Add other required properties after Ticket model is available and search criteria are clarified.
     }
 }

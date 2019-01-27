@@ -10,9 +10,19 @@ namespace KvitkouNet.Messages.UserManagement
     public class UserCreationMessage
     {
         /// <summary>
-        /// Имя нового пользователя
+        /// Gets or sets the identifier.
         /// </summary>
-        public string Name { get; set; }
+        public string UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the first name.
+        /// </summary>
+        public string FirstName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last name.
+        /// </summary>
+        public string LastName { get; set; }
 
         /// <summary>
         /// Email пользователя

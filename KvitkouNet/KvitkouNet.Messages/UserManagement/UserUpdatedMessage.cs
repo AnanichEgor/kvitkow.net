@@ -1,10 +1,16 @@
-﻿namespace Search.Logic.Common.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace KvitkouNet.Messages.UserManagement
 {
-    /// <summary>
-    /// Contains minimal information about user indexed by Elasticsearch
-    /// </summary>
-    public class UserInfo : EntityInfo
+    public class UserUpdatedMessage
     {
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        public string UserId { get; set; }
+
         /// <summary>
         /// Gets or sets the first name.
         /// </summary>
