@@ -14,8 +14,8 @@ namespace Search.Web.Subscriber
             _container = container;
         }
 
-        public void Dispatch<TMessage, TConsumer>(TMessage message) 
-            where TMessage : class 
+        public void Dispatch<TMessage, TConsumer>(TMessage message)
+            where TMessage : class
             where TConsumer : class, IConsume<TMessage>
         {
             using (var scope = _container.CreateScope())
@@ -25,8 +25,8 @@ namespace Search.Web.Subscriber
             }
         }
 
-        public async Task DispatchAsync<TMessage, TConsumer>(TMessage message) 
-            where TMessage : class 
+        public async Task DispatchAsync<TMessage, TConsumer>(TMessage message)
+            where TMessage : class
             where TConsumer : class, IConsumeAsync<TMessage>
         {
             using (var scope = _container.CreateScope())
@@ -36,3 +36,4 @@ namespace Search.Web.Subscriber
             }
         }
     }
+}

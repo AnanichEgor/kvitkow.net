@@ -35,5 +35,13 @@ namespace Search.Web.Subscriber
 
             return app;
         }
+
+        public static IServiceCollection RegisterConsumers(this IServiceCollection services)
+        {
+            services.AddScoped<TicketMessageConsumer>();
+            services.AddScoped<UserMessageConsumer>();
+
+            return services;
+        }
     }
 }
