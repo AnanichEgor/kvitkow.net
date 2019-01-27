@@ -1,4 +1,4 @@
-﻿namespace TicketManagement.Data.DbModels.Enums
+﻿namespace TicketManagement.Data.DbModels.DbEnums
 {
     /// <summary>
     ///     Перечисление, описывающее статус билета
