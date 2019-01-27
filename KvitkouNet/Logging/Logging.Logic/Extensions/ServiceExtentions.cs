@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using AutoMapper;
 using FluentValidation;
+using KvitkouNet.Messages.Logging;
 using Logging.Data;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
