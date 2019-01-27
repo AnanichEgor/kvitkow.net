@@ -40,8 +40,8 @@ services:
    search.web:
     image: ${DOCKER_REGISTRY}searchweb
     build:
-      context: Search
-      dockerfile: Search.Web/Dockerfile
+      context: .
+      dockerfile: Search/Search.Web/Dockerfile
     environment:
       - ElasticSearchConnection=http://elasticsearch
     ports:
