@@ -30,5 +30,39 @@ services:
     build:
       context: TicketManagement
       dockerfile: TicketManagement.Web/Dockerfile
+    env_file:
+      - host.env
     ports:
       - 5007:80
+    depends_on:
+      - rabbit
+
+   search.web:
+    image: ${DOCKER_REGISTRY}searchweb
+    build:
+      context: .
+      dockerfile: Search/Search.Web/Dockerfile
+    environment:
+      - ElasticSearchConnection=http://elasticsearch
+    ports:
+      - 5008:80
+    depends_on:
+      - rabbit
+      - elasticsearch
+
+   rabbit:
+    image: rabbitmq:management
+    ports:
+      - 4369:4369
+      - 5671:5671
+      - 5672:5672
+      - 25672:25672
+      - 15671:15671
+      - 15672:15672
+
+   elasticsearch:
+    image: elasticsearch:6.4.3
+    ports:
+      - 9200:9200
+      - 9300:9300
+      

@@ -10,6 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="EasyNetQ" Version="3.3.9" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.4" />
@@ -19,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\KvitkouNet.Messages\KvitkouNet.Messages.csproj" />
     <ProjectReference Include="..\Search.Logic.Common\Search.Logic.Common.csproj" />
     <ProjectReference Include="..\Search.Logic\Search.Logic.csproj" />
   </ItemGroup>
