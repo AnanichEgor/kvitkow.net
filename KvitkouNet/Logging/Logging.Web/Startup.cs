@@ -3,6 +3,7 @@ using EasyNetQ;
 using EasyNetQ.AutoSubscribe;
 using KvitkouNet.Messages.Logging;
 using Logging.Logic.Extensions;
+using Logging.Web.Extensions;
 using Logging.Web.Subscriber;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,9 +37,9 @@ namespace Logging.Web
 
 			services.RegisterAutoMapper();
 
-			services.AddScoped<IConsumeAsync<InternalErrorLogEntryMessage>, InternalErrorLogConsumer>();
+			services.RegisterConsumers();
 
-			services.RegisterEasyNetQ("host=rabbit");
+			services.RegisterEasyNetQ("host=localhost");
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
