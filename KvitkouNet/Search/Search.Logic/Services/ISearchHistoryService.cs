@@ -11,8 +11,10 @@ namespace Search.Logic.Services
         /// Gets the last search by <see cref="userId"/>.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
-        Task<SearchEntity> GetLastSearch(string userId);
+        Task<SearchEntity> GetLastSearchAsync(string userId);
 
-        Task SaveLastSearch(SearchRequest request);
+        Task SaveLastSearchAsync(TicketSearchRequest request);
+
+        Task SaveLastSearchAsync(UserSearchRequest request);
     }
 }

@@ -35,7 +35,7 @@ namespace Search.Web.Controllers
         [HttpGet, Route("")]
         public async Task<IActionResult> GetLastSearch(string userId)
         {
-            var result = await _service.GetLastSearch(userId);
+            var result = await _service.GetLastSearchAsync(userId);
             return result != null ? (IActionResult)Ok(result) : NotFound();
         }
     }

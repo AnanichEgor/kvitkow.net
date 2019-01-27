@@ -20,14 +20,19 @@ namespace Search.Logic.Services
             _mapper = mapper;
         }
 
-        public Task<SearchEntity> GetLastSearch(string userId)
+        public Task<SearchEntity> GetLastSearchAsync(string userId)
         {
             return _historyRepository.GetLastSearch(userId);
         }
 
-        public Task SaveLastSearch(SearchRequest request)
+        public Task SaveLastSearchAsync(TicketSearchRequest request)
         {
-            return _historyRepository.SaveLastSearchAsync(_mapper.Map<SearchEntity>(request));
+            return _historyRepository.SaveLastSearchAsync(_mapper.Map<TicketSearchEntity>(request));
+        }
+
+        public Task SaveLastSearchAsync(UserSearchRequest request)
+        {
+            return _historyRepository.SaveLastSearchAsync(_mapper.Map<UserSearchEntity>(request));
         }
 
         public void Dispose()

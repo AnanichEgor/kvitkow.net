@@ -7,15 +7,18 @@ namespace Search.Logic.Services
     public class SearchUserService : ISearchUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly ISearchHistoryService _historyService;
 
-        public SearchUserService(IUserRepository userRepository)
+        public SearchUserService(IUserRepository userRepository, ISearchHistoryService historyService)
         {
             _userRepository = userRepository;
+            _historyService = historyService;
         }
 
-        public Task<SearchResult<UserInfo>> Search(UserSearchRequest request)
+        public async Task<SearchResult<UserInfo>> Search(UserSearchRequest request)
         {
-            return _userRepository.SearchAsync(request);
+            await _historyService.SaveLastSearchAsync(request);
+            return await _userRepository.SearchAsync(request);
         }
 
         public void Dispose()
