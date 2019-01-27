@@ -11,7 +11,12 @@ namespace Search.Logic.MappingProfiles
     {
         public SearchProfile()
         {
-            CreateMap<SearchRequest, SearchEntity>()
+            CreateMap<TicketSearchRequest, TicketSearchEntity>()
+                .ForMember(entity => entity.SearchTime,
+                    opt => opt.MapFrom(request => DateTime.UtcNow));
+            // todo   .ForMember(entity => entity.UserId);
+
+            CreateMap<UserSearchRequest, UserSearchEntity>()
                 .ForMember(entity => entity.SearchTime,
                     opt => opt.MapFrom(request => DateTime.UtcNow));
             // todo   .ForMember(entity => entity.UserId);
