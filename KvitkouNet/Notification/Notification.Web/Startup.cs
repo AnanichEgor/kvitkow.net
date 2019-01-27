@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -7,8 +8,7 @@ using AutoMapper;
 using EasyNetQ;
 using Notification.Logic;
 using Notification.Logic.MappingProfiles;
-using Notification.Web.Configs;
-
+using Notification.Web.Subscriber;
 
 namespace Notification.Web
 {
@@ -40,7 +40,7 @@ namespace Notification.Web
 			services.RegisterEmailNotificationService();
 			services.RegisterEmailSenderService();
 
-			services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=localhost"));
+			services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=rabbit"));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +54,8 @@ namespace Notification.Web
 			app.UseSwagger().UseSwaggerUi3();
 
 			app.UseMvc();
+
+			app.UseSubscriber("Notification", Assembly.GetExecutingAssembly());
 		}
 	}
 }

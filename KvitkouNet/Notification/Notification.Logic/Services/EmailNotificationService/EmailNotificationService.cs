@@ -10,7 +10,7 @@ using Notification.Logic.Models.Requests;
 
 namespace Notification.Logic.Services.EmailNotificationService
 {
-	class EmailNotificationService : IEmailNotificationService
+	public class EmailNotificationService : IEmailNotificationService
 	{
 		private NotificationContext m_context;
 		private IMapper m_mapper;

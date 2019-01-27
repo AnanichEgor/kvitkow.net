@@ -36,19 +36,7 @@ namespace Notification.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.OK, typeof(NoContentResult))]
 		public async Task<IActionResult> SendRegistrationNotification([FromQuery] string userName, [FromQuery] string email, [FromBody] string url)
 		{
-			SenderConfig senderConfig = m_config.GetSection("SenderConfig").Get<SenderConfig>();
-			SendEmailRequest request = new SendEmailRequest
-			{
-				ReceiverEmail = email,
-				ReceiverName = userName,
-				Subject = "Подтверждение регистрации",
-				Text = $"Для подтверждения регистрации прейдите по ссылке {url}",
-				SenderName = senderConfig.Name,
-				SenderEmail = senderConfig.Email,
-				SenderPassword = senderConfig.Password				
-			};
-
-			await m_emailService.SendRegistrationNotification(request);
+			
 
 			return NoContent();
 		}
