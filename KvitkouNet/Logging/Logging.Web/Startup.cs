@@ -1,7 +1,4 @@
 ﻿using System.Reflection;
-using EasyNetQ;
-using EasyNetQ.AutoSubscribe;
-using KvitkouNet.Messages.Logging;
 using Logging.Logic.Extensions;
 using Logging.Web.Extensions;
 using Logging.Web.Subscriber;
