@@ -31,8 +31,8 @@ services:
    tickets.web:
     image: ${DOCKER_REGISTRY}ticketsweb
     build:
-      context: TicketManagement
-      dockerfile: TicketManagement.Web/Dockerfile
+      context: .
+      dockerfile: TicketManagement/TicketManagement.Web/Dockerfile
     env_file:
       - host.env
     ports:
