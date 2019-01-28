@@ -9,8 +9,18 @@ namespace Logging.Data.DbModels
     public class PaymentLogEntryDbModel : BaseLogEntryDbModel
     {
         /// <summary>
-        /// Модель платежной транзакции
+        /// Id отправителя денег
         /// </summary>
-        public string TransactionInfo { get; set; }
+        public string SenderId { get; set; }
+
+        /// <summary>
+        /// Id получателя денег
+        /// </summary>
+        public string ReciverId { get; set; }
+
+        /// <summary>
+        /// Сумма перевода
+        /// </summary>
+        public decimal Tranfer { get; set; }
     }
 }
