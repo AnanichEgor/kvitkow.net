@@ -9,6 +9,7 @@ namespace AdminPanel.Logic.MappingProfiles
 		public ExceptionToInternalErrorLogMessageProfile()
 		{
 			CreateMap<Exception, InternalErrorLogEntryMessage>()
+				.ForMember(_ => _.ServiceName, opts => opts.MapFrom(src => "AdminPanel"))
 				.ForMember(_ => _.Message, opts => opts.MapFrom(src => src.Message))
 				.ForMember(_ => _.HResult, opts => opts.MapFrom(src => src.HResult))
 				.ForMember(_ => _.InnerExceptionString, opts => opts.MapFrom(src => src.InnerException.ToString()))

@@ -5,6 +5,11 @@ namespace KvitkouNet.Messages.Logging
 	public class InternalErrorLogEntryMessage
 	{
 		/// <summary>
+		/// Имя микросервиса
+		/// </summary>
+		public string ServiceName { get; set; }
+
+		/// <summary>
 		/// Название типа исключения
 		/// </summary>
 		public string TypeName { get; set; }
