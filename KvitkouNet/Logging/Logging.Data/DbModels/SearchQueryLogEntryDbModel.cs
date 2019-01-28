@@ -21,6 +21,6 @@ namespace Logging.Data.DbModels
         /// <summary>
         /// Состояние фильтров при выполнении запросов
         /// </summary>
-        public string DashBoardFilterInfo { get; set; }
+        public string FilterInfo { get; set; }
     }
 }

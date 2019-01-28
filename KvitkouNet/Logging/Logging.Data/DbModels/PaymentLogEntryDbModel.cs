@@ -3,8 +3,7 @@
 namespace Logging.Data.DbModels
 {
     /// <summary>
-    /// Модель для записи в лог информации о платежах.
-    /// <para>В случае неудачи причина пишется в поле Content класса BaseLogEntry</para>
+    /// Модель для записи в лог информации о платежах
     /// </summary>
     public class PaymentLogEntryDbModel : BaseLogEntryDbModel
     {
@@ -21,6 +20,6 @@ namespace Logging.Data.DbModels
         /// <summary>
         /// Сумма перевода
         /// </summary>
-        public decimal Tranfer { get; set; }
+        public decimal Transfer { get; set; }
     }
 }
