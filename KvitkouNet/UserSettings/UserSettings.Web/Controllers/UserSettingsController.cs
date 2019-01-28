@@ -28,9 +28,8 @@ namespace UserSettings.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> UpdateProfile([FromBody]ProfileDto model, [FromRoute] string id)
 		{
-			var result = await _service.UpdateProfile(id, model);
-
-			return (IActionResult)result;
+			var result = await _service.UpdateProfile(id, model.FirstName, model.MiddleName, model.LastName);
+			return result ? (IActionResult)Ok(result) : BadRequest();
 		}
 
 		/// <summary>
@@ -71,7 +70,7 @@ namespace UserSettings.Web.Controllers
 		[HttpPut, Route("{id}/notifications")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> UpdateNotification([FromBody] List<string> notification, [FromRoute]string id)
+		public async Task<IActionResult> UpdateNotification([FromBody]Notifications notification, [FromRoute]string id)
 		{
 			var result = await _service.UpdateNotifications(id, notification);
 			return result ? (IActionResult)Ok(result) : BadRequest();

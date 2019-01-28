@@ -16,7 +16,7 @@ namespace UserSettings.Logic.Services
 		/// </summary>
 		/// <param name="profile"></param>
 		/// <returns></returns>
-		Task<ActionResult> UpdateProfile(string id, Profile profile);
+		Task<bool> UpdateProfile(string id, string first, string middle, string last);
 
 		/// <summary>
 		/// Обновление пароля.
@@ -48,7 +48,7 @@ namespace UserSettings.Logic.Services
 
 		Task<bool> CheckExistEmail(string email);
 
-		Task<bool> UpdateNotifications(string id, List<string> notifications);
+		Task<bool> UpdateNotifications(string id, Notifications notifications);
 
 		Task<bool> UpdatePreferences(string id, string address, string region, string place);
 

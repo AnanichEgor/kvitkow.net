@@ -8,9 +8,7 @@ namespace UserSettings.Logic.MappingProfile
 	{
 		public AccountProfile()
 		{
-			CreateMap<Account, AccountDb>()
-				.ForMember(source => source.Email, dest => dest.MapFrom(x=>x.Email))
-				.ForMember(source => source.Password, dest => dest.MapFrom(x=>x.Password)).ReverseMap();
+			CreateMap<Account, AccountDb>().ReverseMap();
 		}
 	}
 }

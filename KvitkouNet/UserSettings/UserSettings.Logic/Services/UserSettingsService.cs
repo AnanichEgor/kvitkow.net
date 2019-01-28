@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UserSettings.Data;
+using UserSettings.Data.DbModels;
 using UserSettings.Logic.Models;
 using UserSettings.Logic.Models.Helper;
 
@@ -38,6 +39,7 @@ namespace UserSettings.Logic.Services
 			return _mapper.Map<IEnumerable<Settings>>(res);
 		}
 
+		//TODO почту проверять из таблицы юзеров
 		public async Task<bool> UpdateEmail(string id, string email)
 		{
 			//if (!_validator.Validate(email).IsValid)
@@ -71,10 +73,15 @@ namespace UserSettings.Logic.Services
 			return false;
 		}
 
-		public Task<ActionResult> UpdateProfile(string id, Models.Profile profile)
+		public async Task<bool> UpdateProfile(string id, string first, string middle, string last)
 		{
-			//profile.Notifications = Helpers.NotificationsDict.Where(x => x.Value).Select(x=>x.Key).ToList();
-			return null;
+			if (string.IsNullOrEmpty(first))
+				return false;
+			if(await _context.UpdateProfile(id, first, middle, last))
+			{
+				return true;
+			}
+			return false;
 		}
 
 		public async Task<bool> CheckExistEmail(string email)
@@ -82,9 +89,9 @@ namespace UserSettings.Logic.Services
 			return await _context.CheckExistEmail(email);
 		}
 
-		public async Task<bool> UpdateNotifications(string id, List<string> notifications)
+		public async Task<bool> UpdateNotifications(string id, Notifications notifications)
 		{
-			return false;
+			return await _context.UpdateNotifications(id, _mapper.Map<Notifications, NotificationDb>(notifications));
 		}
 
 		public Task<bool> UpdatePreferences(string id, string address, string region, string place)

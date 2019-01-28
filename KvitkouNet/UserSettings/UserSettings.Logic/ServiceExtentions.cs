@@ -28,12 +28,7 @@ namespace UserSettings.Logic
 			services.AddScoped<IValidator, SettingsValidator>();
 			services.AddScoped<IUserSettingsService, UserSettingsService>();
 			services.AddScoped<ISettingsRepo, SettingsRepo>();
-			services.AddAutoMapper(cfg =>
-			{
-				cfg.AddProfile<SettingsProfile>();
-				cfg.AddProfile<AccountProfile>();
-				cfg.AddProfile<ProfileProfile>();
-			});
+			
 			return services;
 		}
 

@@ -28,6 +28,14 @@ namespace UserSettings.Data.Faker
 				fakerProfile.RuleFor(db => db.IsPrivateAccount, true);
 				fakerProfile.RuleFor(db => db.PreferRegion, faker => faker.Address.StreetAddress());
 				fakerProfile.RuleFor(db => db.IsGetTicketInfo, true);
+				fakerProfile.RuleFor(db => db.Notifications, fake =>
+				{
+					var fakerNotifications = new Faker<NotificationDb>();
+					fakerNotifications.RuleFor(db => db.IsLikeMyTicket, false);
+					fakerNotifications.RuleFor(db => db.IsOtherNotification, false);
+					fakerNotifications.RuleFor(db => db.IsWantBuy, false);
+					return fakerNotifications.Generate();
+				});
 				return fakerProfile.Generate();
 			});
 		}

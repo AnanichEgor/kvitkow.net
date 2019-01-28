@@ -54,9 +54,9 @@ namespace UserSettings.Data.DbModels
 		/// </summary>
 		public string PreferPlace { get; set; }
 
-		///// <summary>
-		///// Уведомления которые будут отправлятся на почту
-		///// </summary>
-		//public List<string> Notifications { get; set; }
+		/// <summary>
+		/// Уведомления которые будут отправлятся на почту
+		/// </summary>
+		public NotificationDb Notifications { get; set; }
 	}
 }

@@ -43,6 +43,7 @@ namespace UserSettings.Data
 		{
 			return await _context.Settings
 				.Include(db => db.Profile)
+				.Include(db => db.Profile.Notifications)
 				.Include(db => db.Account)
 				.AsTracking()
 				.ToListAsync();
@@ -65,9 +66,19 @@ namespace UserSettings.Data
 			return false;
 		}
 
-		public Task<bool> UpdateProfile(string id, ProfileDb profile)
+		public async Task<bool> UpdateProfile(string id, string first, string middle, string last)
 		{
-			throw new NotImplementedException();
+			var origin = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == id);
+			await _context.Profiles.LoadAsync();
+			if (origin != null)
+			{
+				origin.Profile.FirstName = first;
+				origin.Profile.MiddleName = middle;
+				origin.Profile.LastName = last;
+				await _context.SaveChangesAsync();
+				return true;
+			}
+			return false;
 		}
 
 		public async Task<bool> CheckExistEmail(string email)
@@ -76,9 +87,20 @@ namespace UserSettings.Data
 			return result == null ? false : true;
 		}
 
-		public Task<bool> UpdateNotifications(string id, List<string> notifications)
+		public async Task<bool> UpdateNotifications(string id, NotificationDb notifications)
 		{
-			throw new NotImplementedException();
+			var origin = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == id);
+			await _context.Profiles.LoadAsync();
+			await _context.Notifications.LoadAsync();
+			if (origin != null)
+			{
+				origin.Profile.Notifications.IsLikeMyTicket = notifications.IsLikeMyTicket;
+				origin.Profile.Notifications.IsWantBuy = notifications.IsWantBuy;
+				origin.Profile.Notifications.IsOtherNotification = notifications.IsOtherNotification;
+				await _context.SaveChangesAsync();
+				return true;
+			}
+			return false;
 		}
 
 		public Task<bool> UpdatePreferences(string id, string address, string region, string place)
