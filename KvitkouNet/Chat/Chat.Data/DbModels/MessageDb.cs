@@ -20,6 +20,11 @@ namespace Chat.Data.DbModels
         /// </summary>
         public string Text { get; set; }
 
+        /// <summary>
+        /// Флаг показывающий было ли отредактировано сообщение.
+        /// </summary>
+        public bool IsEdit { get; set; }
+
         public string RoomId { get; set; }
     }
 }

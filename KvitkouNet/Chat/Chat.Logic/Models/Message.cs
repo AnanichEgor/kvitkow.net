@@ -23,5 +23,10 @@ namespace Chat.Logic.Models
         /// Текст сообщения.
         /// </summary>
         public string Text { get; set; }
+
+        /// <summary>
+        /// Флаг показывающий было ли отредактировано сообщение.
+        /// </summary>
+        public bool IsEdit { get; set; }
     }
 }

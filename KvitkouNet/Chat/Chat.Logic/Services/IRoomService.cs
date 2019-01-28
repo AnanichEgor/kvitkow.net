@@ -12,7 +12,7 @@ namespace Chat.Logic.Services
         /// Создание комнаты.
         /// </summary>
         /// <returns></returns>
-        Task AddRoom(Room room, string userId);
+        Task AddRoom(Room room, string password, string userId);
 
         /// <summary>
         /// Получение доступных комнат
@@ -30,7 +30,7 @@ namespace Chat.Logic.Services
         /// Получение сообщений из комнаты, согласно ограничению по истории
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Message>> GetMessages(string roomId, string userId);
+        Task<IEnumerable<Message>> GetMessages(string roomId, int historyCountsMessages);
 
         /// <summary>
         /// Поиск сообщения в комнате
@@ -56,10 +56,5 @@ namespace Chat.Logic.Services
         /// </summary>
         /// <returns></returns>
         Task DeleteMessage(string roomId, string messageId);
-
-        /// <summary>
-        /// Проставить признак прочитанного сообщения
-        /// </summary>
-        Task EditSettingIsReeadForMessage(string roomId, string messageId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -32,7 +33,10 @@ namespace Chat.Web.Controllers
         public async Task<IActionResult> GetRooms([FromRoute] string uid)
         {
             var result = await _roomService.GetRooms(uid);
+            if(result.Count() != 0)
             return Ok(result);
+
+            return BadRequest("No rooms");
         }
 
         /// <summary>
@@ -41,11 +45,12 @@ namespace Chat.Web.Controllers
         [HttpPost, Route("room/{uid}")]
         [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> AddRoom([FromBody] Room room, [FromRoute] string uid)
+        public async Task<IActionResult> AddRoom([FromBody] Room room, [FromBody] string password, [FromRoute] string uid)
         {
-            await _roomService.AddRoom(room, uid);
+            await _roomService.AddRoom(room, password, uid);
             return NoContent();
         }
+
         /// <summary>
         /// Поиск комнаты по названию.
         /// </summary>
@@ -55,14 +60,10 @@ namespace Chat.Web.Controllers
         public async Task<IActionResult> SearchRoom([FromRoute] string template)
         {
             var result = await _roomService.SearchRoom(template);
-            if (result == null)
-            {
-                return BadRequest("The room not exist");
-            }
-            else
-            {
+            if (result.Count() != 0)
                 return Ok(result);
-            }
+
+            return BadRequest("No rooms");
         }
 
         /// <summary>
@@ -71,17 +72,13 @@ namespace Chat.Web.Controllers
         [HttpGet, Route("{rid}/messages/{uid}/history")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetMessages([FromRoute] string rid, [FromRoute] string uid)
+        public async Task<IActionResult> GetMessages([FromRoute] string rid, [FromRoute] int historyCountsMessages)
         {
-            var result = await _roomService.GetMessages(rid, uid);
-            if (result == null)
-            {
-                return BadRequest("The room not exist messages");
-            }
-            else
-            {
+            var result = await _roomService.GetMessages(rid, historyCountsMessages);
+            if (result.Count() != 0)
                 return Ok(result);
-            }
+
+            return BadRequest("The room not exist messages");
         }
 
         /// <summary>
@@ -93,14 +90,10 @@ namespace Chat.Web.Controllers
         public async Task<IActionResult> SearchMessage([FromRoute] string rid, [FromRoute] string template)
         {
             var result = await _roomService.SearchMessage(rid, template);
-            if (result == null)
-            {
-                return BadRequest("The message not exist");
-            }
-            else
-            {
+            if (result.Count() != 0)
                 return Ok(result);
-            }
+
+            return BadRequest("The message not exist");
         }
 
         /// <summary>
@@ -125,7 +118,16 @@ namespace Chat.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> EditMessage([FromBody] Message message, [FromRoute] string rid)
         {
-            await _roomService.EditMessage(message, rid);
+            try
+            {
+                await _roomService.EditMessage(message, rid);
+            }
+
+            catch (InvalidDataException)
+            {
+                return BadRequest("The message not exist");
+            }
+
             return NoContent();
         }
 
@@ -138,18 +140,6 @@ namespace Chat.Web.Controllers
         public async Task<IActionResult> DeleteMessage([FromRoute] string rid, [FromRoute] string mid)
         {
             await _roomService.DeleteMessage(rid, mid);
-            return NoContent();
-        }
-
-        /// <summary>
-        /// Проставить признак прочитанного сообщения
-        /// </summary>
-        [HttpPatch, Route("{rid}/mesagges/{mid}")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> EditSettingsForMessage([FromRoute] string rid, [FromRoute] string mid)
-        {
-            await _roomService.EditSettingIsReeadForMessage(rid, mid);
             return NoContent();
         }
     }

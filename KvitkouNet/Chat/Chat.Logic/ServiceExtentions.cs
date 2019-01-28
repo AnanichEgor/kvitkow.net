@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Chat.Data.Context;
 using Chat.Data.Helpers;
-using Chat.Data.Repositories;
 using Chat.Logic.MappingProfiles;
 using Chat.Logic.Models;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +20,7 @@ namespace Chat.Logic
         public static IServiceCollection RegisterChatService(this IServiceCollection services)
         {
             services.AddScoped<IChatService, ChatService>();
+            services.AddScoped<IValidator<Settings>, SettingsValidator>();
             return services;
         }
 
@@ -44,17 +44,6 @@ namespace Chat.Logic
         public static IServiceCollection RegisterDbContext(this IServiceCollection services)
         {
             services.AddDbContext<ChatContext>(new RegisterContextHelper().GetOptionsBuilder());
-            return services;
-        }
-
-        /// <summary>
-        /// Регистрация IChatRepository
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection RegisterChatRepositoryService(this IServiceCollection services)
-        {
-            services.AddScoped<IChatRepository, ChatRepository>();
             return services;
         }
 

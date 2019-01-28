@@ -9,17 +9,10 @@ namespace Chat.Logic.Validators
         public RoomValidator()
         {
             RuleFor(x => x.Id)
-                .Equal("0")
-                .WithMessage("Id must be 0");
-
-            RuleFor(x => x.IsPrivat)
-                .NotEmpty();
+                .NotNull().NotEmpty();
 
             RuleFor(x => x.Name)
-                .MaximumLength(2)
-                .MaximumLength(5);
-            RuleFor(x => Convert.ToInt64(x.Name))
-                .GreaterThanOrEqualTo(10);
+                .NotNull().NotEmpty();
         }
     }
 }

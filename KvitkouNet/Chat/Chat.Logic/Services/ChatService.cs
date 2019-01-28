@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Chat.Data.Context;
 using Chat.Data.DbModels;
-using Chat.Data.Repositories;
 using Chat.Logic.Models;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +16,9 @@ namespace Chat.Logic.Services
     {
         private readonly ChatContext _context;
         private readonly IMapper _mapper;
+        private readonly IValidator _validator;
 
-        public ChatService(ChatContext context, IMapper mapper)
+        public ChatService(ChatContext context, IMapper mapper, IValidator<Settings> validator)
         {
             _context = context;
             _mapper = mapper;
