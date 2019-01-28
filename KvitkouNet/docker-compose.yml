@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-   kvitkounetweb:
+   kvitkounet.web:
     image: ${DOCKER_REGISTRY}kvitkounetweb
     build:
       context: Gateway
