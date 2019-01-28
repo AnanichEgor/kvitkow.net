@@ -22,7 +22,7 @@ namespace TicketManagement.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddOptions();
             services.AddSingleton<IConfiguration>(Configuration);
             var value = Configuration["Hostname"];
