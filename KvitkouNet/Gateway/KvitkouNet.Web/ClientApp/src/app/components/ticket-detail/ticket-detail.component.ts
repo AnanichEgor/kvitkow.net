@@ -1,7 +1,7 @@
 import { GetTicketByIdService } from './../../services/get-ticket-by-id.service';
 import { Component, OnInit } from '@angular/core';
 import { Tickets } from '../../models/tickets';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -14,6 +14,7 @@ export class TicketDetailComponent implements OnInit {
   constructor(
     private ticketsSrv: GetTicketByIdService,
     private router: ActivatedRoute,
+    private route: Router
     ) {
     router.params.subscribe(params => this.id = params.id);
     }
@@ -21,9 +22,10 @@ export class TicketDetailComponent implements OnInit {
   ngOnInit() {
     this.ticketsSrv.getTicketById(this.id).subscribe(result => (this.tickets = result), err => console.error(err));
   }
-deleteTicketById(id) {
-this.ticketsSrv.delTicketById(this.id);
-}
+  deleteTicketById(id) {
+    this.ticketsSrv.delTicketById(id).subscribe(err => console.error(err));
+
+  }
 }
 
 

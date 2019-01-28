@@ -6,6 +6,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { TicketComponent } from './components/ticket/ticket.component';
 import { TicketFormComponent } from './components/ticket-form/ticket-form.component';
 import { TicketDetailComponent} from './components/ticket-detail/ticket-detail.component';
+import { EditGuard } from './services/editGuard';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -13,8 +15,9 @@ const routes: Routes = [
   { path: 'tickets', component: TicketComponent,  pathMatch: 'full'  },
   { path: 'tickets/:id', component: TicketDetailComponent, pathMatch: 'full' },
   { path: 'ticket/add', component: TicketFormComponent, pathMatch: 'full' },
+  { path: 'ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
-  
+
 ];
 
 @NgModule({

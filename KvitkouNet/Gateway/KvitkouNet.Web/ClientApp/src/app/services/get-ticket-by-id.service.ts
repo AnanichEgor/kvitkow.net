@@ -15,8 +15,8 @@ export class GetTicketByIdService {
   getTicketById(id) {
   return this.http.get<Tickets>(`${this.baseUrl}/api/tickets/${id}`);
 }
-
-  delTicketById(id) {
+delTicketById(id) {
   return this.http.delete(`${this.baseUrl}/api/tickets/${id}`);
 }
+
 }
