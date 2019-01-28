@@ -38,7 +38,7 @@ namespace AdminPanel.Web
 			services.RegisterUserService();
 			services.RegisterLoggingService();
 			services.RegisterFilters();
-			services.RegisterEasyNetQ("host=localhost");
+			services.RegisterEasyNetQ("host=rabbit");
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
