@@ -27,7 +27,6 @@ namespace Logging.Web.Subscriber
 		/// </summary>
 		/// <param name="message">Сообщение об ошибке</param>
 		/// <returns></returns>
-		[AutoSubscriberConsumer(SubscriptionId = "ErrorLogging.Added")]
 		public async Task ConsumeAsync(InternalErrorLogEntryMessage message)
 		{
 			await _errorLogService.AddLogAsync(_mapper.Map<InternalErrorLogEntry>(message));
