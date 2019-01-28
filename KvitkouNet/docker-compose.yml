@@ -1,12 +1,15 @@
 version: '3.4'
 
 services:
-   kvitkounet.web:
+   kvitkounetweb:
     image: ${DOCKER_REGISTRY}kvitkounetweb
     build:
-      context: .
+      context: Gateway
       dockerfile: KvitkouNet.Web/Dockerfile
-   
+    ports:
+      - 5001:80
+      - 5002:443
+
    adminpanel.web:
     image: ${DOCKER_REGISTRY}adminpanelweb
     build:
@@ -17,7 +20,7 @@ services:
       - rabbit
     ports:
       - 5005:80
-    
+
    logging.web:
     image: ${DOCKER_REGISTRY}loggingweb
     build:
@@ -27,7 +30,7 @@ services:
       - rabbit
     ports:
       - 5006:80
-     
+
    tickets.web:
     image: ${DOCKER_REGISTRY}ticketsweb
     build:
@@ -70,4 +73,3 @@ services:
     ports:
       - 9200:9200
       - 9300:9300
-      
