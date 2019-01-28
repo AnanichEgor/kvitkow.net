@@ -50,7 +50,6 @@ namespace TicketManagement.Logic.Services
 
             if (ticket.User.Rating < 0) return (null, RequestStatus.BadUserRating);
             if (!_validator.Validate(ticket).IsValid) return (null, RequestStatus.InvalidModel);
-            if (!ticket.PhoneValidate()) return (null, RequestStatus.InvalidModel);
             var res = await _context.Add(_mapper.Map<Ticket>(ticket));
             await _bus.PublishAsync(new TicketCreationMessage
             {
