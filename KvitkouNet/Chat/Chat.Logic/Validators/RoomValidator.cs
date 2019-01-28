@@ -18,7 +18,7 @@ namespace Chat.Logic.Validators
             RuleFor(x => x.Name)
                 .MaximumLength(2)
                 .MaximumLength(5);
-            RuleFor(x => Convert.ToInt64(x.OwnerId))
+            RuleFor(x => Convert.ToInt64(x.Name))
                 .GreaterThanOrEqualTo(10);
         }
     }

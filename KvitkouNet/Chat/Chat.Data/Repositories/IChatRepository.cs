@@ -10,22 +10,6 @@ namespace Chat.Data.Repositories
     public interface IChatRepository : IDisposable
     {
         /// <summary>
-        /// Получение пользовательских настроек для чата
-        /// </summary>
-        /// <returns></returns>
-        Task<SettingsDb> GetUserSettings(string userId);
-
-        /// <summary>
-        /// Изменение пользовательских настроек
-        /// </summary>
-        Task UpdateUserSettings(string userId, SettingsDb settings);
-
-        /// <summary>
-        /// Изменение роли пользователя в чате
-        /// </summary>
-        Task UpdateUserRole(string userId, UserDb user);
-
-        /// <summary>
         /// Создание комнаты.
         /// </summary>
         /// <returns></returns>

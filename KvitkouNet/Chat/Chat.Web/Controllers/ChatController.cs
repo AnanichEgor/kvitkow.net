@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Chat.Logic.Models;
@@ -50,20 +52,17 @@ namespace Chat.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> EditUserSettings([FromRoute] string uid, [FromBody] Settings settings)
         {
-            await _chatService.EditUserSettings(uid, settings);
-            return NoContent();
-        }
+            try
+            {
+                await _chatService.EditUserSettings(uid, settings);
+            }
 
-        /// <summary>
-        /// Изменение роли пользователя в чате
-        /// </summary>
-        [HttpPatch, Route("users/{uid}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(string), Description = "All OK")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> EditUserRole([FromRoute] string uid, [FromBody] User settings)
-        {
-            await _chatService.EditUserRole(uid, settings);
-            return  NoContent();
+            catch (InvalidDataException)
+            {
+                return BadRequest("The user not exist");
+            }
+
+            return NoContent();
         }
     }
 }

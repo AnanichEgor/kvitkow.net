@@ -20,10 +20,5 @@ namespace Chat.Logic.Services
         /// Изменение пользовательских настроек
         /// </summary>
         Task EditUserSettings(string userId, Settings settings);
-
-        /// <summary>
-        /// Изменение роли пользователя в чате
-        /// </summary>
-        Task EditUserRole(string userId, User settings);
     }
 }

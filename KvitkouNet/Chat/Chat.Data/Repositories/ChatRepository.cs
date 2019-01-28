@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Chat.Data.Context;
@@ -14,24 +15,6 @@ namespace Chat.Data.Repositories
         public ChatRepository(ChatContext context)
         {
             _context = context;
-        }
-
-        public async Task<SettingsDb> GetUserSettings(string userId)
-        {
-            return await _context.Settings
-                    .SingleOrDefaultAsync( x => x.User.Id.Equals(userId));
-        }
-
-        public async Task UpdateUserSettings(string userId, SettingsDb settings)
-        {
-            await Task.Run(() => _context.Settings.Update(settings));
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdateUserRole(string userId, UserDb user)
-        {
-            await Task.Run(() => _context.Users.Update(user));
-            await _context.SaveChangesAsync();
         }
 
         // todo нужно добавить еще условие для выборки всех приватных комнат и соответственно доработать модель
@@ -90,7 +73,7 @@ namespace Chat.Data.Repositories
             var message = await _context.Messages.SingleOrDefaultAsync(x => x.Id.Equals(messageId));
             if (message != null)
             {
-                message.IsRead = true;
+
             }
             await _context.SaveChangesAsync();
         }

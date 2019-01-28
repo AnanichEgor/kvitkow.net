@@ -24,7 +24,6 @@ namespace Chat.Web
             services.RegisterChatService();
             services.RegisterRoomService();
             services.RegisterDbContext();
-            services.RegisterChatRepositoryService();
             services.RegisterAutoMapper();
         }
 

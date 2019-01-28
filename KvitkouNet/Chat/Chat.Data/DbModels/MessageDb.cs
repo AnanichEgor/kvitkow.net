@@ -20,12 +20,6 @@ namespace Chat.Data.DbModels
         /// </summary>
         public string Text { get; set; }
 
-        /// <summary>
-        /// Признак прочитанного сообщения (True - если прочитано).
-        /// </summary>
-        public bool IsRead { get; set; }
-
         public string RoomId { get; set; }
-        public RoomDb Room { get; set; }
     }
 }

@@ -10,28 +10,13 @@ namespace Chat.Logic.Models
         public string Id { get; set; }
 
         /// <summary>
-        /// Id создателя комнаты.
-        /// </summary>
-        public string OwnerId { get; set; }
-
-        /// <summary>
         /// Название комнаты.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Модификатор доступа комнаты.
+        /// Модификатор доступа комнаты. B
         /// </summary>
         public bool IsPrivat { get; set; }
-
-        /// <summary>
-        /// Список Users в комнате.
-        /// </summary>
-        public List<User> Users;
-
-        /// <summary>
-        /// Список сообщений в конате.
-        /// </summary>
-        public List<Message> Messages;
     }
 }

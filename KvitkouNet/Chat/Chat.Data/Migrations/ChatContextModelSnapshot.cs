@@ -21,8 +21,6 @@ namespace Chat.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("IsRead");
-
                     b.Property<string>("RoomId");
 
                     b.Property<DateTime>("SendedTime");
@@ -34,8 +32,6 @@ namespace Chat.Data.Migrations
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RoomId");
 
                     b.ToTable("Messages");
                 });
@@ -50,6 +46,8 @@ namespace Chat.Data.Migrations
                     b.Property<string>("Name");
 
                     b.Property<string>("OwnerId");
+
+                    b.Property<string>("Password");
 
                     b.Property<DateTime>("UpdateDate");
 
@@ -79,6 +77,8 @@ namespace Chat.Data.Migrations
 
                     b.Property<DateTime>("UpdateDate");
 
+                    b.Property<string>("UserId");
+
                     b.Property<bool>("ViewTimestampsMessage");
 
                     b.HasKey("Id");
@@ -93,6 +93,8 @@ namespace Chat.Data.Migrations
 
                     b.Property<string>("Avatar");
 
+                    b.Property<bool>("IsOnline");
+
                     b.Property<string>("RoomId");
 
                     b.Property<string>("SettingsId");
@@ -101,23 +103,13 @@ namespace Chat.Data.Migrations
 
                     b.Property<string>("UserName");
 
-                    b.Property<string>("UserRole");
-
                     b.HasKey("Id");
 
                     b.HasIndex("RoomId");
 
-                    b.HasIndex("SettingsId")
-                        .IsUnique();
+                    b.HasIndex("SettingsId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Chat.Data.DbModels.MessageDb", b =>
-                {
-                    b.HasOne("Chat.Data.DbModels.RoomDb", "Room")
-                        .WithMany()
-                        .HasForeignKey("RoomId");
                 });
 
             modelBuilder.Entity("Chat.Data.DbModels.UserDb", b =>
@@ -127,8 +119,8 @@ namespace Chat.Data.Migrations
                         .HasForeignKey("RoomId");
 
                     b.HasOne("Chat.Data.DbModels.SettingsDb", "Settings")
-                        .WithOne("User")
-                        .HasForeignKey("Chat.Data.DbModels.UserDb", "SettingsId");
+                        .WithMany()
+                        .HasForeignKey("SettingsId");
                 });
 #pragma warning restore 612, 618
         }

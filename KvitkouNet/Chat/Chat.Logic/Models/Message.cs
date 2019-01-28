@@ -23,10 +23,5 @@ namespace Chat.Logic.Models
         /// Текст сообщения.
         /// </summary>
         public string Text { get; set; }
-
-        /// <summary>
-        /// Признак прочитанного сообщения (True - если прочитано).
-        /// </summary>
-        public bool IsRead { get; set; }
     }
 }
