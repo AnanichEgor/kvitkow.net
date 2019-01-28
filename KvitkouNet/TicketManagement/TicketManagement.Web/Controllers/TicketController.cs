@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using EasyNetQ;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using TicketManagement.Logic.Models;
@@ -17,7 +16,6 @@ namespace TicketManagement.Web.Controllers
     public class TicketController : Controller
     {
         private readonly ITicketService _service;
-        private readonly IBus _bus;
 
         public TicketController(ITicketService service)
         {
