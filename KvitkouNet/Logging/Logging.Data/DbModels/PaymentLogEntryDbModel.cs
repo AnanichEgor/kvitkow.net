@@ -3,14 +3,23 @@
 namespace Logging.Data.DbModels
 {
     /// <summary>
-    /// Модель для записи в лог информации о платежах.
-    /// <para>В случае неудачи причина пишется в поле Content класса BaseLogEntry</para>
+    /// Модель для записи в лог информации о платежах
     /// </summary>
     public class PaymentLogEntryDbModel : BaseLogEntryDbModel
     {
         /// <summary>
-        /// Модель платежной транзакции
+        /// Id отправителя денег
         /// </summary>
-        public string TransactionInfo { get; set; }
+        public string SenderId { get; set; }
+
+        /// <summary>
+        /// Id получателя денег
+        /// </summary>
+        public string RecieverId { get; set; }
+
+        /// <summary>
+        /// Сумма перевода
+        /// </summary>
+        public double Transfer { get; set; }
     }
 }

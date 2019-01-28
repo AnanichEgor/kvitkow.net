@@ -8,11 +8,6 @@ namespace Logging.Logic.Models.Filters.Abstraction
     public class BaseLogFilter
     {
         /// <summary>
-        /// Имя или часть имени пользователя
-        /// </summary>
-        public string User { get; set; }
-
-        /// <summary>
         /// Дата, с которой получить логи
         /// </summary>
         public DateTime? DateFrom { get; set; }

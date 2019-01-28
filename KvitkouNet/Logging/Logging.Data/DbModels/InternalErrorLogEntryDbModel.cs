@@ -8,6 +8,11 @@ namespace Logging.Data.DbModels
     public class InternalErrorLogEntryDbModel : BaseLogEntryDbModel
     {
         /// <summary>
+        /// Название микросервиса, передавшего сообщение об ошибке
+        /// </summary>
+        public string ServiceName { get; set; }
+
+        /// <summary>
         /// Название типа исключения
         /// </summary>
         public string ExceptionType { get; set; }

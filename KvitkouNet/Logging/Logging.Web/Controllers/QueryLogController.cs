@@ -35,10 +35,10 @@ namespace Logging.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
         public async Task<IActionResult> GetSearchQueryLogs([FromQuery] SearchQueryLogsFilter filter)
         {
-            if (string.IsNullOrWhiteSpace(filter.UserName))
+            if (string.IsNullOrWhiteSpace(filter.SearchCriterium))
             {
                 return BadRequest(
-                    $"Invalid filter! {nameof(SearchQueryLogsFilter.UserName)} is empty or whitespace!");
+                    $"Invalid filter! {nameof(SearchQueryLogsFilter.SearchCriterium)} is empty or whitespace!");
             }
 
             var result = await _loggingService.GetLogsAsync(filter);

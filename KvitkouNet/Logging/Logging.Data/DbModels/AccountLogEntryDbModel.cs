@@ -8,18 +8,23 @@ namespace Logging.Data.DbModels
     public class AccountLogEntryDbModel : BaseLogEntryDbModel
     {
         /// <summary>
+        /// Id пользователя
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
         /// Имя пользователя
         /// </summary>
         public string UserName { get; set; }
 
         /// <summary>
+        /// Почтовый адрес пользователя
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
         /// Тип действия
         /// </summary>
         public int Type { get; set; }
-
-        /// <summary>
-        /// Описание пользовательского устройства
-        /// </summary>
-        public string DeviceDescription { get; set; }
     }
 }

@@ -4,6 +4,24 @@ namespace Logging.Logic.Models.Filters
 {
 	public class PaymentLogsFilter : BaseLogFilter
     {
-		public string UserName { get; set; }
-	}
+        /// <summary>
+        /// Id отправителя денег
+        /// </summary>
+        public string SenderId { get; set; }
+
+        /// <summary>
+        /// Id получателя денег
+        /// </summary>
+        public string RecieverId { get; set; }
+
+        /// <summary>
+        /// Сумма перевода
+        /// </summary>
+        public double? MinTransfer { get; set; }
+
+        /// <summary>
+        /// Сумма перевода
+        /// </summary>
+        public double? MaxTransfer { get; set; }
+    }
 }

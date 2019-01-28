@@ -9,8 +9,18 @@ namespace Logging.Logic.Models.Filters
 	public class ErrorLogsFilter : BaseLogFilter
     {
         /// <summary>
+        /// Название микросервиса, передавшего сообщение об ошибке
+        /// </summary>
+        public string ServiceName { get; set; }
+
+        /// <summary>
         /// Название типа исключения
         /// </summary>
 		public string ExceptionTypeName { get; set; }
-	}
+
+        /// <summary>
+        /// Сообщение, описывающее исключение
+        /// </summary>
+        public string Message { get; set; }
+    }
 }
