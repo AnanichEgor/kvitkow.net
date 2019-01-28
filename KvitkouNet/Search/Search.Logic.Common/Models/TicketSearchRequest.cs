@@ -29,6 +29,11 @@ namespace Search.Logic.Common.Models
         public string City { get; set; }
 
         /// <summary>
+        /// Gets or sets the name of the event.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// Gets or sets the maximum price for search.
         /// </summary>
         public decimal? MaxPrice { get; set; }
