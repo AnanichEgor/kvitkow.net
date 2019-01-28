@@ -27,12 +27,12 @@ namespace AdminPanel.Web.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet("errors")]
-		public async Task<IActionResult> GetErrors([FromQuery] string typeName)
+		public async Task<IActionResult> GetErrors([FromQuery] string exceptionTypeName)
 		{
 			object res;
 			try
 			{
-				res = await _errorLogService.GetErrorLogsAsync(typeName);
+				res = await _errorLogService.GetErrorLogsAsync(exceptionTypeName: exceptionTypeName);
 			}
 			catch (SerializationException e)
 			{
