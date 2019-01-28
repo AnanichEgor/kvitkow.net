@@ -4,10 +4,11 @@ EXPOSE 80
 
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
-COPY ["Search.Web/Search.Web.csproj", "Search.Web/"]
-RUN dotnet restore "Search.Web/Search.Web.csproj"
-COPY . .
-WORKDIR "/src/Search.Web"
+COPY ["KvitkouNet.Messages", "KvitkouNet.Messages"]
+COPY ["Search/Search.Web/Search.Web.csproj", "Search/Search.Web/"]
+RUN dotnet restore "Search/Search.Web/Search.Web.csproj"
+COPY ["Search", "Search"]
+WORKDIR "/src/Search/Search.Web"
 RUN dotnet build "Search.Web.csproj" -c Release -o /app
 
 FROM build AS publish

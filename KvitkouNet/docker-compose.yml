@@ -1,19 +1,21 @@
 version: '3.4'
 
 services:
-   kvitkounet.web:
+   kvitkounetweb:
     image: ${DOCKER_REGISTRY}kvitkounetweb
     build:
-      context: .
+      context: Gateway
       dockerfile: KvitkouNet.Web/Dockerfile
+    ports:
+      - 5001:80
+      - 5002:443
+
    
    usermanagement.web:
     image: ${DOCKER_REGISTRY}ticketsweb
     build:
       context: UserManagement
       dockerfile: UserManagement.Web/Dockerfile
-    ports:
-      - 5001:80
 
    adminpanel.web:
     image: ${DOCKER_REGISTRY}adminpanelweb
@@ -24,7 +26,7 @@ services:
       - logging.web
     ports:
       - 5005:80
-    
+
    logging.web:
     image: ${DOCKER_REGISTRY}loggingweb
     build:
@@ -32,7 +34,7 @@ services:
       dockerfile: Logging.Web/Dockerfile
     ports:
       - 5006:80
-     
+
    tickets.web:
     image: ${DOCKER_REGISTRY}ticketsweb
     build:
@@ -45,6 +47,19 @@ services:
     depends_on:
       - rabbit
 
+   search.web:
+    image: ${DOCKER_REGISTRY}searchweb
+    build:
+      context: .
+      dockerfile: Search/Search.Web/Dockerfile
+    environment:
+      - ElasticSearchConnection=http://elasticsearch
+    ports:
+      - 5008:80
+    depends_on:
+      - rabbit
+      - elasticsearch
+
    rabbit:
     image: rabbitmq:management
     ports:
@@ -54,3 +69,9 @@ services:
       - 25672:25672
       - 15671:15671
       - 15672:15672
+
+   elasticsearch:
+    image: elasticsearch:6.4.3
+    ports:
+      - 9200:9200
+      - 9300:9300
