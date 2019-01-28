@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace AdminPanel.Logic.Generated.Logging
+namespace Swagger2
 {
     using Microsoft.Rest;
     using Models;
@@ -18,7 +18,15 @@ namespace AdminPanel.Logic.Generated.Logging
     /// </summary>
     public partial interface IQueryLog
     {
-        /// <param name='userName'>
+        /// <param name='userId'>
+        /// </param>
+        /// <param name='searchCriterium'>
+        /// </param>
+        /// <param name='filterInfo'>
+        /// </param>
+        /// <param name='dateFrom'>
+        /// </param>
+        /// <param name='dateTo'>
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -32,6 +40,6 @@ namespace AdminPanel.Logic.Generated.Logging
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<object>> GetSearchQueryLogsWithHttpMessagesAsync(string userName = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object>> GetSearchQueryLogsWithHttpMessagesAsync(string userId = default(string), string searchCriterium = default(string), string filterInfo = default(string), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

@@ -4,12 +4,12 @@
 // regenerated.
 // </auto-generated>
 
-namespace AdminPanel.Logic.Generated.Logging.Models
+namespace Swagger2.Models
 {
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class PaymentLogEntry : BaseLogEntryOfInt64
+    public partial class PaymentLogEntry : BaseLogEntry
     {
         /// <summary>
         /// Initializes a new instance of the PaymentLogEntry class.
@@ -22,10 +22,12 @@ namespace AdminPanel.Logic.Generated.Logging.Models
         /// <summary>
         /// Initializes a new instance of the PaymentLogEntry class.
         /// </summary>
-        public PaymentLogEntry(long id, System.DateTime created, string content = default(string), object paymentTransaction = default(object))
-            : base(id, created, content)
+        public PaymentLogEntry(System.DateTime eventDate, decimal transfer, string id = default(string), string senderId = default(string), string reciverId = default(string))
+            : base(eventDate, id)
         {
-            PaymentTransaction = paymentTransaction;
+            SenderId = senderId;
+            ReciverId = reciverId;
+            Transfer = transfer;
             CustomInit();
         }
 
@@ -36,8 +38,18 @@ namespace AdminPanel.Logic.Generated.Logging.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "paymentTransaction")]
-        public object PaymentTransaction { get; set; }
+        [JsonProperty(PropertyName = "senderId")]
+        public string SenderId { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "reciverId")]
+        public string ReciverId { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "transfer")]
+        public decimal Transfer { get; set; }
 
         /// <summary>
         /// Validate the object.

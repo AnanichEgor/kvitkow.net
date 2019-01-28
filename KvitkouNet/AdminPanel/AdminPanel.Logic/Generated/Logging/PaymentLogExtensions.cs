@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace AdminPanel.Logic.Generated.Logging
+namespace Swagger2
 {
     using Models;
     using System.Threading;
@@ -18,24 +18,44 @@ namespace AdminPanel.Logic.Generated.Logging
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='userName'>
+            /// <param name='senderId'>
             /// </param>
-            public static object GetPaymentLogs(this IPaymentLog operations, string userName = default(string))
+            /// <param name='recieverId'>
+            /// </param>
+            /// <param name='minTransfer'>
+            /// </param>
+            /// <param name='maxTransfer'>
+            /// </param>
+            /// <param name='dateFrom'>
+            /// </param>
+            /// <param name='dateTo'>
+            /// </param>
+            public static object GetPaymentLogs(this IPaymentLog operations, string senderId = default(string), string recieverId = default(string), double? minTransfer = default(double?), double? maxTransfer = default(double?), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?))
             {
-                return operations.GetPaymentLogsAsync(userName).GetAwaiter().GetResult();
+                return operations.GetPaymentLogsAsync(senderId, recieverId, minTransfer, maxTransfer, dateFrom, dateTo).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='userName'>
+            /// <param name='senderId'>
+            /// </param>
+            /// <param name='recieverId'>
+            /// </param>
+            /// <param name='minTransfer'>
+            /// </param>
+            /// <param name='maxTransfer'>
+            /// </param>
+            /// <param name='dateFrom'>
+            /// </param>
+            /// <param name='dateTo'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<object> GetPaymentLogsAsync(this IPaymentLog operations, string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> GetPaymentLogsAsync(this IPaymentLog operations, string senderId = default(string), string recieverId = default(string), double? minTransfer = default(double?), double? maxTransfer = default(double?), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetPaymentLogsWithHttpMessagesAsync(userName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetPaymentLogsWithHttpMessagesAsync(senderId, recieverId, minTransfer, maxTransfer, dateFrom, dateTo, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

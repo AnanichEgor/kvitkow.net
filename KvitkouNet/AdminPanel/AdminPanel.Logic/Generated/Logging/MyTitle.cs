@@ -4,9 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-using AdminPanel.Logic.Constants;
-
-namespace AdminPanel.Logic.Generated.Logging
+namespace Swagger2
 {
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
@@ -162,7 +160,7 @@ namespace AdminPanel.Logic.Generated.Logging
             QueryLog = new QueryLog(this);
             TicketActionLog = new TicketActionLog(this);
             TicketDealLog = new TicketDealLog(this);
-            BaseUri = new System.Uri($"http://{DockerServices.Logging}");
+            BaseUri = new System.Uri("http://localhost:55293");
             SerializationSettings = new JsonSerializerSettings
             {
                 Formatting = Newtonsoft.Json.Formatting.Indented,

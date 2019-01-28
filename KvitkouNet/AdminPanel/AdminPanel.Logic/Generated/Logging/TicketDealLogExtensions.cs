@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace AdminPanel.Logic.Generated.Logging
+namespace Swagger2
 {
     using Models;
     using System.Threading;
@@ -20,9 +20,13 @@ namespace AdminPanel.Logic.Generated.Logging
             /// </param>
             /// <param name='ticketName'>
             /// </param>
-            public static object GetTicketDealLogs(this ITicketDealLog operations, string ticketName = default(string))
+            /// <param name='dateFrom'>
+            /// </param>
+            /// <param name='dateTo'>
+            /// </param>
+            public static object GetTicketDealLogs(this ITicketDealLog operations, string ticketName = default(string), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?))
             {
-                return operations.GetTicketDealLogsAsync(ticketName).GetAwaiter().GetResult();
+                return operations.GetTicketDealLogsAsync(ticketName, dateFrom, dateTo).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
@@ -30,12 +34,16 @@ namespace AdminPanel.Logic.Generated.Logging
             /// </param>
             /// <param name='ticketName'>
             /// </param>
+            /// <param name='dateFrom'>
+            /// </param>
+            /// <param name='dateTo'>
+            /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<object> GetTicketDealLogsAsync(this ITicketDealLog operations, string ticketName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> GetTicketDealLogsAsync(this ITicketDealLog operations, string ticketName = default(string), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetTicketDealLogsWithHttpMessagesAsync(ticketName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetTicketDealLogsWithHttpMessagesAsync(ticketName, dateFrom, dateTo, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

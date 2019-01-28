@@ -4,12 +4,12 @@
 // regenerated.
 // </auto-generated>
 
-namespace AdminPanel.Logic.Generated.Logging.Models
+namespace Swagger2.Models
 {
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class AccountLogEntry : BaseLogEntryOfInt64
+    public partial class AccountLogEntry : BaseLogEntry
     {
         /// <summary>
         /// Initializes a new instance of the AccountLogEntry class.
@@ -22,12 +22,13 @@ namespace AdminPanel.Logic.Generated.Logging.Models
         /// <summary>
         /// Initializes a new instance of the AccountLogEntry class.
         /// </summary>
-        public AccountLogEntry(long id, System.DateTime created, int type, string content = default(string), User user = default(User), string deviceDescription = default(string))
-            : base(id, created, content)
+        public AccountLogEntry(System.DateTime eventDate, int type, string id = default(string), string userId = default(string), string userName = default(string), string email = default(string))
+            : base(eventDate, id)
         {
-            User = user;
+            UserId = userId;
+            UserName = userName;
+            Email = email;
             Type = type;
-            DeviceDescription = deviceDescription;
             CustomInit();
         }
 
@@ -38,18 +39,23 @@ namespace AdminPanel.Logic.Generated.Logging.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "user")]
-        public User User { get; set; }
+        [JsonProperty(PropertyName = "userId")]
+        public string UserId { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "userName")]
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "email")]
+        public string Email { get; set; }
 
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         public int Type { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "deviceDescription")]
-        public string DeviceDescription { get; set; }
 
         /// <summary>
         /// Validate the object.
@@ -60,10 +66,6 @@ namespace AdminPanel.Logic.Generated.Logging.Models
         public override void Validate()
         {
             base.Validate();
-            if (User != null)
-            {
-                User.Validate();
-            }
         }
     }
 }

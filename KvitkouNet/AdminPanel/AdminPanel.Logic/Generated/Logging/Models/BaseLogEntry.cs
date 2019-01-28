@@ -4,29 +4,28 @@
 // regenerated.
 // </auto-generated>
 
-namespace AdminPanel.Logic.Generated.Logging.Models
+namespace Swagger2.Models
 {
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class Profile
+    public partial class BaseLogEntry
     {
         /// <summary>
-        /// Initializes a new instance of the Profile class.
+        /// Initializes a new instance of the BaseLogEntry class.
         /// </summary>
-        public Profile()
+        public BaseLogEntry()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the Profile class.
+        /// Initializes a new instance of the BaseLogEntry class.
         /// </summary>
-        public Profile(System.DateTime birthday, string firstName = default(string), string lastName = default(string))
+        public BaseLogEntry(System.DateTime eventDate, string id = default(string))
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Birthday = birthday;
+            Id = id;
+            EventDate = eventDate;
             CustomInit();
         }
 
@@ -37,18 +36,13 @@ namespace AdminPanel.Logic.Generated.Logging.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "firstName")]
-        public string FirstName { get; set; }
+        [JsonProperty(PropertyName = "id")]
+        public string Id { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "lastName")]
-        public string LastName { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "birthday")]
-        public System.DateTime Birthday { get; set; }
+        [JsonProperty(PropertyName = "eventDate")]
+        public System.DateTime EventDate { get; set; }
 
         /// <summary>
         /// Validate the object.

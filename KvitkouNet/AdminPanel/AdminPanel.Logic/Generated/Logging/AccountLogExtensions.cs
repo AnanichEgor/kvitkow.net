@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace AdminPanel.Logic.Generated.Logging
+namespace Swagger2
 {
     using Models;
     using System.Threading;
@@ -18,24 +18,44 @@ namespace AdminPanel.Logic.Generated.Logging
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='userId'>
+            /// </param>
             /// <param name='userName'>
             /// </param>
-            public static object GetAccountLogs(this IAccountLog operations, string userName = default(string))
+            /// <param name='email'>
+            /// </param>
+            /// <param name='type'>
+            /// </param>
+            /// <param name='dateFrom'>
+            /// </param>
+            /// <param name='dateTo'>
+            /// </param>
+            public static object GetAccountLogs(this IAccountLog operations, string userId = default(string), string userName = default(string), string email = default(string), int type = default(int), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?))
             {
-                return operations.GetAccountLogsAsync(userName).GetAwaiter().GetResult();
+                return operations.GetAccountLogsAsync(userId, userName, email, type, dateFrom, dateTo).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='userId'>
+            /// </param>
             /// <param name='userName'>
+            /// </param>
+            /// <param name='email'>
+            /// </param>
+            /// <param name='type'>
+            /// </param>
+            /// <param name='dateFrom'>
+            /// </param>
+            /// <param name='dateTo'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<object> GetAccountLogsAsync(this IAccountLog operations, string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> GetAccountLogsAsync(this IAccountLog operations, string userId = default(string), string userName = default(string), string email = default(string), int type = default(int), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetAccountLogsWithHttpMessagesAsync(userName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetAccountLogsWithHttpMessagesAsync(userId, userName, email, type, dateFrom, dateTo, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
