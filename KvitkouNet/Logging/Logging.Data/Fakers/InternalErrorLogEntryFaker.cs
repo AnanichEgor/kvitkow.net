@@ -12,7 +12,6 @@ namespace Logging.Data.Fakers
 		{
 			_faker = new Faker<InternalErrorLogEntryDbModel>();
 			_faker.RuleFor(_ => _.Id, f => f.IndexFaker.ToString());
-			_faker.RuleFor(_ => _.Content, f => f.Lorem.Sentence(wordCount: 5));
 			_faker.RuleFor(_ => _.InnerExceptionString, f => f.Lorem.Sentence(wordCount: 5));
 			_faker.RuleFor(_ => _.Message, f => f.Lorem.Sentence(wordCount: 5));
 			_faker.RuleFor(_ => _.Source, f => f.Lorem.Sentence(wordCount: 5));

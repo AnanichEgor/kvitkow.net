@@ -6,7 +6,7 @@ namespace Logging.Logic.Models
 	/// <summary>
 	/// Модель записи в лог о сделке по билету
 	/// </summary>
-	public class TicketDealLogEntry : BaseTicketLogEntry
+	public class TicketDealLogEntry : BaseLogEntry
 	{
 	    /// <summary>
 	    /// Пользователь-владелец, разместивший билет

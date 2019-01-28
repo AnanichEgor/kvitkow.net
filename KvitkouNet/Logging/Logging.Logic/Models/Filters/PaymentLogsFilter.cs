@@ -12,7 +12,7 @@ namespace Logging.Logic.Models.Filters
         /// <summary>
         /// Id получателя денег
         /// </summary>
-        public string ReciverId { get; set; }
+        public string RecieverId { get; set; }
 
         /// <summary>
         /// Сумма перевода

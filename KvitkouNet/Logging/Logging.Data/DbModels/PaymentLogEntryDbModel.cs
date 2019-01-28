@@ -15,7 +15,7 @@ namespace Logging.Data.DbModels
         /// <summary>
         /// Id получателя денег
         /// </summary>
-        public string ReciverId { get; set; }
+        public string RecieverId { get; set; }
 
         /// <summary>
         /// Сумма перевода
