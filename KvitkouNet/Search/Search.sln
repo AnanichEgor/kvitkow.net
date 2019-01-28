@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Search.Logic.Common", "Sear
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Search.Tests", "Search.Tests\Search.Tests.csproj", "{0AE52402-13F6-4CE4-A5EA-3586B9994728}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KvitkouNet.Messages", "..\KvitkouNet.Messages\KvitkouNet.Messages.csproj", "{F7244941-B8FC-4F89-86B3-53C31F92E0B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KvitkouNet.Messages", "..\Gateway\KvitkouNet.Messages\KvitkouNet.Messages.csproj", "{775BE9B7-CA08-4F78-9241-309FD1F6CDF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{0AE52402-13F6-4CE4-A5EA-3586B9994728}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AE52402-13F6-4CE4-A5EA-3586B9994728}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AE52402-13F6-4CE4-A5EA-3586B9994728}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F7244941-B8FC-4F89-86B3-53C31F92E0B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7244941-B8FC-4F89-86B3-53C31F92E0B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F7244941-B8FC-4F89-86B3-53C31F92E0B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7244941-B8FC-4F89-86B3-53C31F92E0B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{775BE9B7-CA08-4F78-9241-309FD1F6CDF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{775BE9B7-CA08-4F78-9241-309FD1F6CDF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{775BE9B7-CA08-4F78-9241-309FD1F6CDF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{775BE9B7-CA08-4F78-9241-309FD1F6CDF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
