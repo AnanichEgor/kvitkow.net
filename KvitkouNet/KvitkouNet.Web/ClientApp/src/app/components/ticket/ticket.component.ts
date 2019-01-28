@@ -17,5 +17,4 @@ tickets: Tickets[] = [];
   ngOnInit() {
     this.ticketsSrv.getAllTickets().subscribe(result => (this.tickets = result), err => console.error(err));
   }
-
 }
