@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -10,8 +10,9 @@ import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { TicketComponent } from './ticket/ticket.component';
-import { TicketFormComponent } from './ticket-form/ticket-form.component';
+import { TicketComponent } from './components/ticket/ticket.component';
+import { TicketFormComponent } from './components/ticket-form/ticket-form.component';
+import { TicketDetailComponent} from './components/ticket-detail/ticket-detail.component';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
@@ -23,12 +24,14 @@ import { AppRoutingModule } from './app-routing.module';
     AdminComponent,
     NotFoundComponent,
     TicketComponent,
-    TicketFormComponent
+    TicketFormComponent,
+    TicketDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [],
