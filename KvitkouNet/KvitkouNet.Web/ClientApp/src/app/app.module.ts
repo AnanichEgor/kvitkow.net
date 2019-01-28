@@ -23,7 +23,8 @@ import { TicketDetailComponent} from './components/ticket-detail/ticket-detail.c
     AdminComponent,
     NotFoundComponent,
     TicketComponent,
-    TicketFormComponent
+    TicketFormComponent,
+    TicketDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,12 +34,8 @@ import { TicketDetailComponent} from './components/ticket-detail/ticket-detail.c
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'admin', component: AdminComponent, pathMatch: 'full' },
-      { path: 'tickets',
-      children: [
-        { path: '', redirectTo: 'main', pathMatch: 'full' },
-        { path: 'main', component: TicketComponent },
-        { path: 'main/:id', component: TicketDetailComponent }
-      ]},
+      { path: 'tickets', component: TicketComponent,  pathMatch: 'full'  },
+      { path: 'tickets/:id', component: TicketDetailComponent, pathMatch: 'full' },
       { path: 'ticket/add', component: TicketFormComponent, pathMatch: 'full' },
       { path: '**', component: NotFoundComponent}
     ])
