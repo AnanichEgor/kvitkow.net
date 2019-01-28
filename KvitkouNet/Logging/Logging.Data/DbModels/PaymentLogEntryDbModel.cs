@@ -20,6 +20,6 @@ namespace Logging.Data.DbModels
         /// <summary>
         /// Сумма перевода
         /// </summary>
-        public decimal Transfer { get; set; }
+        public double Transfer { get; set; }
     }
 }

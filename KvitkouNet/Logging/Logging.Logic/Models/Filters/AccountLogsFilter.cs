@@ -1,9 +1,29 @@
-﻿using Logging.Logic.Models.Filters.Abstraction;
+﻿using System;
+using Logging.Data.Enums;
+using Logging.Logic.Models.Filters.Abstraction;
 
 namespace Logging.Logic.Models.Filters
 {
 	public class AccountLogsFilter : BaseLogFilter
     {
-		public string UserName { get; set; }
+        /// <summary>
+        /// Id пользователя
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
+        /// Имя пользователя
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// Почтовый адрес пользователя
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Тип действия
+        /// </summary>
+        public AccountActionType Type { get; set; }
 	}
 }

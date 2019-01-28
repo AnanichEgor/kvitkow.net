@@ -7,6 +7,11 @@ namespace Logging.Logic.Models
 	/// </summary>
 	public class InternalErrorLogEntry : BaseLogEntry
 	{
+        /// <summary>
+        /// Название микросервиса, передавшего сообщение об ошибке
+        /// </summary>
+        public string ServiceName { get; set; }
+
 		/// <summary>
 		/// Название типа исключения
 		/// </summary>
