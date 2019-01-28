@@ -1,16 +1,16 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/dotnet:2.1-sdk AS build
+FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
 COPY ["Logging/Logging.Web/Logging.Web.csproj", "Logging/Logging.Web/"]
 COPY ["Logging/Logging.Logic/Logging.Logic.csproj", "Logging/Logging.Logic/"]
 COPY ["Logging/Logging.Data/Logging.Data.csproj", "Logging/Logging.Data/"]
-COPY ["KvitkouNet.Messages/KvitkouNet.Messages.csproj", "KvitkouNet.Messages/"]
+COPY ["Gateway/KvitkouNet.Messages/KvitkouNet.Messages.csproj", "Gateway/KvitkouNet.Messages/"]
 RUN dotnet restore "Logging/Logging.Web/Logging.Web.csproj"
 COPY Logging Logging
-COPY KvitkouNet.Messages KvitkouNet.Messages
+COPY Gateway/KvitkouNet.Messages Gateway/KvitkouNet.Messages
 WORKDIR "/src/Logging/Logging.Web"
 RUN dotnet build "Logging.Web.csproj" -c Release -o /app
 
