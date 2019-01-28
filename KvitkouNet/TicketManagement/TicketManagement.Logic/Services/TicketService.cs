@@ -52,9 +52,14 @@ namespace TicketManagement.Logic.Services
             if (!_validator.Validate(ticket).IsValid) return (null, RequestStatus.InvalidModel);
             if (!ticket.PhoneValidate()) return (null, RequestStatus.InvalidModel);
             var res = await _context.Add(_mapper.Map<Ticket>(ticket));
-            await _bus.PublishAsync(new TicketCreateMessage
+            await _bus.PublishAsync(new TicketCreationMessage
             {
-                TicketId = res, Create = DateTime.Now, UserId = ticket.User.UserInfoId
+                TicketId = res,
+                Price = ticket.Price,
+                Name = ticket.Name,
+                City = ticket.LocationEvent.City,
+                Category = ticket.TypeEvent.ToString(),
+                Date = DateTime.Now
             });
             return (res, RequestStatus.Success);
         }
@@ -68,6 +73,15 @@ namespace TicketManagement.Logic.Services
         public async Task<RequestStatus> Update(string id, Models.Ticket ticket)
         {
             await _context.Update(id, _mapper.Map<Ticket>(ticket));
+            await _bus.PublishAsync(new TicketUpdatedMessage()
+            {
+                TicketId = id,
+                Price = ticket.Price,
+                Name = ticket.Name,
+                City = ticket.LocationEvent.City,
+                Category = ticket.TypeEvent.ToString(),
+                Date = DateTime.Now
+            });
             return RequestStatus.Success;
         }
 
@@ -89,6 +103,10 @@ namespace TicketManagement.Logic.Services
         public async Task<RequestStatus> Delete(string id)
         {
             await _context.Delete(id);
+            await _bus.PublishAsync(new TicketDeletedMessage
+            {
+               TicketId = id
+            });
             return RequestStatus.Success;
         }
 
