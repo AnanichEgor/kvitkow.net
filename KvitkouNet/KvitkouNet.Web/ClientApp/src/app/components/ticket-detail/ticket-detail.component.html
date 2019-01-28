@@ -6,7 +6,8 @@
   <p>{{tickets.additionalData}}</p>
   <p>{{tickets.createdDate}}</p>
   <p>'User contact->'{{tickets.sellerPhone}}</p>
-  <p><a class="btn btn-secondary" href="#" role="button">Изменить/Удалить »</a></p>
+  <p><a class="btn btn-secondary" href="#" role="button">Изменить </a><a class="btn btn-secondary" role="button" (click) ="deleteTicketById(tickets.id)">Удалить </a></p>
+
 </div>
 </div>
 </div>

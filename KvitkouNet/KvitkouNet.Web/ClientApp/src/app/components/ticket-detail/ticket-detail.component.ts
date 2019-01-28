@@ -21,7 +21,9 @@ export class TicketDetailComponent implements OnInit {
   ngOnInit() {
     this.ticketsSrv.getTicketById(this.id).subscribe(result => (this.tickets = result), err => console.error(err));
   }
-
+deleteTicketById(id) {
+this.ticketsSrv.delTicketById(this.id);
+}
 }
 
 
