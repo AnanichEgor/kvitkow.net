@@ -12,10 +12,12 @@ namespace TicketManagement.Logic.Validators
         {
             RuleFor(ticket => ticket.Name).NotEmpty().Length(5, 100);
             RuleFor(ticket => ticket.AdditionalData).MaximumLength(240);
-            RuleFor(ticket => ticket.SellerPhone).NotEmpty().Length(6, 9);
+            RuleFor(ticket => ticket.SellerPhone).NotEmpty().Length(6, 20).Matches(@"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$");
             RuleFor(ticket => ticket.User).SetValidator(new UserValidator());
             RuleFor(ticket => ticket.LocationEvent).SetValidator(new AddressValidator());
             RuleFor(ticket => ticket.SellerAdress).SetValidator(new AddressValidator());
+            RuleFor(ticket => ticket.TypeEvent).IsInEnum();
+            RuleFor(ticket => ticket.Status).IsInEnum();
         }
     }
 }
