@@ -1,8 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using AutoMapper;
+﻿using System.Reflection;
 using Logging.Logic.Extensions;
+using Logging.Web.Extensions;
+using Logging.Web.Subscriber;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -23,22 +22,21 @@ namespace Logging.Web
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext();
+			services.RegisterDbContext();
 
-		    var assemblyNamesToScan = Assembly
-		        .GetEntryAssembly()
-		        .GetReferencedAssemblies()
-		        .Where(an => an.FullName.StartsWith("Logging", StringComparison.OrdinalIgnoreCase))
-		        .Select(an => an.FullName);
-
-            services.AddAutoMapper(cfg => cfg.AddProfiles(assemblyNamesToScan));
-
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 			services.AddSwaggerDocument();
 
-			services.RegisterLoggingService();
+			services.RegisterServices();
+
 			services.RegisterValidators();
+
+			services.RegisterAutoMapper();
+
+			services.RegisterConsumers();
+
+			services.RegisterEasyNetQ("host=rabbit");
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +50,8 @@ namespace Logging.Web
 			app.UseSwagger().UseSwaggerUi3();
 
 			app.UseMvc();
+
+			app.UseSubscriber("ErrorLogging", Assembly.GetExecutingAssembly());
 		}
 	}
 }

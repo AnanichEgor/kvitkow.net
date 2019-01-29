@@ -18,7 +18,17 @@ namespace AdminPanel.Logic.Generated.Logging
     /// </summary>
     public partial interface IPaymentLog
     {
-        /// <param name='userName'>
+        /// <param name='senderId'>
+        /// </param>
+        /// <param name='recieverId'>
+        /// </param>
+        /// <param name='minTransfer'>
+        /// </param>
+        /// <param name='maxTransfer'>
+        /// </param>
+        /// <param name='dateFrom'>
+        /// </param>
+        /// <param name='dateTo'>
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -32,6 +42,6 @@ namespace AdminPanel.Logic.Generated.Logging
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<object>> GetPaymentLogsWithHttpMessagesAsync(string userName = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object>> GetPaymentLogsWithHttpMessagesAsync(string senderId = default(string), string recieverId = default(string), double? minTransfer = default(double?), double? maxTransfer = default(double?), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

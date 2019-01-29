@@ -6,11 +6,26 @@ namespace Logging.Logic.Models
 	/// <summary>
 	/// Модель записи в лог о действии с билетом
 	/// </summary>
-	public class TicketActionLogEntry : BaseTicketLogEntry
+	public class TicketActionLogEntry : BaseLogEntry
 	{
-		/// <summary>
-		/// Тип действия с билетом
-		/// </summary>
-		public TicketAction Action { get; set; }
+	    /// <summary>
+	    /// Id пользователя, выполнившего действие с билетом
+	    /// </summary>
+	    public string UserId { get; set; }
+
+	    /// <summary>
+	    /// Id билета
+	    /// </summary>
+	    public string TicketId { get; set; }
+
+	    /// <summary>
+	    /// Тип действия с билетом
+	    /// </summary>
+	    public TicketAction ActionType { get; set; }
+
+        /// <summary>
+        /// Описание и дополнительное содержимое действия
+        /// </summary>
+        public string Description { get; set; }
 	}
 }
