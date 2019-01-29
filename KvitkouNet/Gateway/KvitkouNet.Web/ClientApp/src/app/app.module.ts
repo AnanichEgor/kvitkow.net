@@ -12,6 +12,8 @@ import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { TicketComponent } from './ticket/ticket.component';
 import { TicketFormComponent } from './ticket-form/ticket-form.component';
+import { UsersComponent } from './users/users.component';
+import { RegistrationComponent } from './registration/registration.component';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
@@ -23,7 +25,9 @@ import { AppRoutingModule } from './app-routing.module';
     AdminComponent,
     NotFoundComponent,
     TicketComponent,
-    TicketFormComponent
+    TicketFormComponent,
+    UsersComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
