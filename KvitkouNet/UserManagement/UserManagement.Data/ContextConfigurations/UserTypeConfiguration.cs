@@ -18,8 +18,8 @@ namespace UserManagement.Data.ContextConfigurations
                 .WithOne(u=>u.UserDB)
                 .HasForeignKey<ProfileDB>(x => x.UserDBId)
                 .OnDelete(DeleteBehavior.Cascade);
-            //builder.HasMany(navigationExpression: x => x.Tickets)
-            //    .WithOne(x => x.User);
+            builder.HasMany(navigationExpression: x => x.Tickets)
+                .WithOne(x => x.User);
         }
     }
 }
