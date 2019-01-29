@@ -31,7 +31,7 @@ import { TicketEditComponent } from './components/ticket-edit/ticket-edit.compon
     TicketComponent,
     TicketFormComponent,
     UsersComponent,
-    RegistrationComponent
+    RegistrationComponent,
     TicketDetailComponent,
     TicketEditComponent
   ],

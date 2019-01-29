@@ -1,3 +1,5 @@
+import { RegistrationComponent } from './registration/registration.component';
+import { UsersComponent } from './users/users.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
@@ -14,6 +16,8 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, pathMatch: 'full' },
   { path: 'tickets', component: TicketComponent,  pathMatch: 'full'  },
   { path: 'tickets/:id', component: TicketDetailComponent, pathMatch: 'full' },
+  { path: 'users', component: UsersComponent, pathMatch: 'full' },
+  { path: 'users/registration', component: RegistrationComponent, pathMatch: 'full' },
   { path: 'ticket/add', component: TicketFormComponent, pathMatch: 'full' },
   { path: 'ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },

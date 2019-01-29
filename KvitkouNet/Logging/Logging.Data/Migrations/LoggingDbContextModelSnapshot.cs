@@ -14,22 +14,22 @@ namespace Logging.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
 
             modelBuilder.Entity("Logging.Data.DbModels.AccountLogEntryDbModel", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Content");
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<string>("DeviceDescription");
+                    b.Property<string>("Email");
 
-                    b.Property<DateTime?>("Modified");
+                    b.Property<DateTime>("EventDate");
 
                     b.Property<int>("Type");
+
+                    b.Property<string>("UserId");
 
                     b.Property<string>("UserName");
 
@@ -40,12 +40,14 @@ namespace Logging.Data.Migrations
 
             modelBuilder.Entity("Logging.Data.DbModels.InternalErrorLogEntryDbModel", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Content");
-
                     b.Property<DateTime>("Created");
+
+                    b.Property<DateTime>("EventDate");
+
+                    b.Property<string>("ExceptionType");
 
                     b.Property<int>("HResult");
 
@@ -53,15 +55,13 @@ namespace Logging.Data.Migrations
 
                     b.Property<string>("Message");
 
-                    b.Property<DateTime?>("Modified");
+                    b.Property<string>("ServiceName");
 
                     b.Property<string>("Source");
 
                     b.Property<string>("StackTrace");
 
                     b.Property<string>("TargetSiteName");
-
-                    b.Property<string>("TypeName");
 
                     b.HasKey("Id");
 
@@ -70,16 +70,18 @@ namespace Logging.Data.Migrations
 
             modelBuilder.Entity("Logging.Data.DbModels.PaymentLogEntryDbModel", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Content");
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<DateTime?>("Modified");
+                    b.Property<DateTime>("EventDate");
 
-                    b.Property<string>("TransactionInfo");
+                    b.Property<string>("RecieverId");
+
+                    b.Property<string>("SenderId");
+
+                    b.Property<double>("Transfer");
 
                     b.HasKey("Id");
 
@@ -88,16 +90,18 @@ namespace Logging.Data.Migrations
 
             modelBuilder.Entity("Logging.Data.DbModels.SearchQueryLogEntryDbModel", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Content");
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<string>("DashBoardFilterInfo");
+                    b.Property<DateTime>("EventDate");
 
-                    b.Property<DateTime?>("Modified");
+                    b.Property<string>("FilterInfo");
+
+                    b.Property<string>("SearchCriterium");
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
@@ -106,16 +110,20 @@ namespace Logging.Data.Migrations
 
             modelBuilder.Entity("Logging.Data.DbModels.TicketActionLogEntryDbModel", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Action");
-
-                    b.Property<string>("Content");
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<DateTime?>("Modified");
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("EventDate");
+
+                    b.Property<string>("TicketId");
+
+                    b.Property<int>("Type");
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
@@ -124,18 +132,18 @@ namespace Logging.Data.Migrations
 
             modelBuilder.Entity("Logging.Data.DbModels.TicketDealLogEntryDbModel", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Content");
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<DateTime?>("Modified");
+                    b.Property<DateTime>("EventDate");
 
-                    b.Property<decimal>("Price");
+                    b.Property<string>("OwnerId");
 
-                    b.Property<string>("Reciever");
+                    b.Property<double?>("Price");
+
+                    b.Property<string>("RecieverId");
 
                     b.Property<int>("Type");
 

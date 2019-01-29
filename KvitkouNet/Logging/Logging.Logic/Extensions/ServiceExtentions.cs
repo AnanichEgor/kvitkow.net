@@ -1,73 +1,69 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
+using System.Reflection;
+using AutoMapper;
 using FluentValidation;
+using KvitkouNet.Messages.Logging;
 using Logging.Data;
-using Logging.Logic.Dtos;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
+using Logging.Logic.Models.Filters;
 using Logging.Logic.Services;
 using Logging.Logic.Validators;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
 
 namespace Logging.Logic.Extensions
 {
 	public static class ServiceExtentions
 	{
 		/// <summary>
-		/// Регистрация ILoggingService
+		/// Регистрация сервисов
 		/// </summary>
 		/// <param name="services"></param>
 		/// <returns></returns>
-		public static IServiceCollection RegisterLoggingService(this IServiceCollection services)
+		public static IServiceCollection RegisterServices(this IServiceCollection services)
 		{
-			services.AddScoped<ILoggingService, LoggingService>();
+			services.AddScoped<IAccountLogService, AccountLogService>();
+			services.AddScoped<IDealLogService, DealLogService>();
+			services.AddScoped<IErrorLogService, ErrorLogService>();
+			services.AddScoped<IPaymentLogService, PaymentLogService>();
+			services.AddScoped<ISearchLogService, SearchLogService>();
+			services.AddScoped<ITicketLogService, TicketLogService>();
+
 			return services;
 		}
 
 		public static IServiceCollection RegisterValidators(this IServiceCollection services)
 		{
-			services.AddScoped<IValidator<ErrorLogsFilterDto>, ErrorLogsFilterValidator>();
+			services.AddScoped<IValidator<ErrorLogsFilter>, ErrorLogsFilterValidator>();
+
 			return services;
 		}
 
 		/// <summary>
-		/// Добавление LoggingDbContext
+		/// Регистрация LoggingDbContext
 		/// </summary>
 		/// <param name="services"></param>
 		/// <returns></returns>
-		public static IServiceCollection AddDbContext(this IServiceCollection services)
+		public static IServiceCollection RegisterDbContext(this IServiceCollection services)
 		{
 			const string connectionString = "Data Source=Logs.db";
 			services.AddDbContext<LoggingDbContext>(opt => opt.UseSqlite(connectionString));
 			return services;
 		}
 
-		private static Mock<ILoggingService> GetLoggingServiceMock()
-		{
-			var loggingServiceMock = new Mock<ILoggingService>();
+	    public static IServiceCollection RegisterAutoMapper(this IServiceCollection services)
+	    {
+	        var assemblyNamesToScan = Assembly
+	            .GetEntryAssembly()
+	            .GetReferencedAssemblies()
+	            .Where(an => an.FullName.StartsWith("Logging", StringComparison.OrdinalIgnoreCase))
+	            .Select(an => an.FullName);
 
-			loggingServiceMock
-				.Setup(_ => _.GetAccountLogsAsync(It.IsAny<AccountLogsFilterDto>()))
-				.ReturnsAsync(new List<AccountLogEntry>());
+	        services.AddAutoMapper(cfg => cfg.AddProfiles(assemblyNamesToScan));
 
-			loggingServiceMock
-				.Setup(_ => _.GetErrorLogsAsync(It.IsAny<ErrorLogsFilterDto>()))
-				.ReturnsAsync(new List<InternalErrorLogEntry>());
-
-			loggingServiceMock
-				.Setup(_ => _.GetPaymentLogsAsync(It.IsAny<PaymentLogsFilterDto>()))
-				.ReturnsAsync(new List<PaymentLogEntry>());
-
-			loggingServiceMock
-				.Setup(_ => _.GetSearchQueryLogsAsync(It.IsAny<SearchQueryLogsFilterDto>()))
-				.ReturnsAsync(new List<SearchQueryLogEntry>());
-
-			loggingServiceMock
-				.Setup(_ => _.GetSearchQueryLogsAsync(It.IsAny<SearchQueryLogsFilterDto>()))
-				.ReturnsAsync(new List<SearchQueryLogEntry>());
-
-			return loggingServiceMock;
-		}
+	        return services;
+	    }
 	}
 }

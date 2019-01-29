@@ -18,7 +18,15 @@ namespace AdminPanel.Logic.Generated.Logging
     /// </summary>
     public partial interface IErrorLog
     {
+        /// <param name='serviceName'>
+        /// </param>
         /// <param name='exceptionTypeName'>
+        /// </param>
+        /// <param name='message'>
+        /// </param>
+        /// <param name='dateFrom'>
+        /// </param>
+        /// <param name='dateTo'>
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -32,6 +40,6 @@ namespace AdminPanel.Logic.Generated.Logging
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<object>> GetErrorLogsWithHttpMessagesAsync(string exceptionTypeName = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object>> GetErrorLogsWithHttpMessagesAsync(string serviceName = default(string), string exceptionTypeName = default(string), string message = default(string), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

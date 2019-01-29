@@ -46,7 +46,15 @@ namespace AdminPanel.Logic.Generated.Logging
         /// </summary>
         public MyTitle Client { get; private set; }
 
+        /// <param name='serviceName'>
+        /// </param>
         /// <param name='exceptionTypeName'>
+        /// </param>
+        /// <param name='message'>
+        /// </param>
+        /// <param name='dateFrom'>
+        /// </param>
+        /// <param name='dateTo'>
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -63,7 +71,7 @@ namespace AdminPanel.Logic.Generated.Logging
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<object>> GetErrorLogsWithHttpMessagesAsync(string exceptionTypeName = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<object>> GetErrorLogsWithHttpMessagesAsync(string serviceName = default(string), string exceptionTypeName = default(string), string message = default(string), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -72,7 +80,11 @@ namespace AdminPanel.Logic.Generated.Logging
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("serviceName", serviceName);
                 tracingParameters.Add("exceptionTypeName", exceptionTypeName);
+                tracingParameters.Add("message", message);
+                tracingParameters.Add("dateFrom", dateFrom);
+                tracingParameters.Add("dateTo", dateTo);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetErrorLogs", tracingParameters);
             }
@@ -80,9 +92,25 @@ namespace AdminPanel.Logic.Generated.Logging
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/logs/errors").ToString();
             List<string> _queryParameters = new List<string>();
+            if (serviceName != null)
+            {
+                _queryParameters.Add(string.Format("ServiceName={0}", System.Uri.EscapeDataString(serviceName)));
+            }
             if (exceptionTypeName != null)
             {
                 _queryParameters.Add(string.Format("ExceptionTypeName={0}", System.Uri.EscapeDataString(exceptionTypeName)));
+            }
+            if (message != null)
+            {
+                _queryParameters.Add(string.Format("Message={0}", System.Uri.EscapeDataString(message)));
+            }
+            if (dateFrom != null)
+            {
+                _queryParameters.Add(string.Format("DateFrom={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(dateFrom, Client.SerializationSettings).Trim('"'))));
+            }
+            if (dateTo != null)
+            {
+                _queryParameters.Add(string.Format("DateTo={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(dateTo, Client.SerializationSettings).Trim('"'))));
             }
             if (_queryParameters.Count > 0)
             {

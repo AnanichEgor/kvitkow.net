@@ -1,21 +1,30 @@
 ﻿using Logging.Data.DbModels.Abstraction;
-using Logging.Data.Enums;
 
 namespace Logging.Data.DbModels
 {
     /// <summary>
     /// Модель записи в лог о действии с билетом
     /// </summary>
-    public class TicketActionLogEntryDbModel : Entity<string>
+    public class TicketActionLogEntryDbModel : BaseLogEntryDbModel
     {
+        /// <summary>
+        /// Id пользователя, выполнившего действие с билетом
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
+        /// Id билета
+        /// </summary>
+        public string TicketId { get; set; }
+        
         /// <summary>
         /// Тип действия с билетом
         /// </summary>
-        public TicketAction Action { get; set; }
+        public int Type { get; set; }
 
         /// <summary>
-        /// Дополнительное содержимое записи
+        /// Описание и дополнительное содержимое действия
         /// </summary>
-        public string Content { get; set; }
+        public string Description { get; set; }
     }
 }
