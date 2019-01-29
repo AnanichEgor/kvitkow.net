@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using UserManagement.Data.ContextConfigurations;
 using UserManagement.Data.DbModels;
 

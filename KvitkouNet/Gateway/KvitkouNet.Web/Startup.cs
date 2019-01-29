@@ -35,7 +35,6 @@ namespace KvitkouNet.Web
 
             services.AddOcelot();
 
-            services.RegisterUserServices();
             services.RegisterSecurityService();
 			services.RegisterLoggingService();
 		}

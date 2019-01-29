@@ -10,6 +10,10 @@ namespace UserManagement.Data.ContextConfigurations
         {
             builder.ToTable("Accounts")
                 .HasKey(keyExpression: x => x.Id);
+            builder.HasOne(navigationExpression: x => x.UserDB)
+                .WithOne(u => u.AccountDB)
+                .HasForeignKey<AccountDB>(x => x.UserDBId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

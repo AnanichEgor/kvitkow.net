@@ -14,6 +14,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { TicketComponent } from './components/ticket/ticket.component';
 import { TicketFormComponent } from './components/ticket-form/ticket-form.component';
 import { TicketDetailComponent} from './components/ticket-detail/ticket-detail.component';
+import { UsersComponent } from './users/users.component';
+import { RegistrationComponent } from './registration/registration.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
@@ -28,6 +30,8 @@ import { TicketEditComponent } from './components/ticket-edit/ticket-edit.compon
     NotFoundComponent,
     TicketComponent,
     TicketFormComponent,
+    UsersComponent,
+    RegistrationComponent
     TicketDetailComponent,
     TicketEditComponent
   ],
