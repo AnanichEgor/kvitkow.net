@@ -3,13 +3,8 @@
     /// <summary>
     /// Contains minimal information about user indexed by Elasticsearch
     /// </summary>
-    public class UserInfo
+    public class UserInfo : EntityInfo
     {
-        /// <summary>
-        /// Gets or sets the user identifier.
-        /// </summary>
-        public string UserId { get; set; }
-
         /// <summary>
         /// Gets or sets the first name.
         /// </summary>

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TicketManagement.Logic;
+using TicketManagement.Logic.Extentions;
 
 namespace TicketManagement.Web
 {
@@ -23,6 +24,7 @@ namespace TicketManagement.Web
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddOptions();
+            services.AddSingleton<IConfiguration>(Configuration);
             var value = Configuration["Hostname"];
             services.AddSwaggerDocument();
             services.AddSingleton(RabbitHutch.CreateBus(value));

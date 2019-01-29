@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Search.Data.Models;
+using Search.Logic.Common.Models;
 
 namespace Search.Logic.Services
 {
@@ -10,6 +11,10 @@ namespace Search.Logic.Services
         /// Gets the last search by <see cref="userId"/>.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
-        Task<SearchEntity> GetLastSearch(string userId);
+        Task<SearchEntity> GetLastSearchAsync(string userId);
+
+        Task SaveLastSearchAsync(TicketSearchRequest request);
+
+        Task SaveLastSearchAsync(UserSearchRequest request);
     }
 }

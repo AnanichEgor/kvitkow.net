@@ -4,18 +4,23 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TicketManagement.Data.Context;
 using TicketManagement.Data.DbModels;
-using TicketManagement.Data.DbModels.Enums;
+using TicketManagement.Data.DbModels.DbEnums;
 using TicketManagement.Data.Extensions;
 
 namespace TicketManagement.Data.Repositories
 {
+    /// <summary>
+    /// Класс для работы с базой
+    /// </summary>
     public class TicketRepository : ITicketRepository
     {
         private readonly TicketContext _context;
+        private readonly Page<Ticket> _page;
 
-        public TicketRepository(TicketContext context)
+        public TicketRepository(TicketContext context, Page<Ticket> page)
         {
             _context = context;
+            _page = page;
         }
 
         /// <summary>
@@ -23,8 +28,9 @@ namespace TicketManagement.Data.Repositories
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        public async Task<string> Add(TicketDb ticket)
+        public async Task<string> Add(Ticket ticket)
         {
+            ticket.Id = null;
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
             return _context.Tickets.Last().Id;
@@ -36,7 +42,7 @@ namespace TicketManagement.Data.Repositories
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        public async Task Update(string id, TicketDb ticket)
+        public async Task Update(string id, Ticket ticket)
         {
             var original = await _context.Tickets.FindAsync(id);
             if (original == null) return;
@@ -82,7 +88,7 @@ namespace TicketManagement.Data.Repositories
         ///     Получение всех билет имеющихся в системе в БД
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<TicketDb>> GetAll()
+        public async Task<IEnumerable<Ticket>> GetAll()
         {
             return await _context.Tickets.Include(db => db.User)
                 .Include(db => db.LocationEvent)
@@ -97,7 +103,7 @@ namespace TicketManagement.Data.Repositories
         /// </summary>
         /// <param name="ticketIdGuid">Id билета</param>
         /// <returns></returns>
-        public Task<TicketDb> Get(string id)
+        public Task<Ticket> Get(string id)
         {
             return _context.Tickets.Include(db => db.User)
                 .Include(db => db.LocationEvent)
@@ -111,7 +117,7 @@ namespace TicketManagement.Data.Repositories
         ///     Получение только актуальных билетов в БД
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<TicketDb>> GetAllActual()
+        public async Task<IEnumerable<Ticket>> GetAllActual()
         {
             var res = _context.Tickets.Include(db => db.User)
                 .Include(db => db.LocationEvent)
@@ -120,6 +126,30 @@ namespace TicketManagement.Data.Repositories
                 .AsNoTracking()
                 .Where(x => x.Status == (TicketStatusDb) 2);
             return await res.ToListAsync();
+        }
+
+        /// <summary>
+        ///     Получение всех билетов имеющихся в системе постранично
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public async Task<Page<Ticket>> GetAllPagebyPage(int index,
+            int pageSize)
+        {
+            _page.CurrentPage = index;
+            _page.PageSize = pageSize;
+            var query = _context.Tickets.AsQueryable();
+            _page.TotalPages = await query.CountAsync();
+            _page.Tickets = await query.Include(db => db.User)
+                .Include(db => db.LocationEvent)
+                .Include(db => db.SellerAdress)
+                .Include(db => db.RespondedUsers)
+                .OrderByDescending(p => p.CreatedDate)
+                .Skip(index * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            return _page;
         }
     }
 }
