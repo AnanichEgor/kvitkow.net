@@ -34,6 +34,6 @@ namespace KvitkouNet.Messages.TicketManagement
         /// <summary>
         /// Gets or sets the price of the even.
         /// </summary>
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
     }
 }

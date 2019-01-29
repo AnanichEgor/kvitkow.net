@@ -18,24 +18,40 @@ namespace AdminPanel.Logic.Generated.Logging
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='userName'>
+            /// <param name='userId'>
             /// </param>
-            public static object GetSearchQueryLogs(this IQueryLog operations, string userName = default(string))
+            /// <param name='searchCriterium'>
+            /// </param>
+            /// <param name='filterInfo'>
+            /// </param>
+            /// <param name='dateFrom'>
+            /// </param>
+            /// <param name='dateTo'>
+            /// </param>
+            public static object GetSearchQueryLogs(this IQueryLog operations, string userId = default(string), string searchCriterium = default(string), string filterInfo = default(string), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?))
             {
-                return operations.GetSearchQueryLogsAsync(userName).GetAwaiter().GetResult();
+                return operations.GetSearchQueryLogsAsync(userId, searchCriterium, filterInfo, dateFrom, dateTo).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='userName'>
+            /// <param name='userId'>
+            /// </param>
+            /// <param name='searchCriterium'>
+            /// </param>
+            /// <param name='filterInfo'>
+            /// </param>
+            /// <param name='dateFrom'>
+            /// </param>
+            /// <param name='dateTo'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<object> GetSearchQueryLogsAsync(this IQueryLog operations, string userName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> GetSearchQueryLogsAsync(this IQueryLog operations, string userId = default(string), string searchCriterium = default(string), string filterInfo = default(string), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetSearchQueryLogsWithHttpMessagesAsync(userName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetSearchQueryLogsWithHttpMessagesAsync(userId, searchCriterium, filterInfo, dateFrom, dateTo, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

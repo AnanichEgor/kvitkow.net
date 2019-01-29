@@ -9,7 +9,9 @@ namespace Logging.Logic.MappingProfiles
 		public InternalErrorLogProfile()
 		{
 			CreateMap<InternalErrorLogEntry, InternalErrorLogEntryDbModel>()
-				.ReverseMap();
+			    .ForMember(dbm => dbm.ExceptionType, opts => opts.MapFrom(m => m.TypeName))
+				.ReverseMap()
+			    .ForMember(m => m.TypeName, opts => opts.MapFrom(dbm => dbm.ExceptionType));
 		}
 	}
 }
