@@ -8,12 +8,7 @@ namespace UserSettings.Logic.Validators
 		public SettingsValidator()
 		{
 			RuleFor(x => x.UserId).NotNull();
-			RuleFor(x => x.Profile.FirstName)
-				.NotEmpty();
-			RuleFor(x => x.Profile.LastName)
-				.NotEmpty();
-			RuleFor(x => x.Account.Email)
-				.EmailAddress();
+			
 		}
 	}
 }
