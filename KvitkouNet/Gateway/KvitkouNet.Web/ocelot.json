@@ -17,11 +17,11 @@
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/errors",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "adminpanel.web",
-          "Port": 80
+          "Host": "localhost",
+          "Port": 56431
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/errors",
