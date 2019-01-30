@@ -34,9 +34,6 @@ namespace KvitkouNet.Web
             services.AddSwaggerDocument();
 
             services.AddOcelot();
-
-            services.RegisterSecurityService();
-			services.RegisterLoggingService();
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
