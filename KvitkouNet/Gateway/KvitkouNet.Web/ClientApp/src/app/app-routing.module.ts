@@ -1,3 +1,4 @@
+import { ChatComponent } from './components/chat/chat.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'users/registration', component: RegistrationComponent, pathMatch: 'full' },
   { path: 'ticket/add', component: TicketFormComponent, pathMatch: 'full' },
   { path: 'ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
+  { path: 'chat', component: ChatComponent, pathMatch: 'full'},
   { path: '**', component: NotFoundComponent },
 
 ];
