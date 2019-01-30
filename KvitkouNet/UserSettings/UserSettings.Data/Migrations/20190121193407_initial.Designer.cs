@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UserSettings.Data.Context;
 
 namespace UserSettings.Data.Migrations
 {
     [DbContext(typeof(SettingsContext))]
-    partial class SettingsContextModelSnapshot : ModelSnapshot
+    [Migration("20190121193407_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,22 +32,6 @@ namespace UserSettings.Data.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("UserSettings.Data.DbModels.NotificationDb", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("IsLikeMyTicket");
-
-                    b.Property<bool>("IsOtherNotification");
-
-                    b.Property<bool>("IsWantBuy");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Notifications");
-                });
-
             modelBuilder.Entity("UserSettings.Data.DbModels.ProfileDb", b =>
                 {
                     b.Property<int>("Id")
@@ -61,8 +47,6 @@ namespace UserSettings.Data.Migrations
 
                     b.Property<string>("MiddleName");
 
-                    b.Property<int?>("NotificationsId");
-
                     b.Property<string>("PreferAddress");
 
                     b.Property<string>("PreferPlace");
@@ -72,8 +56,6 @@ namespace UserSettings.Data.Migrations
                     b.Property<byte[]>("UserImage");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("NotificationsId");
 
                     b.ToTable("Profiles");
                 });
@@ -96,13 +78,6 @@ namespace UserSettings.Data.Migrations
                     b.HasIndex("ProfileId");
 
                     b.ToTable("Settings");
-                });
-
-            modelBuilder.Entity("UserSettings.Data.DbModels.ProfileDb", b =>
-                {
-                    b.HasOne("UserSettings.Data.DbModels.NotificationDb", "Notifications")
-                        .WithMany()
-                        .HasForeignKey("NotificationsId");
                 });
 
             modelBuilder.Entity("UserSettings.Data.DbModels.SettingsDb", b =>
