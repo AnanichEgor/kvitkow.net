@@ -13,10 +13,7 @@ export class AdminComponent implements OnInit {
 
   constructor(
     private logService : LogService
-  ) {
-    let a = new Date();
-    a.toLocaleDateString
-   }
+  ) {}
 
   ngOnInit() {
     this.logService.getErrorLogs()
