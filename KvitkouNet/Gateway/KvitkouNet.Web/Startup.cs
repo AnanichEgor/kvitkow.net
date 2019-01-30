@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using KvitkouNet.Logic.Common;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
