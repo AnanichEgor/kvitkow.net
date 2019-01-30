@@ -10,11 +10,6 @@ namespace KvitkouNet.Messages.Logging
 	public class AccountLogMessage
 	{
 		/// <summary>
-		/// Id записи
-		/// </summary>
-		public string Id { get; set; }
-
-		/// <summary>
 		/// Дата логируемого события
 		/// </summary>
 		public DateTime EventDate { get; set; }
