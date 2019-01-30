@@ -20,8 +20,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 56431
+          "Host": "adminpanel.web",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/errors",
