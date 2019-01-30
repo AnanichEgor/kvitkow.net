@@ -13,6 +13,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TicketComponent } from './components/ticket/ticket.component';
 import { TicketFormComponent } from './components/ticket-form/ticket-form.component';
+import { TicketDetailComponent} from './components/ticket-detail/ticket-detail.component';
 import { UsersComponent } from './components/users/users.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AppRoutingModule } from './app-routing.module';
