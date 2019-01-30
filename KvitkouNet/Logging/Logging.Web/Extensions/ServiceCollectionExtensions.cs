@@ -1,6 +1,5 @@
 ﻿using EasyNetQ.AutoSubscribe;
 using KvitkouNet.Messages.Logging;
-using Logging.Web.Subscriber;
 using Logging.Web.Subscriber.Consumers;
 using Microsoft.Extensions.DependencyInjection;
 
