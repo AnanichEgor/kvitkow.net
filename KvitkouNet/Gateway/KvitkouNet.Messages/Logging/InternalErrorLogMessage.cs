@@ -2,6 +2,9 @@
 
 namespace KvitkouNet.Messages.Logging
 {
+	/// <summary>
+	/// Модель для сообщении об ошибках на микросервисе
+	/// </summary>
 	public class InternalErrorLogMessage
 	{
 		/// <summary>
