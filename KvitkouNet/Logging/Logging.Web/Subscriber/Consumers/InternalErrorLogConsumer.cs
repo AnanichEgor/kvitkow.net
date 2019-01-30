@@ -1,12 +1,11 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
-using EasyNetQ;
 using EasyNetQ.AutoSubscribe;
 using KvitkouNet.Messages.Logging;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
 
-namespace Logging.Web.Subscriber
+namespace Logging.Web.Subscriber.Consumers
 {
 	/// <summary>
 	/// Класс для обработки сообщений об ошибках с микросервисов
