@@ -8,7 +8,7 @@ using Logging.Logic.Models;
 namespace Logging.Web.Subscriber.Consumers
 {
 	/// <summary>
-	/// Класс для обработки действий с аккаунтом из микросервиса UserManagement
+	/// Класс для получения сообщений о действиях с аккаунтом из микросервиса UserManagement
 	/// </summary>
 	public class AccountLogConsumer : IConsumeAsync<AccountLogMessage>
 	{

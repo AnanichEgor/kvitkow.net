@@ -19,7 +19,6 @@ namespace Logging.Web.Subscriber.Consumers
 		{
 			_mapper = mapper;
 			_paymentLogService = paymentLogService;
-			_paymentLogService = paymentLogService;
 		}
 
 		/// <summary>
