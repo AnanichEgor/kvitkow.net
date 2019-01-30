@@ -22,13 +22,14 @@ namespace TicketManagement.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddOptions();
             services.AddSingleton<IConfiguration>(Configuration);
             var value = Configuration["Hostname"];
-            services.AddSwaggerDocument();
+            services.AddSwaggerDocument(settings => settings.Title = "Ticket Management");
             services.AddSingleton(RabbitHutch.CreateBus(value));
             services.RegisterTicketService();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +38,8 @@ namespace TicketManagement.Web
         {
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
+            app.UseCors(b => b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
             app.UseSwagger()
                 .UseSwaggerUi3();
             app.UseMvc();

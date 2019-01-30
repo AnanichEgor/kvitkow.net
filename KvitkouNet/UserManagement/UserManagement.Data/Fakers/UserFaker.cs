@@ -20,6 +20,7 @@ namespace UserManagement.Data.Fakers
                 var fakeAcc = new Faker<AccountDB>();
                 fakeAcc.RuleFor(x => x.Login, f => f.Lorem.Word());
                 fakeAcc.RuleFor(x => x.Password, f => f.Lorem.Word());
+                fakeAcc.RuleFor(x => x.Email, f => f.Lorem.Word());
                 return fakeAcc.Generate();
             });
             _faker.RuleFor(x => x.ProfileDB, a =>
