@@ -63,5 +63,13 @@ namespace TicketManagement.Logic.Services
         /// <param name="index"></param>
         /// <returns></returns>
         Task<(Page<TicketLite>, RequestStatus)> GetAllPagebyPage(int index);
+
+        /// <summary>
+        ///     Получение всех актуальных билетов имеющихся в системе постранично
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="onlyActual">Только актуальные билеты</param>
+        /// <returns></returns>
+        Task<(Page<TicketLite>, RequestStatus)> GetAllPagebyPageActual(int index, bool onlyActual=true);
     }
 }

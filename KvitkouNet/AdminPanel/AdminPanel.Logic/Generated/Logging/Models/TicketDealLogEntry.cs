@@ -9,7 +9,7 @@ namespace AdminPanel.Logic.Generated.Logging.Models
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class TicketDealLogEntry : BaseTicketLogEntry
+    public partial class TicketDealLogEntry : BaseLogEntry
     {
         /// <summary>
         /// Initializes a new instance of the TicketDealLogEntry class.
@@ -22,10 +22,11 @@ namespace AdminPanel.Logic.Generated.Logging.Models
         /// <summary>
         /// Initializes a new instance of the TicketDealLogEntry class.
         /// </summary>
-        public TicketDealLogEntry(long id, System.DateTime created, decimal price, int type, string content = default(string), object ticket = default(object), User owner = default(User), User reciever = default(User))
-            : base(id, created, content, ticket, owner)
+        public TicketDealLogEntry(System.DateTime eventDate, int type, string id = default(string), string ownerId = default(string), string recieverId = default(string), double? price = default(double?))
+            : base(eventDate, id)
         {
-            Reciever = reciever;
+            OwnerId = ownerId;
+            RecieverId = recieverId;
             Price = price;
             Type = type;
             CustomInit();
@@ -38,13 +39,18 @@ namespace AdminPanel.Logic.Generated.Logging.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "reciever")]
-        public User Reciever { get; set; }
+        [JsonProperty(PropertyName = "ownerId")]
+        public string OwnerId { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "recieverId")]
+        public string RecieverId { get; set; }
 
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "price")]
-        public decimal Price { get; set; }
+        public double? Price { get; set; }
 
         /// <summary>
         /// </summary>
@@ -60,10 +66,6 @@ namespace AdminPanel.Logic.Generated.Logging.Models
         public override void Validate()
         {
             base.Validate();
-            if (Reciever != null)
-            {
-                Reciever.Validate();
-            }
         }
     }
 }
