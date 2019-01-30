@@ -11,7 +11,7 @@ namespace KvitkouNet.Messages.Logging
 		/// <summary>
 		/// Дата логируемого события
 		/// </summary>
-		public DateTime EventDate { get; set; }
+		public DateTime EventDate { get; set; } = DateTime.Now;
 
 		/// <summary>
 		/// Пользователь-владелец, разместивший билет
