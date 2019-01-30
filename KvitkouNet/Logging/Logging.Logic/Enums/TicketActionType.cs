@@ -6,7 +6,7 @@ namespace Logging.Data.Enums
 	/// Перечисление, описывающее действия с билетом
 	/// </summary>
 	[Flags]
-	public enum TicketAction
+	public enum TicketActionType
 	{
 		/// <summary>
 		/// Неизвестное действие
