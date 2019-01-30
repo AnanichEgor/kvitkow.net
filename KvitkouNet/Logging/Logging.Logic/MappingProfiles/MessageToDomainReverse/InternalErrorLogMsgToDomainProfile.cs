@@ -2,11 +2,11 @@
 using KvitkouNet.Messages.Logging;
 using Logging.Logic.Models;
 
-namespace Logging.Logic.MappingProfiles
+namespace Logging.Logic.MappingProfiles.MessageToDomainReverse
 {
-	public class InternalErrorLogEntryMessageProfile : Profile
+	public class InternalErrorLogMsgToDomainProfile : Profile
 	{
-		public InternalErrorLogEntryMessageProfile()
+		public InternalErrorLogMsgToDomainProfile()
 		{
 			CreateMap<InternalErrorLogMessage, InternalErrorLogEntry>()
 				.ReverseMap();
