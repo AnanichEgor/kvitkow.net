@@ -16,7 +16,12 @@ namespace Logging.Data.DbModels
         /// Id билета
         /// </summary>
         public string TicketId { get; set; }
-        
+
+        /// <summary>
+        /// Название билета
+        /// </summary>
+        public string TicketName { get; set; }
+
         /// <summary>
         /// Тип действия с билетом
         /// </summary>
