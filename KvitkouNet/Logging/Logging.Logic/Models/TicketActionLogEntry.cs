@@ -1,4 +1,4 @@
-﻿using Logging.Data.Enums;
+﻿using Logging.Logic.Enums;
 using Logging.Logic.Models.Abstraction;
 
 namespace Logging.Logic.Models

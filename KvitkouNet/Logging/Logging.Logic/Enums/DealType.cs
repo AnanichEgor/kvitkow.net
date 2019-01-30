@@ -1,4 +1,4 @@
-﻿namespace Logging.Data.Enums
+﻿namespace Logging.Logic.Enums
 {
 	/// <summary>
 	/// Перечисление, описывающее тип сделки по билету
