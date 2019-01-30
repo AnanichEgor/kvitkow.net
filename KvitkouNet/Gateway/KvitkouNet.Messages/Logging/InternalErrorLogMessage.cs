@@ -20,7 +20,7 @@ namespace KvitkouNet.Messages.Logging
 		/// <summary>
 		/// Название типа исключения
 		/// </summary>
-		public string TypeName { get; set; }
+		public string ExceptionType { get; set; }
 
 		/// <summary>
 		/// Числовое значение, ассоциированное с типом исключения
