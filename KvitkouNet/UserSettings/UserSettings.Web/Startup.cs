@@ -5,8 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
-using UserSettings.Data.Context;
 using UserSettings.Logic;
+using AutoMapper;
+using UserSettings.Logic.MappingProfile;
+using UserSettings.Data.Context;
+using UserSettings.Data.Faker;
 
 namespace UserSettings.Web
 {
@@ -23,20 +26,29 @@ namespace UserSettings.Web
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<SettingsContext>(
-				opt => 	opt.UseSqlite(connectionString: "DataSource=./Database.db"));
-
+				opt => opt.UseSqlite(connectionString: "DataSource=./Database.db"));
 			var o = new DbContextOptionsBuilder<SettingsContext>();
-			o.UseSqlite("Data Source=./Database.db");
-
-			using (var context = new SettingsContext(o.Options))
+			o.UseSqlite("DataSource=./Database.db");
+			using (var ctx = new SettingsContext(o.Options))
 			{
-				context.Database.Migrate();
-				if(context.Settings.Any())
+				//ctx.Database.Migrate();
+				ctx.Database.EnsureDeleted();
+				ctx.Database.EnsureCreated();
+				if (!ctx.Settings.Any())
 				{
-					context.SaveChanges();
+					ctx.Settings.AddRange(UserSettingsFaker.Generate(10));
+					ctx.SaveChanges();
 				}
 			}
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddAutoMapper(cfg =>
+			{
+				cfg.AddProfile<SettingsProfile>();
+				cfg.AddProfile<AccountProfile>();
+				cfg.AddProfile<ProfileProfile>();
+				cfg.AddProfile<NotificationsProfile>();
+			});
+			//services.RegisterDataBase();
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 			services.AddSwaggerDocument();
 			services.RegisterUserSettingsService();
 		}
