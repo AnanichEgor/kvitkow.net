@@ -10,7 +10,7 @@ namespace UserSettings.Logic.Validators
 	{
 		public AccountValidator()
 		{
-			RuleFor(x => x.Account.Email)
+			RuleFor(x => x.Email)
 				.EmailAddress();
 		}
 	}
