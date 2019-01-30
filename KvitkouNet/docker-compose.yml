@@ -68,6 +68,16 @@ services:
     depends_on:
       - rabbit
       - elasticsearch
+   
+   usersettings.web:
+    image: ${DOCKER_REGISTRY}usersettingsgweb
+    build:
+      context: ./
+      dockerfile: UserSettings/UserSettings.Web/Dockerfile
+    depends_on:
+      - rabbit
+    ports:
+      - 5009:80
 
    rabbit:
     image: rabbitmq:management
