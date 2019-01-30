@@ -1,6 +1,6 @@
 using System.Reflection;
 using EasyNetQ;
-using EasyNetQ.AutoSubscribe;
+using Logging.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,9 +19,7 @@ namespace Logging.Web.Subscriber
 
 			lifetime.ApplicationStarted.Register(() =>
 			{
-				var subscriber = new AutoSubscriber(bus, prefix);
-				subscriber.Subscribe(assembly);
-				subscriber.SubscribeAsync(assembly);
+				bus.SubscribeAllConsumers(services);
 			});
 
 			lifetime.ApplicationStopped.Register(() => bus.Dispose());

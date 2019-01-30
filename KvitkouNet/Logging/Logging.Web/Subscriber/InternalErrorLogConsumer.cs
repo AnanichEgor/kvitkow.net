@@ -1,21 +1,35 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using AutoMapper;
+using EasyNetQ;
 using EasyNetQ.AutoSubscribe;
+using KvitkouNet.Messages.Logging;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
 
 namespace Logging.Web.Subscriber
 {
-	public class InternalErrorLogConsumer : IConsumeAsync<InternalErrorLogEntry>
+	/// <summary>
+	/// Класс для обработки сообщений об ошибках с микросервисов
+	/// </summary>
+	public class InternalErrorLogConsumer : IConsumeAsync<InternalErrorLogEntryMessage>
 	{
-		private readonly IErrorLogService _loggingService;
+		private readonly IMapper _mapper;
+		private readonly IErrorLogService _errorLogService;
 
-		public InternalErrorLogConsumer(IErrorLogService loggingService)
+		public InternalErrorLogConsumer(IMapper mapper, IErrorLogService errorLogService)
 		{
-			_loggingService = loggingService;
+			_mapper = mapper;
+			_errorLogService = errorLogService;
 		}
 
-		[AutoSubscriberConsumer(SubscriptionId = "ErrorLogging.Added")]
-		public async Task ConsumeAsync(InternalErrorLogEntry entry)
-			=> await _loggingService.AddLogAsync(entry);
+		/// <summary>
+		/// Метод для обработки сообщений об ошибке
+		/// </summary>
+		/// <param name="message">Сообщение об ошибке</param>
+		/// <returns></returns>
+		public async Task ConsumeAsync(InternalErrorLogEntryMessage message)
+		{
+			await _errorLogService.AddLogAsync(_mapper.Map<InternalErrorLogEntry>(message));
+		}
 	}
 }

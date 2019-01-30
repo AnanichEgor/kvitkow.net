@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
+using EasyNetQ;
 using FluentValidation;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
@@ -17,10 +21,11 @@ namespace Logging.Web.Controllers
 	public class ErrorLogController : Controller
 	{
 		private readonly IErrorLogService _loggingService;
-	    private bool _disposed;
-        private readonly IValidator<ErrorLogsFilter> _errorLogsFilterValidator;
+		private bool _disposed;
+		private readonly IValidator<ErrorLogsFilter> _errorLogsFilterValidator;
 
-		public ErrorLogController(IErrorLogService loggingService, IValidator<ErrorLogsFilter> errorLogsFilterValidator)
+		public ErrorLogController(IErrorLogService loggingService, IValidator<ErrorLogsFilter> errorLogsFilterValidator,
+			IBus bus)
 		{
 			_loggingService = loggingService;
 			_errorLogsFilterValidator = errorLogsFilterValidator;
@@ -48,21 +53,21 @@ namespace Logging.Web.Controllers
 			return Ok(result);
 		}
 
-	    protected override void Dispose(bool disposing)
-	    {
-	        if (_disposed)
-	        {
-	            return;
-	        }
+		protected override void Dispose(bool disposing)
+		{
+			if (_disposed)
+			{
+				return;
+			}
 
-	        if (disposing)
-	        {
-	            _loggingService?.Dispose();
-	        }
+			if (disposing)
+			{
+				_loggingService?.Dispose();
+			}
 
-	        _disposed = true;
+			_disposed = true;
 
-	        base.Dispose(disposing);
-	    }
-    }
+			base.Dispose(disposing);
+		}
+	}
 }

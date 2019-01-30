@@ -1,9 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using AutoMapper;
-using EasyNetQ;
+﻿using System.Reflection;
 using Logging.Logic.Extensions;
+using Logging.Web.Extensions;
 using Logging.Web.Subscriber;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,18 +23,20 @@ namespace Logging.Web
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.RegisterDbContext();
-            
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 			services.AddSwaggerDocument();
-
-			services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=localhost"));
 
 			services.RegisterServices();
 
 			services.RegisterValidators();
 
-		    services.RegisterAutoMapper();
+			services.RegisterAutoMapper();
+
+			services.RegisterConsumers();
+
+			services.RegisterEasyNetQ("host=rabbit");
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

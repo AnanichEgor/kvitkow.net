@@ -1,15 +1,13 @@
-﻿namespace UserSettings.Logic.Models
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace UserSettings.Logic.Models
 {
 	/// <summary>
 	/// Класс настроек пользователя
 	/// </summary>
 	public class Profile
 	{
-		/// <summary>
-		/// Id пользователя
-		/// </summary>
-		public string UserId { get; set; }
-
 		/// <summary>
 		/// Имя
 		/// </summary>
@@ -54,5 +52,10 @@
 		/// Предпочитаемое место посещения
 		/// </summary>
 		public string PreferPlace { get; set; }
+
+		/// <summary>
+		/// Уведомления которые будут отправлятся на почту
+		/// </summary>
+		public Notifications Notifications { get; set; }
 	}
 }

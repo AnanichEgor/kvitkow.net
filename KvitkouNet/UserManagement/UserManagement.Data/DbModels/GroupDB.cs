@@ -25,7 +25,7 @@ namespace UserManagement.Data.DbModels
         /// <summary>
         /// Пользователи группы
         /// </summary>
-        public ICollection<UserGroupDB> UserGroups { get; set; }
+        public virtual ICollection<UserGroupDB> UserGroups { get; set; }
 
         /// <summary>
         /// Роли группы

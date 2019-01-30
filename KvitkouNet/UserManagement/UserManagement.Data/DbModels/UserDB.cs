@@ -11,32 +11,32 @@ namespace UserManagement.Data.DbModels
         /// Уникальный идентификатор пользователя
         /// </summary>
         public string Id { get; set; }
-        
+
         #region Связи между таблицами  
         /// <summary>
         /// Учетная запись пользователя
         /// </summary>
-        public AccountDB AccountDB { get; set; }
+        public virtual AccountDB AccountDB { get; set; }
 
         /// <summary>
         /// Профиль пользователя
         /// </summary>
-        public ProfileDB ProfileDB { get; set; }
+        public virtual ProfileDB ProfileDB { get; set; }
 
         /// <summary>
         /// Группы, в которых состоит пользователь
         /// </summary>
-        public ICollection<UserGroupDB> UserGroups { get; set; }
+        public virtual ICollection<UserGroupDB> UserGroups { get; set; }
 
         /// <summary>
         /// Роли доступа пользователя
         /// </summary>
-        public ICollection<RoleDB> UserRoles { get; set; }
+        public virtual ICollection<RoleDB> UserRoles { get; set; }
 
         /// <summary>
         /// Список билетов принадлежащих пользователю
         /// </summary>
-        public ICollection<TicketDB> Tickets { get; set; }
+        public virtual ICollection<TicketDB> Tickets { get; set; }
         #endregion 
     }
 }

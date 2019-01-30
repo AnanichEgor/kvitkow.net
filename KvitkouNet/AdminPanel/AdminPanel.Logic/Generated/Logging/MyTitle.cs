@@ -160,7 +160,7 @@ namespace AdminPanel.Logic.Generated.Logging
             QueryLog = new QueryLog(this);
             TicketActionLog = new TicketActionLog(this);
             TicketDealLog = new TicketDealLog(this);
-            BaseUri = new System.Uri("http://localhost:5006");
+            BaseUri = new System.Uri("http://logging.web");
             SerializationSettings = new JsonSerializerSettings
             {
                 Formatting = Newtonsoft.Json.Formatting.Indented,
