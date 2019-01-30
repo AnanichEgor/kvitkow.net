@@ -9,11 +9,23 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 80,
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/posts/{postId}",
       "UpstreamHttpMethod": [ "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/admin/logs/errors",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "adminpanel.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/admin/logs/errors",
+      "UpstreamHttpMethod": [ "Get" ]
     }
   ]
 }
