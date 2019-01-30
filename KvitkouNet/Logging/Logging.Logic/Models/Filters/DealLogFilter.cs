@@ -9,6 +9,11 @@ namespace Logging.Logic.Models.Filters
     public class DealLogFilter : BaseLogFilter
     {
         /// <summary>
+        /// Id билета
+        /// </summary>
+        public string TicketId { get; set; }
+
+        /// <summary>
         /// Пользователь-владелец, разместивший билет
         /// </summary>
         public string OwnerId { get; set; }
@@ -21,12 +26,12 @@ namespace Logging.Logic.Models.Filters
         /// <summary>
         /// Начало диапазона цен
         /// </summary>
-        public double MinPrice { get; set; }
+        public double? MinPrice { get; set; }
 
         /// <summary>
         /// Конец диапазона цен
         /// </summary>
-        public double MaxPrice { get; set; }
+        public double? MaxPrice { get; set; }
 
         /// <summary>
         /// Тип сделки
