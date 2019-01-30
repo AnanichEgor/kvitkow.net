@@ -6,12 +6,12 @@ import { ErrorLogEntry } from '../models/errorLogEntry';
   providedIn: 'root'
 })
 export class LogService {
-  private baseUrl = 'http://localhost:5005/';
+  private baseUrl = 'https://localhost:5002/';
 
   constructor(private http: HttpClient) {
       }
 
   getErrorLogs() {
-    return this.http.get<ErrorLogEntry[]>(`${this.baseUrl}api/admin/logs/errors?exceptionTypeName=12345`);
+    return this.http.get<ErrorLogEntry[]>(`${this.baseUrl}admin/logs/errors?exceptionTypeName=12345`);
   }
 }
