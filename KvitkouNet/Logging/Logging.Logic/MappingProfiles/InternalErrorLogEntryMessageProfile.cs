@@ -8,7 +8,7 @@ namespace Logging.Logic.MappingProfiles
 	{
 		public InternalErrorLogEntryMessageProfile()
 		{
-			CreateMap<InternalErrorLogEntryMessage, InternalErrorLogEntry>()
+			CreateMap<InternalErrorLogMessage, InternalErrorLogEntry>()
 				.ReverseMap();
 		}
 		

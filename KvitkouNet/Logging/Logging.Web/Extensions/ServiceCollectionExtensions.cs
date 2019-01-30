@@ -9,7 +9,7 @@ namespace Logging.Web.Extensions
 	{
 		public static IServiceCollection RegisterConsumers(this IServiceCollection services)
 		{
-			services.AddScoped<IConsumeAsync<InternalErrorLogEntryMessage>, InternalErrorLogConsumer>();
+			services.AddScoped<IConsumeAsync<InternalErrorLogMessage>, InternalErrorLogConsumer>();
 			return services;
 		}
 	}

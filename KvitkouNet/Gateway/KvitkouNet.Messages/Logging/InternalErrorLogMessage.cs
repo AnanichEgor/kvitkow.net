@@ -2,7 +2,7 @@
 
 namespace KvitkouNet.Messages.Logging
 {
-	public class InternalErrorLogEntryMessage
+	public class InternalErrorLogMessage
 	{
 		/// <summary>
 		/// Имя микросервиса

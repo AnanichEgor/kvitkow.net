@@ -11,7 +11,7 @@ namespace Logging.Web.Subscriber
 	/// <summary>
 	/// Класс для обработки сообщений об ошибках с микросервисов
 	/// </summary>
-	public class InternalErrorLogConsumer : IConsumeAsync<InternalErrorLogEntryMessage>
+	public class InternalErrorLogConsumer : IConsumeAsync<InternalErrorLogMessage>
 	{
 		private readonly IMapper _mapper;
 		private readonly IErrorLogService _errorLogService;
@@ -27,7 +27,7 @@ namespace Logging.Web.Subscriber
 		/// </summary>
 		/// <param name="message">Сообщение об ошибке</param>
 		/// <returns></returns>
-		public async Task ConsumeAsync(InternalErrorLogEntryMessage message)
+		public async Task ConsumeAsync(InternalErrorLogMessage message)
 		{
 			await _errorLogService.AddLogAsync(_mapper.Map<InternalErrorLogEntry>(message));
 		}

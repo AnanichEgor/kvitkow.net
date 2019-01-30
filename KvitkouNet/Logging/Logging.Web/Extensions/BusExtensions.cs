@@ -20,8 +20,8 @@ namespace Logging.Web.Extensions
 		public static IBus SubscribeAllConsumers(this IBus bus, IServiceProvider services)
 		{
 			var prefix = "ErrorLogging.Added";
-			var internalErrorLogConsumer = services.GetService<IConsumeAsync<InternalErrorLogEntryMessage>>();
-			bus.SubscribeAsync<InternalErrorLogEntryMessage>(prefix, msg => internalErrorLogConsumer.ConsumeAsync(msg));
+			var internalErrorLogConsumer = services.GetService<IConsumeAsync<InternalErrorLogMessage>>();
+			bus.SubscribeAsync<InternalErrorLogMessage>(prefix, msg => internalErrorLogConsumer.ConsumeAsync(msg));
 			return bus;
 		}
 	}
