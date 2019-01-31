@@ -21,7 +21,7 @@ namespace Chat.Logic.Services
         {
             _context = context;
             _mapper = mapper;
-            _validator = validator;
+          //  _validator = validator;
         }
         public async Task<IEnumerable<Room>> GetRooms(string userId)
         {

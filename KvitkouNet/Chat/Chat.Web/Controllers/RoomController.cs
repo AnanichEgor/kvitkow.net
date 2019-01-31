@@ -24,6 +24,7 @@ namespace Chat.Web.Controllers
         {
             _roomService = roomService;
         }
+
         /// <summary>
         /// Получение доступных комнат для пользователя
         /// </summary>
@@ -69,7 +70,7 @@ namespace Chat.Web.Controllers
         /// <summary>
         /// Получение сообщений из комнаты, согласно ограничению по истории.
         /// </summary>
-        [HttpGet, Route("{rid}/messages/{uid}/history")]
+        [HttpGet, Route("{rid}/messages/history/{historyCountsMessages}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Message>), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetMessages([FromRoute] string rid, [FromRoute] int historyCountsMessages)
@@ -112,8 +113,9 @@ namespace Chat.Web.Controllers
         /// Редактирование сообщения
         /// </summary>
         /// <param name="message"></param>
+        /// <param name="rid"></param>
         /// <returns></returns>
-        [HttpPatch, Route("{rid}/mesagge")]
+        [HttpPatch, Route("{rid}/message")]
         [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> EditMessage([FromBody] Message message, [FromRoute] string rid)
@@ -134,7 +136,7 @@ namespace Chat.Web.Controllers
         /// <summary>
         /// Удаление сообщения
         /// </summary>
-        [HttpDelete, Route("{rid}/mesagges/{mid}")]
+        [HttpDelete, Route("{rid}/messages/{mid}")]
         [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> DeleteMessage([FromRoute] string rid, [FromRoute] string mid)

@@ -25,12 +25,17 @@ namespace Chat.Web
             services.RegisterRoomService();
             services.RegisterDbContext();
             services.RegisterAutoMapper();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
         }
