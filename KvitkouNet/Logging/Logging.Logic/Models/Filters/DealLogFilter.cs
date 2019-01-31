@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Logging.Data.Enums;
+using Logging.Logic.Enums;
 using Logging.Logic.Models.Filters.Abstraction;
 
 namespace Logging.Logic.Models.Filters
