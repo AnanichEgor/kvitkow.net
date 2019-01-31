@@ -13,6 +13,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { TicketComponent } from './ticket/ticket.component';
 import { TicketFormComponent } from './ticket-form/ticket-form.component';
 import { AppRoutingModule } from './app-routing.module';
+import { SearchComponent } from './componentsS/search/search.component';
+import { SearchUserComponent } from './componentsS/search-user/search-user.component';
+import { SearchTicketComponent } from './componentsS/search-ticket/search-ticket.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { AppRoutingModule } from './app-routing.module';
     AdminComponent,
     NotFoundComponent,
     TicketComponent,
-    TicketFormComponent
+    TicketFormComponent,
+    SearchComponent,
+    SearchUserComponent,
+    SearchTicketComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

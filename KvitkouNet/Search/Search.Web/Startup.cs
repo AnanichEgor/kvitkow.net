@@ -55,6 +55,7 @@ namespace Search.Web
             services.RegisterConsumers();
            
             services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=localhost"));
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +66,7 @@ namespace Search.Web
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
 
