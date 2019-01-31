@@ -155,10 +155,10 @@ namespace TicketManagement.Data.Repositories
                     .Include(db => db.LocationEvent)
                     .Include(db => db.SellerAdress)
                     .Include(db => db.RespondedUsers)
+                    .Where(x => x.Status == (TicketStatusDb) 2)
                     .OrderByDescending(p => p.CreatedDate)
                     .Skip(index * pageSize)
                     .Take(pageSize)
-                    .Where(x => x.Status == (TicketStatusDb) 2)
                     .ToListAsync();
                 _page.TotalPages = await query.Where(x => x.Status == (TicketStatusDb) 2)
                                        .CountAsync() /
