@@ -19,7 +19,7 @@ namespace AdminPanel.Web.Filters
 
 		public override Task OnExceptionAsync(ExceptionContext context)
 		{
-			_bus.Publish(_mapper.Map<InternalErrorLogEntryMessage>(context.Exception));
+			_bus.Publish(_mapper.Map<InternalErrorLogMessage>(context.Exception));
 			return base.OnExceptionAsync(context);
 		}
 	}

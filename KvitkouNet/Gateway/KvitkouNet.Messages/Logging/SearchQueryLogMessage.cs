@@ -1,12 +1,17 @@
-﻿using Logging.Logic.Models.Abstraction;
+﻿using System;
 
-namespace Logging.Logic.Models
+namespace KvitkouNet.Messages.Logging
 {
 	/// <summary>
-	/// Модель для логирования поисковых запросов пользователей
+	/// Модель для сообщении о поисковых запросах пользователей
 	/// </summary>
-	public class SearchQueryLogEntry : BaseLogEntry
+	public class SearchQueryLogMessage
 	{
+		/// <summary>
+		/// Дата логируемого события
+		/// </summary>
+		public DateTime EventDate { get; set; } = DateTime.Now;
+
 		/// <summary>
 		/// Id пользователя, выполнившего поисковый запрос
 		/// </summary>
