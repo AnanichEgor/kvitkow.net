@@ -9,5 +9,19 @@ namespace KvitkouNet.Messages.Chat
     /// </summary>
     public class OfflineChatMessage
     {
+        /// <summary>
+        /// Имя пользователя который отправил сообщение
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
+        /// Время отправки.
+        /// </summary>
+        public DateTime SendedTime { get; set; }
+
+        /// <summary>
+        /// Текст сообщения.
+        /// </summary>
+        public string Text { get; set; }
     }
 }
