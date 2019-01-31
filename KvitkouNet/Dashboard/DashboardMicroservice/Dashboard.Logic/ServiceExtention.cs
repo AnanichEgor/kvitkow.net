@@ -5,18 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Dashboard.Data.Context;
 using Dashboard.Data.Repositories;
-<<<<<<< HEAD
 using Dashboard.Logic.Models;
 using Dashboard.Logic.Services;
 using Dashboard.Logic.Validators;
 using Dashboard.Logic.MappingProfiles;
-=======
-using Dashboard.Logic.MappingProfiles;
-using Dashboard.Logic.Models;
-using Dashboard.Logic.Services;
-using Dashboard.Logic.Validators;
-using Dashboard.Logic.MppingProfiles;
->>>>>>> DashboardMicroservice
 
 namespace Dashboard.Logic
 {
@@ -29,9 +21,8 @@ namespace Dashboard.Logic
         /// <returns></returns>
         public static IServiceCollection RegisterDashboardService(this IServiceCollection services)
         {
-            services.AddDbContext<DashboardContext>(opt => opt.UseSqlite("Data Source=./NewsDatabase.db"));
-            
-            services.AddScoped<IValidator<News>, NewsValidator>();
+            services.AddDbContext<DashboardContext>(opt => opt.UseSqlite("Data Source=./NewsDatabase.db"));            
+            services.AddScoped<IValidator<Models.News>, NewsValidator>();
             services.AddScoped<IDashboardRepository, DashboardRepository>();
             services.AddScoped<IDashboardService, DashboardService>();
 

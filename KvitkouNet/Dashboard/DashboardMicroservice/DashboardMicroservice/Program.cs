@@ -1,6 +1,11 @@
-﻿using DashboardMicroService;
+﻿using System.Linq;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+using DashboardMicroService;
+using Dashboard.Data.Fakes;
+using Dashboard.Data.Context;
 
 namespace DashboardMicroservice
 {

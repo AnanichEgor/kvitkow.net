@@ -2,7 +2,7 @@
 using Bogus;
 using Dashboard.Data.DbModels;
 
-namespace Dashboard.Data.Fakers
+namespace Dashboard.Data.Fakes
 {
     public static class NewsFaker
     {
@@ -38,7 +38,7 @@ namespace Dashboard.Data.Fakers
             });
         }
 
-        public static IEnumerable<NewsDb> Generate(int count = 10)
+        public static IEnumerable<NewsDb> Generate(int count = 30)
         {
             return _fakerNews.Generate(count);
         }

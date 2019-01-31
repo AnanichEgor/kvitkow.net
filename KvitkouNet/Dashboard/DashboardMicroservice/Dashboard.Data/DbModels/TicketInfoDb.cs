@@ -12,11 +12,7 @@ namespace Dashboard.Data.DbModels
         /// <summary>
         ///     Id билета
         /// </summary>
-<<<<<<< HEAD
         public int TicketId { get; set; }
-=======
-        public string TicketId { get; set; }
->>>>>>> DashboardMicroservice
 
         /// <summary>
         ///     Название билета
