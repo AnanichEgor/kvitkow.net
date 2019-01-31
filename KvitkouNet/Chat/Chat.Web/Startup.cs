@@ -20,11 +20,12 @@ namespace Chat.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddSwaggerDocument();
+            services.AddSwaggerDocument(settings => settings.Title = "Chat");
             services.RegisterChatService();
             services.RegisterRoomService();
             services.RegisterDbContext();
             services.RegisterAutoMapper();
+            services.RegisterEasyNetQ("host=rabbit");
 
         }
 
