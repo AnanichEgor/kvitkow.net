@@ -31,9 +31,7 @@ namespace UserSettings.Web
 			o.UseSqlite("DataSource=./Database.db");
 			using (var ctx = new SettingsContext(o.Options))
 			{
-				//ctx.Database.Migrate();
-				ctx.Database.EnsureDeleted();
-				ctx.Database.EnsureCreated();
+				ctx.Database.Migrate();
 				if (!ctx.Settings.Any())
 				{
 					ctx.Settings.AddRange(UserSettingsFaker.Generate(10));

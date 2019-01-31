@@ -8,7 +8,6 @@ namespace UserSettings.Logic.Validators
 		public SettingsValidator()
 		{
 			RuleFor(x => x.UserId).NotNull();
-			
 		}
 	}
 }

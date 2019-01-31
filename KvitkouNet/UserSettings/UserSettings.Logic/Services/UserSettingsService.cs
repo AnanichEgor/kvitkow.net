@@ -22,15 +22,13 @@ namespace UserSettings.Logic.Services
 		}
 
 		private readonly IMapper _mapper;
-		private readonly IValidator<Account> _validatorAccount;
-		private readonly IValidator<Models.Profile> _validatorProfile;
+		private readonly IValidator<Settings> _validator;
 		private readonly ISettingsRepo _context;
 
-		public UserSettingsService(IMapper mapper, ISettingsRepo context, IValidator<Account> validatorAccount, IValidator<Models.Profile> validatorProfile)
+		public UserSettingsService(IMapper mapper, ISettingsRepo context, IValidator<Settings> validator)
 		{
 			_mapper = mapper;
-			_validatorAccount = validatorAccount;
-			_validatorProfile = validatorProfile;
+			_validator = validator;
 			_context = context;
 		}
 
