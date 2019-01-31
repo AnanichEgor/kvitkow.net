@@ -37,15 +37,6 @@ namespace UserSettings.Logic.Services
 
 		Task<IEnumerable<Settings>> ShowAll();
 
-		/// <summary>
-		/// Отправка подтверждающего email.
-		/// </summary>
-		/// <param name="email"></param>
-		/// <param name="subject"></param>
-		/// <param name="message"></param>
-		/// <returns></returns>
-		Task SendConfirmEmail(string email, string subject, string message);
-
 		Task<bool> CheckExistEmail(string email);
 
 		Task<bool> UpdateNotifications(string id, Notifications notifications);

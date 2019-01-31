@@ -63,6 +63,21 @@ namespace UserSettings.Web.Controllers
 		}
 
 		/// <summary>
+		/// Запрос на изменение email
+		/// </summary>
+		/// <param name="email"></param>
+		/// <returns></returns>
+		[HttpGet, Route("{id}/email")]
+		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
+		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+		public async Task<IActionResult> GetEmail([FromBody]string email, [FromRoute]string id)
+		{
+
+			var result = await _service.UpdateEmail(id, email);
+			return result ? (IActionResult)Ok(result) : BadRequest();
+		}
+
+		/// <summary>
 		/// Запрос на изменение уведомлений
 		/// </summary>
 		/// <param name="model"></param>

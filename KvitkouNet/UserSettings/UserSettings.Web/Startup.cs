@@ -41,8 +41,8 @@ namespace UserSettings.Web
 			services.AddAutoMapper(cfg =>
 			{
 				cfg.AddProfile<SettingsProfile>();
-				cfg.AddProfile<AccountProfile>();
-				cfg.AddProfile<ProfileProfile>();
+				//cfg.AddProfile<AccountProfile>();
+				//cfg.AddProfile<ProfileProfile>();
 				cfg.AddProfile<NotificationsProfile>();
 			});
 			//services.RegisterDataBase();

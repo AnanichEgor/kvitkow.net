@@ -2,7 +2,10 @@
 {
 	public class Settings
 	{
-		public string UserId { get; set; }
+		/// <summary>
+		/// Id настроек
+		/// </summary>
+		public string SettingsId { get; set; }
 
 		/// <summary>
 		/// Аватарка пользователся

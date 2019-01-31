@@ -5,9 +5,9 @@
 		public int Id { get; set; }
 
 		/// <summary>
-		/// Id пользователя
+		/// Id настроек
 		/// </summary>
-		public string UserId { get; set; }
+		public string SettingsId { get; set; }
 
 		/// <summary>
 		/// Аватарка пользователся

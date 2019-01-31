@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using EasyNetQ;
 using FluentValidation;
+using KvitkouNet.Messages.UserSettings;
 using MailKit.Net.Smtp;
 using MimeKit;
 using System;
@@ -24,12 +26,14 @@ namespace UserSettings.Logic.Services
 		private readonly IMapper _mapper;
 		private readonly IValidator<Settings> _validator;
 		private readonly ISettingsRepo _context;
+		private readonly IBus _bus;
 
-		public UserSettingsService(IMapper mapper, ISettingsRepo context, IValidator<Settings> validator)
+		public UserSettingsService(IMapper mapper, ISettingsRepo context, IValidator<Settings> validator, IBus bus)
 		{
 			_mapper = mapper;
 			_validator = validator;
 			_context = context;
+			_bus = bus;
 		}
 
 		public async Task<IEnumerable<Settings>> ShowAll()
@@ -46,26 +50,14 @@ namespace UserSettings.Logic.Services
 			//{
 			//	return false;
 			//}
-			if (!await CheckExistEmail(email))
-			{
-				return await _context.UpdateEmail(id, email);
-			}
-			else
-			{
-				return false;
-			}
-		}
-
-		public async Task SendConfirmEmail(string email, string subject, string message)
-		{
-			return;
+			return await CheckExistEmail(email);
 		}
 
 		public async Task<bool> UpdatePassword(string id, string current, string newPass, string confirm)
 		{
 			if(String.Equals(newPass, confirm))
 			{
-				if(await _context.UpdatePassword(id, current, newPass))
+				if(await CheckPassword(current, newPass))
 				{
 					return true;
 				}
@@ -73,20 +65,27 @@ namespace UserSettings.Logic.Services
 			return false;
 		}
 
+		private Task<bool> CheckPassword(string current, string newPass)
+		{
+			throw new NotImplementedException();
+		}
+
 		public async Task<bool> UpdateProfile(string id, string first, string middle, string last)
 		{
 			if (string.IsNullOrEmpty(first))
 				return false;
-			if(await _context.UpdateProfile(id, first, middle, last))
+			await _bus.PublishAsync(new GetUserProfileMessage()
 			{
-				return true;
-			}
-			return false;
+				FirstName = first,
+				LastName = last,
+				MiddleName = middle
+			});
+			return true;
 		}
 
 		public async Task<bool> CheckExistEmail(string email)
 		{
-			return await _context.CheckExistEmail(email);
+			return true;
 		}
 
 		public async Task<bool> UpdateNotifications(string id, Notifications notifications)
