@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Gateway\KvitkouNet.Messages\KvitkouNet.Messages.csproj" />
     <ProjectReference Include="..\UserSettings.Data\UserSettings.Data.csproj" />
   </ItemGroup>
 
