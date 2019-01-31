@@ -1,13 +1,18 @@
-﻿using Logging.Logic.Enums;
-using Logging.Logic.Models.Abstraction;
+﻿using System;
+using KvitkouNet.Messages.Logging.Enums;
 
-namespace Logging.Logic.Models
+namespace KvitkouNet.Messages.Logging
 {
 	/// <summary>
-	/// Модель записи в лог о действии с билетом
+	/// Модель сообщения о действии с билетом
 	/// </summary>
-	public class TicketActionLogEntry : BaseLogEntry
+	public class TicketActionLogMessage
 	{
+		/// <summary>
+		/// Дата логируемого события
+		/// </summary>
+		public DateTime EventDate { get; set; } = DateTime.Now;
+
 		/// <summary>
 		/// Id пользователя, выполнившего действие с билетом
 		/// </summary>

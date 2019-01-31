@@ -2,8 +2,16 @@
 
 namespace KvitkouNet.Messages.Logging
 {
-	public class InternalErrorLogEntryMessage
+	/// <summary>
+	/// Модель для сообщении об ошибках на микросервисе
+	/// </summary>
+	public class InternalErrorLogMessage
 	{
+		/// <summary>
+		/// Дата логируемого события
+		/// </summary>
+		public DateTime EventDate { get; set; } = DateTime.Now;
+
 		/// <summary>
 		/// Имя микросервиса
 		/// </summary>
@@ -12,17 +20,12 @@ namespace KvitkouNet.Messages.Logging
 		/// <summary>
 		/// Название типа исключения
 		/// </summary>
-		public string TypeName { get; set; }
+		public string ExceptionType { get; set; }
 
 		/// <summary>
 		/// Числовое значение, ассоциированное с типом исключения
 		/// </summary>
 		public int HResult { get; set; }
-
-		/// <summary>
-		/// Дата создания записи
-		/// </summary>
-		public DateTime Created { get; set; } = DateTime.Now;
 
 		/// <summary>
 		/// Строковое представление вложенных исключений
