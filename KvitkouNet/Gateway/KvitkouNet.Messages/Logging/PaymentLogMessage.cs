@@ -1,12 +1,17 @@
-﻿using Logging.Logic.Models.Abstraction;
+﻿using System;
 
-namespace Logging.Logic.Models
+namespace KvitkouNet.Messages.Logging
 {
 	/// <summary>
-	///  Модель записи о платежных операциях
+	/// Модель сообщения о платежных операциях
 	/// </summary>
-	public class PaymentLogEntry : BaseLogEntry
+	public class PaymentLogMessage
 	{
+		/// <summary>
+		/// Дата логируемого события
+		/// </summary>
+		public DateTime EventDate { get; set; } = DateTime.Now;
+
 		/// <summary>
 		/// Id отправителя денег
 		/// </summary>
