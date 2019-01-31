@@ -12,7 +12,7 @@ namespace Chat.Logic.Services
         /// Создание комнаты.
         /// </summary>
         /// <returns></returns>
-        Task AddRoom(Room room, string password, string userId);
+        Task AddRoom(Room room, string userId);
 
         /// <summary>
         /// Получение доступных комнат

@@ -18,5 +18,10 @@ namespace Chat.Logic.Models
         /// Модификатор доступа комнаты. B
         /// </summary>
         public bool IsPrivat { get; set; }
+
+        /// <summary>
+        /// пароль для приватной комнаты.
+        /// </summary>
+        public string Password { get; set; }
     }
 }

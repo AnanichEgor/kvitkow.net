@@ -46,9 +46,9 @@ namespace Chat.Web.Controllers
         [HttpPost, Route("room/{uid}")]
         [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> AddRoom([FromBody] Room room, [FromBody] string password, [FromRoute] string uid)
+        public async Task<IActionResult> AddRoom([FromBody] Room room, [FromRoute] string uid)
         {
-            await _roomService.AddRoom(room, password, uid);
+            await _roomService.AddRoom(room, uid);
             return NoContent();
         }
 

@@ -29,11 +29,10 @@ namespace Chat.Logic.Services
             return _mapper.Map<IEnumerable<Room>>(res);
         }
 
-        public async Task AddRoom(Room room, string password, string userId)
+        public async Task AddRoom(Room room, string userId)
         {
             var modelDb = _mapper.Map<RoomDb>(room);
             modelDb.OwnerId = userId;
-            modelDb.Password = password;
             await _context.Rooms.AddAsync(modelDb);
             await _context.SaveChangesAsync();
         }
