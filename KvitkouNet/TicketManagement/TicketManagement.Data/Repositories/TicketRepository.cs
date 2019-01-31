@@ -6,6 +6,7 @@ using TicketManagement.Data.Context;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Data.DbModels.DbEnums;
 using TicketManagement.Data.Extensions;
+using TicketManagement.Data.Factories;
 
 namespace TicketManagement.Data.Repositories
 {
@@ -17,9 +18,9 @@ namespace TicketManagement.Data.Repositories
         private readonly TicketContext _context;
         private readonly Page<Ticket> _page;
 
-        public TicketRepository(TicketContext context, Page<Ticket> page)
+        public TicketRepository(RepositoryContextFactory context, Page<Ticket> page)
         {
-            _context = context;
+            _context = context.CreateDbContext();
             _page = page;
         }
 
