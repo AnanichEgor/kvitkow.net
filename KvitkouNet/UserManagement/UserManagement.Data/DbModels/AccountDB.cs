@@ -31,7 +31,7 @@ namespace UserManagement.Data.DbModels
         /// Пользователь
         /// </summary>
         public string UserDBId { get; set; }
-        public UserDB UserDB { get; set; }
+        public virtual UserDB UserDB { get; set; }
         
         #endregion
     }

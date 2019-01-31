@@ -9,7 +9,7 @@ namespace AdminPanel.Logic.Generated.Logging.Models
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class SearchQueryLogEntry : BaseLogEntryOfInt64
+    public partial class SearchQueryLogEntry : BaseLogEntry
     {
         /// <summary>
         /// Initializes a new instance of the SearchQueryLogEntry class.
@@ -22,10 +22,12 @@ namespace AdminPanel.Logic.Generated.Logging.Models
         /// <summary>
         /// Initializes a new instance of the SearchQueryLogEntry class.
         /// </summary>
-        public SearchQueryLogEntry(long id, System.DateTime created, string content = default(string), object dashBoardFilter = default(object))
-            : base(id, created, content)
+        public SearchQueryLogEntry(System.DateTime eventDate, string id = default(string), string userId = default(string), string searchCriterium = default(string), string filterInfo = default(string))
+            : base(eventDate, id)
         {
-            DashBoardFilter = dashBoardFilter;
+            UserId = userId;
+            SearchCriterium = searchCriterium;
+            FilterInfo = filterInfo;
             CustomInit();
         }
 
@@ -36,8 +38,18 @@ namespace AdminPanel.Logic.Generated.Logging.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "dashBoardFilter")]
-        public object DashBoardFilter { get; set; }
+        [JsonProperty(PropertyName = "userId")]
+        public string UserId { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "searchCriterium")]
+        public string SearchCriterium { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "filterInfo")]
+        public string FilterInfo { get; set; }
 
         /// <summary>
         /// Validate the object.

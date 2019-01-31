@@ -61,7 +61,8 @@ namespace TicketManagement.Data.Repositories
         /// </summary>
         /// <param name="index"></param>
         /// <param name="pageSize"></param>
+        /// <param name="onlyActual"></param>
         /// <returns></returns>
-        Task<Page<Ticket>> GetAllPagebyPage(int index, int pageSize);
+        Task<Page<Ticket>> GetAllPagebyPage(int index, int pageSize, bool onlyActual = false);
     }
 }

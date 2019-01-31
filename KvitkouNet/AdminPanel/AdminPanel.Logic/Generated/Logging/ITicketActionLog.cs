@@ -20,6 +20,10 @@ namespace AdminPanel.Logic.Generated.Logging
     {
         /// <param name='ticketName'>
         /// </param>
+        /// <param name='dateFrom'>
+        /// </param>
+        /// <param name='dateTo'>
+        /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
         /// </param>
@@ -32,6 +36,6 @@ namespace AdminPanel.Logic.Generated.Logging
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<object>> GetTicketActionLogsWithHttpMessagesAsync(string ticketName = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object>> GetTicketActionLogsWithHttpMessagesAsync(string ticketName = default(string), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

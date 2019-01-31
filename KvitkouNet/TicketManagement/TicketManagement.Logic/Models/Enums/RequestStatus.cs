@@ -16,7 +16,7 @@ namespace TicketManagement.Logic.Models.Enums
         /// <summary>
         ///     Невалидная модель
         /// </summary>
-        BadRequest = 1 << 0,
+        InvalidModel = 1 << 0,
 
         /// <summary>
         ///     Ошибка доступа
@@ -37,5 +37,6 @@ namespace TicketManagement.Logic.Models.Enums
         ///     Пользователь имеет отрицательный рейтинг
         /// </summary>
         BadUserRating = 1 << 4
+
     }
 }
