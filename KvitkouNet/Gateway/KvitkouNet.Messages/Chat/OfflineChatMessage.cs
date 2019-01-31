@@ -19,9 +19,5 @@ namespace KvitkouNet.Messages.Chat
         /// </summary>
         public DateTime SendedTime { get; set; }
 
-        /// <summary>
-        /// Текст сообщения.
-        /// </summary>
-        public string Text { get; set; }
     }
 }
