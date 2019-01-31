@@ -15,5 +15,7 @@ namespace UserSettings.Data.Context
 		public DbSet<ProfileDb> Profiles { get; set; }
 
 		public DbSet<AccountDb> Accounts { get; set; }
+
+		public DbSet<NotificationDb> Notifications { get; set; }
 	}
 }

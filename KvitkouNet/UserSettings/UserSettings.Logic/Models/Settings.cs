@@ -2,10 +2,10 @@
 {
 	public class Settings
 	{
-		string UserId { get; set; }
+		public string UserId { get; set; }
 
-		Profile Profile { get; set; }
+		public Profile Profile { get; set; }
 
-		Account Account { get; set; }
+		public Account Account { get; set; }
 	}
 }
