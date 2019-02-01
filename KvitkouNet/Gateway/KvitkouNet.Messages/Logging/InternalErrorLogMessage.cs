@@ -1,14 +1,19 @@
-﻿using Logging.Logic.Models.Abstraction;
+﻿using System;
 
-namespace Logging.Logic.Models
+namespace KvitkouNet.Messages.Logging
 {
 	/// <summary>
-	/// Запись в лог ошибок в работе сервиса
+	/// Модель для сообщении об ошибках на микросервисе
 	/// </summary>
-	public class InternalErrorLogEntry : BaseLogEntry
+	public class InternalErrorLogMessage
 	{
 		/// <summary>
-		/// Название микросервиса, передавшего сообщение об ошибке
+		/// Дата логируемого события
+		/// </summary>
+		public DateTime EventDate { get; set; } = DateTime.Now;
+
+		/// <summary>
+		/// Имя микросервиса
 		/// </summary>
 		public string ServiceName { get; set; }
 

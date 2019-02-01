@@ -1,6 +1,7 @@
 import { EditGuard } from './services/editGuard';
 import { GetallticketsService } from './services/getalltickets.service';
 import { GetTicketByIdService } from './services/get-ticket-by-id.service';
+import { LogService } from './services/log.service';
 import { BrowserModule } from '@angular//platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -44,7 +45,7 @@ import { ChatComponent } from './components/chat/chat.component';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard],
+  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
