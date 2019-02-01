@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Logging.Logic.Enums
+namespace KvitkouNet.Messages.Logging.Enums
 {
 	/// <summary>
 	/// Перечисление, описывающее тип сделки по билету
