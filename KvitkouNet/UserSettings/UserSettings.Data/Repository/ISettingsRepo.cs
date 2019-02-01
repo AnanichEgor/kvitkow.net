@@ -8,7 +8,7 @@ namespace UserSettings.Data
 {
 	public interface ISettingsRepo
 	{
-		Task<IEnumerable<SettingsDb>> ShowAll();
+		Task<SettingsDb> Get(string id);
 
 		Task<bool> UpdateNotifications(string id, NotificationDb notifications);
 

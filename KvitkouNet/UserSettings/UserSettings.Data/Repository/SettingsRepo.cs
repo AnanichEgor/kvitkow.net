@@ -20,12 +20,12 @@ namespace UserSettings.Data
 			_context = context;
 		}
 
-		public async Task<IEnumerable<SettingsDb>> ShowAll()
+		public async Task<SettingsDb> Get(string id)
 		{
-			return await _context.Settings
-				.Include(db => db.Notifications)
-				.AsTracking()
-				.ToListAsync();
+			return await _context.Settings.SingleOrDefaultAsync(x => x.SettingsId == id);
+				//.Include(db => db.Notifications)
+				//.AsTracking()
+				//.ToListAsync();
 		}
 
 		public async Task<bool> UpdateNotifications(string id, NotificationDb notifications)

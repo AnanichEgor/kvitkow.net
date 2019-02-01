@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KvitkouNet.Messages.UserSettings
 {
-	public class GetUserProfileMessage
+	public class UserProfileMessage
 	{
 		/// <summary>
 		/// Имя пользователя
@@ -25,10 +25,5 @@ namespace KvitkouNet.Messages.UserSettings
 		/// Дата рождения
 		/// </summary>
 		public DateTime Birthday { get; set; }
-
-		/// <summary>
-		/// Настройки пользователя
-		/// </summary>
-		public string UserSettingsId { get; set; }
 	}
 }

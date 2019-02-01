@@ -9,8 +9,8 @@ using UserSettings.Data.Context;
 namespace UserSettings.Data.Migrations
 {
     [DbContext(typeof(SettingsContext))]
-    [Migration("20190131200338_Init")]
-    partial class Init
+    [Migration("20190201062709_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,6 +50,8 @@ namespace UserSettings.Data.Migrations
                     b.Property<string>("PreferPlace");
 
                     b.Property<string>("PreferRegion");
+
+                    b.Property<string>("SettingsId");
 
                     b.Property<byte[]>("UserImage");
 

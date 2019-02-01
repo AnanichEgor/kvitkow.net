@@ -49,6 +49,8 @@ namespace UserSettings.Data.Migrations
 
                     b.Property<string>("PreferRegion");
 
+                    b.Property<string>("SettingsId");
+
                     b.Property<byte[]>("UserImage");
 
                     b.HasKey("Id");

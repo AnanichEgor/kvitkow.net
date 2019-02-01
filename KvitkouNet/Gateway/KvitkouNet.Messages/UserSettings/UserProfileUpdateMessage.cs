@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KvitkouNet.Messages.UserSettings
 {
-	public class UpdateUserProfileMessage
+	public class UserProfileUpdateMessage
 	{
 		/// <summary>
 		/// Имя пользователя

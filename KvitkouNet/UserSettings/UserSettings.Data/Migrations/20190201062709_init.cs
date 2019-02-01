@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UserSettings.Data.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,6 +28,7 @@ namespace UserSettings.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    SettingsId = table.Column<string>(nullable: true),
                     UserImage = table.Column<byte[]>(nullable: true),
                     IsPrivateAccount = table.Column<bool>(nullable: false),
                     PreferAddress = table.Column<string>(nullable: true),

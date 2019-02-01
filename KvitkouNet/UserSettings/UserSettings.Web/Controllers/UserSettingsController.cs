@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using UserSettings.Logic.Models;
+using UserSettings.Logic.Models.Helper;
 using UserSettings.Logic.Services;
 using UserSettings.Web.Models;
 
@@ -11,7 +12,7 @@ namespace UserSettings.Web.Controllers
 {
 	[Route("api/settings")]
 	public class UserSettingsController : Controller
-    {
+	{
 		private IUserSettingsService _service;
 		public UserSettingsController(IUserSettingsService service)
 		{
@@ -28,8 +29,8 @@ namespace UserSettings.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> UpdateProfile([FromBody]ProfileDto model, [FromRoute] string id)
 		{
-			var result = await _service.UpdateProfile(id, model.FirstName, model.MiddleName, model.LastName);
-			return result ? (IActionResult)Ok(result) : BadRequest();
+			ResultEnum result = await _service.UpdateProfile(id, model.FirstName, model.MiddleName, model.LastName, model.Birthday);
+			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
 		}
 
 		/// <summary>
@@ -42,9 +43,9 @@ namespace UserSettings.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> UpdatePassword([FromBody]PasswordDto model, [FromRoute] string id)
 		{
-			var result = await _service.UpdatePassword(id, model.OldPassword, model.NewPassword, model.ConfirmPassword);
+			ResultEnum result = await _service.UpdatePassword(id, model.OldPassword, model.NewPassword, model.ConfirmPassword);
 
-			return result ? (IActionResult)Ok(result) : BadRequest();
+			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
 		}
 
 		/// <summary>
@@ -58,8 +59,8 @@ namespace UserSettings.Web.Controllers
 		public async Task<IActionResult> UpdateEmail([FromBody]string email, [FromRoute]string id)
 		{
 
-			var result = await _service.UpdateEmail(id, email);
-			return result ? (IActionResult)Ok(result) : BadRequest(); 
+			ResultEnum result = await _service.UpdateEmail(id, email);
+			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
 		}
 
 		/// <summary>
@@ -73,8 +74,8 @@ namespace UserSettings.Web.Controllers
 		public async Task<IActionResult> GetEmail([FromBody]string email, [FromRoute]string id)
 		{
 
-			var result = await _service.UpdateEmail(id, email);
-			return result ? (IActionResult)Ok(result) : BadRequest();
+			ResultEnum result = await _service.UpdateEmail(id, email);
+			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
 		}
 
 		/// <summary>
@@ -87,8 +88,8 @@ namespace UserSettings.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> UpdateNotification([FromBody]Notifications notification, [FromRoute]string id)
 		{
-			var result = await _service.UpdateNotifications(id, notification);
-			return result ? (IActionResult)Ok(result) : BadRequest();
+			ResultEnum result = await _service.UpdateNotifications(id, notification);
+			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
 		}
 
 		/// <summary>
@@ -119,13 +120,13 @@ namespace UserSettings.Web.Controllers
 			return result ? (IActionResult)Ok(result) : BadRequest();
 		}
 
-		[HttpGet]
+		[HttpGet("{id}")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Settings>), Description = "All Ok")]
 		[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> GetAll()
+		public async Task<IActionResult> Get([FromRoute] string id)
 		{
-			var result = await _service.ShowAll();
+			var result = await _service.Get(id);
 			return Ok(result);
 		}
 	}

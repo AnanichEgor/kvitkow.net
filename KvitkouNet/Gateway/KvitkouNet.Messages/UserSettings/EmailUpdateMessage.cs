@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KvitkouNet.Messages.UserSettings
 {
-	public class UpdateEmailMessage
+	public class EmailUpdateMessage
 	{
 		/// <summary>
 		/// Электронный адрес пользователя

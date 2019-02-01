@@ -36,33 +36,37 @@ namespace UserSettings.Logic.Services
 			_bus = bus;
 		}
 
-		public async Task<IEnumerable<Settings>> ShowAll()
+		public async Task<Settings> Get(string id)
 		{
-			var res =  await _context.ShowAll();
-			var temp = _mapper.Map<IEnumerable<Settings>>(res);
-			return _mapper.Map<IEnumerable<Settings>>(res);
+			var temp =_bus.RequestAsync<RequestId, UserProfileMessage>(new RequestId(id));
+			var res =  await _context.Get(id);
+			return _mapper.Map<Settings>(res);
 		}
 
 		//TODO почту проверять из таблицы юзеров
-		public async Task<bool> UpdateEmail(string id, string email)
+		public async Task<ResultEnum> UpdateEmail(string id, string email)
 		{
 			//if (!_validator.Validate(email).IsValid)
 			//{
 			//	return false;
 			//}
-			return await CheckExistEmail(email);
+			if(await CheckExistEmail(email))
+			{
+				return ResultEnum.Success;
+			}
+			return ResultEnum.Error;
 		}
 
-		public async Task<bool> UpdatePassword(string id, string current, string newPass, string confirm)
+		public async Task<ResultEnum> UpdatePassword(string id, string current, string newPass, string confirm)
 		{
 			if(String.Equals(newPass, confirm))
 			{
 				if(await CheckPassword(current, newPass))
 				{
-					return true;
+					return ResultEnum.Success;
 				}
 			}
-			return false;
+			return ResultEnum.Error;
 		}
 
 		private Task<bool> CheckPassword(string current, string newPass)
@@ -70,17 +74,18 @@ namespace UserSettings.Logic.Services
 			throw new NotImplementedException();
 		}
 
-		public async Task<bool> UpdateProfile(string id, string first, string middle, string last)
+		public async Task<ResultEnum> UpdateProfile(string id, string first, string middle, string last, DateTime birthdate)
 		{
 			if (string.IsNullOrEmpty(first))
-				return false;
-			await _bus.PublishAsync(new GetUserProfileMessage()
+				return ResultEnum.Error;
+			await _bus.PublishAsync(new UserProfileMessage()
 			{
 				FirstName = first,
 				LastName = last,
-				MiddleName = middle
+				MiddleName = middle,
+				Birthday = birthdate
 			});
-			return true;
+			return ResultEnum.Success;
 		}
 
 		public async Task<bool> CheckExistEmail(string email)
@@ -88,9 +93,13 @@ namespace UserSettings.Logic.Services
 			return true;
 		}
 
-		public async Task<bool> UpdateNotifications(string id, Notifications notifications)
+		public async Task<ResultEnum> UpdateNotifications(string id, Notifications notifications)
 		{
-			return await _context.UpdateNotifications(id, _mapper.Map<Notifications, NotificationDb>(notifications));
+			if(await _context.UpdateNotifications(id, _mapper.Map<Notifications, NotificationDb>(notifications)))
+			{
+				return ResultEnum.Success;
+			}
+			return ResultEnum.Error;
 		}
 
 		public Task<bool> UpdatePreferences(string id, string address, string region, string place)
