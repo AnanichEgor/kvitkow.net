@@ -1,3 +1,4 @@
+import { UsersService } from './services/users.service';
 import { EditGuard } from './services/editGuard';
 import { GetallticketsService } from './services/getalltickets.service';
 import { GetTicketByIdService } from './services/get-ticket-by-id.service';
@@ -42,7 +43,7 @@ import { TicketEditComponent } from './components/ticket-edit/ticket-edit.compon
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard],
+  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
