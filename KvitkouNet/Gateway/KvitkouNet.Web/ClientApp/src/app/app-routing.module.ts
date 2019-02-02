@@ -1,3 +1,4 @@
+import { ChatComponent } from './components/chat/chat.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -13,12 +14,12 @@ import { EditGuard } from './services/editGuard';
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'admin', component: AdminComponent, pathMatch: 'full' },
-  { path: 'tickets', component: TicketComponent,  pathMatch: 'full'  },
-  { path: 'tickets/:id', component: TicketDetailComponent, pathMatch: 'full' },
+  { path: 'tickets/:id', component: TicketComponent, pathMatch: 'full'},
+  { path: 'tickets/ticket/:id', component: TicketDetailComponent, pathMatch: 'full' },
   { path: 'users', component: UsersComponent, pathMatch: 'full' },
   { path: 'users/registration', component: RegistrationComponent, pathMatch: 'full' },
-  { path: 'ticket/add', component: TicketFormComponent, pathMatch: 'full' },
-  { path: 'ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
+  { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
+  { path: 'tickets/ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 
 ];

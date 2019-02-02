@@ -6,6 +6,7 @@ using TicketManagement.Data.Context;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Data.DbModels.DbEnums;
 using TicketManagement.Data.Extensions;
+using TicketManagement.Data.Factories;
 
 namespace TicketManagement.Data.Repositories
 {
@@ -17,9 +18,9 @@ namespace TicketManagement.Data.Repositories
         private readonly TicketContext _context;
         private readonly Page<Ticket> _page;
 
-        public TicketRepository(TicketContext context, Page<Ticket> page)
+        public TicketRepository(RepositoryContextFactory context, Page<Ticket> page)
         {
-            _context = context;
+            _context = context.CreateDbContext();
             _page = page;
         }
 
@@ -149,18 +150,34 @@ namespace TicketManagement.Data.Repositories
             _page.CurrentPage = index;
             _page.PageSize = pageSize;
             var query = _context.Tickets.AsQueryable();
-            _page.TotalPages = await query.CountAsync() / pageSize;
-            _page.Tickets = await query.Include(db => db.User)
-                .Include(db => db.LocationEvent)
-                .Include(db => db.SellerAdress)
-                .Include(db => db.RespondedUsers)
-                .OrderByDescending(p => p.CreatedDate)
-                .Skip(index * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
             if (onlyActual)
-                _page.Tickets = _page.Tickets.Where(x => x.Status == (TicketStatusDb) 2)
-                    .ToList();
+            {
+                _page.Tickets = await query.Include(db => db.User)
+                    .Include(db => db.LocationEvent)
+                    .Include(db => db.SellerAdress)
+                    .Include(db => db.RespondedUsers)
+                    .Where(x => x.Status == (TicketStatusDb) 2)
+                    .OrderByDescending(p => p.CreatedDate)
+                    .Skip(index * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                _page.TotalPages = await query.Where(x => x.Status == (TicketStatusDb) 2)
+                                       .CountAsync() /
+                                   pageSize;
+            }
+            else
+            {
+                _page.Tickets = await query.Include(db => db.User)
+                    .Include(db => db.LocationEvent)
+                    .Include(db => db.SellerAdress)
+                    .Include(db => db.RespondedUsers)
+                    .OrderByDescending(p => p.CreatedDate)
+                    .Skip(index * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                _page.TotalPages = await query.CountAsync() / pageSize;
+            }
+
             return _page;
         }
     }

@@ -1,8 +1,11 @@
-﻿namespace Logging.Data.Enums
+﻿using System;
+
+namespace Logging.Logic.Enums
 {
 	/// <summary>
 	/// Перечисление, описывающее тип сделки по билету
 	/// </summary>
+	[Flags]
 	public enum DealType
 	{
 		/// <summary>

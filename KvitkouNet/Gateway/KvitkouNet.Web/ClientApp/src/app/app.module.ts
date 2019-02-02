@@ -2,6 +2,7 @@ import { UsersService } from './services/users.service';
 import { EditGuard } from './services/editGuard';
 import { GetallticketsService } from './services/getalltickets.service';
 import { GetTicketByIdService } from './services/get-ticket-by-id.service';
+import { LogService } from './services/log.service';
 import { BrowserModule } from '@angular//platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,6 +21,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { TicketEditComponent } from './components/ticket-edit/ticket-edit.compon
     UsersComponent,
     RegistrationComponent,
     TicketDetailComponent,
-    TicketEditComponent
+    TicketEditComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -43,7 +46,7 @@ import { TicketEditComponent } from './components/ticket-edit/ticket-edit.compon
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService],
+  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, AppRoutingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

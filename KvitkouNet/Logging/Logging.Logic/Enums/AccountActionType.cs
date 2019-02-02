@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Logging.Data.Enums
+namespace Logging.Logic.Enums
 {
 	/// <summary>
 	/// Перечисление, описывающее действие с пользовательским аккаунтом

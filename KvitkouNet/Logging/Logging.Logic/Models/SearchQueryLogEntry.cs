@@ -7,19 +7,19 @@ namespace Logging.Logic.Models
 	/// </summary>
 	public class SearchQueryLogEntry : BaseLogEntry
 	{
-	    /// <summary>
-	    /// Id пользователя, выполнившего поисковый запрос
-	    /// </summary>
-	    public string UserId { get; set; }
+		/// <summary>
+		/// Id пользователя, выполнившего поисковый запрос
+		/// </summary>
+		public string UserId { get; set; }
 
-	    /// <summary>
-	    /// Содержимое строки поиска
-	    /// </summary>
-	    public string SearchCriterium { get; set; }
+		/// <summary>
+		/// Содержимое строки поиска
+		/// </summary>
+		public string SearchCriterium { get; set; }
 
-	    /// <summary>
-	    /// Состояние фильтров при выполнении запросов
-	    /// </summary>
-	    public string FilterInfo { get; set; }
-    }
+		/// <summary>
+		/// Состояние фильтров при выполнении запросов
+		/// </summary>
+		public string FilterInfo { get; set; }
+	}
 }
