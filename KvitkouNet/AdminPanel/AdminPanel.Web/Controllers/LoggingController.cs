@@ -29,17 +29,14 @@ namespace AdminPanel.Web.Controllers
 		[HttpGet("errors")]
 		public async Task<IActionResult> GetErrors([FromQuery] string exceptionTypeName)
 		{
-			object res;
 			try
 			{
-				res = await _errorLogService.GetErrorLogsAsync(exceptionTypeName: exceptionTypeName);
+				return Ok(await _errorLogService.GetErrorLogsAsync(exceptionTypeName: exceptionTypeName));
 			}
 			catch (SerializationException e)
 			{
 				return BadRequest($"{e.Message} : {e.Content}");
 			}
-			
-			return Ok(res);
 		}
 	}
 }

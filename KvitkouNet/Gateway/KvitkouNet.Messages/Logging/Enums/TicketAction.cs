@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Logging.Logic.Enums
+namespace KvitkouNet.Messages.Logging.Enums
 {
 	/// <summary>
 	/// Перечисление, описывающее действия с билетом
 	/// </summary>
 	[Flags]
-	public enum TicketActionType
+	public enum TicketAction
 	{
 		/// <summary>
 		/// Неизвестное действие

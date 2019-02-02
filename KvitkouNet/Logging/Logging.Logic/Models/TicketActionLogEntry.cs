@@ -1,4 +1,4 @@
-﻿using Logging.Data.Enums;
+﻿using Logging.Logic.Enums;
 using Logging.Logic.Models.Abstraction;
 
 namespace Logging.Logic.Models
@@ -8,15 +8,15 @@ namespace Logging.Logic.Models
 	/// </summary>
 	public class TicketActionLogEntry : BaseLogEntry
 	{
-	    /// <summary>
-	    /// Id пользователя, выполнившего действие с билетом
-	    /// </summary>
-	    public string UserId { get; set; }
+		/// <summary>
+		/// Id пользователя, выполнившего действие с билетом
+		/// </summary>
+		public string UserId { get; set; }
 
-	    /// <summary>
-	    /// Id билета
-	    /// </summary>
-	    public string TicketId { get; set; }
+		/// <summary>
+		/// Id билета
+		/// </summary>
+		public string TicketId { get; set; }
 
 	    /// <summary>
 	    /// Название билета
@@ -28,9 +28,9 @@ namespace Logging.Logic.Models
         /// </summary>
         public TicketActionType ActionType { get; set; }
 
-        /// <summary>
-        /// Описание и дополнительное содержимое действия
-        /// </summary>
-        public string Description { get; set; }
+		/// <summary>
+		/// Описание и дополнительное содержимое действия
+		/// </summary>
+		public string Description { get; set; }
 	}
 }
