@@ -21,6 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ChatComponent } from './components/chat/chat.component';
     RegistrationComponent,
     TicketDetailComponent,
     TicketEditComponent,
-    ChatComponent
+    ChatComponent,
+    ErrorLogsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

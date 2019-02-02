@@ -10,10 +10,14 @@ import { TicketDetailComponent } from './components/ticket-detail/ticket-detail.
 import { UsersComponent } from './components/users/users.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { EditGuard } from './services/editGuard';
+import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'admin', component: AdminComponent, pathMatch: 'full' },
+  { path: 'admin', component: AdminComponent,
+    children: [
+      { path: 'errorlogs', component: ErrorLogsComponent }
+    ]},
   { path: 'tickets', component: TicketComponent,  pathMatch: 'full'  },
   { path: 'tickets/:id', component: TicketDetailComponent, pathMatch: 'full' },
   { path: 'users', component: UsersComponent, pathMatch: 'full' },
