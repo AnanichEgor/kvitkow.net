@@ -45,7 +45,7 @@ export class ErrorLogsComponent implements OnInit {
     for (const key in formValue) {
       params.append(key, formValue[key]);
     }
+    console.log(params.toString());
     return params.toString();
   }
-
 }
