@@ -106,3 +106,13 @@ services:
       dockerfile: Chat/Chat.Web/Dockerfile
     ports:
       - 5010:80
+
+   statisticonline.web:
+    image: ${DOCKER_REGISTRY}statisticonlineweb
+    build:
+      context: ./
+      dockerfile: StatisticOnline/StatisticOnline.Web/Dockerfile
+    depends_on:
+      - rabbit
+    ports:
+      - 5050:80
