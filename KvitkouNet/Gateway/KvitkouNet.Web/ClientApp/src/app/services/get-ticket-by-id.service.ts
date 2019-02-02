@@ -8,7 +8,7 @@ import { Tickets } from '../models/tickets';
 })
 export class GetTicketByIdService {
 
-  private baseUrl = 'http://localhost:58839';
+  private baseUrl = 'http://localhost:5000';
 
   constructor(private http: HttpClient) {}
 

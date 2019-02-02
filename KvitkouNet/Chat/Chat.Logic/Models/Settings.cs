@@ -48,11 +48,6 @@ namespace Chat.Logic.Models
         /// Признак запрета для получения личных сообщений от других пользователей. default - false.
         /// </summary>
         public bool DisablePrivateMessages { get; set; }
-
-        /// <summary>
-        /// User которому принадлежат настройки.
-        /// </summary>
-        public User User { get; set; }
     }
 }
 

@@ -32,12 +32,12 @@ namespace Logging.Web.Controllers
         [Route("")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<TicketDealLogEntry>), Description = "Ticket deal logs")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
-        public async Task<IActionResult> GetTicketDealLogs([FromQuery] TicketLogsFilter filter)
+        public async Task<IActionResult> GetTicketDealLogs([FromQuery] DealLogFilter filter)
         {
             // имитируем некоторую валидацию
-            if (string.IsNullOrWhiteSpace(filter.TicketName))
+            if (string.IsNullOrWhiteSpace(filter.TicketId))
             {
-                return BadRequest($"Invalid filter! {nameof(TicketLogsFilter.TicketName)} is empty or whitespace!");
+                return BadRequest($"Invalid filter! {nameof(TicketLogsFilter.TicketId)} is empty or whitespace!");
             }
 
             var result = await _loggingService.GetLogsAsync(filter);
