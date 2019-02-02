@@ -8,10 +8,10 @@
 
 import { mergeMap as _observableMergeMap, catchError as _observableCatch } from 'rxjs/operators';
 import { Observable, throwError as _observableThrow, of as _observableOf } from 'rxjs';
-import { Injectable, Inject, Optional, OpaqueToken } from '@angular/core';
+import { Injectable, Inject, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
-export const API_BASE_URL = new OpaqueToken('API_BASE_URL');
+export const API_BASE_URL = ""; //new OpaqueToken('API_BASE_URL');
 
 @Injectable()
 export class ChatService {
@@ -31,7 +31,7 @@ export class ChatService {
         let url_ = this.baseUrl + "/api/chat/settings/{uid}";
         if (uid === undefined || uid === null)
             throw new Error("The parameter 'uid' must be defined.");
-        url_ = url_.replace("{uid}", encodeURIComponent("" + uid)); 
+        url_ = url_.replace("{uid}", encodeURIComponent("" + uid));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -58,8 +58,8 @@ export class ChatService {
 
     protected processChat_GetUserSettings(response: HttpResponseBase): Observable<Settings | null> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -90,7 +90,7 @@ export class ChatService {
         let url_ = this.baseUrl + "/api/chat/settings/{uid}";
         if (uid === undefined || uid === null)
             throw new Error("The parameter 'uid' must be defined.");
-        url_ = url_.replace("{uid}", encodeURIComponent("" + uid)); 
+        url_ = url_.replace("{uid}", encodeURIComponent("" + uid));
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(settings);
@@ -100,7 +100,7 @@ export class ChatService {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -121,8 +121,8 @@ export class ChatService {
 
     protected processChat_EditUserSettings(response: HttpResponseBase): Observable<string | null> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -153,7 +153,7 @@ export class ChatService {
         let url_ = this.baseUrl + "/api/chat/rooms/users/{uid}";
         if (uid === undefined || uid === null)
             throw new Error("The parameter 'uid' must be defined.");
-        url_ = url_.replace("{uid}", encodeURIComponent("" + uid)); 
+        url_ = url_.replace("{uid}", encodeURIComponent("" + uid));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -180,8 +180,8 @@ export class ChatService {
 
     protected processRoom_GetRooms(response: HttpResponseBase): Observable<Room[] | null> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -212,7 +212,7 @@ export class ChatService {
         let url_ = this.baseUrl + "/api/chat/rooms/room/{uid}";
         if (uid === undefined || uid === null)
             throw new Error("The parameter 'uid' must be defined.");
-        url_ = url_.replace("{uid}", encodeURIComponent("" + uid)); 
+        url_ = url_.replace("{uid}", encodeURIComponent("" + uid));
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(room);
@@ -222,7 +222,7 @@ export class ChatService {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -243,8 +243,8 @@ export class ChatService {
 
     protected processRoom_AddRoom(response: HttpResponseBase): Observable<string | null> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -275,7 +275,7 @@ export class ChatService {
         let url_ = this.baseUrl + "/api/chat/rooms/{template}";
         if (template === undefined || template === null)
             throw new Error("The parameter 'template' must be defined.");
-        url_ = url_.replace("{template}", encodeURIComponent("" + template)); 
+        url_ = url_.replace("{template}", encodeURIComponent("" + template));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -302,8 +302,8 @@ export class ChatService {
 
     protected processRoom_SearchRoom(response: HttpResponseBase): Observable<Room[] | null> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -334,10 +334,10 @@ export class ChatService {
         let url_ = this.baseUrl + "/api/chat/rooms/{rid}/messages/history/{historyCountsMessages}";
         if (rid === undefined || rid === null)
             throw new Error("The parameter 'rid' must be defined.");
-        url_ = url_.replace("{rid}", encodeURIComponent("" + rid)); 
+        url_ = url_.replace("{rid}", encodeURIComponent("" + rid));
         if (historyCountsMessages === undefined || historyCountsMessages === null)
             throw new Error("The parameter 'historyCountsMessages' must be defined.");
-        url_ = url_.replace("{historyCountsMessages}", encodeURIComponent("" + historyCountsMessages)); 
+        url_ = url_.replace("{historyCountsMessages}", encodeURIComponent("" + historyCountsMessages));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -364,8 +364,8 @@ export class ChatService {
 
     protected processRoom_GetMessages(response: HttpResponseBase): Observable<Message[] | null> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -396,10 +396,10 @@ export class ChatService {
         let url_ = this.baseUrl + "/api/chat/rooms/{rid}/messages/{template}";
         if (rid === undefined || rid === null)
             throw new Error("The parameter 'rid' must be defined.");
-        url_ = url_.replace("{rid}", encodeURIComponent("" + rid)); 
+        url_ = url_.replace("{rid}", encodeURIComponent("" + rid));
         if (template === undefined || template === null)
             throw new Error("The parameter 'template' must be defined.");
-        url_ = url_.replace("{template}", encodeURIComponent("" + template)); 
+        url_ = url_.replace("{template}", encodeURIComponent("" + template));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -426,8 +426,8 @@ export class ChatService {
 
     protected processRoom_SearchMessage(response: HttpResponseBase): Observable<Message[] | null> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -458,7 +458,7 @@ export class ChatService {
         let url_ = this.baseUrl + "/api/chat/rooms/{rid}/message";
         if (rid === undefined || rid === null)
             throw new Error("The parameter 'rid' must be defined.");
-        url_ = url_.replace("{rid}", encodeURIComponent("" + rid)); 
+        url_ = url_.replace("{rid}", encodeURIComponent("" + rid));
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(message);
@@ -468,7 +468,7 @@ export class ChatService {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -489,8 +489,8 @@ export class ChatService {
 
     protected processRoom_AddMessage(response: HttpResponseBase): Observable<string | null> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -521,7 +521,7 @@ export class ChatService {
         let url_ = this.baseUrl + "/api/chat/rooms/{rid}/message";
         if (rid === undefined || rid === null)
             throw new Error("The parameter 'rid' must be defined.");
-        url_ = url_.replace("{rid}", encodeURIComponent("" + rid)); 
+        url_ = url_.replace("{rid}", encodeURIComponent("" + rid));
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(message);
@@ -531,7 +531,7 @@ export class ChatService {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json", 
+                "Content-Type": "application/json",
                 "Accept": "application/json"
             })
         };
@@ -552,8 +552,8 @@ export class ChatService {
 
     protected processRoom_EditMessage(response: HttpResponseBase): Observable<string | null> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -584,10 +584,10 @@ export class ChatService {
         let url_ = this.baseUrl + "/api/chat/rooms/{rid}/messages/{mid}";
         if (rid === undefined || rid === null)
             throw new Error("The parameter 'rid' must be defined.");
-        url_ = url_.replace("{rid}", encodeURIComponent("" + rid)); 
+        url_ = url_.replace("{rid}", encodeURIComponent("" + rid));
         if (mid === undefined || mid === null)
             throw new Error("The parameter 'mid' must be defined.");
-        url_ = url_.replace("{mid}", encodeURIComponent("" + mid)); 
+        url_ = url_.replace("{mid}", encodeURIComponent("" + mid));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -614,8 +614,8 @@ export class ChatService {
 
     protected processRoom_DeleteMessage(response: HttpResponseBase): Observable<string | null> {
         const status = response.status;
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -653,9 +653,9 @@ export interface Settings {
 }
 
 export enum BackgroundColorType {
-    White = 0, 
-    Green = 1, 
-    Black = 2, 
+    White = 0,
+    Green = 1,
+    Black = 2,
 }
 
 export interface Room {
@@ -675,10 +675,10 @@ export interface Message {
 
 export class SwaggerException extends Error {
     message: string;
-    status: number; 
-    response: string; 
+    status: number;
+    response: string;
     headers: { [key: string]: any; };
-    result: any; 
+    result: any;
 
     constructor(message: string, status: number, response: string, headers: { [key: string]: any; }, result: any) {
         super();
@@ -710,12 +710,12 @@ function blobToText(blob: any): Observable<string> {
             observer.next("");
             observer.complete();
         } else {
-            let reader = new FileReader(); 
-            reader.onload = event => { 
+            let reader = new FileReader();
+            reader.onload = event => {
                 observer.next((<any>event.target).result);
                 observer.complete();
             };
-            reader.readAsText(blob); 
+            reader.readAsText(blob);
         }
     });
 }
