@@ -26,7 +26,6 @@ namespace UserManagement.Data.Repositories
         {
             _context.Set<TEntity>().Add(t);
             await _context.SaveChangesAsync();
-            _context.Update(t);
             return t;
         }
 

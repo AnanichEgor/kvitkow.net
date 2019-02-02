@@ -46,9 +46,9 @@ namespace UserManagement.Data.Repositories
                 return groupRepository;
             }
         }
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         private bool disposed = false;

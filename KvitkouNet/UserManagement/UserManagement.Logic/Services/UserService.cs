@@ -35,23 +35,7 @@ namespace UserManagement.Logic.Services
                 return "Sorry, this username allready exist!";
             }
             var res = await _unitOfWork.Users.AddAsync(_mapper.Map<UserDB>(model));
-            _unitOfWork.SaveChanges();
             return "Ok";
-        }
-
-        public Task<string> AddGroup(GroupModel userGroupModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<string> DeleteByLogin(string login)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<string> DeleteGroupById(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<ForViewModel>> GetAllAsync()
@@ -67,17 +51,29 @@ namespace UserManagement.Logic.Services
             return temp;
         }
 
+        public async Task<ForViewModel> GetByLogin(string login)
+        {
+            var model = await _unitOfWork.Users.GetAsync(login);
+            return model != null ? (_mapper.Map<ForViewModel>(model)):(null);
+        }
+
+        public Task<ForUpdateModel> UpdateByLogin(string login, ForUpdateModel userModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> DeleteByLogin(string login)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public Task<IEnumerable<GroupModel>> GetAllGroups()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<ForViewModel>> GetAllUsersInGroupById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ForViewModel> GetByLogin(string login)
+        public Task<string> AddGroup(GroupModel userGroupModel)
         {
             throw new NotImplementedException();
         }
@@ -87,14 +83,17 @@ namespace UserManagement.Logic.Services
             throw new NotImplementedException();
         }
 
-        
-
-        public Task<ForUpdateModel> UpdateByLogin(string login, ForUpdateModel userModel)
+        public Task<GroupModel> UpdateGroupById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<GroupModel> UpdateGroupById(int id)
+        public Task<string> DeleteGroupById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<ForViewModel>> GetAllUsersInGroupById(int id)
         {
             throw new NotImplementedException();
         }
