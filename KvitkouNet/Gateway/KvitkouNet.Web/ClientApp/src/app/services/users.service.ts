@@ -1,3 +1,4 @@
+import { Registration } from './../models/registration';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Users } from '../models/users';
