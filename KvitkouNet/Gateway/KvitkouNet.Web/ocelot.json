@@ -26,6 +26,18 @@
       ],
       "UpstreamPathTemplate": "/admin/logs/errors",
       "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/admin/logs/accounts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "adminpanel.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/admin/logs/accounts",
+      "UpstreamHttpMethod": [ "Get" ]
     }
   ]
 }
