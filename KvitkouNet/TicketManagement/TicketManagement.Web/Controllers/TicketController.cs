@@ -42,6 +42,24 @@ namespace TicketManagement.Web.Controllers
         }
 
         /// <summary>
+        ///     Добавление пользователя в "я пойду"
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="ticket">Модель билета</param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{id}/add")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(bool), Description = "Ticket update")]
+        [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        public async Task<IActionResult> AddRespondedUsers([FromRoute] string id, [FromBody] UserInfo user)
+        {
+           var res= await _service.AddRespondedUsers(id, user);
+           if (res != RequestStatus.Success) return BadRequest();
+           return NoContent();
+        }
+
+        /// <summary>
         ///     Обновление информации о билете
         /// </summary>
         /// <param name="id"></param>
