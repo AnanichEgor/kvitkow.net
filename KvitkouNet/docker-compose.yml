@@ -98,3 +98,11 @@ services:
     ports:
       - 9200:9200
       - 9300:9300
+
+   chat.web:
+    image: ${DOCKER_REGISTRY}chatweb
+    build:
+      context: ./
+      dockerfile: Chat/Chat.Web/Dockerfile
+    ports:
+      - 5010:80

@@ -5,7 +5,8 @@ using Bogus;
 using Bogus.Extensions;
 using Chat.Data.DbModels;
 
-namespace Chat.Logic.Fakers
+
+namespace Chat.Data.Fakers
 {
     public static class UserFaker
     {

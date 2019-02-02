@@ -8,6 +8,22 @@ namespace Chat.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
+                    SendedTime = table.Column<DateTime>(nullable: false),
+                    Text = table.Column<string>(nullable: true),
+                    RoomId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Rooms",
                 columns: table => new
                 {
@@ -15,7 +31,8 @@ namespace Chat.Data.Migrations
                     UpdateDate = table.Column<DateTime>(nullable: false),
                     OwnerId = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    IsPrivat = table.Column<bool>(nullable: false)
+                    IsPrivat = table.Column<bool>(nullable: false),
+                    Password = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -35,34 +52,12 @@ namespace Chat.Data.Migrations
                     ViewTimestampsMessage = table.Column<bool>(nullable: false),
                     HideChat = table.Column<bool>(nullable: false),
                     HistoryCountsMessages = table.Column<int>(nullable: false),
-                    DisablePrivateMessages = table.Column<bool>(nullable: false)
+                    DisablePrivateMessages = table.Column<bool>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Settings", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Messages",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    UpdateDate = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<string>(nullable: true),
-                    SendedTime = table.Column<DateTime>(nullable: false),
-                    Text = table.Column<string>(nullable: true),
-                    IsRead = table.Column<bool>(nullable: false),
-                    RoomId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Messages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Messages_Rooms_RoomId",
-                        column: x => x.RoomId,
-                        principalTable: "Rooms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,7 +67,7 @@ namespace Chat.Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     UpdateDate = table.Column<DateTime>(nullable: false),
                     UserName = table.Column<string>(nullable: true),
-                    UserRole = table.Column<string>(nullable: true),
+                    IsOnline = table.Column<bool>(nullable: false),
                     Avatar = table.Column<string>(nullable: true),
                     SettingsId = table.Column<string>(nullable: true),
                     RoomId = table.Column<string>(nullable: true)
@@ -95,11 +90,6 @@ namespace Chat.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_RoomId",
-                table: "Messages",
-                column: "RoomId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_RoomId",
                 table: "Users",
                 column: "RoomId");
@@ -107,8 +97,7 @@ namespace Chat.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Users_SettingsId",
                 table: "Users",
-                column: "SettingsId",
-                unique: true);
+                column: "SettingsId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

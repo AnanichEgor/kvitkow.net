@@ -21,11 +21,10 @@ namespace Chat.Data.DbModels
         public string Text { get; set; }
 
         /// <summary>
-        /// Признак прочитанного сообщения (True - если прочитано).
+        /// Флаг показывающий было ли отредактировано сообщение.
         /// </summary>
-        public bool IsRead { get; set; }
+        public bool IsEdit { get; set; }
 
         public string RoomId { get; set; }
-        public RoomDb Room { get; set; }
     }
 }

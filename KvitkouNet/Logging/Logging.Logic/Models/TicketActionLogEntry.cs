@@ -18,10 +18,15 @@ namespace Logging.Logic.Models
 		/// </summary>
 		public string TicketId { get; set; }
 
-		/// <summary>
-		/// Тип действия с билетом
-		/// </summary>
-		public TicketAction ActionType { get; set; }
+	    /// <summary>
+	    /// Название билета
+	    /// </summary>
+	    public string TicketName { get; set; }
+
+        /// <summary>
+        /// Тип действия с билетом
+        /// </summary>
+        public TicketActionType ActionType { get; set; }
 
 		/// <summary>
 		/// Описание и дополнительное содержимое действия
