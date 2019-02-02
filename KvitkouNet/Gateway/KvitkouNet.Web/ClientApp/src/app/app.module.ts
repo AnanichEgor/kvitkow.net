@@ -43,7 +43,7 @@ import { TicketEditComponent } from './components/ticket-edit/ticket-edit.compon
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService],
+  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, AppRoutingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
