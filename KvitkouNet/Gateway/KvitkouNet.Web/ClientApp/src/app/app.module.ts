@@ -47,7 +47,7 @@ import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.com
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService],
+  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, AppRoutingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

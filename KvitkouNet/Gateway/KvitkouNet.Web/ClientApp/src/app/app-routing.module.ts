@@ -22,9 +22,8 @@ const routes: Routes = [
   { path: 'tickets/:id', component: TicketDetailComponent, pathMatch: 'full' },
   { path: 'users', component: UsersComponent, pathMatch: 'full' },
   { path: 'users/registration', component: RegistrationComponent, pathMatch: 'full' },
-  { path: 'ticket/add', component: TicketFormComponent, pathMatch: 'full' },
-  { path: 'ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
-  { path: 'chat', component: ChatComponent, pathMatch: 'full'},
+  { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
+  { path: 'tickets/ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 
 ];
