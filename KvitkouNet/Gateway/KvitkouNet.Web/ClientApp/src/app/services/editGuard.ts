@@ -10,6 +10,6 @@ export class EditGuard implements CanActivate {
   constructor() {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return false;
+    return true;
   }
 }

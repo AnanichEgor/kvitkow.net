@@ -30,4 +30,5 @@
         </div>
       </div>
     </div>
-
+   <div class="pagination">
+      <a class="nav-link" *ngFor=" let page of pages" [routerLink]="['/tickets', page]" >{{page}}</a></div>

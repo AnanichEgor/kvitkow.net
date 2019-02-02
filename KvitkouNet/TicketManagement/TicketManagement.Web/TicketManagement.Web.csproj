@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TicketManagement.Data\TicketManagement.Data.csproj" />
     <ProjectReference Include="..\TicketManagement.Logic\TicketManagement.Logic.csproj" />
   </ItemGroup>
 
