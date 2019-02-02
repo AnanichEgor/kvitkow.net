@@ -77,6 +77,23 @@ namespace TicketManagement.Data.Repositories
         }
 
         /// <summary>
+        ///     Добавление пользователя в "я пойду"
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task AddRespondedUsers(string id, UserInfo user)
+        {
+            user.UserInfoId = null;
+            var origin = await _context.Tickets
+                .Include(db => db.RespondedUsers)
+                .SingleOrDefaultAsync(x => x.Id == id);
+            if (origin == null) return;
+            origin.RespondedUsers.Add(user);
+            _context.Tickets.Update(origin);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
         ///     Удаление всех билетов в БД
         /// </summary>
         /// <returns></returns>
