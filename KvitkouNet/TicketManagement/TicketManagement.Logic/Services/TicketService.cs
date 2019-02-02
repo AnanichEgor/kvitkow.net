@@ -12,6 +12,7 @@ using TicketManagement.Logic.Extentions;
 using TicketManagement.Logic.Models;
 using TicketManagement.Logic.Models.Enums;
 using Ticket = TicketManagement.Data.DbModels.Ticket;
+using UserInfo = TicketManagement.Logic.Models.UserInfo;
 
 namespace TicketManagement.Logic.Services
 {
@@ -81,6 +82,20 @@ namespace TicketManagement.Logic.Services
                 Category = ticket.TypeEvent.ToString(),
                 Date = DateTime.Now
             });
+            return RequestStatus.Success;
+        }
+
+        /// <summary>
+        ///     Добавление пользователя в "я пойду"
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<RequestStatus> AddRespondedUsers(string id, UserInfo user)
+        {
+            
+            //if (!_validator.Validate(user).IsValid) return (RequestStatus.InvalidModel);
+            await _context.AddRespondedUsers(id, _mapper.Map<Data.DbModels.UserInfo>(user));
+            
             return RequestStatus.Success;
         }
 
