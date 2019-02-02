@@ -46,7 +46,7 @@ import { ChatComponent } from './components/chat/chat.component';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, AppRoutingModule],
+  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, AppRoutingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
