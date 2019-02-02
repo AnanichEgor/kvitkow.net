@@ -60,12 +60,19 @@ namespace TicketManagement.Data.Repositories
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        public async Task Update(string id, Ticket ticket)
+        public async Task Update(string id,
+            Ticket ticket)
         {
-            var original = await _context.Tickets.FindAsync(id);
-            if (original == null) return;
-            await Delete(id);
-            _context.Tickets.Add(original.UpdateModel(ticket, id));
+            var origin = await _context.Tickets.Include(db => db.User)
+                .Include(db => db.LocationEvent)
+                .Include(db => db.SellerAdress)
+                .Include(db => db.RespondedUsers)
+                .SingleOrDefaultAsync(x => x.Id == id);
+
+            if (origin == null) return;
+
+            _context.Tickets.Remove(origin);
+            _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
         }
 
