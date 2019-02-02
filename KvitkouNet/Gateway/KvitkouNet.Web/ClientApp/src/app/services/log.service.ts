@@ -11,7 +11,7 @@ export class LogService {
   constructor(private http: HttpClient) {
       }
 
-  getErrorLogs() {
-    return this.http.get<ErrorLogEntry[]>(`${this.baseUrl}admin/logs/errors?exceptionTypeName=12345`);
+  getErrorLogs(queryParams : string) {
+    return this.http.get<ErrorLogEntry[]>(`${this.baseUrl}admin/logs/errors?${queryParams}`);
   }
 }
