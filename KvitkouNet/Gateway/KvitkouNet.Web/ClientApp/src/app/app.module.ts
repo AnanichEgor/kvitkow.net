@@ -4,7 +4,6 @@ import { GetTicketByIdService } from './services/get-ticket-by-id.service';
 import { BrowserModule } from '@angular//platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -19,9 +18,10 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
-import { SearchComponent } from './componentsS/search/search.component';
-import { SearchUserComponent } from './componentsS/search-user/search-user.component';
-import { SearchTicketComponent } from './componentsS/search-ticket/search-ticket.component';
+import { SearchUserComponent } from './components/search-user/search-user.component';
+import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
+import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
+import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
 
 @NgModule({
   declarations: [
@@ -37,9 +37,10 @@ import { SearchTicketComponent } from './componentsS/search-ticket/search-ticket
     RegistrationComponent,
     TicketDetailComponent,
     TicketEditComponent,
-    SearchComponent,
     SearchUserComponent,
-    SearchTicketComponent
+    SearchTicketComponent,
+    SearchTicketResultsComponent,
+    SearchUserResultsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
