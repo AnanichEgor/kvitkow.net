@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using Chat.Data.Context;
@@ -22,6 +19,13 @@ namespace Chat.Logic.Services
         {
             _context = context;
             _mapper = mapper;
+        }
+
+        public async Task AddUser(User newUser)
+        {
+            var modelDb = _mapper.Map<UserDb>(newUser);
+            await _context.Users.AddAsync(modelDb);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<Settings> GetUserSettings(string userId)

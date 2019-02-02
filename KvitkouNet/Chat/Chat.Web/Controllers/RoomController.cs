@@ -6,6 +6,8 @@ using System.Net;
 using System.Threading.Tasks;
 using Chat.Logic.Models;
 using Chat.Logic.Services;
+using EasyNetQ;
+using KvitkouNet.Messages.Chat;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
@@ -19,10 +21,12 @@ namespace Chat.Web.Controllers
     public class RoomController : Controller
     {
         private IRoomService _roomService;
+        private readonly IBus _bus;
 
-        public RoomController(IRoomService roomService)
+        public RoomController(IRoomService roomService, IBus bus)
         {
             _roomService = roomService;
+            _bus = bus;
         }
 
         /// <summary>
@@ -105,7 +109,19 @@ namespace Chat.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> AddMessage([FromBody] Message message, [FromRoute] string rid)
         {
-            await _roomService.AddMessage(message, rid);
+            var userIsOnline = await _roomService.AddMessage(message, rid);
+
+            //Если пользователь не Online отправим ему уведомление
+            if (userIsOnline != null)
+            {
+                _bus.Publish(new OfflineChatMessage
+                {
+                    UserName = userIsOnline,
+                    SendedTime = message.SendedTime
+
+                });
+            }
+
             return NoContent();
         }
 

@@ -1,4 +1,9 @@
-﻿using Chat.Logic;
+﻿using System.Reflection;
+using AutoMapper;
+using Chat.Logic;
+using Chat.Web.MappingProfiles;
+using Chat.Web.Subscriber;
+using EasyNetQ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +30,9 @@ namespace Chat.Web
             services.RegisterRoomService();
             services.RegisterDbContext();
             services.RegisterAutoMapper();
-            services.RegisterEasyNetQ("host=rabbit");
+            services.AddAutoMapper(cfg => cfg.AddProfile<UserRegistrationProfile>());
+  //          services.RegisterEasyNetQ("host=rabbit");
+            services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=localhost"));
 
         }
 
@@ -39,6 +46,7 @@ namespace Chat.Web
             }
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
+            app.UseSubscriber("Chat", Assembly.GetExecutingAssembly());
         }
     }
 }

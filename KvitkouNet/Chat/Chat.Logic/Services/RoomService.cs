@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,12 +16,15 @@ namespace Chat.Logic.Services
         private readonly ChatContext _context;
         private readonly IMapper _mapper;
         private readonly IValidator _validator;
+
+
         public RoomService(ChatContext context, IMapper mapper, IValidator<Room> validator)
         {
             _context = context;
             _mapper = mapper;
           //  _validator = validator;
         }
+
         public async Task<IEnumerable<Room>> GetRooms(string userId)
         {
             var res = await _context.Rooms.ToArrayAsync();
@@ -55,13 +57,17 @@ namespace Chat.Logic.Services
             return _mapper.Map<IEnumerable<Message>>(res);
         }
 
-        public async Task AddMessage(Message message, string roomId)
+        public async Task<string> AddMessage(Message message, string roomId)
         {
             var modelDb = _mapper.Map<MessageDb>(message);
             modelDb.RoomId = roomId;
 
             await _context.Messages.AddAsync(modelDb);
             await _context.SaveChangesAsync();
+            var ownerId =  _context.Rooms.SingleOrDefaultAsync(x => x.Id == roomId);
+            var userIsOnline = _context.Users.SingleOrDefaultAsync(x => x.Id == ownerId.Result.OwnerId);
+
+            return !userIsOnline.Result.IsOnline ? ownerId.Result.Name : null;
         }
 
         public async Task EditMessage(Message message, string roomId)

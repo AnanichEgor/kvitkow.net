@@ -60,6 +60,7 @@ namespace Chat.Logic
                 cfg.AddProfile<RoomProfile>();
                 cfg.AddProfile<SettingsProfile>();
                 cfg.AddProfile<UserProfile>();
+
             });
             return services;
         }
