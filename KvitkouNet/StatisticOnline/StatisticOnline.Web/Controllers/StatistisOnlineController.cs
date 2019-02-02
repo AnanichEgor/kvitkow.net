@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using StatisticOnline.Logic.Interfaces;
@@ -12,11 +13,13 @@ namespace StatisticOnline.Web.Controllers
     [Route("api/statistics/count")]
     public class StatistisOnlineController: ControllerBase
     {
-        IStatisticOnlineService _statisticService;
+        private readonly IStatisticOnlineService _statisticService;
+        private readonly IValidator<DateRange> _filterValidator;
 
-        public StatistisOnlineController(IStatisticOnlineService statisticService)
+        public StatistisOnlineController(IStatisticOnlineService statisticService, IValidator<DateRange> filterValidator)
         {
             _statisticService = statisticService;
+            _filterValidator = filterValidator;
         }
 
         /// <summary>
@@ -46,6 +49,14 @@ namespace StatisticOnline.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetDateRangeUsers([FromBody]DateRange model)
         {
+
+            // валидация
+            if (!_filterValidator.Validate(model).IsValid)
+            {
+                return BadRequest(
+                    $"Invalid filter! {nameof(DateRange)} is empty or whitespace!");
+            }
+
             var result = await _statisticService.GetDateRangeUsers(model);
             return Ok(result);
         }
