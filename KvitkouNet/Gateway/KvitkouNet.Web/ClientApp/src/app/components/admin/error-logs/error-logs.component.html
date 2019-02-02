@@ -1,4 +1,21 @@
 <main role="main">
+    <form [formGroup]="errorLogsFormGroup" (ngSubmit)="onSubmit()">
+  
+        <label>
+          Имя сервиса:
+          <input type="text" formControlName="serviceName">
+        </label>
+        <label>
+            Имя исключения:
+            <input type="text" formControlName="exceptionTypeName">
+          </label>
+      
+        <label>
+          Сообщение:
+          <input type="text" formControlName="message">
+        </label>
+        <button type="submit">Submit</button>
+      </form>
   <div class="album py-5 bg-light">
   <table mdbTable>
     <thead>
