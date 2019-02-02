@@ -14,7 +14,7 @@ namespace UserSettings.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
 
             modelBuilder.Entity("UserSettings.Data.DbModels.AccountDb", b =>
                 {
@@ -28,6 +28,22 @@ namespace UserSettings.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("UserSettings.Data.DbModels.NotificationDb", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsLikeMyTicket");
+
+                    b.Property<bool>("IsOtherNotification");
+
+                    b.Property<bool>("IsWantBuy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("UserSettings.Data.DbModels.ProfileDb", b =>
@@ -45,6 +61,8 @@ namespace UserSettings.Data.Migrations
 
                     b.Property<string>("MiddleName");
 
+                    b.Property<int?>("NotificationsId");
+
                     b.Property<string>("PreferAddress");
 
                     b.Property<string>("PreferPlace");
@@ -55,12 +73,14 @@ namespace UserSettings.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("NotificationsId");
+
                     b.ToTable("Profiles");
                 });
 
             modelBuilder.Entity("UserSettings.Data.DbModels.SettingsDb", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("AccountId");
@@ -76,6 +96,13 @@ namespace UserSettings.Data.Migrations
                     b.HasIndex("ProfileId");
 
                     b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("UserSettings.Data.DbModels.ProfileDb", b =>
+                {
+                    b.HasOne("UserSettings.Data.DbModels.NotificationDb", "Notifications")
+                        .WithMany()
+                        .HasForeignKey("NotificationsId");
                 });
 
             modelBuilder.Entity("UserSettings.Data.DbModels.SettingsDb", b =>

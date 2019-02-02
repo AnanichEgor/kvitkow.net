@@ -1,13 +1,23 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TicketManagement.Logic.Models;
 
 namespace TicketManagement.Logic.Validators
 {
-    public class TicketValidator: AbstractValidator<Ticket>
+    /// <summary>
+    ///     Настройка валидации
+    /// </summary>
+    public class TicketValidator : AbstractValidator<Ticket>
     {
-
+        public TicketValidator()
+        {
+            RuleFor(ticket => ticket.Name).NotEmpty().Length(5, 100);
+            RuleFor(ticket => ticket.AdditionalData).MaximumLength(240);
+            RuleFor(ticket => ticket.SellerPhone).NotEmpty().Length(6, 20).Matches(@"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$");
+            RuleFor(ticket => ticket.User).SetValidator(new UserValidator());
+            RuleFor(ticket => ticket.LocationEvent).SetValidator(new AddressValidator());
+            RuleFor(ticket => ticket.SellerAdress).SetValidator(new AddressValidator());
+            RuleFor(ticket => ticket.TypeEvent).IsInEnum();
+            RuleFor(ticket => ticket.Status).IsInEnum();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UserSettings.Logic.Models;
 using UserSettings.Logic.Models.Helper;
@@ -15,20 +16,42 @@ namespace UserSettings.Logic.Services
 		/// </summary>
 		/// <param name="profile"></param>
 		/// <returns></returns>
-		Task<ActionResult> UpdateProfile(Profile profile);
+		Task<bool> UpdateProfile(string id, string first, string middle, string last);
 
 		/// <summary>
 		/// Обновление пароля.
 		/// </summary>
-		/// <param name="account"></param>
+		/// <param name="current"></param>
+		/// <param name="newPass"></param>
+		/// <param name="confirm"></param>
 		/// <returns></returns>
-		Task<ActionResult> UpdatePassword(string current, string newPass, string confirm);
+		Task<bool> UpdatePassword(string id, string current, string newPass, string confirm);
 
 		/// <summary>
 		/// Обновление почты.
 		/// </summary>
-		/// <param name="account"></param>
+		/// <param name="id"></param>
+		/// <param name="email"></param>
 		/// <returns></returns>
-		Task<ActionResult> UpdateEmail(string email);
+		Task<bool> UpdateEmail(string id, string email);
+
+		Task<IEnumerable<Settings>> ShowAll();
+
+		/// <summary>
+		/// Отправка подтверждающего email.
+		/// </summary>
+		/// <param name="email"></param>
+		/// <param name="subject"></param>
+		/// <param name="message"></param>
+		/// <returns></returns>
+		Task SendConfirmEmail(string email, string subject, string message);
+
+		Task<bool> CheckExistEmail(string email);
+
+		Task<bool> UpdateNotifications(string id, Notifications notifications);
+
+		Task<bool> UpdatePreferences(string id, string address, string region, string place);
+
+		Task<bool> DeleteAccount(string id);
 	}
 }

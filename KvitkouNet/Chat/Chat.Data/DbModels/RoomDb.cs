@@ -10,7 +10,7 @@ namespace Chat.Data.DbModels
         /// <summary>
         /// Id создателя комнаты.
         /// </summary>
-        public int OwnerId { get; set; }
+        public string OwnerId { get; set; }
 
         /// <summary>
         /// Название комнаты.
@@ -23,14 +23,9 @@ namespace Chat.Data.DbModels
         public bool IsPrivat { get; set; }
 
         /// <summary>
-        /// Список Users в комнате.
+        /// пароль для приватной комнаты.
         /// </summary>
-        public List<UserDb> Users;
-
-        /// <summary>
-        /// Список сообщений в конате.
-        /// </summary>
-        public List<MessageDb> Messages;
+        public string Password { get; set; }
     }
 
 }

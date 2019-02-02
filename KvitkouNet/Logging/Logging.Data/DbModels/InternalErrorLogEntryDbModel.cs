@@ -5,12 +5,17 @@ namespace Logging.Data.DbModels
     /// <summary>
     /// Запись в лог ошибок в работе сервиса
     /// </summary>
-    public class InternalErrorLogEntryDbModel : Entity<string>
+    public class InternalErrorLogEntryDbModel : BaseLogEntryDbModel
     {
+        /// <summary>
+        /// Название микросервиса, передавшего сообщение об ошибке
+        /// </summary>
+        public string ServiceName { get; set; }
+
         /// <summary>
         /// Название типа исключения
         /// </summary>
-        public string TypeName { get; set; }
+        public string ExceptionType { get; set; }
 
         /// <summary>
         /// Числовое значение, ассоциированное с типом исключения
@@ -41,10 +46,5 @@ namespace Logging.Data.DbModels
         /// Имя метода, вызвавшего исключение
         /// </summary>
         public string TargetSiteName { get; set; }
-
-        /// <summary>
-        /// Дополнительное содержимое записи
-        /// </summary>
-        public string Content { get; set; }
     }
 }

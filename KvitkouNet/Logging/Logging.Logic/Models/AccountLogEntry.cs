@@ -1,27 +1,31 @@
-﻿using Logging.Data.Enums;
+﻿using Logging.Logic.Enums;
 using Logging.Logic.Models.Abstraction;
-using Logging.Logic.Models.UserManagement;
 
 namespace Logging.Logic.Models
 {
 	/// <summary>
 	/// Запись в лог, описывающая действие с аккаунтом пользователя
 	/// </summary>
-	public class AccountLogEntry : BaseLogEntry<long>
+	public class AccountLogEntry : BaseLogEntry
 	{
 		/// <summary>
-		/// Пользователь
+		/// Id пользователя
 		/// </summary>
-		public User User { get; set; }
+		public string UserId { get; set; }
+
+		/// <summary>
+		/// Имя пользователя
+		/// </summary>
+		public string UserName { get; set; }
+
+		/// <summary>
+		/// Почтовый адрес пользователя
+		/// </summary>
+		public string Email { get; set; }
 
 		/// <summary>
 		/// Тип действия
 		/// </summary>
 		public AccountActionType Type { get; set; }
-
-		/// <summary>
-		/// Описание пользовательского устройства
-		/// </summary>
-		public string DeviceDescription { get; set; }
 	}
 }

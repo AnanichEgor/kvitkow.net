@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Logging.Data;
-using Logging.Logic.MappingProfiles;
+﻿using System.Reflection;
+using Logging.Logic.Extensions;
 using Logging.Web.Extensions;
+using Logging.Web.Subscriber;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Logging.Web
 {
@@ -29,18 +22,21 @@ namespace Logging.Web
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<LoggingDbContext>(opt => opt.UseSqlite("Data Source=Logs.db"));
+			services.RegisterDbContext();
 
-			services.AddAutoMapper(cfg =>
-			{
-				cfg.AddProfile<InternalErrorLogProfile>();
-			});
-
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 			services.AddSwaggerDocument();
 
-			services.RegisterLoggingService();
+			services.RegisterServices();
+
+			services.RegisterValidators();
+
+			services.RegisterAutoMapper();
+
+			services.RegisterConsumers();
+
+			services.RegisterEasyNetQ("host=rabbit");
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +50,8 @@ namespace Logging.Web
 			app.UseSwagger().UseSwaggerUi3();
 
 			app.UseMvc();
+
+			app.UseSubscriber("ErrorLogging", Assembly.GetExecutingAssembly());
 		}
 	}
 }

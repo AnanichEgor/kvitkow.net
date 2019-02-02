@@ -30,6 +30,10 @@ namespace UserManagement.Web.Controllers
         public async Task<IActionResult> Register([FromBody]UserRegisterModel model)
         {
             var result = await _service.Register(model);
+            if (result!="Ok")
+            {
+                return BadRequest(result);
+            }
             return Ok(result);
         }
 
@@ -42,7 +46,7 @@ namespace UserManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _service.GetAll();
+            var result = await _service.GetAllAsync();
             return Ok(result);
         }
 

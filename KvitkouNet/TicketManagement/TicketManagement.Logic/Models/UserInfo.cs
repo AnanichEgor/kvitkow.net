@@ -5,7 +5,11 @@
     /// </summary>
     public class UserInfo
     {
-       
+        /// <summary>
+        ///     Id билета
+        /// </summary>
+        public string UserInfoId { get; set; }
+
         /// <summary>
         ///     Имя юзера
         /// </summary>

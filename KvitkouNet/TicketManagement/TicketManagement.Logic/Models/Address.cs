@@ -1,8 +1,10 @@
 ﻿namespace TicketManagement.Logic.Models
 {
+    /// <summary>
+    ///     Класс для описания сущности адресс
+    /// </summary>
     public class Address
     {
-             
         /// <summary>
         ///     Страна проживания
         /// </summary>
