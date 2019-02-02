@@ -32,7 +32,7 @@ namespace Chat.Web
             services.RegisterAutoMapper();
             services.AddAutoMapper(cfg => cfg.AddProfile<UserRegistrationProfile>());
   //          services.RegisterEasyNetQ("host=rabbit");
-            services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=localhost"));
+            services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=rabbit"));
 
         }
 
@@ -46,7 +46,7 @@ namespace Chat.Web
             }
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
-            app.UseSubscriber("Chat", Assembly.GetExecutingAssembly());
+            app.UseSubscriber("Chat.Web", Assembly.GetExecutingAssembly());
         }
     }
 }
