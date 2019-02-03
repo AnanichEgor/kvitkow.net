@@ -181,6 +181,8 @@ namespace TicketManagement.Data.Repositories
             int pageSize,
             bool onlyActual = false)
         {
+            if (index<1) return null;
+            index = index - 1;
             _page.CurrentPage = index;
             _page.PageSize = pageSize;
             var query = _context.Tickets.AsQueryable();
@@ -198,6 +200,7 @@ namespace TicketManagement.Data.Repositories
                 _page.TotalPages = await query.Where(x => x.Status == (TicketStatusDb) 2)
                                        .CountAsync() /
                                    pageSize;
+                if (index > _page.TotalPages) return null;
             }
             else
             {
@@ -210,6 +213,7 @@ namespace TicketManagement.Data.Repositories
                     .Take(pageSize)
                     .ToListAsync();
                 _page.TotalPages = await query.CountAsync() / pageSize;
+                if (index > _page.TotalPages) return null;
             }
 
             return _page;
