@@ -17,11 +17,13 @@ namespace AdminPanel.Web.Controllers
 	{
 		private readonly IErrorLog _errorLogService;
 		private readonly IAccountLog _accountLogService;
+		private readonly IPaymentLog _paymentLogService;
 
-		public LoggingController(IErrorLog errorLogService, IAccountLog accountLogService)
+		public LoggingController(IErrorLog errorLogService, IAccountLog accountLogService, IPaymentLog paymentLogService)
 		{
 			_errorLogService = errorLogService;
 			_accountLogService = accountLogService;
+			_paymentLogService = paymentLogService;
 		}
 
 		/// <summary>
@@ -29,7 +31,8 @@ namespace AdminPanel.Web.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet("errors")]
-		public async Task<IActionResult> GetErrorLogs([FromQuery] string serviceName,
+		public async Task<IActionResult> GetErrorLogs(
+			[FromQuery] string serviceName,
 			string exceptionTypeName,
 			string message,
 			DateTime? dateFrom,
@@ -50,7 +53,8 @@ namespace AdminPanel.Web.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet("accounts")]
-		public async Task<IActionResult> GetAccountLogs([FromQuery] string userId,
+		public async Task<IActionResult> GetAccountLogs(
+			[FromQuery] string userId,
 			string userName,
 			string email,
 			int type,
@@ -60,6 +64,29 @@ namespace AdminPanel.Web.Controllers
 			try
 			{
 				return Ok(await _accountLogService.GetAccountLogsAsync(userId:userId, userName:userName, email:email, type:type, dateFrom:dateFrom, dateTo:dateTo));
+			}
+			catch (SerializationException e)
+			{
+				return BadRequest($"{e.Message} : {e.Content}");
+			}
+		}
+
+		/// <summary>
+		/// Возвращает список логов по платежам
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet("payments")]
+		public async Task<IActionResult> GetPaymentLogs(
+			[FromQuery] string senderId,
+			string recieverId,
+			double? minTransfer,
+			double? maxTransfer,
+			DateTime? dateFrom,
+			DateTime? dateTo)
+		{
+			try
+			{
+				return Ok(await _paymentLogService.GetPaymentLogsAsync(senderId:senderId, recieverId:recieverId, minTransfer:minTransfer,maxTransfer:maxTransfer, dateFrom: dateFrom, dateTo: dateTo));
 			}
 			catch (SerializationException e)
 			{
