@@ -11,13 +11,13 @@ services:
       - 5002:443
 
 
-   usermanagement.web:
-    image: ${DOCKER_REGISTRY}usersweb
-    build:
-      context: UserManagement
-      dockerfile: UserManagement.Web/Dockerfile
-    ports:
-      - 5003:80
+   #usermanagement.web:
+    #image: ${DOCKER_REGISTRY}usersweb
+    #build:
+      #context: UserManagement
+      #dockerfile: UserManagement.Web/Dockerfile
+    #ports:
+      #- 5003:80
 
    adminpanel.web:
     image: ${DOCKER_REGISTRY}adminpanelweb
@@ -70,15 +70,15 @@ services:
       - rabbit
       - elasticsearch
 
-   usersettings.web:
-    image: ${DOCKER_REGISTRY}usersettingsgweb
-    build:
-      context: ./
-      dockerfile: UserSettings/UserSettings.Web/Dockerfile
-    depends_on:
-      - rabbit
-    ports:
-      - 5009:80
+   #usersettings.web:
+    #image: ${DOCKER_REGISTRY}usersettingsgweb
+    #build:
+      #context: ./
+      #dockerfile: UserSettings/UserSettings.Web/Dockerfile
+    #depends_on:
+      #- rabbit
+    #ports:
+      #- 5009:80
 
    rabbit:
     image: rabbitmq:management
