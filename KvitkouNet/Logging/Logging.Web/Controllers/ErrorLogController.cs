@@ -21,14 +21,12 @@ namespace Logging.Web.Controllers
 	public class ErrorLogController : Controller
 	{
 		private readonly IErrorLogService _loggingService;
-		private bool _disposed;
-		private readonly IValidator<ErrorLogsFilter> _errorLogsFilterValidator;
 
-		public ErrorLogController(IErrorLogService loggingService, IValidator<ErrorLogsFilter> errorLogsFilterValidator,
-			IBus bus)
+		private bool _disposed;
+
+		public ErrorLogController(IErrorLogService loggingService, IBus bus)
 		{
 			_loggingService = loggingService;
-			_errorLogsFilterValidator = errorLogsFilterValidator;
 		}
 
 		/// <summary>
@@ -39,16 +37,10 @@ namespace Logging.Web.Controllers
 		[HttpGet]
 		[Route("")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<InternalErrorLogEntry>), Description = "Error logs")]
-		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
+		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Validation error")]
+		[SwaggerResponse(HttpStatusCode.InternalServerError, typeof(string), Description = "Internal error")]
 		public async Task<IActionResult> GetErrorLogs([FromQuery] ErrorLogsFilter filter)
 		{
-			// имитируем некоторую валидацию
-			if (!_errorLogsFilterValidator.Validate(filter).IsValid)
-			{
-				return BadRequest(
-					$"Invalid filter! {nameof(ErrorLogsFilter.ExceptionTypeName)} is empty or whitespace!");
-			}
-
 			var result = await _loggingService.GetLogsAsync(filter);
 			return Ok(result);
 		}
