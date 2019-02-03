@@ -18,12 +18,14 @@ namespace AdminPanel.Web.Controllers
 		private readonly IErrorLog _errorLogService;
 		private readonly IAccountLog _accountLogService;
 		private readonly IPaymentLog _paymentLogService;
+		private readonly IQueryLog _queryLogService;
 
-		public LoggingController(IErrorLog errorLogService, IAccountLog accountLogService, IPaymentLog paymentLogService)
+		public LoggingController(IErrorLog errorLogService, IAccountLog accountLogService, IPaymentLog paymentLogService, IQueryLog queryLogService)
 		{
 			_errorLogService = errorLogService;
 			_accountLogService = accountLogService;
 			_paymentLogService = paymentLogService;
+			_queryLogService = queryLogService;
 		}
 
 		/// <summary>
@@ -87,6 +89,28 @@ namespace AdminPanel.Web.Controllers
 			try
 			{
 				return Ok(await _paymentLogService.GetPaymentLogsAsync(senderId:senderId, recieverId:recieverId, minTransfer:minTransfer,maxTransfer:maxTransfer, dateFrom: dateFrom, dateTo: dateTo));
+			}
+			catch (SerializationException e)
+			{
+				return BadRequest($"{e.Message} : {e.Content}");
+			}
+		}
+
+		/// <summary>
+		/// Возвращает список логов по поисковым запросам
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet("queries")]
+		public async Task<IActionResult> GetSearchQueryLogs(
+			[FromQuery] string userId,
+			string searchCriterium,
+			string filterInfo,
+			DateTime? dateFrom,
+			DateTime? dateTo)
+		{
+			try
+			{
+				return Ok(await _queryLogService.GetSearchQueryLogsAsync(userId: userId, searchCriterium: searchCriterium, filterInfo: filterInfo, dateFrom: dateFrom, dateTo: dateTo));
 			}
 			catch (SerializationException e)
 			{
