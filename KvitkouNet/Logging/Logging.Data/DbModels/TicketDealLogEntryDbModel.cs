@@ -8,6 +8,11 @@ namespace Logging.Data.DbModels
     public class TicketDealLogEntryDbModel : BaseLogEntryDbModel
     {
         /// <summary>
+        /// Id билета
+        /// </summary>
+        public string TicketId { get; set; }
+
+        /// <summary>
         /// Пользователь-владелец, разместивший билет
         /// </summary>
         public string OwnerId { get; set; }

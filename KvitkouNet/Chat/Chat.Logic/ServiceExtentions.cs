@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
 using Chat.Data.Context;
-using Chat.Data.Repositories;
+using Chat.Data.Helpers;
 using Chat.Logic.MappingProfiles;
 using Chat.Logic.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Chat.Logic.Services;
 using Chat.Logic.Validators;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
-using Moq;
 
 namespace Chat.Logic
 {
@@ -21,11 +19,41 @@ namespace Chat.Logic
         /// <returns></returns>
         public static IServiceCollection RegisterChatService(this IServiceCollection services)
         {
-            services.AddDbContext<ChatContext>(opt => opt.UseSqlite("Data Source=./ChatDatabase.db"));
-            services.AddScoped<IChatRepository, ChatRepository>();
-            services.AddScoped(_ => ChatServiceMock().Object);
             services.AddScoped<IChatService, ChatService>();
+            services.AddScoped<IValidator<Settings>, SettingsValidator>();
+            return services;
+        }
+
+        /// <summary>
+        /// Регистрация IRoomService
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection RegisterRoomService(this IServiceCollection services)
+        {
+            services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IValidator<Room>, RoomValidator>();
+            return services;
+        }
+
+        /// <summary>
+        /// Регистрация DbContext
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection RegisterDbContext(this IServiceCollection services)
+        {
+            services.AddDbContext<ChatContext>(new RegisterContextHelper().GetOptionsBuilder());
+            return services;
+        }
+
+        /// <summary>
+        /// Регистрация AutoMapper
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection RegisterAutoMapper(this IServiceCollection services)
+        {
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<MessageProfile>();
@@ -34,12 +62,6 @@ namespace Chat.Logic
                 cfg.AddProfile<UserProfile>();
             });
             return services;
-        }
-
-        private static Mock<IChatService> ChatServiceMock()
-        {
-            var ticketServiceMock = new Mock<IChatService>();
-            return ticketServiceMock;
         }
     }
 }

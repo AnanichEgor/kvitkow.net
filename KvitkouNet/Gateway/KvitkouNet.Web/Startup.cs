@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-//using KvitkouNet.Logic.Common;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -34,9 +33,6 @@ namespace KvitkouNet.Web
             services.AddSwaggerDocument();
 
             services.AddOcelot();
-
-   //         services.RegisterSecurityService();
-			//services.RegisterLoggingService();
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +50,7 @@ namespace KvitkouNet.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            //app.UseSpaStaticFiles();
 
             app.UseSwagger().UseSwaggerUi3();
 
@@ -65,18 +61,18 @@ namespace KvitkouNet.Web
                     template: "{controller}/{action=Index}/{id?}");
             });
 
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
+            //app.UseSpa(spa =>
+            //{
+            //    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+            //    // see https://go.microsoft.com/fwlink/?linkid=864501
+			//
+            //    spa.Options.SourcePath = "ClientApp";
+			//
+            //    if (env.IsDevelopment())
+            //    {
+            //        spa.UseAngularCliServer(npmScript: "start");
+            //    }
+            //});
 
             app.UseOcelot().GetAwaiter().GetResult();
         }
