@@ -45,17 +45,14 @@ import { SearchUserResultsComponent } from './components/search-user-results/sea
     TicketDetailComponent,
     TicketEditComponent,
     ChatComponent,
-<<<<<<< HEAD
     ErrorLogsComponent,
     AccountLogsComponent,
     PaymentLogsComponent,
-    AdminMainComponent
-=======
+    AdminMainComponent,
     SearchUserComponent,
     SearchTicketComponent,
     SearchTicketResultsComponent,
     SearchUserResultsComponent
->>>>>>> develop
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
