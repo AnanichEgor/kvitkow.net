@@ -16,7 +16,7 @@ namespace AdminPanel.Web.Extensions
 		/// <returns></returns>
 		public static IServiceCollection RegisterUserService(this IServiceCollection services)
 		{
-			services.AddScoped<IUserService, UserService>();
+			//services.AddScoped<IUserService, UserService>();
 
 			return services;
 		}
