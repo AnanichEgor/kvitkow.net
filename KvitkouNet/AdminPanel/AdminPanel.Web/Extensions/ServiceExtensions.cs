@@ -22,7 +22,7 @@ namespace AdminPanel.Web.Extensions
 		}
 
 		/// <summary>
-		/// Регистрация сгенерированного IErrorLog
+		/// Регистрация сгенерированных сервисов
 		/// </summary>
 		/// <param name="services"></param>
 		/// <returns></returns>
