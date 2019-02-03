@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using EasyNetQ;
 using KvitkouNet.Messages.TicketManagement;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using Search.Logic.Common.Fakers;
 using Search.Logic.Common.Models;
 using Search.Logic.Services;
 
@@ -56,5 +58,28 @@ namespace Search.Web.Controllers
             SearchResult<UserInfo> result = await _userService.Search(request);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Searches the tickets.
+        /// </summary>
+        [SwaggerResponse(HttpStatusCode.OK, typeof(object), Description = "All OK")]
+        [HttpPost, Route("pushTicket")]
+        public ActionResult PushTicket()
+        {
+            _bus.Publish(TicketCreationMessageFaker.Generate(1).First());
+            return Ok();
+        }
+
+        /// <summary>
+        /// Searches the tickets.
+        /// </summary>
+        [SwaggerResponse(HttpStatusCode.OK, typeof(object), Description = "All OK")]
+        [HttpPost, Route("pushUser")]
+        public ActionResult PushUser()
+        {
+            _bus.Publish(UserCreationMessageFaker.Generate(1).First());
+            return Ok();
+        }
+
     }
 }
