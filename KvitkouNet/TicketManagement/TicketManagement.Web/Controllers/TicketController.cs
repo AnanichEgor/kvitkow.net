@@ -67,7 +67,7 @@ namespace TicketManagement.Web.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("{id}")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(bool), Description = "Ticket update")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "Ticket update")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Ticket ticket)
@@ -82,7 +82,7 @@ namespace TicketManagement.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpDelete]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Tickets delete")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "Tickets delete")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
         public async Task<IActionResult> DeleteAll()
@@ -98,7 +98,7 @@ namespace TicketManagement.Web.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("{id}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Ticket delete")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "Ticket delete")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
         public async Task<IActionResult> Delete([FromRoute] string id)
@@ -160,11 +160,11 @@ namespace TicketManagement.Web.Controllers
         [Route("page/{index}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(Page<TicketLite>), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        [SwaggerResponse(HttpStatusCode.NotFound, typeof(string), Description = "Page not found")]
         public async Task<IActionResult> GetAllPagebyPage([FromRoute] int index)
         {
             var result = await _service.GetAllPagebyPage(index);
-            if (result.Item2 != RequestStatus.Success) return BadRequest();
+            if (result.Item2 != RequestStatus.Success) return NotFound();
             return Ok(result.Item1);
         }
 
@@ -176,11 +176,11 @@ namespace TicketManagement.Web.Controllers
         [Route("actual/page/{index}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(Page<TicketLite>), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+        [SwaggerResponse(HttpStatusCode.NotFound, typeof(string), Description = "Page not found")]
         public async Task<IActionResult> GetAllPagebyPageActual([FromRoute] int index)
         {
             var result = await _service.GetAllPagebyPageActual(index);
-            if (result.Item2 != RequestStatus.Success) return BadRequest();
+            if (result.Item2 != RequestStatus.Success) return NotFound();
             return Ok(result.Item1);
         }
     }
