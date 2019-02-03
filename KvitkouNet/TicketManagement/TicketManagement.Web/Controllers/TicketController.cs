@@ -82,7 +82,6 @@ namespace TicketManagement.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpDelete]
-        [Route("all")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "Tickets delete")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
