@@ -9,6 +9,6 @@ namespace UserManagement.Data.Repositories
 {
     public interface IUserRepository : IRepository<UserDB>
     {
-
+        Task<UserDB> GetByLoginAsync(string login);
     }
 }

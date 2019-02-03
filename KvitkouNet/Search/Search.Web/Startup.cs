@@ -29,6 +29,7 @@ namespace Search.Web
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             string elasticSearchConnectionString = Configuration.GetConnectionString("ElasticSearchConnection");
+            string rabbitConnectionString = Configuration.GetConnectionString("RabbitConnection");
 
             services.AddDbContext<SearchContext>(
                 opt => opt.UseSqlite(connectionString: connectionString));
@@ -54,7 +55,8 @@ namespace Search.Web
             services.RegisterServices();
             services.RegisterConsumers();
            
-            services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=localhost"));
+            services.AddSingleton<IBus>(RabbitHutch.CreateBus(rabbitConnectionString));
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +67,7 @@ namespace Search.Web
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
 

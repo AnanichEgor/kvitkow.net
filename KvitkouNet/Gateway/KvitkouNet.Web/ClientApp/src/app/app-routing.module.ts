@@ -1,4 +1,7 @@
 import { ChatComponent } from './components/chat/chat.component';
+import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
+import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
+import { SearchUserComponent } from './components/search-user/search-user.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -14,6 +17,7 @@ import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.com
 import { AccountLogsComponent } from './components/admin/account-logs/account-logs.component';
 import { PaymentLogsComponent } from './components/admin/payment-logs/payment-logs.component';
 import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
+import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -28,6 +32,10 @@ const routes: Routes = [
   { path: 'tickets/:id', component: TicketDetailComponent, pathMatch: 'full' },
   { path: 'users', component: UsersComponent, pathMatch: 'full' },
   { path: 'users/registration', component: RegistrationComponent, pathMatch: 'full' },
+  { path: 'search-ticket', component: SearchTicketComponent, pathMatch: 'full' },
+  { path: 'search-user', component: SearchUserComponent, pathMatch: 'full' },
+  { path: 'search-ticket-results', component: SearchTicketResultsComponent, pathMatch: 'full' },
+  { path: 'search-user-results', component: SearchUserResultsComponent, pathMatch: 'full' },
   { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
   { path: 'tickets/ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },

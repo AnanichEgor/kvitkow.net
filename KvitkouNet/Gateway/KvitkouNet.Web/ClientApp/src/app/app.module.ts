@@ -1,3 +1,4 @@
+import { UsersService } from './services/users.service';
 import { EditGuard } from './services/editGuard';
 import { GetallticketsService } from './services/getalltickets.service';
 import { GetTicketByIdService } from './services/get-ticket-by-id.service';
@@ -5,7 +6,6 @@ import { LogService } from './services/log.service';
 import { BrowserModule } from '@angular//platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -25,6 +25,10 @@ import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.com
 import { AccountLogsComponent } from './components/admin/account-logs/account-logs.component';
 import { PaymentLogsComponent } from './components/admin/payment-logs/payment-logs.component';
 import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
+import { SearchUserComponent } from './components/search-user/search-user.component';
+import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
+import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
+import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
 
 @NgModule({
   declarations: [
@@ -41,10 +45,17 @@ import { AdminMainComponent } from './components/admin/admin-main/admin-main.com
     TicketDetailComponent,
     TicketEditComponent,
     ChatComponent,
+<<<<<<< HEAD
     ErrorLogsComponent,
     AccountLogsComponent,
     PaymentLogsComponent,
     AdminMainComponent
+=======
+    SearchUserComponent,
+    SearchTicketComponent,
+    SearchTicketResultsComponent,
+    SearchUserResultsComponent
+>>>>>>> develop
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -53,7 +64,7 @@ import { AdminMainComponent } from './components/admin/admin-main/admin-main.com
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, AppRoutingModule],
+  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, AppRoutingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

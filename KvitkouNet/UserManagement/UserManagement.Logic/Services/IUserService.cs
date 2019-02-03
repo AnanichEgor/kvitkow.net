@@ -27,6 +27,13 @@ namespace UserManagement.Logic.Services
         Task<IEnumerable<ForViewModel>> GetAllAsync();
 
         /// <summary>
+        /// Получение пользователя по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<ForViewModel> Get(string id);
+
+        /// <summary>
         /// Получение пользователя по логину
         /// </summary>
         /// <param name="login"></param>
@@ -36,17 +43,17 @@ namespace UserManagement.Logic.Services
         /// <summary>
         /// Обновление пользователя по логину
         /// </summary>
-        /// <param name="login"></param>
+        /// <param name="id"></param>
         /// <param name="userModel"></param>
         /// <returns></returns>
-        Task<ForUpdateModel> UpdateByLogin(string login, ForUpdateModel userModel);
+        Task<string> Update(string id, ForUpdateModel userModel);
 
         /// <summary>
         /// Удаление пользователя по логину
         /// </summary>
-        /// <param name="login"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        Task<string> DeleteByLogin(string login);
+        Task<string> Delete(string id);
 
         /// <summary>
         /// Добавление группы
