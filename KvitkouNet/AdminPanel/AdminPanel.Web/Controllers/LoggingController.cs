@@ -20,18 +20,21 @@ namespace AdminPanel.Web.Controllers
 		private readonly IPaymentLog _paymentLogService;
 		private readonly IQueryLog _queryLogService;
 		private readonly ITicketActionLog _ticketActionLogService;
+		private readonly ITicketDealLog _ticketDealLogService;
 
 		public LoggingController(IErrorLog errorLogService,
 			IAccountLog accountLogService,
 			IPaymentLog paymentLogService,
 			IQueryLog queryLogService,
-			ITicketActionLog ticketActionLogService)
+			ITicketActionLog ticketActionLogService,
+			ITicketDealLog ticketDealLogService)
 		{
 			_errorLogService = errorLogService;
 			_accountLogService = accountLogService;
 			_paymentLogService = paymentLogService;
 			_queryLogService = queryLogService;
 			_ticketActionLogService = ticketActionLogService;
+			_ticketDealLogService = ticketDealLogService;
 		}
 
 		/// <summary>
@@ -157,6 +160,38 @@ namespace AdminPanel.Web.Controllers
 					ticketName: ticketName,
 					description: description,
 					actionType:actionType,
+					dateFrom: dateFrom,
+					dateTo: dateTo));
+			}
+			catch (SerializationException e)
+			{
+				return BadRequest($"{e.Message} : {e.Content}");
+			}
+		}
+
+		/// <summary>
+		/// Возвращает список логов по сделкам по билетам
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet("tickets")]
+		public async Task<IActionResult> GetTicketDealLogs(
+			[FromQuery] string ticketId,
+			string ownerId,
+			string recieverId,
+			double? minPrice,
+			double? maxPrice,
+			int type,
+			DateTime? dateFrom,
+			DateTime? dateTo)
+		{
+			try
+			{
+				return Ok(await _ticketDealLogService.GetTicketDealLogsAsync(ticketId: ticketId,
+					ownerId: ownerId,
+					recieverId: recieverId,
+					minPrice: minPrice,
+					maxPrice: maxPrice,
+					type: type,
 					dateFrom: dateFrom,
 					dateTo: dateTo));
 			}
