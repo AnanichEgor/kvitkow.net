@@ -48,7 +48,11 @@ namespace AdminPanel.Web.Controllers
 		{
 			try
 			{
-				return Ok(await _errorLogService.GetErrorLogsAsync(serviceName: serviceName, exceptionTypeName:exceptionTypeName, message:message, dateFrom:dateFrom, dateTo:dateTo));
+				return Ok(await _errorLogService.GetErrorLogsAsync(serviceName: serviceName,
+					exceptionTypeName:exceptionTypeName,
+					message:message,
+					dateFrom:dateFrom,
+					dateTo:dateTo));
 			}
 			catch (SerializationException e)
 			{
@@ -71,7 +75,12 @@ namespace AdminPanel.Web.Controllers
 		{
 			try
 			{
-				return Ok(await _accountLogService.GetAccountLogsAsync(userId:userId, userName:userName, email:email, type:type, dateFrom:dateFrom, dateTo:dateTo));
+				return Ok(await _accountLogService.GetAccountLogsAsync(userId:userId,
+					userName:userName,
+					email:email,
+					type:type,
+					dateFrom:dateFrom,
+					dateTo:dateTo));
 			}
 			catch (SerializationException e)
 			{
@@ -94,7 +103,12 @@ namespace AdminPanel.Web.Controllers
 		{
 			try
 			{
-				return Ok(await _paymentLogService.GetPaymentLogsAsync(senderId:senderId, recieverId:recieverId, minTransfer:minTransfer,maxTransfer:maxTransfer, dateFrom: dateFrom, dateTo: dateTo));
+				return Ok(await _paymentLogService.GetPaymentLogsAsync(senderId:senderId,
+					recieverId:recieverId,
+					minTransfer:minTransfer,
+					maxTransfer:maxTransfer,
+					dateFrom: dateFrom,
+					dateTo: dateTo));
 			}
 			catch (SerializationException e)
 			{
@@ -128,7 +142,7 @@ namespace AdminPanel.Web.Controllers
 		/// Возвращает список логов по действиям с билетамми
 		/// </summary>
 		/// <returns></returns>
-		[HttpGet("queries")]
+		[HttpGet("tickets")]
 		public async Task<IActionResult> GetTicketActionLogs(
 			[FromQuery] string ticketId,
 			string ticketName,
@@ -139,7 +153,12 @@ namespace AdminPanel.Web.Controllers
 		{
 			try
 			{
-				return Ok(await _ticketActionLogService.GetTicketActionLogsAsync(ticketId: ticketId, ticketName: ticketName, description: description, actionType:actionType, dateFrom: dateFrom, dateTo: dateTo));
+				return Ok(await _ticketActionLogService.GetTicketActionLogsAsync(ticketId: ticketId,
+					ticketName: ticketName,
+					description: description,
+					actionType:actionType,
+					dateFrom: dateFrom,
+					dateTo: dateTo));
 			}
 			catch (SerializationException e)
 			{
