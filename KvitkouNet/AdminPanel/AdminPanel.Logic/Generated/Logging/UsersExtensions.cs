@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace Swagger
+namespace AdminPanel.Logic.Generated.Logging
 {
     using Models;
     using System.Collections;

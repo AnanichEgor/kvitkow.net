@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace Swagger3
+namespace AdminPanel.Logic.Generated.Logging
 {
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
