@@ -6,12 +6,9 @@ namespace Logging.Logic.Extensions
 {
     public static class PredicateExtensions
     {
-        public static Expression<Func<T, bool>> Begin<T>(bool value = false)
+        public static Expression<Func<T, bool>> Begin<T>(bool value = true)
         {
-            if (value)
-                return parameter => true;
-
-            return parameter => false;
+            return parameter => value;
         }
 
         public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> left,
