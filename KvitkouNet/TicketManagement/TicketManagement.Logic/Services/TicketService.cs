@@ -166,7 +166,7 @@ namespace TicketManagement.Logic.Services
             var pageSize = _configuration.GetValue<int>("pageSize");
             var res = await _context.GetAllPagebyPage(index, pageSize);
             return res == null
-                ? (null, RequestStatus.InvalidModel)
+                ? (null, RequestStatus.Error)
                 : (_mapper.Map<Models.Page<TicketLite>>(res), RequestStatus.Success);
         }
 
@@ -181,7 +181,7 @@ namespace TicketManagement.Logic.Services
             var pageSize = _configuration.GetValue<int>("pageSize");
             var res = await _context.GetAllPagebyPage(index, pageSize,onlyActual);
             return res == null
-                ? (null, RequestStatus.InvalidModel)
+                ? (null, RequestStatus.Error)
                 : (_mapper.Map<Models.Page<TicketLite>>(res), RequestStatus.Success);
         }
 
