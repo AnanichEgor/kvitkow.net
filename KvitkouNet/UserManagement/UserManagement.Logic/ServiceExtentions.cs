@@ -18,6 +18,7 @@ namespace UserManagement.Logic
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<ForViewModelProfile>();
+                cfg.AddProfile<ForUpdateModelProfile>();
                 cfg.AddProfile<UserProfile>();
                 cfg.AddProfile<UserRegisterProfile>();
                 cfg.AddProfile<ProfileProfile>();

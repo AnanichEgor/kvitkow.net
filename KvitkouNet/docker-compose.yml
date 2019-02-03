@@ -12,12 +12,12 @@ services:
       - 5001:80
       - 5002:443
 
-   
+
    usermanagement.web:
     image: ${DOCKER_REGISTRY}usersweb
     build:
-      context: UserManagement
-      dockerfile: UserManagement.Web/Dockerfile
+      context: .
+      dockerfile: UserManagement/UserManagement.Web/Dockerfile
     ports:
       - 5003:80
 
@@ -64,13 +64,14 @@ services:
       context: .
       dockerfile: Search/Search.Web/Dockerfile
     environment:
-      - ElasticSearchConnection=http://elasticsearch
+      - ConnectionStrings__ElasticSearchConnection=http://elasticsearch:9200
+      - ConnectionStrings__RabbitConnection=host=rabbit
     ports:
       - 5008:80
     depends_on:
       - rabbit
       - elasticsearch
-   
+
    usersettings.web:
     image: ${DOCKER_REGISTRY}usersettingsgweb
     build:

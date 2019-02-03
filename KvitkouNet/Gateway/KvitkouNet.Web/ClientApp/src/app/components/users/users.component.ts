@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Users } from 'src/app/models/users';
+import { UsersService } from 'src/app/services/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersComponent implements OnInit {
 
-  constructor() { }
+  users: Users[] = [];
+  constructor(
+    private usersSrv: UsersService,
+    private router: Router
+    ) {}
 
   ngOnInit() {
+    this.usersSrv.getUsers().subscribe(result => (this.users = result), err => console.error(err));
   }
-
 }

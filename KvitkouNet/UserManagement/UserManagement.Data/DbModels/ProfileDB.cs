@@ -18,11 +18,6 @@ namespace UserManagement.Data.DbModels
         public string FirstName { get; set; }
 
         /// <summary>
-        /// Отчество пользователя
-        /// </summary>
-        public string MiddleName { get; set; }
-
-        /// <summary>
         /// Фамилия пользователя
         /// </summary>
         public string LastName { get; set; }
