@@ -13,10 +13,15 @@ namespace KvitkouNet.Messages.Logging
 		/// </summary>
 		public DateTime EventDate { get; set; } = DateTime.Now;
 
-		/// <summary>
-		/// Пользователь-владелец, разместивший билет
-		/// </summary>
-		public string OwnerId { get; set; }
+	    /// <summary>
+	    /// Id билета
+	    /// </summary>
+	    public string TicketId { get; set; }
+
+        /// <summary>
+        /// Пользователь-владелец, разместивший билет
+        /// </summary>
+        public string OwnerId { get; set; }
 
 		/// <summary>
 		/// Покупатель/получатель билета
