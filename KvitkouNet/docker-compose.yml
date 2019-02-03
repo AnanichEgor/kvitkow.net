@@ -106,3 +106,13 @@ services:
       dockerfile: Chat/Chat.Web/Dockerfile
     ports:
       - 5010:80
+
+   security.web:
+    image: ${DOCKER_REGISTRY}securityweb
+    build:
+      context: ./
+      dockerfile: Security/Security.Web/Dockerfile
+    depends_on:
+      - rabbit
+    ports:
+      - 5011:80

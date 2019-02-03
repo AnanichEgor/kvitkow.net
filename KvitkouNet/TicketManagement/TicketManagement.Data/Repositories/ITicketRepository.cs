@@ -25,6 +25,14 @@ namespace TicketManagement.Data.Repositories
         Task Update(string id, Ticket ticket);
 
         /// <summary>
+        ///     Добавление пользователя в "я пойду"
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="ticket">Модель билета</param>
+        /// <returns></returns>
+        Task AddRespondedUsers(string id, UserInfo user);
+
+        /// <summary>
         ///     Удаление всех билетов в БД
         /// </summary>
         /// <returns></returns>
