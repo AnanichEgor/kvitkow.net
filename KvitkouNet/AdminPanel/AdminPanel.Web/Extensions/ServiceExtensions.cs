@@ -26,7 +26,7 @@ namespace AdminPanel.Web.Extensions
 		/// </summary>
 		/// <param name="services"></param>
 		/// <returns></returns>
-		public static IServiceCollection RegisterLoggingService(this IServiceCollection services)
+		public static IServiceCollection RegisterLoggingServices(this IServiceCollection services)
 		{
 			services.AddScoped<IErrorLog>(p => new ErrorLog(new MyTitle(new HttpClient(), true)));
 
