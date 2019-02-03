@@ -44,8 +44,8 @@ namespace TicketManagement.Web.Controllers
         /// <summary>
         ///     Добавление пользователя в "я пойду"
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="ticket">Модель билета</param>
+        /// <param name="id">id билета</param>
+        /// <param name="user">Пользователь добавивший билет</param>
         /// <returns></returns>
         [HttpPut]
         [Route("{id}/add")]
@@ -125,7 +125,6 @@ namespace TicketManagement.Web.Controllers
         /// <summary>
         ///     Получение билета по Id
         /// </summary>
-        /// <param name="ticketIdGuid">Id билета</param>
         /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
