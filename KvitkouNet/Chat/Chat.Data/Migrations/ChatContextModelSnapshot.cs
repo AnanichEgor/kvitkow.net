@@ -21,6 +21,8 @@ namespace Chat.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("IsEdit");
+
                     b.Property<string>("RoomId");
 
                     b.Property<DateTime>("SendedTime");
