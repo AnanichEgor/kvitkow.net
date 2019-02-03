@@ -43,7 +43,7 @@ namespace TicketManagement.Web
 
             app.UseSwagger()
                 .UseSwaggerUi3();
-            app.UseSubscriber("UserService", Assembly.GetExecutingAssembly());
+            app.UseSubscriber("UserServiceForTicket", Assembly.GetExecutingAssembly());
             app.UseMvc();
         }
     }

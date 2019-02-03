@@ -19,7 +19,7 @@ namespace TicketManagement.Logic.Subscriber
             _mapper = mapper;
         }
 
-        [AutoSubscriberConsumer(SubscriptionId = "UserService.Updated")]
+        [AutoSubscriberConsumer(SubscriptionId = "UserServiceForTicket.Updated")]
         public async Task ConsumeAsync(UserUpdatedMessage message)
         {
             var modelDb = _mapper.Map<UserInfo>(message);
@@ -27,7 +27,7 @@ namespace TicketManagement.Logic.Subscriber
             await _ticketContext.SaveChangesAsync();
         }
 
-        [AutoSubscriberConsumer(SubscriptionId = "UserService.Deleted")]
+        [AutoSubscriberConsumer(SubscriptionId = "UserServiceForTicket.Deleted")]
         public async Task ConsumeAsync(UserDeletedMessage message)
         {
             var modelDb = _mapper.Map<UserInfo>(message);
