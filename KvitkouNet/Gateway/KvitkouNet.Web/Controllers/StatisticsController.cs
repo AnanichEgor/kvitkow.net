@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using KvitkouNet.Logic.Common.Models.Security;
 using KvitkouNet.Logic.Common.Services.Statistics;
 using KvitkouNet.Logic.Common.Models.Statistic;
-using KvitkouNet.Logic.Common.Models.UserManagement;
+//using KvitkouNet.Logic.Common.Models.UserManagement;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
@@ -15,7 +15,7 @@ namespace KvitkouNet.Web.Controllers
     /// Controller, which provides statistics to user
     /// </summary>
     [Route("api/statistics")]
-    public class StatisticsController:Controller
+    public class StatisticsController : Controller
     {
         IStatisticService _statisticService;
 
@@ -79,27 +79,26 @@ namespace KvitkouNet.Web.Controllers
             return Ok(await result);
         }
 
-        [HttpPost, Route("own/blacklist/add/{userid}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(OwnStatistic), Description = "OK")]
-        [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(void), Description = "Error. Try Again")]
+        //[HttpPost, Route("own/blacklist/add/{userid}")]
+        //[SwaggerResponse(HttpStatusCode.OK, typeof(OwnStatistic), Description = "OK")]
+        //[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
+        //[SwaggerResponse(HttpStatusCode.BadRequest, typeof(void), Description = "Error. Try Again")]
 
-        public async Task<IActionResult> AddToBlackList([FromBody] User user)
-        {
-            var result = _statisticService.AddToBlackList(user);
-            return Ok(await result);
-        }
+        //public async Task<IActionResult> AddToBlackList([FromBody] User user)
+        //{
+        //    var result = _statisticService.AddToBlackList(user);
+        //    return Ok(await result);
+        //}
 
-        [HttpPost, Route("own/blacklist/delete/{userid}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(OwnStatistic), Description = "OK")]
-        [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(void), Description = "Error. Try Again")]
+        //[HttpPost, Route("own/blacklist/delete/{userid}")]
+        //[SwaggerResponse(HttpStatusCode.OK, typeof(OwnStatistic), Description = "OK")]
+        //[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access denied")]
+        //[SwaggerResponse(HttpStatusCode.BadRequest, typeof(void), Description = "Error. Try Again")]
 
-        public async Task<IActionResult> DeleteFromBlackList([FromBody] User user)
-        {
-            var result = _statisticService.DeleteFromBlackList(user);
-            return Ok(await result);
-        }
-
+        //public async Task<IActionResult> DeleteFromBlackList([FromBody] User user)
+        //{
+        //    var result = _statisticService.DeleteFromBlackList(user);
+        //    return Ok(await result);
+        //}
     }
 }
