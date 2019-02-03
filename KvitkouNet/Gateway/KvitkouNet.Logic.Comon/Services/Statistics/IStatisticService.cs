@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using KvitkouNet.Logic.Common.Models.Statistic;
-using UserManagement = KvitkouNet.Logic.Common.Models.UserManagement;
+//using UserManagement = KvitkouNet.Logic.Common.Models.UserManagement;
 
 namespace KvitkouNet.Logic.Common.Services.Statistics
 {
@@ -55,7 +55,7 @@ namespace KvitkouNet.Logic.Common.Services.Statistics
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        Task<OwnStatistic> AddToBlackList(UserManagement.User user);
+        //Task<OwnStatistic> AddToBlackList(UserManagement.User user);
 
         /// <summary>
         /// Removes some user from owner`s black list
@@ -63,6 +63,6 @@ namespace KvitkouNet.Logic.Common.Services.Statistics
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        Task<OwnStatistic> DeleteFromBlackList(UserManagement.User user);
+        //Task<OwnStatistic> DeleteFromBlackList(UserManagement.User user);
     }
 }

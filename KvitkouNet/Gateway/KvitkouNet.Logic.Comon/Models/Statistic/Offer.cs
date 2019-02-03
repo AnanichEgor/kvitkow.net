@@ -1,6 +1,6 @@
 ﻿using KvitkouNet.Logic.Common.Models.PaymentManagement;
 //using KvitkouNet.Logic.Common.Models.Tickets;
-using KvitkouNet.Logic.Common.Models.UserManagement;
+//using KvitkouNet.Logic.Common.Models.UserManagement;
 using System;
 using System.Collections.Generic;
 
@@ -14,7 +14,7 @@ namespace KvitkouNet.Logic.Common.Models.Statistic
         /// <summary>
         /// Provides the data of person who dealt an offer
         /// </summary>
-        public User OfferingPerson { get; set; }
+        //public User OfferingPerson { get; set; }
 
         /// <summary>
         /// Shows tickets, which have been using in the offer 

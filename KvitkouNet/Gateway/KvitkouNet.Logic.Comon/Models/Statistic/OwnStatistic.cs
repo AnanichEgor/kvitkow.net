@@ -1,5 +1,5 @@
 ﻿//using KvitkouNet.Logic.Common.Models.Tickets;
-using KvitkouNet.Logic.Common.Models.UserManagement;
+//using KvitkouNet.Logic.Common.Models.UserManagement;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,6 +30,6 @@ namespace KvitkouNet.Logic.Common.Models.Statistic
         /// Provides users, who get in the black list
         /// Предоставляет общее количество пользователей, попавший в собственный черный список
         /// </summary>
-        public IDictionary<User, string> BannedUsers { get; set; }
+        //public IDictionary<User, string> BannedUsers { get; set; }
     }
 }
