@@ -24,6 +24,7 @@ import { ChatComponent } from './components/chat/chat.component';
 import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.component';
 import { AccountLogsComponent } from './components/admin/account-logs/account-logs.component';
 import { PaymentLogsComponent } from './components/admin/payment-logs/payment-logs.component';
+import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { PaymentLogsComponent } from './components/admin/payment-logs/payment-lo
     ChatComponent,
     ErrorLogsComponent,
     AccountLogsComponent,
-    PaymentLogsComponent
+    PaymentLogsComponent,
+    AdminMainComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
