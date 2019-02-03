@@ -65,6 +65,11 @@ export class SearchUserResultsComponent implements OnInit {
       .map((x, i) => i + 1);
   }
 
+  isActive(pageNumber=0): boolean{
+    let request = Object.assign({}, this.request);
+    return (Math.ceil(request.offset / this.request.limit) == pageNumber-1);
+  }
+
   goTo(pageNumber) {
     let request = Object.assign({}, this.request);
     request.offset = (pageNumber - 1) * request.limit;
