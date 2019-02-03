@@ -1,3 +1,5 @@
+import { SecurityMenuComponent } from './components/security-menu/security-menu.component';
+import { SecurityComponent } from './components/security/security.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -20,8 +22,8 @@ const routes: Routes = [
   { path: 'users/registration', component: RegistrationComponent, pathMatch: 'full' },
   { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
   { path: 'tickets/ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
+  { path: 'security', component: SecurityComponent, pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
-
 ];
 
 @NgModule({
