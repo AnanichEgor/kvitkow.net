@@ -53,18 +53,30 @@ namespace UserManagement.Logic.Services
 
         public async Task<ForViewModel> GetByLogin(string login)
         {
-            var model = await _unitOfWork.Users.GetAsync(login);
+            var model = await _unitOfWork.Users.GetByLoginAsync(login);
             return model != null ? (_mapper.Map<ForViewModel>(model)):(null);
         }
 
-        public Task<ForUpdateModel> UpdateByLogin(string login, ForUpdateModel userModel)
+        public async Task<ForViewModel> Get(string id)
         {
-            throw new NotImplementedException();
+            var model = await _unitOfWork.Users.GetAsync(id);
+            return model != null ? (_mapper.Map<ForViewModel>(model)) : (null);
         }
 
-        public Task<string> DeleteByLogin(string login)
+        public async Task<string> Update(string id, ForUpdateModel userModel)
         {
-            throw new NotImplementedException();
+            var findUser = _unitOfWork.Users.FindAsync(x => x.Id == id).Result.FirstOrDefault();
+            if (findUser == null) return "Not Found";
+            await _unitOfWork.Users.UpdateAsync(_mapper.Map<UserDB>(userModel), id);
+            return "Ok";
+        }
+
+        public async Task<string> Delete(string id)
+        {
+            var findUser = _unitOfWork.Users.FindAsync(x => x.Id == id).Result.FirstOrDefault();
+            if (findUser == null) return "Not Found";
+            await _unitOfWork.Users.DeleteAsync(findUser);
+            return "Ok";
         }
 
 
