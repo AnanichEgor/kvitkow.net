@@ -13,11 +13,13 @@ import { EditGuard } from './services/editGuard';
 import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.component';
 import { AccountLogsComponent } from './components/admin/account-logs/account-logs.component';
 import { PaymentLogsComponent } from './components/admin/payment-logs/payment-logs.component';
+import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'admin', component: AdminComponent,
     children: [
+      { path: '', component: AdminMainComponent },
       { path: 'logs/errors', component: ErrorLogsComponent },
       { path: 'logs/accounts', component: AccountLogsComponent },
       { path: 'logs/payments', component: PaymentLogsComponent }
