@@ -52,7 +52,7 @@ namespace Chat.Logic
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection RegisterAutoMapper(this IServiceCollection services)
+        public static IServiceCollection RegisterAutoMapperLogic(this IServiceCollection services)
         {
             services.AddAutoMapper(cfg =>
             {

@@ -4,16 +4,16 @@ using KvitkouNet.Messages.UserManagement;
 
 namespace Chat.Web.MappingProfiles
 {
-    public class UserRegistrationProfile : Profile
+    public class UserUpdatedProfile : Profile
     {
-        public UserRegistrationProfile()
+        public UserUpdatedProfile()
         {
-            CreateMap<UserCreationMessage, User>()
+            CreateMap<UserUpdatedMessage, User>()
                 .ForMember(logic => logic.Id,
                     opt => opt.MapFrom(messages => messages.UserId))
                 .ForMember(logic => logic.UserName,
                     opt => opt.MapFrom(messages => messages.FirstName)
-                    );
+                );
         }
     }
 }

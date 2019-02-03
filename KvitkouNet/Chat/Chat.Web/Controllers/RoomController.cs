@@ -114,11 +114,11 @@ namespace Chat.Web.Controllers
             //Если пользователь не Online отправим ему уведомление
             if (userIsOnline != null)
             {
-                _bus.Publish(new OfflineChatMessage
+
+                await _bus.PublishAsync(new OfflineChatMessage
                 {
                     UserName = userIsOnline,
                     SendedTime = message.SendedTime
-
                 });
             }
 

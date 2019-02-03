@@ -19,10 +19,10 @@ namespace Chat.Web.Subscriber
             var lifetime = services.GetService<IApplicationLifetime>();
             var bus = services.GetService<IBus>();
 
+            //register our consumer with our IoC container
             var container = new WindsorContainer();
-
             container.Register(
-                Component.For<UserCreationMessageConsumer>().ImplementedBy<UserCreationMessageConsumer>());
+                Component.For<UserMessageConsumer>().ImplementedBy<UserMessageConsumer>());
 
             lifetime.ApplicationStarted.Register(() =>
             {

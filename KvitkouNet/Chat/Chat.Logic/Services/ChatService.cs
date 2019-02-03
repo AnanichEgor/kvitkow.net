@@ -28,6 +28,24 @@ namespace Chat.Logic.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task EditUser(User user)
+        {
+
+            var res = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == user.Id);
+            if (res == null)
+            {
+                await Task.FromException(new InvalidDataException());
+            }
+            else
+            {
+                var modelDb = _mapper.Map<UserDb>(user);
+                modelDb.UserName = user.UserName;
+                _context.Attach(modelDb);
+                _context.Entry(modelDb).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+        }
+
         public async Task<Settings> GetUserSettings(string userId)
         {
             var res = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == userId);

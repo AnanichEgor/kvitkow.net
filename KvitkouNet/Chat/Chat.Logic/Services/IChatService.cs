@@ -17,6 +17,12 @@ namespace Chat.Logic.Services
         Task AddUser(User newUser);
 
         /// <summary>
+        /// Изменим имя пользователя
+        /// </summary>
+        /// <returns></returns>
+        Task EditUser(User newUser);
+
+        /// <summary>
         /// Получение пользовательских настроек для чата
         /// </summary>
         /// <returns></returns>

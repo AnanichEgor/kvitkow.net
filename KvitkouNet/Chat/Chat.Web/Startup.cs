@@ -24,15 +24,17 @@ namespace Chat.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var rabbitConnectionString = Configuration.GetConnectionString("RabbitConnection");
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerDocument(settings => settings.Title = "Chat");
             services.RegisterChatService();
             services.RegisterRoomService();
             services.RegisterDbContext();
-            services.RegisterAutoMapper();
-            services.AddAutoMapper(cfg => cfg.AddProfile<UserRegistrationProfile>());
-  //          services.RegisterEasyNetQ("host=rabbit");
-            services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=rabbit"));
+            services.RegisterAutoMapperLogic();
+            services.AddAutoMapper(cfg => cfg.AddProfile<UserCreationProfile>());
+            services.AddAutoMapper(cfg => cfg.AddProfile<UserUpdatedProfile>());
+            services.AddSingleton<IBus>(RabbitHutch.CreateBus(rabbitConnectionString));
 
         }
 
@@ -46,7 +48,8 @@ namespace Chat.Web
             }
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
-            app.UseSubscriber("Chat.Web", Assembly.GetExecutingAssembly());
+
+            app.UseSubscriber("UserService", Assembly.GetExecutingAssembly());
         }
     }
 }
