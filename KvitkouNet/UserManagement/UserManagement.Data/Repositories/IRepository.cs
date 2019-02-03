@@ -17,7 +17,7 @@ namespace UserManagement.Data.Repositories
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
         Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> match);
         TEntity Update(TEntity t, object key);
-        Task<TEntity> UpdateAsyn(TEntity t, object key);
+        Task<TEntity> UpdateAsync(TEntity t, object key);
         void Delete(TEntity entity);
         Task<int> DeleteAsync(TEntity entity);
     }

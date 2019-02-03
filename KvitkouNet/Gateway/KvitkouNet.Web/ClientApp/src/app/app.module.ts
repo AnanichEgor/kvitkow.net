@@ -1,3 +1,4 @@
+import { UsersService } from './services/users.service';
 import { EditGuard } from './services/editGuard';
 import { GetallticketsService } from './services/getalltickets.service';
 import { GetTicketByIdService } from './services/get-ticket-by-id.service';
@@ -52,7 +53,7 @@ import { SearchUserResultsComponent } from './components/search-user-results/sea
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, AppRoutingModule],
+  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, AppRoutingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
