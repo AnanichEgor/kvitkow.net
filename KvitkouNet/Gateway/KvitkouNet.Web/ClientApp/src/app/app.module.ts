@@ -23,6 +23,7 @@ import { TicketEditComponent } from './components/ticket-edit/ticket-edit.compon
 import { ChatComponent } from './components/chat/chat.component';
 import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.component';
 import { AccountLogsComponent } from './components/admin/account-logs/account-logs.component';
+import { PaymentLogsComponent } from './components/admin/payment-logs/payment-logs.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AccountLogsComponent } from './components/admin/account-logs/account-lo
     TicketEditComponent,
     ChatComponent,
     ErrorLogsComponent,
-    AccountLogsComponent
+    AccountLogsComponent,
+    PaymentLogsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

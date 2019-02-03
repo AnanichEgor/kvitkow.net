@@ -12,13 +12,15 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { EditGuard } from './services/editGuard';
 import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.component';
 import { AccountLogsComponent } from './components/admin/account-logs/account-logs.component';
+import { PaymentLogsComponent } from './components/admin/payment-logs/payment-logs.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'admin', component: AdminComponent,
     children: [
       { path: 'logs/errors', component: ErrorLogsComponent },
-      { path: 'logs/accounts', component: AccountLogsComponent }
+      { path: 'logs/accounts', component: AccountLogsComponent },
+      { path: 'logs/payments', component: PaymentLogsComponent }
     ]},
   { path: 'tickets', component: TicketComponent,  pathMatch: 'full'  },
   { path: 'tickets/:id', component: TicketDetailComponent, pathMatch: 'full' },
