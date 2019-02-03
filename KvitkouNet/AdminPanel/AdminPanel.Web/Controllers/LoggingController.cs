@@ -173,7 +173,7 @@ namespace AdminPanel.Web.Controllers
 		/// Возвращает список логов по сделкам по билетам
 		/// </summary>
 		/// <returns></returns>
-		[HttpGet("tickets")]
+		[HttpGet("deals")]
 		public async Task<IActionResult> GetTicketDealLogs(
 			[FromQuery] string ticketId,
 			string ownerId,
