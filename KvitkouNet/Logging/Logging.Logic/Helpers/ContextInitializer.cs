@@ -34,10 +34,24 @@ namespace Logging.Logic.Helpers
 		private static void SeedInternalErrorLogEntries(LoggingDbContext context)
 		{
 			if (!context.InternalErrorLogEntries.Any())
-			{
-				context.InternalErrorLogEntries.AddRange(InternalErrorLogEntryFaker.Generate());
-				context.SaveChanges();
-			}
-		}
+                context.InternalErrorLogEntries.AddRange(InternalErrorLogEntryFaker.Generate());
+
+		    if (!context.AccountLogEntries.Any())
+                context.AccountLogEntries.AddRange(AccountLogEntryFaker.Generate());
+
+		    if (!context.PaymentLogEntries.Any())
+                context.PaymentLogEntries.AddRange(PaymentLogEntryFaker.Generate());
+
+		    if (!context.SearchQueryLogEntries.Any())
+                context.SearchQueryLogEntries.AddRange(SearchQueryLogEntryFaker.Generate());
+
+		    if (!context.TicketActionLogEntries.Any())
+                context.TicketActionLogEntries.AddRange(TicketActionLogEntryFaker.Generate());
+
+		    if (!context.TicketDealLogEntries.Any())
+                context.TicketDealLogEntries.AddRange(TicketDealLogEntryFaker.Generate());
+
+		    context.SaveChanges();
+        }
 	}
 }
