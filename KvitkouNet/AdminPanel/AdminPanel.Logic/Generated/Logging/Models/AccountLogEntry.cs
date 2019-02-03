@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace AdminPanel.Logic.Generated.Logging.Models
+namespace Swagger3.Models
 {
     using Newtonsoft.Json;
     using System.Linq;

@@ -4,14 +4,14 @@
 // regenerated.
 // </auto-generated>
 
-namespace Swagger3
+namespace Swagger
 {
     using Models;
     using Newtonsoft.Json;
 
     /// <summary>
     /// </summary>
-    public partial interface IMyTitle : System.IDisposable
+    public partial interface IUserService : System.IDisposable
     {
         /// <summary>
         /// The base URI of the service.
@@ -30,34 +30,9 @@ namespace Swagger3
 
 
         /// <summary>
-        /// Gets the IAccountLog.
+        /// Gets the IUsers.
         /// </summary>
-        IAccountLog AccountLog { get; }
-
-        /// <summary>
-        /// Gets the IErrorLog.
-        /// </summary>
-        IErrorLog ErrorLog { get; }
-
-        /// <summary>
-        /// Gets the IPaymentLog.
-        /// </summary>
-        IPaymentLog PaymentLog { get; }
-
-        /// <summary>
-        /// Gets the IQueryLog.
-        /// </summary>
-        IQueryLog QueryLog { get; }
-
-        /// <summary>
-        /// Gets the ITicketActionLog.
-        /// </summary>
-        ITicketActionLog TicketActionLog { get; }
-
-        /// <summary>
-        /// Gets the ITicketDealLog.
-        /// </summary>
-        ITicketDealLog TicketDealLog { get; }
+        IUsers Users { get; }
 
     }
 }

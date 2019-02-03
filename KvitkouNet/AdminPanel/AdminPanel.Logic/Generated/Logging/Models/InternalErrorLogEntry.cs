@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace AdminPanel.Logic.Generated.Logging.Models
+namespace Swagger3.Models
 {
     using Newtonsoft.Json;
     using System.Linq;
@@ -22,11 +22,11 @@ namespace AdminPanel.Logic.Generated.Logging.Models
         /// <summary>
         /// Initializes a new instance of the InternalErrorLogEntry class.
         /// </summary>
-        public InternalErrorLogEntry(System.DateTime eventDate, int hResult, string id = default(string), string serviceName = default(string), string typeName = default(string), string innerExceptionString = default(string), string message = default(string), string source = default(string), string stackTrace = default(string), string targetSiteName = default(string))
+        public InternalErrorLogEntry(System.DateTime eventDate, int hResult, string id = default(string), string serviceName = default(string), string exceptionType = default(string), string innerExceptionString = default(string), string message = default(string), string source = default(string), string stackTrace = default(string), string targetSiteName = default(string))
             : base(eventDate, id)
         {
             ServiceName = serviceName;
-            TypeName = typeName;
+            ExceptionType = exceptionType;
             HResult = hResult;
             InnerExceptionString = innerExceptionString;
             Message = message;
@@ -48,8 +48,8 @@ namespace AdminPanel.Logic.Generated.Logging.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "typeName")]
-        public string TypeName { get; set; }
+        [JsonProperty(PropertyName = "exceptionType")]
+        public string ExceptionType { get; set; }
 
         /// <summary>
         /// </summary>

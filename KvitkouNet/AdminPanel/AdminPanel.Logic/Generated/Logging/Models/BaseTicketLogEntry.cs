@@ -4,28 +4,29 @@
 // regenerated.
 // </auto-generated>
 
-namespace Swagger3.Models
+namespace Swagger.Models
 {
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class BaseLogEntry
+    public partial class BaseTicketLogEntry : BaseLogEntryOfInt64
     {
         /// <summary>
-        /// Initializes a new instance of the BaseLogEntry class.
+        /// Initializes a new instance of the BaseTicketLogEntry class.
         /// </summary>
-        public BaseLogEntry()
+        public BaseTicketLogEntry()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the BaseLogEntry class.
+        /// Initializes a new instance of the BaseTicketLogEntry class.
         /// </summary>
-        public BaseLogEntry(System.DateTime eventDate, string id = default(string))
+        public BaseTicketLogEntry(long id, System.DateTime created, string content = default(string), object ticket = default(object), User owner = default(User))
+            : base(id, created, content)
         {
-            Id = id;
-            EventDate = eventDate;
+            Ticket = ticket;
+            Owner = owner;
             CustomInit();
         }
 
@@ -36,13 +37,13 @@ namespace Swagger3.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
+        [JsonProperty(PropertyName = "ticket")]
+        public object Ticket { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "eventDate")]
-        public System.DateTime EventDate { get; set; }
+        [JsonProperty(PropertyName = "owner")]
+        public User Owner { get; set; }
 
         /// <summary>
         /// Validate the object.
@@ -50,9 +51,13 @@ namespace Swagger3.Models
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown if validation fails
         /// </exception>
-        public virtual void Validate()
+        public override void Validate()
         {
-            //Nothing to validate
+            base.Validate();
+            if (Owner != null)
+            {
+                Owner.Validate();
+            }
         }
     }
 }

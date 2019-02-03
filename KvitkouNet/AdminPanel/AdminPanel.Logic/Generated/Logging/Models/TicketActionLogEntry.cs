@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace AdminPanel.Logic.Generated.Logging.Models
+namespace Swagger3.Models
 {
     using Newtonsoft.Json;
     using System.Linq;
@@ -22,11 +22,12 @@ namespace AdminPanel.Logic.Generated.Logging.Models
         /// <summary>
         /// Initializes a new instance of the TicketActionLogEntry class.
         /// </summary>
-        public TicketActionLogEntry(System.DateTime eventDate, int actionType, string id = default(string), string userId = default(string), string ticketId = default(string), string description = default(string))
+        public TicketActionLogEntry(System.DateTime eventDate, int actionType, string id = default(string), string userId = default(string), string ticketId = default(string), string ticketName = default(string), string description = default(string))
             : base(eventDate, id)
         {
             UserId = userId;
             TicketId = ticketId;
+            TicketName = ticketName;
             ActionType = actionType;
             Description = description;
             CustomInit();
@@ -46,6 +47,11 @@ namespace AdminPanel.Logic.Generated.Logging.Models
         /// </summary>
         [JsonProperty(PropertyName = "ticketId")]
         public string TicketId { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "ticketName")]
+        public string TicketName { get; set; }
 
         /// <summary>
         /// </summary>

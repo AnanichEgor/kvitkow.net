@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace Swagger3
+namespace Swagger
 {
     using Microsoft.Rest;
     using Models;
@@ -14,21 +14,24 @@ namespace Swagger3
     using System.Threading.Tasks;
 
     /// <summary>
-    /// TicketActionLog operations.
+    /// Users operations.
     /// </summary>
-    public partial interface ITicketActionLog
+    public partial interface IUsers
     {
-        /// <param name='ticketId'>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
         /// </param>
-        /// <param name='ticketName'>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
         /// </param>
-        /// <param name='description'>
-        /// </param>
-        /// <param name='actionType'>
-        /// </param>
-        /// <param name='dateFrom'>
-        /// </param>
-        /// <param name='dateTo'>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        Task<HttpOperationResponse<IList<User>>> GetAllWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <param name='id'>
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -42,6 +45,6 @@ namespace Swagger3
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<object>> GetTicketActionLogsWithHttpMessagesAsync(string ticketId = default(string), string ticketName = default(string), string description = default(string), int actionType = default(int), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<User>> GetByIdWithHttpMessagesAsync(int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

@@ -4,28 +4,29 @@
 // regenerated.
 // </auto-generated>
 
-namespace Swagger3.Models
+namespace Swagger.Models
 {
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class BaseLogEntry
+    public partial class BaseLogEntryOfInt64
     {
         /// <summary>
-        /// Initializes a new instance of the BaseLogEntry class.
+        /// Initializes a new instance of the BaseLogEntryOfInt64 class.
         /// </summary>
-        public BaseLogEntry()
+        public BaseLogEntryOfInt64()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the BaseLogEntry class.
+        /// Initializes a new instance of the BaseLogEntryOfInt64 class.
         /// </summary>
-        public BaseLogEntry(System.DateTime eventDate, string id = default(string))
+        public BaseLogEntryOfInt64(long id, System.DateTime created, string content = default(string))
         {
             Id = id;
-            EventDate = eventDate;
+            Content = content;
+            Created = created;
             CustomInit();
         }
 
@@ -37,12 +38,17 @@ namespace Swagger3.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "eventDate")]
-        public System.DateTime EventDate { get; set; }
+        [JsonProperty(PropertyName = "content")]
+        public string Content { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "created")]
+        public System.DateTime Created { get; set; }
 
         /// <summary>
         /// Validate the object.

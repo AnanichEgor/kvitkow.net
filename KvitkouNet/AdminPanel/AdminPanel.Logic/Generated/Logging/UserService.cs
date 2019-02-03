@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace Swagger3
+namespace Swagger
 {
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
@@ -15,7 +15,7 @@ namespace Swagger3
     using System.Net;
     using System.Net.Http;
 
-    public partial class MyTitle : ServiceClient<MyTitle>, IMyTitle
+    public partial class UserService : ServiceClient<UserService>, IUserService
     {
         /// <summary>
         /// The base URI of the service.
@@ -33,61 +33,36 @@ namespace Swagger3
         public JsonSerializerSettings DeserializationSettings { get; private set; }
 
         /// <summary>
-        /// Gets the IAccountLog.
+        /// Gets the IUsers.
         /// </summary>
-        public virtual IAccountLog AccountLog { get; private set; }
+        public virtual IUsers Users { get; private set; }
 
         /// <summary>
-        /// Gets the IErrorLog.
-        /// </summary>
-        public virtual IErrorLog ErrorLog { get; private set; }
-
-        /// <summary>
-        /// Gets the IPaymentLog.
-        /// </summary>
-        public virtual IPaymentLog PaymentLog { get; private set; }
-
-        /// <summary>
-        /// Gets the IQueryLog.
-        /// </summary>
-        public virtual IQueryLog QueryLog { get; private set; }
-
-        /// <summary>
-        /// Gets the ITicketActionLog.
-        /// </summary>
-        public virtual ITicketActionLog TicketActionLog { get; private set; }
-
-        /// <summary>
-        /// Gets the ITicketDealLog.
-        /// </summary>
-        public virtual ITicketDealLog TicketDealLog { get; private set; }
-
-        /// <summary>
-        /// Initializes a new instance of the MyTitle class.
+        /// Initializes a new instance of the UserService class.
         /// </summary>
         /// <param name='httpClient'>
         /// HttpClient to be used
         /// </param>
         /// <param name='disposeHttpClient'>
-        /// True: will dispose the provided httpClient on calling MyTitle.Dispose(). False: will not dispose provided httpClient</param>
-        public MyTitle(HttpClient httpClient, bool disposeHttpClient) : base(httpClient, disposeHttpClient)
+        /// True: will dispose the provided httpClient on calling UserService.Dispose(). False: will not dispose provided httpClient</param>
+        public UserService(HttpClient httpClient, bool disposeHttpClient) : base(httpClient, disposeHttpClient)
         {
             Initialize();
         }
 
         /// <summary>
-        /// Initializes a new instance of the MyTitle class.
+        /// Initializes a new instance of the UserService class.
         /// </summary>
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        public MyTitle(params DelegatingHandler[] handlers) : base(handlers)
+        public UserService(params DelegatingHandler[] handlers) : base(handlers)
         {
             Initialize();
         }
 
         /// <summary>
-        /// Initializes a new instance of the MyTitle class.
+        /// Initializes a new instance of the UserService class.
         /// </summary>
         /// <param name='rootHandler'>
         /// Optional. The http client handler used to handle http transport.
@@ -95,13 +70,13 @@ namespace Swagger3
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        public MyTitle(HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : base(rootHandler, handlers)
+        public UserService(HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : base(rootHandler, handlers)
         {
             Initialize();
         }
 
         /// <summary>
-        /// Initializes a new instance of the MyTitle class.
+        /// Initializes a new instance of the UserService class.
         /// </summary>
         /// <param name='baseUri'>
         /// Optional. The base URI of the service.
@@ -112,7 +87,7 @@ namespace Swagger3
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public MyTitle(System.Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
+        public UserService(System.Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
         {
             if (baseUri == null)
             {
@@ -122,7 +97,7 @@ namespace Swagger3
         }
 
         /// <summary>
-        /// Initializes a new instance of the MyTitle class.
+        /// Initializes a new instance of the UserService class.
         /// </summary>
         /// <param name='baseUri'>
         /// Optional. The base URI of the service.
@@ -136,7 +111,7 @@ namespace Swagger3
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public MyTitle(System.Uri baseUri, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
+        public UserService(System.Uri baseUri, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
         {
             if (baseUri == null)
             {
@@ -154,13 +129,8 @@ namespace Swagger3
         /// </summary>
         private void Initialize()
         {
-            AccountLog = new AccountLog(this);
-            ErrorLog = new ErrorLog(this);
-            PaymentLog = new PaymentLog(this);
-            QueryLog = new QueryLog(this);
-            TicketActionLog = new TicketActionLog(this);
-            TicketDealLog = new TicketDealLog(this);
-            BaseUri = new System.Uri("http://localhost:55293");
+            Users = new Users(this);
+            BaseUri = new System.Uri("https://localhost:44343");
             SerializationSettings = new JsonSerializerSettings
             {
                 Formatting = Newtonsoft.Json.Formatting.Indented,
