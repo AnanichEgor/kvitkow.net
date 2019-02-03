@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using EasyNetQ;
-using FluentValidation;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
 using Logging.Logic.Models.Filters;
@@ -42,6 +38,7 @@ namespace Logging.Web.Controllers
 		public async Task<IActionResult> GetErrorLogs([FromQuery] ErrorLogsFilter filter)
 		{
 			var result = await _loggingService.GetLogsAsync(filter);
+
 			return Ok(result);
 		}
 
