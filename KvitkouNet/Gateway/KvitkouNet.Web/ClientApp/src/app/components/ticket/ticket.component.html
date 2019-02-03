@@ -1,0 +1,34 @@
+  <div class="album py-5 bg-light"></div>
+    <div class="container">
+      <div class="row">
+        <div class="card mb-4 shadow-sm" *ngFor="let ticket of tickets">
+          <svg
+            class="bd-placeholder-img card-img-top"
+            width="100%"
+            height="225"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+            role="img"
+            aria-label="Placeholder: Thumbnail"
+          >
+            <title>Placeholder</title>
+            <rect fill="#55595c" width="100%" height="100%"></rect>
+            <text fill="#eceeef" dy=".3em" x="50%" y="50%">{{ ticket.name }}</text>
+          </svg>
+          <div class="card-body">
+            <p class="card-text">{{ ticket.id }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary" (click)="goToTicket(ticket.id)">
+                  View
+                </button>
+              </div>
+              <small class="text-muted">{{ticket.createdDate}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   <div class="pagination">
+      <a class="nav-link" *ngFor=" let page of pages" [routerLink]="['/tickets', page]" >{{page}}</a></div>

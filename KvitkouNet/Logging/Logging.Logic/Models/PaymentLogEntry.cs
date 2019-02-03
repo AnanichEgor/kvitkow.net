@@ -1,17 +1,25 @@
 ﻿using Logging.Logic.Models.Abstraction;
-using Logging.Logic.Models.Mocks;
 
 namespace Logging.Logic.Models
 {
 	/// <summary>
-	/// Модель для записи в лог информации о платежах.
-	/// <para>В случае неудачи причина пишется в поле Content класса BaseLogEntry</para>
+	///  Модель записи о платежных операциях
 	/// </summary>
-	public class PaymentLogEntry : BaseLogEntry<long>
+	public class PaymentLogEntry : BaseLogEntry
 	{
 		/// <summary>
-		/// Модель платежной транзакции
+		/// Id отправителя денег
 		/// </summary>
-		public PaymentTransactionMock PaymentTransaction { get; set; }
+		public string SenderId { get; set; }
+
+		/// <summary>
+		/// Id получателя денег
+		/// </summary>
+		public string ReciverId { get; set; }
+
+		/// <summary>
+		/// Сумма перевода
+		/// </summary>
+		public decimal Transfer { get; set; }
 	}
 }

@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using Logging.Logic.Dtos;
+using Logging.Logic.Models.Filters;
 
 namespace Logging.Logic.Validators
 {
-	public class ErrorLogsFilterValidator : AbstractValidator<ErrorLogsFilterDto>
+	public class ErrorLogsFilterValidator : AbstractValidator<ErrorLogsFilter>
 	{
 		//TODO custom validation message
 		public ErrorLogsFilterValidator()

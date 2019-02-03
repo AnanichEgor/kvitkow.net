@@ -20,14 +20,23 @@ namespace Chat.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddSwaggerDocument();
+            services.AddSwaggerDocument(settings => settings.Title = "Chat");
             services.RegisterChatService();
-         }
+            services.RegisterRoomService();
+            services.RegisterDbContext();
+            services.RegisterAutoMapper();
+            services.RegisterEasyNetQ("host=rabbit");
+
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
         }

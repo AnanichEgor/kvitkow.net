@@ -6,6 +6,7 @@ using TicketManagement.Data.Context;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Data.DbModels.DbEnums;
 using TicketManagement.Data.Extensions;
+using TicketManagement.Data.Factories;
 
 namespace TicketManagement.Data.Repositories
 {
@@ -17,9 +18,9 @@ namespace TicketManagement.Data.Repositories
         private readonly TicketContext _context;
         private readonly Page<Ticket> _page;
 
-        public TicketRepository(TicketContext context, Page<Ticket> page)
+        public TicketRepository(RepositoryContextFactory context, Page<Ticket> page)
         {
-            _context = context;
+            _context = context.CreateDbContext();
             _page = page;
         }
 
@@ -29,8 +30,15 @@ namespace TicketManagement.Data.Repositories
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
         public async Task<string> Add(Ticket ticket)
-        {
+        { 
+            //WARNING используется для замены стандартных значений swagerr'a
+            //(чтобы рукчками каждый раз не править)
+            //при связи с фронтом надо убрать 
             ticket.Id = null;
+            ticket.User.UserInfoId = null;
+            ticket.RespondedUsers[0].UserInfoId = null;
+            //WARNING
+
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
             return _context.Tickets.Last().Id;
@@ -129,26 +137,47 @@ namespace TicketManagement.Data.Repositories
         }
 
         /// <summary>
-        ///     Получение всех билетов имеющихся в системе постранично
+        ///     Получение всех актуальных билетов имеющихся в системе постранично
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="pageSize"></param>
+        /// <param name="index">Номер текущей страницы</param>
+        /// <param name="pageSize">Количество тикетов на страницу</param>
+        /// <param name="onlyActual">Только актуальные билеты</param>
         /// <returns></returns>
         public async Task<Page<Ticket>> GetAllPagebyPage(int index,
-            int pageSize)
+            int pageSize,
+            bool onlyActual = false)
         {
             _page.CurrentPage = index;
             _page.PageSize = pageSize;
             var query = _context.Tickets.AsQueryable();
-            _page.TotalPages = await query.CountAsync();
-            _page.Tickets = await query.Include(db => db.User)
-                .Include(db => db.LocationEvent)
-                .Include(db => db.SellerAdress)
-                .Include(db => db.RespondedUsers)
-                .OrderByDescending(p => p.CreatedDate)
-                .Skip(index * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
+            if (onlyActual)
+            {
+                _page.Tickets = await query.Include(db => db.User)
+                    .Include(db => db.LocationEvent)
+                    .Include(db => db.SellerAdress)
+                    .Include(db => db.RespondedUsers)
+                    .Where(x => x.Status == (TicketStatusDb) 2)
+                    .OrderByDescending(p => p.CreatedDate)
+                    .Skip(index * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                _page.TotalPages = await query.Where(x => x.Status == (TicketStatusDb) 2)
+                                       .CountAsync() /
+                                   pageSize;
+            }
+            else
+            {
+                _page.Tickets = await query.Include(db => db.User)
+                    .Include(db => db.LocationEvent)
+                    .Include(db => db.SellerAdress)
+                    .Include(db => db.RespondedUsers)
+                    .OrderByDescending(p => p.CreatedDate)
+                    .Skip(index * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                _page.TotalPages = await query.CountAsync() / pageSize;
+            }
+
             return _page;
         }
     }

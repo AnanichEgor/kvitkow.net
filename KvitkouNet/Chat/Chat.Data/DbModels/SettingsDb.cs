@@ -44,10 +44,6 @@ namespace Chat.Data.DbModels
         /// </summary>
         public bool DisablePrivateMessages { get; set; }
 
-
-        /// <summary>
-        /// Пользователь которому принадлежат настройки.
-        /// </summary>
-        public UserDb User { get; set; }
+        public string UserId { get; set; }
     }
 }
