@@ -108,7 +108,7 @@ services:
       - 5010:80
 
    security.web:
-    image: ${DOCKER_REGISTRY}usersettingsgweb
+    image: ${DOCKER_REGISTRY}securityweb
     build:
       context: ./
       dockerfile: Security/Security.Web/Dockerfile
