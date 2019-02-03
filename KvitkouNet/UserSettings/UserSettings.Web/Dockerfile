@@ -4,10 +4,10 @@ EXPOSE 80
 
 FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
-COPY ["UserSettings.Web/UserSettings.Web.csproj", "UserSettings.Web/"]
-RUN dotnet restore "UserSettings.Web/UserSettings.Web.csproj"
-COPY . .
-WORKDIR "/src/UserSettings.Web"
+COPY ["UserSettings/UserSettings.Web/UserSettings.Web.csproj", "UserSettings/UserSettings.Web/"]
+RUN dotnet restore "UserSettings/UserSettings.Web/UserSettings.Web.csproj"
+COPY UserSettings UserSettings
+WORKDIR "/src/UserSettings/UserSettings.Web"
 RUN dotnet build "UserSettings.Web.csproj" -c Release -o /app
 
 FROM build AS publish

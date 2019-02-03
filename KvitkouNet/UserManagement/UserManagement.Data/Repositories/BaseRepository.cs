@@ -26,7 +26,6 @@ namespace UserManagement.Data.Repositories
         {
             _context.Set<TEntity>().Add(t);
             await _context.SaveChangesAsync();
-            _context.Update(t);
             return t;
         }
 
@@ -85,11 +84,12 @@ namespace UserManagement.Data.Repositories
             return exist;
         }
 
-        public virtual async Task<TEntity> UpdateAsyn(TEntity t, object key)
+        public virtual async Task<TEntity> UpdateAsync(TEntity t, object key)
         {
             if (t == null)
                 return null;
             TEntity exist = await _context.Set<TEntity>().FindAsync(key);
+            await _context.Set<TEntity>().LoadAsync();
             if (exist != null)
             {
                 _context.Entry(exist).CurrentValues.SetValues(t);
