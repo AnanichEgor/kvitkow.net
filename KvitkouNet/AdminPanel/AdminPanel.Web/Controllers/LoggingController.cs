@@ -37,7 +37,7 @@ namespace AdminPanel.Web.Controllers
 		{
 			try
 			{
-				return Ok(await _errorLogService.GetErrorLogsAsync(serviceName: serviceName, exceptionTypeName:exceptionTypeName, message:message, dateFrom:dateFrom, dateTo:dateTo);
+				return Ok(await _errorLogService.GetErrorLogsAsync(serviceName: serviceName, exceptionTypeName:exceptionTypeName, message:message, dateFrom:dateFrom, dateTo:dateTo));
 			}
 			catch (SerializationException e)
 			{
