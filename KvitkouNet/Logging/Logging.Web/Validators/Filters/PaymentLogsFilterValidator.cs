@@ -10,7 +10,7 @@ namespace Logging.Web.Validators.Filters
             When(f => f.MinTransfer.HasValue, () =>
             {
                 RuleFor(f => f.MinTransfer.Value)
-                    .GreaterThanOrEqualTo(0);
+                    .GreaterThanOrEqualTo(default(double));
             });
 
             When(f => f.MinTransfer.HasValue && f.MaxTransfer.HasValue, () =>

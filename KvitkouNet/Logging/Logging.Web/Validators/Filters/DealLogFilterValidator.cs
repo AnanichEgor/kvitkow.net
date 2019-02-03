@@ -13,7 +13,7 @@ namespace Logging.Web.Validators.Filters
             When(f => f.MinPrice.HasValue, () =>
             {
                 RuleFor(f => f.MinPrice.Value)
-                    .GreaterThanOrEqualTo(0);
+                    .GreaterThanOrEqualTo(default(double));
             });
 
             When(f => f.MinPrice.HasValue && f.MaxPrice.HasValue, () =>
