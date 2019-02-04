@@ -47,10 +47,6 @@ services:
     build:
       context: .
       dockerfile: TicketManagement/TicketManagement.Web/Dockerfile
-    environment:
-      RABBITMQ_DEFAULT_USER: "rabbitmq"
-      RABBITMQ_DEFAULT_PASS: "rabbitmq"
-      RABBITMQ_DEFAULT_VHOST: "/"
     env_file:
       - host.env
     ports:
