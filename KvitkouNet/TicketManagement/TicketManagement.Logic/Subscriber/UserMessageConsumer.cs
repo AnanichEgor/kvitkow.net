@@ -4,7 +4,6 @@ using KvitkouNet.Messages.UserManagement;
 using System.Threading.Tasks;
 using TicketManagement.Data.Context;
 using TicketManagement.Data.DbModels;
-using TicketManagement.Data.Factories;
 
 namespace TicketManagement.Logic.Subscriber
 {
@@ -13,9 +12,9 @@ namespace TicketManagement.Logic.Subscriber
         private readonly TicketContext _ticketContext;
         private readonly IMapper _mapper;
 
-        public UserMessageConsumer(RepositoryContextFactory ticketContext, IMapper mapper)
+        public UserMessageConsumer(TicketContext ticketContext, IMapper mapper)
         {
-            _ticketContext = ticketContext.CreateDbContext();
+            _ticketContext = ticketContext;
             _mapper = mapper;
         }
 
