@@ -36,7 +36,12 @@ namespace TicketManagement.Logic.Models.Enums
         /// <summary>
         ///     Пользователь имеет отрицательный рейтинг
         /// </summary>
-        BadUserRating = 1 << 4
+        BadUserRating = 1 << 4,
+
+        /// <summary>
+        ///     Успех c ошибками
+        /// </summary>
+        SuccessWithErrors = 1 << 5
 
     }
 }
