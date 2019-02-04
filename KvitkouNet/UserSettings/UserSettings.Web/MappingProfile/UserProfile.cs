@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UserSettings.Logic.Models;
 
 namespace UserSettings.Web.MappingProfile
 {
@@ -11,7 +12,7 @@ namespace UserSettings.Web.MappingProfile
 	{
 		public UserProfile()
 		{
-			//CreateMap<UserProfileMessage>
+			CreateMap<UserProfileMessage, ProfileInfo>().ReverseMap();
 		}
 	}
 }

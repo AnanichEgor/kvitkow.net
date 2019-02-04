@@ -43,5 +43,7 @@
 		/// Уведомления которые будут отправлятся на почту
 		/// </summary>
 		public NotificationDb Notifications { get; set; }
+
+		public VisibleInfoDb VisibleInfo { get; set; }
 	}
 }

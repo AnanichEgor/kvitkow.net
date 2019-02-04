@@ -7,6 +7,7 @@ using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using UserSettings.Data;
@@ -38,30 +39,42 @@ namespace UserSettings.Logic.Services
 
 		public async Task<Settings> Get(string id)
 		{
-			var temp =_bus.RequestAsync<RequestId, UserProfileMessage>(new RequestId(id));
+			//var temp =_bus.RequestAsync<RequestId, UserProfileMessage>(new RequestId(id));
 			var res =  await _context.Get(id);
 			return _mapper.Map<Settings>(res);
 		}
 
-		//TODO почту проверять из таблицы юзеров
 		public async Task<ResultEnum> UpdateEmail(string id, string email)
 		{
-			//if (!_validator.Validate(email).IsValid)
-			//{
-			//	return false;
-			//}
-			if(await CheckExistEmail(email))
+			try
 			{
-				return ResultEnum.Success;
+				MailAddress m = new MailAddress(email);
+				
+				if (await CheckExistEmail(email))
+				{
+					await _bus.PublishAsync(new EmailUpdateMessage()
+					{
+						Email = email
+					});
+					return ResultEnum.Success;
+				}
+				else
+				{
+					return ResultEnum.Error;
+				}
 			}
-			return ResultEnum.Error;
+			catch
+			{
+				return ResultEnum.Error;
+			}
 		}
 
 		public async Task<ResultEnum> UpdatePassword(string id, string current, string newPass, string confirm)
 		{
 			if(String.Equals(newPass, confirm))
 			{
-				if(await CheckPassword(current, newPass))
+				var temp = await _bus.RequestAsync<PasswordUpdateMessage, RespondUpdateMessage>(new PasswordUpdateMessage(current, newPass));
+				if (temp.UpdateResult)
 				{
 					return ResultEnum.Success;
 				}
@@ -69,14 +82,9 @@ namespace UserSettings.Logic.Services
 			return ResultEnum.Error;
 		}
 
-		private Task<bool> CheckPassword(string current, string newPass)
-		{
-			throw new NotImplementedException();
-		}
-
 		public async Task<ResultEnum> UpdateProfile(string id, string first, string middle, string last, DateTime birthdate)
 		{
-			if (string.IsNullOrEmpty(first))
+			if (string.IsNullOrEmpty(first) || string.IsNullOrEmpty(last))
 				return ResultEnum.Error;
 			await _bus.PublishAsync(new UserProfileMessage()
 			{
@@ -88,9 +96,10 @@ namespace UserSettings.Logic.Services
 			return ResultEnum.Success;
 		}
 
-		public async Task<bool> CheckExistEmail(string email)
+		private async Task<bool> CheckExistEmail(string email)
 		{
-			return true;
+			var temp = await _bus.RequestAsync<string, RespondUpdateMessage>(email);
+			return temp.UpdateResult;
 		}
 
 		public async Task<ResultEnum> UpdateNotifications(string id, Notifications notifications)
@@ -102,14 +111,29 @@ namespace UserSettings.Logic.Services
 			return ResultEnum.Error;
 		}
 
-		public Task<bool> UpdatePreferences(string id, string address, string region, string place)
+		public async Task<bool> DeleteAccount(string id)
 		{
-			throw new NotImplementedException();
+			await _bus.PublishAsync(new DeleteUserProfileMessage());
+			return true;
 		}
 
-		public Task<bool> DeleteAccount(string id)
+		public async Task<ResultEnum> UpdatePhones()
 		{
-			throw new NotImplementedException();
+			var temp = await _bus.RequestAsync<PhonesUpdateMessage, RespondUpdateMessage>(new PhonesUpdateMessage());
+			if (temp.UpdateResult)
+			{
+				return ResultEnum.Success;
+			}
+			return ResultEnum.Error;
+		}
+
+		public async Task<ResultEnum> UpdateVisible(string id, VisibleInfo visibleInfo)
+		{
+			if (await _context.UpdateVisible(id, _mapper.Map<VisibleInfo, VisibleInfoDb>(visibleInfo)))
+			{
+				return ResultEnum.Success;
+			}
+			return ResultEnum.Error;
 		}
 	}
 }

@@ -13,7 +13,7 @@
 		public byte[] UserImage { get; set; }
 
 		/// <summary>
-		/// Флаг, отвечающий за закрытость аккаунта для гостей.
+		/// Флаг, отвечающий за закрытость аккаунта для незарегистрированных гостей.
 		/// </summary>
 		public bool IsPrivateAccount { get; set; }
 
@@ -41,5 +41,7 @@
 		/// Уведомления которые будут отправлятся на почту
 		/// </summary>
 		public Notifications Notifications { get; set; }
+
+		public VisibleInfo VisibleIndo { get; set; }
 	}
 }

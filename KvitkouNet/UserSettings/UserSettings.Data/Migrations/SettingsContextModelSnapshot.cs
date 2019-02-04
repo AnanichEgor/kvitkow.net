@@ -53,11 +53,29 @@ namespace UserSettings.Data.Migrations
 
                     b.Property<byte[]>("UserImage");
 
+                    b.Property<int?>("VisibleInfoId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NotificationsId");
 
+                    b.HasIndex("VisibleInfoId");
+
                     b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("UserSettings.Data.DbModels.VisibleInfoDb", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("VisibleAllPhones");
+
+                    b.Property<bool>("VisibleEmail");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VisibleInformations");
                 });
 
             modelBuilder.Entity("UserSettings.Data.DbModels.SettingsDb", b =>
@@ -65,6 +83,10 @@ namespace UserSettings.Data.Migrations
                     b.HasOne("UserSettings.Data.DbModels.NotificationDb", "Notifications")
                         .WithMany()
                         .HasForeignKey("NotificationsId");
+
+                    b.HasOne("UserSettings.Data.DbModels.VisibleInfoDb", "VisibleInfo")
+                        .WithMany()
+                        .HasForeignKey("VisibleInfoId");
                 });
 #pragma warning restore 612, 618
         }

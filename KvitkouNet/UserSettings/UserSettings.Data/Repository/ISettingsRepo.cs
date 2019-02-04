@@ -15,5 +15,6 @@ namespace UserSettings.Data
 		Task<bool> UpdatePreferences(string id, string address, string region, string place);
 
 		Task DeleteAccount(string id);
+		Task<bool> UpdateVisible(string id, VisibleInfoDb visibleInfoDb);
 	}
 }

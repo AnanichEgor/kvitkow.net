@@ -9,8 +9,8 @@ using UserSettings.Data.Context;
 namespace UserSettings.Data.Migrations
 {
     [DbContext(typeof(SettingsContext))]
-    [Migration("20190201062709_init")]
-    partial class init
+    [Migration("20190204125101_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,11 +55,29 @@ namespace UserSettings.Data.Migrations
 
                     b.Property<byte[]>("UserImage");
 
+                    b.Property<int?>("VisibleInfoId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NotificationsId");
 
+                    b.HasIndex("VisibleInfoId");
+
                     b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("UserSettings.Data.DbModels.VisibleInfoDb", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("VisibleAllPhones");
+
+                    b.Property<bool>("VisibleEmail");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VisibleInformations");
                 });
 
             modelBuilder.Entity("UserSettings.Data.DbModels.SettingsDb", b =>
@@ -67,6 +85,10 @@ namespace UserSettings.Data.Migrations
                     b.HasOne("UserSettings.Data.DbModels.NotificationDb", "Notifications")
                         .WithMany()
                         .HasForeignKey("NotificationsId");
+
+                    b.HasOne("UserSettings.Data.DbModels.VisibleInfoDb", "VisibleInfo")
+                        .WithMany()
+                        .HasForeignKey("VisibleInfoId");
                 });
 #pragma warning restore 612, 618
         }

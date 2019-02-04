@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace KvitkouNet.Messages.UserSettings
+namespace UserSettings.Logic.Models
 {
-	public class UserProfileMessage
+	public class ProfileInfo
 	{
 		/// <summary>
 		/// Имя пользователя

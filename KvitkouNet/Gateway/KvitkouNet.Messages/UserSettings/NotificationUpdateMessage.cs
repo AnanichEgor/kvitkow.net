@@ -4,12 +4,7 @@ using System.Text;
 
 namespace KvitkouNet.Messages.UserSettings
 {
-	public class RequestId
+	public class NotificationUpdateMessage
 	{
-		public string Id { get; private set; }
-		public RequestId(string id)
-		{
-			Id = id;
-		}
 	}
 }

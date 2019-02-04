@@ -23,9 +23,6 @@ namespace UserSettings.Data
 		public async Task<SettingsDb> Get(string id)
 		{
 			return await _context.Settings.SingleOrDefaultAsync(x => x.SettingsId == id);
-				//.Include(db => db.Notifications)
-				//.AsTracking()
-				//.ToListAsync();
 		}
 
 		public async Task<bool> UpdateNotifications(string id, NotificationDb notifications)
@@ -50,6 +47,19 @@ namespace UserSettings.Data
 		public Task DeleteAccount(string id)
 		{
 			throw new NotImplementedException();
+		}
+
+		public async Task<bool> UpdateVisible(string id, VisibleInfoDb visibleInfoDb)
+		{
+			var origin = await _context.Settings.SingleOrDefaultAsync(x => x.SettingsId == id);
+			if (origin != null)
+			{
+				origin.VisibleInfo.VisibleAllPhones = visibleInfoDb.VisibleAllPhones;
+				origin.VisibleInfo.VisibleEmail = visibleInfoDb.VisibleEmail;
+				await _context.SaveChangesAsync();
+				return true;
+			}
+			return false;
 		}
 	}
 }

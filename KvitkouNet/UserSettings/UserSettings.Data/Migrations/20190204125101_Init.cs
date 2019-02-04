@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UserSettings.Data.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,6 +23,20 @@ namespace UserSettings.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "VisibleInformations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    VisibleEmail = table.Column<bool>(nullable: false),
+                    VisibleAllPhones = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VisibleInformations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Settings",
                 columns: table => new
                 {
@@ -35,7 +49,8 @@ namespace UserSettings.Data.Migrations
                     PreferRegion = table.Column<string>(nullable: true),
                     IsGetTicketInfo = table.Column<bool>(nullable: false),
                     PreferPlace = table.Column<string>(nullable: true),
-                    NotificationsId = table.Column<int>(nullable: true)
+                    NotificationsId = table.Column<int>(nullable: true),
+                    VisibleInfoId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -46,12 +61,23 @@ namespace UserSettings.Data.Migrations
                         principalTable: "Notifications",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Settings_VisibleInformations_VisibleInfoId",
+                        column: x => x.VisibleInfoId,
+                        principalTable: "VisibleInformations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Settings_NotificationsId",
                 table: "Settings",
                 column: "NotificationsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Settings_VisibleInfoId",
+                table: "Settings",
+                column: "VisibleInfoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -61,6 +87,9 @@ namespace UserSettings.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Notifications");
+
+            migrationBuilder.DropTable(
+                name: "VisibleInformations");
         }
     }
 }

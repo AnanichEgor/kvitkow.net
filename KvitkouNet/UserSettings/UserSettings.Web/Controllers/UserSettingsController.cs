@@ -64,21 +64,6 @@ namespace UserSettings.Web.Controllers
 		}
 
 		/// <summary>
-		/// Запрос на изменение email
-		/// </summary>
-		/// <param name="email"></param>
-		/// <returns></returns>
-		[HttpGet, Route("{id}/email")]
-		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
-		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> GetEmail([FromBody]string email, [FromRoute]string id)
-		{
-
-			ResultEnum result = await _service.UpdateEmail(id, email);
-			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
-		}
-
-		/// <summary>
 		/// Запрос на изменение уведомлений
 		/// </summary>
 		/// <param name="model"></param>
@@ -92,18 +77,22 @@ namespace UserSettings.Web.Controllers
 			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
 		}
 
-		/// <summary>
-		/// Запрос на изменение уведомлений
-		/// </summary>
-		/// <param name="model"></param>
-		/// <returns></returns>
-		[HttpPut, Route("{id}/preferences")]
+		[HttpPut, Route("{id}/visible")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> UpdatePreferences([FromBody]PreferncesDto preferences, [FromRoute]string id)
+		public async Task<IActionResult> UpdateVisibleInformation([FromBody]VisibleInfo visibleInfo, [FromRoute]string id)
 		{
-			var result = await _service.UpdatePreferences(id, preferences.Addres, preferences.Region, preferences.Place);
-			return result ? (IActionResult)Ok(result) : BadRequest();
+			ResultEnum result = await _service.UpdateVisible(id, visibleInfo);
+			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
+		}
+
+		[HttpPut, Route("{id}/phones")]
+		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
+		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+		public async Task<IActionResult> UpdatePhones()
+		{
+			ResultEnum result = await _service.UpdatePhones();
+			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
 		}
 
 		/// <summary>
@@ -120,6 +109,11 @@ namespace UserSettings.Web.Controllers
 			return result ? (IActionResult)Ok(result) : BadRequest();
 		}
 
+		/// <summary>
+		/// Получение данных профиля
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		[HttpGet("{id}")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Settings>), Description = "All Ok")]
 		[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]

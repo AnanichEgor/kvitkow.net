@@ -13,5 +13,7 @@ namespace UserSettings.Data.Context
 		public DbSet<SettingsDb> Settings { get; set; }
 
 		public DbSet<NotificationDb> Notifications { get; set; }
+
+		public DbSet<VisibleInfoDb> VisibleInformations { get; set; }
 	}
 }

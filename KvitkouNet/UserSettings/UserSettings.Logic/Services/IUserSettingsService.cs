@@ -37,12 +37,10 @@ namespace UserSettings.Logic.Services
 
 		Task<Settings> Get(string id);
 
-		Task<bool> CheckExistEmail(string email);
-
 		Task<ResultEnum> UpdateNotifications(string id, Notifications notifications);
 
-		Task<bool> UpdatePreferences(string id, string address, string region, string place);
-
 		Task<bool> DeleteAccount(string id);
+		Task<ResultEnum> UpdatePhones();
+		Task<ResultEnum> UpdateVisible(string id, VisibleInfo visibleInfo);
 	}
 }
