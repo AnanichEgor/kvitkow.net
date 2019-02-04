@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using AutoMapper;
 using EasyNetQ;
 using FluentValidation;
 using KvitkouNet.Messages.TicketManagement;
 using Microsoft.Extensions.Configuration;
+using Polly;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Data.Repositories;
 using TicketManagement.Logic.Extentions;
@@ -53,6 +55,7 @@ namespace TicketManagement.Logic.Services
             if (!_validator.Validate(ticket).IsValid) return (null, RequestStatus.InvalidModel);
             var res = await _context.Add(_mapper.Map<Ticket>(ticket));
             await _bus.PublishAsync(new TicketCreationMessage
+            var policy = Policy.Handle<TimeoutException>().WaitAndRetryAsync(new[] {TimeSpan.FromSeconds(1)});
             {
                 TicketId = res,
                 Price = ticket.Price,
@@ -74,6 +77,7 @@ namespace TicketManagement.Logic.Services
         {
             await _context.Update(id, _mapper.Map<Ticket>(ticket));
             await _bus.PublishAsync(new TicketUpdatedMessage()
+            var policy = Policy.Handle<TimeoutException>().WaitAndRetryAsync(new[] { TimeSpan.FromSeconds(1) });
             {
                 TicketId = id,
                 Price = ticket.Price,
@@ -116,6 +120,7 @@ namespace TicketManagement.Logic.Services
         {
             await _context.Delete(id);
             await _bus.PublishAsync(new TicketDeletedMessage
+            var policy = Policy.Handle<TimeoutException>().WaitAndRetryAsync(new[] { TimeSpan.FromSeconds(1) });
             {
                TicketId = id
             });
