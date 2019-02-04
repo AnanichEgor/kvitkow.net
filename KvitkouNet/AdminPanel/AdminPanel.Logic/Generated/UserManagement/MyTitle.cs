@@ -142,7 +142,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
             User = new User(this);
             UserGroup = new UserGroup(this);
             Values = new Values(this);
-            BaseUri = new System.Uri("http://localhost:5000");
+            BaseUri = new System.Uri("http://usermanagement.web");
             SerializationSettings = new JsonSerializerSettings
             {
                 Formatting = Newtonsoft.Json.Formatting.Indented,

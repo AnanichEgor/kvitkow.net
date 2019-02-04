@@ -7,13 +7,13 @@ namespace AdminPanel.Logic.Infrastructure
 	/// <summary>
 	/// Сервис для работы с пользователями через панель администратора
 	/// </summary>
-	public interface IUserService
+	public interface IUserServiceWrapper
 	{
 		/// <summary>
 		/// Возвращает пользователей
 		/// </summary>
 		/// <returns></returns>
-		Task<User> GetAll();
+		Task<object> GetAll();
 
 		/// <summary>
 		/// Банит/снимает бан с пользователя
