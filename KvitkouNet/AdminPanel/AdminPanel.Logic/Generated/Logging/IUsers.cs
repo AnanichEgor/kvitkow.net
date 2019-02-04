@@ -14,25 +14,24 @@ namespace AdminPanel.Logic.Generated.Logging
     using System.Threading.Tasks;
 
     /// <summary>
-    /// TicketDealLog operations.
+    /// Users operations.
     /// </summary>
-    public partial interface ITicketDealLog
+    public partial interface IUsers
     {
-        /// <param name='ticketId'>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
         /// </param>
-        /// <param name='ownerId'>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
         /// </param>
-        /// <param name='recieverId'>
-        /// </param>
-        /// <param name='minPrice'>
-        /// </param>
-        /// <param name='maxPrice'>
-        /// </param>
-        /// <param name='type'>
-        /// </param>
-        /// <param name='dateFrom'>
-        /// </param>
-        /// <param name='dateTo'>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        Task<HttpOperationResponse<IList<User>>> GetAllWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <param name='id'>
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -46,6 +45,6 @@ namespace AdminPanel.Logic.Generated.Logging
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<object>> GetTicketDealLogsWithHttpMessagesAsync(string ticketId = default(string), string ownerId = default(string), string recieverId = default(string), double? minPrice = default(double?), double? maxPrice = default(double?), int type = default(int), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<User>> GetByIdWithHttpMessagesAsync(int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }
