@@ -15,6 +15,7 @@ namespace UserManagement.Data.Repositories
         }
         private IUserRepository userRepository;
         private IAccountRepository accountRepository;
+        private IProfileRepository profileRepository;
         private IGroupRepository groupRepository;
 
         public IUserRepository Users
@@ -37,6 +38,16 @@ namespace UserManagement.Data.Repositories
             }
         }
 
+        public IProfileRepository Profiles
+        {
+            get
+            {
+                if (profileRepository == null)
+                    profileRepository = new ProfileRepository(_context);
+                return profileRepository;
+            }
+        }
+
         public IGroupRepository Groups
         {
             get
@@ -46,9 +57,9 @@ namespace UserManagement.Data.Repositories
                 return groupRepository;
             }
         }
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         private bool disposed = false;

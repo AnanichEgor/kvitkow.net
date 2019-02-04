@@ -4,11 +4,6 @@ namespace UserManagement.Logic.Models
     public class Account
     {
         /// <summary>
-        /// Уникальный идентификатор учетной записи
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
         /// Логин пользователя
         /// </summary>
         public string Login { get; set; }
