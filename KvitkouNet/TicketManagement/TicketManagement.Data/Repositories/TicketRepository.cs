@@ -18,9 +18,9 @@ namespace TicketManagement.Data.Repositories
         private readonly TicketContext _context;
         private readonly Page<Ticket> _page;
 
-        public TicketRepository(RepositoryContextFactory context, Page<Ticket> page)
+        public TicketRepository(TicketContext context, Page<Ticket> page)
         {
-            _context = context.CreateDbContext();
+            _context = context;
             _page = page;
         }
 
