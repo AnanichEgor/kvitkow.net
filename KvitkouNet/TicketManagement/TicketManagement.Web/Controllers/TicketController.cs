@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using NSwag.Annotations;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using NSwag.Annotations;
 using TicketManagement.Logic.Models;
 using TicketManagement.Logic.Models.Enums;
 using TicketManagement.Logic.Services;
@@ -54,9 +54,9 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> AddRespondedUsers([FromRoute] string id, [FromBody] UserInfo user)
         {
-           var res= await _service.AddRespondedUsers(id, user);
-           if (res != RequestStatus.Success) return BadRequest();
-           return NoContent();
+            var res = await _service.AddRespondedUsers(id, user);
+            if (res != RequestStatus.Success) return BadRequest();
+            return NoContent();
         }
 
         /// <summary>
@@ -72,9 +72,10 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Ticket ticket)
         {
-           var res= await _service.Update(id, ticket);
-           if (res != RequestStatus.Success) return BadRequest();
-           return NoContent();
+            var res = await _service.Update(id, ticket);
+            if (res == RequestStatus.SuccessWithErrors) return NoContent();
+            if (res != RequestStatus.Success) return BadRequest();
+            return NoContent();
         }
 
         /// <summary>
