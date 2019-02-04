@@ -92,10 +92,8 @@ namespace TicketManagement.Logic.Services
         /// <returns></returns>
         public async Task<RequestStatus> AddRespondedUsers(string id, UserInfo user)
         {
-            
-            //if (!_validator.Validate(user).IsValid) return (RequestStatus.InvalidModel);
+            if (!_validator.Validate(user).IsValid) return RequestStatus.InvalidModel;
             await _context.AddRespondedUsers(id, _mapper.Map<Data.DbModels.UserInfo>(user));
-            
             return RequestStatus.Success;
         }
 
