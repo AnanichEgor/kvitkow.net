@@ -75,7 +75,6 @@
       "UpstreamPathTemplate": "/admin/logs/tickets",
       "UpstreamHttpMethod": [ "Get" ]
     },
-
     {
       "DownstreamPathTemplate": "/api/admin/logs/deals",
       "DownstreamScheme": "http",
@@ -86,6 +85,18 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/deals",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "api/admin/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "adminpanel.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "admin/users",
       "UpstreamHttpMethod": [ "Get" ]
     }
   ]
