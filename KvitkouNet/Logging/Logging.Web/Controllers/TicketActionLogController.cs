@@ -36,10 +36,10 @@ namespace Logging.Web.Controllers
         public async Task<IActionResult> GetTicketActionLogs([FromQuery] TicketLogsFilter filter)
         {
             // имитируем некоторую валидацию
-            if (string.IsNullOrWhiteSpace(filter.TicketId))
-            {
-                return BadRequest($"Invalid filter! {nameof(TicketLogsFilter.TicketId)} is empty or whitespace!");
-            }
+            //if (string.IsNullOrWhiteSpace(filter.TicketId))
+            //{
+            //    return BadRequest($"Invalid filter! {nameof(TicketLogsFilter.TicketId)} is empty or whitespace!");
+            //}
 
             var result = await _loggingService.GetLogsAsync(filter);
             return Ok(result);

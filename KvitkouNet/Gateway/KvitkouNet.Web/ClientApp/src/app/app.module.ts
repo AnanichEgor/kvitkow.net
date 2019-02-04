@@ -21,6 +21,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.component';
+import { AccountLogsComponent } from './components/admin/account-logs/account-logs.component';
+import { PaymentLogsComponent } from './components/admin/payment-logs/payment-logs.component';
+import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
 import { SearchUserComponent } from './components/search-user/search-user.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
@@ -45,7 +49,11 @@ import { SecurityModule } from './components/security/security.module';
     SearchUserComponent,
     SearchTicketComponent,
     SearchTicketResultsComponent,
-    SearchUserResultsComponent
+    SearchUserResultsComponent,
+    AdminMainComponent,
+    ErrorLogsComponent,
+    AccountLogsComponent,
+    PaymentLogsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

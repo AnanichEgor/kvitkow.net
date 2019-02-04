@@ -35,10 +35,10 @@ namespace Logging.Web.Controllers
         public async Task<IActionResult> GetAccountLogs([FromQuery] AccountLogsFilter filter)
         {
             // имитируем некоторую валидацию
-            if (string.IsNullOrWhiteSpace(filter.UserName))
-            {
-                return BadRequest($"Invalid filter! {nameof(AccountLogsFilter.UserName)} is empty or whitespace!");
-            }
+            //if (string.IsNullOrWhiteSpace(filter.UserName))
+            //{
+            //    return BadRequest($"Invalid filter! {nameof(AccountLogsFilter.UserName)} is empty or whitespace!");
+            //}
 
             var result = await _loggingService.GetLogsAsync(filter);
             return Ok(result);
