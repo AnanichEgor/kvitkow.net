@@ -23,13 +23,14 @@ namespace TicketManagement.Logic.Extentions
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection RegisterTicketService(this IServiceCollection services)
+        public static IServiceCollection RegisterTicketService(this IServiceCollection services, string connetctionString)
         {
             services.AddDbContext<TicketContext>(opt => opt.UseSqlite("Data Source=./TicketDatabase.db"));
             services.AddScoped<IValidator<Models.Ticket>, TicketValidator>();
             services.AddSingleton<RepositoryContextFactory>();
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<ITicketService, TicketService>();
+            services.RepositoryContext(connetctionString);
             services.AddScoped<Data.DbModels.Page<Ticket>>();
             services.AddScoped<UserMessageConsumer>();
             services.AddAutoMapper(cfg =>
