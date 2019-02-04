@@ -130,6 +130,7 @@ namespace TicketManagement.Web.Controllers
         [HttpGet]
         [Route("{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(Ticket), Description = "All Ok")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "Ticket not found")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Get([FromRoute] string id)
