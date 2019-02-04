@@ -49,9 +49,9 @@ namespace UserSettings.Web
 			//services.RegisterDataBase();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 			services.AddSwaggerDocument(setting => setting.Title = "User Setting");
-			services.AddSingleton(RabbitHutch.CreateBus("host=localhost;virtualHost=myVirtualHost;username=guest;password=guest"));
+			services.AddSingleton(RabbitHutch.CreateBus("host=localhost;virtualHost=/;username=guest;password=guest"));
 			services.RegisterUserSettingsService();
-			services.RegisterConsumers();
+			//services.RegisterConsumers();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +64,7 @@ namespace UserSettings.Web
 			}
 			app.UseSwagger().UseSwaggerUi3();
 			app.UseMvc();
-			app.UseSubscriber("ErrorSettings", Assembly.GetExecutingAssembly());
+			//app.UseSubscriber("ErrorSettings", Assembly.GetExecutingAssembly());
 		}
 	}
 }
