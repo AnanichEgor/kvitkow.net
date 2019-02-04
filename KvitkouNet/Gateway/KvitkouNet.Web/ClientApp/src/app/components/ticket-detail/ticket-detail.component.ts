@@ -2,6 +2,7 @@ import { GetTicketByIdService } from './../../services/get-ticket-by-id.service'
 import { Component, OnInit } from '@angular/core';
 import { Tickets } from '../../models/tickets';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -14,7 +15,8 @@ export class TicketDetailComponent implements OnInit {
   constructor(
     private ticketsSrv: GetTicketByIdService,
     private router: ActivatedRoute,
-    private route: Router
+    private route: Router,
+    private _location: Location
     ) {
     router.params.subscribe(params => this.id = params.id);
     }
@@ -25,6 +27,9 @@ export class TicketDetailComponent implements OnInit {
   deleteTicketById(id) {
     this.ticketsSrv.delTicketById(id).subscribe(err => console.error(err));
 
+  }
+  backClicked() {
+    this._location.back();
   }
 }
 

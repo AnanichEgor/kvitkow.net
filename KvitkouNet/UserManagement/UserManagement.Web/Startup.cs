@@ -22,6 +22,7 @@ namespace UserManagement.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerDocument();
             services.RegisterUserServices();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,6 +32,7 @@ namespace UserManagement.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(b => b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
         }

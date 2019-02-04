@@ -4,12 +4,13 @@ EXPOSE 80
 
 FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
-COPY Chat.Web/Chat.Web.csproj Chat.Web/
-COPY Chat.Logic/Chat.Logic.csproj Chat.Logic/
-COPY Chat.Data/Chat.Data.csproj Chat.Data/
-RUN dotnet restore Chat.Web/Chat.Web.csproj
-COPY . .
-WORKDIR /src/Chat.Web
+COPY Chat/Chat.Web/Chat.Web.csproj Chat/Chat.Web/
+COPY Chat/Chat.Logic/Chat.Logic.csproj Chat/Chat.Logic/
+COPY Chat/Chat.Data/Chat.Data.csproj Chat/Chat.Data/
+COPY Gateway/KvitkouNet.Messages/KvitkouNet.Messages.csproj Gateway/KvitkouNet.Messages/
+RUN dotnet restore Chat/Chat.Web/Chat.Web.csproj
+COPY ["Chat", "Chat"]
+WORKDIR /src/Chat/Chat.Web
 RUN dotnet build Chat.Web.csproj -c Release -o /app
 
 FROM build AS publish

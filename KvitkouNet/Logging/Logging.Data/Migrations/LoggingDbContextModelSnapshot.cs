@@ -121,6 +121,8 @@ namespace Logging.Data.Migrations
 
                     b.Property<string>("TicketId");
 
+                    b.Property<string>("TicketName");
+
                     b.Property<int>("Type");
 
                     b.Property<string>("UserId");
@@ -144,6 +146,8 @@ namespace Logging.Data.Migrations
                     b.Property<double?>("Price");
 
                     b.Property<string>("RecieverId");
+
+                    b.Property<string>("TicketId");
 
                     b.Property<int>("Type");
 

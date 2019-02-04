@@ -6,12 +6,12 @@ import { Tickets } from '../models/tickets';
   providedIn: 'root'
 })
 export class GetallticketsService {
-  private baseUrl = 'http://localhost:58839';
+  private baseUrl = 'http://localhost:5000';
 
   constructor(private http: HttpClient) {}
 
-    getAllTickets() {
-      return this.http.get<Tickets[]>(`${this.baseUrl}/api/tickets/actual`);
+    getAllTickets(id) {
+      return this.http.get<Tickets[]>(`${this.baseUrl}/api/tickets/page/${id}`);
   }
 
 }
