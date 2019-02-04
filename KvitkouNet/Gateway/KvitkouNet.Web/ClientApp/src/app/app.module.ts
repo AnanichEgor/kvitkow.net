@@ -21,12 +21,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
 import { ChatComponent } from './components/chat/chat.component';
-import { SecurityComponent } from './components/security/security.component';
-import { SecurityMenuComponent } from './components/security-menu/security-menu.component';
 import { SearchUserComponent } from './components/search-user/search-user.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
+import { SecurityModule } from './components/security/security.module';
 
 @NgModule({
   declarations: [
@@ -43,8 +42,6 @@ import { SearchUserResultsComponent } from './components/search-user-results/sea
     TicketDetailComponent,
     TicketEditComponent,
     ChatComponent,
-    SecurityComponent,
-    SecurityMenuComponent,
     SearchUserComponent,
     SearchTicketComponent,
     SearchTicketResultsComponent,
@@ -52,10 +49,11 @@ import { SearchUserResultsComponent } from './components/search-user-results/sea
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    SecurityModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, AppRoutingModule],
   bootstrap: [AppComponent]

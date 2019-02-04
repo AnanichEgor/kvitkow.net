@@ -1,5 +1,7 @@
-import { SecurityMenuComponent } from './components/security-menu/security-menu.component';
+import { SecurityMenuComponent } from './components/security/security-menu/security-menu.component';
 import { SecurityComponent } from './components/security/security.component';
+import { NewRightComponent } from './components/security/new-right/new-right.component';
+import { RightsComponent } from './components/security/rights/rights.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
@@ -29,13 +31,15 @@ const routes: Routes = [
   { path: 'search-ticket-results', component: SearchTicketResultsComponent, pathMatch: 'full' },
   { path: 'search-user-results', component: SearchUserResultsComponent, pathMatch: 'full' },
   { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
+  {path: 'security',
+  loadChildren: 'app/security/security.module#SecurityModule'},
   { path: 'tickets/ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
-  { path: 'security', component: SecurityComponent, pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
