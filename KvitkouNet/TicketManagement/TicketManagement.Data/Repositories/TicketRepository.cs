@@ -39,6 +39,7 @@ namespace TicketManagement.Data.Repositories
             ticket.RespondedUsers = null;
             //WARNING
             var user = await _context.UserInfos.Include(info => info.UserTickets)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(info => info.UserInfoId == ticket.User.UserInfoId);
             if (user == null)
             {
@@ -67,6 +68,7 @@ namespace TicketManagement.Data.Repositories
                 .Include(db => db.LocationEvent)
                 .Include(db => db.SellerAdress)
                 .Include(db => db.RespondedUsers)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
 
             if (origin == null) return;
@@ -86,6 +88,7 @@ namespace TicketManagement.Data.Repositories
             user.UserInfoId = null;
             var origin = await _context.Tickets
                 .Include(db => db.RespondedUsers)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
             if (origin == null) return;
             origin.RespondedUsers.Add(user);
@@ -103,6 +106,7 @@ namespace TicketManagement.Data.Repositories
                 .Include(db => db.LocationEvent)
                 .Include(db => db.SellerAdress)
                 .Include(db => db.RespondedUsers));
+                .AsNoTracking());
             await _context.SaveChangesAsync();
         }
 
@@ -117,6 +121,7 @@ namespace TicketManagement.Data.Repositories
                 .Include(db => db.LocationEvent)
                 .Include(db => db.SellerAdress)
                 .Include(db => db.RespondedUsers)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
 
             if (origin != null)
@@ -185,13 +190,15 @@ namespace TicketManagement.Data.Repositories
             index = index - 1;
             _page.CurrentPage = index;
             _page.PageSize = pageSize;
-            var query = _context.Tickets.AsQueryable();
+            var query = _context.Tickets.AsQueryable()
+                .AsNoTracking();
             if (onlyActual)
             {
                 _page.Tickets = await query.Include(db => db.User)
                     .Include(db => db.LocationEvent)
                     .Include(db => db.SellerAdress)
                     .Include(db => db.RespondedUsers)
+                    .AsNoTracking()
                     .Where(x => x.Status == (TicketStatusDb) 2)
                     .OrderByDescending(p => p.CreatedDate)
                     .Skip(index * pageSize)
@@ -208,6 +215,7 @@ namespace TicketManagement.Data.Repositories
                     .Include(db => db.LocationEvent)
                     .Include(db => db.SellerAdress)
                     .Include(db => db.RespondedUsers)
+                    .AsNoTracking()
                     .OrderByDescending(p => p.CreatedDate)
                     .Skip(index * pageSize)
                     .Take(pageSize)
