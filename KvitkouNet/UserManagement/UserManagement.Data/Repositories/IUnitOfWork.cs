@@ -9,6 +9,7 @@ namespace UserManagement.Data.Repositories
     {
         Task SaveChangesAsync();
         IAccountRepository Accounts { get; }
+        IProfileRepository Profiles { get; }
         IUserRepository Users { get; }
         IGroupRepository Groups { get; }
     }

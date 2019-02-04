@@ -16,8 +16,10 @@ services:
    usermanagement.web:
     image: ${DOCKER_REGISTRY}usersweb
     build:
-      context: UserManagement
-      dockerfile: UserManagement.Web/Dockerfile
+      context: .
+      dockerfile: UserManagement/UserManagement.Web/Dockerfile
+    depends_on:
+      - rabbit
     ports:
       - 5003:80
 
