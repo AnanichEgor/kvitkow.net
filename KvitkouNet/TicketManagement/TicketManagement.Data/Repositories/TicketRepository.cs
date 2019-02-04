@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using TicketManagement.Data.Context;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Data.DbModels.DbEnums;
-using TicketManagement.Data.Extensions;
-using TicketManagement.Data.Factories;
 
 namespace TicketManagement.Data.Repositories
 {
@@ -64,15 +62,12 @@ namespace TicketManagement.Data.Repositories
         public async Task Update(string id,
             Ticket ticket)
         {
-            var origin = await _context.Tickets.Include(db => db.User)
+            var origin = await _context.Tickets
                 .Include(db => db.LocationEvent)
                 .Include(db => db.SellerAdress)
-                .Include(db => db.RespondedUsers)
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
-
             if (origin == null) return;
-
             _context.Tickets.Remove(origin);
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
@@ -105,7 +100,7 @@ namespace TicketManagement.Data.Repositories
             _context.Tickets.RemoveRange(_context.Tickets.Include(db => db.User)
                 .Include(db => db.LocationEvent)
                 .Include(db => db.SellerAdress)
-                .Include(db => db.RespondedUsers));
+                .Include(db => db.RespondedUsers)
                 .AsNoTracking());
             await _context.SaveChangesAsync();
         }
@@ -171,7 +166,7 @@ namespace TicketManagement.Data.Repositories
                 .Include(db => db.SellerAdress)
                 .Include(db => db.RespondedUsers)
                 .AsNoTracking()
-                .Where(x => x.Status == (TicketStatusDb) 2);
+                .Where(x => x.Status == (TicketStatusDb)2);
             return await res.ToListAsync();
         }
 
@@ -186,7 +181,8 @@ namespace TicketManagement.Data.Repositories
             int pageSize,
             bool onlyActual = false)
         {
-            if (index<1) return null;
+            if (index < 1)
+                return null;
             index = index - 1;
             _page.CurrentPage = index;
             _page.PageSize = pageSize;
@@ -207,7 +203,8 @@ namespace TicketManagement.Data.Repositories
                 _page.TotalPages = await query.Where(x => x.Status == (TicketStatusDb) 2)
                                        .CountAsync() /
                                    pageSize;
-                if (index > _page.TotalPages) return null;
+                if (index > _page.TotalPages)
+                    return null;
             }
             else
             {
@@ -221,7 +218,8 @@ namespace TicketManagement.Data.Repositories
                     .Take(pageSize)
                     .ToListAsync();
                 _page.TotalPages = await query.CountAsync() / pageSize;
-                if (index > _page.TotalPages) return null;
+                if (index > _page.TotalPages)
+                    return null;
             }
 
             return _page;
