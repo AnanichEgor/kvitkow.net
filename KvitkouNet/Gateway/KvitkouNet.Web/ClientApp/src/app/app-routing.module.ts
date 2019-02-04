@@ -1,3 +1,5 @@
+import { SecurityMenuComponent } from './components/security-menu/security-menu.component';
+import { SecurityComponent } from './components/security/security.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
@@ -38,8 +40,8 @@ const routes: Routes = [
   { path: 'search-user-results', component: SearchUserResultsComponent, pathMatch: 'full' },
   { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
   { path: 'tickets/ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
+  { path: 'security', component: SecurityComponent, pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
-
 ];
 
 @NgModule({
