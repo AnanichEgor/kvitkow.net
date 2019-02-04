@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace Swagger
+namespace AdminPanel.Logic.Generated.UserManagement
 {
     using Models;
     using System.Collections;
@@ -20,7 +20,7 @@ namespace Swagger
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            public static IList<User> GetAll(this IUsers operations)
+            public static IList<Models.User> GetAll(this IUsers operations)
             {
                 return operations.GetAllAsync().GetAwaiter().GetResult();
             }
@@ -31,7 +31,7 @@ namespace Swagger
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<User>> GetAllAsync(this IUsers operations, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<Models.User>> GetAllAsync(this IUsers operations, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetAllWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
                 {
@@ -44,7 +44,7 @@ namespace Swagger
             /// </param>
             /// <param name='id'>
             /// </param>
-            public static User GetById(this IUsers operations, int id)
+            public static Models.User GetById(this IUsers operations, int id)
             {
                 return operations.GetByIdAsync(id).GetAwaiter().GetResult();
             }
@@ -57,7 +57,7 @@ namespace Swagger
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<User> GetByIdAsync(this IUsers operations, int id, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<Models.User> GetByIdAsync(this IUsers operations, int id, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetByIdWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
                 {
