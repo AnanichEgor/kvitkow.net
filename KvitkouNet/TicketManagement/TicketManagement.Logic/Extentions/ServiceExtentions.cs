@@ -25,9 +25,8 @@ namespace TicketManagement.Logic.Extentions
         /// <returns></returns>
         public static IServiceCollection RegisterTicketService(this IServiceCollection services, string connetctionString)
         {
-            services.AddDbContext<TicketContext>(opt => opt.UseSqlite("Data Source=./TicketDatabase.db"));
+            services.AddDbContext<TicketContext>(opt => opt.UseSqlite(connetctionString));
             services.AddScoped<IValidator<Models.Ticket>, TicketValidator>();
-            services.AddSingleton<RepositoryContextFactory>();
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<ITicketService, TicketService>();
             services.RepositoryContext(connetctionString);
