@@ -13,4 +13,8 @@
     <ProjectReference Include="..\..\Gateway\KvitkouNet.Messages\KvitkouNet.Messages.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
