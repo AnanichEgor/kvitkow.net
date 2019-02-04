@@ -55,6 +55,10 @@ namespace TicketManagement.Data.Repositories
 
         /// <summary>
         ///     Обновление информации о билете в БД
+        ///     Т.к. это обновление билета свойства
+        ///     UserInfo, RespondedUser не должны приходить
+        ///     обновление UserInfo происходит через сервис UserManagement
+        ///     для обновления RespondedUser есть отдельный метод
         /// </summary>
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
@@ -76,7 +80,8 @@ namespace TicketManagement.Data.Repositories
         /// <summary>
         ///     Добавление пользователя в "я пойду"
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">id билета</param>
+        /// <param name="user">Модель пользователя</param>
         /// <returns></returns>
         public async Task AddRespondedUsers(string id, UserInfo user)
         {
@@ -93,6 +98,8 @@ namespace TicketManagement.Data.Repositories
 
         /// <summary>
         ///     Удаление всех билетов в БД
+        ///     Удаляются только тикеты!
+        ///     Вся остальная информация остается в базе
         /// </summary>
         /// <returns></returns>
         public async Task DeleteAll()
