@@ -65,9 +65,11 @@ namespace UserManagement.Logic.Services
 
         public async Task<string> Update(string id, ForUpdateModel userModel)
         {
-            var findUser = _unitOfWork.Users.FindAsync(x => x.Id == id).Result.FirstOrDefault();
+            var findUser = _unitOfWork.Users.FindAsync(x => x.Id == id).Result.FirstOrDefault().ProfileDB;
             if (findUser == null) return "Not Found";
-            await _unitOfWork.Users.UpdateAsync(_mapper.Map<UserDB>(userModel), id);
+            var profileDB = _mapper.Map<ForUpdateModel, ProfileDB>(userModel);
+            profileDB.Id = findUser.Id;
+            await _unitOfWork.Profiles.UpdateProfileAsync(profileDB, findUser.Id);
             return "Ok";
         }
 
