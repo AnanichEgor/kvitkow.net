@@ -30,7 +30,7 @@ namespace TicketManagement.Web
             var connectionStringDb = Configuration["connectionString"];
             services.AddSwaggerDocument(settings => settings.Title = "Ticket Management");
             services.AddSingleton(RabbitHutch.CreateBus(value));
-            services.RegisterTicketService();
+            services.RegisterTicketService(connectionStringDb);
             services.AddCors();
         }
 
