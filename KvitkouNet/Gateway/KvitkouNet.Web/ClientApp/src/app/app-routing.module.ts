@@ -14,11 +14,14 @@ import { UsersComponent } from './components/users/users.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { EditGuard } from './services/editGuard';
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
+import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'admin', component: AdminComponent, pathMatch: 'full' },
   { path: 'tickets/:id', component: TicketComponent, pathMatch: 'full'},
+  { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
+  { path: 'tickets/ticket/edit', component: TicketEditComponent, canActivate: [EditGuard], pathMatch: 'full' },
   { path: 'tickets/ticket/:id', component: TicketDetailComponent, pathMatch: 'full' },
   { path: 'users', component: UsersComponent, pathMatch: 'full' },
   { path: 'users/registration', component: RegistrationComponent, pathMatch: 'full' },
@@ -26,8 +29,7 @@ const routes: Routes = [
   { path: 'search-user', component: SearchUserComponent, pathMatch: 'full' },
   { path: 'search-ticket-results', component: SearchTicketResultsComponent, pathMatch: 'full' },
   { path: 'search-user-results', component: SearchUserResultsComponent, pathMatch: 'full' },
-  { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
-  { path: 'tickets/ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
+
   { path: '**', component: NotFoundComponent },
 
 ];

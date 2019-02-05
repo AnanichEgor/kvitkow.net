@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Tickets } from '../../models/tickets';
+import { Ticket } from '../../models/ticket';
 import { GetallticketsService } from '../../services/getalltickets.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class TicketComponent implements OnInit, OnDestroy {
   pageid: number;
-  tickets: Tickets[] = [];
+  tickets: Ticket[] = [];
   count: number;
   pages: number[] = [];
   subscription: Subscription;
@@ -31,7 +31,7 @@ export class TicketComponent implements OnInit, OnDestroy {
            this.ticketsSrv.getAllTickets(this.pageid).subscribe(result => {
     this.tickets = result['tickets'];
     this.count = result['totalPages'];
-    for (let i = 0; i < this.count; i++) {
+    for (let i = 0; i < this.count + 1; i++) {
       this.pages[i] = i + 1;
     }
 }, err => console.error(err));

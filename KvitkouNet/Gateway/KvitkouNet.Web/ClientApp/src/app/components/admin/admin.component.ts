@@ -8,15 +8,15 @@ import { LogService } from '../../services/log.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  errorLogs : ErrorLogEntry[];
+  errorLogs: ErrorLogEntry[];
   errorLogTableHeaders = ['Id', 'Дата', 'Микросервис', 'Тип', 'Hresult', 'InnerEx', 'Сообщение', 'Источник', 'StackTrace', 'TargetSitename'];
 
   constructor(
-    private logService : LogService
+    private logService: LogService
   ) {}
 
   ngOnInit() {
     this.logService.getErrorLogs()
-    .subscribe(result => this.errorLogs = result, err => console.error(err))
+    .subscribe(result => this.errorLogs = result, err => console.error(err));
   }
 }
