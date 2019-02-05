@@ -196,30 +196,30 @@ namespace TicketManagement.Logic.Services
         ///     Получение всех билет имеющихся в системе
         /// </summary>
         /// <returns></returns>
-        public async Task<ResponseModel> GetAll()
+        public async Task<IEnumerable<Ticket>> GetAll()
         {
-            var res = _mapper.Map<IEnumerable<Models.Ticket>>(await _context.GetAll());
-            return new ResponseModel();
+            var res = _mapper.Map<IEnumerable<Ticket>>(await _context.GetAll());
+            return res;
         }
 
         /// <summary>
         ///     Получение билета по Id
         /// </summary>
         /// <returns></returns>
-        public async Task<ResponseModel> Get(string id)
+        public async Task<Ticket> Get(string id)
         {
-            var res = _mapper.Map<Models.Ticket>(await _context.Get(id));
-            return  new ResponseModel();
+            var res = _mapper.Map<Ticket>(await _context.Get(id));
+            return res;
         }
 
         /// <summary>
         ///     Получение только актуальных билетов
         /// </summary>
         /// <returns></returns>
-        public async Task<ResponseModel> GetAllActual()
+        public async Task<IEnumerable<Ticket>> GetAllActual()
         {
-            var res = _mapper.Map<IEnumerable<Models.Ticket>>(await _context.GetAllActual());
-            return new ResponseModel();
+            var res = _mapper.Map<IEnumerable<Ticket>>(await _context.GetAllActual());
+            return res;
         }
 
         /// <summary>
