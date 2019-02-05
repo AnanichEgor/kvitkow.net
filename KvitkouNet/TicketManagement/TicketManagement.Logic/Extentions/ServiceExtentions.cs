@@ -27,6 +27,7 @@ namespace TicketManagement.Logic.Extentions
         {
             services.AddDbContext<TicketContext>(opt => opt.UseSqlite(connetctionString));
             services.AddScoped<IValidator<Models.Ticket>, TicketValidator>();
+            services.AddScoped<IValidator<Models.UserInfo>, UserValidator>();
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<ITicketService, TicketService>();
             services.RepositoryContext(connetctionString);
