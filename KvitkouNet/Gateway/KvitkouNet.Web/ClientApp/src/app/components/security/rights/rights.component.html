@@ -1,13 +1,21 @@
-<form>
+<form [formGroup]="rightsForm">
     <div class="form-row">
       <div class="col">
       </div>
       <div class="col-7">
         <label class="sr-only" for="rightName">Right Name</label>
-        <input type="text" class="form-control mb-2" id="rightName" placeholder="Right Name">
+        <input type="text" class="form-control mb-2" id="rightName" formControlName="rightName" placeholder="Right Name">
       </div>
       <div class="col">
-        <button type="submit" class="btn btn-primary mb-2">Search</button>
+        <button type="submit" class="btn btn-primary mb-2" (click)="onSearchRights()">Search</button>
       </div>
     </div>
   </form>
+
+  <ul class="list-group">
+      <li class="list-group-item">Cras justo odio</li>
+      <li class="list-group-item">Dapibus ac facilisis in</li>
+      <li class="list-group-item">Morbi leo risus</li>
+      <li class="list-group-item">Porta ac consectetur ac</li>
+      <li class="list-group-item">Vestibulum at eros</li>
+    </ul>

@@ -27,6 +27,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  declarations: [
+    SecurityComponent,
+    SecurityMenuComponent
+],
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })

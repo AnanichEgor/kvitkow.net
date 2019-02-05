@@ -4,11 +4,11 @@
  * regenerated.
  */
 
-import * as msRest from "@azure/ms-rest-js";
-import * as Models from "./../../models/security";
+import * as msRest from '@azure/ms-rest-js';
+import * as Models from './../../models/security';
 
-const packageName = "";
-const packageVersion = "";
+const packageName = '';
+const packageVersion = '';
 
 export class SecurityContext extends msRest.ServiceClient {
 
