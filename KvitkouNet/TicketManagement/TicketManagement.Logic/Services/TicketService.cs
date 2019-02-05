@@ -141,11 +141,15 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ResponseModel> AddRespondedUsers(string id, UserInfo user)
+        public async Task AddRespondedUsers(string id,
+            UserInfo user)
         {
-            if (!_validatorTickets.Validate(user).IsValid) return new ResponseModel(){Status = RequestStatus.InvalidModel, Message = "Invalid model" };
-            await _context.AddRespondedUsers(id, _mapper.Map<Data.DbModels.UserInfo>(user));
-            return new ResponseModel();
+            var validateAct = _validatorTickets.Validate(user);
+            if (!validateAct.IsValid)
+                throw new ValidationException("Validation failed",
+                    validateAct.Errors);
+            await _context.AddRespondedUsers(id,
+                _mapper.Map<Data.DbModels.UserInfo>(user));
         }
 
         /// <summary>
