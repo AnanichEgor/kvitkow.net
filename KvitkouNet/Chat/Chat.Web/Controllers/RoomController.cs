@@ -6,6 +6,8 @@ using System.Net;
 using System.Threading.Tasks;
 using Chat.Logic.Models;
 using Chat.Logic.Services;
+using EasyNetQ;
+using KvitkouNet.Messages.Chat;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
@@ -19,10 +21,12 @@ namespace Chat.Web.Controllers
     public class RoomController : Controller
     {
         private IRoomService _roomService;
+        private readonly IBus _bus;
 
-        public RoomController(IRoomService roomService)
+        public RoomController(IRoomService roomService, IBus bus)
         {
             _roomService = roomService;
+            _bus = bus;
         }
 
         /// <summary>
@@ -44,7 +48,7 @@ namespace Chat.Web.Controllers
         /// Создание комнаты.
         /// </summary>
         [HttpPost, Route("room/{uid}")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "Room created!")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> AddRoom([FromBody] Room room, [FromRoute] string uid)
         {
@@ -101,11 +105,23 @@ namespace Chat.Web.Controllers
         /// Отправка сообщения
         /// </summary>
         [HttpPost, Route("{rid}/message")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "Message sended")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> AddMessage([FromBody] Message message, [FromRoute] string rid)
         {
-            await _roomService.AddMessage(message, rid);
+            var userIsOnline = await _roomService.AddMessage(message, rid);
+
+            //Если пользователь Offline отправим ему уведомление
+            if (userIsOnline != null)
+            {
+
+                await _bus.PublishAsync(new OfflineChatMessage
+                {
+                    UserName = userIsOnline,
+                    SendedTime = message.SendedTime
+                });
+            }
+
             return NoContent();
         }
 
@@ -116,7 +132,7 @@ namespace Chat.Web.Controllers
         /// <param name="rid"></param>
         /// <returns></returns>
         [HttpPatch, Route("{rid}/message")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "Message updated")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> EditMessage([FromBody] Message message, [FromRoute] string rid)
         {
@@ -137,7 +153,7 @@ namespace Chat.Web.Controllers
         /// Удаление сообщения
         /// </summary>
         [HttpDelete, Route("{rid}/messages/{mid}")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "Message deleted")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> DeleteMessage([FromRoute] string rid, [FromRoute] string mid)
         {

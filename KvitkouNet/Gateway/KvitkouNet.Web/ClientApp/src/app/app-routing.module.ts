@@ -1,3 +1,5 @@
+import { SecurityMenuComponent } from './components/security-menu/security-menu.component';
+import { SecurityComponent } from './components/security/security.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
@@ -13,12 +15,22 @@ import { TicketDetailComponent } from './components/ticket-detail/ticket-detail.
 import { UsersComponent } from './components/users/users.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { EditGuard } from './services/editGuard';
+import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.component';
+import { AccountLogsComponent } from './components/admin/account-logs/account-logs.component';
+import { PaymentLogsComponent } from './components/admin/payment-logs/payment-logs.component';
+import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
 import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'admin', component: AdminComponent, pathMatch: 'full' },
+  { path: 'admin', component: AdminComponent,
+    children: [
+      { path: '', component: AdminMainComponent },
+      { path: 'logs/errors', component: ErrorLogsComponent },
+      { path: 'logs/accounts', component: AccountLogsComponent },
+      { path: 'logs/payments', component: PaymentLogsComponent }
+    ]},
   { path: 'tickets/:id', component: TicketComponent, pathMatch: 'full'},
   { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
   { path: 'tickets/ticket/edit', component: TicketEditComponent, canActivate: [EditGuard], pathMatch: 'full' },
@@ -29,9 +41,9 @@ const routes: Routes = [
   { path: 'search-user', component: SearchUserComponent, pathMatch: 'full' },
   { path: 'search-ticket-results', component: SearchTicketResultsComponent, pathMatch: 'full' },
   { path: 'search-user-results', component: SearchUserResultsComponent, pathMatch: 'full' },
-
+  { path: 'chat', component: ChatComponent, pathMatch: 'full'},
+  { path: 'security', component: SecurityComponent, pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
-
 ];
 
 @NgModule({

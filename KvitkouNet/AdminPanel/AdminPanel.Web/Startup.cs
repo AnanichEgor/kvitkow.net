@@ -36,7 +36,7 @@ namespace AdminPanel.Web
 			services.AddSwaggerDocument();
 
 			services.RegisterUserService();
-			services.RegisterLoggingService();
+			services.RegisterLoggingServices();
 			services.RegisterFilters();
 			services.RegisterEasyNetQ("host=rabbit");
 		}

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chat.Data.Migrations
 {
     [DbContext(typeof(ChatContext))]
-    [Migration("20190128180511_Init")]
+    [Migration("20190203144015_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,6 +22,8 @@ namespace Chat.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsEdit");
 
                     b.Property<string>("RoomId");
 

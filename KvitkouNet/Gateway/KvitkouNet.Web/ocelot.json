@@ -28,6 +28,67 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
+      "DownstreamPathTemplate": "/api/admin/logs/accounts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "adminpanel.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/admin/logs/accounts",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/admin/logs/payments",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "adminpanel.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/admin/logs/payments",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/admin/logs/queries",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "adminpanel.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/admin/logs/queries",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/admin/logs/tickets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "adminpanel.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/admin/logs/tickets",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/admin/logs/deals",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "adminpanel.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/admin/logs/deals",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
       "DownstreamPathTemplate": "/api/tickets",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

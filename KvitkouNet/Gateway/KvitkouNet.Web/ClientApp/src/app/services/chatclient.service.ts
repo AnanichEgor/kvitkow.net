@@ -8,13 +8,13 @@
 
 import { mergeMap as _observableMergeMap, catchError as _observableCatch } from 'rxjs/operators';
 import { Observable, throwError as _observableThrow, of as _observableOf } from 'rxjs';
-import { Injectable, Inject, Optional } from '@angular/core';
+import { Injectable, Inject, Optional, InjectionToken  } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
-export const API_BASE_URL = ""; //new OpaqueToken('API_BASE_URL');
+export const API_BASE_URL = new InjectionToken ('API_BASE_URL');
 
 @Injectable()
-export class ChatService {
+export class ChatClient {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -27,7 +27,7 @@ export class ChatService {
     /**
      * @return All OK
      */
-    chat_GetUserSettings(uid: string | null): Observable<Settings | null> {
+    getUserSettings(uid: string | null): Observable<Settings | null> {
         let url_ = this.baseUrl + "/api/chat/settings/{uid}";
         if (uid === undefined || uid === null)
             throw new Error("The parameter 'uid' must be defined.");
@@ -43,11 +43,11 @@ export class ChatService {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processChat_GetUserSettings(response_);
+            return this.processGetUserSettings(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processChat_GetUserSettings(<any>response_);
+                    return this.processGetUserSettings(<any>response_);
                 } catch (e) {
                     return <Observable<Settings | null>><any>_observableThrow(e);
                 }
@@ -56,7 +56,7 @@ export class ChatService {
         }));
     }
 
-    protected processChat_GetUserSettings(response: HttpResponseBase): Observable<Settings | null> {
+    protected processGetUserSettings(response: HttpResponseBase): Observable<Settings | null> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -66,13 +66,15 @@ export class ChatService {
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
-            result200 = _responseText === "" ? null : <Settings>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? Settings.fromJS(resultData200) : <any>null;
             return _observableOf(result200);
             }));
         } else if (status === 400) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result400: any = null;
-            result400 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = resultData400 !== undefined ? resultData400 : <any>null;
             return throwException("A server error occurred.", status, _responseText, _headers, result400);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -86,7 +88,7 @@ export class ChatService {
     /**
      * @return All OK
      */
-    chat_EditUserSettings(uid: string | null, settings: Settings): Observable<string | null> {
+    editUserSettings(uid: string | null, settings: Settings): Observable<string | null> {
         let url_ = this.baseUrl + "/api/chat/settings/{uid}";
         if (uid === undefined || uid === null)
             throw new Error("The parameter 'uid' must be defined.");
@@ -106,11 +108,11 @@ export class ChatService {
         };
 
         return this.http.request("patch", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processChat_EditUserSettings(response_);
+            return this.processEditUserSettings(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processChat_EditUserSettings(<any>response_);
+                    return this.processEditUserSettings(<any>response_);
                 } catch (e) {
                     return <Observable<string | null>><any>_observableThrow(e);
                 }
@@ -119,7 +121,7 @@ export class ChatService {
         }));
     }
 
-    protected processChat_EditUserSettings(response: HttpResponseBase): Observable<string | null> {
+    protected processEditUserSettings(response: HttpResponseBase): Observable<string | null> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -129,13 +131,15 @@ export class ChatService {
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
-            result200 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
             return _observableOf(result200);
             }));
         } else if (status === 400) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result400: any = null;
-            result400 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = resultData400 !== undefined ? resultData400 : <any>null;
             return throwException("A server error occurred.", status, _responseText, _headers, result400);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -145,11 +149,23 @@ export class ChatService {
         }
         return _observableOf<string | null>(<any>null);
     }
+}
+
+@Injectable()
+export class RoomClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "http://localhost:61936";
+    }
 
     /**
      * @return All OK
      */
-    room_GetRooms(uid: string | null): Observable<Room[] | null> {
+    getRooms(uid: string | null): Observable<Room[] | null> {
         let url_ = this.baseUrl + "/api/chat/rooms/users/{uid}";
         if (uid === undefined || uid === null)
             throw new Error("The parameter 'uid' must be defined.");
@@ -165,11 +181,11 @@ export class ChatService {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRoom_GetRooms(response_);
+            return this.processGetRooms(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRoom_GetRooms(<any>response_);
+                    return this.processGetRooms(<any>response_);
                 } catch (e) {
                     return <Observable<Room[] | null>><any>_observableThrow(e);
                 }
@@ -178,7 +194,7 @@ export class ChatService {
         }));
     }
 
-    protected processRoom_GetRooms(response: HttpResponseBase): Observable<Room[] | null> {
+    protected processGetRooms(response: HttpResponseBase): Observable<Room[] | null> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -188,13 +204,19 @@ export class ChatService {
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
-            result200 = _responseText === "" ? null : <Room[]>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(Room.fromJS(item));
+            }
             return _observableOf(result200);
             }));
         } else if (status === 400) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result400: any = null;
-            result400 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = resultData400 !== undefined ? resultData400 : <any>null;
             return throwException("A server error occurred.", status, _responseText, _headers, result400);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -208,7 +230,7 @@ export class ChatService {
     /**
      * @return All OK
      */
-    room_AddRoom(room: Room, uid: string | null): Observable<string | null> {
+    addRoom(room: Room, uid: string | null): Observable<string | null> {
         let url_ = this.baseUrl + "/api/chat/rooms/room/{uid}";
         if (uid === undefined || uid === null)
             throw new Error("The parameter 'uid' must be defined.");
@@ -228,11 +250,11 @@ export class ChatService {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRoom_AddRoom(response_);
+            return this.processAddRoom(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRoom_AddRoom(<any>response_);
+                    return this.processAddRoom(<any>response_);
                 } catch (e) {
                     return <Observable<string | null>><any>_observableThrow(e);
                 }
@@ -241,7 +263,7 @@ export class ChatService {
         }));
     }
 
-    protected processRoom_AddRoom(response: HttpResponseBase): Observable<string | null> {
+    protected processAddRoom(response: HttpResponseBase): Observable<string | null> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -251,13 +273,15 @@ export class ChatService {
         if (status === 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result204: any = null;
-            result204 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData204 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result204 = resultData204 !== undefined ? resultData204 : <any>null;
             return _observableOf(result204);
             }));
         } else if (status === 400) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result400: any = null;
-            result400 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = resultData400 !== undefined ? resultData400 : <any>null;
             return throwException("A server error occurred.", status, _responseText, _headers, result400);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -271,7 +295,7 @@ export class ChatService {
     /**
      * @return All OK
      */
-    room_SearchRoom(template: string | null): Observable<Room[] | null> {
+    searchRoom(template: string | null): Observable<Room[] | null> {
         let url_ = this.baseUrl + "/api/chat/rooms/{template}";
         if (template === undefined || template === null)
             throw new Error("The parameter 'template' must be defined.");
@@ -287,11 +311,11 @@ export class ChatService {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRoom_SearchRoom(response_);
+            return this.processSearchRoom(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRoom_SearchRoom(<any>response_);
+                    return this.processSearchRoom(<any>response_);
                 } catch (e) {
                     return <Observable<Room[] | null>><any>_observableThrow(e);
                 }
@@ -300,7 +324,7 @@ export class ChatService {
         }));
     }
 
-    protected processRoom_SearchRoom(response: HttpResponseBase): Observable<Room[] | null> {
+    protected processSearchRoom(response: HttpResponseBase): Observable<Room[] | null> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -310,13 +334,19 @@ export class ChatService {
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
-            result200 = _responseText === "" ? null : <Room[]>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(Room.fromJS(item));
+            }
             return _observableOf(result200);
             }));
         } else if (status === 400) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result400: any = null;
-            result400 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = resultData400 !== undefined ? resultData400 : <any>null;
             return throwException("A server error occurred.", status, _responseText, _headers, result400);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -330,7 +360,7 @@ export class ChatService {
     /**
      * @return All OK
      */
-    room_GetMessages(rid: string | null, historyCountsMessages: number): Observable<Message[] | null> {
+    getMessages(rid: string | null, historyCountsMessages: number): Observable<Message[] | null> {
         let url_ = this.baseUrl + "/api/chat/rooms/{rid}/messages/history/{historyCountsMessages}";
         if (rid === undefined || rid === null)
             throw new Error("The parameter 'rid' must be defined.");
@@ -349,11 +379,11 @@ export class ChatService {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRoom_GetMessages(response_);
+            return this.processGetMessages(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRoom_GetMessages(<any>response_);
+                    return this.processGetMessages(<any>response_);
                 } catch (e) {
                     return <Observable<Message[] | null>><any>_observableThrow(e);
                 }
@@ -362,7 +392,7 @@ export class ChatService {
         }));
     }
 
-    protected processRoom_GetMessages(response: HttpResponseBase): Observable<Message[] | null> {
+    protected processGetMessages(response: HttpResponseBase): Observable<Message[] | null> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -372,13 +402,19 @@ export class ChatService {
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
-            result200 = _responseText === "" ? null : <Message[]>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(Message.fromJS(item));
+            }
             return _observableOf(result200);
             }));
         } else if (status === 400) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result400: any = null;
-            result400 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = resultData400 !== undefined ? resultData400 : <any>null;
             return throwException("A server error occurred.", status, _responseText, _headers, result400);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -392,7 +428,7 @@ export class ChatService {
     /**
      * @return All OK
      */
-    room_SearchMessage(rid: string | null, template: string | null): Observable<Message[] | null> {
+    searchMessage(rid: string | null, template: string | null): Observable<Message[] | null> {
         let url_ = this.baseUrl + "/api/chat/rooms/{rid}/messages/{template}";
         if (rid === undefined || rid === null)
             throw new Error("The parameter 'rid' must be defined.");
@@ -411,11 +447,11 @@ export class ChatService {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRoom_SearchMessage(response_);
+            return this.processSearchMessage(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRoom_SearchMessage(<any>response_);
+                    return this.processSearchMessage(<any>response_);
                 } catch (e) {
                     return <Observable<Message[] | null>><any>_observableThrow(e);
                 }
@@ -424,7 +460,7 @@ export class ChatService {
         }));
     }
 
-    protected processRoom_SearchMessage(response: HttpResponseBase): Observable<Message[] | null> {
+    protected processSearchMessage(response: HttpResponseBase): Observable<Message[] | null> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -434,13 +470,19 @@ export class ChatService {
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
-            result200 = _responseText === "" ? null : <Message[]>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(Message.fromJS(item));
+            }
             return _observableOf(result200);
             }));
         } else if (status === 400) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result400: any = null;
-            result400 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = resultData400 !== undefined ? resultData400 : <any>null;
             return throwException("A server error occurred.", status, _responseText, _headers, result400);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -454,7 +496,7 @@ export class ChatService {
     /**
      * @return All OK
      */
-    room_AddMessage(message: Message, rid: string | null): Observable<string | null> {
+    addMessage(message: Message, rid: string | null): Observable<string | null> {
         let url_ = this.baseUrl + "/api/chat/rooms/{rid}/message";
         if (rid === undefined || rid === null)
             throw new Error("The parameter 'rid' must be defined.");
@@ -474,11 +516,11 @@ export class ChatService {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRoom_AddMessage(response_);
+            return this.processAddMessage(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRoom_AddMessage(<any>response_);
+                    return this.processAddMessage(<any>response_);
                 } catch (e) {
                     return <Observable<string | null>><any>_observableThrow(e);
                 }
@@ -487,7 +529,7 @@ export class ChatService {
         }));
     }
 
-    protected processRoom_AddMessage(response: HttpResponseBase): Observable<string | null> {
+    protected processAddMessage(response: HttpResponseBase): Observable<string | null> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -497,13 +539,15 @@ export class ChatService {
         if (status === 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result204: any = null;
-            result204 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData204 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result204 = resultData204 !== undefined ? resultData204 : <any>null;
             return _observableOf(result204);
             }));
         } else if (status === 400) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result400: any = null;
-            result400 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = resultData400 !== undefined ? resultData400 : <any>null;
             return throwException("A server error occurred.", status, _responseText, _headers, result400);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -517,7 +561,7 @@ export class ChatService {
     /**
      * @return All OK
      */
-    room_EditMessage(message: Message, rid: string | null): Observable<string | null> {
+    editMessage(message: Message, rid: string | null): Observable<string | null> {
         let url_ = this.baseUrl + "/api/chat/rooms/{rid}/message";
         if (rid === undefined || rid === null)
             throw new Error("The parameter 'rid' must be defined.");
@@ -537,11 +581,11 @@ export class ChatService {
         };
 
         return this.http.request("patch", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRoom_EditMessage(response_);
+            return this.processEditMessage(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRoom_EditMessage(<any>response_);
+                    return this.processEditMessage(<any>response_);
                 } catch (e) {
                     return <Observable<string | null>><any>_observableThrow(e);
                 }
@@ -550,7 +594,7 @@ export class ChatService {
         }));
     }
 
-    protected processRoom_EditMessage(response: HttpResponseBase): Observable<string | null> {
+    protected processEditMessage(response: HttpResponseBase): Observable<string | null> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -560,13 +604,15 @@ export class ChatService {
         if (status === 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result204: any = null;
-            result204 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData204 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result204 = resultData204 !== undefined ? resultData204 : <any>null;
             return _observableOf(result204);
             }));
         } else if (status === 400) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result400: any = null;
-            result400 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = resultData400 !== undefined ? resultData400 : <any>null;
             return throwException("A server error occurred.", status, _responseText, _headers, result400);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -580,7 +626,7 @@ export class ChatService {
     /**
      * @return All OK
      */
-    room_DeleteMessage(rid: string | null, mid: string | null): Observable<string | null> {
+    deleteMessage(rid: string | null, mid: string | null): Observable<string | null> {
         let url_ = this.baseUrl + "/api/chat/rooms/{rid}/messages/{mid}";
         if (rid === undefined || rid === null)
             throw new Error("The parameter 'rid' must be defined.");
@@ -599,11 +645,11 @@ export class ChatService {
         };
 
         return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRoom_DeleteMessage(response_);
+            return this.processDeleteMessage(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRoom_DeleteMessage(<any>response_);
+                    return this.processDeleteMessage(<any>response_);
                 } catch (e) {
                     return <Observable<string | null>><any>_observableThrow(e);
                 }
@@ -612,7 +658,7 @@ export class ChatService {
         }));
     }
 
-    protected processRoom_DeleteMessage(response: HttpResponseBase): Observable<string | null> {
+    protected processDeleteMessage(response: HttpResponseBase): Observable<string | null> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -622,13 +668,15 @@ export class ChatService {
         if (status === 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result204: any = null;
-            result204 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData204 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result204 = resultData204 !== undefined ? resultData204 : <any>null;
             return _observableOf(result204);
             }));
         } else if (status === 400) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result400: any = null;
-            result400 = _responseText === "" ? null : <string>JSON.parse(_responseText, this.jsonParseReviver);
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = resultData400 !== undefined ? resultData400 : <any>null;
             return throwException("A server error occurred.", status, _responseText, _headers, result400);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -640,7 +688,63 @@ export class ChatService {
     }
 }
 
-export interface Settings {
+export class Settings implements ISettings {
+    id?: string | undefined;
+    backgroundColor!: BackgroundColorType;
+    sound!: boolean;
+    toast!: boolean;
+    tab!: boolean;
+    viewTimestampsMessage!: boolean;
+    hideChat!: boolean;
+    historyCountsMessages!: number;
+    disablePrivateMessages!: boolean;
+
+    constructor(data?: ISettings) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.backgroundColor = data["backgroundColor"];
+            this.sound = data["sound"];
+            this.toast = data["toast"];
+            this.tab = data["tab"];
+            this.viewTimestampsMessage = data["viewTimestampsMessage"];
+            this.hideChat = data["hideChat"];
+            this.historyCountsMessages = data["historyCountsMessages"];
+            this.disablePrivateMessages = data["disablePrivateMessages"];
+        }
+    }
+
+    static fromJS(data: any): Settings {
+        data = typeof data === 'object' ? data : {};
+        let result = new Settings();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["backgroundColor"] = this.backgroundColor;
+        data["sound"] = this.sound;
+        data["toast"] = this.toast;
+        data["tab"] = this.tab;
+        data["viewTimestampsMessage"] = this.viewTimestampsMessage;
+        data["hideChat"] = this.hideChat;
+        data["historyCountsMessages"] = this.historyCountsMessages;
+        data["disablePrivateMessages"] = this.disablePrivateMessages;
+        return data;
+    }
+}
+
+export interface ISettings {
     id?: string | undefined;
     backgroundColor: BackgroundColorType;
     sound: boolean;
@@ -658,14 +762,99 @@ export enum BackgroundColorType {
     Black = 2,
 }
 
-export interface Room {
+export class Room implements IRoom {
+    id?: string | undefined;
+    name?: string | undefined;
+    isPrivat!: boolean;
+    password?: string | undefined;
+
+    constructor(data?: IRoom) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+            this.isPrivat = data["isPrivat"];
+            this.password = data["password"];
+        }
+    }
+
+    static fromJS(data: any): Room {
+        data = typeof data === 'object' ? data : {};
+        let result = new Room();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["isPrivat"] = this.isPrivat;
+        data["password"] = this.password;
+        return data;
+    }
+}
+
+export interface IRoom {
     id?: string | undefined;
     name?: string | undefined;
     isPrivat: boolean;
     password?: string | undefined;
 }
 
-export interface Message {
+export class Message implements IMessage {
+    id?: string | undefined;
+    userId?: string | undefined;
+    sendedTime!: Date;
+    text?: string | undefined;
+    isEdit!: boolean;
+
+    constructor(data?: IMessage) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.userId = data["userId"];
+            this.sendedTime = data["sendedTime"] ? new Date(data["sendedTime"].toString()) : <any>undefined;
+            this.text = data["text"];
+            this.isEdit = data["isEdit"];
+        }
+    }
+
+    static fromJS(data: any): Message {
+        data = typeof data === 'object' ? data : {};
+        let result = new Message();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["userId"] = this.userId;
+        data["sendedTime"] = this.sendedTime ? this.sendedTime.toISOString() : <any>undefined;
+        data["text"] = this.text;
+        data["isEdit"] = this.isEdit;
+        return data;
+    }
+}
+
+export interface IMessage {
     id?: string | undefined;
     userId?: string | undefined;
     sendedTime: Date;
