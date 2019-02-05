@@ -25,18 +25,20 @@ namespace TicketManagement.Logic.Services
     {
         private readonly ITicketRepository _context;
         private readonly IMapper _mapper;
-        private readonly IValidator _validator;
+        private readonly IValidator _validatorTickets;
         private readonly IConfiguration _configuration;
         private readonly IBus _bus;
+        private readonly IValidator<UserInfo> _validatorUsers;
 
-        public TicketService(ITicketRepository context, IMapper mapper, IValidator<Models.Ticket> validator,
-            IConfiguration configuration, IBus bus)
+        public TicketService(ITicketRepository context, IMapper mapper, IValidator<Models.Ticket> validatorTickets,
+            IConfiguration configuration, IBus bus, IValidator<Models.UserInfo> validatorUsers)
         {
             _context = context;
             _mapper = mapper;
-            _validator = validator;
+            _validatorTickets = validatorTickets;
             _configuration = configuration;
             _bus = bus;
+            _validatorUsers = validatorUsers;
         }
 
         /// <summary>
