@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
 using Chat.Data.Context;
@@ -55,17 +56,26 @@ namespace Chat.Logic.Services
         public async Task EditUserSettings(string userId, Settings settings)
         {
            
-            var res = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == userId);
-            if (res == null)
+            var modelDb = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == userId);
+            if (modelDb == null)
             {
                 await Task.FromException(new InvalidDataException());
             }
             else
             {
-                var modelDb = _mapper.Map<SettingsDb>(settings);
-                modelDb.UserId = userId;
+                var newModelDb = _mapper.Map<SettingsDb>(settings);
+                modelDb.BackgroundColor = newModelDb.BackgroundColor;
+                modelDb.DisablePrivateMessages = newModelDb.DisablePrivateMessages;
+                modelDb.HideChat = newModelDb.HideChat;
+                modelDb.HistoryCountsMessages = newModelDb.HistoryCountsMessages;
+                modelDb.Sound = newModelDb.Sound;
+                modelDb.Tab = newModelDb.Tab;
+                modelDb.Toast = newModelDb.Toast;
+                modelDb.ViewTimestampsMessage = newModelDb.ViewTimestampsMessage;
+                modelDb.UpdateDate = DateTime.Now;
+                
                 _context.Attach(modelDb);
-                _context.Entry(modelDb).State = EntityState.Modified;
+               _context.Entry(modelDb).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
         }

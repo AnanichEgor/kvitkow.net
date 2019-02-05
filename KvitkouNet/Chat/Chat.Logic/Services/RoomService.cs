@@ -72,15 +72,17 @@ namespace Chat.Logic.Services
 
         public async Task EditMessage(Message message, string roomId)
         {
-            var res = await _context.Messages.SingleOrDefaultAsync(x => x.Id == message.Id);
-            if (res == null)
+            var modelDb = await _context.Messages.SingleOrDefaultAsync(x => x.Id == message.Id);
+            if (modelDb == null)
             {
                 await Task.FromException(new InvalidDataException());
             }
             else
             {
-                var modelDb = _mapper.Map<MessageDb>(message);
-                modelDb.RoomId = roomId;
+                var newModelDb = _mapper.Map<MessageDb>(message);
+                modelDb.Text = newModelDb.Text;
+                modelDb.IsEdit = true;
+
                 _context.Attach(modelDb);
                 _context.Entry(modelDb).State = EntityState.Modified;
                 await _context.SaveChangesAsync();

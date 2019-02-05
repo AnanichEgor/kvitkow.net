@@ -49,7 +49,7 @@ namespace Chat.Web
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
 
-            app.UseSubscriber("UserService", Assembly.GetExecutingAssembly());
+    //        app.UseSubscriber("UserService", Assembly.GetExecutingAssembly());
         }
     }
 }
