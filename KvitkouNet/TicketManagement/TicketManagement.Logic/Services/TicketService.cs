@@ -227,11 +227,12 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="index">Номер текущей страницы</param>
         /// <returns></returns>
-        public async Task< ResponseModel> GetAllPagebyPage(int index)
+        public async Task<Page<TicketLite>> GetAllPagebyPage(int index)
         {
             var pageSize = _configuration.GetValue<int>("pageSize");
-            var res = _mapper.Map<Models.Page<TicketLite>>( await _context.GetAllPagebyPage(index, pageSize));
-            return  new ResponseModel(){Data = res};
+            var res = _mapper.Map<Page<TicketLite>>(await _context.GetAllPagebyPage(index,
+                pageSize));
+            return res;
         }
 
         /// <summary>
@@ -240,11 +241,14 @@ namespace TicketManagement.Logic.Services
         /// <param name="index">Номер текущей страницы</param>
         /// <param name="onlyActual">Только актуальные билеты</param>
         /// <returns></returns>
-        public async Task< ResponseModel> GetAllPagebyPageActual(int index, bool onlyActual = true)
+        public async Task<Page<TicketLite>> GetAllPagebyPageActual(int index,
+            bool onlyActual = true)
         {
             var pageSize = _configuration.GetValue<int>("pageSize");
-            var res = _mapper.Map<Models.Page<TicketLite>>(await _context.GetAllPagebyPage(index, pageSize,onlyActual));
-            return new ResponseModel();
+            var res = _mapper.Map<Page<TicketLite>>(await _context.GetAllPagebyPage(index,
+                pageSize,
+                onlyActual));
+            return res;
         }
 
         /// <summary>
