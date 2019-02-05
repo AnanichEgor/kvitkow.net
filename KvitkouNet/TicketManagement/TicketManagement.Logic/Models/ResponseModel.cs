@@ -33,5 +33,10 @@ namespace TicketManagement.Logic.Models
         ///     List ошибок валидации
         /// </summary>
         public List<ValidationFailure> ValidationFailures { get; set; }
+
+        /// <summary>
+        ///     Возвращаемые данные
+        /// </summary>
+        public object Data { get; set; }
     }
 }
