@@ -46,7 +46,7 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        public async Task<(string, RequestStatus)> Add(Models.Ticket ticket)
+        public async Task<ResponseModel> Add(Models.Ticket ticket)
         {
             //WARNING используется для замены стандартных значений swagerr'a
             //при связи с фронтом надо убрать 
@@ -75,7 +75,7 @@ namespace TicketManagement.Logic.Services
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        public async Task<RequestStatus> Update(string id, Models.Ticket ticket)
+        public async Task<ResponseModel> Update(string id, Models.Ticket ticket)
         {
             await _context.Update(id, _mapper.Map<Ticket>(ticket));
             await _bus.PublishAsync(new TicketUpdatedMessage()
@@ -96,7 +96,7 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<RequestStatus> AddRespondedUsers(string id, UserInfo user)
+        public async Task<ResponseModel> AddRespondedUsers(string id, UserInfo user)
         {
             if (!_validator.Validate(user).IsValid) return RequestStatus.InvalidModel;
             await _context.AddRespondedUsers(id, _mapper.Map<Data.DbModels.UserInfo>(user));
@@ -118,7 +118,7 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<RequestStatus> Delete(string id)
+        public async Task<ResponseModel> Delete(string id)
         {
             await _context.Delete(id);
             await _bus.PublishAsync(new TicketDeletedMessage
@@ -133,7 +133,7 @@ namespace TicketManagement.Logic.Services
         ///     Получение всех билет имеющихся в системе
         /// </summary>
         /// <returns></returns>
-        public async Task<(IEnumerable<Models.Ticket>, RequestStatus)> GetAll()
+        public async Task<ResponseModel> GetAll()
         {
             var res = _mapper.Map<IEnumerable<Models.Ticket>>(await _context.GetAll());
             return res == null ? (null, RequestStatus.Error) : (res, RequestStatus.Success);
@@ -153,7 +153,7 @@ namespace TicketManagement.Logic.Services
         ///     Получение только актуальных билетов
         /// </summary>
         /// <returns></returns>
-        public async Task<(IEnumerable<Models.Ticket>, RequestStatus)> GetAllActual()
+        public async Task<ResponseModel> GetAllActual()
         {
             var res = await _context.GetAllActual();
             return res == null
@@ -166,7 +166,7 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="index">Номер текущей страницы</param>
         /// <returns></returns>
-        public async Task<(Models.Page<TicketLite>, RequestStatus)> GetAllPagebyPage(int index)
+        public async Task< ResponseModel> GetAllPagebyPage(int index)
         {
             var pageSize = _configuration.GetValue<int>("pageSize");
             var res = await _context.GetAllPagebyPage(index, pageSize);
@@ -181,7 +181,7 @@ namespace TicketManagement.Logic.Services
         /// <param name="index">Номер текущей страницы</param>
         /// <param name="onlyActual">Только актуальные билеты</param>
         /// <returns></returns>
-        public async Task<(Models.Page<TicketLite>, RequestStatus)> GetAllPagebyPageActual(int index, bool onlyActual = true)
+        public async Task< ResponseModel> GetAllPagebyPageActual(int index, bool onlyActual = true)
         {
             var pageSize = _configuration.GetValue<int>("pageSize");
             var res = await _context.GetAllPagebyPage(index, pageSize,onlyActual);
