@@ -242,10 +242,8 @@ namespace TicketManagement.Logic.Services
         public async Task< ResponseModel> GetAllPagebyPage(int index)
         {
             var pageSize = _configuration.GetValue<int>("pageSize");
-            var res = await _context.GetAllPagebyPage(index, pageSize);
-            return res == null
-                ? (null, RequestStatus.Error)
-                : (_mapper.Map<Models.Page<TicketLite>>(res), RequestStatus.Success);
+            var res = _mapper.Map<Models.Page<TicketLite>>( await _context.GetAllPagebyPage(index, pageSize));
+            return  new ResponseModel(){Data = res};
         }
 
         /// <summary>
