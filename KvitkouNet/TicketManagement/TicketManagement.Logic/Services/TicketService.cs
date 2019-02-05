@@ -103,15 +103,21 @@ namespace TicketManagement.Logic.Services
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        public async Task<ResponseModel> Update(string id, Models.Ticket ticket)
+        public async Task Update(string id,
+            Ticket ticket)
         {
-            await _context.Update(id, _mapper.Map<Ticket>(ticket));
-            var policy = Policy.Handle<TimeoutException>().WaitAndRetryAsync(new[] { TimeSpan.FromSeconds(1) });
+            await _context.Update(id,
+                _mapper.Map<Data.DbModels.Ticket>(ticket));
+            var policy = Policy.Handle<TimeoutException>()
+                .WaitAndRetryAsync(new[]
+                {
+                    TimeSpan.FromSeconds(1)
+                });
             try
             {
                 await policy.ExecuteAsync(async () =>
                 {
-                    await _bus.PublishAsync(new TicketUpdatedMessage()
+                    await _bus.PublishAsync(new TicketUpdatedMessage
                     {
                         TicketId = id,
                         Price = ticket.Price,
@@ -125,15 +131,9 @@ namespace TicketManagement.Logic.Services
             catch (TimeoutException exception)
             {
                 Debug.WriteLine(exception);
-                return new ResponseModel
-                    {
-                    Status = RequestStatus.SuccessWithErrors,
-                    Message = "Ticket added in db, but error sending message to RabbitMQ",
-                    ExceptionMessage = exception.Message,
-                    ExceptionSource = exception.Source
-                };
+                throw new EasyNetQSendException("Ticket added in db, but error sending message to RabbitMQ",
+                    exception);
             }
-            return new ResponseModel();
         }
 
         /// <summary>
