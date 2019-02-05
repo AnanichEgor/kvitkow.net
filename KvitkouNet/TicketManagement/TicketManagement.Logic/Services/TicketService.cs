@@ -9,6 +9,7 @@ using FluentValidation;
 using KvitkouNet.Messages.TicketManagement;
 using Microsoft.Extensions.Configuration;
 using Polly;
+using Polly.Retry;
 using TicketManagement.Data.Repositories;
 using TicketManagement.Logic.Exceptions;
 using TicketManagement.Logic.Models;
@@ -26,6 +27,7 @@ namespace TicketManagement.Logic.Services
         private readonly IConfiguration _configuration;
         private readonly IBus _bus;
         private readonly IValidator<UserInfo> _validatorUsers;
+        private readonly RetryPolicy _policy;
 
         public TicketService(ITicketRepository context,
             IMapper mapper,
@@ -40,6 +42,11 @@ namespace TicketManagement.Logic.Services
             _configuration = configuration;
             _bus = bus;
             _validatorUsers = validatorUsers;
+            _policy = Policy.Handle<TimeoutException>()
+                .WaitAndRetryAsync(new[]
+                {
+                    TimeSpan.FromSeconds(1)
+                });
         }
 
         /// <summary>
@@ -66,14 +73,9 @@ namespace TicketManagement.Logic.Services
             }
 
             var res = await _context.Add(_mapper.Map<Data.DbModels.Ticket>(ticket));
-            var policy = Policy.Handle<TimeoutException>()
-                .WaitAndRetryAsync(new[]
-                {
-                    TimeSpan.FromSeconds(1)
-                });
             try
             {
-                await policy.ExecuteAsync(async () =>
+                await _policy.ExecuteAsync(async () =>
                 {
                     await _bus.PublishAsync(new TicketCreationMessage
                     {
@@ -107,14 +109,9 @@ namespace TicketManagement.Logic.Services
         {
             await _context.Update(id,
                 _mapper.Map<Data.DbModels.Ticket>(ticket));
-            var policy = Policy.Handle<TimeoutException>()
-                .WaitAndRetryAsync(new[]
-                {
-                    TimeSpan.FromSeconds(1)
-                });
             try
             {
-                await policy.ExecuteAsync(async () =>
+                await _policy.ExecuteAsync(async () =>
                 {
                     await _bus.PublishAsync(new TicketUpdatedMessage
                     {
@@ -167,14 +164,9 @@ namespace TicketManagement.Logic.Services
         public async Task Delete(string id)
         {
             await _context.Delete(id);
-            var policy = Policy.Handle<TimeoutException>()
-                .WaitAndRetryAsync(new[]
-                {
-                    TimeSpan.FromSeconds(1)
-                });
             try
             {
-                await policy.ExecuteAsync(async () =>
+                await _policy.ExecuteAsync(async () =>
                 {
                     await _bus.PublishAsync(new TicketDeletedMessage
                     {
