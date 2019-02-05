@@ -230,10 +230,8 @@ namespace TicketManagement.Logic.Services
         /// <returns></returns>
         public async Task<ResponseModel> GetAllActual()
         {
-            var res = await _context.GetAllActual();
-            return res == null
-                ? (null, RequestStatus.InvalidModel)
-                : (_mapper.Map<IEnumerable<Models.Ticket>>(res), RequestStatus.Success);
+            var res = _mapper.Map<IEnumerable<Models.Ticket>>(await _context.GetAllActual());
+            return new ResponseModel();
         }
 
         /// <summary>
