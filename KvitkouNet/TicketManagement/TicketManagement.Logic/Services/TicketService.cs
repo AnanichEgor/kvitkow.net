@@ -119,17 +119,34 @@ namespace TicketManagement.Logic.Services
         public async Task<ResponseModel> Update(string id, Models.Ticket ticket)
         {
             await _context.Update(id, _mapper.Map<Ticket>(ticket));
-            await _bus.PublishAsync(new TicketUpdatedMessage()
             var policy = Policy.Handle<TimeoutException>().WaitAndRetryAsync(new[] { TimeSpan.FromSeconds(1) });
+            try
             {
-                TicketId = id,
-                Price = ticket.Price,
-                Name = ticket.Name,
-                City = ticket.LocationEvent.City,
-                Category = ticket.TypeEvent.ToString(),
-                Date = DateTime.Now
-            });
-            return RequestStatus.Success;
+                await policy.ExecuteAsync(async () =>
+                {
+                    await _bus.PublishAsync(new TicketUpdatedMessage()
+                    {
+                        TicketId = id,
+                        Price = ticket.Price,
+                        Name = ticket.Name,
+                        City = ticket.LocationEvent.City,
+                        Category = ticket.TypeEvent.ToString(),
+                        Date = DateTime.Now
+                    });
+                });
+            }
+            catch (TimeoutException exception)
+            {
+                Debug.WriteLine(exception);
+                return new ResponseModel
+                    {
+                    Status = RequestStatus.SuccessWithErrors,
+                    Message = "Ticket added in db, but error sending message to RabbitMQ",
+                    ExceptionMessage = exception.Message,
+                    ExceptionSource = exception.Source
+                };
+            }
+            return new ResponseModel();
         }
 
         /// <summary>
