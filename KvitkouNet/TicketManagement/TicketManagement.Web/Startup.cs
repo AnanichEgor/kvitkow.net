@@ -1,12 +1,15 @@
-﻿using EasyNetQ;
+﻿using System.Collections.Generic;
+using EasyNetQ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc.Filters;
 using TicketManagement.Logic.Extentions;
 using TicketManagement.Logic.Subscriber;
+using TicketManagement.Web.Filters;
 
 namespace TicketManagement.Web
 {
@@ -22,7 +25,12 @@ namespace TicketManagement.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
+            services.AddMvc(options =>
+                {
+                    options.Filters.Add(new EasyNetQSendExceptionFilter());
+                    options.Filters.Add(new UserExceptionFilter());
+                    options.Filters.Add(new ValidationExceptionFilter());
+                })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddOptions();
             services.AddSingleton(Configuration);
