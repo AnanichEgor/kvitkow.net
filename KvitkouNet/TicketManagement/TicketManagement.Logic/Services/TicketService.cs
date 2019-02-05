@@ -52,21 +52,62 @@ namespace TicketManagement.Logic.Services
             //при связи с фронтом надо убрать 
             ticket.SellerPhone = "+375-29-76-23-371";
             //WARNING
-
-            if (ticket.User.Rating < 0) return (null, RequestStatus.BadUserRating);
-            if (!_validator.Validate(ticket).IsValid) return (null, RequestStatus.InvalidModel);
-            var res = await _context.Add(_mapper.Map<Ticket>(ticket));
-            await _bus.PublishAsync(new TicketCreationMessage
-            var policy = Policy.Handle<TimeoutException>().WaitAndRetryAsync(new[] {TimeSpan.FromSeconds(1)});
+            if (ticket.User.Rating < 0)
+                return new ResponseModel
+                {
+                    Status = RequestStatus.BadUserRating,
+                    Message = "Bad user rating"
+                };
+            var validationResultTicket = await _validatorTickets.ValidateAsync(ticket);
+            var validationResultUser = await _validatorUsers.ValidateAsync(ticket.User);
+            if (!validationResultTicket.IsValid | !validationResultUser.IsValid)
             {
-                TicketId = res,
-                Price = ticket.Price,
-                Name = ticket.Name,
-                City = ticket.LocationEvent.City,
-                Category = ticket.TypeEvent.ToString(),
-                Date = DateTime.Now
-            });
-            return (res, RequestStatus.Success);
+                var errors = validationResultTicket.Errors.ToList();
+                errors.AddRange(validationResultUser.Errors.ToArray());
+                return  new ResponseModel
+                {
+                    Status = RequestStatus.InvalidModel,
+                    Message = "Invalid model",
+                    ValidationFailures = errors
+                };
+            }
+
+            var res = await _context.Add(_mapper.Map<Ticket>(ticket));
+            var policy = Policy.Handle<TimeoutException>()
+                .WaitAndRetryAsync(new[]
+                {
+                    TimeSpan.FromSeconds(1)
+                });
+            try
+            {
+                await policy.ExecuteAsync(async () =>
+                {
+                    await _bus.PublishAsync(new TicketCreationMessage
+                    {
+                        TicketId = res,
+                        Price = ticket.Price,
+                        Name = ticket.Name,
+                        City = ticket.LocationEvent.City,
+                        Category = ticket.TypeEvent.ToString(),
+                        Date = DateTime.Now
+                    });
+                });
+            }
+            catch (TimeoutException exception)
+            {
+                Debug.WriteLine(exception);
+                return
+                    new ResponseModel
+                    {
+                        Status = RequestStatus.SuccessWithErrors,
+                        Message = "Ticket added in db, but error sending message to RabbitMQ",
+                        ExceptionMessage = exception.Message,
+                        ExceptionSource = exception.Source,
+                        Data = res
+                    };
+            }
+
+            return  new ResponseModel();
         }
 
         /// <summary>
