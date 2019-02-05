@@ -1,29 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FluentValidation.Results;
 using TicketManagement.Logic.Models.Enums;
 
 namespace TicketManagement.Logic.Models
 {
     /// <summary>
-    /// Модель статуса ответа
+    ///     Модель статуса ответа
     /// </summary>
     public class ResponseModel
     {
         /// <summary>
-        /// Успешность запроса
+        ///     Успешность запроса
         /// </summary>
         public RequestStatus Status { get; set; } = RequestStatus.Success;
+
         /// <summary>
-        /// Доп. сообщение к статусу
+        ///     Доп. сообщение к статусу
         /// </summary>
         public string Message { get; set; }
+
         /// <summary>
-        /// Критическая ошибка
+        ///     Сообщение ошибки
         /// </summary>
-        public Exception Exception { get; set; }
+        public string ExceptionMessage { get; set; }
+
         /// <summary>
-        /// List ошибок валидации
+        ///     Источник ошибки
+        /// </summary>
+        public string ExceptionSource { get; set; }
+
+        /// <summary>
+        ///     List ошибок валидации
         /// </summary>
         public List<ValidationFailure> ValidationFailures { get; set; }
     }
