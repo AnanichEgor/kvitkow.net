@@ -88,7 +88,6 @@ namespace TicketManagement.Logic.Services
             }
             catch (TimeoutException exception)
             {
-                Debug.WriteLine(exception);
                 throw new EasyNetQSendException("Ticket added in db, but error sending message to RabbitMQ",
                     exception,
                     res);
@@ -130,7 +129,6 @@ namespace TicketManagement.Logic.Services
             }
             catch (TimeoutException exception)
             {
-                Debug.WriteLine(exception);
                 throw new EasyNetQSendException("Ticket added in db, but error sending message to RabbitMQ",
                     exception);
             }
@@ -186,7 +184,6 @@ namespace TicketManagement.Logic.Services
             }
             catch (TimeoutException exception)
             {
-                Debug.WriteLine(exception);
                 throw new EasyNetQSendException("Ticket added in db, but error sending message to RabbitMQ",
                     exception);
             }
