@@ -156,10 +156,9 @@ namespace TicketManagement.Logic.Services
         ///     Удаление всех билетов
         /// </summary>
         /// <returns></returns>
-        public async Task<ResponseModel> DeleteAll()
+        public async Task DeleteAll()
         {
             await _context.DeleteAll();
-            return new ResponseModel();
         }
 
         /// <summary>
@@ -167,10 +166,14 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ResponseModel> Delete(string id)
+        public async Task Delete(string id)
         {
             await _context.Delete(id);
-            var policy = Policy.Handle<TimeoutException>().WaitAndRetryAsync(new[] { TimeSpan.FromSeconds(1) });
+            var policy = Policy.Handle<TimeoutException>()
+                .WaitAndRetryAsync(new[]
+                {
+                    TimeSpan.FromSeconds(1)
+                });
             try
             {
                 await policy.ExecuteAsync(async () =>
@@ -184,15 +187,9 @@ namespace TicketManagement.Logic.Services
             catch (TimeoutException exception)
             {
                 Debug.WriteLine(exception);
-                return new ResponseModel
-                {
-                    Status = RequestStatus.SuccessWithErrors,
-                    Message = "Ticket added in db, but error sending message to RabbitMQ",
-                    ExceptionMessage = exception.Message,
-                    ExceptionSource = exception.Source
-                };
+                throw new EasyNetQSendException("Ticket added in db, but error sending message to RabbitMQ",
+                    exception);
             }
-            return new ResponseModel();
         }
 
         /// <summary>
