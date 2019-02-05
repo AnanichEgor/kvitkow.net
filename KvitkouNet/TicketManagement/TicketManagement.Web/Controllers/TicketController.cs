@@ -111,9 +111,8 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAll()
         {
-            ResponseModel responseInfo = await _service.GetAll();
-            if (responseInfo.Status != RequestStatus.Success) return BadRequest(responseInfo);
-            return Ok(responseInfo.Data);
+            var responseInfo = await _service.GetAll();
+            return Ok(responseInfo);
         }
 
         /// <summary>
@@ -128,8 +127,8 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
-             ResponseModel responseInfo = await _service.Get(id);
-            return Ok(responseInfo.Data);
+            var responseInfo = await _service.Get(id);
+            return Ok(responseInfo);
         }
 
         /// <summary>
@@ -143,8 +142,8 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAllActual()
         {
-            ResponseModel responseInfo = await _service.GetAllActual();
-            return Ok(responseInfo.Data);
+            var responseInfo = await _service.GetAllActual();
+            return Ok(responseInfo);
         }
 
         /// <summary>
@@ -158,9 +157,8 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound, typeof(string), Description = "Page not found")]
         public async Task<IActionResult> GetAllPagebyPage([FromRoute] int index)
         {
-            ResponseModel responseInfo = await _service.GetAllPagebyPage(index);
-            if (responseInfo.Status != RequestStatus.Success) return NotFound();
-            return Ok(responseInfo.Data);
+            var responseInfo = await _service.GetAllPagebyPage(index);
+            return Ok(responseInfo);
         }
 
         /// <summary>
@@ -174,9 +172,8 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound, typeof(string), Description = "Page not found")]
         public async Task<IActionResult> GetAllPagebyPageActual([FromRoute] int index)
         {
-             ResponseModel responseInfo = await _service.GetAllPagebyPageActual(index);
-            if (responseInfo.Status != RequestStatus.Success) return NotFound();
-            return Ok(responseInfo.Data);
+            var responseInfo = await _service.GetAllPagebyPageActual(index);
+            return Ok(responseInfo);
         }
     }
 }
