@@ -47,33 +47,25 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        public async Task<ResponseModel> Add(Models.Ticket ticket)
+        public async Task<string> Add(Ticket ticket)
         {
             //WARNING используется для замены стандартных значений swagerr'a
             //при связи с фронтом надо убрать 
             ticket.SellerPhone = "+375-29-76-23-371";
             //WARNING
             if (ticket.User.Rating < 0)
-                return new ResponseModel
-                {
-                    Status = RequestStatus.BadUserRating,
-                    Message = "Bad user rating"
-                };
+                throw new UserException("Bad user rating");
             var validationResultTicket = await _validatorTickets.ValidateAsync(ticket);
             var validationResultUser = await _validatorUsers.ValidateAsync(ticket.User);
             if (!validationResultTicket.IsValid | !validationResultUser.IsValid)
             {
                 var errors = validationResultTicket.Errors.ToList();
                 errors.AddRange(validationResultUser.Errors.ToArray());
-                return  new ResponseModel
-                {
-                    Status = RequestStatus.InvalidModel,
-                    Message = "Invalid model",
-                    ValidationFailures = errors
-                };
+                throw new ValidationException("Validation failed",
+                    errors);
             }
 
-            var res = await _context.Add(_mapper.Map<Ticket>(ticket));
+            var res = await _context.Add(_mapper.Map<Data.DbModels.Ticket>(ticket));
             var policy = Policy.Handle<TimeoutException>()
                 .WaitAndRetryAsync(new[]
                 {
@@ -97,18 +89,12 @@ namespace TicketManagement.Logic.Services
             catch (TimeoutException exception)
             {
                 Debug.WriteLine(exception);
-                return
-                    new ResponseModel
-                    {
-                        Status = RequestStatus.SuccessWithErrors,
-                        Message = "Ticket added in db, but error sending message to RabbitMQ",
-                        ExceptionMessage = exception.Message,
-                        ExceptionSource = exception.Source,
-                        Data = res
-                    };
+                throw new EasyNetQSendException("Ticket added in db, but error sending message to RabbitMQ",
+                    exception,
+                    res);
             }
 
-            return  new ResponseModel();
+            return res;
         }
 
         /// <summary>
