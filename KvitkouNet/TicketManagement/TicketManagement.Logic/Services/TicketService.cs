@@ -156,19 +156,19 @@ namespace TicketManagement.Logic.Services
         /// <returns></returns>
         public async Task<ResponseModel> AddRespondedUsers(string id, UserInfo user)
         {
-            if (!_validator.Validate(user).IsValid) return RequestStatus.InvalidModel;
+            if (!_validatorTickets.Validate(user).IsValid) return new ResponseModel(){Status = RequestStatus.InvalidModel, Message = "Invalid model" };
             await _context.AddRespondedUsers(id, _mapper.Map<Data.DbModels.UserInfo>(user));
-            return RequestStatus.Success;
+            return new ResponseModel();
         }
 
         /// <summary>
         ///     Удаление всех билетов
         /// </summary>
         /// <returns></returns>
-        public async Task<RequestStatus> DeleteAll()
+        public async Task<ResponseModel> DeleteAll()
         {
             await _context.DeleteAll();
-            return RequestStatus.Success;
+            return new ResponseModel();
         }
 
         /// <summary>
