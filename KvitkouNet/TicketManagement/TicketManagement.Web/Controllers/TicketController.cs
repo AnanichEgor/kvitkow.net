@@ -34,11 +34,12 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(string), Description = "Unauthorized user")]
         public async Task<IActionResult> Add([FromBody] Ticket ticket)
         {
-            var result = await _service.Add(ticket);
-            if (result.Item2 == RequestStatus.InvalidModel) return ValidationProblem();
-            if (result.Item2 == RequestStatus.BadUserRating) return StatusCode(403);
-            if (result.Item2 == RequestStatus.Error) return StatusCode(500);
-            return Ok(result.Item1);
+            ResponseModel responseInfo  = await _service.Add(ticket);
+            if (responseInfo.Status == RequestStatus.InvalidModel) return StatusCode(400, responseInfo);
+            if (responseInfo.Status == RequestStatus.BadUserRating) return StatusCode(403, responseInfo);
+            if (responseInfo.Status == RequestStatus.Error) return StatusCode(500,responseInfo);
+            if (responseInfo.Status == RequestStatus.SuccessWithErrors) return Ok(responseInfo.Data);
+            return Ok(responseInfo.Data);
         }
 
         /// <summary>
@@ -54,8 +55,8 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> AddRespondedUsers([FromRoute] string id, [FromBody] UserInfo user)
         {
-            var res = await _service.AddRespondedUsers(id, user);
-            if (res != RequestStatus.Success) return BadRequest();
+            ResponseModel responseInfo = await _service.AddRespondedUsers(id, user);
+            if (responseInfo.Status != RequestStatus.Success) return BadRequest();
             return NoContent();
         }
 
@@ -72,9 +73,9 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Ticket ticket)
         {
-            var res = await _service.Update(id, ticket);
-            if (res == RequestStatus.SuccessWithErrors) return NoContent();
-            if (res != RequestStatus.Success) return BadRequest();
+            ResponseModel responseInfo = await _service.Update(id, ticket);
+            if (responseInfo.Status == RequestStatus.SuccessWithErrors) return NoContent();
+            if (responseInfo.Status != RequestStatus.Success) return BadRequest();
             return NoContent();
         }
 
