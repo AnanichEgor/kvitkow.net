@@ -89,7 +89,7 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
         public async Task<IActionResult> DeleteAll()
         {
-            var result = await _service.DeleteAll();
+            ResponseModel responseInfo = await _service.DeleteAll();
             return NoContent();
         }
 
@@ -105,7 +105,7 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
-            var result = await _service.Delete(id);
+            ResponseModel responseInfo = await _service.Delete(id);
             return NoContent();
         }
 
