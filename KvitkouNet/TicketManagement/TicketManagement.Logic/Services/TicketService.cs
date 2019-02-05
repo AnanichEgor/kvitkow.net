@@ -9,13 +9,9 @@ using FluentValidation;
 using KvitkouNet.Messages.TicketManagement;
 using Microsoft.Extensions.Configuration;
 using Polly;
-using TicketManagement.Data.DbModels;
 using TicketManagement.Data.Repositories;
-using TicketManagement.Logic.Extentions;
+using TicketManagement.Logic.Exceptions;
 using TicketManagement.Logic.Models;
-using TicketManagement.Logic.Models.Enums;
-using Ticket = TicketManagement.Data.DbModels.Ticket;
-using UserInfo = TicketManagement.Logic.Models.UserInfo;
 
 namespace TicketManagement.Logic.Services
 {
@@ -31,8 +27,12 @@ namespace TicketManagement.Logic.Services
         private readonly IBus _bus;
         private readonly IValidator<UserInfo> _validatorUsers;
 
-        public TicketService(ITicketRepository context, IMapper mapper, IValidator<Models.Ticket> validatorTickets,
-            IConfiguration configuration, IBus bus, IValidator<Models.UserInfo> validatorUsers)
+        public TicketService(ITicketRepository context,
+            IMapper mapper,
+            IValidator<Ticket> validatorTickets,
+            IConfiguration configuration,
+            IBus bus,
+            IValidator<UserInfo> validatorUsers)
         {
             _context = context;
             _mapper = mapper;
