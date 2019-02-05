@@ -211,17 +211,17 @@ namespace TicketManagement.Logic.Services
         public async Task<ResponseModel> GetAll()
         {
             var res = _mapper.Map<IEnumerable<Models.Ticket>>(await _context.GetAll());
-            return res == null ? (null, RequestStatus.Error) : (res, RequestStatus.Success);
+            return new ResponseModel();
         }
 
         /// <summary>
         ///     Получение билета по Id
         /// </summary>
         /// <returns></returns>
-        public async Task<(Models.Ticket, RequestStatus)> Get(string id)
+        public async Task<ResponseModel> Get(string id)
         {
-            var res = await _context.Get(id);
-            return res == null ? (null, RequestStatus.InvalidModel) : (_mapper.Map<Models.Ticket>(res), RequestStatus.Success);
+            var res = _mapper.Map<Models.Ticket>(await _context.Get(id));
+            return  new ResponseModel();
         }
 
         /// <summary>
