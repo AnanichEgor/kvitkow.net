@@ -24,6 +24,8 @@ namespace TicketManagement.Data.Repositories
 
         /// <summary>
         ///     Добавляет билет в БД
+        ///     RespondedUser не должны сюда приходить!
+        ///     Используйте отдельный метод AddRespondedUsers
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
