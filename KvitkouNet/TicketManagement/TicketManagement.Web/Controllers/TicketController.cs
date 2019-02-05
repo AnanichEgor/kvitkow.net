@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using NSwag.Annotations;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using NSwag.Annotations;
 using TicketManagement.Logic.Models;
-using TicketManagement.Logic.Models.Enums;
 using TicketManagement.Logic.Services;
 
 namespace TicketManagement.Web.Controllers
@@ -34,12 +33,8 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(string), Description = "Unauthorized user")]
         public async Task<IActionResult> Add([FromBody] Ticket ticket)
         {
-            ResponseModel responseInfo  = await _service.Add(ticket);
-            if (responseInfo.Status == RequestStatus.InvalidModel) return StatusCode(400, responseInfo);
-            if (responseInfo.Status == RequestStatus.BadUserRating) return StatusCode(403, responseInfo);
-            if (responseInfo.Status == RequestStatus.Error) return StatusCode(500,responseInfo);
-            if (responseInfo.Status == RequestStatus.SuccessWithErrors) return Ok(responseInfo.Data);
-            return Ok(responseInfo.Data);
+            var responseInfo = await _service.Add(ticket);
+            return Ok(responseInfo);
         }
 
         /// <summary>
@@ -55,8 +50,7 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> AddRespondedUsers([FromRoute] string id, [FromBody] UserInfo user)
         {
-            ResponseModel responseInfo = await _service.AddRespondedUsers(id, user);
-            if (responseInfo.Status != RequestStatus.Success) return BadRequest(responseInfo);
+            await _service.AddRespondedUsers(id, user);
             return NoContent();
         }
 
@@ -73,9 +67,7 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Ticket ticket)
         {
-            ResponseModel responseInfo = await _service.Update(id, ticket);
-            if (responseInfo.Status == RequestStatus.SuccessWithErrors) return NoContent();
-            if (responseInfo.Status != RequestStatus.Success) return BadRequest(responseInfo);
+            await _service.Update(id, ticket);
             return NoContent();
         }
 
@@ -89,7 +81,7 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
         public async Task<IActionResult> DeleteAll()
         {
-            ResponseModel responseInfo = await _service.DeleteAll();
+            await _service.DeleteAll();
             return NoContent();
         }
 
@@ -105,7 +97,7 @@ namespace TicketManagement.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
-            ResponseModel responseInfo = await _service.Delete(id);
+            await _service.Delete(id);
             return NoContent();
         }
 
