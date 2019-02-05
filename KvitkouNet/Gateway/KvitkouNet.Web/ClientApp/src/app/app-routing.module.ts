@@ -41,6 +41,7 @@ const routes: Routes = [
   { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
   { path: 'tickets/ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
   { path: 'security', component: SecurityComponent, pathMatch: 'full' },
+  { path: 'chat', component: ChatComponent, pathMatch: 'full'},
   { path: '**', component: NotFoundComponent },
 ];
 
