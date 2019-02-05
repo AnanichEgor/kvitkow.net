@@ -30,6 +30,8 @@ namespace TicketManagement.Web
                     options.Filters.Add(new EasyNetQSendExceptionFilter());
                     options.Filters.Add(new UserExceptionFilter());
                     options.Filters.Add(new ValidationExceptionFilter());
+                    options.Filters.Add(new TicketNotFoundExceptionFilter());
+                    options.Filters.Add(new PageNotFoundExceptionFilter());
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddOptions();
