@@ -16,6 +16,7 @@ namespace Chat.Data.Migrations
                     UserId = table.Column<string>(nullable: true),
                     SendedTime = table.Column<DateTime>(nullable: false),
                     Text = table.Column<string>(nullable: true),
+                    IsEdit = table.Column<bool>(nullable: false),
                     RoomId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

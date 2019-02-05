@@ -11,6 +11,18 @@ namespace Chat.Logic.Services
     public interface IChatService : IDisposable
     {
         /// <summary>
+        /// Добавление нового зарегистрированного пользователя From Rabbit
+        /// </summary>
+        /// <returns></returns>
+        Task AddUser(User newUser);
+
+        /// <summary>
+        /// Изменим имя пользователя From Rabbit
+        /// </summary>
+        /// <returns></returns>
+        Task EditUser(User newUser);
+
+        /// <summary>
         /// Получение пользовательских настроек для чата
         /// </summary>
         /// <returns></returns>

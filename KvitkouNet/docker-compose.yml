@@ -18,6 +18,8 @@ services:
     build:
       context: .
       dockerfile: UserManagement/UserManagement.Web/Dockerfile
+    depends_on:
+      - rabbit
     ports:
       - 5003:80
 

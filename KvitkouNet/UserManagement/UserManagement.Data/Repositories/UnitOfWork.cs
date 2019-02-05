@@ -15,6 +15,7 @@ namespace UserManagement.Data.Repositories
         }
         private IUserRepository userRepository;
         private IAccountRepository accountRepository;
+        private IProfileRepository profileRepository;
         private IGroupRepository groupRepository;
 
         public IUserRepository Users
@@ -34,6 +35,16 @@ namespace UserManagement.Data.Repositories
                 if (accountRepository == null)
                     accountRepository = new AccountRepository(_context);
                 return accountRepository;
+            }
+        }
+
+        public IProfileRepository Profiles
+        {
+            get
+            {
+                if (profileRepository == null)
+                    profileRepository = new ProfileRepository(_context);
+                return profileRepository;
             }
         }
 

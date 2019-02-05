@@ -18,7 +18,13 @@ namespace AdminPanel.Logic.Generated.Logging
     /// </summary>
     public partial interface ITicketActionLog
     {
+        /// <param name='ticketId'>
+        /// </param>
         /// <param name='ticketName'>
+        /// </param>
+        /// <param name='description'>
+        /// </param>
+        /// <param name='actionType'>
         /// </param>
         /// <param name='dateFrom'>
         /// </param>
@@ -36,6 +42,6 @@ namespace AdminPanel.Logic.Generated.Logging
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<object>> GetTicketActionLogsWithHttpMessagesAsync(string ticketName = default(string), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object>> GetTicketActionLogsWithHttpMessagesAsync(string ticketId = default(string), string ticketName = default(string), string description = default(string), int actionType = default(int), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

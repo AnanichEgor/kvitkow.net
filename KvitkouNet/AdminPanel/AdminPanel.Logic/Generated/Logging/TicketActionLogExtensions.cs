@@ -18,21 +18,33 @@ namespace AdminPanel.Logic.Generated.Logging
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='ticketId'>
+            /// </param>
             /// <param name='ticketName'>
+            /// </param>
+            /// <param name='description'>
+            /// </param>
+            /// <param name='actionType'>
             /// </param>
             /// <param name='dateFrom'>
             /// </param>
             /// <param name='dateTo'>
             /// </param>
-            public static object GetTicketActionLogs(this ITicketActionLog operations, string ticketName = default(string), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?))
+            public static object GetTicketActionLogs(this ITicketActionLog operations, string ticketId = default(string), string ticketName = default(string), string description = default(string), int actionType = default(int), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?))
             {
-                return operations.GetTicketActionLogsAsync(ticketName, dateFrom, dateTo).GetAwaiter().GetResult();
+                return operations.GetTicketActionLogsAsync(ticketId, ticketName, description, actionType, dateFrom, dateTo).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='ticketId'>
+            /// </param>
             /// <param name='ticketName'>
+            /// </param>
+            /// <param name='description'>
+            /// </param>
+            /// <param name='actionType'>
             /// </param>
             /// <param name='dateFrom'>
             /// </param>
@@ -41,9 +53,9 @@ namespace AdminPanel.Logic.Generated.Logging
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<object> GetTicketActionLogsAsync(this ITicketActionLog operations, string ticketName = default(string), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> GetTicketActionLogsAsync(this ITicketActionLog operations, string ticketId = default(string), string ticketName = default(string), string description = default(string), int actionType = default(int), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetTicketActionLogsWithHttpMessagesAsync(ticketName, dateFrom, dateTo, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetTicketActionLogsWithHttpMessagesAsync(ticketId, ticketName, description, actionType, dateFrom, dateTo, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
