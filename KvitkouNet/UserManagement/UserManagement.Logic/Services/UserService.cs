@@ -1,5 +1,9 @@
 ﻿using AutoMapper;
+using EasyNetQ;
 using FluentValidation;
+using KvitkouNet.Messages.Logging;
+using KvitkouNet.Messages.Logging.Enums;
+using KvitkouNet.Messages.UserManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +21,7 @@ namespace UserManagement.Logic.Services
         private readonly IMapper _mapper;
         private readonly IValidator<UserRegisterModel> _validator;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IBus _bus;
 
         public UserService(IMapper mapper, IValidator<UserRegisterModel> validator, IUnitOfWork unitOfWork)// ) 
         {
@@ -29,12 +34,20 @@ namespace UserManagement.Logic.Services
         {
             var result = _validator.Validate(model);
             if (!result.IsValid) return result.Errors.First().ToString();
-            var findLogin = _unitOfWork.Accounts.FindAsync(x => x.Login == model.Username).Result.Count();
-            if (findLogin!=0)
+            var findLogin = _unitOfWork.Accounts.FindAsync(x => x.Login == model.Username).Result.FirstOrDefault();
+            if (findLogin!=null)
             {
                 return "Sorry, this username allready exist!";
             }
             var res = await _unitOfWork.Users.AddAsync(_mapper.Map<UserDB>(model));
+            var findUser = _unitOfWork.Users.FindAsync(x => x.AccountDB.Login == model.Username).Result.FirstOrDefault();
+            await _bus.PublishAsync(new AccountMessage
+            {
+                UserId = findUser.Id,
+                UserName = findUser.AccountDB.Login,
+                Email = findUser.AccountDB.Email,
+                Type = AccountActionType.Registration,
+            });
             return "Ok";
         }
 

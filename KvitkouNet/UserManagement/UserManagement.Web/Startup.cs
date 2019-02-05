@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using EasyNetQ;
 
 namespace UserManagement.Web
 {
@@ -20,9 +21,10 @@ namespace UserManagement.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSwaggerDocument();
+            services.AddSwaggerDocument(settings => settings.Title = "User Management");
             services.RegisterUserServices();
-            services.AddCors();
+            services.RegisterEasyNetQ("host=rabbit");
+            services.AddCors(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
