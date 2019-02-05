@@ -56,7 +56,7 @@ namespace TicketManagement.Web.Controllers
         public async Task<IActionResult> AddRespondedUsers([FromRoute] string id, [FromBody] UserInfo user)
         {
             ResponseModel responseInfo = await _service.AddRespondedUsers(id, user);
-            if (responseInfo.Status != RequestStatus.Success) return BadRequest();
+            if (responseInfo.Status != RequestStatus.Success) return BadRequest(responseInfo);
             return NoContent();
         }
 
@@ -75,7 +75,7 @@ namespace TicketManagement.Web.Controllers
         {
             ResponseModel responseInfo = await _service.Update(id, ticket);
             if (responseInfo.Status == RequestStatus.SuccessWithErrors) return NoContent();
-            if (responseInfo.Status != RequestStatus.Success) return BadRequest();
+            if (responseInfo.Status != RequestStatus.Success) return BadRequest(responseInfo);
             return NoContent();
         }
 
@@ -120,7 +120,7 @@ namespace TicketManagement.Web.Controllers
         public async Task<IActionResult> GetAll()
         {
             ResponseModel responseInfo = await _service.GetAll();
-            if (responseInfo.Status != RequestStatus.Success) return BadRequest();
+            if (responseInfo.Status != RequestStatus.Success) return BadRequest(responseInfo);
             return Ok(responseInfo.Data);
         }
 
