@@ -16,7 +16,7 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        Task<(string, ResponseModel)> Add(Ticket ticket);
+        Task<ResponseModel> Add(Ticket ticket);
 
         /// <summary>
         ///     Обновление информации о билете
@@ -51,26 +51,26 @@ namespace TicketManagement.Logic.Services
         ///     Получение всех билет имеющихся в системе
         /// </summary>
         /// <returns></returns>
-        Task<(IEnumerable<Ticket>, ResponseModel)> GetAll();
+        Task<ResponseModel> GetAll();
 
         /// <summary>
         ///     Получение билета по Id
         /// </summary>
         /// <returns></returns>
-        Task<(Ticket, ResponseModel)> Get(string id);
+        Task<ResponseModel> Get(string id);
 
         /// <summary>
         ///     Получение только актуальных билетов
         /// </summary>
         /// <returns></returns>
-        Task<(IEnumerable<Ticket>, ResponseModel)> GetAllActual();
+        Task<ResponseModel> GetAllActual();
 
         /// <summary>
         ///     Получение всех билетов имеющихся в системе постранично
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        Task<(Page<TicketLite>, ResponseModel)> GetAllPagebyPage(int index);
+        Task<ResponseModel> GetAllPagebyPage(int index);
 
         /// <summary>
         ///     Получение всех актуальных билетов имеющихся в системе постранично
@@ -78,6 +78,6 @@ namespace TicketManagement.Logic.Services
         /// <param name="index"></param>
         /// <param name="onlyActual">Только актуальные билеты</param>
         /// <returns></returns>
-        Task<(Page<TicketLite>, ResponseModel)> GetAllPagebyPageActual(int index, bool onlyActual=true);
+        Task<ResponseModel> GetAllPagebyPageActual(int index, bool onlyActual=true);
     }
 }
