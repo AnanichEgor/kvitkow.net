@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'search-user-results', component: SearchUserResultsComponent, pathMatch: 'full' },
   { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
   {path: 'security',
-  loadChildren: 'app/security/security.module#SecurityModule'},
+  loadChildren: './components/security/security.module#SecurityModule'},
   { path: 'tickets/ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 ];
