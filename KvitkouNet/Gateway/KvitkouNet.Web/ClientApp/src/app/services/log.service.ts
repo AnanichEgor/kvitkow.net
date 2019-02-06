@@ -5,6 +5,7 @@ import { AccountLogEntry } from '../models/accountLogEntry';
 import { PaymentLogEntry } from '../models/paymentLogEntry';
 import { QueryLogEntry } from '../models/queryLogEntry';
 import { TicketLogEntry } from '../models/ticketLogEntry';
+import { DealLogEntry } from '../models/dealLogEntry';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,9 @@ export class LogService {
 
   getTicketLogs(queryParams : string) {
     return this.http.get<TicketLogEntry[]>(`${this.baseUrl}admin/logs/tickets?${queryParams}`);
-}
+  }
+
+  getDealLogs(queryParams : string) {
+    return this.http.get<DealLogEntry[]>(`${this.baseUrl}admin/logs/deals?${queryParams}`);
+  }
 }

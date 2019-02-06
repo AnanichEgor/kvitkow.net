@@ -10,7 +10,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class TicketLogsComponent implements OnInit {
   ticketLogs: TicketLogEntry[];
-  ticektLogTableHeaders = ['Id', 'Дата', 'UserId', 'Ticketid', 'Имя билета', 'Тип', 'Описание'];
+  ticketLogTableHeaders = ['Id', 'Дата', 'UserId', 'Ticketid', 'Имя билета', 'Тип', 'Описание'];
   ticketLogsFormGroup: FormGroup;
   constructor(private logService: LogService) { }
 

@@ -34,6 +34,7 @@ import { SearchUserResultsComponent } from './components/search-user-results/sea
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { QueryLogsComponent } from './components/admin/query-logs/query-logs.component';
 import { TicketLogsComponent } from './components/admin/ticket-logs/ticket-logs.component';
+import { DealLogsComponent } from './components/admin/deal-logs/deal-logs.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { TicketLogsComponent } from './components/admin/ticket-logs/ticket-logs.
     SearchUserResultsComponent,
     UserSettingsComponent,
     QueryLogsComponent,
-    TicketLogsComponent
+    TicketLogsComponent,
+    DealLogsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
