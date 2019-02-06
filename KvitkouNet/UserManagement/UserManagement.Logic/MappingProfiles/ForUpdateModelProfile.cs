@@ -9,24 +9,24 @@ namespace UserManagement.Logic.MappingProfiles
     {
         public ForUpdateModelProfile()
         {
-            CreateMap<ForUpdateModel, UserDB>()
-                .ForPath(x => x.ProfileDB.FirstName,
+            CreateMap<ForUpdateModel, ProfileDB>()
+                .ForPath(x => x.FirstName,
                     map => map.MapFrom(u => u.FirstName))
-                .ForPath(x => x.ProfileDB.LastName,
+                .ForPath(x => x.LastName,
                     map => map.MapFrom(u => u.LastName))
-                .ForPath(x => x.ProfileDB.Sex,
+                .ForPath(x => x.Sex,
                     map => map.MapFrom(u => u.Sex))
-                .ForPath(x => x.ProfileDB.Birthday,
+                .ForPath(x => x.Birthday,
                     map => map.MapFrom(u => u.Birthday))
                 .ReverseMap()
                 .ForPath(y => y.FirstName,
-                    map => map.MapFrom(u => u.ProfileDB.FirstName))
+                    map => map.MapFrom(u => u.FirstName))
                 .ForPath(y => y.LastName,
-                    map => map.MapFrom(u => u.ProfileDB.LastName))
+                    map => map.MapFrom(u => u.LastName))
                 .ForPath(y => y.Sex,
-                    map => map.MapFrom(u => u.ProfileDB.Sex))
+                    map => map.MapFrom(u => u.Sex))
                 .ForPath(y => y.Birthday,
-                    map => map.MapFrom(u => u.ProfileDB.Birthday));
+                    map => map.MapFrom(u => u.Birthday));
         }
     }
 }

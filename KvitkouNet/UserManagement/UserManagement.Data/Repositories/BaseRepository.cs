@@ -89,7 +89,6 @@ namespace UserManagement.Data.Repositories
             if (t == null)
                 return null;
             TEntity exist = await _context.Set<TEntity>().FindAsync(key);
-            await _context.Set<TEntity>().LoadAsync();
             if (exist != null)
             {
                 _context.Entry(exist).CurrentValues.SetValues(t);

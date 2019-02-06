@@ -16,19 +16,24 @@ namespace AdminPanel.Web.Extensions
 		/// <returns></returns>
 		public static IServiceCollection RegisterUserService(this IServiceCollection services)
 		{
-			services.AddScoped<IUserService, UserService>();
+			//services.AddScoped<IUserService, UserService>();
 
 			return services;
 		}
 
 		/// <summary>
-		/// Регистрация сгенерированного IErrorLog
+		/// Регистрация сгенерированных сервисов
 		/// </summary>
 		/// <param name="services"></param>
 		/// <returns></returns>
-		public static IServiceCollection RegisterLoggingService(this IServiceCollection services)
+		public static IServiceCollection RegisterLoggingServices(this IServiceCollection services)
 		{
 			services.AddScoped<IErrorLog>(p => new ErrorLog(new MyTitle(new HttpClient(), true)));
+			services.AddScoped<IAccountLog>(p => new AccountLog(new MyTitle(new HttpClient(), true)));
+			services.AddScoped<IPaymentLog>(p => new PaymentLog(new MyTitle(new HttpClient(), true)));
+			services.AddScoped<IQueryLog>(p => new QueryLog(new MyTitle(new HttpClient(), true)));
+			services.AddScoped<ITicketActionLog>(p => new TicketActionLog(new MyTitle(new HttpClient(), true)));
+			services.AddScoped<ITicketDealLog>(p => new TicketDealLog(new MyTitle(new HttpClient(), true)));
 
 			return services;
 		}

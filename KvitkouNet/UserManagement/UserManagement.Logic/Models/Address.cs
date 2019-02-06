@@ -3,11 +3,6 @@
     public class Address
     {
         /// <summary>
-        /// Уникальный идентификатор адреса
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
         /// Страна проживания
         /// </summary>
         public string Country { get; set; }

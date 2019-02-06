@@ -34,10 +34,10 @@ namespace Logging.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
         public async Task<IActionResult> GetPaymentLogs([FromQuery] PaymentLogsFilter filter)
         {
-            if (string.IsNullOrWhiteSpace(filter.RecieverId))
-            {
-                return BadRequest($"Invalid filter! {nameof(PaymentLogsFilter.RecieverId)} is empty or whitespace!");
-            }
+            //if (string.IsNullOrWhiteSpace(filter.RecieverId))
+            //{
+            //    return BadRequest($"Invalid filter! {nameof(PaymentLogsFilter.RecieverId)} is empty or whitespace!");
+            //}
 
             var result = await _loggingService.GetLogsAsync(filter);
             return Ok(result);
