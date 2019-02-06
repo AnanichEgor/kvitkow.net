@@ -20,83 +20,19 @@ namespace UserSettings.Data
 			_context = context;
 		}
 
-		/// <summary>
-		/// Обновление email в бд
-		/// </summary>
-		/// <param name="id">id пользователя</param>
-		/// <param name="email">новый email</param>
-		/// <returns></returns>
-		public async Task<bool> UpdateEmail(string id, string email)
+		public async Task<SettingsDb> Get(string id)
 		{
-			var origin = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == id);
-			await _context.Accounts.LoadAsync();
-			if (origin != null)
-			{
-				origin.Account.Email = email;
-				await _context.SaveChangesAsync();
-				return true;
-			}
-			return false;
-		}
-
-		public async Task<IEnumerable<SettingsDb>> ShowAll()
-		{
-			return await _context.Settings
-				.Include(db => db.Profile)
-				.Include(db => db.Profile.Notifications)
-				.Include(db => db.Account)
-				.AsTracking()
-				.ToListAsync();
-		}
-
-		public async Task<bool> UpdatePassword(string id, string currentPass, string newPass)
-		{
-			var origin = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == id);
-			await _context.Accounts.LoadAsync();
-			if (origin != null)
-			{
-				if (origin.Account.Password == currentPass)
-				{
-					origin.Account.Password = newPass;
-					await _context.SaveChangesAsync();
-					return true;
-				}
-				return false;
-			}
-			return false;
-		}
-
-		public async Task<bool> UpdateProfile(string id, string first, string middle, string last)
-		{
-			var origin = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == id);
-			await _context.Profiles.LoadAsync();
-			if (origin != null)
-			{
-				origin.Profile.FirstName = first;
-				origin.Profile.MiddleName = middle;
-				origin.Profile.LastName = last;
-				await _context.SaveChangesAsync();
-				return true;
-			}
-			return false;
-		}
-
-		public async Task<bool> CheckExistEmail(string email)
-		{
-			var	result = await _context.Accounts.FirstOrDefaultAsync(x => x.Email == email);
-			return result == null ? false : true;
+			return await _context.Settings.SingleOrDefaultAsync(x => x.SettingsId == id);
 		}
 
 		public async Task<bool> UpdateNotifications(string id, NotificationDb notifications)
 		{
-			var origin = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == id);
-			await _context.Profiles.LoadAsync();
-			await _context.Notifications.LoadAsync();
+			var origin = await _context.Settings.SingleOrDefaultAsync(x => x.SettingsId == id);
 			if (origin != null)
 			{
-				origin.Profile.Notifications.IsLikeMyTicket = notifications.IsLikeMyTicket;
-				origin.Profile.Notifications.IsWantBuy = notifications.IsWantBuy;
-				origin.Profile.Notifications.IsOtherNotification = notifications.IsOtherNotification;
+				origin.Notifications.IsLikeMyTicket = notifications.IsLikeMyTicket;
+				origin.Notifications.IsWantBuy = notifications.IsWantBuy;
+				origin.Notifications.IsOtherNotification = notifications.IsOtherNotification;
 				await _context.SaveChangesAsync();
 				return true;
 			}
@@ -111,6 +47,19 @@ namespace UserSettings.Data
 		public Task DeleteAccount(string id)
 		{
 			throw new NotImplementedException();
+		}
+
+		public async Task<bool> UpdateVisible(string id, VisibleInfoDb visibleInfoDb)
+		{
+			var origin = await _context.Settings.SingleOrDefaultAsync(x => x.SettingsId == id);
+			if (origin != null)
+			{
+				origin.VisibleInfo.VisibleAllPhones = visibleInfoDb.VisibleAllPhones;
+				origin.VisibleInfo.VisibleEmail = visibleInfoDb.VisibleEmail;
+				await _context.SaveChangesAsync();
+				return true;
+			}
+			return false;
 		}
 	}
 }
