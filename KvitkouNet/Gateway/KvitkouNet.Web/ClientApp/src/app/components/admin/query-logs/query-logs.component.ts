@@ -35,8 +35,7 @@ export class QueryLogsComponent implements OnInit {
     for (const key in formValue) {
       params.append(key, formValue[key]);
     }
-    console.log(params.toString());
-    return params.toString();
+     return params.toString();
   }
 
 }

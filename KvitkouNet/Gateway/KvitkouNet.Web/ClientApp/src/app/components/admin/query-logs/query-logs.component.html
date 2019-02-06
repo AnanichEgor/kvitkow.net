@@ -1,21 +1,21 @@
 <main role="main">
-    <form [formGroup]="accountLogsFormGroup" (ngSubmit)="onSubmit()">
+    <form [formGroup]="queryLogsFormGroup" (ngSubmit)="onSubmit()">
         <div class="form-row">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
               <label for="dateFrom">Начальная дата:</label>
               <input type="date" class="form-control" id="dateFrom" formControlName="dateFrom">
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
                 <label for="dateTo">Конечная дата:</label>
                 <input type="date" class="form-control" id="dateTo" formControlName="dateTo">
             </div>
           </div>
           <div class="form-row">
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-6">
                   <label for="userId">Id пользователя:</label>
                   <input type="text" class="form-control" id="userId" formControlName="userId">
                 </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-6">
                   <label for="criterium">Критерий:</label>
                   <input type="text" class="form-control" id="criterium" formControlName="criterium">
               </div>
@@ -34,7 +34,7 @@
         <th scope="row">{{el.id}}</th>
         <th>{{el.eventDate}}</th>
         <th>{{el.userId}}</th>
-        <th>{{el.criterium}}</th>
+        <th>{{el.searchCriterium}}</th>
         <th>{{el.filterInfo}}</th>
       </tr>
     </tbody>

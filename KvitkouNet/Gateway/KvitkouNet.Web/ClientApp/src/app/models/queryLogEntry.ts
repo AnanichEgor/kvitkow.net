@@ -1,6 +1,6 @@
 export class QueryLogEntry{
     userId : string;
-    сriterium : string;
+    searchCriterium : string;
     filterInfo : string;
     id : string;
     eventDate: Date;
