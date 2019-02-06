@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using EasyNetQ;
 using FluentValidation;
+using KvitkouNet.Messages.UserSettings;
 using MailKit.Net.Smtp;
 using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using UserSettings.Data;
@@ -22,86 +25,115 @@ namespace UserSettings.Logic.Services
 		}
 
 		private readonly IMapper _mapper;
-		private readonly IValidator _validator;
+		private readonly IValidator<Settings> _validator;
 		private readonly ISettingsRepo _context;
+		private readonly IBus _bus;
 
-		public UserSettingsService(IMapper mapper, IValidator validator, ISettingsRepo context)
+		public UserSettingsService(IMapper mapper, ISettingsRepo context, IValidator<Settings> validator, IBus bus)
 		{
 			_mapper = mapper;
 			_validator = validator;
 			_context = context;
+			_bus = bus;
 		}
 
-		public async Task<IEnumerable<Settings>> ShowAll()
+		public async Task<Settings> Get(string id)
 		{
-			var res =  await _context.ShowAll();
-			var temp = _mapper.Map<IEnumerable<Settings>>(res);
-			return _mapper.Map<IEnumerable<Settings>>(res);
+			//var temp =_bus.RequestAsync<RequestId, UserProfileMessage>(new RequestId(id));
+			var res =  await _context.Get(id);
+			return _mapper.Map<Settings>(res);
 		}
 
-		//TODO почту проверять из таблицы юзеров
-		public async Task<bool> UpdateEmail(string id, string email)
+		public async Task<ResultEnum> UpdateEmail(string id, string email)
 		{
-			//if (!_validator.Validate(email).IsValid)
-			//{
-			//	return false;
-			//}
-			if (!await CheckExistEmail(email))
+			try
 			{
-				return await _context.UpdateEmail(id, email);
+				MailAddress m = new MailAddress(email);
+				
+				if (await CheckExistEmail(email))
+				{
+					await _bus.PublishAsync(new EmailUpdateMessage()
+					{
+						Email = email
+					});
+					return ResultEnum.Success;
+				}
+				else
+				{
+					return ResultEnum.Error;
+				}
 			}
-			else
+			catch
 			{
-				return false;
+				return ResultEnum.Error;
 			}
 		}
 
-		public async Task SendConfirmEmail(string email, string subject, string message)
-		{
-			return;
-		}
-
-		public async Task<bool> UpdatePassword(string id, string current, string newPass, string confirm)
+		public async Task<ResultEnum> UpdatePassword(string id, string current, string newPass, string confirm)
 		{
 			if(String.Equals(newPass, confirm))
 			{
-				if(await _context.UpdatePassword(id, current, newPass))
+				var temp = await _bus.RequestAsync<PasswordUpdateMessage, RespondUpdateMessage>(new PasswordUpdateMessage(current, newPass));
+				if (temp.UpdateResult)
 				{
-					return true;
+					return ResultEnum.Success;
 				}
 			}
-			return false;
+			return ResultEnum.Error;
 		}
 
-		public async Task<bool> UpdateProfile(string id, string first, string middle, string last)
+		public async Task<ResultEnum> UpdateProfile(string id, string first, string middle, string last, DateTime birthdate)
 		{
-			if (string.IsNullOrEmpty(first))
-				return false;
-			if(await _context.UpdateProfile(id, first, middle, last))
+			if (string.IsNullOrEmpty(first) || string.IsNullOrEmpty(last))
+				return ResultEnum.Error;
+			await _bus.PublishAsync(new UserProfileMessage()
 			{
-				return true;
+				FirstName = first,
+				LastName = last,
+				MiddleName = middle,
+				Birthday = birthdate
+			});
+			return ResultEnum.Success;
+		}
+
+		private async Task<bool> CheckExistEmail(string email)
+		{
+			var temp = await _bus.RequestAsync<string, RespondUpdateMessage>(email);
+			return temp.UpdateResult;
+		}
+
+		public async Task<ResultEnum> UpdateNotifications(string id, Notifications notifications)
+		{
+			if(await _context.UpdateNotifications(id, _mapper.Map<Notifications, NotificationDb>(notifications)))
+			{
+				return ResultEnum.Success;
 			}
-			return false;
+			return ResultEnum.Error;
 		}
 
-		public async Task<bool> CheckExistEmail(string email)
+		public async Task<bool> DeleteAccount(string id)
 		{
-			return await _context.CheckExistEmail(email);
+			await _bus.PublishAsync(new DeleteUserProfileMessage());
+			return true;
 		}
 
-		public async Task<bool> UpdateNotifications(string id, Notifications notifications)
+		public async Task<ResultEnum> UpdatePhones()
 		{
-			return await _context.UpdateNotifications(id, _mapper.Map<Notifications, NotificationDb>(notifications));
+			var temp = await _bus.RequestAsync<PhonesUpdateMessage, RespondUpdateMessage>(new PhonesUpdateMessage());
+			if (temp.UpdateResult)
+			{
+				return ResultEnum.Success;
+			}
+			return ResultEnum.Error;
 		}
 
-		public Task<bool> UpdatePreferences(string id, string address, string region, string place)
+		public async Task<ResultEnum> UpdateVisible(string id, VisibleInfo visibleInfo)
 		{
-			throw new NotImplementedException();
-		}
-
-		public Task<bool> DeleteAccount(string id)
-		{
-			throw new NotImplementedException();
+			if (await _context.UpdateVisible(id, _mapper.Map<VisibleInfo, VisibleInfoDb>(visibleInfo)))
+			{
+				return ResultEnum.Success;
+			}
+			return ResultEnum.Error;
 		}
 	}
 }

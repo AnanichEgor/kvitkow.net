@@ -13,11 +13,12 @@ namespace Chat.Data.DbModels
         /// Признак пользователя в Online.
         /// </summary>
         public bool IsOnline { get; set; }
+
         /// <summary>
         /// Avatar пользователя в Chat.
         /// </summary>
         public string Avatar { get; set; }
-
+        
         public string SettingsId { get; set; }
         public SettingsDb Settings { get; set; }
 

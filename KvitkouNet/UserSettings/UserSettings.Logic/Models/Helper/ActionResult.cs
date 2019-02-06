@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Описание результата
 	/// </summary>
-	public class ActionResult
+	public class MyActionResult
 	{
 		/// <summary>
 		/// Результат.
