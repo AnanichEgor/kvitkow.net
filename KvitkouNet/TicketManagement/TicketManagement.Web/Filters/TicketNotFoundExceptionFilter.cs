@@ -10,7 +10,7 @@ namespace TicketManagement.Web.Filters
         {
             if (context.Exception is TicketNotFoundException)
             {
-                context.Result = new BadRequestObjectResult(context.Exception.Message);
+                context.Result = new NotFoundObjectResult(context.Exception.Message);
                 context.ExceptionHandled = true;
             }
         }
