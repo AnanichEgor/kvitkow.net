@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using EasyNetQ;
+using UserManagement.Logic.Subscriber;
+using System.Reflection;
 
 namespace UserManagement.Web
 {
@@ -36,6 +38,7 @@ namespace UserManagement.Web
             }
             app.UseCors(b => b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseSwagger().UseSwaggerUi3();
+            app.UseSubscriber("UserSettingsService", Assembly.GetExecutingAssembly());
             app.UseMvc();
         }
     }
