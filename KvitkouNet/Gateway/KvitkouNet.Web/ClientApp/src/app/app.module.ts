@@ -21,12 +21,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.component';
+import { AccountLogsComponent } from './components/admin/account-logs/account-logs.component';
+import { PaymentLogsComponent } from './components/admin/payment-logs/payment-logs.component';
+import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
 import { SecurityComponent } from './components/security/security.component';
 import { SecurityMenuComponent } from './components/security-menu/security-menu.component';
 import { SearchUserComponent } from './components/search-user/search-user.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 
 @NgModule({
   declarations: [
@@ -43,12 +48,17 @@ import { SearchUserResultsComponent } from './components/search-user-results/sea
     TicketDetailComponent,
     TicketEditComponent,
     ChatComponent,
+    ErrorLogsComponent,
+    AccountLogsComponent,
+    PaymentLogsComponent,
+    AdminMainComponent,
     SecurityComponent,
     SecurityMenuComponent,
     SearchUserComponent,
     SearchTicketComponent,
     SearchTicketResultsComponent,
-    SearchUserResultsComponent
+    SearchUserResultsComponent,
+    UserSettingsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
