@@ -15,12 +15,12 @@ namespace Dashboard.Data.ContextConfiguration
                 .IsRequired()
                 .HasMaxLength(300);
 
-            builder.HasOne(navigationExpression: x => x.UserInfo)
+            builder.HasOne(navigationExpression: x => x.User)
                 .WithOne()
-                .HasForeignKey<UserInfoDb>(x => x.UserInfoDbId)
+                .HasForeignKey<UserInfoDb>(x => x.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(navigationExpression: x => x.TicketInfo)
+            builder.HasOne(navigationExpression: x => x.Ticket)
                 .WithOne()
                 .HasForeignKey<TicketInfoDb>(x => x.TicketId)
                 .OnDelete(DeleteBehavior.Cascade);

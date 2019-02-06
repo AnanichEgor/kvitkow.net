@@ -24,7 +24,6 @@ namespace Dashboard.Data.Context
             modelBuilder.ApplyConfiguration(new TicketTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
             base.OnModelCreating(modelBuilder);
-
         }
 
     }

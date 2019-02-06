@@ -1,4 +1,5 @@
 ﻿using Dashboard.Logic.Models.Enums;
+using System.Collections.Generic;
 
 namespace Dashboard.Logic.Models
 {
@@ -8,18 +9,7 @@ namespace Dashboard.Logic.Models
         ///     Краткое описание события
         /// </summary>
         public string Description { get; set; }
-
-        /// <summary>
-        ///     Имя пользователя
-        /// </summary>
-        public UserInfo UserInfo { get; set; }
-                 
-        /// <summary>
-        ///     Цена билета
-        /// </summary>
-        public TicketInfo TicketInfo { get; set; }
-
-        
+                
         /// <summary>
         ///     Тип мероприятия
         /// </summary>
@@ -34,5 +24,15 @@ namespace Dashboard.Logic.Models
         ///     Ссылка на мероприятие
         /// </summary>
         public string EventLink { get; set; }
+
+        /// <summary>
+        ///     Имя пользователя
+        /// </summary>
+        public virtual UserInfo User { get; set; }
+
+        /// <summary>
+        ///     Цена билета
+        /// </summary>
+        public virtual TicketInfo Ticket { get; set; }
     }
 }

@@ -20,10 +20,7 @@ namespace DashboardMicroService
         public void ConfigureServices(IServiceCollection services)
         {               
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            services.AddSingleton<IConfiguration>(Configuration);
-            var value = Configuration["Hostname"];
-            services.AddOptions();
+                        
             services.AddSwaggerDocument(settings => settings.Title = "Dashboard Management");
             services.RegisterDashboardService();
             services.AddCors();

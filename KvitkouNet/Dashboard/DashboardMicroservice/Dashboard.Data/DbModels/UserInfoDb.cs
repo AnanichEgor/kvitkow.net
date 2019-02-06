@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Dashboard.Data.DbModels
 {
@@ -9,7 +7,7 @@ namespace Dashboard.Data.DbModels
         /// <summary>
         ///     Id юзера
         /// </summary>
-        public int UserInfoDbId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         ///     Имя юзера
@@ -25,10 +23,12 @@ namespace Dashboard.Data.DbModels
         ///     Gets or sets the user rating.
         /// </summary>
         public double? Rating { get; set; }
-
+        
+        #region Связи между таблицами 
         /// <summary>
-        ///     Список билетов пользователя
+        ///     Новость
         /// </summary>
-        public List<TicketInfoDb> UserTickets { get; set; }
+        public virtual NewsDb NewsDbs { get; set; }
+        #endregion 
     }
 }

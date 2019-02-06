@@ -9,7 +9,7 @@ namespace Dashboard.Data.ContextConfiguration
         public void Configure(EntityTypeBuilder<UserInfoDb> builder)
         {
             builder.ToTable("User")
-                .HasKey(keyExpression: x => x.UserInfoDbId);
+                .HasKey(keyExpression: x => x.UserId);
 
         }
     }

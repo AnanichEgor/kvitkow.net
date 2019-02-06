@@ -22,7 +22,7 @@ namespace Dashboard.Data.Repositories
         /// </summary>
         /// <param name="news">Модель новости</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        public async Task<int> Add(NewsDb news)
+        public async Task<string> Add(NewsDb news)
         {
             _context.News.Add(news);
             await _context.SaveChangesAsync();
@@ -45,7 +45,7 @@ namespace Dashboard.Data.Repositories
         /// </summary>
         /// <param name="newsId"></param>
         /// <returns></returns>
-        public async Task Delete(int newsId)
+        public async Task Delete(string newsId)
         {
             var origin = await _context.News.FindAsync(newsId);
 
@@ -64,8 +64,8 @@ namespace Dashboard.Data.Repositories
         public async Task<IEnumerable<NewsDb>> GetAll()
         {
             return await _context.News.Include(db => db.Description)
-                .Include(db => db.UserInfo)
-                .Include(db => db.TicketInfo)
+                .Include(db => db.User)
+                .Include(db => db.Ticket)
                 .Include(db => db.TypeEvent)
                 .Include(db => db.Status)
                 .Include(db => db.EventLink)
@@ -78,11 +78,11 @@ namespace Dashboard.Data.Repositories
         /// </summary>
         /// <param name="newsIdGuid">Id новости</param>
         /// <returns></returns>
-        public Task<NewsDb> Get(int newsId)
+        public Task<NewsDb> Get(string newsId)
         {
             return _context.News.Include(db => db.Description)
-                .Include(db => db.UserInfo)
-                .Include(db => db.TicketInfo)
+                .Include(db => db.User)
+                .Include(db => db.Ticket)
                 .Include(db => db.TypeEvent)
                 .Include(db => db.Status)
                 .Include(db => db.EventLink)
@@ -97,8 +97,8 @@ namespace Dashboard.Data.Repositories
         public async Task<IEnumerable<NewsDb>> GetAllActual()
         {
             var res = _context.News.Include(db => db.Description)
-                .Include(db => db.UserInfo)
-                .Include(db => db.TicketInfo)
+                .Include(db => db.User)
+                .Include(db => db.Ticket)
                 .Include(db => db.TypeEvent)
                 .Include(db => db.Status)
                 .Include(db => db.EventLink)

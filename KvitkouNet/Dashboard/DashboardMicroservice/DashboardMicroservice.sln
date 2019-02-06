@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dashboard.Logic", "Dashboar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dashboard.Data", "Dashboard.Data\Dashboard.Data.csproj", "{8FC46F95-50A5-4F7E-B15A-1E20293EEA72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KvitkouNet.Messages", "..\DashboardNet.Messages\KvitkouNet.Messages.csproj", "{0DA19627-3BA6-4589-9ADE-5E1445DB7C62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KvitkouNet.Messages", "..\DashboardNet.Messages\KvitkouNet.Messages.csproj", "{0DA19627-3BA6-4589-9ADE-5E1445DB7C62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

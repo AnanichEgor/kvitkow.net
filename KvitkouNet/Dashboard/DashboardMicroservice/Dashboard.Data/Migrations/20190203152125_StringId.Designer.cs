@@ -3,14 +3,16 @@ using System;
 using Dashboard.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dashboard.Data.Migrations
 {
     [DbContext(typeof(DashboardContext))]
-    partial class DashboardContextModelSnapshot : ModelSnapshot
+    [Migration("20190203152125_StringId")]
+    partial class StringId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +50,7 @@ namespace Dashboard.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("NewsDbsNewsId");
+                    b.Property<string>("NewsDbNewsId");
 
                     b.Property<decimal>("Price");
 
@@ -56,51 +58,51 @@ namespace Dashboard.Data.Migrations
 
                     b.HasKey("TicketId");
 
-                    b.HasIndex("NewsDbsNewsId");
+                    b.HasIndex("NewsDbNewsId");
 
                     b.ToTable("Ticket");
                 });
 
             modelBuilder.Entity("Dashboard.Data.DbModels.UserInfoDb", b =>
                 {
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserInfoDbId");
 
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("NewsDbsNewsId");
+                    b.Property<string>("NewsDbNewsId");
 
                     b.Property<double?>("Rating");
 
-                    b.HasKey("UserId");
+                    b.HasKey("UserInfoDbId");
 
-                    b.HasIndex("NewsDbsNewsId");
+                    b.HasIndex("NewsDbNewsId");
 
                     b.ToTable("User");
                 });
 
             modelBuilder.Entity("Dashboard.Data.DbModels.TicketInfoDb", b =>
                 {
-                    b.HasOne("Dashboard.Data.DbModels.NewsDb", "NewsDbs")
+                    b.HasOne("Dashboard.Data.DbModels.NewsDb", "NewsDb")
                         .WithMany()
-                        .HasForeignKey("NewsDbsNewsId");
+                        .HasForeignKey("NewsDbNewsId");
 
                     b.HasOne("Dashboard.Data.DbModels.NewsDb")
-                        .WithOne("Ticket")
+                        .WithOne("TicketInfoDb")
                         .HasForeignKey("Dashboard.Data.DbModels.TicketInfoDb", "TicketId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Dashboard.Data.DbModels.UserInfoDb", b =>
                 {
-                    b.HasOne("Dashboard.Data.DbModels.NewsDb", "NewsDbs")
+                    b.HasOne("Dashboard.Data.DbModels.NewsDb", "NewsDb")
                         .WithMany()
-                        .HasForeignKey("NewsDbsNewsId");
+                        .HasForeignKey("NewsDbNewsId");
 
                     b.HasOne("Dashboard.Data.DbModels.NewsDb")
-                        .WithOne("User")
-                        .HasForeignKey("Dashboard.Data.DbModels.UserInfoDb", "UserId")
+                        .WithOne("UserInfoDb")
+                        .HasForeignKey("Dashboard.Data.DbModels.UserInfoDb", "UserInfoDbId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

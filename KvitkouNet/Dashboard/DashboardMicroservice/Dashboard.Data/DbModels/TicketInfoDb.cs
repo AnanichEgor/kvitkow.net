@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Dashboard.Data.DbModels
 {
     /// <summary>
@@ -12,7 +9,7 @@ namespace Dashboard.Data.DbModels
         /// <summary>
         ///     Id билета
         /// </summary>
-        public int TicketId { get; set; }
+        public string TicketId { get; set; }
 
         /// <summary>
         ///     Название билета
@@ -39,5 +36,12 @@ namespace Dashboard.Data.DbModels
         ///     Ссылка на мероприятие
         /// </summary>
         public string EventLink { get; set; }
+
+        #region Связи между таблицами 
+        /// <summary>
+        ///     Новость
+        /// </summary>
+        public virtual NewsDb NewsDbs { get; set; }
+        #endregion 
     }
 }

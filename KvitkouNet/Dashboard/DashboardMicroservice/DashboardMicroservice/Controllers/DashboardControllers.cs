@@ -50,7 +50,7 @@ namespace Dashboard.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "News delete")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
-        public IActionResult Delete([FromRoute] int NewsId)
+        public IActionResult Delete([FromRoute] string NewsId)
         {
             var result = _service.Delete(NewsId);
             return Ok();
@@ -81,7 +81,7 @@ namespace Dashboard.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(News), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> Get([FromRoute] int NewsId)
+        public async Task<IActionResult> Get([FromRoute] string NewsId)
         {
             var result = await _service.Get(NewsId);
             return Ok(result);

@@ -5,10 +5,12 @@ EXPOSE 80
 FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
 COPY ["DashboardMicroservice/DashboardMicroservice.csproj", "DashboardMicroservice/"]
-COPY ["Gateway/DashboardNet.Messages/DashboardNet.Messages.csproj", "Gateway/DashboardNet.Messages/"]
+COPY ["Dashboard.Data/Dashboard.Data.csproj", "Dashboard.Data/"]
+COPY ["Dashboard.Logic/Dashboard.Logic.csproj", "Dashboard.Logic/"]
+COPY ["../DashboardNet.Messages/KvitkouNet.Messages.csproj", "../DashboardNet.Messages/"]
 RUN dotnet restore "DashboardMicroservice/DashboardMicroservice.csproj"
 COPY . .
-WORKDIR "/src/DashboardMicroservice//DashboardMicroservice"
+WORKDIR "/src/DashboardMicroservice"
 RUN dotnet build "DashboardMicroservice.csproj" -c Release -o /app
 
 FROM build AS publish

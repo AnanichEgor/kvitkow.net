@@ -30,9 +30,9 @@ namespace Dashboard.Logic.Services
         /// </summary>
         /// <param name="news">Модель новости</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        public async Task<(int, RequestStatus)> Add(News news)
+        public async Task<(string, RequestStatus)> Add(News news)
         {
-            if (!_validator.Validate(news).IsValid) return (0, RequestStatus.BadRequest);
+            if (!_validator.Validate(news).IsValid) return ("0", RequestStatus.BadRequest);
             var res = await _context.Add(_mapper.Map<NewsDb>(news));
             return (res, RequestStatus.Success);
         }
@@ -53,7 +53,7 @@ namespace Dashboard.Logic.Services
         /// </summary>
         /// <param name="newsId"></param>
         /// <returns></returns>
-        public async Task<RequestStatus> Delete(int newsId)
+        public async Task<RequestStatus> Delete(string newsId)
         {
             await _context.Delete(newsId);
             return RequestStatus.Success;
@@ -74,7 +74,7 @@ namespace Dashboard.Logic.Services
         /// </summary>
         /// <param name="ticketIdGuid">Id билета</param>
         /// <returns></returns>
-        public async Task<(News, RequestStatus)> Get(int newsId)
+        public async Task<(News, RequestStatus)> Get(string newsId)
         {
             var res = await _context.Get(newsId);
             return res == null ? (null, RequestStatus.BadRequest) : (_mapper.Map<News>(res), RequestStatus.Success);

@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Dashboard.Data.Context;
 using Dashboard.Data.Repositories;
-using Dashboard.Logic.Models;
 using Dashboard.Logic.Services;
 using Dashboard.Logic.Validators;
 using Dashboard.Logic.MappingProfiles;
@@ -21,7 +20,8 @@ namespace Dashboard.Logic
         /// <returns></returns>
         public static IServiceCollection RegisterDashboardService(this IServiceCollection services)
         {
-            services.AddDbContext<DashboardContext>(opt => opt.UseSqlite("Data Source=./NewsDatabase.db"));            
+            services.AddDbContext<DashboardContext>(opt => opt.
+                UseLazyLoadingProxies().UseSqlite("Data Source=./NewsDatabase.db"));
             services.AddScoped<IValidator<Models.News>, NewsValidator>();
             services.AddScoped<IDashboardRepository, DashboardRepository>();
             services.AddScoped<IDashboardService, DashboardService>();

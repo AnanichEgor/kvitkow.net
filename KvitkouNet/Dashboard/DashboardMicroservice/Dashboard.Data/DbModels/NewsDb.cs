@@ -8,25 +8,13 @@ namespace Dashboard.Data.DbModels
         /// <summary>
         ///     Id билета
         /// </summary>
-        public int NewsId { get; set; }
+        public string NewsId { get; set; }
 
         /// <summary>
         ///     Краткое описание события
         /// </summary>
         public string Description { get; set; }
-
-        /// <summary>
-        ///     Имя пользователя
-        /// </summary>
-        public UserInfoDb UserInfo { get; set; }
-
-       
-        /// <summary>
-        ///     Адрес проведения мероприятия
-        /// </summary>
-        public TicketInfoDb TicketInfo { get; set; }
-               
-
+        
         /// <summary>
         ///     Тип мероприятия
         /// </summary>
@@ -46,5 +34,18 @@ namespace Dashboard.Data.DbModels
         ///     Дата создания билета
         /// </summary>
         public DateTime CreatedDate { get; set; }
+
+        #region Связи между таблицами 
+        /// <summary>
+        ///     Id пользователя
+        /// </summary>
+        public virtual UserInfoDb User { get; set; }
+
+
+        /// <summary>
+        ///     Билет на мероприятие
+        /// </summary>
+        public virtual TicketInfoDb Ticket { get; set; }
+        #endregion 
     }
 }

@@ -1,7 +1,5 @@
-﻿using Dashboard.Data.Fakes;
-using Microsoft.EntityFrameworkCore;
+﻿/*using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using System.Linq;
 
 namespace Dashboard.Data.Context
 {
@@ -10,21 +8,13 @@ namespace Dashboard.Data.Context
         public DashboardContext CreateDbContext(string[] args)
         {
 
-            var builder = new DbContextOptionsBuilder<DashboardContext>();
+          var builder = new DbContextOptionsBuilder<DashboardContext>();
 
-            builder.UseSqlite("Data Source = ./NewsDatabase.db");
+            var connectionString = "Data Source=./NewsDatabase.db";
 
-            using (var ctx = new DashboardContext(builder.Options))
-            {
-                ctx.Database.Migrate();
-                if (!ctx.News.Any())
-                {
-                    ctx.News.AddRange(NewsFaker.Generate(50));
-                    ctx.SaveChanges();
-                }
-            }
+            builder.UseLazyLoadingProxies().UseSqlite(connectionString);
 
             return new DashboardContext(builder.Options);
         }
     }
-}
+}*/
