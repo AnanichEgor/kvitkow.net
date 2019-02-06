@@ -22,6 +22,7 @@ import { AdminMainComponent } from './components/admin/admin-main/admin-main.com
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { QueryLogsComponent } from './components/admin/query-logs/query-logs.component';
+import { TicketLogsComponent } from './components/admin/ticket-logs/ticket-logs.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -31,7 +32,8 @@ const routes: Routes = [
       { path: 'logs/errors', component: ErrorLogsComponent },
       { path: 'logs/accounts', component: AccountLogsComponent },
       { path: 'logs/payments', component: PaymentLogsComponent },
-      { path: 'logs/queries', component: QueryLogsComponent }
+      { path: 'logs/queries', component: QueryLogsComponent },
+      { path: 'logs/tickets', component: TicketLogsComponent }
     ]},
   { path: 'tickets', component: TicketComponent,  pathMatch: 'full'  },
   { path: 'tickets/:id', component: TicketDetailComponent, pathMatch: 'full' },

@@ -4,6 +4,7 @@ import { ErrorLogEntry } from '../models/errorLogEntry';
 import { AccountLogEntry } from '../models/accountLogEntry';
 import { PaymentLogEntry } from '../models/paymentLogEntry';
 import { QueryLogEntry } from '../models/queryLogEntry';
+import { TicketLogEntry } from '../models/ticketLogEntry';
 
 @Injectable({
   providedIn: 'root'
@@ -29,4 +30,8 @@ export class LogService {
   getQueryLogs(queryParams : string) {
       return this.http.get<QueryLogEntry[]>(`${this.baseUrl}admin/logs/queries?${queryParams}`);
   }
+
+  getTicketLogs(queryParams : string) {
+    return this.http.get<TicketLogEntry[]>(`${this.baseUrl}admin/logs/tickets?${queryParams}`);
+}
 }
