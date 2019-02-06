@@ -9,28 +9,14 @@ using UserSettings.Data.Context;
 namespace UserSettings.Data.Migrations
 {
     [DbContext(typeof(SettingsContext))]
-    [Migration("20190125170728_addNotification")]
-    partial class addNotification
+    [Migration("20190204125101_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
-
-            modelBuilder.Entity("UserSettings.Data.DbModels.AccountDb", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("Password");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Accounts");
-                });
 
             modelBuilder.Entity("UserSettings.Data.DbModels.NotificationDb", b =>
                 {
@@ -48,20 +34,14 @@ namespace UserSettings.Data.Migrations
                     b.ToTable("Notifications");
                 });
 
-            modelBuilder.Entity("UserSettings.Data.DbModels.ProfileDb", b =>
+            modelBuilder.Entity("UserSettings.Data.DbModels.SettingsDb", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("FirstName");
-
                     b.Property<bool>("IsGetTicketInfo");
 
                     b.Property<bool>("IsPrivateAccount");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<string>("MiddleName");
 
                     b.Property<int?>("NotificationsId");
 
@@ -71,51 +51,44 @@ namespace UserSettings.Data.Migrations
 
                     b.Property<string>("PreferRegion");
 
+                    b.Property<string>("SettingsId");
+
                     b.Property<byte[]>("UserImage");
+
+                    b.Property<int?>("VisibleInfoId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NotificationsId");
 
-                    b.ToTable("Profiles");
-                });
-
-            modelBuilder.Entity("UserSettings.Data.DbModels.SettingsDb", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("AccountId");
-
-                    b.Property<int?>("ProfileId");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("ProfileId");
+                    b.HasIndex("VisibleInfoId");
 
                     b.ToTable("Settings");
                 });
 
-            modelBuilder.Entity("UserSettings.Data.DbModels.ProfileDb", b =>
+            modelBuilder.Entity("UserSettings.Data.DbModels.VisibleInfoDb", b =>
                 {
-                    b.HasOne("UserSettings.Data.DbModels.NotificationDb", "Notifications")
-                        .WithMany()
-                        .HasForeignKey("NotificationsId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("VisibleAllPhones");
+
+                    b.Property<bool>("VisibleEmail");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VisibleInformations");
                 });
 
             modelBuilder.Entity("UserSettings.Data.DbModels.SettingsDb", b =>
                 {
-                    b.HasOne("UserSettings.Data.DbModels.AccountDb", "Account")
+                    b.HasOne("UserSettings.Data.DbModels.NotificationDb", "Notifications")
                         .WithMany()
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("NotificationsId");
 
-                    b.HasOne("UserSettings.Data.DbModels.ProfileDb", "Profile")
+                    b.HasOne("UserSettings.Data.DbModels.VisibleInfoDb", "VisibleInfo")
                         .WithMany()
-                        .HasForeignKey("ProfileId");
+                        .HasForeignKey("VisibleInfoId");
                 });
 #pragma warning restore 612, 618
         }

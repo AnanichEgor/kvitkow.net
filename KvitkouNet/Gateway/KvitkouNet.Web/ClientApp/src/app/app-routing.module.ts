@@ -21,6 +21,7 @@ import { PaymentLogsComponent } from './components/admin/payment-logs/payment-lo
 import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
 import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'search-user-results', component: SearchUserResultsComponent, pathMatch: 'full' },
   { path: 'chat', component: ChatComponent, pathMatch: 'full'},
   { path: 'security', component: SecurityComponent, pathMatch: 'full' },
+  { path: 'settings', component: UserSettingsComponent, pathMatch: 'full'},
   { path: '**', component: NotFoundComponent },
 ];
 
