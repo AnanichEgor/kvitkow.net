@@ -4,13 +4,13 @@ using TicketManagement.Logic.Exceptions;
 
 namespace TicketManagement.Web.Filters
 {
-    public class UserExceptionFilter : IExceptionFilter
+    public class UserBadRatingExceptionFilter : IExceptionFilter
     {
         public void OnException(ExceptionContext context)
         {
-            if (context.Exception is UserException)
+            if (context.Exception is UserBadRatingException)
             {
-                context.Result = new BadRequestObjectResult(context.Exception.Message);
+                context.Result = new ForbidResult(context.Exception.Message);
                 context.ExceptionHandled = true;
             }
         }
