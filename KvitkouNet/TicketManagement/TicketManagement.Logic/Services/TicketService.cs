@@ -61,7 +61,7 @@ namespace TicketManagement.Logic.Services
             ticket.SellerPhone = "+375-29-76-23-371";
             //WARNING
             if (ticket.User.Rating < 0)
-                throw new UserException("Bad user rating");
+                throw new UserBadRatingException("Bad user rating");
             var validationResultTicket = await _validatorTickets.ValidateAsync(ticket);
             var validationResultUser = await _validatorUsers.ValidateAsync(ticket.User);
             if (!validationResultTicket.IsValid | !validationResultUser.IsValid)
