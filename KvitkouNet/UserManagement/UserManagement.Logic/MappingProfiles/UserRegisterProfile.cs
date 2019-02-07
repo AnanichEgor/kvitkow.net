@@ -12,9 +12,16 @@ namespace UserManagement.Logic.MappingProfiles
                 map => map.MapFrom(
                     a => new AccountDB
                     {
-                        Login = a.Username,
+                        Login = a.UserName,
                         Email = a.Email,
                         Password = a.Password
+                    }))
+                .ForMember(c => c.ProfileDB,
+                map => map.MapFrom(
+                    a => new ProfileDB
+                    {
+                        FirstName = a.FirstName,
+                        LastName = a.LastName
                     }))
                 .ReverseMap();
 
