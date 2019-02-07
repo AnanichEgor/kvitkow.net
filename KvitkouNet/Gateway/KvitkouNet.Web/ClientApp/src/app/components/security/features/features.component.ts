@@ -4,7 +4,7 @@ import { AccessRight } from './../../../models/security/accessRight';
 import { Feature } from './../../../models/security/feature';
 import { FeatureService } from 'src/app/services/security/feature.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-features',
@@ -20,6 +20,9 @@ export class FeaturesComponent implements OnInit {
   rightsFound: AccessRight[];
   selectedAddRight: AccessRight;
   addPressed: boolean;
+  pages: number;
+  Arr = Array;
+  currentPage: number;
   constructor(private featureService: FeatureService, private rightsService: RightsService, private formBuilder: FormBuilder) {
 
    }
@@ -31,9 +34,20 @@ export class FeaturesComponent implements OnInit {
   });
   }
   onSearchFeatures() {
-    this.featureService.featureGetFeatures(10, 1, this.featuresForm.get('featureName').value).subscribe(features => {
+    this.onSearchPage(1);
+  }
+  onSearchPage(page: number) {
+    this.featureService.featureGetFeatures(10, page, this.featuresForm.get('featureName').value).subscribe(features => {
       this.errorMessage = features.message;
-      this.features = features.features; });
+      this.features = features.features;
+      this.pages = Math.ceil(features.totalCount / 10); });
+      this.currentPage = page;
+  }
+  onNextPage() {
+    this.onSearchPage(this.currentPage + 1);
+  }
+  onPreviosePage() {
+    this.onSearchPage(this.currentPage - 1);
   }
   onSelectFeature(feature: Feature) {
     this.selectedFeature = feature;
@@ -46,35 +60,37 @@ export class FeaturesComponent implements OnInit {
   onAddRight() {
     this.addPressed = !this.addPressed;
   }
-  onDeleteRight() {
-    this.selectedFeature.availableAccessRights = this.selectedFeature.availableAccessRights
-    .filter(right => right.id !== this.selectedRight.id);
-    let request: EditFeatureRequest = {
-      featureId: this.selectedFeature.id,
-      rightsIds: this.selectedFeature.availableAccessRights.map(function(a) { return a.id; })
-    };
-    this.featureService.featureEditFeature(request).subscribe(features => {
-      this.errorMessage = features.message; });
-  }
   onAddedSearch() {
-    console.log('"' + this.featuresForm.get('rightNameSearch').value + '"');
     this.rightsService.rightsGetRights(5, 1, this.featuresForm.get('rightNameSearch').value).subscribe(features => {
       this.errorMessage = features.message;
-      this.rightsFound = features.accessRights;
-      console.log(this.rightsFound); });
+      this.rightsFound = features.accessRights; });
   }
   onAddRightSelected(right: AccessRight) {
     this.selectedAddRight = right;
-    console.log(this.selectedAddRight);
+    this.featuresForm.controls.rightNameSearch.setValue(right.name);
+  }
+  onDeleteRight() {
+    const rights = this.selectedFeature.availableAccessRights
+    .filter(right => right.id !== this.selectedRight.id);
+    this.saveRights(rights);
+    this.selectedRight = null;
   }
   onAddSelectedRight() {
-    this.selectedFeature.availableAccessRights.push(this.selectedAddRight);
-    let request: EditFeatureRequest = {
+    let rights: AccessRight[] = [this.selectedAddRight];
+    rights = rights.concat(this.selectedFeature.availableAccessRights);
+    this.saveRights(rights);
+    this.selectedAddRight = null;
+    this.featuresForm.controls.rightNameSearch.setValue('');
+  }
+  saveRights(rights: AccessRight[]) {
+    const request: EditFeatureRequest = {
       featureId: this.selectedFeature.id,
-      rightsIds: this.selectedFeature.availableAccessRights.map(function(a) { return a.id; })
+      rightsIds: rights.map(function(a) { return a.id; })
     };
     this.featureService.featureEditFeature(request).subscribe(features => {
-      this.errorMessage = features.message; });
-    this.selectedAddRight = null;
+      this.errorMessage = features.message;
+      if (features.status === 0) {
+        this.selectedFeature.availableAccessRights = rights;
+      } });
   }
 }
