@@ -44,15 +44,9 @@ namespace Notification.Data.Models
 		public DateTime Date { get; set; }
 
 		/// <summary>
-		/// Id отправителя
+		/// Создатель уведомление
 		/// </summary>
-		public string SenderId { get; set; }
-
-		/// <summary>
-		/// Отправитель уведомления
-		/// </summary>
-		/// <remarks>Используется для типов, где необходима информация об отправителе</remarks>
-		public User Sender { get; set; }
+		public string Creator { get; set; }
 
 		/// <summary>
 		/// Тип уведомления

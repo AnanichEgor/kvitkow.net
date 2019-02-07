@@ -12,10 +12,15 @@ namespace Notification.Logic.Models
 		/// </summary>
 		public string NotificationId { get; set; }
 
-		/// <summary>
-		/// Сообщение уведомления
-		/// </summary>
-		public NotificationMessage Message { get; set; }
+        /// <summary>
+        /// Создатель уведомления
+        /// </summary>
+        public string Creator { get; set; }
+
+        /// <summary>
+        /// Сообщение уведомления
+        /// </summary>
+        public NotificationMessage Message { get; set; }
 
 		/// <summary>
 		/// Дата отправки

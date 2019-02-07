@@ -54,13 +54,13 @@ namespace Notification.Logic.Services.EmailNotificationService
 		public async Task SendEmailNotificationForAllUsers(NotificationMessage messsage)
 		{
 			IQueryable<User> users = m_context.Users.AsNoTracking();
-			await SendEmailForUsers(users, messsage.Title, messsage.Text, m_mapper.Map<Data.Models.Enums.Severity>(messsage.Severity));
+			await SendEmailForUsers(users, messsage.Creator, messsage.Title, messsage.Text, m_mapper.Map<Data.Models.Enums.Severity>(messsage.Severity));
 		}
 
 		public async Task SendEmailNotifications(UserNotificationBulkRequest request)
 		{
 			IQueryable<User> users = m_context.Users.AsNoTracking().Where(x => request.UserIds.Any(id => id == x.Id));
-			await SendEmailForUsers(users, request.Message.Title, request.Message.Text, m_mapper.Map<Data.Models.Enums.Severity>(request.Message.Severity));		
+			await SendEmailForUsers(users, request.Message.Creator, request.Message.Title, request.Message.Text, m_mapper.Map<Data.Models.Enums.Severity>(request.Message.Severity));		
 		}
 
 		public async Task SendRegistrationNotification(SendEmailRequest sendEmailRequest)
@@ -100,7 +100,7 @@ namespace Notification.Logic.Services.EmailNotificationService
 			await m_context.SaveChangesAsync();
 		}
 
-		private async Task SendEmailForUsers(IEnumerable<User> users, string subject, string text, Data.Models.Enums.Severity severity)
+		private async Task SendEmailForUsers(IEnumerable<User> users, string creator, string subject, string text, Data.Models.Enums.Severity severity)
 		{
             User sender = await m_context.Users.SingleOrDefaultAsync(x => x.Name == m_senderConfig.Name);
             if (sender == null) throw new Exception();
@@ -118,7 +118,7 @@ namespace Notification.Logic.Services.EmailNotificationService
                 {
                     Date = DateTime.UtcNow,
                     UserId = user.Id,
-                    SenderId = sender.Id,
+                    Creator = creator,
                     Title = subject,
                     Text = text,
                     Severity = severity,
