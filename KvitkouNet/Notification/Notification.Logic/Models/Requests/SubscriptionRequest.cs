@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Notification.Logic.Models.Requests
+﻿namespace Notification.Logic.Models.Requests
 {
     /// <summary>
     /// Запрос на подписку пользователя
@@ -13,6 +9,11 @@ namespace Notification.Logic.Models.Requests
         /// Ид пользователя
         /// </summary>
         public string UserId { get; set; }
+        
+        /// <summary>
+        /// Создатель подписки
+        /// </summary>
+        public string Creator { get; set; }
 
         /// <summary>
         /// Тема

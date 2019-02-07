@@ -7,6 +7,8 @@ namespace Notification.Logic.MappingProfiles
 		public NotificationMessageProfile()
 		{
 			CreateMap<Logic.Models.NotificationMessage, Data.Models.Notification>()
+                .ForMember(data => data.Creator,
+                    opt => opt.MapFrom(logic => logic.Creator))
 				.ForMember(data => data.Title,
 					opt => opt.MapFrom(logic => logic.Title))
 				.ForMember(data => data.Text,
@@ -14,6 +16,8 @@ namespace Notification.Logic.MappingProfiles
 				.ForMember(data => data.Severity,
 					opt => opt.MapFrom(logic => logic.Severity))
 				.ReverseMap()
+                .ForMember(logic => logic.Creator,
+                    opt => opt.MapFrom(data => data.Creator))
 				.ForMember(logic => logic.Title,
 					opt => opt.MapFrom(logic => logic.Title))
 				.ForMember(logic => logic.Text,

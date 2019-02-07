@@ -14,10 +14,15 @@ namespace Notification.Logic.Models
 		/// </summary>
 		public string Id { get; set; }
 
-		/// <summary>
-		/// Тема
-		/// </summary>
-		public string Theme { get; set; }
+        /// <summary>
+        /// Создатель подписки
+        /// </summary>
+        public string Creator { get; set; }
+
+        /// <summary>
+        /// Тема
+        /// </summary>
+        public string Theme { get; set; }
 
 		/// <summary>
 		/// Необходимо уведомление по почте

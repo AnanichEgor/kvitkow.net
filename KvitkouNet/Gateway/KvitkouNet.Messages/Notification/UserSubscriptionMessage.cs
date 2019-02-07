@@ -12,6 +12,11 @@
         public string UserId { get; set; }
 
         /// <summary>
+        /// Создатель подписки
+        /// </summary>
+        public string Creator { get; set; }
+
+        /// <summary>
         /// Тема
         /// </summary>
         /// <remarks>Если темы не существует, то добавится</remarks>

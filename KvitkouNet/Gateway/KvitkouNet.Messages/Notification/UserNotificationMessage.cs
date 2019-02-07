@@ -15,6 +15,11 @@ namespace KvitkouNet.Messages.Notification
         public string UserId { get; set; }
 
         /// <summary>
+        /// Создатель уведомление
+        /// </summary>
+        public string Creator { get; set; }
+
+        /// <summary>
         /// Заголовок уведомления
         /// </summary>
         public string Title { get; set; }
