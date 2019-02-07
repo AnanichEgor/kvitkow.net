@@ -1,3 +1,5 @@
+import { RoomService } from './../../services/chat/room.service';
+import { ChatService } from './../../services/chat/chat.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
@@ -7,7 +9,9 @@ import { Router } from '@angular/router';
 })
 export class ChatComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private serviceChat: ChatService,
+    private serviceRoom: RoomService) { }
 
   ngOnInit() {
   }
