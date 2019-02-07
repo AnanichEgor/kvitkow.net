@@ -25,7 +25,7 @@ namespace Notification.Data.Fakers
 			m_faker.RuleFor(x => x.Date, x => x.Date.Between(DateTime.Now.AddYears(-2), DateTime.Now.AddDays(-5)));
 			m_faker.RuleFor(x => x.Type, x => x.Random.Enum<NotificationType>());
 			m_faker.RuleFor(x => x.IsClosed, x => x.Random.Bool());
-			m_faker.RuleFor(x => x.Sender, x => userFaker);
+			m_faker.RuleFor(x => x.Creator, x => x.Lorem.Sentence(10));
 		}
 
 		public static IEnumerable<Models.Notification> Generate(int count = 10)

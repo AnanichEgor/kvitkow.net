@@ -32,6 +32,7 @@ import { SearchTicketComponent } from './components/search-ticket/search-ticket.
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { UserSettingsComponent } from './components/user-settings/user-settings.
     SearchTicketComponent,
     SearchTicketResultsComponent,
     SearchUserResultsComponent,
-    UserSettingsComponent
+    UserSettingsComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

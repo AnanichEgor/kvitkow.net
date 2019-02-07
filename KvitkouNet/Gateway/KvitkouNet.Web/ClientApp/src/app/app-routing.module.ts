@@ -1,3 +1,4 @@
+import { NotificationComponent } from './components/notification/notification.component';
 import { SecurityMenuComponent } from './components/security-menu/security-menu.component';
 import { SecurityComponent } from './components/security/security.component';
 import { ChatComponent } from './components/chat/chat.component';
@@ -44,7 +45,8 @@ const routes: Routes = [
   { path: 'security', component: SecurityComponent, pathMatch: 'full' },
   { path: 'chat', component: ChatComponent, pathMatch: 'full'},
   { path: 'settings', component: UserSettingsComponent, pathMatch: 'full'},
-  { path: '**', component: NotFoundComponent },
+  { path: 'notification', component: NotificationComponent, pathMatch: 'full'},
+  { path: '**', component: NotFoundComponent, pathMatch: 'full'},
 ];
 
 @NgModule({
