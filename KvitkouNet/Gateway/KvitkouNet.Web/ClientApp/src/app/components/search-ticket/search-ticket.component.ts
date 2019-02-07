@@ -33,4 +33,8 @@ export class SearchTicketComponent implements OnInit {
 
     this.router.navigate(['search-ticket-results', request]);
   }
+
+  previousSearch() {
+    const userId = this.router
+  }
 }

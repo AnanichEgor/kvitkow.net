@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
+using Search.Data.Models;
 using Search.Logic.Services;
 
 namespace Search.Web.Controllers
@@ -27,15 +28,28 @@ namespace Search.Web.Controllers
 
 
         /// <summary>
-        /// Gets the last search for user with id <see cref="userId"/>.
+        /// Gets the last ticket search for user with id <see cref="userId"/>.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
-        [SwaggerResponse(HttpStatusCode.OK, typeof(object), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(TicketSearchEntity), Description = "All OK")]
         [SwaggerResponse(HttpStatusCode.NotFound, typeof(object), Description = "The last search for this user doesn't exist")]
-        [HttpGet, Route("")]
-        public async Task<IActionResult> GetLastSearch(string userId)
+        [HttpGet, Route("tickets")]
+        public async Task<IActionResult> GetLastTicketSearch(string userId)
         {
-            var result = await _service.GetLastSearchAsync(userId);
+            var result = await _service.GetLastTicketSearchAsync(userId);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
+        }
+
+        /// <summary>
+        /// Gets the last user search for user with id <see cref="userId"/>.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        [SwaggerResponse(HttpStatusCode.OK, typeof(UserSearchEntity), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.NotFound, typeof(object), Description = "The last search for this user doesn't exist")]
+        [HttpGet, Route("users")]
+        public async Task<IActionResult> GetLastUserSearch(string userId)
+        {
+            var result = await _service.GetLastUserSearchAsync(userId);
             return result != null ? (IActionResult)Ok(result) : NotFound();
         }
     }
