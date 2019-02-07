@@ -21,7 +21,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
     /// <summary>
     /// Values operations.
     /// </summary>
-    public partial class Values : IServiceOperations<MyTitle>, IValues
+    public partial class Values : IServiceOperations<UserTitle>, IValues
     {
         /// <summary>
         /// Initializes a new instance of the Values class.
@@ -32,7 +32,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public Values(MyTitle client)
+        public Values(UserTitle client)
         {
             if (client == null)
             {
@@ -44,7 +44,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <summary>
         /// Gets a reference to the MyTitle
         /// </summary>
-        public MyTitle Client { get; private set; }
+        public UserTitle Client { get; private set; }
 
         /// <param name='customHeaders'>
         /// Headers that will be added to request.

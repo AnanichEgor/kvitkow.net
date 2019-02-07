@@ -21,7 +21,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
     /// <summary>
     /// PaymentLog operations.
     /// </summary>
-    public partial class PaymentLog : IServiceOperations<MyTitle>, IPaymentLog
+    public partial class PaymentLog : IServiceOperations<UserTitle>, IPaymentLog
     {
         /// <summary>
         /// Initializes a new instance of the PaymentLog class.
@@ -32,7 +32,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public PaymentLog(MyTitle client)
+        public PaymentLog(UserTitle client)
         {
             if (client == null)
             {
@@ -44,7 +44,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <summary>
         /// Gets a reference to the MyTitle
         /// </summary>
-        public MyTitle Client { get; private set; }
+        public UserTitle Client { get; private set; }
 
         /// <param name='senderId'>
         /// </param>

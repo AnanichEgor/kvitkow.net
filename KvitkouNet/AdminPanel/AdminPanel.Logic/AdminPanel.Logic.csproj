@@ -5,16 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.18" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Gateway\KvitkouNet.Messages\KvitkouNet.Messages.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

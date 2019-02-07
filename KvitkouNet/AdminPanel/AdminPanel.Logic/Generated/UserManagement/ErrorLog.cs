@@ -21,7 +21,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
     /// <summary>
     /// ErrorLog operations.
     /// </summary>
-    public partial class ErrorLog : IServiceOperations<MyTitle>, IErrorLog
+    public partial class ErrorLog : IServiceOperations<UserTitle>, IErrorLog
     {
         /// <summary>
         /// Initializes a new instance of the ErrorLog class.
@@ -32,7 +32,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public ErrorLog(MyTitle client)
+        public ErrorLog(UserTitle client)
         {
             if (client == null)
             {
@@ -44,7 +44,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <summary>
         /// Gets a reference to the MyTitle
         /// </summary>
-        public MyTitle Client { get; private set; }
+        public UserTitle Client { get; private set; }
 
         /// <param name='serviceName'>
         /// </param>

@@ -21,7 +21,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
     /// <summary>
     /// TicketActionLog operations.
     /// </summary>
-    public partial class TicketActionLog : IServiceOperations<MyTitle>, ITicketActionLog
+    public partial class TicketActionLog : IServiceOperations<UserTitle>, ITicketActionLog
     {
         /// <summary>
         /// Initializes a new instance of the TicketActionLog class.
@@ -32,7 +32,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public TicketActionLog(MyTitle client)
+        public TicketActionLog(UserTitle client)
         {
             if (client == null)
             {
@@ -44,7 +44,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <summary>
         /// Gets a reference to the MyTitle
         /// </summary>
-        public MyTitle Client { get; private set; }
+        public UserTitle Client { get; private set; }
 
         /// <param name='ticketId'>
         /// </param>

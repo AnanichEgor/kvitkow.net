@@ -21,7 +21,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
     /// <summary>
     /// AccountLog operations.
     /// </summary>
-    public partial class AccountLog : IServiceOperations<MyTitle>, IAccountLog
+    public partial class AccountLog : IServiceOperations<UserTitle>, IAccountLog
     {
         /// <summary>
         /// Initializes a new instance of the AccountLog class.
@@ -32,7 +32,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public AccountLog(MyTitle client)
+        public AccountLog(UserTitle client)
         {
             if (client == null)
             {
@@ -44,7 +44,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <summary>
         /// Gets a reference to the MyTitle
         /// </summary>
-        public MyTitle Client { get; private set; }
+        public UserTitle Client { get; private set; }
 
         /// <param name='userId'>
         /// </param>

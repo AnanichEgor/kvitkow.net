@@ -21,7 +21,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
     /// <summary>
     /// UserGroup operations.
     /// </summary>
-    public partial class UserGroup : IServiceOperations<MyTitle>, IUserGroup
+    public partial class UserGroup : IServiceOperations<UserTitle>, IUserGroup
     {
         /// <summary>
         /// Initializes a new instance of the UserGroup class.
@@ -32,7 +32,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public UserGroup(MyTitle client)
+        public UserGroup(UserTitle client)
         {
             if (client == null)
             {
@@ -44,7 +44,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <summary>
         /// Gets a reference to the MyTitle
         /// </summary>
-        public MyTitle Client { get; private set; }
+        public UserTitle Client { get; private set; }
 
         /// <param name='userGroupModel'>
         /// </param>

@@ -30,6 +30,7 @@ services:
       dockerfile: AdminPanel/AdminPanel.Web/Dockerfile
     depends_on:
       - logging.web
+      - usermanagement.web
       - rabbit
     ports:
       - 5005:80

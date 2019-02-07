@@ -15,7 +15,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
     using System.Net;
     using System.Net.Http;
 
-    public partial class MyTitle : ServiceClient<MyTitle>, IMyTitle
+    public partial class UserTitle : ServiceClient<UserTitle>, IMyTitle
     {
         /// <summary>
         /// The base URI of the service.
@@ -55,7 +55,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// </param>
         /// <param name='disposeHttpClient'>
         /// True: will dispose the provided httpClient on calling MyTitle.Dispose(). False: will not dispose provided httpClient</param>
-        public MyTitle(HttpClient httpClient, bool disposeHttpClient) : base(httpClient, disposeHttpClient)
+        public UserTitle(HttpClient httpClient, bool disposeHttpClient) : base(httpClient, disposeHttpClient)
         {
             Initialize();
         }
@@ -66,7 +66,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        public MyTitle(params DelegatingHandler[] handlers) : base(handlers)
+        public UserTitle(params DelegatingHandler[] handlers) : base(handlers)
         {
             Initialize();
         }
@@ -80,7 +80,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        public MyTitle(HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : base(rootHandler, handlers)
+        public UserTitle(HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : base(rootHandler, handlers)
         {
             Initialize();
         }
@@ -97,7 +97,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public MyTitle(System.Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
+        public UserTitle(System.Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
         {
             if (baseUri == null)
             {
@@ -121,7 +121,7 @@ namespace AdminPanel.Logic.Generated.UserManagement
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public MyTitle(System.Uri baseUri, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
+        public UserTitle(System.Uri baseUri, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
         {
             if (baseUri == null)
             {
