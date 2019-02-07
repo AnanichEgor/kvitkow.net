@@ -10,31 +10,31 @@ import { SearchUser } from '../models/searchUser';
   providedIn: 'root'
 })
 export class SearchService {
-  private baseUrl = 'http://localhost:5008';
+  private baseUrl = 'http://localhost:5008/api';
 
   constructor(private http: HttpClient) {}
 
   getTickets(request: SearchTicket) {
     return this.http.get<SearchResult<SearchTicketInfo>>(
-      `${this.baseUrl}/api/search/tickets?${this.toQueryString(request)}`
+      `${this.baseUrl}/search/tickets?${this.toQueryString(request)}`
     );
   }
 
   getUsers(request: SearchUser) {
     return this.http.get<SearchResult<SearchUserInfo>>(
-      `${this.baseUrl}/api/search/users?${this.toQueryString(request)}`
+      `${this.baseUrl}/search/users?${this.toQueryString(request)}`
     );
   }
 
   getPreviousTicketSearch(userId: String) {
     return this.http.get<SearchResult<SearchTicketInfo>>(
-      `${this.baseUrl}/api/history/tickets?${this.toQueryString({usedId: userId})}`
+      `${this.baseUrl}/history/tickets?${this.toQueryString({usedId: userId})}`
     );
   }
 
   getPreviousUserSearch(userId: String) {
     return this.http.get<SearchResult<SearchUserInfo>>(
-      `${this.baseUrl}/api/history/users?${this.toQueryString({usedId: userId})}`
+      `${this.baseUrl}/history/users?${this.toQueryString({usedId: userId})}`
     );
   }
 

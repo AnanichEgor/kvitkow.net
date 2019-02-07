@@ -52,7 +52,7 @@ export class SearchUserResultsComponent implements OnInit {
       offset: params.has('offset') ? parseInt(params.get('offset'), 10) : 0
     });
 
-    setIfNotNull('rating');
+    setIfNotNull('minRating');
 
     return request;
 

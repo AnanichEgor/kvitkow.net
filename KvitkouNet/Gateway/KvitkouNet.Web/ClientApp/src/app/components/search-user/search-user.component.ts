@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SearchUserComponent implements OnInit {
   searchUserForm = new FormGroup({
-    rating: new FormControl('')
+    minRating: new FormControl('')
   });
 
   constructor(private router: Router) {}
