@@ -1,26 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Logging.Logic.Dtos;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
+using Logging.Logic.Models.Filters;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
 namespace Logging.Web.Controllers
 {
+    /// <summary>
+    /// Контроллер для работы с логами действий с аккаунтами пользователей
+    /// </summary>
     [Route("api/logs/accounts")]
     public class AccountLogController : Controller
     {
-        private readonly ILoggingService _loggingService;
+        private readonly IAccountLogService _loggingService;
+        private bool _disposed;
 
-        public AccountLogController(ILoggingService loggingService)
+        public AccountLogController(IAccountLogService loggingService)
         {
             _loggingService = loggingService;
         }
 
         /// <summary>
-        /// Получает логи действий с аккаунтами пользователей
+        /// Получает логи действий с аккаунтами пользователей по фильтру
         /// </summary>
         /// <param name="filter">Фильтр логов действий с аккаунтами</param>
         /// <returns></returns>
@@ -28,16 +32,33 @@ namespace Logging.Web.Controllers
         [Route("")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<AccountLogEntry>), Description = "Account logs")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
-        public async Task<IActionResult> GetAccountLogs([FromQuery] AccountLogsFilterDto filter)
+        public async Task<IActionResult> GetAccountLogs([FromQuery] AccountLogsFilter filter)
         {
             // имитируем некоторую валидацию
-            if (string.IsNullOrWhiteSpace(filter.UserName))
+            //if (string.IsNullOrWhiteSpace(filter.UserName))
+            //{
+            //    return BadRequest($"Invalid filter! {nameof(AccountLogsFilter.UserName)} is empty or whitespace!");
+            //}
+
+            var result = await _loggingService.GetLogsAsync(filter);
+            return Ok(result);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (_disposed)
             {
-                return BadRequest($"Invalid filter! {nameof(AccountLogsFilterDto.UserName)} is empty or whitespace!");
+                return;
             }
 
-            var result = await _loggingService.GetAccountLogsAsync(filter);
-            return Ok(result);
+            if (disposing)
+            {
+                _loggingService?.Dispose();
+            }
+
+            _disposed = true;
+
+            base.Dispose(disposing);
         }
     }
 }

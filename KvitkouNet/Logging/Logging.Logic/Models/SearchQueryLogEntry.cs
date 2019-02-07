@@ -1,17 +1,25 @@
 ﻿using Logging.Logic.Models.Abstraction;
-using Logging.Logic.Models.Mocks;
 
 namespace Logging.Logic.Models
 {
 	/// <summary>
-	/// Модель для логирования поисковых запросов пользователей.
-	/// <para>Текст запроса хранится в свойстве Content класса BaseLogEntry.</para>
+	/// Модель для логирования поисковых запросов пользователей
 	/// </summary>
-	public class SearchQueryLogEntry : BaseLogEntry<long>
+	public class SearchQueryLogEntry : BaseLogEntry
 	{
+		/// <summary>
+		/// Id пользователя, выполнившего поисковый запрос
+		/// </summary>
+		public string UserId { get; set; }
+
+		/// <summary>
+		/// Содержимое строки поиска
+		/// </summary>
+		public string SearchCriterium { get; set; }
+
 		/// <summary>
 		/// Состояние фильтров при выполнении запросов
 		/// </summary>
-		public DashBoardFilterMock DashBoardFilter { get; set; }
+		public string FilterInfo { get; set; }
 	}
 }

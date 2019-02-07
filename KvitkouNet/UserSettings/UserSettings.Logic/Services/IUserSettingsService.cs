@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UserSettings.Logic.Models;
 using UserSettings.Logic.Models.Helper;
@@ -15,20 +16,31 @@ namespace UserSettings.Logic.Services
 		/// </summary>
 		/// <param name="profile"></param>
 		/// <returns></returns>
-		Task<ActionResult> UpdateProfile(Profile profile);
+		Task<ResultEnum> UpdateProfile(string id, string first, string middle, string last, DateTime birthdate);
 
 		/// <summary>
 		/// Обновление пароля.
 		/// </summary>
-		/// <param name="account"></param>
+		/// <param name="current"></param>
+		/// <param name="newPass"></param>
+		/// <param name="confirm"></param>
 		/// <returns></returns>
-		Task<ActionResult> UpdatePassword(string current, string newPass, string confirm);
+		Task<ResultEnum> UpdatePassword(string id, string current, string newPass, string confirm);
 
 		/// <summary>
 		/// Обновление почты.
 		/// </summary>
-		/// <param name="account"></param>
+		/// <param name="id"></param>
+		/// <param name="email"></param>
 		/// <returns></returns>
-		Task<ActionResult> UpdateEmail(string email);
+		Task<ResultEnum> UpdateEmail(string id, string email);
+
+		Task<Settings> Get(string id);
+
+		Task<ResultEnum> UpdateNotifications(string id, Notifications notifications);
+
+		Task<bool> DeleteAccount(string id);
+		Task<ResultEnum> UpdatePhones();
+		Task<ResultEnum> UpdateVisible(string id, VisibleInfo visibleInfo);
 	}
 }

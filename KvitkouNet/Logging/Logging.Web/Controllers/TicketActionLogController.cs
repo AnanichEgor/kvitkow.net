@@ -1,26 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Logging.Logic.Dtos;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;
+using Logging.Logic.Models.Filters;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
 namespace Logging.Web.Controllers
 {
+    /// <summary>
+    /// Контроллер для работы с логами о действиях с билетами
+    /// </summary>
     [Route("api/logs/tickets")]
     public class TicketActionLogController : Controller
     {
-        private readonly ILoggingService _loggingService;
+        private readonly ITicketLogService _loggingService;
+        private bool _disposed;
 
-        public TicketActionLogController(ILoggingService loggingService)
+        public TicketActionLogController(ITicketLogService loggingService)
         {
             _loggingService = loggingService;
         }
 
         /// <summary>
-        /// Получает логи действий с билетами
+        /// Получает логи действий с билетами по фильтру
         /// </summary>
         /// <param name="filter">Фильтр логов по билетам</param>
         /// <returns></returns>
@@ -29,16 +33,33 @@ namespace Logging.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<TicketActionLogEntry>), Description =
             "Ticket action logs")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
-        public async Task<IActionResult> GetTicketActionLogs([FromQuery] TicketLogsFilterDto filter)
+        public async Task<IActionResult> GetTicketActionLogs([FromQuery] TicketLogsFilter filter)
         {
             // имитируем некоторую валидацию
-            if (string.IsNullOrWhiteSpace(filter.TicketName))
+            //if (string.IsNullOrWhiteSpace(filter.TicketId))
+            //{
+            //    return BadRequest($"Invalid filter! {nameof(TicketLogsFilter.TicketId)} is empty or whitespace!");
+            //}
+
+            var result = await _loggingService.GetLogsAsync(filter);
+            return Ok(result);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (_disposed)
             {
-                return BadRequest($"Invalid filter! {nameof(TicketLogsFilterDto.TicketName)} is empty or whitespace!");
+                return;
             }
 
-            var result = await _loggingService.GetTicketActionLogsAsync(filter);
-            return Ok(result);
+            if (disposing)
+            {
+                _loggingService?.Dispose();
+            }
+
+            _disposed = true;
+
+            base.Dispose(disposing);
         }
     }
 }

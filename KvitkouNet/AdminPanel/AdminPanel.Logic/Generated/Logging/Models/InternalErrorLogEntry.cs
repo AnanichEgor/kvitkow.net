@@ -9,7 +9,7 @@ namespace AdminPanel.Logic.Generated.Logging.Models
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class InternalErrorLogEntry : BaseLogEntryOfInt32
+    public partial class InternalErrorLogEntry : BaseLogEntry
     {
         /// <summary>
         /// Initializes a new instance of the InternalErrorLogEntry class.
@@ -22,10 +22,11 @@ namespace AdminPanel.Logic.Generated.Logging.Models
         /// <summary>
         /// Initializes a new instance of the InternalErrorLogEntry class.
         /// </summary>
-        public InternalErrorLogEntry(int id, System.DateTime created, int hResult, string content = default(string), string typeName = default(string), string innerExceptionString = default(string), string message = default(string), string source = default(string), string stackTrace = default(string), string targetSiteName = default(string))
-            : base(id, created, content)
+        public InternalErrorLogEntry(System.DateTime eventDate, int hResult, string id = default(string), string serviceName = default(string), string exceptionType = default(string), string innerExceptionString = default(string), string message = default(string), string source = default(string), string stackTrace = default(string), string targetSiteName = default(string))
+            : base(eventDate, id)
         {
-            TypeName = typeName;
+            ServiceName = serviceName;
+            ExceptionType = exceptionType;
             HResult = hResult;
             InnerExceptionString = innerExceptionString;
             Message = message;
@@ -42,8 +43,13 @@ namespace AdminPanel.Logic.Generated.Logging.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "typeName")]
-        public string TypeName { get; set; }
+        [JsonProperty(PropertyName = "serviceName")]
+        public string ServiceName { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "exceptionType")]
+        public string ExceptionType { get; set; }
 
         /// <summary>
         /// </summary>

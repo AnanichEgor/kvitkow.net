@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EasyNetQ" Version="3.3.9" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
@@ -18,8 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UserManagement.Data\UserManagement.Data.csproj" />
-    <ProjectReference Include="..\UserManagement.Logic.Common\UserManagement.Logic.csproj" />
+    <ProjectReference Include="..\UserManagement.Logic\UserManagement.Logic.csproj" />
   </ItemGroup>
 
 </Project>

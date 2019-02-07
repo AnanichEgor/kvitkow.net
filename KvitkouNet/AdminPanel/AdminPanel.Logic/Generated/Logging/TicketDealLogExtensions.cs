@@ -18,24 +18,52 @@ namespace AdminPanel.Logic.Generated.Logging
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='ticketName'>
+            /// <param name='ticketId'>
             /// </param>
-            public static object GetTicketDealLogs(this ITicketDealLog operations, string ticketName = default(string))
+            /// <param name='ownerId'>
+            /// </param>
+            /// <param name='recieverId'>
+            /// </param>
+            /// <param name='minPrice'>
+            /// </param>
+            /// <param name='maxPrice'>
+            /// </param>
+            /// <param name='type'>
+            /// </param>
+            /// <param name='dateFrom'>
+            /// </param>
+            /// <param name='dateTo'>
+            /// </param>
+            public static object GetTicketDealLogs(this ITicketDealLog operations, string ticketId = default(string), string ownerId = default(string), string recieverId = default(string), double? minPrice = default(double?), double? maxPrice = default(double?), int type = default(int), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?))
             {
-                return operations.GetTicketDealLogsAsync(ticketName).GetAwaiter().GetResult();
+                return operations.GetTicketDealLogsAsync(ticketId, ownerId, recieverId, minPrice, maxPrice, type, dateFrom, dateTo).GetAwaiter().GetResult();
             }
 
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='ticketName'>
+            /// <param name='ticketId'>
+            /// </param>
+            /// <param name='ownerId'>
+            /// </param>
+            /// <param name='recieverId'>
+            /// </param>
+            /// <param name='minPrice'>
+            /// </param>
+            /// <param name='maxPrice'>
+            /// </param>
+            /// <param name='type'>
+            /// </param>
+            /// <param name='dateFrom'>
+            /// </param>
+            /// <param name='dateTo'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<object> GetTicketDealLogsAsync(this ITicketDealLog operations, string ticketName = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> GetTicketDealLogsAsync(this ITicketDealLog operations, string ticketId = default(string), string ownerId = default(string), string recieverId = default(string), double? minPrice = default(double?), double? maxPrice = default(double?), int type = default(int), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetTicketDealLogsWithHttpMessagesAsync(ticketName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetTicketDealLogsWithHttpMessagesAsync(ticketId, ownerId, recieverId, minPrice, maxPrice, type, dateFrom, dateTo, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

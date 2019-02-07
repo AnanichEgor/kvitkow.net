@@ -9,7 +9,7 @@ namespace AdminPanel.Logic.Generated.Logging.Models
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class TicketActionLogEntry : BaseTicketLogEntry
+    public partial class TicketActionLogEntry : BaseLogEntry
     {
         /// <summary>
         /// Initializes a new instance of the TicketActionLogEntry class.
@@ -22,10 +22,14 @@ namespace AdminPanel.Logic.Generated.Logging.Models
         /// <summary>
         /// Initializes a new instance of the TicketActionLogEntry class.
         /// </summary>
-        public TicketActionLogEntry(long id, System.DateTime created, int action, string content = default(string), object ticket = default(object), User owner = default(User))
-            : base(id, created, content, ticket, owner)
+        public TicketActionLogEntry(System.DateTime eventDate, int actionType, string id = default(string), string userId = default(string), string ticketId = default(string), string ticketName = default(string), string description = default(string))
+            : base(eventDate, id)
         {
-            Action = action;
+            UserId = userId;
+            TicketId = ticketId;
+            TicketName = ticketName;
+            ActionType = actionType;
+            Description = description;
             CustomInit();
         }
 
@@ -36,8 +40,28 @@ namespace AdminPanel.Logic.Generated.Logging.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "action")]
-        public int Action { get; set; }
+        [JsonProperty(PropertyName = "userId")]
+        public string UserId { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "ticketId")]
+        public string TicketId { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "ticketName")]
+        public string TicketName { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "actionType")]
+        public int ActionType { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "description")]
+        public string Description { get; set; }
 
         /// <summary>
         /// Validate the object.

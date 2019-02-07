@@ -27,6 +27,14 @@ namespace TicketManagement.Logic.Services
         Task<RequestStatus> Update(string id, Ticket ticket);
 
         /// <summary>
+        ///     Добавление пользователя в "я пойду"
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="ticket">Модель билета</param>
+        /// <returns></returns>
+        Task<RequestStatus> AddRespondedUsers(string id, UserInfo user);
+
+        /// <summary>
         ///     Удаление всех билетов
         /// </summary>
         /// <returns></returns>
@@ -63,5 +71,13 @@ namespace TicketManagement.Logic.Services
         /// <param name="index"></param>
         /// <returns></returns>
         Task<(Page<TicketLite>, RequestStatus)> GetAllPagebyPage(int index);
+
+        /// <summary>
+        ///     Получение всех актуальных билетов имеющихся в системе постранично
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="onlyActual">Только актуальные билеты</param>
+        /// <returns></returns>
+        Task<(Page<TicketLite>, RequestStatus)> GetAllPagebyPageActual(int index, bool onlyActual=true);
     }
 }

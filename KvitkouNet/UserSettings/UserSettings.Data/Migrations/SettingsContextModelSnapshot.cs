@@ -14,36 +14,34 @@ namespace UserSettings.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
 
-            modelBuilder.Entity("UserSettings.Data.DbModels.AccountDb", b =>
+            modelBuilder.Entity("UserSettings.Data.DbModels.NotificationDb", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Email");
+                    b.Property<bool>("IsLikeMyTicket");
 
-                    b.Property<string>("Password");
+                    b.Property<bool>("IsOtherNotification");
+
+                    b.Property<bool>("IsWantBuy");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Notifications");
                 });
 
-            modelBuilder.Entity("UserSettings.Data.DbModels.ProfileDb", b =>
+            modelBuilder.Entity("UserSettings.Data.DbModels.SettingsDb", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("FirstName");
 
                     b.Property<bool>("IsGetTicketInfo");
 
                     b.Property<bool>("IsPrivateAccount");
 
-                    b.Property<string>("LastName");
-
-                    b.Property<string>("MiddleName");
+                    b.Property<int?>("NotificationsId");
 
                     b.Property<string>("PreferAddress");
 
@@ -51,42 +49,44 @@ namespace UserSettings.Data.Migrations
 
                     b.Property<string>("PreferRegion");
 
+                    b.Property<string>("SettingsId");
+
                     b.Property<byte[]>("UserImage");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Profiles");
-                });
-
-            modelBuilder.Entity("UserSettings.Data.DbModels.SettingsDb", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("AccountId");
-
-                    b.Property<int?>("ProfileId");
-
-                    b.Property<string>("UserId");
+                    b.Property<int?>("VisibleInfoId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("NotificationsId");
 
-                    b.HasIndex("ProfileId");
+                    b.HasIndex("VisibleInfoId");
 
                     b.ToTable("Settings");
                 });
 
+            modelBuilder.Entity("UserSettings.Data.DbModels.VisibleInfoDb", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("VisibleAllPhones");
+
+                    b.Property<bool>("VisibleEmail");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VisibleInformations");
+                });
+
             modelBuilder.Entity("UserSettings.Data.DbModels.SettingsDb", b =>
                 {
-                    b.HasOne("UserSettings.Data.DbModels.AccountDb", "Account")
+                    b.HasOne("UserSettings.Data.DbModels.NotificationDb", "Notifications")
                         .WithMany()
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("NotificationsId");
 
-                    b.HasOne("UserSettings.Data.DbModels.ProfileDb", "Profile")
+                    b.HasOne("UserSettings.Data.DbModels.VisibleInfoDb", "VisibleInfo")
                         .WithMany()
-                        .HasForeignKey("ProfileId");
+                        .HasForeignKey("VisibleInfoId");
                 });
 #pragma warning restore 612, 618
         }

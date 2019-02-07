@@ -22,11 +22,11 @@ namespace AdminPanel.Logic.Generated.Logging.Models
         /// <summary>
         /// Initializes a new instance of the User class.
         /// </summary>
-        public User(string id = default(string), Account account = default(Account), Profile profile = default(Profile))
+        public User(int id, string userName = default(string), string fullName = default(string))
         {
             Id = id;
-            Account = account;
-            Profile = profile;
+            UserName = userName;
+            FullName = fullName;
             CustomInit();
         }
 
@@ -38,17 +38,17 @@ namespace AdminPanel.Logic.Generated.Logging.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "account")]
-        public Account Account { get; set; }
+        [JsonProperty(PropertyName = "userName")]
+        public string UserName { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "profile")]
-        public Profile Profile { get; set; }
+        [JsonProperty(PropertyName = "fullName")]
+        public string FullName { get; set; }
 
         /// <summary>
         /// Validate the object.
@@ -58,10 +58,7 @@ namespace AdminPanel.Logic.Generated.Logging.Models
         /// </exception>
         public virtual void Validate()
         {
-            if (Profile != null)
-            {
-                Profile.Validate();
-            }
+            //Nothing to validate
         }
     }
 }

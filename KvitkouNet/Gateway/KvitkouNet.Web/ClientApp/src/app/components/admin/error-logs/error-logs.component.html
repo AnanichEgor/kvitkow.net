@@ -1,0 +1,49 @@
+<main role="main">
+  <form [formGroup]="errorLogsFormGroup" (ngSubmit)="onSubmit()">
+    <label>
+      Начальная дата:
+      <input type="date" formControlName="dateFrom">
+    </label>
+    <label>
+      Конечная дата:
+      <input type="date" formControlName="dateTo">
+    </label>
+    <label>
+      Имя сервиса:
+      <input type="text" formControlName="serviceName">
+    </label>
+    <label>
+      Имя исключения:
+      <input type="text" formControlName="exceptionTypeName">
+    </label>
+
+    <label>
+      Сообщение:
+      <input type="text" formControlName="message">
+    </label>
+    <button type="submit">Submit</button>
+  </form>
+  <div class="album py-5 bg-light">
+    <table mdbTable>
+      <thead>
+        <tr>
+          <th *ngFor="let head of errorLogTableHeaders" scope="col">{{head}} </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr mdbTableCol *ngFor="let el of errorLogs">
+          <th scope="row">{{el.id}}</th>
+          <th>{{el.eventDate}}</th>
+          <th>{{el.serviceName}}</th>
+          <th>{{el.exceptionType}}</th>
+          <th>{{el.hResult}}</th>
+          <th>{{el.innerExceptionString}}</th>
+          <th>{{el.message}}</th>
+          <th>{{el.source}}</th>
+          <th>{{el.stackTrace}}</th>
+          <th>{{el.targetSiteName}}</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>

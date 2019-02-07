@@ -46,7 +46,17 @@ namespace AdminPanel.Logic.Generated.Logging
         /// </summary>
         public MyTitle Client { get; private set; }
 
+        /// <param name='ticketId'>
+        /// </param>
         /// <param name='ticketName'>
+        /// </param>
+        /// <param name='description'>
+        /// </param>
+        /// <param name='actionType'>
+        /// </param>
+        /// <param name='dateFrom'>
+        /// </param>
+        /// <param name='dateTo'>
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -63,7 +73,7 @@ namespace AdminPanel.Logic.Generated.Logging
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<object>> GetTicketActionLogsWithHttpMessagesAsync(string ticketName = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<object>> GetTicketActionLogsWithHttpMessagesAsync(string ticketId = default(string), string ticketName = default(string), string description = default(string), int actionType = default(int), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -72,7 +82,12 @@ namespace AdminPanel.Logic.Generated.Logging
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("ticketId", ticketId);
                 tracingParameters.Add("ticketName", ticketName);
+                tracingParameters.Add("description", description);
+                tracingParameters.Add("actionType", actionType);
+                tracingParameters.Add("dateFrom", dateFrom);
+                tracingParameters.Add("dateTo", dateTo);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetTicketActionLogs", tracingParameters);
             }
@@ -80,9 +95,26 @@ namespace AdminPanel.Logic.Generated.Logging
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/logs/tickets").ToString();
             List<string> _queryParameters = new List<string>();
+            if (ticketId != null)
+            {
+                _queryParameters.Add(string.Format("TicketId={0}", System.Uri.EscapeDataString(ticketId)));
+            }
             if (ticketName != null)
             {
                 _queryParameters.Add(string.Format("TicketName={0}", System.Uri.EscapeDataString(ticketName)));
+            }
+            if (description != null)
+            {
+                _queryParameters.Add(string.Format("Description={0}", System.Uri.EscapeDataString(description)));
+            }
+            _queryParameters.Add(string.Format("ActionType={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(actionType, Client.SerializationSettings).Trim('"'))));
+            if (dateFrom != null)
+            {
+                _queryParameters.Add(string.Format("DateFrom={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(dateFrom, Client.SerializationSettings).Trim('"'))));
+            }
+            if (dateTo != null)
+            {
+                _queryParameters.Add(string.Format("DateTo={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(dateTo, Client.SerializationSettings).Trim('"'))));
             }
             if (_queryParameters.Count > 0)
             {

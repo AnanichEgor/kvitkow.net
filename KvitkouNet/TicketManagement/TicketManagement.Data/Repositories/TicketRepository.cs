@@ -6,6 +6,7 @@ using TicketManagement.Data.Context;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Data.DbModels.DbEnums;
 using TicketManagement.Data.Extensions;
+using TicketManagement.Data.Factories;
 
 namespace TicketManagement.Data.Repositories
 {
@@ -17,9 +18,9 @@ namespace TicketManagement.Data.Repositories
         private readonly TicketContext _context;
         private readonly Page<Ticket> _page;
 
-        public TicketRepository(TicketContext context, Page<Ticket> page)
+        public TicketRepository(RepositoryContextFactory context, Page<Ticket> page)
         {
-            _context = context;
+            _context = context.CreateDbContext();
             _page = page;
         }
 
@@ -30,10 +31,27 @@ namespace TicketManagement.Data.Repositories
         /// <returns>Код ответа Create и добавленную модель</returns>
         public async Task<string> Add(Ticket ticket)
         {
+            //WARNING используется для замены стандартных значений swagerr'a
+            //(чтобы рукчками каждый раз не править)
+            //при связи с фронтом надо убрать 
             ticket.Id = null;
-            _context.Tickets.Add(ticket);
+            ticket.User.UserInfoId = null;
+            ticket.RespondedUsers = null;
+            //WARNING
+            var user = await _context.UserInfos.Include(info => info.UserTickets)
+                .FirstOrDefaultAsync(info => info.UserInfoId == ticket.User.UserInfoId);
+            if (user == null)
+            {
+                _context.Tickets.Add(ticket);
+                await _context.SaveChangesAsync();
+                return _context.Tickets.Last()
+                    .Id;
+            }
+
+            user.UserTickets.Add(ticket);
             await _context.SaveChangesAsync();
-            return _context.Tickets.Last().Id;
+            return _context.Tickets.Last()
+                .Id;
         }
 
         /// <summary>
@@ -42,12 +60,36 @@ namespace TicketManagement.Data.Repositories
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        public async Task Update(string id, Ticket ticket)
+        public async Task Update(string id,
+            Ticket ticket)
         {
-            var original = await _context.Tickets.FindAsync(id);
-            if (original == null) return;
-            await Delete(id);
-            _context.Tickets.Add(original.UpdateModel(ticket, id));
+            var origin = await _context.Tickets.Include(db => db.User)
+                .Include(db => db.LocationEvent)
+                .Include(db => db.SellerAdress)
+                .Include(db => db.RespondedUsers)
+                .SingleOrDefaultAsync(x => x.Id == id);
+
+            if (origin == null) return;
+
+            _context.Tickets.Remove(origin);
+            _context.Tickets.Add(ticket);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        ///     Добавление пользователя в "я пойду"
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task AddRespondedUsers(string id, UserInfo user)
+        {
+            user.UserInfoId = null;
+            var origin = await _context.Tickets
+                .Include(db => db.RespondedUsers)
+                .SingleOrDefaultAsync(x => x.Id == id);
+            if (origin == null) return;
+            origin.RespondedUsers.Add(user);
+            _context.Tickets.Update(origin);
             await _context.SaveChangesAsync();
         }
 
@@ -129,26 +171,47 @@ namespace TicketManagement.Data.Repositories
         }
 
         /// <summary>
-        ///     Получение всех билетов имеющихся в системе постранично
+        ///     Получение всех актуальных билетов имеющихся в системе постранично
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="pageSize"></param>
+        /// <param name="index">Номер текущей страницы</param>
+        /// <param name="pageSize">Количество тикетов на страницу</param>
+        /// <param name="onlyActual">Только актуальные билеты</param>
         /// <returns></returns>
         public async Task<Page<Ticket>> GetAllPagebyPage(int index,
-            int pageSize)
+            int pageSize,
+            bool onlyActual = false)
         {
             _page.CurrentPage = index;
             _page.PageSize = pageSize;
             var query = _context.Tickets.AsQueryable();
-            _page.TotalPages = await query.CountAsync();
-            _page.Tickets = await query.Include(db => db.User)
-                .Include(db => db.LocationEvent)
-                .Include(db => db.SellerAdress)
-                .Include(db => db.RespondedUsers)
-                .OrderByDescending(p => p.CreatedDate)
-                .Skip(index * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
+            if (onlyActual)
+            {
+                _page.Tickets = await query.Include(db => db.User)
+                    .Include(db => db.LocationEvent)
+                    .Include(db => db.SellerAdress)
+                    .Include(db => db.RespondedUsers)
+                    .Where(x => x.Status == (TicketStatusDb) 2)
+                    .OrderByDescending(p => p.CreatedDate)
+                    .Skip(index * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                _page.TotalPages = await query.Where(x => x.Status == (TicketStatusDb) 2)
+                                       .CountAsync() /
+                                   pageSize;
+            }
+            else
+            {
+                _page.Tickets = await query.Include(db => db.User)
+                    .Include(db => db.LocationEvent)
+                    .Include(db => db.SellerAdress)
+                    .Include(db => db.RespondedUsers)
+                    .OrderByDescending(p => p.CreatedDate)
+                    .Skip(index * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                _page.TotalPages = await query.CountAsync() / pageSize;
+            }
+
             return _page;
         }
     }

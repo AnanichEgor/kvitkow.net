@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
-using UserSettings.Data.Context;
 using UserSettings.Logic.Models;
+using UserSettings.Logic.Models.Helper;
 using UserSettings.Logic.Services;
 using UserSettings.Web.Models;
 
@@ -16,7 +12,7 @@ namespace UserSettings.Web.Controllers
 {
 	[Route("api/settings")]
 	public class UserSettingsController : Controller
-    {
+	{
 		private IUserSettingsService _service;
 		public UserSettingsController(IUserSettingsService service)
 		{
@@ -28,34 +24,13 @@ namespace UserSettings.Web.Controllers
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		[HttpPut, Route("userinfo")]
+		[HttpPut, Route("{id}/userinfo")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> UpdateProfile([FromBody]Profile model)
+		public async Task<IActionResult> UpdateProfile([FromBody]ProfileDto model, [FromRoute] string id)
 		{
-			var result = await _service.UpdateProfile(model);
-
-			return (IActionResult)result;
-		}
-
-		// TODO перенести в валидацию
-		/// <summary>
-		/// Валидация данных пользователя. Некоторые поля должны быть обязательно заполнены 
-		/// </summary>
-		/// <param name="model"></param>
-		/// <returns></returns>
-		private IEnumerable<string> ValidateUserInfo(Profile model)
-		{
-			List<String> result = new List<string>();
-			if (string.IsNullOrEmpty(model.FirstName))
-			{
-				result.Add("First name cannot be null or empty");
-			}
-			if (string.IsNullOrEmpty(model.LastName))
-			{
-				result.Add("Last name cannot be null or empty");
-			}
-			return result;
+			ResultEnum result = await _service.UpdateProfile(id, model.FirstName, model.MiddleName, model.LastName, model.Birthday);
+			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
 		}
 
 		/// <summary>
@@ -63,42 +38,90 @@ namespace UserSettings.Web.Controllers
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		[HttpPut, Route("password")]
+		[HttpPut, Route("{id}/password")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangePassword([FromBody]PasswordDto model)
+		public async Task<IActionResult> UpdatePassword([FromBody]PasswordDto model, [FromRoute] string id)
 		{
-			var result = await _service.UpdatePassword(model.OldPassword, model.NewPassword, model.ConfirmPassword);
+			ResultEnum result = await _service.UpdatePassword(id, model.OldPassword, model.NewPassword, model.ConfirmPassword);
 
-			return (IActionResult)result;
+			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
 		}
 
 		/// <summary>
 		/// Запрос на изменение email
 		/// </summary>
-		/// <param name="model"></param>
-		/// <returns></returns>
-		[HttpPut, Route("email")]
-		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
-		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> ChangeEmail([FromBody]string email)
-		{
-			var result = await _service.UpdateEmail(email);
-
-			return (IActionResult)result;
-		}
-
-		//TODO Перенести в валидацию
-		/// <summary>
-		/// Валидация email
-		/// </summary>
 		/// <param name="email"></param>
 		/// <returns></returns>
-		private bool ValidateEmail(string email)
+		[HttpPut, Route("{id}/email")]
+		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
+		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+		public async Task<IActionResult> UpdateEmail([FromBody]string email, [FromRoute]string id)
 		{
-			string pattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
-			Match isMatch = Regex.Match(email, pattern, RegexOptions.IgnoreCase);
-			return isMatch.Success;
+
+			ResultEnum result = await _service.UpdateEmail(id, email);
+			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
+		}
+
+		/// <summary>
+		/// Запрос на изменение уведомлений
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
+		[HttpPut, Route("{id}/notifications")]
+		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
+		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+		public async Task<IActionResult> UpdateNotification([FromBody]Notifications notification, [FromRoute]string id)
+		{
+			ResultEnum result = await _service.UpdateNotifications(id, notification);
+			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
+		}
+
+		[HttpPut, Route("{id}/visible")]
+		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
+		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+		public async Task<IActionResult> UpdateVisibleInformation([FromBody]VisibleInfo visibleInfo, [FromRoute]string id)
+		{
+			ResultEnum result = await _service.UpdateVisible(id, visibleInfo);
+			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
+		}
+
+		[HttpPut, Route("{id}/phones")]
+		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
+		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+		public async Task<IActionResult> UpdatePhones()
+		{
+			ResultEnum result = await _service.UpdatePhones();
+			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
+		}
+
+		/// <summary>
+		/// Запрос на удаление аккаунта
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
+		[HttpPut, Route("{id}/delete")]
+		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
+		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+		public async Task<IActionResult> DeleteAccount([FromRoute] string id)
+		{
+			var result = await _service.DeleteAccount(id);
+			return result ? (IActionResult)Ok(result) : BadRequest();
+		}
+
+		/// <summary>
+		/// Получение данных профиля
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		[HttpGet("{id}")]
+		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Settings>), Description = "All Ok")]
+		[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
+		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+		public async Task<IActionResult> Get([FromRoute] string id)
+		{
+			var result = await _service.Get(id);
+			return Ok(result);
 		}
 	}
 }

@@ -18,11 +18,6 @@ namespace UserManagement.Data.DbModels
         public string FirstName { get; set; }
 
         /// <summary>
-        /// Отчество пользователя
-        /// </summary>
-        public string MiddleName { get; set; }
-
-        /// <summary>
         /// Фамилия пользователя
         /// </summary>
         public string LastName { get; set; }
@@ -69,24 +64,24 @@ namespace UserManagement.Data.DbModels
         /// <summary>
         /// Пользователь
         /// </summary>
-        public UserDB UserDB { get; set; }
+        public virtual UserDB UserDB { get; set; }
 
         public string UserDBId { get; set; }
 
         /// <summary>
         /// Настройки пользователя
         /// </summary>
-        public ProfileSettings ProfileSettings { get; set; }
+        public virtual ProfileSettings ProfileSettings { get; set; }
 
         /// <summary>
         /// Список адресов пользователя 
         /// </summary>
-        public ICollection<AddressDB> Addresses { get; set; }
+        public virtual ICollection<AddressDB> Addresses { get; set; }
 
         /// <summary>
         /// Список телефонов пользователя
         /// </summary>
-        public ICollection<PhoneNumberDB> PhoneNumbers { get; set; }
+        public virtual ICollection<PhoneNumberDB> PhoneNumbers { get; set; }
         #endregion
     }
 }

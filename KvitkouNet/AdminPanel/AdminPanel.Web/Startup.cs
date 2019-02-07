@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
 using AdminPanel.Web.Extensions;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace AdminPanel.Web
 {
@@ -25,11 +23,22 @@ namespace AdminPanel.Web
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			var assemblyNamesToScan = Assembly
+				.GetEntryAssembly()
+				.GetReferencedAssemblies()
+				.Where(an => an.FullName.StartsWith("AdminPanel", StringComparison.OrdinalIgnoreCase))
+				.Select(an => an.FullName);
+
+			services.AddAutoMapper(cfg => cfg.AddProfiles(assemblyNamesToScan));
+
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 			services.AddSwaggerDocument();
 
 			services.RegisterUserService();
+			services.RegisterLoggingServices();
+			services.RegisterFilters();
+			services.RegisterEasyNetQ("host=rabbit");
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -46,7 +46,21 @@ namespace AdminPanel.Logic.Generated.Logging
         /// </summary>
         public MyTitle Client { get; private set; }
 
-        /// <param name='ticketName'>
+        /// <param name='ticketId'>
+        /// </param>
+        /// <param name='ownerId'>
+        /// </param>
+        /// <param name='recieverId'>
+        /// </param>
+        /// <param name='minPrice'>
+        /// </param>
+        /// <param name='maxPrice'>
+        /// </param>
+        /// <param name='type'>
+        /// </param>
+        /// <param name='dateFrom'>
+        /// </param>
+        /// <param name='dateTo'>
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -63,7 +77,7 @@ namespace AdminPanel.Logic.Generated.Logging
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<object>> GetTicketDealLogsWithHttpMessagesAsync(string ticketName = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<object>> GetTicketDealLogsWithHttpMessagesAsync(string ticketId = default(string), string ownerId = default(string), string recieverId = default(string), double? minPrice = default(double?), double? maxPrice = default(double?), int type = default(int), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -72,7 +86,14 @@ namespace AdminPanel.Logic.Generated.Logging
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("ticketName", ticketName);
+                tracingParameters.Add("ticketId", ticketId);
+                tracingParameters.Add("ownerId", ownerId);
+                tracingParameters.Add("recieverId", recieverId);
+                tracingParameters.Add("minPrice", minPrice);
+                tracingParameters.Add("maxPrice", maxPrice);
+                tracingParameters.Add("type", type);
+                tracingParameters.Add("dateFrom", dateFrom);
+                tracingParameters.Add("dateTo", dateTo);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetTicketDealLogs", tracingParameters);
             }
@@ -80,9 +101,34 @@ namespace AdminPanel.Logic.Generated.Logging
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/logs/deals").ToString();
             List<string> _queryParameters = new List<string>();
-            if (ticketName != null)
+            if (ticketId != null)
             {
-                _queryParameters.Add(string.Format("TicketName={0}", System.Uri.EscapeDataString(ticketName)));
+                _queryParameters.Add(string.Format("TicketId={0}", System.Uri.EscapeDataString(ticketId)));
+            }
+            if (ownerId != null)
+            {
+                _queryParameters.Add(string.Format("OwnerId={0}", System.Uri.EscapeDataString(ownerId)));
+            }
+            if (recieverId != null)
+            {
+                _queryParameters.Add(string.Format("RecieverId={0}", System.Uri.EscapeDataString(recieverId)));
+            }
+            if (minPrice != null)
+            {
+                _queryParameters.Add(string.Format("MinPrice={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(minPrice, Client.SerializationSettings).Trim('"'))));
+            }
+            if (maxPrice != null)
+            {
+                _queryParameters.Add(string.Format("MaxPrice={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(maxPrice, Client.SerializationSettings).Trim('"'))));
+            }
+            _queryParameters.Add(string.Format("Type={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(type, Client.SerializationSettings).Trim('"'))));
+            if (dateFrom != null)
+            {
+                _queryParameters.Add(string.Format("DateFrom={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(dateFrom, Client.SerializationSettings).Trim('"'))));
+            }
+            if (dateTo != null)
+            {
+                _queryParameters.Add(string.Format("DateTo={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(dateTo, Client.SerializationSettings).Trim('"'))));
             }
             if (_queryParameters.Count > 0)
             {
