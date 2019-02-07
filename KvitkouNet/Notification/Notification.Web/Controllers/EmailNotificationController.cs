@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using NSwag.Annotations;
 using Notification.Logic.Models;
-using Notification.Logic.Models.Requests;
 using Notification.Logic.Services;
-using Notification.Web.Configs;
+using Notification.Logic.Configs;
+using Microsoft.Extensions.Options;
+using EasyNetQ;
+using KvitkouNet.Messages.Notification;
 
 namespace Notification.Web.Controllers
 {
@@ -18,29 +17,16 @@ namespace Notification.Web.Controllers
     public class EmailNotificationController : ControllerBase
     {
 		private IEmailNotificationService m_emailService;
-		private IConfiguration m_config;
-
-		public EmailNotificationController(IEmailNotificationService emailService, IConfiguration config)
+        private IBus m_bus;
+        private SenderConfig m_config;
+        
+		public EmailNotificationController(IEmailNotificationService emailService, IBus bus, IOptionsMonitor<SenderConfig> config)
 		{
 			m_emailService = emailService;
-			m_config = config;
+            m_bus = bus;
+            m_config = config.CurrentValue;            
 		}
-
-		/// <summary>
-		/// Отправляет сообщение для подтверждения регистрации
-		/// </summary>
-		/// <param name="userName">Имя пользователя</param>
-		/// <param name="email">Почта пользователя</param>
-		/// <param name="url">Ссылка на подтверждение</param>
-		[HttpPost, Route("registration")]
-		[SwaggerResponse(HttpStatusCode.OK, typeof(NoContentResult))]
-		public async Task<IActionResult> SendRegistrationNotification([FromQuery] string userName, [FromQuery] string email, [FromBody] string url)
-		{
-			
-
-			return NoContent();
-		}
-
+			   
 		/// <summary>
 		/// Получить все email уведомления
 		/// </summary>
@@ -65,46 +51,18 @@ namespace Notification.Web.Controllers
 		}
 
 		/// <summary>
-		/// Отправить email уведомление для пользователя
+		/// Подтвержение регистрации
 		/// </summary>
-		/// <param name="id">ИД пользователя</param>
-		/// <param name="senderId">ИД пользователя, отправляющего соообщение</param>
-		/// <param name="messsage">Сообщение уведомления</param>
-		[HttpPost, Route("users/{id}")]
+		/// <param name="userName">Имя пользователя</param>
+		[HttpPost, Route("registration/confirmation")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(NoContentResult))]
-		public async Task<IActionResult> SendEmailNotification([FromRoute] string id, [FromQuery] string senderId, [FromBody] NotificationMessage messsage)
+		public async Task<IActionResult> ConfirmRegistration([FromBody] string userName)
 		{
-			await m_emailService.SendEmailNotifications(senderId, new UserNotificationBulkRequest
-			{
-				UserIds = new string[] { id },
-				Message = messsage
-			});
-			return NoContent();
-		}
-
-		/// <summary>
-		/// Отправить email уведомление для пользователей
-		/// </summary>
-		/// <param name="senderId">ИД пользователя, отправляющего соообщение</param>
-		/// <param name="request">Массовый запрос для пользователей</param>
-		[HttpPost, Route("users/ids")]
-		[SwaggerResponse(HttpStatusCode.OK, typeof(NoContentResult))]
-		public async Task<IActionResult> SendEmailNotifications([FromQuery] string senderId, [FromBody] UserNotificationBulkRequest request)
-		{
-			await m_emailService.SendEmailNotifications(senderId, request);
-			return NoContent();
-		}
-
-		/// <summary>
-		/// Отправить email уведомление всем пользователям
-		/// </summary>
-		/// <param name="senderId">ИД пользователя, отправляющего соообщение</param>
-		/// <param name="messsage">Сообщение уведомления</param>
-		[HttpPost, Route("users")]
-		[SwaggerResponse(HttpStatusCode.OK, typeof(NoContentResult))]
-		public async Task<IActionResult> SendEmailNotificationForAllUsers([FromQuery] string senderId, [FromBody] NotificationMessage messsage)
-		{
-			await m_emailService.SendEmailNotificationForAllUsers(senderId, messsage);
+			await m_emailService.ConfirmRegistration(userName);
+            m_bus.Publish<ConfirmRegistrationMessage>(new ConfirmRegistrationMessage
+            {
+                Name = userName
+            });
 			return NoContent();
 		}
 	}

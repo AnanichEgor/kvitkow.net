@@ -34,8 +34,7 @@ namespace Notification.Web.Controllers
 		[HttpGet, Route("all")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<UserNotification>), Description = "All OK")]
 		public async Task<IActionResult> GetAll()
-		{
-			
+		{			
 			return Ok(await m_service.GetAll());
 		}
 
