@@ -88,7 +88,7 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "api/admin/users",
+      "DownstreamPathTemplate": "/api/admin/users",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -96,7 +96,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "admin/users",
+      "UpstreamPathTemplate": "/admin/users",
       "UpstreamHttpMethod": [ "Get" ]
     }
   ]
