@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using AutoMapper;
 using EasyNetQ;
 using EasyNetQ.AutoSubscribe;
 using Castle.Windsor;
 using Castle.MicroKernel.Registration;
 using Notification.Logic.Services;
-using Notification.Logic.Services.EmailNotificationService;
+using Notification.Logic.Services.Interfaces;
 
 namespace Notification.Web.Subscriber
 {
@@ -17,30 +18,47 @@ namespace Notification.Web.Subscriber
 		public static IApplicationBuilder UseSubscriber(this IApplicationBuilder app, string prefix, 
 			params Assembly[] assembly) 
 		{
-			var services = app.ApplicationServices.CreateScope().ServiceProvider;
+            var services = app.ApplicationServices.CreateScope().ServiceProvider;
 
-			var lifetime = services.GetService<IApplicationLifetime>();
-			var bus = services.GetService<IBus>();			
+            var lifetime = services.GetService<IApplicationLifetime>();
+            var bus = services.GetService<IBus>();
 
-			var container = new WindsorContainer();
-			container.Register(
-					Component.For<RegistrationNotificationMessageConsumer>().ImplementedBy<RegistrationNotificationMessageConsumer>(),
-					Component.For<IEmailNotificationService>().ImplementedBy<EmailNotificationService>(),
-					Component.For<IConfiguration>().Instance(services.GetService<IConfiguration>()));
+            var container = new WindsorContainer();
+            container.Register(
+                    //Потребители
+                    Component.For<RegistrationNotificationMessageConsumer>().ImplementedBy<RegistrationNotificationMessageConsumer>(),
 
-			lifetime.ApplicationStarted.Register(() =>
-			{
-				var subscriber = new AutoSubscriber(bus, prefix)
-				{
-					AutoSubscriberMessageDispatcher = new WindsorMessageDispatcher(container)
-				};
-				subscriber.Subscribe(assembly);
-				subscriber.SubscribeAsync(assembly);
-			});
+                    //Маппер
+                    Component.For<IMapper>().Instance(services.GetService<IMapper>()),
 
-			lifetime.ApplicationStopped.Register(() => bus.Dispose());
+                    //Сервисы
+                    Component.For<INotificationService>().Instance(services.GetService<INotificationService>()),
+                    Component.For<IEmailNotificationService>().Instance(services.GetService<IEmailNotificationService>()),
+                    Component.For<ISubscriptionService>().Instance(services.GetService<ISubscriptionService>()),
 
-			return app;
+                    //Потребители
+                    Component.For<RegistrationNotificationMessageConsumer>().ImplementedBy<RegistrationNotificationMessageConsumer>(),
+                    Component.For<SubscribersNotificationMessageConsumer>().ImplementedBy<SubscribersNotificationMessageConsumer>(),
+                    Component.For<UserNotificationMessageConsumer>().ImplementedBy<UserNotificationMessageConsumer>(),
+                    Component.For<UserSubscriptionMessageConsumer>().ImplementedBy<UserSubscriptionMessageConsumer>(),
+                    Component.For<UserUnsubscriptionMessageConsumer>().ImplementedBy<UserUnsubscriptionMessageConsumer>(),
+
+                    //Конфиг
+                    Component.For<IConfiguration>().Instance(services.GetService<IConfiguration>()));
+
+            lifetime.ApplicationStarted.Register(() =>
+            {
+                var subscriber = new AutoSubscriber(bus, prefix)
+                {
+                    AutoSubscriberMessageDispatcher = new WindsorMessageDispatcher(container)
+                };
+                subscriber.Subscribe(assembly);
+                subscriber.SubscribeAsync(assembly);
+            });
+
+            lifetime.ApplicationStopped.Register(() => bus.Dispose());
+
+            return app;
 		}
 	}
 }

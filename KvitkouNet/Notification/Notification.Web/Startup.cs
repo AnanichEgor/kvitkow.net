@@ -9,6 +9,8 @@ using EasyNetQ;
 using Notification.Logic;
 using Notification.Logic.MappingProfiles;
 using Notification.Web.Subscriber;
+using Notification.Logic.Configs;
+using Notification.Web.MappingProfiles;
 
 namespace Notification.Web
 {
@@ -28,19 +30,24 @@ namespace Notification.Web
 			{
 				cfg.AddProfile<NotificationMessageProfile>();
 				cfg.AddProfile<UserNotificationProfile>();
-				cfg.AddProfile<EmailNotificationProfile>();				
+				cfg.AddProfile<EmailNotificationProfile>();
+                cfg.AddProfile<Logic.MappingProfiles.SubscriptionProfile>();
+                cfg.AddProfile<Logic.MappingProfiles.SeverityProfile>();
+                cfg.AddProfile<Web.MappingProfiles.SeverityProfile>();
 			});
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddSwaggerDocument();
 
+			services.Configure<SenderConfig>(Configuration.GetSection("SenderConfig"));
 			services.RegisterNotificationContext();
 			services.RegisterNotificationService();
 			services.RegisterEmailNotificationService();
 			services.RegisterEmailSenderService();
+            services.RegisterSubscriptionService();
 
-			services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=rabbit"));
+            services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=rabbit"));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
