@@ -55,6 +55,6 @@ namespace Chat.Logic.Services
         /// Удаление сообщения
         /// </summary>
         /// <returns></returns>
-        Task DeleteMessage(string roomId, string messageId);
+        Task DeleteMessage(string messageId);
     }
 }
