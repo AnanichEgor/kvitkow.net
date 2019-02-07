@@ -8,6 +8,7 @@ services:
       dockerfile: KvitkouNet.Web/Dockerfile
     depends_on:
       - adminpanel.web
+      - search.web
     ports:
       - 5001:80
       - 5002:443

@@ -86,7 +86,55 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/deals",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": ["Get"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/search/tickets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "search.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/search/tickets",
+      "UpstreamHttpMethod": ["Get"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/search/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "search.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/search/users",
+      "UpstreamHttpMethod": ["Get"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/history/tickets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "search.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/history/tickets",
+      "UpstreamHttpMethod": ["Get"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/history/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "search.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/history/users",
+      "UpstreamHttpMethod": ["Get"]
     }
   ]
 }
