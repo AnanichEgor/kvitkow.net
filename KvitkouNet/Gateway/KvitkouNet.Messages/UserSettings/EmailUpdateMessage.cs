@@ -6,9 +6,10 @@ namespace KvitkouNet.Messages.UserSettings
 {
 	public class EmailUpdateMessage
 	{
-		/// <summary>
-		/// Электронный адрес пользователя
-		/// </summary>
-		public string Email { get; set; }
+        public string Id { get; set; }
+                                           /// <summary>
+                                           /// Электронный адрес пользователя
+                                           /// </summary>
+        public string Email { get; set; }
 	}
 }

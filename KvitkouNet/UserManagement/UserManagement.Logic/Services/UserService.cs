@@ -23,11 +23,12 @@ namespace UserManagement.Logic.Services
         private readonly IMapper _mapper;
         private readonly IValidator<UserRegisterModel> _validator;
         private readonly IUnitOfWork _unitOfWork;
-        //private readonly UserContext _context;
+        private readonly UserContext _context;
         private readonly IBus _bus;
 
-        public UserService(IMapper mapper, IValidator<UserRegisterModel> validator, IUnitOfWork unitOfWork, IBus bus)
+        public UserService(IMapper mapper, IValidator<UserRegisterModel> validator, IUnitOfWork unitOfWork, IBus bus, UserContext context)
         {
+            _context = context;
             _mapper = mapper;
             _validator = validator;
             _unitOfWork = unitOfWork;
@@ -124,9 +125,11 @@ namespace UserManagement.Logic.Services
 
         public async Task<string> UpdateEmail(EmailUpdateMessage emailUpdateMessage)
         {
+            var findUser = _unitOfWork.Users.FindAsync(x => x.Id == emailUpdateMessage.Id).Result.FirstOrDefault();
             //var findAcc = _unitOfWork.Accounts.FindAsync(x => x.Email == emailUpdateMessage.Email).Result.FirstOrDefault();
-            //if (findAcc == null) return "Not Found";
-            //await _context.Accounts;
+            if (findUser == null) return "Not Found";
+            findUser.AccountDB.Email = emailUpdateMessage.Email;
+            await _context.SaveChangesAsync();
             return "Ok";
         }
 

@@ -3,10 +3,7 @@ using EasyNetQ.AutoSubscribe;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace UserManagement.Logic.Subscriber
 {
@@ -33,3 +30,4 @@ namespace UserManagement.Logic.Subscriber
         }
     }
 }
+
