@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\KvitkouNet.Messages\KvitkouNet.Messages.csproj" />
     <ProjectReference Include="..\Notification.Logic\Notification.Logic.csproj" />
   </ItemGroup>
 
