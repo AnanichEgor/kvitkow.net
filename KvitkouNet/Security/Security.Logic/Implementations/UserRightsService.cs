@@ -57,7 +57,48 @@ namespace Security.Logic.Implementations
         }
 
         #endregion
-        
+
+        public async Task<UserInfoResponse> GetUsersInfo(int itemsPerPage, int pageNumber, string mask = null)
+        {
+            try
+            {
+                if (itemsPerPage < 1 || pageNumber < 1 || int.MaxValue / itemsPerPage < pageNumber || mask?.Trim().Length > 100)
+                {
+                    return new UserInfoResponse
+                    {
+                        Status = ActionStatus.Warning,
+                        Message = "BadRequest"
+                    };
+                }
+
+                var userInfo = await _securityContext.GetUsers(itemsPerPage, pageNumber, mask?.Trim() ?? "");
+
+                return new UserInfoResponse
+                {
+                    UsersInfo = _mapper.Map<UserInfo[]>(userInfo.UsersInfo),
+                    TotalCount = userInfo.TotalCount,
+                    Status = ActionStatus.Success
+                };
+            }
+            catch (SecurityDbException e)
+            {
+                return new UserInfoResponse
+                {
+                    Status = ActionStatus.Warning,
+                    Message = PrettyExceptionHelper.GetMessage(e)
+                };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new UserInfoResponse
+                {
+                    Status = ActionStatus.Error,
+                    Message = "Something went wrong!"
+                };
+            }
+        }
+
         public async Task<UserRightsResponse> GetUserRights(string userId)
         {
             try

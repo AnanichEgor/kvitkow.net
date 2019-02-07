@@ -1,5 +1,5 @@
-import { Rights } from './../../../services/security/operations/rights';
-import { Security } from './../../../services/security/security';
+import { RightsService } from './../../../services/security/rights.service';
+import { AccessRight } from './../../../models/security/accessRight';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -10,7 +10,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RightsComponent implements OnInit {
   rightsForm: FormGroup;
-  constructor(private service: Security, private formBuilder: FormBuilder) {
+  rights: AccessRight[];
+  errorMessage: string;
+  constructor(private service: RightsService, private formBuilder: FormBuilder) {
 
    }
 
@@ -20,6 +22,9 @@ export class RightsComponent implements OnInit {
   });
   }
   onSearchRights() {
-    // this.service.rights.getRights(10, 1, this.rightsForm.get('rightName').value);
+
+    this.service.rightsGetRights(10, 1, this.rightsForm.get('rightName').value).subscribe(rights => {
+      this.errorMessage = rights.message;
+      this.rights = rights.accessRights; });
   }
 }

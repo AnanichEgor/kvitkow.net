@@ -13,7 +13,11 @@ import { FunctionsComponent } from './functions/functions.component';
 import { NewFunctionComponent } from './new-function/new-function.component';
 import { RolesComponent } from './roles/roles.component';
 import { NewRoleComponent } from './new-role/new-role.component';
-import { Security } from 'src/app/services/security/security';
+import { FeatureService } from 'src/app/services/security/feature.service';
+import { FunctionsService } from 'src/app/services/security/functions.service';
+import { RightsService } from 'src/app/services/security/rights.service';
+import { RoleService } from 'src/app/services/security/role.service';
+import { UserRightsService } from 'src/app/services/security/userRights.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,6 @@ import { Security } from 'src/app/services/security/security';
     ReactiveFormsModule,
     SecurityRoutingModule
   ],
-  providers: [Security],
+  providers: [FeatureService, FunctionsService, RightsService, RoleService, UserRightsService],
 })
 export class SecurityModule { }

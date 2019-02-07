@@ -68,21 +68,21 @@ namespace Tests
         public async Task Test1()
         {
             var right = await _data.GetRights(10, 1, "");
-            Assert.IsTrue(right.Count() == 3);
+            Assert.IsTrue(right.TotalCount == 3);
 
             var features = await _data.GetFeatures(10, 1, "");
-            Assert.IsTrue(features.Count() == 3);
-            Assert.IsTrue(features.SelectMany(l=>l.AvailableAccessRights).Count() == 5);
+            Assert.IsTrue(features.TotalCount == 3);
+            Assert.IsTrue(features.Features.SelectMany(l=>l.AvailableAccessRights).Count() == 5);
 
             var functions = await _data.GetFunctions(10, 1, "");
-            Assert.IsTrue(functions.Count() == 3);
-            Assert.IsTrue(functions.SelectMany(l => l.AccessRights).Count() == 5);
+            Assert.IsTrue(functions.TotalCount == 3);
+            Assert.IsTrue(functions.Functions.SelectMany(l => l.AccessRights).Count() == 5);
 
             var roles = await _data.GetRoles(10, 1, "");
-            Assert.IsTrue(roles.Count() == 3);
-            Assert.IsTrue(roles.SelectMany(l => l.AccessRights).Count() == 3);
-            Assert.IsTrue(roles.SelectMany(l => l.DeniedRights).Count() == 2);
-            Assert.IsTrue(roles.SelectMany(l => l.AccessFunctions).Count() == 2);
+            Assert.IsTrue(roles.TotalCount == 3);
+            Assert.IsTrue(roles.Roles.SelectMany(l => l.AccessRights).Count() == 3);
+            Assert.IsTrue(roles.Roles.SelectMany(l => l.DeniedRights).Count() == 2);
+            Assert.IsTrue(roles.Roles.SelectMany(l => l.AccessFunctions).Count() == 2);
 
             var userRights = await _data.GetUserRights("1");
             Assert.IsTrue(userRights.AccessRights.Count() == 1);

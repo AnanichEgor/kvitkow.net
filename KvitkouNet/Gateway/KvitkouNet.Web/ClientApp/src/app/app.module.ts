@@ -30,7 +30,6 @@ import { SearchTicketComponent } from './components/search-ticket/search-ticket.
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
 import { SecurityModule } from './components/security/security.module';
-import { Security } from './services/security/security';
 
 @NgModule({
   declarations: [
