@@ -365,7 +365,9 @@ export class RoomService {
      * @param reportProgress flag to report request and response progress.
      */
     public roomSearchMessage(rid: string, template: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Message>>;
+    // tslint:disable-next-line:max-line-length
     public roomSearchMessage(rid: string, template: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Message>>>;
+    // tslint:disable-next-line:max-line-length
     public roomSearchMessage(rid: string, template: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Message>>>;
     public roomSearchMessage(rid: string, template: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
