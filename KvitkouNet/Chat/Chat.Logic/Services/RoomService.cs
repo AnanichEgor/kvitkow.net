@@ -89,9 +89,9 @@ namespace Chat.Logic.Services
             }
         }
 
-        public async Task DeleteMessage(string roomId, string messageId)
+        public async Task DeleteMessage(string messageId)
         {
-            var modelDb = await _context.Messages.SingleOrDefaultAsync(x => x.Id == messageId && x.RoomId == roomId);
+            var modelDb = await _context.Messages.SingleOrDefaultAsync(x => x.Id == messageId);
             _context.Messages.Remove(modelDb);
             await _context.SaveChangesAsync();
         }
