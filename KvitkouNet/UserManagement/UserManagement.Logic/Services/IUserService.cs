@@ -1,3 +1,4 @@
+using KvitkouNet.Messages.UserSettings;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -41,7 +42,7 @@ namespace UserManagement.Logic.Services
         Task<ForViewModel> GetByLogin(string login);
 
         /// <summary>
-        /// Обновление пользователя по логину
+        /// Обновление пользователя по id
         /// </summary>
         /// <param name="id"></param>
         /// <param name="userModel"></param>
@@ -49,7 +50,14 @@ namespace UserManagement.Logic.Services
         Task<string> Update(string id, ForUpdateModel userModel);
 
         /// <summary>
-        /// Удаление пользователя по логину
+        /// Обновление почтового адреса
+        /// </summary>
+        /// <param name="emailUpdateMessage"></param>
+        /// <returns></returns>
+        Task<string> UpdateEmail(EmailUpdateMessage emailUpdateMessage);
+
+        /// <summary>
+        /// Удаление пользователя по id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
