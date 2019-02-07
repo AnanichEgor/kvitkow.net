@@ -25,6 +25,20 @@ namespace Notification.Logic.Services
 		Task<IEnumerable<EmailNotification>> GetEmailNotifications(string userId);
 
 		/// <summary>
+		/// Отправить email уведомление для пользователей
+		/// </summary>
+		/// <param name="request">Массовая отправка сообщений пользователям</param>
+		/// <returns></returns>
+		Task SendEmailNotifications(UserNotificationBulkRequest request);
+
+		/// <summary>
+		/// Отправить email уведомление всем пользователям
+		/// </summary>
+		/// <param name="messsage">Cообщения уведомления</param> //перепилить в общую папку
+		/// <returns></returns>
+		Task SendEmailNotificationForAllUsers(NotificationMessage messsage);
+
+		/// <summary>
 		/// Отправляет сообщение для подтверждения регистрации
 		/// </summary>
 		/// <param name="sendEmailRequest">Запрос на отправку сообщения</param>
@@ -32,19 +46,10 @@ namespace Notification.Logic.Services
 		Task SendRegistrationNotification(SendEmailRequest sendEmailRequest);
 
 		/// <summary>
-		/// Отправить email уведомление для пользователей
+		/// Подтверждение регистрации
 		/// </summary>
-		/// <param name="senderId">ИД пользователя, отправляющего соообщение</param>
-		/// <param name="request">Массовая отправка сообщений пользователям</param>
+		/// <param name="userName">Имя пользователя</param>
 		/// <returns></returns>
-		Task SendEmailNotifications(string senderId, UserNotificationBulkRequest request);
-
-		/// <summary>
-		/// Отправить email уведомление всем пользователям
-		/// </summary>
-		/// <param name="senderId">ИД пользователя, отправляющего соообщение</param>
-		/// <param name="messsage">Сообщение уведомления</param>
-		/// <returns></returns>
-		Task SendEmailNotificationForAllUsers(string senderId, NotificationMessage messsage);
+		Task ConfirmRegistration(string userName);
 	}
 }
