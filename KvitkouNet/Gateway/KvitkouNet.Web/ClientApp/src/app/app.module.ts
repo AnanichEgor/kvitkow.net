@@ -1,3 +1,5 @@
+import { RoomService } from './services/chat/room.service';
+import { ChatService } from './services/chat/chat.service';
 import { UsersService } from './services/users.service';
 import { EditGuard } from './services/editGuard';
 import { GetallticketsService } from './services/getalltickets.service';
@@ -31,6 +33,7 @@ import { SearchUserComponent } from './components/search-user/search-user.compon
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,8 @@ import { SearchUserResultsComponent } from './components/search-user-results/sea
     SearchUserComponent,
     SearchTicketComponent,
     SearchTicketResultsComponent,
-    SearchUserResultsComponent
+    SearchUserResultsComponent,
+    UserSettingsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -65,7 +69,7 @@ import { SearchUserResultsComponent } from './components/search-user-results/sea
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, AppRoutingModule],
+  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, ChatService, RoomService, AppRoutingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
