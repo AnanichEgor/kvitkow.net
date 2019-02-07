@@ -1,3 +1,5 @@
+import { RoomService } from './services/chat/room.service';
+import { ChatService } from './services/chat/chat.service';
 import { UsersService } from './services/users.service';
 import { EditGuard } from './services/editGuard';
 import { GetallticketsService } from './services/getalltickets.service';
@@ -67,7 +69,7 @@ import { UserSettingsComponent } from './components/user-settings/user-settings.
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, AppRoutingModule],
+  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, ChatService, RoomService, AppRoutingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
