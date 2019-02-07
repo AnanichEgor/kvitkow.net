@@ -7,9 +7,7 @@ namespace KvitkouNet.Messages.UserManagement
 	/// <summary>
 	/// Сообщение для регистрации пользователя
 	/// </summary>
-	/// <remarks>
-	/// SubscriptionId = "RegistrationMessage"
-	/// </remarks>
+	/// <remarks>Сообщение RegistrationMessage</remarks>
 	public class RegistrationMessage
 	{
 		/// <summary>

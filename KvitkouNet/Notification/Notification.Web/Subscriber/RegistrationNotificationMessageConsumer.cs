@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using EasyNetQ.AutoSubscribe;
-using Notification.Web.Configs;
+using KvitkouNet.Messages.UserManagement;
 using Notification.Logic.Models.Requests;
 using Notification.Logic.Services;
-using KvitkouNet.Messages.UserManagement;
+using Notification.Logic.Configs;
 
 namespace Notification.Web.Subscriber
 {
@@ -29,9 +29,6 @@ namespace Notification.Web.Subscriber
 				ReceiverName = message.Email,
 				Subject = "Подтверждение регистрации",
 				Text = $"Для подтверждения регистрации прейдите по ссылке {m_config[$"RegistrationUrl?userName={message.Name}"]}",
-				SenderName = senderConfig.Name,
-				SenderEmail = senderConfig.Email,
-				SenderPassword = senderConfig.Password
 			};
 
 			await m_service.SendRegistrationNotification(request);
