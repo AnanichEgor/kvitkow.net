@@ -18,12 +18,7 @@ namespace Logging.Web.Validators
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);
-
-            if (!context.ActionArguments.Any(a => a.Value != null && a.Value.GetType().IsClass))
-            {
-                return;
-            }
-
+            
             if (context.ActionArguments.Values.All(value => value == null))
             {
                 context.Result = new BadRequestResult();
