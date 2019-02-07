@@ -54,7 +54,7 @@ namespace Logging.Logic.Services
             if (!string.IsNullOrWhiteSpace(filter.TicketName))
                 exp = PredicateExtensions.And(exp, entry => entry.TicketName.ToLower().Contains(filter.TicketName.ToLower()));
 
-            if (!filter.ActionType.HasFlag(TicketActionType.Unknown))
+            if (filter.ActionType != TicketActionType.Unknown)
                 exp = PredicateExtensions.And(exp, entry => filter.ActionType.HasFlag((TicketActionType)entry.Type));
 
             if (!string.IsNullOrWhiteSpace(filter.Description))
