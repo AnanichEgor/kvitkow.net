@@ -5,6 +5,8 @@ using Notification.Data.Helpers;
 using Notification.Logic.Services.NotificationService;
 using Notification.Logic.Services.EmailNotificationService;
 using Notification.Logic.Services.EmailSenderService;
+using Notification.Logic.Services.Interfaces;
+using Notification.Logic.Services.SubscriptionService;
 
 namespace Notification.Logic
 {
@@ -17,9 +19,8 @@ namespace Notification.Logic
 		/// <returns></returns>
 		public static IServiceCollection RegisterNotificationService(this IServiceCollection services)
 		{
-			services.AddScoped<INotificationService, NotificationService>();
-			return services;
-		}
+			return services.AddScoped<INotificationService, NotificationService>();
+        }
 
 		/// <summary>
 		/// Регистрация IEmailNotificationService
@@ -28,9 +29,8 @@ namespace Notification.Logic
 		/// <returns></returns>
 		public static IServiceCollection RegisterEmailNotificationService(this IServiceCollection services)
 		{
-			services.AddScoped<IEmailNotificationService, EmailNotificationService>();
-			return services;
-		}
+			return services.AddScoped<IEmailNotificationService, EmailNotificationService>();
+        }
 
 		/// <summary>
 		/// Регистрация IEmailSenderService
@@ -39,9 +39,8 @@ namespace Notification.Logic
 		/// <returns></returns>
 		public static IServiceCollection RegisterEmailSenderService(this IServiceCollection services)
 		{
-			services.AddScoped<IEmailSenderService, EmailSenderService>();
-			return services;
-		}
+			return services.AddScoped<IEmailSenderService, EmailSenderService>();
+        }
 
 		/// <summary>
 		/// Регистрация NotificationContext
@@ -49,9 +48,18 @@ namespace Notification.Logic
 		/// <param name="services"></param>
 		/// <returns></returns>
 		public static IServiceCollection RegisterNotificationContext(this IServiceCollection services)
-		{
-			services.AddDbContext<NotificationContext>(new RegisterContextHelper().GetOptionsBuilder());
-			return services;
-		}
+		{			
+			return services.AddDbContext<NotificationContext>(new RegisterContextHelper().GetOptionsBuilder());
+        }
+
+        /// <summary>
+        /// Регистрация ISubscriptionService
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection RegisterSubscriptionService(this IServiceCollection services)
+        {
+            return services.AddScoped<ISubscriptionService, SubscriptionService>();
+        }
     }
 }

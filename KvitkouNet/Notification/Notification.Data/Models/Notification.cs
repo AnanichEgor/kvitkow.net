@@ -14,6 +14,11 @@ namespace Notification.Data.Models
 		public string Id { get; set; }
 
 		/// <summary>
+		/// Id пользователя
+		/// </summary>
+		public string UserId { get; set; }
+
+		/// <summary>
 		/// Получатель уведомления
 		/// </summary>
 		public User User { get; set; }
@@ -37,6 +42,11 @@ namespace Notification.Data.Models
 		/// Дата отправки
 		/// </summary>
 		public DateTime Date { get; set; }
+
+		/// <summary>
+		/// Id отправителя
+		/// </summary>
+		public string SenderId { get; set; }
 
 		/// <summary>
 		/// Отправитель уведомления

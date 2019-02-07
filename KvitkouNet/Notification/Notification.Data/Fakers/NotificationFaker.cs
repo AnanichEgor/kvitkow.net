@@ -16,7 +16,7 @@ namespace Notification.Data.Fakers
 
 			Faker<User> userFaker = new Faker<User>();
 			userFaker.RuleFor(x => x.Email, x => x.Internet.Email());
-			userFaker.RuleFor(x => x.FirstName, x => x.Name.FirstName());
+			userFaker.RuleFor(x => x.Name, x => x.Name.FirstName());
 
 			m_faker.RuleFor(x => x.User, x => userFaker);
 			m_faker.RuleFor(x => x.Title, x => x.Lorem.Sentence(10));

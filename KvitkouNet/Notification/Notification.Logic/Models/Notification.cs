@@ -13,11 +13,6 @@ namespace Notification.Logic.Models
 		public string NotificationId { get; set; }
 
 		/// <summary>
-		/// Получатель уведомления
-		/// </summary>
-		public string UserId { get; set; }
-
-		/// <summary>
 		/// Сообщение уведомления
 		/// </summary>
 		public NotificationMessage Message { get; set; }

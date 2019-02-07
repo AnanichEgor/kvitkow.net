@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Notification.Logic.Configs;
 using Notification.Logic.Models.Requests;
 
 namespace Notification.Logic.Services
@@ -12,6 +13,6 @@ namespace Notification.Logic.Services
 		/// Отправить сообщение
 		/// </summary>
 		/// <param name="request">Запрос на сообщение</param>
-		Task SendEmailAsync(SendEmailRequest request);
+		Task SendEmailAsync(SendEmailRequest request, SenderConfig senderConfig);
 	}
 }

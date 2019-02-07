@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Notification.Data\Notification.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Validators\" />
+  </ItemGroup>
+
 </Project>

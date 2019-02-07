@@ -10,8 +10,6 @@ namespace Notification.Logic.MappingProfiles
 			CreateMap<Logic.Models.UserNotification, Data.Models.Notification>()
 				.ForMember(data => data.Id,
 					opt => opt.MapFrom(logic => logic.NotificationId))
-				.ForPath(data => data.User.Id,
-					opt => opt.MapFrom(logic => logic.UserId))
 				.ForPath(data => data.Sender.Id,
 					opt => opt.Ignore())
 				.ForPath(data => data.Title,
@@ -23,8 +21,6 @@ namespace Notification.Logic.MappingProfiles
 				.ReverseMap()
 				.ForMember(logic => logic.NotificationId,
 					opt => opt.MapFrom(data => data.Id))
-				.ForPath(logic => logic.UserId,
-					opt => opt.MapFrom(data => data.User.Id))
 				.ForPath(logic => logic.Message.Title,
 					opt => opt.MapFrom(logic => logic.Title))
 				.ForPath(logic => logic.Message.Text,

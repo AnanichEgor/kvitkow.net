@@ -1,4 +1,4 @@
-﻿namespace Notification.Web.Configs
+﻿namespace Notification.Logic.Configs
 {
 	/// <summary>
 	/// Конфиг отправителя
@@ -6,14 +6,14 @@
 	public class SenderConfig
 	{
 		/// <summary>
+		/// Почта
+		/// </summary>
+		public string Email{ get; set; }
+
+		/// <summary>
 		/// Имя
 		/// </summary>
 		public string Name { get; set; }
-
-		/// <summary>
-		/// Почта
-		/// </summary>
-		public string Email { get; set; }
 
 		/// <summary>
 		/// Пароль
