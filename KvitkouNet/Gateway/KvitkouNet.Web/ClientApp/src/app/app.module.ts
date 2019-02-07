@@ -37,6 +37,7 @@ import { UserSettingsComponent } from './components/user-settings/user-settings.
 import { QueryLogsComponent } from './components/admin/query-logs/query-logs.component';
 import { TicketLogsComponent } from './components/admin/ticket-logs/ticket-logs.component';
 import { DealLogsComponent } from './components/admin/deal-logs/deal-logs.component';
+import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { DealLogsComponent } from './components/admin/deal-logs/deal-logs.compon
     UserSettingsComponent,
     QueryLogsComponent,
     TicketLogsComponent,
-    DealLogsComponent
+    DealLogsComponent,
+    AdminUserComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

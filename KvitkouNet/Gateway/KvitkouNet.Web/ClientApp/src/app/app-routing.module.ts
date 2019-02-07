@@ -24,6 +24,7 @@ import { UserSettingsComponent } from './components/user-settings/user-settings.
 import { QueryLogsComponent } from './components/admin/query-logs/query-logs.component';
 import { TicketLogsComponent } from './components/admin/ticket-logs/ticket-logs.component';
 import { DealLogsComponent } from './components/admin/deal-logs/deal-logs.component';
+import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -35,7 +36,8 @@ const routes: Routes = [
       { path: 'logs/payments', component: PaymentLogsComponent },
       { path: 'logs/queries', component: QueryLogsComponent },
       { path: 'logs/tickets', component: TicketLogsComponent },
-      { path: 'logs/deals', component: DealLogsComponent }
+      { path: 'logs/deals', component: DealLogsComponent },
+      { path: 'users', component: AdminUserComponent }
     ]},
   { path: 'tickets', component: TicketComponent,  pathMatch: 'full'  },
   { path: 'tickets/:id', component: TicketDetailComponent, pathMatch: 'full' },
