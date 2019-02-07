@@ -11,9 +11,9 @@ namespace AdminPanel.Web.Controllers
 	[Route("api/admin/users")]
 	public class UserController : Controller
 	{
-		private readonly IUserService _userService;
+		private readonly IUserServiceWrapper _userService;
 
-		public UserController(IUserService userService)
+		public UserController(IUserServiceWrapper userService)
 		{
 			_userService = userService;
 		}
