@@ -17,4 +17,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Logging.Data\Logging.Data.csproj" />
+    <ProjectReference Include="..\Logging.Logic\Logging.Logic.csproj" />
+  </ItemGroup>
+
 </Project>
