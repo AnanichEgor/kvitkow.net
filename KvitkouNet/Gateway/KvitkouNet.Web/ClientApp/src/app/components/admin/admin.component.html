@@ -1,25 +1,31 @@
 <main role="main">
-  <div class="album py-5 bg-light">
-  <table mdbTable>
-    <thead>
-      <tr>
-        <th *ngFor="let head of errorLogTableHeaders" scope="col">{{head}} </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr mdbTableCol *ngFor="let el of errorLogs">
-        <th scope="row">{{el.id}}</th>
-        <th>{{el.eventDate}}</th>
-        <th>{{el.serviceName}}</th>
-        <th>{{el.typeName}}</th>
-        <th>{{el.hResult}}</th>
-        <th>{{el.innerExceptionString}}</th>
-        <th>{{el.message}}</th>
-        <th>{{el.source}}</th>
-        <th>{{el.stackTrace}}</th>
-        <th>{{el.targetSiteName}}</th>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <div class="container">
+        <br/>
+        <br/>
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+                <a class="navbar-brand" [routerLink]="['/admin']" routerLinkActive="active">Админка</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+            <div class="collapse navbar-collapse" id="navbarsExample02">
+                <ul class="navbar-nav mr-auto">
+                    <select class="block-dropdown">
+                        <option value="volvo">Логи</option>
+                        <option value="saab">Аккаунты</option>  
+                        <option value="mercedes">Платежи</option>
+                      </select>  
+                    <li class="nav-item ">
+                        <a class="nav-link">Пользователи
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Статистика</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+ 
+        <router-outlet></router-outlet>
+    </div>
 </main>

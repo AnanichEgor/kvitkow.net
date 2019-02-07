@@ -11,6 +11,7 @@ using Search.Data;
 using Search.Data.Context;
 using Search.Logic;
 using Search.Logic.MappingProfiles;
+using Search.Web.Filters;
 using Search.Web.Subscriber;
 
 namespace Search.Web
@@ -29,6 +30,7 @@ namespace Search.Web
         {
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             string elasticSearchConnectionString = Configuration.GetConnectionString("ElasticSearchConnection");
+            string rabbitConnectionString = Configuration.GetConnectionString("RabbitConnection");
 
             services.AddDbContext<SearchContext>(
                 opt => opt.UseSqlite(connectionString: connectionString));
@@ -46,15 +48,17 @@ namespace Search.Web
                 cfg.AddProfile<SearchProfile>();
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(opt => opt.Filters.Add(typeof(ExceptionFilter)))
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSwaggerDocument(opt => opt.Title = "SearchService");
             services.RegisterElasticSearch(elasticSearchConnectionString);
             services.RegisterHistoryRepository();
             services.RegisterServices();
             services.RegisterConsumers();
-           
-            services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=localhost"));
+
+            services.AddSingleton<IBus>(RabbitHutch.CreateBus(rabbitConnectionString));
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +68,13 @@ namespace Search.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder =>
+                builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    //.WithOrigins("http://localhost:4200")
+                    .AllowAnyOrigin());
 
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();

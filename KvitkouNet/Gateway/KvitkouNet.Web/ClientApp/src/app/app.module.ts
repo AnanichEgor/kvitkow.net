@@ -1,3 +1,6 @@
+import { RoomService } from './services/chat/room.service';
+import { ChatService } from './services/chat/chat.service';
+import { UsersService } from './services/users.service';
 import { EditGuard } from './services/editGuard';
 import { GetallticketsService } from './services/getalltickets.service';
 import { GetTicketByIdService } from './services/get-ticket-by-id.service';
@@ -5,7 +8,6 @@ import { LogService } from './services/log.service';
 import { BrowserModule } from '@angular//platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -21,6 +23,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.component';
+import { AccountLogsComponent } from './components/admin/account-logs/account-logs.component';
+import { PaymentLogsComponent } from './components/admin/payment-logs/payment-logs.component';
+import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
+import { SecurityComponent } from './components/security/security.component';
+import { SecurityMenuComponent } from './components/security-menu/security-menu.component';
+import { SearchUserComponent } from './components/search-user/search-user.component';
+import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
+import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
+import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { QueryLogsComponent } from './components/admin/query-logs/query-logs.component';
+import { TicketLogsComponent } from './components/admin/ticket-logs/ticket-logs.component';
+import { DealLogsComponent } from './components/admin/deal-logs/deal-logs.component';
+import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +53,22 @@ import { ChatComponent } from './components/chat/chat.component';
     RegistrationComponent,
     TicketDetailComponent,
     TicketEditComponent,
-    ChatComponent
+    ChatComponent,
+    ErrorLogsComponent,
+    AccountLogsComponent,
+    PaymentLogsComponent,
+    AdminMainComponent,
+    SecurityComponent,
+    SecurityMenuComponent,
+    SearchUserComponent,
+    SearchTicketComponent,
+    SearchTicketResultsComponent,
+    SearchUserResultsComponent,
+    UserSettingsComponent,
+    QueryLogsComponent,
+    TicketLogsComponent,
+    DealLogsComponent,
+    AdminUserComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -45,7 +77,7 @@ import { ChatComponent } from './components/chat/chat.component';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, AppRoutingModule],
+  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, ChatService, RoomService, AppRoutingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
