@@ -4,12 +4,12 @@ import { NewFunctionComponent } from './new-function/new-function.component';
 import { FunctionsComponent } from './functions/functions.component';
 import { NewFeatureComponent } from './new-feature/new-feature.component';
 import { FeaturesComponent } from './features/features.component';
-import { SecurityMenuComponent } from './security-menu/security-menu.component';
 import { SecurityComponent } from './security.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NewRightComponent } from './new-right/new-right.component';
 import { RightsComponent } from './rights/rights.component';
+import { SecurityMenuComponent } from './security-menu/security-menu.component';
 
 const routes: Routes = [
       { path: 'security',
@@ -28,8 +28,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    SecurityComponent,
-    SecurityMenuComponent
+
 ],
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

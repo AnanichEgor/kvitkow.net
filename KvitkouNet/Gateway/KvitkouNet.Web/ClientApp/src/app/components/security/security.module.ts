@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SecurityMenuComponent } from './security-menu/security-menu.component';
-import { SecurityComponent } from './security.component';
 import { NewRightComponent } from './new-right/new-right.component';
 import { RightsComponent } from './rights/rights.component';
 
@@ -18,6 +17,7 @@ import { FunctionsService } from 'src/app/services/security/functions.service';
 import { RightsService } from 'src/app/services/security/rights.service';
 import { RoleService } from 'src/app/services/security/role.service';
 import { UserRightsService } from 'src/app/services/security/userRights.service';
+import { SecurityComponent } from './security.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,9 @@ import { UserRightsService } from 'src/app/services/security/userRights.service'
     FunctionsComponent,
     NewFunctionComponent,
     RolesComponent,
-    NewRoleComponent
+    NewRoleComponent,
+    SecurityComponent,
+    SecurityMenuComponent
   ],
   imports: [
     CommonModule,

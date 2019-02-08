@@ -18,10 +18,12 @@ import { CustomHttpUrlEncodingCodec } from './encoder';
 
 import { Observable } from 'rxjs';
 
+import { AccessResponse } from '../../models/security/accessResponse';
+import { ActionResponse } from '../../models/security/actionResponse';
 import { CheckAccessRequest } from '../../models/security/checkAccessRequest';
 import { EditUserRightsRequest } from '../../models/security/editUserRightsRequest';
-import { UserInfo } from '../../models/security/userInfo';
-import { UserRights } from '../../models/security/userRights';
+import { UserInfoResponse } from '../../models/security/userInfoResponse';
+import { UserRightsResponse } from '../../models/security/userRightsResponse';
 
 import { BASE_PATH, COLLECTION_FORMATS } from './variables';
 import { Configuration } from './configuration';
@@ -66,9 +68,9 @@ export class UserRightsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public userRightsCheckUserRights(accessRequest: CheckAccessRequest, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public userRightsCheckUserRights(accessRequest: CheckAccessRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public userRightsCheckUserRights(accessRequest: CheckAccessRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public userRightsCheckUserRights(accessRequest: CheckAccessRequest, observe?: 'body', reportProgress?: boolean): Observable<AccessResponse>;
+    public userRightsCheckUserRights(accessRequest: CheckAccessRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AccessResponse>>;
+    public userRightsCheckUserRights(accessRequest: CheckAccessRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AccessResponse>>;
     public userRightsCheckUserRights(accessRequest: CheckAccessRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (accessRequest === null || accessRequest === undefined) {
@@ -97,7 +99,7 @@ export class UserRightsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<boolean>(`${this.basePath}/api/security/rights/check`,
+        return this.httpClient.put<AccessResponse>(`${this.basePath}/api/security/rights/check`,
             accessRequest,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -115,9 +117,9 @@ export class UserRightsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public userRightsEditUserRights(request: EditUserRightsRequest, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public userRightsEditUserRights(request: EditUserRightsRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public userRightsEditUserRights(request: EditUserRightsRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public userRightsEditUserRights(request: EditUserRightsRequest, observe?: 'body', reportProgress?: boolean): Observable<ActionResponse>;
+    public userRightsEditUserRights(request: EditUserRightsRequest, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ActionResponse>>;
+    public userRightsEditUserRights(request: EditUserRightsRequest, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ActionResponse>>;
     public userRightsEditUserRights(request: EditUserRightsRequest, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (request === null || request === undefined) {
@@ -146,7 +148,7 @@ export class UserRightsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<boolean>(`${this.basePath}/api/security/rights/user`,
+        return this.httpClient.put<ActionResponse>(`${this.basePath}/api/security/rights/user`,
             request,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -164,9 +166,9 @@ export class UserRightsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public userRightsGetUserRights(id: string, observe?: 'body', reportProgress?: boolean): Observable<UserRights>;
-    public userRightsGetUserRights(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UserRights>>;
-    public userRightsGetUserRights(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UserRights>>;
+    public userRightsGetUserRights(id: string, observe?: 'body', reportProgress?: boolean): Observable<UserRightsResponse>;
+    public userRightsGetUserRights(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UserRightsResponse>>;
+    public userRightsGetUserRights(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UserRightsResponse>>;
     public userRightsGetUserRights(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
@@ -191,7 +193,7 @@ export class UserRightsService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<UserRights>(`${this.basePath}/api/security/rights/user/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<UserRightsResponse>(`${this.basePath}/api/security/rights/user/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -210,9 +212,9 @@ export class UserRightsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public userRightsGetUsers(perPage: number, page: number, mask?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<UserInfo>>;
-    public userRightsGetUsers(perPage: number, page: number, mask?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<UserInfo>>>;
-    public userRightsGetUsers(perPage: number, page: number, mask?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<UserInfo>>>;
+    public userRightsGetUsers(perPage: number, page: number, mask?: string, observe?: 'body', reportProgress?: boolean): Observable<UserInfoResponse>;
+    public userRightsGetUsers(perPage: number, page: number, mask?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UserInfoResponse>>;
+    public userRightsGetUsers(perPage: number, page: number, mask?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UserInfoResponse>>;
     public userRightsGetUsers(perPage: number, page: number, mask?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (perPage === null || perPage === undefined) {
@@ -247,7 +249,7 @@ export class UserRightsService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<Array<UserInfo>>(`${this.basePath}/api/security/users/${encodeURIComponent(String(perPage))}/${encodeURIComponent(String(page))}`,
+        return this.httpClient.get<UserInfoResponse>(`${this.basePath}/api/security/users/${encodeURIComponent(String(perPage))}/${encodeURIComponent(String(page))}`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

@@ -1,3 +1,5 @@
+import { SecurityRoutingModule } from './components/security/security-routing.module';
+import { SecurityMenuComponent } from './components/security/security-menu/security-menu.component';
 import { UsersService } from './services/users.service';
 import { EditGuard } from './services/editGuard';
 import { GetallticketsService } from './services/getalltickets.service';

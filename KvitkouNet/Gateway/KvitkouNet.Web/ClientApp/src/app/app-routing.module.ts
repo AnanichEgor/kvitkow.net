@@ -1,8 +1,3 @@
-import { SecurityMenuComponent } from './components/security/security-menu/security-menu.component';
-import { SecurityComponent } from './components/security/security.component';
-import { NewRightComponent } from './components/security/new-right/new-right.component';
-import { RightsComponent } from './components/security/rights/rights.component';
-import { ChatComponent } from './components/chat/chat.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
 import { SearchUserComponent } from './components/search-user/search-user.component';
