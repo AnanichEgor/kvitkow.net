@@ -7,6 +7,9 @@ using TicketManagement.Data.DbModels;
 
 namespace TicketManagement.Logic.Subscriber
 {
+    /// <summary>
+    ///     Класс для получения сообщений о обновлении пользователя из UserManager
+    /// </summary>
     public class UserUpdateMessageConsumer : IConsumeAsync<UserUpdatedMessage>
     {
         private readonly IMapper _mapper;

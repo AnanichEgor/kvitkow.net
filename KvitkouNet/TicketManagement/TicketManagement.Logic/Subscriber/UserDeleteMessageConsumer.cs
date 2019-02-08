@@ -7,6 +7,9 @@ using TicketManagement.Data.DbModels;
 
 namespace TicketManagement.Logic.Subscriber
 {
+    /// <summary>
+    ///     Класс для получения сообщений о удалении пользователя из UserManager
+    /// </summary>
     public class UserDeleteMessageConsumer : IConsumeAsync<UserDeletedMessage>
     {
         private readonly IMapper _mapper;
@@ -17,7 +20,6 @@ namespace TicketManagement.Logic.Subscriber
             _ticketContext = ticketContext;
             _mapper = mapper;
         }
-
 
         public async Task ConsumeAsync(UserDeletedMessage message)
         {

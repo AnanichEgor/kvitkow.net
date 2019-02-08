@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using EasyNetQ.AutoSubscribe;
-using KvitkouNet.Messages.UserManagement;
 using KvitkouNet.Messages.UserSettings;
 using TicketManagement.Data.Context;
 using TicketManagement.Data.DbModels;
 
 namespace TicketManagement.Logic.Subscriber
 {
-  public  class UserDeleteMessageConsumerFromSettings:IConsumeAsync<DeleteUserProfileMessage>
+    /// <summary>
+    ///     Класс для получения сообщений о удалении пользователя из UserSettings
+    /// </summary>
+    public class UserDeleteMessageConsumerFromSettings : IConsumeAsync<DeleteUserProfileMessage>
     {
         private readonly IMapper _mapper;
         private readonly TicketContext _ticketContext;
