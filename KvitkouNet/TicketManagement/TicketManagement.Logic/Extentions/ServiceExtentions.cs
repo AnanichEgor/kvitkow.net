@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using EasyNetQ.AutoSubscribe;
 using FluentValidation;
+using KvitkouNet.Messages.UserManagement;
+using KvitkouNet.Messages.UserSettings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using TicketManagement.Data.Context;
@@ -32,7 +35,9 @@ namespace TicketManagement.Logic.Extentions
             services.AddScoped<ITicketService, TicketService>();
             services.RepositoryContext(connetctionString);
             services.AddScoped<Data.DbModels.Page<Ticket>>();
-            services.AddScoped<UserMessageConsumer>();
+            services.AddScoped<IConsumeAsync<UserUpdatedMessage>, UserUpdateMessageConsumer>();
+            services.AddScoped<IConsumeAsync<UserDeletedMessage>, UserDeleteMessageConsumer>();
+            services.AddScoped<IConsumeAsync<UserProfileUpdateMessage>, UserUpdateMessageConsumerFromSettings>();
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<TicketProfile>();
