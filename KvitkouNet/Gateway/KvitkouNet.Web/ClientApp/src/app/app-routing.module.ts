@@ -25,6 +25,9 @@ import { QueryLogsComponent } from './components/admin/query-logs/query-logs.com
 import { TicketLogsComponent } from './components/admin/ticket-logs/ticket-logs.component';
 import { DealLogsComponent } from './components/admin/deal-logs/deal-logs.component';
 import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
+import { UserSettingsProfileComponent } from './components/user-settings/user-settings-profile/user-settings-profile.component';
+import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
+import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -51,7 +54,13 @@ const routes: Routes = [
   { path: 'tickets/ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
   { path: 'security', component: SecurityComponent, pathMatch: 'full' },
   { path: 'chat', component: ChatComponent, pathMatch: 'full'},
-  { path: 'settings', component: UserSettingsComponent, pathMatch: 'full'},
+  { path: 'settings', component: UserSettingsComponent,
+    children: [
+      { path: 'profile', component: UserSettingsProfileComponent, pathMatch: 'full'},
+      { path: 'security', component: UserSettingsSecurityComponent, pathMatch: 'full'},
+      { path: 'advanced', component: UserSettingsAdvancedComponent, pathMatch: 'full'},
+    ]},
+  
   { path: '**', component: NotFoundComponent },
 ];
 
