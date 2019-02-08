@@ -50,7 +50,7 @@ namespace Chat.Web.Controllers
         /// Создание комнаты.
         /// </summary>
         [HttpPost, Route("room/{uid}")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "Room created!")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "Room created!")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> AddRoom([FromBody] Room room, [FromRoute] string uid)
         {
@@ -107,7 +107,7 @@ namespace Chat.Web.Controllers
         /// Отправка сообщения
         /// </summary>
         [HttpPost, Route("{rid}/message")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "Message sended")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "Message sended")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> AddMessage([FromBody] Message message, [FromRoute] string rid)
         {
@@ -134,7 +134,7 @@ namespace Chat.Web.Controllers
         /// <param name="rid"></param>
         /// <returns></returns>
         [HttpPatch, Route("{rid}/message")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "Message updated")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "Message updated")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> EditMessage([FromBody] Message message, [FromRoute] string rid)
         {
@@ -155,7 +155,7 @@ namespace Chat.Web.Controllers
         /// Удаление сообщения
         /// </summary>
         [HttpDelete, Route("messages/{mid}")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "Message deleted")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "Message deleted")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> DeleteMessage([FromRoute] string mid)
         {
