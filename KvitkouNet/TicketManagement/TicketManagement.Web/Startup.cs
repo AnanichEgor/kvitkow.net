@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 using Microsoft.AspNetCore.Mvc.Filters;
 using TicketManagement.Logic.Extentions;
 using TicketManagement.Logic.Subscriber;
@@ -54,7 +53,7 @@ namespace TicketManagement.Web
 
             app.UseSwagger()
                 .UseSwaggerUi3();
-            app.UseSubscriber("UserServiceForTicket", Assembly.GetExecutingAssembly());
+            app.UseSubscriber();
             app.UseMvc();
         }
     }
