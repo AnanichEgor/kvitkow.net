@@ -22,6 +22,13 @@ import { AdminMainComponent } from './components/admin/admin-main/admin-main.com
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
 import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { QueryLogsComponent } from './components/admin/query-logs/query-logs.component';
+import { TicketLogsComponent } from './components/admin/ticket-logs/ticket-logs.component';
+import { DealLogsComponent } from './components/admin/deal-logs/deal-logs.component';
+import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
+import { UserSettingsProfileComponent } from './components/user-settings/user-settings-profile/user-settings-profile.component';
+import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
+import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -30,7 +37,11 @@ const routes: Routes = [
       { path: '', component: AdminMainComponent },
       { path: 'logs/errors', component: ErrorLogsComponent },
       { path: 'logs/accounts', component: AccountLogsComponent },
-      { path: 'logs/payments', component: PaymentLogsComponent }
+      { path: 'logs/payments', component: PaymentLogsComponent },
+      { path: 'logs/queries', component: QueryLogsComponent },
+      { path: 'logs/tickets', component: TicketLogsComponent },
+      { path: 'logs/deals', component: DealLogsComponent },
+      { path: 'users', component: AdminUserComponent }
     ]},
   { path: 'tickets/:id', component: TicketComponent, pathMatch: 'full'},
   { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
@@ -43,8 +54,14 @@ const routes: Routes = [
   { path: 'search-ticket-results', component: SearchTicketResultsComponent, pathMatch: 'full' },
   { path: 'search-user-results', component: SearchUserResultsComponent, pathMatch: 'full' },
   { path: 'chat', component: ChatComponent, pathMatch: 'full'},
+  { path: 'settings', component: UserSettingsComponent,
+    children: [
+      { path: 'profile', component: UserSettingsProfileComponent, pathMatch: 'full'},
+      { path: 'security', component: UserSettingsSecurityComponent, pathMatch: 'full'},
+      { path: 'advanced', component: UserSettingsAdvancedComponent, pathMatch: 'full'},
+    ]},
+  
   { path: 'security', component: SecurityComponent, pathMatch: 'full' },
-  { path: 'settings', component: UserSettingsComponent, pathMatch: 'full'},
   { path: '**', component: NotFoundComponent },
 ];
 

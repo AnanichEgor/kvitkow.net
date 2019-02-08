@@ -20,9 +20,14 @@ namespace Search.Logic.Services
             _mapper = mapper;
         }
 
-        public Task<SearchEntity> GetLastSearchAsync(string userId)
+        public Task<UserSearchEntity> GetLastUserSearchAsync(string userId)
         {
-            return _historyRepository.GetLastSearch(userId);
+            return _historyRepository.GetLastUserSearch(userId);
+        }
+
+        public Task<TicketSearchEntity> GetLastTicketSearchAsync(string userId)
+        {
+            return _historyRepository.GetLastTicketSearch(userId);
         }
 
         public Task SaveLastSearchAsync(TicketSearchRequest request)

@@ -25,6 +25,11 @@ namespace KvitkouNet.Messages.UserManagement
         public string LastName { get; set; }
 
         /// <summary>
+        /// Gets or sets the user name (login).
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
         /// Email пользователя
         /// </summary>
         public string Email { get; set; }
@@ -32,6 +37,6 @@ namespace KvitkouNet.Messages.UserManagement
         /// <summary>
         /// Дата и время создания нового пользователя
         /// </summary>
-        public DateTime Created { get; set; }
+        public DateTime Created { get; set; } = DateTime.Now;
     }
 }

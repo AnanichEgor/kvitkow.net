@@ -75,7 +75,6 @@
       "UpstreamPathTemplate": "/admin/logs/tickets",
       "UpstreamHttpMethod": [ "Get" ]
     },
-
     {
       "DownstreamPathTemplate": "/api/admin/logs/deals",
       "DownstreamScheme": "http",
@@ -89,6 +88,64 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
+      "DownstreamPathTemplate": "/api/admin/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "adminpanel.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/admin/users",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/search/tickets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "search.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/search/tickets",
+      "UpstreamHttpMethod": ["Get"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/search/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "search.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/search/users",
+      "UpstreamHttpMethod": ["Get"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/history/tickets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "search.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/history/tickets",
+      "UpstreamHttpMethod": ["Get"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/history/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "search.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/history/users",
+      "UpstreamHttpMethod": ["Get"]
       "DownstreamPathTemplate": "/api/tickets",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
