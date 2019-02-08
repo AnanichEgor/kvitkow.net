@@ -69,7 +69,7 @@ export class RoomService {
     public roomAddMessage(message: Message, rid: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
     public roomAddMessage(message: Message, rid: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
     public roomAddMessage(message: Message, rid: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
+console.log(message.text + rid);
         if (message === null || message === undefined) {
             throw new Error('Required parameter message was null or undefined when calling roomAddMessage.');
         }
@@ -99,7 +99,7 @@ export class RoomService {
         if (httpContentTypeSelected != undefined) {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
-
+        console.log('return  ${this.basePath}/api/chat/rooms/');
         return this.httpClient.post<string>(`${this.basePath}/api/chat/rooms/${encodeURIComponent(String(rid))}/message`,
             message,
             {

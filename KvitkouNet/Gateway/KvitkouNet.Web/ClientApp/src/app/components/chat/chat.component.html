@@ -137,14 +137,23 @@
                      </div>
                   </li>
 			 </ul>
-		 </div><!--chat_area-->
+     </div><!--chat_area-->
+
           <div class="message_write">
-    	 <textarea class="form-control" placeholder="type a message"></textarea>
-		 <div class="clearfix"></div>
+
+       <!-- <textarea id="textMessage" formControlName="textMessage" class="form-control" placeholder="type a message" required autofocus></textarea> -->
+
+       <input type="text" #textMessage>
+
+       <div class="clearfix"></div>
 		 <div class="chat_bottom"><a href="#" class="pull-left upload_btn"><i class="fa fa-cloud-upload" aria-hidden="true"></i>
  Add Files</a>
- <a href="#" class="pull-right btn btn-success">
- Send</a></div>
+
+ <div class="col">
+  <button type="submit" class="btn btn-primary mb-2" (click)="onAddMessage(textMessage.value)">Send</button>
+</div>
+
+</div>
 		 </div>
 		 </div>
          </div> <!--message_section-->

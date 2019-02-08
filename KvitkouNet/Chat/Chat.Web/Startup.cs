@@ -25,7 +25,14 @@ namespace Chat.Web
         public void ConfigureServices(IServiceCollection services)
         {
             var rabbitConnectionString = Configuration.GetConnectionString("RabbitConnection");
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerDocument(settings => settings.Title = "Chat");
             services.RegisterChatService();
@@ -35,6 +42,7 @@ namespace Chat.Web
             services.AddAutoMapper(cfg => cfg.AddProfile<UserCreationProfile>());
             services.AddAutoMapper(cfg => cfg.AddProfile<UserUpdatedProfile>());
             services.AddSingleton<IBus>(RabbitHutch.CreateBus(rabbitConnectionString));
+
 
         }
 
@@ -46,6 +54,7 @@ namespace Chat.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors("CorsPolicy");
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
 

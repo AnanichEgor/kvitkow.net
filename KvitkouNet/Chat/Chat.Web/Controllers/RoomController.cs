@@ -8,6 +8,7 @@ using Chat.Logic.Models;
 using Chat.Logic.Services;
 using EasyNetQ;
 using KvitkouNet.Messages.Chat;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
@@ -16,6 +17,7 @@ namespace Chat.Web.Controllers
     /// <summary>
     /// Контроллер
     ///  </summary>
+    [EnableCors("CorsPolicy")]
     [Route("api/chat/rooms")]
 
     public class RoomController : Controller
@@ -109,15 +111,15 @@ namespace Chat.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> AddMessage([FromBody] Message message, [FromRoute] string rid)
         {
-            var userIsOnline = await _roomService.AddMessage(message, rid);
+            var nameUserIsOffline = await _roomService.AddMessage(message, rid);
 
             //Если пользователь Offline отправим ему уведомление
-            if (userIsOnline != null)
+            if (nameUserIsOffline != null)
             {
 
                 await _bus.PublishAsync(new OfflineChatMessage
                 {
-                    UserName = userIsOnline,
+                    UserName = nameUserIsOffline,
                     SendedTime = message.SendedTime
                 });
             }

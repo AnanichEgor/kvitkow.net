@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Chat.Logic.Models;
 using Chat.Logic.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 
@@ -13,6 +14,7 @@ namespace Chat.Web.Controllers
     /// <summary>
     /// Контроллер
     ///  </summary>
+    [EnableCors("CorsPolicy")]
     [Route("api/chat")]
     public class ChatController : Controller
     {
