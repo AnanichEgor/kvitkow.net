@@ -42,7 +42,7 @@ console.log(message);
 
   onGetUserSetting() {
 
-     this.serviceChat.chatGetUserSettings('333').subscribe(x =>
+     this.serviceChat.chatGetUserSettings('1').subscribe(x =>
       {
         console.log(x);
         this.userSettins = x;
