@@ -5,6 +5,11 @@ namespace UserManagement.Logic.Models
     public class ForViewModel
     {
         /// <summary>
+        /// Уникальный идентификатор пользователя
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
         /// Логин
         /// </summary>
         public string Login { get; set; }
@@ -38,5 +43,10 @@ namespace UserManagement.Logic.Models
         /// Рейтинг пользователя
         /// </summary>
         public double Rating { get; set; }
+
+        /// <summary>
+        /// Электронный адрес пользователя
+        /// </summary>
+        public string Email { get; set; }
     }
 }

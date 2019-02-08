@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement.Data", "User
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement.Logic", "UserManagement.Logic\UserManagement.Logic.csproj", "{07ED2EE2-7BE8-4791-A5EF-AB1056D2DCAF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KvitkouNet.Messages", "..\Gateway\KvitkouNet.Messages\KvitkouNet.Messages.csproj", "{0EB3FE79-BC31-4450-A95C-E9AE7B3B1A1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{07ED2EE2-7BE8-4791-A5EF-AB1056D2DCAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07ED2EE2-7BE8-4791-A5EF-AB1056D2DCAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07ED2EE2-7BE8-4791-A5EF-AB1056D2DCAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EB3FE79-BC31-4450-A95C-E9AE7B3B1A1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EB3FE79-BC31-4450-A95C-E9AE7B3B1A1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EB3FE79-BC31-4450-A95C-E9AE7B3B1A1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EB3FE79-BC31-4450-A95C-E9AE7B3B1A1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

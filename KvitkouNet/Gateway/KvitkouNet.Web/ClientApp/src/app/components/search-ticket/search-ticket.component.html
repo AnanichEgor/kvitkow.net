@@ -1,0 +1,127 @@
+<div class="container">
+  <form class="form-horizontal" [formGroup]="searchTicketForm" (ngSubmit)="onSubmit()">
+    <fieldset>
+      <!-- Button -->
+      <div class="form-group">
+        <div class="col-md-8">
+          <a class="btn btn-info">Tickets</a> &nbsp;
+          <a
+            class="btn btn-outline-info"
+            [routerLink]="['/search-user']"
+            routerLinkActive="active"
+            >Users</a
+          >
+        </div>
+      </div>
+
+      <!-- Form Name -->
+      <legend>Search Tickets</legend>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput">Name</label>
+        <div class="col-md-4">
+          <input
+            formControlName="name"
+            type="text"
+            placeholder="Enter Ticket Name"
+            class="form-control input-md"
+          />
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput">Category</label>
+        <div class="col-md-4">
+          <input
+            formControlName="category"
+            type="text"
+            placeholder="Enter Ticket Category"
+            class="form-control input-md"
+          />
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput">City</label>
+        <div class="col-md-4">
+          <input
+            formControlName="city"
+            type="text"
+            placeholder="Enter City"
+            class="form-control input-md"
+          />
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput">Date From</label>
+        <div class="col-md-4">
+          <input
+            formControlName="dateFrom"
+            type="date"
+            placeholder="Enter Start Date"
+            class="form-control input-md"
+          />
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput">Date To</label>
+        <div class="col-md-4">
+          <input
+            formControlName="dateTo"
+            type="date"
+            placeholder="Enter Finish Date"
+            class="form-control input-md"
+          />
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput">Min Price</label>
+        <div class="col-md-4">
+          <input
+            formControlName="minPrice"
+            type="number"
+            placeholder="Enter Min Price"
+            class="form-control input-md"
+          />
+        </div>
+      </div>
+
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textinput">Max Price</label>
+        <div class="col-md-4">
+          <input
+            formControlName="maxPrice"
+            type="number"
+            placeholder="Enter Max Price"
+            class="form-control input-md"
+          />
+        </div>
+      </div>
+
+      <!-- Button -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="singlebutton"></label>
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-info">
+            Search
+          </button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+  <div class="col-md-4">
+      <button class="btn btn-info" (click)="previousSearch()">
+        Previous search
+      </button>
+    </div>
+</div>

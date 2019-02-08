@@ -43,11 +43,11 @@ namespace Logging.Web.Controllers
 		public async Task<IActionResult> GetErrorLogs([FromQuery] ErrorLogsFilter filter)
 		{
 			// имитируем некоторую валидацию
-			if (!_errorLogsFilterValidator.Validate(filter).IsValid)
-			{
-				return BadRequest(
-					$"Invalid filter! {nameof(ErrorLogsFilter.ExceptionTypeName)} is empty or whitespace!");
-			}
+			//if (!_errorLogsFilterValidator.Validate(filter).IsValid)
+			//{
+			//	return BadRequest(
+			//		$"Invalid filter! {nameof(ErrorLogsFilter.ExceptionTypeName)} is empty or whitespace!");
+			//}
 
 			var result = await _loggingService.GetLogsAsync(filter);
 			return Ok(result);

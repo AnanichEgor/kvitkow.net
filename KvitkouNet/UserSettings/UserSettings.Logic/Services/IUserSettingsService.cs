@@ -16,7 +16,7 @@ namespace UserSettings.Logic.Services
 		/// </summary>
 		/// <param name="profile"></param>
 		/// <returns></returns>
-		Task<bool> UpdateProfile(string id, string first, string middle, string last);
+		Task<ResultEnum> UpdateProfile(string id, string first, string middle, string last, DateTime birthdate);
 
 		/// <summary>
 		/// Обновление пароля.
@@ -25,7 +25,7 @@ namespace UserSettings.Logic.Services
 		/// <param name="newPass"></param>
 		/// <param name="confirm"></param>
 		/// <returns></returns>
-		Task<bool> UpdatePassword(string id, string current, string newPass, string confirm);
+		Task<ResultEnum> UpdatePassword(string id, string current, string newPass, string confirm);
 
 		/// <summary>
 		/// Обновление почты.
@@ -33,25 +33,14 @@ namespace UserSettings.Logic.Services
 		/// <param name="id"></param>
 		/// <param name="email"></param>
 		/// <returns></returns>
-		Task<bool> UpdateEmail(string id, string email);
+		Task<ResultEnum> UpdateEmail(string id, string email);
 
-		Task<IEnumerable<Settings>> ShowAll();
+		Task<Settings> Get(string id);
 
-		/// <summary>
-		/// Отправка подтверждающего email.
-		/// </summary>
-		/// <param name="email"></param>
-		/// <param name="subject"></param>
-		/// <param name="message"></param>
-		/// <returns></returns>
-		Task SendConfirmEmail(string email, string subject, string message);
-
-		Task<bool> CheckExistEmail(string email);
-
-		Task<bool> UpdateNotifications(string id, Notifications notifications);
-
-		Task<bool> UpdatePreferences(string id, string address, string region, string place);
+		Task<ResultEnum> UpdateNotifications(string id, Notifications notifications);
 
 		Task<bool> DeleteAccount(string id);
+		Task<ResultEnum> UpdatePhones();
+		Task<ResultEnum> UpdateVisible(string id, VisibleInfo visibleInfo);
 	}
 }

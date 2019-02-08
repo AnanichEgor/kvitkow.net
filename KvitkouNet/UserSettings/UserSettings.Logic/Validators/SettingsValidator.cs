@@ -7,8 +7,7 @@ namespace UserSettings.Logic.Validators
 	{
 		public SettingsValidator()
 		{
-			RuleFor(x => x.UserId).NotNull();
-			
+			RuleFor(x => x.SettingsId).NotNull();
 		}
 	}
 }

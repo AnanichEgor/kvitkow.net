@@ -42,7 +42,7 @@ namespace Chat.Logic.Services
         /// Отправка сообщения
         /// </summary>
         /// <returns></returns>
-        Task AddMessage(Message message, string roomId);
+        Task<string> AddMessage(Message message, string roomId);
 
         /// <summary>
         /// Редактирование сообщения
@@ -55,6 +55,6 @@ namespace Chat.Logic.Services
         /// Удаление сообщения
         /// </summary>
         /// <returns></returns>
-        Task DeleteMessage(string roomId, string messageId);
+        Task DeleteMessage(string messageId);
     }
 }

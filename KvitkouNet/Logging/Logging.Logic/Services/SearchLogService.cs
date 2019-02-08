@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Logging.Data;
 using Logging.Data.DbModels;
-using Logging.Data.Enums;
 using Logging.Logic.Extensions;
 using Logging.Logic.Infrastructure;
 using Logging.Logic.Models;

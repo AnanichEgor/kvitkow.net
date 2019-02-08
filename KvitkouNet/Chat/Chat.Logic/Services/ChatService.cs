@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Chat.Data.Context;
@@ -24,6 +22,31 @@ namespace Chat.Logic.Services
             _mapper = mapper;
         }
 
+        public async Task AddUser(User newUser)
+        {
+            var modelDb = _mapper.Map<UserDb>(newUser);
+            await _context.Users.AddAsync(modelDb);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task EditUser(User user)
+        {
+
+            var res = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == user.Id);
+            if (res == null)
+            {
+                await Task.FromException(new InvalidDataException());
+            }
+            else
+            {
+                var modelDb = _mapper.Map<UserDb>(user);
+                modelDb.UserName = user.UserName;
+                _context.Attach(modelDb);
+                _context.Entry(modelDb).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+        }
+
         public async Task<Settings> GetUserSettings(string userId)
         {
             var res = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == userId);
@@ -33,17 +56,26 @@ namespace Chat.Logic.Services
         public async Task EditUserSettings(string userId, Settings settings)
         {
            
-            var res = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == userId);
-            if (res == null)
+            var modelDb = await _context.Settings.SingleOrDefaultAsync(x => x.UserId == userId);
+            if (modelDb == null)
             {
                 await Task.FromException(new InvalidDataException());
             }
             else
             {
-                var modelDb = _mapper.Map<SettingsDb>(settings);
-                modelDb.UserId = userId;
+                var newModelDb = _mapper.Map<SettingsDb>(settings);
+                modelDb.BackgroundColor = newModelDb.BackgroundColor;
+                modelDb.DisablePrivateMessages = newModelDb.DisablePrivateMessages;
+                modelDb.HideChat = newModelDb.HideChat;
+                modelDb.HistoryCountsMessages = newModelDb.HistoryCountsMessages;
+                modelDb.Sound = newModelDb.Sound;
+                modelDb.Tab = newModelDb.Tab;
+                modelDb.Toast = newModelDb.Toast;
+                modelDb.ViewTimestampsMessage = newModelDb.ViewTimestampsMessage;
+                modelDb.UpdateDate = DateTime.Now;
+                
                 _context.Attach(modelDb);
-                _context.Entry(modelDb).State = EntityState.Modified;
+               _context.Entry(modelDb).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
         }
