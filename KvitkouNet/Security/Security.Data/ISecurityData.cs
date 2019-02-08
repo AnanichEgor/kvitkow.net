@@ -11,7 +11,7 @@ namespace Security.Data
         /// Получение списка прав доступа
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<AccessRightDb>> GetRights(int itemsPerPage, int pageNumber, string mask);
+        Task<AccessRightsGetResult> GetRights(int itemsPerPage, int pageNumber, string mask);
 
         /// <summary>
         /// Добавление права доступа
@@ -34,7 +34,7 @@ namespace Security.Data
         /// <param name="pageNumber">Номер страницы</param>
         /// <param name="mask">Маска поиска</param>
         /// <returns></returns>
-        Task<IEnumerable<AccessFunctionDb>> GetFunctions(int itemsPerPage, int pageNumber, string mask = null);
+        Task<AccessFunctionsGetResult> GetFunctions(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
         /// Добавление функции
@@ -66,7 +66,7 @@ namespace Security.Data
         /// <param name="pageNumber">Номер страницы</param>
         /// <param name="mask">Маска поиска</param>
         /// <returns></returns>
-        Task<IEnumerable<FeatureDb>> GetFeatures(int itemsPerPage, int pageNumber, string mask = null);
+        Task<FeaturesGetResult> GetFeatures(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
         /// Добавление фичи
@@ -97,7 +97,7 @@ namespace Security.Data
         /// <param name="pageNumber">Номер страницы</param>
         /// <param name="mask">Маска поиска</param>
         /// <returns></returns>
-        Task<IEnumerable<RoleDb>> GetRoles(int itemsPerPage, int pageNumber, string mask = null);
+        Task<RolesGetResult> GetRoles(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
         /// Добавление роли
@@ -136,6 +136,15 @@ namespace Security.Data
         /// <param name="userId">Идентификатор пользователя</param>
         /// <returns></returns>
         Task<UserRightsDb> GetUserRights(string userId);
+
+        /// <summary>
+        ///  Получение списка пользователей
+        /// </summary>
+        /// <param name="itemsPerPage">Элементов на странице</param>
+        /// <param name="pageNumber">Номер страницы</param>
+        /// <param name="mask">Маска поиска</param>
+        /// <returns></returns>
+        Task<UserInfoGetResult> GetUsers(int itemsPerPage, int pageNumber, string mask = null);
 
         /// <summary>
         /// Изменение прав доступа пользователя

@@ -15,7 +15,8 @@ namespace Security.Data.MapperProfiles
                     {
                         Id = l.AccessRight.Id,
                         Name = l.AccessRight.Name
-                    })));
+                    })))
+                .ForMember(x=>x.FeatureName, opt => opt.MapFrom(_ => _.Feature.Name));
         }
     }
 }

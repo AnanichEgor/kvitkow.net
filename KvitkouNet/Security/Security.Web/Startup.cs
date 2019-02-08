@@ -19,6 +19,16 @@ namespace Security.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("angular", builder =>
+                {
+                    builder.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .WithOrigins("http://localhost:4200");
+                });
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerDocument();
             services.RegisterSecurityService();
@@ -32,7 +42,7 @@ namespace Security.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger().UseSwaggerUi3();
+            app.UseCors("angular").UseSwagger().UseSwaggerUi3();
 
             app.UseMvc(routes =>
             {

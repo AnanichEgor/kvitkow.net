@@ -11,7 +11,7 @@ namespace Security.Data.Configuration
             accessFunctionEntity.Property(x => x.Name)
                 .IsRequired()
                 .HasMaxLength(100);
-            accessFunctionEntity.HasOne<Feature>()
+            accessFunctionEntity.HasOne<Feature>(x=>x.Feature)
                 .WithMany()
                 .HasForeignKey(x => x.FeatureId)
                 .OnDelete(DeleteBehavior.SetNull);
