@@ -6,5 +6,7 @@
         /// Роли
         /// </summary>
         public Role[] Roles { get; set; }
+
+        public int TotalCount { get; set; }
     }
 }

@@ -60,11 +60,13 @@ namespace Security.Logic.Implementations
                     };
                 }
 
+                var functions = await _securityContext.GetFunctions(itemsPerPage, pageNumber, mask?.Trim() ?? "");
+
                 return new AccessFunctionResponse
                 {
                     Status = ActionStatus.Success,
-                    AccessFunctions = _mapper.Map<AccessFunction[]>(await
-                        _securityContext.GetFunctions(itemsPerPage, pageNumber, mask?.Trim()??""))
+                    AccessFunctions = _mapper.Map<AccessFunction[]>(functions.Functions),
+                    TotalCount = functions.TotalCount
                 }; 
             }
             catch (SecurityDbException e)
