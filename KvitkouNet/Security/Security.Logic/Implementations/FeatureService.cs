@@ -60,10 +60,12 @@ namespace Security.Logic.Implementations
                     };
                 }
 
+                var features = await _securityContext.GetFeatures(itemsPerPage, pageNumber, mask?.Trim() ?? "");
+
                 return new FeatureResponse
                 {
-                    Features = _mapper.Map<Feature[]>(
-                        await _securityContext.GetFeatures(itemsPerPage, pageNumber, mask?.Trim()??"")).ToArray(),
+                    Features = _mapper.Map<Feature[]>(features.Features),
+                    TotalCount = features.TotalCount,
                     Status = ActionStatus.Success
                 };
 

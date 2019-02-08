@@ -23,6 +23,11 @@ namespace Security.Data.ContextModels
         public int FeatureId { get; set; }
 
         /// <summary>
+        /// Фича
+        /// </summary>
+        public Feature Feature { get; set; }
+
+        /// <summary>
         /// Список прав предоставляемых функцией
         /// </summary>
         public List<AccessFunctionAccessRight> AccessFunctionAccessRights { get; set; }

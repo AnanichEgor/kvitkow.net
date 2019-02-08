@@ -27,8 +27,6 @@ import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.com
 import { AccountLogsComponent } from './components/admin/account-logs/account-logs.component';
 import { PaymentLogsComponent } from './components/admin/payment-logs/payment-logs.component';
 import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
-import { SecurityComponent } from './components/security/security.component';
-import { SecurityMenuComponent } from './components/security-menu/security-menu.component';
 import { SearchUserComponent } from './components/search-user/search-user.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
@@ -41,6 +39,7 @@ import { AdminUserComponent } from './components/admin/admin-user/admin-user.com
 import { UserSettingsProfileComponent } from './components/user-settings/user-settings-profile/user-settings-profile.component';
 import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
 import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
+import { SecurityModule } from './components/security/security.module';
 
 @NgModule({
   declarations: [
@@ -57,16 +56,13 @@ import { UserSettingsAdvancedComponent } from './components/user-settings/user-s
     TicketDetailComponent,
     TicketEditComponent,
     ChatComponent,
-    ErrorLogsComponent,
-    AccountLogsComponent,
-    PaymentLogsComponent,
-    AdminMainComponent,
-    SecurityComponent,
-    SecurityMenuComponent,
     SearchUserComponent,
     SearchTicketComponent,
     SearchTicketResultsComponent,
-    SearchUserResultsComponent,
+    AdminMainComponent,
+    ErrorLogsComponent,
+    AccountLogsComponent,
+    PaymentLogsComponent,
     UserSettingsComponent,
     QueryLogsComponent,
     TicketLogsComponent,
@@ -74,14 +70,16 @@ import { UserSettingsAdvancedComponent } from './components/user-settings/user-s
     AdminUserComponent,
     UserSettingsProfileComponent,
     UserSettingsSecurityComponent,
-    UserSettingsAdvancedComponent
+    UserSettingsAdvancedComponent,
+    SearchUserResultsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    SecurityModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, ChatService, RoomService, AppRoutingModule],
   bootstrap: [AppComponent]
