@@ -146,6 +146,8 @@
       ],
       "UpstreamPathTemplate": "/history/users",
       "UpstreamHttpMethod": ["Get"]
+    },
+    {
       "DownstreamPathTemplate": "/api/tickets",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
