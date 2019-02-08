@@ -24,7 +24,6 @@ import { PaymentLogsComponent } from './components/admin/payment-logs/payment-lo
 import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
-import { EmailNotificationItemComponent } from './components/notification/email-notification-item/email-notification-item.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },

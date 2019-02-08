@@ -36,7 +36,6 @@ import { SearchTicketResultsComponent } from './components/search-ticket-results
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { NotificationComponent } from './components/notification/notification.component';
-import { NotificationMenuComponent } from './components/notification/notification-menu/notification-menu.component';
 import { EmailNotificationItemComponent } from './components/notification/email-notification-item/email-notification-item.component';
 import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
 import { SubscriptionItemComponent } from './components/notification/subscription-item/subscription-item.component';
@@ -68,7 +67,6 @@ import { SubscriptionItemComponent } from './components/notification/subscriptio
     SearchUserResultsComponent,
     UserSettingsComponent,
     NotificationComponent,
-    NotificationMenuComponent,
     EmailNotificationItemComponent,
     NotificationItemComponent,
     SubscriptionItemComponent

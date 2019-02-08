@@ -9,9 +9,11 @@ using Notification.Logic.Configs;
 using Microsoft.Extensions.Options;
 using EasyNetQ;
 using KvitkouNet.Messages.Notification;
+using Microsoft.AspNetCore.Cors;
 
 namespace Notification.Web.Controllers
 {
+    [EnableCors("CorsPolicy")]
     [Route("api/notification/email")]
     [ApiController]
     public class EmailNotificationController : ControllerBase
