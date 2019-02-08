@@ -12,7 +12,7 @@ services:
       - 5001:80
       - 5002:443
 
-   
+
    usermanagement.web:
     image: ${DOCKER_REGISTRY}usersweb
     build:
@@ -70,7 +70,7 @@ services:
     depends_on:
       - rabbit
       - elasticsearch
-   
+
    usersettings.web:
     image: ${DOCKER_REGISTRY}usersettingsgweb
     build:
@@ -110,8 +110,8 @@ services:
    statisticonline.web:
     image: ${DOCKER_REGISTRY}statisticonlineweb
     build:
-      context: ./
-      dockerfile: StatisticOnline/StatisticOnline.Web/Dockerfile
+      context: ./StatisticOnline
+      dockerfile: ./StatisticOnline.Web/Dockerfile
     depends_on:
       - rabbit
     ports:
