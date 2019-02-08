@@ -121,3 +121,13 @@ services:
       - rabbit
     ports:
       - 5011:80
+
+   statisticonline.web:
+    image: ${DOCKER_REGISTRY}statisticonlineweb
+    build:
+      context: ./StatisticOnline
+      dockerfile: ./StatisticOnline.Web/Dockerfile
+    depends_on:
+      - rabbit
+    ports:
+      - 5050:80
