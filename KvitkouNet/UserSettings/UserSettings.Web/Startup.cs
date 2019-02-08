@@ -37,7 +37,6 @@ namespace UserSettings.Web
 				ctx.Database.Migrate();
 				if (!ctx.Settings.Any())
 				{
-					ctx.Settings.AddRange(UserSettingsFaker.Generate(10));
 					ctx.SaveChanges();
 				}
 			}
@@ -60,7 +59,6 @@ namespace UserSettings.Web
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-				//DBInitialize.Seed(app);
 			}
 			app.UseSwagger().UseSwaggerUi3();
 			app.UseMvc();

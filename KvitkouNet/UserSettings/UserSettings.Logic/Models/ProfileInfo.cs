@@ -7,30 +7,33 @@ namespace UserSettings.Logic.Models
 	public class ProfileInfo
 	{
 		/// <summary>
-		/// Имя пользователя
+		/// Gets or sets the identifier.
+		/// </summary>
+		public string UserId { get; set; }
+
+		/// <summary>
+		/// Gets or sets the first name.
 		/// </summary>
 		public string FirstName { get; set; }
 
 		/// <summary>
-		/// Отчество пользователя
-		/// </summary>
-		public string MiddleName { get; set; }
-
-		/// <summary>
-		/// Фамилия пользователя
+		/// Gets or sets the last name.
 		/// </summary>
 		public string LastName { get; set; }
 
 		/// <summary>
-		/// Дата рождения
+		/// Gets or sets the user name (login).
 		/// </summary>
-		public DateTime Birthday { get; set; }
+		public string UserName { get; set; }
 
 		/// <summary>
-		/// Телефоны пользователя
+		/// Email пользователя
 		/// </summary>
-		public IEnumerable<string> PhoneNumber { get; set; }
+		public string Email { get; set; }
 
-		public string SettingsId { get; set; }
+		/// <summary>
+		/// Дата и время создания нового пользователя
+		/// </summary>
+		public DateTime Created { get; set; } = DateTime.Now;
 	}
 }

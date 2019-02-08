@@ -42,6 +42,6 @@
 		/// </summary>
 		public Notifications Notifications { get; set; }
 
-		public VisibleInfo VisibleIndo { get; set; }
+		public VisibleInfo VisibleInfo { get; set; }
 	}
 }
