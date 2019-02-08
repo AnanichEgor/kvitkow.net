@@ -1,6 +1,8 @@
-﻿using System.Reflection;
+﻿using System;
 using EasyNetQ;
 using EasyNetQ.AutoSubscribe;
+using KvitkouNet.Messages.UserManagement;
+using KvitkouNet.Messages.UserSettings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,8 +11,7 @@ namespace TicketManagement.Logic.Subscriber
 {
     public static class SubscriberExtensions
     {
-        public static IApplicationBuilder UseSubscriber(this IApplicationBuilder app, string prefix,
-            params Assembly[] assembly)
+        public static IApplicationBuilder UseSubscriber(this IApplicationBuilder app)
         {
             var services = app.ApplicationServices.CreateScope().ServiceProvider;
 
@@ -19,14 +20,18 @@ namespace TicketManagement.Logic.Subscriber
 
             lifetime.ApplicationStarted.Register(() =>
             {
-                var subscriber = new AutoSubscriber(bus, prefix);
-                subscriber.Subscribe(assembly);
-                subscriber.SubscribeAsync(assembly);
+                var userUpdatedPreffix = "UserForTicket.Updated";
+                var userSetUpdatedPreffix = "UserSettingsForTicket.Updated";
+                var userDeletedPreffix = "UserForTicket.Deleted";
+                bus.SubscribeAsync<UserDeletedMessage>(userDeletedPreffix, msg => services.GetService<IConsumeAsync<UserDeletedMessage>>().ConsumeAsync(msg));
+                bus.SubscribeAsync<UserUpdatedMessage>(userUpdatedPreffix, msg => services.GetService<IConsumeAsync<UserUpdatedMessage>>().ConsumeAsync(msg));
+                bus.SubscribeAsync<UserProfileUpdateMessage>(userSetUpdatedPreffix, msg => services.GetService<IConsumeAsync<UserProfileUpdateMessage>>().ConsumeAsync(msg));
             });
 
             lifetime.ApplicationStopped.Register(() => bus.Dispose());
 
             return app;
         }
+        
     }
 }
