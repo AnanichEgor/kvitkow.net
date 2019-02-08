@@ -38,10 +38,11 @@
     </ul>
     <form [formGroup]="userSearchForm" class="form-inline my-2 my-md-0">
         <div class="dropdown">
-            <input class="form-control mb-2" placeholder="Search User" type="text" id="userSearch" data-toggle="dropdown"
+            <input class="form-control mb-2" style="width: 500px" placeholder="Search User" type="text" id="userSearch" data-toggle="dropdown"
             aria-haspopup="true" autocomplete="off" aria-expanded="false" formControlName="userSearch" (keyup)="onSearchUser()">
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-              <a class="dropdown-item" (click)="onUserSelected(user)" *ngFor="let user of usersFound">{{ user.lastName }} {{ user.firstName }} {{ user.middleName }}</a>
+              <a class="dropdown-item" [routerLink]="['user', user.userId]" routerLinkActive="active"
+              *ngFor="let user of usersFound">{{ user.lastName }} {{ user.firstName }} {{ user.middleName }}</a>
             </div>
           </div>
     </form>

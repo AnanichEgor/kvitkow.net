@@ -149,7 +149,7 @@ export class RolesComponent implements OnInit {
     .filter(right => right.id !== this.selectedAccessRight.id);
     const deniedRights = this.selectedRole.deniedRights;
     this.saveRights(functions, accessRights, deniedRights);
-    this.selectedFunction = null;
+    this.selectedAccessRight = null;
   }
   onDeleteDeniedRight() {
     const functions = this.selectedRole.accessFunctions;
@@ -157,7 +157,7 @@ export class RolesComponent implements OnInit {
     const deniedRights = this.selectedRole.deniedRights
     .filter(right => right.id !== this.selectedDeniedRight.id);
     this.saveRights(functions, accessRights, deniedRights);
-    this.selectedFunction = null;
+    this.selectedDeniedRight = null;
   }
   onAddSelectedFunction() {
     let functions: AccessFunction[] = [this.selectedAddFunction];

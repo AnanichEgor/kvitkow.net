@@ -18,6 +18,7 @@ import { RightsService } from 'src/app/services/security/rights.service';
 import { RoleService } from 'src/app/services/security/role.service';
 import { UserRightsService } from 'src/app/services/security/userRights.service';
 import { SecurityComponent } from './security.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SecurityComponent } from './security.component';
     RolesComponent,
     NewRoleComponent,
     SecurityComponent,
-    SecurityMenuComponent
+    SecurityMenuComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,

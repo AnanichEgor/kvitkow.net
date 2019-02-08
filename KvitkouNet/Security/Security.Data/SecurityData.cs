@@ -326,7 +326,7 @@ namespace Security.Data
         public async Task<UserInfoGetResult> GetUsers(int itemsPerPage, int pageNumber, string mask = null)
         {
             var users = _context.UsersRights
-                .Where(l => (l.LastName + l.FirstName + l.MiddleName).Contains(mask))
+                .Where(l => (l.LastName + l.FirstName + l.MiddleName).Contains(mask, StringComparison.InvariantCultureIgnoreCase))
                 .OrderBy(l => l.LastName);
             return new UserInfoGetResult()
             {

@@ -1,3 +1,4 @@
+import { UserComponent } from './user/user.component';
 import { NewRoleComponent } from './new-role/new-role.component';
 import { RolesComponent } from './roles/roles.component';
 import { NewFunctionComponent } from './new-function/new-function.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
           { path: 'functions/add', component: NewFunctionComponent },
           { path: 'roles', component: RolesComponent },
           { path: 'roles/add', component: NewRoleComponent },
+          { path: 'user/:id', component: UserComponent }
         ]}
 ];
 
