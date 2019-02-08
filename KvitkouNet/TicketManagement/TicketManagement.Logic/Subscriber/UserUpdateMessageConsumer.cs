@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using EasyNetQ.AutoSubscribe;
 using KvitkouNet.Messages.UserManagement;
@@ -10,17 +7,17 @@ using TicketManagement.Data.DbModels;
 
 namespace TicketManagement.Logic.Subscriber
 {
-  public  class UserUpdateMessageConsumer : IConsumeAsync<UserUpdatedMessage>
+    public class UserUpdateMessageConsumer : IConsumeAsync<UserUpdatedMessage>
     {
-        private TicketContext _ticketContext;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
+        private readonly TicketContext _ticketContext;
 
         public UserUpdateMessageConsumer(TicketContext ticketContext, IMapper mapper)
         {
             _ticketContext = ticketContext;
             _mapper = mapper;
         }
-        
+
         public async Task ConsumeAsync(UserUpdatedMessage message)
         {
             var modelDb = _mapper.Map<UserInfo>(message);

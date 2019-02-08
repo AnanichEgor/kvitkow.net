@@ -1,5 +1,4 @@
-﻿using System;
-using EasyNetQ;
+﻿using EasyNetQ;
 using EasyNetQ.AutoSubscribe;
 using KvitkouNet.Messages.UserManagement;
 using KvitkouNet.Messages.UserSettings;
@@ -23,15 +22,17 @@ namespace TicketManagement.Logic.Subscriber
                 var userUpdatedPreffix = "UserForTicket.Updated";
                 var userSetUpdatedPreffix = "UserSettingsForTicket.Updated";
                 var userDeletedPreffix = "UserForTicket.Deleted";
-                bus.SubscribeAsync<UserDeletedMessage>(userDeletedPreffix, msg => services.GetService<IConsumeAsync<UserDeletedMessage>>().ConsumeAsync(msg));
-                bus.SubscribeAsync<UserUpdatedMessage>(userUpdatedPreffix, msg => services.GetService<IConsumeAsync<UserUpdatedMessage>>().ConsumeAsync(msg));
-                bus.SubscribeAsync<UserProfileUpdateMessage>(userSetUpdatedPreffix, msg => services.GetService<IConsumeAsync<UserProfileUpdateMessage>>().ConsumeAsync(msg));
+                bus.SubscribeAsync<UserDeletedMessage>(userDeletedPreffix,
+                    msg => services.GetService<IConsumeAsync<UserDeletedMessage>>().ConsumeAsync(msg));
+                bus.SubscribeAsync<UserUpdatedMessage>(userUpdatedPreffix,
+                    msg => services.GetService<IConsumeAsync<UserUpdatedMessage>>().ConsumeAsync(msg));
+                bus.SubscribeAsync<UserProfileUpdateMessage>(userSetUpdatedPreffix,
+                    msg => services.GetService<IConsumeAsync<UserProfileUpdateMessage>>().ConsumeAsync(msg));
             });
 
             lifetime.ApplicationStopped.Register(() => bus.Dispose());
 
             return app;
         }
-        
     }
 }
