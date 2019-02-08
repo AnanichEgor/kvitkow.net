@@ -38,6 +38,9 @@ namespace TicketManagement.Logic.Extentions
             services.AddScoped<IConsumeAsync<UserUpdatedMessage>, UserUpdateMessageConsumer>();
             services.AddScoped<IConsumeAsync<UserDeletedMessage>, UserDeleteMessageConsumer>();
             services.AddScoped<IConsumeAsync<UserProfileUpdateMessage>, UserUpdateMessageConsumerFromSettings>();
+            services
+                .AddScoped<IConsumeAsync<DeleteUserProfileMessage>, UserDeleteMessageConsumerFromSettings
+                >();
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<TicketProfile>();

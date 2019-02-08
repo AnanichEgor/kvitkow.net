@@ -22,12 +22,15 @@ namespace TicketManagement.Logic.Subscriber
                 var userUpdatedPreffix = "UserForTicket.Updated";
                 var userSetUpdatedPreffix = "UserSettingsForTicket.Updated";
                 var userDeletedPreffix = "UserForTicket.Deleted";
+                var userSetDeletedPreffix = "UserSettingsForTicket.Deleted";
                 bus.SubscribeAsync<UserDeletedMessage>(userDeletedPreffix,
                     msg => services.GetService<IConsumeAsync<UserDeletedMessage>>().ConsumeAsync(msg));
                 bus.SubscribeAsync<UserUpdatedMessage>(userUpdatedPreffix,
                     msg => services.GetService<IConsumeAsync<UserUpdatedMessage>>().ConsumeAsync(msg));
                 bus.SubscribeAsync<UserProfileUpdateMessage>(userSetUpdatedPreffix,
                     msg => services.GetService<IConsumeAsync<UserProfileUpdateMessage>>().ConsumeAsync(msg));
+                bus.SubscribeAsync<DeleteUserProfileMessage>(userSetDeletedPreffix,
+                    msg => services.GetService<IConsumeAsync<DeleteUserProfileMessage>>().ConsumeAsync(msg));
             });
 
             lifetime.ApplicationStopped.Register(() => bus.Dispose());
