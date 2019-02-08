@@ -1,3 +1,4 @@
+import { Settings } from './../../models/chat/settings';
 import { Observable } from 'rxjs';
 import { Message } from './../../models/chat/message';
 import { RoomService } from './../../services/chat/room.service';
@@ -14,6 +15,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ChatComponent implements OnInit {
   chatForm: FormGroup;
   message: Message;
+  userSettins: Settings;
   constructor(
     private serviceChat: ChatService, private serviceRoom: RoomService) { }
 
@@ -37,4 +39,14 @@ console.log(message);
 
      this.serviceRoom.roomAddMessage(message, '2' ).subscribe();
   }
+
+  onGetUserSetting() {
+
+     this.serviceChat.chatGetUserSettings('333').subscribe(x =>
+      {
+        console.log(x);
+        this.userSettins = x;
+      }
+  );
+}
 }
