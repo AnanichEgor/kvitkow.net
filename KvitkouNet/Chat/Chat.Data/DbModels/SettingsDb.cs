@@ -35,13 +35,15 @@ namespace Chat.Data.DbModels
         public bool HideChat { get; set; }
 
         /// <summary>
-        /// Настройка отображения колличества сообщений из истории чата. default - 100 сообщений
+        /// Настройка отображения колличества сообщений из истории чата. default - 100 сообщений.
         /// </summary>
         public int HistoryCountsMessages { get; set; }
 
         /// <summary>
-        /// Пользователь которому принадлежат настройки.
+        /// Признак запрета для получения личных сообщений от других пользователей. default - false.
         /// </summary>
-        public UserDb User { get; set; }
+        public bool DisablePrivateMessages { get; set; }
+
+        public string UserId { get; set; }
     }
 }

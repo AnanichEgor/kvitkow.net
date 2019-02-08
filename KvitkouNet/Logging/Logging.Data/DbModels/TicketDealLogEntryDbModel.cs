@@ -1,31 +1,35 @@
 ﻿using Logging.Data.DbModels.Abstraction;
-using Logging.Data.Enums;
 
 namespace Logging.Data.DbModels
 {
     /// <summary>
     /// Модель записи в лог о сделке по билету
     /// </summary>
-    public class TicketDealLogEntryDbModel : Entity<string>
+    public class TicketDealLogEntryDbModel : BaseLogEntryDbModel
     {
+        /// <summary>
+        /// Id билета
+        /// </summary>
+        public string TicketId { get; set; }
+
+        /// <summary>
+        /// Пользователь-владелец, разместивший билет
+        /// </summary>
+        public string OwnerId { get; set; }
+
         /// <summary>
         /// Покупатель/получатель билета
         /// </summary>
-        public string Reciever { get; set; }
+        public string RecieverId { get; set; }
 
         /// <summary>
         /// Цена билета, т.е. сумма сделки
         /// </summary>
-        public decimal Price { get; set; }
+        public double? Price { get; set; }
 
         /// <summary>
         /// Тип сделки
         /// </summary>
-        public DealType Type { get; set; }
-
-        /// <summary>
-        /// Дополнительное содержимое записи
-        /// </summary>
-        public string Content { get; set; }
+        public int Type { get; set; }
     }
 }

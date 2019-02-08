@@ -5,13 +5,8 @@ namespace Search.Logic.Common.Models
     /// <summary>
     /// Contains minimal information about ticket indexed by Elasticsearch
     /// </summary>
-    public class TicketInfo
+    public class TicketInfo : EntityInfo
     {
-        /// <summary>
-        /// Gets or sets the ticket identifier.
-        /// </summary>
-        public string TicketId { get; set; }
-
         /// <summary>
         /// Gets or sets the name of ticket.
         /// </summary>

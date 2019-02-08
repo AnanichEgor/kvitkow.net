@@ -1,12 +1,14 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/dotnet:2.1-sdk AS build
+FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
 COPY ["StatisticOnline.Web/StatisticOnline.Web.csproj", "StatisticOnline.Web/"]
+COPY ["StatisticOnline.Logic/StatisticOnline.Logic.csproj", "StatisticOnline.Logic/"]
+COPY ["StatisticOnline.Data/StatisticOnline.Data.csproj", "StatisticOnline.Data/"]
 RUN dotnet restore "StatisticOnline.Web/StatisticOnline.Web.csproj"
-COPY . .
+COPY StatisticOnline StatisticOnline
 WORKDIR "/src/StatisticOnline.Web"
 RUN dotnet build "StatisticOnline.Web.csproj" -c Release -o /app
 

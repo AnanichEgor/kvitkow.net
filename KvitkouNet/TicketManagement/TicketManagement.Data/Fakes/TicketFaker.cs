@@ -1,23 +1,26 @@
 ﻿using System.Collections.Generic;
 using Bogus;
 using TicketManagement.Data.DbModels;
-using TicketManagement.Data.DbModels.Enums;
+using TicketManagement.Data.DbModels.DbEnums;
 
 namespace TicketManagement.Data.Fakes
 {
+    /// <summary>
+    ///     Класс заполняющий базу базовыми значениями
+    /// </summary>
     public static class TicketFaker
     {
-        private static readonly Faker<TicketDb> _fakerTicket;
+        private static readonly Faker<Ticket> _fakerTicket;
 
         static TicketFaker()
         {
-            _fakerTicket = new Faker<TicketDb>();
+            _fakerTicket = new Faker<Ticket>();
             _fakerTicket.RuleFor(db => db.Name, faker => faker.Lorem.Sentence(4, 10));
             _fakerTicket.RuleFor(db => db.AdditionalData, faker => faker.Lorem.Sentence(10, 20));
-            _fakerTicket.RuleFor(db => db.SellerPhone, faker => faker.Phone.PhoneNumber("###-###-####"));
+            _fakerTicket.RuleFor(db => db.SellerPhone, faker => faker.Phone.PhoneNumber("+###-##-##-##-###"));
             _fakerTicket.RuleFor(db => db.CreatedDate, faker => faker.Date.Past());
             _fakerTicket.RuleFor(db => db.EventLink, faker => faker.Lorem.Word());
-            _fakerTicket.CustomInstantiator(faker => new TicketDb()).Rules((faker, db) =>
+            _fakerTicket.CustomInstantiator(faker => new Ticket()).Rules((faker, db) =>
             {
                 db.Free = faker.Random.Bool();
                 if (!db.Free)
@@ -51,15 +54,15 @@ namespace TicketManagement.Data.Fakes
             });
             _fakerTicket.RuleFor(db => db.User, f =>
             {
-                var fakeaddress = new Faker<UserInfoDb>();
+                var fakeaddress = new Faker<UserInfo>();
                 fakeaddress.RuleFor(db => db.FirstName, faker => faker.Lorem.Word());
                 fakeaddress.RuleFor(db => db.LastName, faker => faker.Lorem.Word());
-                fakeaddress.RuleFor(db => db.Rating, faker => faker.Random.Int(-50, 50));
+                fakeaddress.RuleFor(db => db.Rating, faker => faker.Random.Int(0, 50));
                 return fakeaddress.Generate();
             });
             _fakerTicket.RuleFor(db => db.RespondedUsers, f =>
             {
-                var fakeusercoll = new Faker<UserInfoDb>();
+                var fakeusercoll = new Faker<UserInfo>();
                 fakeusercoll.RuleFor(db => db.FirstName, faker => faker.Lorem.Word());
                 fakeusercoll.RuleFor(db => db.LastName, faker => faker.Lorem.Word());
                 fakeusercoll.RuleFor(db => db.Rating, faker => faker.Random.Int(-50, 50));
@@ -67,7 +70,7 @@ namespace TicketManagement.Data.Fakes
             });
         }
 
-        public static IEnumerable<TicketDb> Generate(int count = 10)
+        public static IEnumerable<Ticket> Generate(int count = 10)
         {
             return _fakerTicket.Generate(count);
         }

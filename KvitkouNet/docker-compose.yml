@@ -4,31 +4,115 @@ services:
    kvitkounet.web:
     image: ${DOCKER_REGISTRY}kvitkounetweb
     build:
-      context: .
+      context: Gateway
       dockerfile: KvitkouNet.Web/Dockerfile
+    depends_on:
+      - adminpanel.web
+    ports:
+      - 5001:80
+      - 5002:443
+
    
+   usermanagement.web:
+    image: ${DOCKER_REGISTRY}usersweb
+    build:
+      context: UserManagement
+      dockerfile: UserManagement.Web/Dockerfile
+    ports:
+      - 5003:80
+
    adminpanel.web:
     image: ${DOCKER_REGISTRY}adminpanelweb
     build:
-      context: AdminPanel
-      dockerfile: AdminPanel.Web/Dockerfile
+      context: ./
+      dockerfile: AdminPanel/AdminPanel.Web/Dockerfile
     depends_on:
       - logging.web
+      - rabbit
     ports:
       - 5005:80
-    
+
    logging.web:
     image: ${DOCKER_REGISTRY}loggingweb
     build:
-      context: Logging
-      dockerfile: Logging.Web/Dockerfile
+      context: ./
+      dockerfile: Logging/Logging.Web/Dockerfile
+    depends_on:
+      - rabbit
     ports:
       - 5006:80
-     
+
    tickets.web:
     image: ${DOCKER_REGISTRY}ticketsweb
     build:
-      context: TicketManagement
-      dockerfile: TicketManagement.Web/Dockerfile
+      context: .
+      dockerfile: TicketManagement/TicketManagement.Web/Dockerfile
+    environment:
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    env_file:
+      - host.env
     ports:
       - 5007:80
+    depends_on:
+      - rabbit
+
+   search.web:
+    image: ${DOCKER_REGISTRY}searchweb
+    build:
+      context: .
+      dockerfile: Search/Search.Web/Dockerfile
+    environment:
+      - ElasticSearchConnection=http://elasticsearch
+    ports:
+      - 5008:80
+    depends_on:
+      - rabbit
+      - elasticsearch
+   
+   usersettings.web:
+    image: ${DOCKER_REGISTRY}usersettingsgweb
+    build:
+      context: ./
+      dockerfile: UserSettings/UserSettings.Web/Dockerfile
+    depends_on:
+      - rabbit
+    ports:
+      - 5009:80
+
+   rabbit:
+    image: rabbitmq:management
+    ports:
+      - 4369:4369
+      - 5671:5671
+      - 5672:5672
+      - 25672:25672
+      - 15671:15671
+      - 15672:15672
+    volumes:
+      - ./rabbitmq-isolated.conf:/etc/rabbitmq/rabbitmq.config
+
+   elasticsearch:
+    image: elasticsearch:6.4.3
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+   chat.web:
+    image: ${DOCKER_REGISTRY}chatweb
+    build:
+      context: ./
+      dockerfile: Chat/Chat.Web/Dockerfile
+    ports:
+      - 5010:80
+
+   statisticonline.web:
+    image: ${DOCKER_REGISTRY}statisticonlineweb
+    build:
+      context: ./
+      dockerfile: StatisticOnline/StatisticOnline.Web/Dockerfile
+    depends_on:
+      - rabbit
+    ports:
+      - 5050:80

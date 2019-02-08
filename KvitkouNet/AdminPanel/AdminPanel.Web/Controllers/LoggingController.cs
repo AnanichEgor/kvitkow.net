@@ -1,7 +1,10 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AdminPanel.Logic.Generated.Logging;
+using AdminPanel.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Rest;
 
 namespace AdminPanel.Web.Controllers
 {
@@ -9,18 +12,31 @@ namespace AdminPanel.Web.Controllers
 	/// Контроллер для работы с логами через панель администратора
 	/// </summary>
 	[Route("api/admin/logs")]
+	[ServiceFilter(typeof(GlobalExceptionFilter))]
 	public class LoggingController : Controller
 	{
+		private readonly IErrorLog _errorLogService;
+
+		public LoggingController(IErrorLog errorLogService)
+		{
+			_errorLogService = errorLogService;
+		}
+
 		/// <summary>
 		/// Возвращает список залогированных ошибок
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet("errors")]
-		public async Task<IActionResult> GetErrors([FromQuery] string typeName)
+		public async Task<IActionResult> GetErrors([FromQuery] string exceptionTypeName)
 		{
-			var errorLogService = new ErrorLog(new MyTitle(new HttpClient(), true));
-			var res = await errorLogService.GetErrorLogsWithHttpMessagesAsync(typeName);
-			return Ok(res);
+			try
+			{
+				return Ok(await _errorLogService.GetErrorLogsAsync(exceptionTypeName: exceptionTypeName));
+			}
+			catch (SerializationException e)
+			{
+				return BadRequest($"{e.Message} : {e.Content}");
+			}
 		}
 	}
 }

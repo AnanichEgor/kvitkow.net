@@ -1,13 +1,14 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/dotnet:2.1-sdk AS build
+FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
-COPY ["Search.Web/Search.Web.csproj", "Search.Web/"]
-RUN dotnet restore "Search.Web/Search.Web.csproj"
-COPY . .
-WORKDIR "/src/Search.Web"
+COPY ["Gateway/KvitkouNet.Messages", "Gateway/KvitkouNet.Messages"]
+COPY ["Search/Search.Web/Search.Web.csproj", "Search/Search.Web/"]
+RUN dotnet restore "Search/Search.Web/Search.Web.csproj"
+COPY ["Search", "Search"]
+WORKDIR "/src/Search/Search.Web"
 RUN dotnet build "Search.Web.csproj" -c Release -o /app
 
 FROM build AS publish

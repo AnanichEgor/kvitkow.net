@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bogus" Version="25.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.1" />
+    <PackageReference Include="Bogus" Version="25.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Migrations\20190117142826_Init.Designer.cs">
-      <DependentUpon>20190117142826_Init.cs</DependentUpon>
+    <Compile Update="Migrations\20190124154218_Init.Designer.cs">
+      <DependentUpon>20190124154218_Init.cs</DependentUpon>
     </Compile>
   </ItemGroup>
 

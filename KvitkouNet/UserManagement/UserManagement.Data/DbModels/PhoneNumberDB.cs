@@ -10,7 +10,7 @@
         /// <summary>
         /// Профиль пользователя
         /// </summary>
-        public ProfileDB Profile { get; set; }
+        public virtual ProfileDB Profile { get; set; }
         #endregion
     }
 }

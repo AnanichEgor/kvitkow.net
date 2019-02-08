@@ -14,11 +14,11 @@ namespace UserManagement.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846");
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
 
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.Account", b =>
+            modelBuilder.Entity("UserManagement.Data.DbModels.AccountDB", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Email");
@@ -27,12 +27,17 @@ namespace UserManagement.Data.Migrations
 
                     b.Property<string>("Password");
 
+                    b.Property<string>("UserDBId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserDBId")
+                        .IsUnique();
 
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.Address", b =>
+            modelBuilder.Entity("UserManagement.Data.DbModels.AddressDB", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -45,7 +50,7 @@ namespace UserManagement.Data.Migrations
 
                     b.Property<string>("House");
 
-                    b.Property<string>("ProfileId");
+                    b.Property<int?>("ProfileId");
 
                     b.Property<string>("Street");
 
@@ -53,10 +58,10 @@ namespace UserManagement.Data.Migrations
 
                     b.HasIndex("ProfileId");
 
-                    b.ToTable("Adresses");
+                    b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.Group", b =>
+            modelBuilder.Entity("UserManagement.Data.DbModels.GroupDB", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -65,23 +70,19 @@ namespace UserManagement.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("ProfileId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProfileId");
 
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.PhoneNumber", b =>
+            modelBuilder.Entity("UserManagement.Data.DbModels.PhoneNumberDB", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Number");
 
-                    b.Property<string>("ProfileId");
+                    b.Property<int?>("ProfileId");
 
                     b.Property<string>("Type");
 
@@ -92,9 +93,9 @@ namespace UserManagement.Data.Migrations
                     b.ToTable("PhoneNumbers");
                 });
 
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.Profile", b =>
+            modelBuilder.Entity("UserManagement.Data.DbModels.ProfileDB", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("Birthday");
@@ -111,114 +112,90 @@ namespace UserManagement.Data.Migrations
 
                     b.Property<string>("MiddleName");
 
+                    b.Property<string>("ProfileSettingsId");
+
                     b.Property<double>("Rating");
 
                     b.Property<DateTime>("RegistrationDate");
 
-                    b.Property<string>("Sex");
+                    b.Property<int>("Sex");
 
-                    b.Property<string>("UserSettingsId");
+                    b.Property<string>("UserDBId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserSettingsId");
+                    b.HasIndex("ProfileSettingsId");
+
+                    b.HasIndex("UserDBId")
+                        .IsUnique();
 
                     b.ToTable("Profiles");
                 });
 
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.Security.Role", b =>
+            modelBuilder.Entity("UserManagement.Data.DbModels.Security.RoleDB", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("GroupId");
+                    b.Property<int?>("GroupDBId");
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("ProfileId");
+                    b.Property<string>("UserDBId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId");
+                    b.HasIndex("GroupDBId");
 
-                    b.HasIndex("ProfileId");
+                    b.HasIndex("UserDBId");
 
-                    b.ToTable("Role");
+                    b.ToTable("RoleDB");
                 });
 
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.Tickets.Ticket", b =>
-                {
-                    b.Property<string>("TicketId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AdditionalData");
-
-                    b.Property<string>("EventLink");
-
-                    b.Property<bool>("Free");
-
-                    b.Property<string>("LocationEventId");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("PaymentSystems");
-
-                    b.Property<decimal>("Price");
-
-                    b.Property<string>("ProfileId");
-
-                    b.Property<string>("SellerAdressId");
-
-                    b.Property<string>("SellerPhone");
-
-                    b.Property<int>("Status");
-
-                    b.Property<string>("TimeActual");
-
-                    b.Property<int>("TypeEvent");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("TicketId");
-
-                    b.HasIndex("LocationEventId");
-
-                    b.HasIndex("ProfileId");
-
-                    b.HasIndex("SellerAdressId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Ticket");
-                });
-
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.User", b =>
+            modelBuilder.Entity("UserManagement.Data.DbModels.Tickets.TicketDB", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AccountId");
+                    b.Property<bool>("Free");
 
-                    b.Property<int?>("GroupId");
-
-                    b.Property<string>("ProfileId");
+                    b.Property<string>("Name");
 
                     b.Property<string>("TicketId");
 
+                    b.Property<string>("UserDBId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("UserDBId");
 
-                    b.HasIndex("GroupId");
+                    b.ToTable("TicketDB");
+                });
 
-                    b.HasIndex("ProfileId");
+            modelBuilder.Entity("UserManagement.Data.DbModels.UserDB", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
-                    b.HasIndex("TicketId");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.UserSettings.ProfileSettings", b =>
+            modelBuilder.Entity("UserManagement.Data.DbModels.UserGroupDB", b =>
+                {
+                    b.Property<int>("GroupId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("GroupId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserGroupDB");
+                });
+
+            modelBuilder.Entity("UserManagement.Data.DbModels.UserSettings.ProfileSettings", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -250,81 +227,68 @@ namespace UserManagement.Data.Migrations
                     b.ToTable("ProfileSettings");
                 });
 
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.Address", b =>
+            modelBuilder.Entity("UserManagement.Data.DbModels.AccountDB", b =>
                 {
-                    b.HasOne("UserManagement.Logic.Common.Models.Profile")
-                        .WithMany("Adresses")
+                    b.HasOne("UserManagement.Data.DbModels.UserDB", "UserDB")
+                        .WithOne("AccountDB")
+                        .HasForeignKey("UserManagement.Data.DbModels.AccountDB", "UserDBId");
+                });
+
+            modelBuilder.Entity("UserManagement.Data.DbModels.AddressDB", b =>
+                {
+                    b.HasOne("UserManagement.Data.DbModels.ProfileDB", "Profile")
+                        .WithMany("Addresses")
                         .HasForeignKey("ProfileId");
                 });
 
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.Group", b =>
+            modelBuilder.Entity("UserManagement.Data.DbModels.PhoneNumberDB", b =>
                 {
-                    b.HasOne("UserManagement.Logic.Common.Models.Profile")
-                        .WithMany("UserGroups")
-                        .HasForeignKey("ProfileId");
-                });
-
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.PhoneNumber", b =>
-                {
-                    b.HasOne("UserManagement.Logic.Common.Models.Profile")
+                    b.HasOne("UserManagement.Data.DbModels.ProfileDB", "Profile")
                         .WithMany("PhoneNumbers")
                         .HasForeignKey("ProfileId");
                 });
 
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.Profile", b =>
+            modelBuilder.Entity("UserManagement.Data.DbModels.ProfileDB", b =>
                 {
-                    b.HasOne("UserManagement.Logic.Common.Models.UserSettings.ProfileSettings", "UserSettings")
+                    b.HasOne("UserManagement.Data.DbModels.UserSettings.ProfileSettings", "ProfileSettings")
                         .WithMany()
-                        .HasForeignKey("UserSettingsId");
+                        .HasForeignKey("ProfileSettingsId");
+
+                    b.HasOne("UserManagement.Data.DbModels.UserDB", "UserDB")
+                        .WithOne("ProfileDB")
+                        .HasForeignKey("UserManagement.Data.DbModels.ProfileDB", "UserDBId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.Security.Role", b =>
+            modelBuilder.Entity("UserManagement.Data.DbModels.Security.RoleDB", b =>
                 {
-                    b.HasOne("UserManagement.Logic.Common.Models.Group")
+                    b.HasOne("UserManagement.Data.DbModels.GroupDB")
                         .WithMany("GroupRoles")
-                        .HasForeignKey("GroupId");
+                        .HasForeignKey("GroupDBId");
 
-                    b.HasOne("UserManagement.Logic.Common.Models.Profile")
+                    b.HasOne("UserManagement.Data.DbModels.UserDB")
                         .WithMany("UserRoles")
-                        .HasForeignKey("ProfileId");
+                        .HasForeignKey("UserDBId");
                 });
 
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.Tickets.Ticket", b =>
+            modelBuilder.Entity("UserManagement.Data.DbModels.Tickets.TicketDB", b =>
                 {
-                    b.HasOne("UserManagement.Logic.Common.Models.Address", "LocationEvent")
-                        .WithMany()
-                        .HasForeignKey("LocationEventId");
-
-                    b.HasOne("UserManagement.Logic.Common.Models.Profile")
+                    b.HasOne("UserManagement.Data.DbModels.UserDB", "User")
                         .WithMany("Tickets")
-                        .HasForeignKey("ProfileId");
-
-                    b.HasOne("UserManagement.Logic.Common.Models.Address", "SellerAdress")
-                        .WithMany()
-                        .HasForeignKey("SellerAdressId");
-
-                    b.HasOne("UserManagement.Logic.Common.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserDBId");
                 });
 
-            modelBuilder.Entity("UserManagement.Logic.Common.Models.User", b =>
+            modelBuilder.Entity("UserManagement.Data.DbModels.UserGroupDB", b =>
                 {
-                    b.HasOne("UserManagement.Logic.Common.Models.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId");
+                    b.HasOne("UserManagement.Data.DbModels.GroupDB", "Group")
+                        .WithMany("UserGroups")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("UserManagement.Logic.Common.Models.Group")
-                        .WithMany("GroupUsers")
-                        .HasForeignKey("GroupId");
-
-                    b.HasOne("UserManagement.Logic.Common.Models.Profile", "Profile")
-                        .WithMany()
-                        .HasForeignKey("ProfileId");
-
-                    b.HasOne("UserManagement.Logic.Common.Models.Tickets.Ticket")
-                        .WithMany("RespondedUsers")
-                        .HasForeignKey("TicketId");
+                    b.HasOne("UserManagement.Data.DbModels.UserDB", "User")
+                        .WithMany("UserGroups")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -10,10 +10,9 @@ namespace Chat.Data.DbModels
         public string UserName { get; set; }
 
         /// <summary>
-        /// Роль пользователя.
+        /// Признак пользователя в Online.
         /// </summary>
-        public string UserRole { get; set; }
-
+        public bool IsOnline { get; set; }
         /// <summary>
         /// Avatar пользователя в Chat.
         /// </summary>

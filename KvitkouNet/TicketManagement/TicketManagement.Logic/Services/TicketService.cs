@@ -2,25 +2,38 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using EasyNetQ;
 using FluentValidation;
+using KvitkouNet.Messages.TicketManagement;
+using Microsoft.Extensions.Configuration;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Data.Repositories;
+using TicketManagement.Logic.Extentions;
 using TicketManagement.Logic.Models;
 using TicketManagement.Logic.Models.Enums;
+using Ticket = TicketManagement.Data.DbModels.Ticket;
 
 namespace TicketManagement.Logic.Services
 {
+    /// <summary>
+    ///     Сервис для работы с тикетами
+    /// </summary>
     public class TicketService : ITicketService
     {
         private readonly ITicketRepository _context;
         private readonly IMapper _mapper;
         private readonly IValidator _validator;
+        private readonly IConfiguration _configuration;
+        private readonly IBus _bus;
 
-        public TicketService(ITicketRepository context, IMapper mapper, IValidator<Ticket> validator)
+        public TicketService(ITicketRepository context, IMapper mapper, IValidator<Models.Ticket> validator,
+            IConfiguration configuration, IBus bus)
         {
             _context = context;
             _mapper = mapper;
             _validator = validator;
+            _configuration = configuration;
+            _bus = bus;
         }
 
         /// <summary>
@@ -28,10 +41,25 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        public async Task<(string, RequestStatus)> Add(Ticket ticket)
+        public async Task<(string, RequestStatus)> Add(Models.Ticket ticket)
         {
-            if (!_validator.Validate(ticket).IsValid) return (null, RequestStatus.BadRequest);
-            var res = await _context.Add(_mapper.Map<TicketDb>(ticket));
+            //WARNING используется для замены стандартных значений swagerr'a
+            //при связи с фронтом надо убрать 
+            ticket.SellerPhone = "+375-29-76-23-371";
+            //WARNING
+
+            if (ticket.User.Rating < 0) return (null, RequestStatus.BadUserRating);
+            if (!_validator.Validate(ticket).IsValid) return (null, RequestStatus.InvalidModel);
+            var res = await _context.Add(_mapper.Map<Ticket>(ticket));
+            await _bus.PublishAsync(new TicketCreationMessage
+            {
+                TicketId = res,
+                Price = ticket.Price,
+                Name = ticket.Name,
+                City = ticket.LocationEvent.City,
+                Category = ticket.TypeEvent.ToString(),
+                Date = DateTime.Now
+            });
             return (res, RequestStatus.Success);
         }
 
@@ -41,9 +69,18 @@ namespace TicketManagement.Logic.Services
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        public async Task<RequestStatus> Update(string id, Ticket ticket)
+        public async Task<RequestStatus> Update(string id, Models.Ticket ticket)
         {
-            await _context.Update(id, _mapper.Map<TicketDb>(ticket));
+            await _context.Update(id, _mapper.Map<Ticket>(ticket));
+            await _bus.PublishAsync(new TicketUpdatedMessage()
+            {
+                TicketId = id,
+                Price = ticket.Price,
+                Name = ticket.Name,
+                City = ticket.LocationEvent.City,
+                Category = ticket.TypeEvent.ToString(),
+                Date = DateTime.Now
+            });
             return RequestStatus.Success;
         }
 
@@ -65,6 +102,10 @@ namespace TicketManagement.Logic.Services
         public async Task<RequestStatus> Delete(string id)
         {
             await _context.Delete(id);
+            await _bus.PublishAsync(new TicketDeletedMessage
+            {
+               TicketId = id
+            });
             return RequestStatus.Success;
         }
 
@@ -72,42 +113,69 @@ namespace TicketManagement.Logic.Services
         ///     Получение всех билет имеющихся в системе
         /// </summary>
         /// <returns></returns>
-        public async Task<(IEnumerable<Ticket>, RequestStatus)> GetAll()
+        public async Task<(IEnumerable<Models.Ticket>, RequestStatus)> GetAll()
         {
-            var res = _mapper.Map<IEnumerable<Ticket>>(await _context.GetAll());
+            var res = _mapper.Map<IEnumerable<Models.Ticket>>(await _context.GetAll());
             return res == null ? (null, RequestStatus.Error) : (res, RequestStatus.Success);
         }
 
         /// <summary>
         ///     Получение билета по Id
         /// </summary>
-        /// <param name="ticketIdGuid">Id билета</param>
         /// <returns></returns>
-        public async Task<(Ticket, RequestStatus)> Get(string id)
+        public async Task<(Models.Ticket, RequestStatus)> Get(string id)
         {
             var res = await _context.Get(id);
-            return res == null ? (null, RequestStatus.BadRequest) : (_mapper.Map<Ticket>(res), RequestStatus.Success);
+            return res == null ? (null, RequestStatus.InvalidModel) : (_mapper.Map<Models.Ticket>(res), RequestStatus.Success);
         }
 
         /// <summary>
         ///     Получение только актуальных билетов
         /// </summary>
         /// <returns></returns>
-        public async Task<(IEnumerable<Ticket>, RequestStatus)> GetAllActual()
+        public async Task<(IEnumerable<Models.Ticket>, RequestStatus)> GetAllActual()
         {
             var res = await _context.GetAllActual();
             return res == null
-                ? (null, RequestStatus.BadRequest)
-                : (_mapper.Map<IEnumerable<Ticket>>(res), RequestStatus.Success);
+                ? (null, RequestStatus.InvalidModel)
+                : (_mapper.Map<IEnumerable<Models.Ticket>>(res), RequestStatus.Success);
         }
 
-        #region IDisposable Support
+        /// <summary>
+        ///     Получение всех билетов имеющихся в системе постранично
+        /// </summary>
+        /// <param name="index">Номер текущей страницы</param>
+        /// <returns></returns>
+        public async Task<(Models.Page<TicketLite>, RequestStatus)> GetAllPagebyPage(int index)
+        {
+            var pageSize = _configuration.GetValue<int>("pageSize");
+            var res = await _context.GetAllPagebyPage(index, pageSize);
+            return res == null
+                ? (null, RequestStatus.InvalidModel)
+                : (_mapper.Map<Models.Page<TicketLite>>(res), RequestStatus.Success);
+        }
 
+        /// <summary>
+        ///     Получение всех актуальных билетов имеющихся в системе постранично
+        /// </summary>
+        /// <param name="index">Номер текущей страницы</param>
+        /// <param name="onlyActual">Только актуальные билеты</param>
+        /// <returns></returns>
+        public async Task<(Models.Page<TicketLite>, RequestStatus)> GetAllPagebyPageActual(int index, bool onlyActual = true)
+        {
+            var pageSize = _configuration.GetValue<int>("pageSize");
+            var res = await _context.GetAllPagebyPage(index, pageSize,onlyActual);
+            return res == null
+                ? (null, RequestStatus.InvalidModel)
+                : (_mapper.Map<Models.Page<TicketLite>>(res), RequestStatus.Success);
+        }
+
+        /// <summary>
+        ///     Disposing
+        /// </summary>
         public void Dispose()
         {
             GC.SuppressFinalize(this);
         }
-
-        #endregion
     }
 }
