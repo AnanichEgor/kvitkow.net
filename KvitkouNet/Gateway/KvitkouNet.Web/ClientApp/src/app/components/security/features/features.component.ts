@@ -42,6 +42,11 @@ export class FeaturesComponent implements OnInit {
       this.features = features.features;
       this.pages = Math.ceil(features.totalCount / 10); });
       this.currentPage = page;
+    this.selectedFeature = null;
+    this.addPressed = false;
+    this.selectedAddRight = null;
+    this.selectedRight = null;
+    this.rightsFound = null;
   }
   onNextPage() {
     this.onSearchPage(this.currentPage + 1);
@@ -53,6 +58,8 @@ export class FeaturesComponent implements OnInit {
     this.selectedFeature = feature;
     this.addPressed = false;
     this.selectedAddRight = null;
+    this.selectedRight = null;
+    this.rightsFound = null;
   }
   onSelectRight(right: AccessRight) {
     this.selectedRight = right;

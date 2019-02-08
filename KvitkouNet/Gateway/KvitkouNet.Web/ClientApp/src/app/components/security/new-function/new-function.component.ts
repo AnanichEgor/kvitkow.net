@@ -43,4 +43,7 @@ export class NewFunctionComponent implements OnInit {
       this.secceded = features.status === 0;
       this.errorMessage = features.message; });
   }
+  onFunctionNameChanged() {
+    this.secceded = false;
+  }
 }

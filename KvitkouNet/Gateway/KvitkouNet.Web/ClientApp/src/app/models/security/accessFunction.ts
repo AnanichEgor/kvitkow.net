@@ -11,10 +11,12 @@
  */
 import { AccessRight } from './accessRight';
 
+
 export interface AccessFunction {
 
     id: number;
     name?: string;
     featureId: number;
+    featureName?: string;
     accessRights?: Array<AccessRight>;
 }

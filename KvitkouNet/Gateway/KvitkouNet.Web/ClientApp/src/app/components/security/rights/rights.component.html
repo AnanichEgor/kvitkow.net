@@ -1,5 +1,5 @@
 <form [formGroup]="rightsForm">
-    <div class="form-row">
+    <div class="row">
       <div class="col">
       </div>
       <div class="col-7">
@@ -9,8 +9,10 @@
       <div class="col">
         <button type="submit" class="btn btn-primary mb-2" (click)="onSearchRights()">Search</button>
       </div>
-      <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
-        <strong>{{ errorMessage }}</strong>
+      <div class="col">
+        <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+          <strong>{{ errorMessage }}</strong>
+        </div>
       </div>
     </div>
   </form>
@@ -23,6 +25,22 @@
         <ul class="list-group">
           <li class="list-group-item" *ngFor="let item of rights">{{ item.name }}</li>
         </ul>
+        <nav aria-label="Page navigation example" *ngIf="pages > 1">
+            <ul class="pagination">
+              <li class="page-item" [class.disabled]="currentPage==1">
+                <a class="page-link" (click)="onPreviosePage()" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item" [class.active]="currentPage===(i + 1)" *ngFor="let item of Arr(pages); index as i">
+                <a class="page-link" (click)="onSearchRightsPage(i+1)">{{ i+1 }}</a></li>
+              <li class="page-item" [class.disabled]="currentPage==pages">
+                <a class="page-link" (click)="onNextPage()" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
       </div>
       <div class="col">
       </div>

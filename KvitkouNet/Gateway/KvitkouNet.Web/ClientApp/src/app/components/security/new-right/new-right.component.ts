@@ -24,4 +24,7 @@ export class NewRightComponent implements OnInit {
       this.secceded = result.status === 0;
       this.errorMessage = result.message; });
   }
+  onRightNameChanged() {
+    this.secceded = false;
+  }
 }

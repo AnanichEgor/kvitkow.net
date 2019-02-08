@@ -12,6 +12,9 @@ export class RightsComponent implements OnInit {
   rightsForm: FormGroup;
   rights: AccessRight[];
   errorMessage: string;
+  pages: number;
+  currentPage: number;
+  Arr = Array;
   constructor(private service: RightsService, private formBuilder: FormBuilder) {
 
    }
@@ -22,9 +25,20 @@ export class RightsComponent implements OnInit {
   });
   }
   onSearchRights() {
+    this.onSearchRightsPage(1);
+  }
+  onSearchRightsPage(page: number) {
 
-    this.service.rightsGetRights(10, 1, this.rightsForm.get('rightName').value).subscribe(rights => {
+    this.service.rightsGetRights(12, page, this.rightsForm.get('rightName').value).subscribe(rights => {
       this.errorMessage = rights.message;
-      this.rights = rights.accessRights; });
+      this.rights = rights.accessRights;
+      this.pages = Math.ceil(rights.totalCount / 12); });
+      this.currentPage = page;
+  }
+  onNextPage() {
+    this.onSearchRightsPage(this.currentPage + 1);
+  }
+  onPreviosePage() {
+    this.onSearchRightsPage(this.currentPage - 1);
   }
 }

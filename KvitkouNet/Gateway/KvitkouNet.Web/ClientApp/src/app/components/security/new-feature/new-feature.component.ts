@@ -25,4 +25,7 @@ export class NewFeatureComponent implements OnInit {
       this.secceded = result.status === 0;
       this.errorMessage = result.message; });
   }
+  onFeatureNameChanged() {
+    this.secceded = false;
+  }
 }

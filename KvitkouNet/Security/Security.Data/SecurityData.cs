@@ -72,7 +72,8 @@ namespace Security.Data
         public async Task<AccessFunctionsGetResult> GetFunctions(int itemsPerPage, int pageNumber, string mask = null)
         {
             var functions = _context.AccessFunctions.Include(l => l.AccessFunctionAccessRights)
-                .ThenInclude(l => l.AccessFunction)
+                .ThenInclude(l => l.AccessRight)
+                .Include(l=>l.Feature)
                 .Where(l => l.Name.Contains(mask))
                 .OrderBy(l => l.Name);
 
@@ -214,7 +215,7 @@ namespace Security.Data
         {
             var roles = _context.Roles
                 .Include(l => l.RoleAccessRight).ThenInclude(l => l.AccessRight)
-                .Include(l => l.RoleAccessFunction).ThenInclude(l => l.AccessFunction)
+                .Include(l => l.RoleAccessFunction).ThenInclude(l => l.AccessFunction).ThenInclude(l=>l.AccessFunctionAccessRights).ThenInclude(l=>l.AccessRight)
                 .Where(l => l.Name.Contains(mask))
                 .OrderBy(l => l.Name);
             return new RolesGetResult()
