@@ -13,6 +13,15 @@ namespace Security.Logic.Services
     public interface IUserRightsService : IDisposable
     {
         /// <summary>
+        /// Получение списка пользователей
+        /// </summary>
+        /// <param name="itemsPerPage">Элементов на странице</param>
+        /// <param name="pageNumber">Номер страницы</param>
+        /// <param name="mask">Маска поиска</param>
+        /// <returns></returns>
+        Task<UserInfoResponse> GetUsersInfo(int itemsPerPage, int pageNumber, string mask = null);
+
+        /// <summary>
         /// Получение списка прав доступа пользователя
         /// </summary>
         /// <param name="userId">Идентификатор пользователя</param>

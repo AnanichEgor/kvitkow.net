@@ -207,7 +207,7 @@ namespace Security.Data.Migrations
 
             modelBuilder.Entity("Security.Data.ContextModels.AccessFunction", b =>
                 {
-                    b.HasOne("Security.Data.ContextModels.Feature")
+                    b.HasOne("Security.Data.ContextModels.Feature", "Feature")
                         .WithMany()
                         .HasForeignKey("FeatureId")
                         .OnDelete(DeleteBehavior.SetNull);

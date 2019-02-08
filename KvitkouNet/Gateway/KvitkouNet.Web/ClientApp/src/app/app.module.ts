@@ -27,8 +27,6 @@ import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.com
 import { AccountLogsComponent } from './components/admin/account-logs/account-logs.component';
 import { PaymentLogsComponent } from './components/admin/payment-logs/payment-logs.component';
 import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
-import { SecurityComponent } from './components/security/security.component';
-import { SecurityMenuComponent } from './components/security-menu/security-menu.component';
 import { SearchUserComponent } from './components/search-user/search-user.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
@@ -38,6 +36,10 @@ import { QueryLogsComponent } from './components/admin/query-logs/query-logs.com
 import { TicketLogsComponent } from './components/admin/ticket-logs/ticket-logs.component';
 import { DealLogsComponent } from './components/admin/deal-logs/deal-logs.component';
 import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
+import { UserSettingsProfileComponent } from './components/user-settings/user-settings-profile/user-settings-profile.component';
+import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
+import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
+import { SecurityModule } from './components/security/security.module';
 
 @NgModule({
   declarations: [
@@ -54,28 +56,30 @@ import { AdminUserComponent } from './components/admin/admin-user/admin-user.com
     TicketDetailComponent,
     TicketEditComponent,
     ChatComponent,
-    ErrorLogsComponent,
-    AccountLogsComponent,
-    PaymentLogsComponent,
-    AdminMainComponent,
-    SecurityComponent,
-    SecurityMenuComponent,
     SearchUserComponent,
     SearchTicketComponent,
     SearchTicketResultsComponent,
-    SearchUserResultsComponent,
+    AdminMainComponent,
+    ErrorLogsComponent,
+    AccountLogsComponent,
+    PaymentLogsComponent,
     UserSettingsComponent,
     QueryLogsComponent,
     TicketLogsComponent,
     DealLogsComponent,
-    AdminUserComponent
+    AdminUserComponent,
+    UserSettingsProfileComponent,
+    UserSettingsSecurityComponent,
+    UserSettingsAdvancedComponent,
+    SearchUserResultsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    SecurityModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, ChatService, RoomService, AppRoutingModule],
   bootstrap: [AppComponent]

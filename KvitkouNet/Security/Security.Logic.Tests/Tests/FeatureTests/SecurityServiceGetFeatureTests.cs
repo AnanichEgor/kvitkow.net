@@ -4,6 +4,7 @@ using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using Security.Data;
+using Security.Data.Models;
 using Security.Logic.Implementations;
 using Security.Logic.MappingProfiles;
 using Security.Logic.Models;
@@ -34,8 +35,9 @@ namespace Security.Logic.Tests.Tests.FeatureTests
             _mock = new Mock<ISecurityData>();
             _mock.Setup(x => x.GetFeatures(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
                 .Returns((int i, int p, string m) =>
-                    Task.FromResult(_dbFaker.Features.Where(l => string.IsNullOrEmpty(m) || l.Name.Contains(m))
-                        .OrderBy(l => l.Name).Skip((p - 1) * i).Take(i)));
+                    Task.FromResult(new FeaturesGetResult{
+                        Features = _dbFaker.Features.Where(l => string.IsNullOrEmpty(m) || l.Name.Contains(m))
+                        .OrderBy(l => l.Name).Skip((p - 1) * i).Take(i)}));
             _securityData = new FeatureService(_mock.Object, _mapper);
         }
         

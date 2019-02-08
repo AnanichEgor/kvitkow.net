@@ -15,7 +15,7 @@ namespace Security.Data
         public static ISecurityData GetISecurityData()
         {
             var o = new DbContextOptionsBuilder<SecurityContext>();
-            o.UseSqlite("Data Source=D:\\kursi\\rep\\kvitkou-net\\KvitkouNet\\Security\\Security.Web\\SecurityDatabase.db");
+            o.UseSqlite("Data Source=D:\\gitRep\\kvitkou-net\\KvitkouNet\\Security\\Security.Web\\SecurityDatabase.db");
             using (var ctx = new SecurityContext(o.Options))
             {
                 ctx.Database.EnsureDeleted();
@@ -46,6 +46,7 @@ namespace Security.Data
 
             using (var ctx = new SecurityContext(o.Options))
             {
+                ctx.Database.EnsureCreated();
                 var can = ctx.Database.CanConnect();
             }
 
