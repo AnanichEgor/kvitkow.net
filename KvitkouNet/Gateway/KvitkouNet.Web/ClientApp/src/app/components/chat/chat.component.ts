@@ -15,6 +15,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ChatComponent implements OnInit {
   chatForm: FormGroup;
   message: Message;
+  templateMessage: string;
   userSettins: Settings;
   constructor(
     private serviceChat: ChatService, private serviceRoom: RoomService) { }
@@ -24,29 +25,32 @@ export class ChatComponent implements OnInit {
 
   onAddMessage(textMessage: string) {
 
-    // const request: EditFeatureRequest = {
-    //   featureId: this.selectedFeature.id,
-    //   rightsIds: rights.map(function(a) { return a.id; })
-    // };
-
-    const message: Message = {
+     const message: Message = {
       text: textMessage,
       sendedTime: new Date(),
       isEdit: false,
       userId: '2'
     };
-console.log(message);
-
-     this.serviceRoom.roomAddMessage(message, '2' ).subscribe();
+     this.serviceRoom.roomAddMessage(message, '2' ).subscribe(
+       (r) =>console.log(r)
+     , err => console.log(err));
   }
 
   onGetUserSetting() {
 
      this.serviceChat.chatGetUserSettings('1').subscribe(x =>
       {
-        console.log(x);
+
         this.userSettins = x;
       }
   );
-}
+  }
+
+  // onSearchMessage(templateMessage: String){
+  //   this.templateMessage = templateMessage;
+  //   this.serviceRoom.roomSearchMessage('1', this.templateMessage).subscribe(x =>
+  //     {
+  //       this.message = x;
+  //     })
+  // }
 }
