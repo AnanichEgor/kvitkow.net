@@ -41,6 +41,8 @@ import { AdminUserComponent } from './components/admin/admin-user/admin-user.com
 import { UserSettingsProfileComponent } from './components/user-settings/user-settings-profile/user-settings-profile.component';
 import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
 import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
+import { UserSettingsEmailComponent } from './components/user-settings/user-settings-security/user-settings-email/user-settings-email.component';
+import { UserSettingsPasswordComponent } from './components/user-settings/user-settings-security/user-settings-password/user-settings-password.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,9 @@ import { UserSettingsAdvancedComponent } from './components/user-settings/user-s
     AdminUserComponent,
     UserSettingsProfileComponent,
     UserSettingsSecurityComponent,
-    UserSettingsAdvancedComponent
+    UserSettingsAdvancedComponent,
+    UserSettingsEmailComponent,
+    UserSettingsPasswordComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

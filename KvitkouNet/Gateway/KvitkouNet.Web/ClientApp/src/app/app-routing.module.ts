@@ -28,6 +28,8 @@ import { AdminUserComponent } from './components/admin/admin-user/admin-user.com
 import { UserSettingsProfileComponent } from './components/user-settings/user-settings-profile/user-settings-profile.component';
 import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
 import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
+import { UserSettingsEmailComponent } from './components/user-settings/user-settings-security/user-settings-email/user-settings-email.component';
+import { UserSettingsPasswordComponent } from './components/user-settings/user-settings-security/user-settings-password/user-settings-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -57,7 +59,11 @@ const routes: Routes = [
   { path: 'settings', component: UserSettingsComponent,
     children: [
       { path: 'profile', component: UserSettingsProfileComponent, pathMatch: 'full'},
-      { path: 'security', component: UserSettingsSecurityComponent, pathMatch: 'full'},
+      { path: 'security', component: UserSettingsSecurityComponent, 
+      children: [
+      { path: 'email', component: UserSettingsEmailComponent, pathMatch: 'full'},
+      { path: 'password', component: UserSettingsPasswordComponent, pathMatch: 'full'}
+      ]},
       { path: 'advanced', component: UserSettingsAdvancedComponent, pathMatch: 'full'},
     ]},
   
