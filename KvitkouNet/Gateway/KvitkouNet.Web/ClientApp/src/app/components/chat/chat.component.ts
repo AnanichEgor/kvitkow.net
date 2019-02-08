@@ -14,7 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ChatComponent implements OnInit {
   chatForm: FormGroup;
-  message: Message;
+  message: Message[];
   templateMessage: string;
   userSettins: Settings;
   constructor(
@@ -33,7 +33,7 @@ export class ChatComponent implements OnInit {
     };
      this.serviceRoom.roomAddMessage(message, '2' ).subscribe(
        (r) =>console.log(r)
-     , err => console.log(err));
+     , err => console.log('err'));
   }
 
   onGetUserSetting() {
@@ -46,11 +46,11 @@ export class ChatComponent implements OnInit {
   );
   }
 
-  // onSearchMessage(templateMessage: String){
-  //   this.templateMessage = templateMessage;
-  //   this.serviceRoom.roomSearchMessage('1', this.templateMessage).subscribe(x =>
-  //     {
-  //       this.message = x;
-  //     })
-  // }
+  onSearchMessage(templateMessageIn: string){
+    this.templateMessage = templateMessageIn;
+    this.serviceRoom.roomSearchMessage('1', this.templateMessage).subscribe(x =>
+      {
+        this.message = x;
+      });
+  }
 }
