@@ -1,6 +1,3 @@
-import { SecurityMenuComponent } from './components/security-menu/security-menu.component';
-import { SecurityComponent } from './components/security/security.component';
-import { ChatComponent } from './components/chat/chat.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
 import { SearchUserComponent } from './components/search-user/search-user.component';
@@ -20,7 +17,6 @@ import { AccountLogsComponent } from './components/admin/account-logs/account-lo
 import { PaymentLogsComponent } from './components/admin/payment-logs/payment-logs.component';
 import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
-import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { QueryLogsComponent } from './components/admin/query-logs/query-logs.component';
 import { TicketLogsComponent } from './components/admin/ticket-logs/ticket-logs.component';
@@ -29,6 +25,8 @@ import { AdminUserComponent } from './components/admin/admin-user/admin-user.com
 import { UserSettingsProfileComponent } from './components/user-settings/user-settings-profile/user-settings-profile.component';
 import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
 import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -43,9 +41,7 @@ const routes: Routes = [
       { path: 'logs/deals', component: DealLogsComponent },
       { path: 'users', component: AdminUserComponent }
     ]},
-  { path: 'tickets/:id', component: TicketComponent, pathMatch: 'full'},
-  { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
-  { path: 'tickets/ticket/edit', component: TicketEditComponent, canActivate: [EditGuard], pathMatch: 'full' },
+  { path: 'tickets/:id', component: TicketDetailComponent, pathMatch: 'full' },
   { path: 'tickets/ticket/:id', component: TicketDetailComponent, pathMatch: 'full' },
   { path: 'users', component: UsersComponent, pathMatch: 'full' },
   { path: 'users/registration', component: RegistrationComponent, pathMatch: 'full' },
@@ -53,6 +49,10 @@ const routes: Routes = [
   { path: 'search-user', component: SearchUserComponent, pathMatch: 'full' },
   { path: 'search-ticket-results', component: SearchTicketResultsComponent, pathMatch: 'full' },
   { path: 'search-user-results', component: SearchUserResultsComponent, pathMatch: 'full' },
+  { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
+  {path: 'security',
+  loadChildren: './components/security/security.module#SecurityModule'},
+  { path: 'tickets/ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
   { path: 'chat', component: ChatComponent, pathMatch: 'full'},
   { path: 'settings', component: UserSettingsComponent,
     children: [
@@ -60,13 +60,13 @@ const routes: Routes = [
       { path: 'security', component: UserSettingsSecurityComponent, pathMatch: 'full'},
       { path: 'advanced', component: UserSettingsAdvancedComponent, pathMatch: 'full'},
     ]},
-  
-  { path: 'security', component: SecurityComponent, pathMatch: 'full' },
+
   { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
