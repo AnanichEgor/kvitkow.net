@@ -1,15 +1,22 @@
 ﻿using System.Threading.Tasks;
 using AdminPanel.Logic.Dtos.UserManagement;
+using AdminPanel.Logic.Generated.UserManagement;
 using AdminPanel.Logic.Infrastructure;
-using AdminPanel.Logic.Models.UserManagement;
 
 namespace AdminPanel.Logic.Services
 {
-	public class UserService : IUserService
+	public class UserServiceWrapper : IUserServiceWrapper
 	{
-		public async Task<User> GetAll()
+		private readonly IUser _userService;
+
+		public UserServiceWrapper(IUser userService)
 		{
-			throw new System.NotImplementedException();
+			_userService = userService;
+		}
+
+		public async Task<object> GetAll()
+		{
+			return await _userService.GetAllAsync();
 		}
 
 		public Task ChangeIsBannedStatus(IsBannedDto dto)

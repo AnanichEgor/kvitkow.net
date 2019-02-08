@@ -48,7 +48,7 @@ namespace Chat.Web.Controllers
         /// Изменение пользовательских настроек
         /// </summary>
         [HttpPatch, Route("settings/{uid}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(string), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "User Settings is updated")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> EditUserSettings([FromRoute] string uid, [FromBody] Settings settings)
         {

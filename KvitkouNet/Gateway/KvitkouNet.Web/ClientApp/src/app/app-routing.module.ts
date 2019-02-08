@@ -17,6 +17,15 @@ import { AccountLogsComponent } from './components/admin/account-logs/account-lo
 import { PaymentLogsComponent } from './components/admin/payment-logs/payment-logs.component';
 import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { QueryLogsComponent } from './components/admin/query-logs/query-logs.component';
+import { TicketLogsComponent } from './components/admin/ticket-logs/ticket-logs.component';
+import { DealLogsComponent } from './components/admin/deal-logs/deal-logs.component';
+import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
+import { UserSettingsProfileComponent } from './components/user-settings/user-settings-profile/user-settings-profile.component';
+import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
+import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -25,7 +34,11 @@ const routes: Routes = [
       { path: '', component: AdminMainComponent },
       { path: 'logs/errors', component: ErrorLogsComponent },
       { path: 'logs/accounts', component: AccountLogsComponent },
-      { path: 'logs/payments', component: PaymentLogsComponent }
+      { path: 'logs/payments', component: PaymentLogsComponent },
+      { path: 'logs/queries', component: QueryLogsComponent },
+      { path: 'logs/tickets', component: TicketLogsComponent },
+      { path: 'logs/deals', component: DealLogsComponent },
+      { path: 'users', component: AdminUserComponent }
     ]},
   { path: 'tickets', component: TicketComponent,  pathMatch: 'full'  },
   { path: 'tickets/:id', component: TicketDetailComponent, pathMatch: 'full' },
@@ -39,6 +52,14 @@ const routes: Routes = [
   {path: 'security',
   loadChildren: './components/security/security.module#SecurityModule'},
   { path: 'tickets/ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
+  { path: 'chat', component: ChatComponent, pathMatch: 'full'},
+  { path: 'settings', component: UserSettingsComponent,
+    children: [
+      { path: 'profile', component: UserSettingsProfileComponent, pathMatch: 'full'},
+      { path: 'security', component: UserSettingsSecurityComponent, pathMatch: 'full'},
+      { path: 'advanced', component: UserSettingsAdvancedComponent, pathMatch: 'full'},
+    ]},
+
   { path: '**', component: NotFoundComponent },
 ];
 

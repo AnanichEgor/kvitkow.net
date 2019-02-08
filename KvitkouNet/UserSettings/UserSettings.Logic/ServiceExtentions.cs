@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EasyNetQ;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,7 @@ using UserSettings.Data;
 using UserSettings.Data.Context;
 using UserSettings.Data.Faker;
 using UserSettings.Logic.MappingProfile;
+using UserSettings.Logic.Models;
 using UserSettings.Logic.Services;
 using UserSettings.Logic.Validators;
 
@@ -22,13 +24,10 @@ namespace UserSettings.Logic
 		/// <returns></returns>
 		public static IServiceCollection RegisterUserSettingsService(this IServiceCollection services)
 		{
-
-			var mock = new Mock<IUserSettingsService>();
-			services.AddScoped(_ => mock.Object);
-			services.AddScoped<IValidator, SettingsValidator>();
+			services.AddScoped<IValidator<Settings>, SettingsValidator>();
 			services.AddScoped<IUserSettingsService, UserSettingsService>();
 			services.AddScoped<ISettingsRepo, SettingsRepo>();
-			
+		
 			return services;
 		}
 
