@@ -1,3 +1,5 @@
+import { SubscriptionItemComponent } from './components/notification/subscription-item/subscription-item.component';
+import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { SecurityMenuComponent } from './components/security-menu/security-menu.component';
 import { SecurityComponent } from './components/security/security.component';
@@ -22,6 +24,7 @@ import { PaymentLogsComponent } from './components/admin/payment-logs/payment-lo
 import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { EmailNotificationItemComponent } from './components/notification/email-notification-item/email-notification-item.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },

@@ -1,3 +1,6 @@
+import { NotificationService } from './services/notification/notification.service';
+import { EmailNotificationService } from './services/notification/emailNotification.service';
+import { SubscriptionService } from './services/notification/subscription.service';
 import { UsersService } from './services/users.service';
 import { EditGuard } from './services/editGuard';
 import { GetallticketsService } from './services/getalltickets.service';
@@ -33,6 +36,10 @@ import { SearchTicketResultsComponent } from './components/search-ticket-results
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { NotificationMenuComponent } from './components/notification/notification-menu/notification-menu.component';
+import { EmailNotificationItemComponent } from './components/notification/email-notification-item/email-notification-item.component';
+import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
+import { SubscriptionItemComponent } from './components/notification/subscription-item/subscription-item.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +67,11 @@ import { NotificationComponent } from './components/notification/notification.co
     SearchTicketResultsComponent,
     SearchUserResultsComponent,
     UserSettingsComponent,
-    NotificationComponent
+    NotificationComponent,
+    NotificationMenuComponent,
+    EmailNotificationItemComponent,
+    NotificationItemComponent,
+    SubscriptionItemComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -69,7 +80,8 @@ import { NotificationComponent } from './components/notification/notification.co
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, AppRoutingModule],
+  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, NotificationService,
+    EmailNotificationService, SubscriptionService, AppRoutingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

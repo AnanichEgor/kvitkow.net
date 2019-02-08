@@ -10,10 +10,11 @@ using Notification.Logic.Models;
 using Notification.Logic.Services;
 using Notification.Logic.Services.Interfaces;
 using Notification.Logic.Models.Requests;
-
+using Microsoft.AspNetCore.Cors;
 
 namespace Notification.Web.Controllers
 {
+    [EnableCors("CorsPolicy")]
     [Route("api/notification/subscription")]
     [ApiController]
     public class SubscriptionController : ControllerBase

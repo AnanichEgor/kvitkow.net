@@ -6,13 +6,15 @@ using NSwag.Annotations;
 using Notification.Logic.Models;
 using Notification.Logic.Services;
 using Notification.Logic.Models.Requests;
+using Microsoft.AspNetCore.Cors;
 
 namespace Notification.Web.Controllers
 {
-	/// <summary>
-	/// api для уведомлений
-	/// </summary>
-	[Route("api/notification")]
+    /// <summary>
+    /// api для уведомлений
+    /// </summary>
+    [EnableCors("CorsPolicy")]
+    [Route("api/notification")]
 	public class NotificationController : Controller
 	{
 		private INotificationService m_service;

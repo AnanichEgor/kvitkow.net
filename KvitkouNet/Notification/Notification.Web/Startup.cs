@@ -36,7 +36,19 @@ namespace Notification.Web
                 cfg.AddProfile<Web.MappingProfiles.SeverityProfile>();
 			});
 
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
+
+            services.AddMvc();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddSwaggerDocument();
 
@@ -58,7 +70,9 @@ namespace Notification.Web
 				app.UseDeveloperExceptionPage();
 			}
 
-			app.UseSwagger().UseSwaggerUi3();
+            app.UseCors("CorsPolicy");
+
+            app.UseSwagger().UseSwaggerUi3();
 
 			app.UseMvc();
 
