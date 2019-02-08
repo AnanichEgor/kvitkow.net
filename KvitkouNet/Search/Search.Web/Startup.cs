@@ -11,6 +11,7 @@ using Search.Data;
 using Search.Data.Context;
 using Search.Logic;
 using Search.Logic.MappingProfiles;
+using Search.Web.Filters;
 using Search.Web.Subscriber;
 
 namespace Search.Web
@@ -47,14 +48,15 @@ namespace Search.Web
                 cfg.AddProfile<SearchProfile>();
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(opt => opt.Filters.Add(typeof(ExceptionFilter)))
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSwaggerDocument(opt => opt.Title = "SearchService");
             services.RegisterElasticSearch(elasticSearchConnectionString);
             services.RegisterHistoryRepository();
             services.RegisterServices();
             services.RegisterConsumers();
-           
+
             services.AddSingleton<IBus>(RabbitHutch.CreateBus(rabbitConnectionString));
             services.AddCors();
         }
@@ -67,7 +69,13 @@ namespace Search.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            app.UseCors(builder =>
+                builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    //.WithOrigins("http://localhost:4200")
+                    .AllowAnyOrigin());
+
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
 
