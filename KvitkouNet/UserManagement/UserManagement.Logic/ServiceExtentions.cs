@@ -8,6 +8,8 @@ using AutoMapper;
 using UserManagement.Logic.MappingProfiles;
 using UserManagement.Data;
 using UserManagement.Logic.Subscriber;
+using KvitkouNet.Messages.UserManagement;
+using EasyNetQ.AutoSubscribe;
 
 namespace UserManagement.Logic
 {
@@ -30,6 +32,8 @@ namespace UserManagement.Logic
 
             });
             services.AddScoped<UserSettingsMessageConsumer>();
+            services.AddScoped<IConsumeAsync<AccountMessage>, UserSettingsMessageConsumer>();
+
             return services;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using EasyNetQ;
 using EasyNetQ.AutoSubscribe;
+using KvitkouNet.Messages.UserManagement;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,9 +20,11 @@ namespace UserManagement.Logic.Subscriber
 
             lifetime.ApplicationStarted.Register(() =>
             {
-                var subscriber = new AutoSubscriber(bus, prefix);
-                subscriber.Subscribe(assembly);
-                subscriber.SubscribeAsync(assembly);
+                //var subscriber = new AutoSubscriber(bus, prefix);
+                //subscriber.Subscribe(assembly);
+                //subscriber.SubscribeAsync(assembly);
+                //bus.SubscribeAllConsumers(services);
+                bus.SubscribeAsync<AccountMessage>("UserService.AccountCreated", msg => services.GetService<IConsumeAsync<AccountMessage>>().ConsumeAsync(msg));
             });
 
             lifetime.ApplicationStopped.Register(() => bus.Dispose());
