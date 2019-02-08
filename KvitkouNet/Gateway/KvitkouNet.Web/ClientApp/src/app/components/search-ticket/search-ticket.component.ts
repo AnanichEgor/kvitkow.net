@@ -1,7 +1,10 @@
+import { mergeMap } from 'rxjs/operators';
 import { SearchTicket } from './../../models/searchTicket';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SearchService } from './../../services/search.service';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-search-ticket',
@@ -18,23 +21,44 @@ export class SearchTicketComponent implements OnInit {
     minPrice: new FormControl(''),
     maxPrice: new FormControl('')
   });
+  error: boolean;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private service: SearchService) {}
 
   ngOnInit() {}
 
   onSubmit() {
-    const request: SearchTicket = Object.assign({}, this.searchTicketForm.value);
-    for (const key in request) {
-      if (!request[key]) {
-        delete request[key];
-      }
-    }
-
+    const request: SearchTicket = Object.assign(
+      {},
+      this.searchTicketForm.value
+    );
+    this.clearNullFields(request);
     this.router.navigate(['search-ticket-results', request]);
   }
 
   previousSearch() {
-    const userId = this.router
+    const userId: Observable<string> = new BehaviorSubject('user');
+    userId
+      .pipe(mergeMap(t => this.service.getPreviousTicketSearch(t)))
+      .subscribe(
+        result => {
+          this.clearNullFields(result);
+          this.router.navigate(['search-ticket-results', result]);
+        },
+        err => {
+          console.error(err);
+          this.error = true;
+        }
+      );
+  }
+
+  private clearNullFields(obj: any) {
+    for (const key in obj) {
+      if (!obj[key]) {
+        delete obj[key];
+      }
+    }
+    delete obj['id'];
+    delete obj['searchTime'];
   }
 }
