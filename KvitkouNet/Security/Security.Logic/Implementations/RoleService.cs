@@ -60,10 +60,12 @@ namespace Security.Logic.Implementations
                     };
                 }
 
+                var roles = await _securityContext.GetRoles(itemsPerPage, pageNumber, mask?.Trim() ?? "");
+
                 return new RoleResponse
                 {
-                    Roles = _mapper.Map<Role[]>(await
-                        _securityContext.GetRoles(itemsPerPage, pageNumber, mask?.Trim()??"")),
+                    Roles = _mapper.Map<Role[]>(roles.Roles),
+                    TotalCount = roles.TotalCount,
                     Status = ActionStatus.Success
                 };
             }
