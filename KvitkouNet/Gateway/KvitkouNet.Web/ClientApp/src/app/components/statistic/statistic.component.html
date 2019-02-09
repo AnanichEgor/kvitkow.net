@@ -1,39 +1,59 @@
-<p>
-  statistic works!
-</p>
-<p>
-  statistic works!
-</p>
-<p>
-  statistic works!
-</p>
-<p>
-  statistic works!
-</p>
-<p>
-  statistic works!
-</p>
-<p>
-  statistic works!
-</p>
-<div>
-  <dx-chart
-    id="chart"
-    [dataSource]="userList"
-    palette="soft"
-    title="Статистика посещения за период"
-  >
-    <dxi-series valueField="countRegistered" name="Зарегистрированных"></dxi-series>
-    <dxi-series valueField="countGuest" name="Гостей"></dxi-series>
-
-    <dxo-common-series-settings
-      argumentField="createTime"
-      type="bar"
-      [ignoreEmptyPoints]="true"
+<div class="statistic">
+  <div class="container-flex">
+    <div class="container-flex-part">
+      <button type="button" class="btn btn-success" role="button">
+        Статистика посещения сайта &raquo;
+      </button>
+    </div>
+    <div class="container-flex-setings">
+      <button
+        type="button"
+        class="btn btn-info"
+        (click)="clickRange(1)"
+        role="button"
+      >
+        За 1 год
+      </button>
+      <button
+        type="button"
+        class="btn btn-info"
+        (click)="clickRange(2)"
+        role="button"
+      >
+        За 2 год
+      </button>
+      <button
+        type="button"
+        class="btn btn-info"
+        (click)="clickRange(3)"
+        role="button"
+      >
+        За 3 год
+      </button>
+    </div>
+  </div>
+  <div>
+    <dx-chart
+      id="chart"
+      [dataSource]="userList"
+      palette="soft"
+      title="Статистика посещения за период"
     >
-    </dxo-common-series-settings>
-    <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
-    </dxo-legend>
-    <dxo-export [enabled]="true"></dxo-export>
-  </dx-chart>
+      <dxi-series
+        valueField="countRegistered"
+        name="Зарегистрированных"
+      ></dxi-series>
+      <dxi-series valueField="countGuest" name="Гостей"></dxi-series>
+
+      <dxo-common-series-settings
+        argumentField="createTime"
+        type="bar"
+        [ignoreEmptyPoints]="true"
+      >
+      </dxo-common-series-settings>
+      <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
+      </dxo-legend>
+      <dxo-export [enabled]="true"></dxo-export>
+    </dx-chart>
+  </div>
 </div>

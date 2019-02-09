@@ -26,6 +26,16 @@ export class StatisticComponent implements OnInit {
     return item;
   }
 
+  getStatistic() {
+    this.statisticService.getRange(this.range)
+    .subscribe(result => (this.userList = result.map(this.ConvertDate)), err => console.log(err));
+  }
+
+  clickRange(year: number) {
+    this.setDate(year);
+    this.getStatistic();
+  }
+
   ngOnInit() {
     this.statisticService.getRange(this.range)
       .subscribe(result => (this.userList = result.map(this.ConvertDate)), err => console.log(err));
