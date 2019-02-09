@@ -2,6 +2,10 @@ import { SearchUser } from './../../models/searchUser';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import { SearchService } from './../../services/search.service';
+
 
 @Component({
   selector: 'app-search-user',
@@ -12,8 +16,9 @@ export class SearchUserComponent implements OnInit {
   searchUserForm = new FormGroup({
     minRating: new FormControl('')
   });
+  error: boolean;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private service: SearchService) {}
 
   ngOnInit() {}
 
@@ -26,5 +31,31 @@ export class SearchUserComponent implements OnInit {
     }
 
     this.router.navigate(['search-user-results', request]);
+  }
+
+  previousSearch() {
+    const userId: Observable<string> = new BehaviorSubject('user');
+    userId
+      .pipe(mergeMap(t => this.service.getPreviousUserSearch(t)))
+      .subscribe(
+        result => {
+          this.clearNullFields(result);
+          this.router.navigate(['search-user-results', result]);
+        },
+        err => {
+          console.error(err);
+          this.error = true;
+        }
+      );
+  }
+
+  private clearNullFields(obj: any) {
+    for (const key in obj) {
+      if (!obj[key]) {
+        delete obj[key];
+      }
+    }
+    delete obj['id'];
+    delete obj['searchTime'];
   }
 }
