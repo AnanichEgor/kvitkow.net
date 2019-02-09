@@ -1,5 +1,3 @@
-import { TicketStatus } from './../../models/ticketStatus';
-import { TypeEventTicket } from './../../models/typeEventTicket';
 import { Address } from './../../models/address';
 import { AddTicketService } from './../../services/add-ticket.service';
 import { Component, OnInit } from '@angular/core';

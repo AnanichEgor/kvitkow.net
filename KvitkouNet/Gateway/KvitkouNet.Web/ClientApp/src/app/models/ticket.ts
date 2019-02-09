@@ -1,7 +1,4 @@
 import { Address } from './address';
-
-import { TicketStatus } from './ticketStatus';
-import { TypeEventTicket } from './typeEventTicket';
 import { TicketUserInfo } from './ticketUserInfo';
 
 export class Ticket {
@@ -17,9 +14,9 @@ export class Ticket {
     sellerAdress?: Address;
     paymentSystems?: string;
     timeActual?: string;
-    typeEvent?: TypeEventTicket;
+    typeEvent?: string;
     eventLink?: string;
-    status?: TicketStatus;
+    status?: string;
     createdDate?: string;
 
   }
