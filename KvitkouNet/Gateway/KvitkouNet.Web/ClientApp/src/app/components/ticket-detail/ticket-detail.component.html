@@ -61,15 +61,18 @@
             <div class="card">
               <h5 class="card-header">Ticket Info</h5>
               <div class="card-body">
-                <h5 class="card-title">{{ tickets.name }}</h5></div>
-                <div class="card-body"><p class="card-text">{{ tickets.additionalData }}</p>
-                  <p class="card-text">Link: {{ tickets.eventLink }}</p></div>
-
-
+                <h5 class="card-title">{{ tickets.name }}</h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text">{{ tickets.additionalData }}</p>
+                <p class="card-text">Link: {{ tickets.eventLink }}</p>
+              </div>
 
               <div class="card-body">
-                  <h5 class="card-title" *ngIf="tickets.price">Price: {{ tickets.price }}</h5>
-                  <h5 class="card-title" *ngIf="!tickets.price">Price: Free</h5>
+                <h5 class="card-title" *ngIf="tickets.price">
+                  Price: {{ tickets.price }}
+                </h5>
+                <h5 class="card-title" *ngIf="!tickets.price">Price: Free</h5>
                 <h5 class="card-title">Phone: {{ tickets.sellerPhone }}</h5>
                 <p class="card-text">
                   Create: {{ tickets.createdDate | date: " MMMM d yyyy hh:mm" }}
@@ -80,19 +83,19 @@
                 </p>
               </div>
               <div class="card-body">
-                  <h6 class="card-title">
-                    Event location: {{ tickets.locationEvent.country }},
-                    {{ tickets.locationEvent.city }},
-                    {{ tickets.locationEvent.street }},
-                    {{ tickets.locationEvent.house }}
-                  </h6>
-                  <h6 class="card-title">
-                    Seller location: {{ tickets.sellerAdress.country }},
-                    {{ tickets.sellerAdress.city }},
-                    {{ tickets.sellerAdress.street }},
-                    {{ tickets.sellerAdress.house }}
-                  </h6>
-                </div>
+                <h6 class="card-title">
+                  Event location: {{ tickets.locationEvent.country }},
+                  {{ tickets.locationEvent.city }},
+                  {{ tickets.locationEvent.street }},
+                  {{ tickets.locationEvent.house }}
+                </h6>
+                <h6 class="card-title">
+                  Seller location: {{ tickets.sellerAdress.country }},
+                  {{ tickets.sellerAdress.city }},
+                  {{ tickets.sellerAdress.street }},
+                  {{ tickets.sellerAdress.house }}
+                </h6>
+              </div>
             </div>
           </div>
         </div>
@@ -137,4 +140,3 @@
   </div>
   <div class="row"></div>
 </div>
-<div class="album py-5 "></div>
