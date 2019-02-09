@@ -29,7 +29,7 @@ import { Configuration }                                     from './configurati
 @Injectable()
 export class NotificationService {
 
-    protected basePath = 'http://localhost:10644';
+    protected basePath = 'http://localhost:5002';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -96,7 +96,7 @@ export class NotificationService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post(`${this.basePath}/api/notification/users/ids`,
+        return this.httpClient.post(`${this.basePath}/notification/users/ids`,
             request,
             {
                 responseType: "blob",
@@ -151,7 +151,7 @@ export class NotificationService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post(`${this.basePath}/api/notification/users/${encodeURIComponent(String(id))}`,
+        return this.httpClient.post(`${this.basePath}/notification/users/${encodeURIComponent(String(id))}`,
             messsage,
             {
                 responseType: "blob",
@@ -206,7 +206,7 @@ export class NotificationService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.patch(`${this.basePath}/api/notification/${encodeURIComponent(String(id))}`,
+        return this.httpClient.patch(`${this.basePath}/notification/${encodeURIComponent(String(id))}`,
             messsage,
             {
                 responseType: "blob",
@@ -247,7 +247,7 @@ export class NotificationService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<Array<UserNotification>>(`${this.basePath}/api/notification/all`,
+        return this.httpClient.get<Array<UserNotification>>(`${this.basePath}/notification/all`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -291,7 +291,7 @@ export class NotificationService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<UserNotification>(`${this.basePath}/api/notification/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<UserNotification>(`${this.basePath}/notification/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -342,7 +342,7 @@ export class NotificationService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<Array<UserNotification>>(`${this.basePath}/api/notification/users/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<Array<UserNotification>>(`${this.basePath}/notification/users/${encodeURIComponent(String(id))}`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -387,7 +387,7 @@ export class NotificationService {
             'application/_*+json'
         ];
 
-        return this.httpClient.delete(`${this.basePath}/api/notification/users/${encodeURIComponent(String(id))}`,
+        return this.httpClient.delete(`${this.basePath}/notification/users/${encodeURIComponent(String(id))}`,
             {
                 responseType: "blob",
                 withCredentials: this.configuration.withCredentials,

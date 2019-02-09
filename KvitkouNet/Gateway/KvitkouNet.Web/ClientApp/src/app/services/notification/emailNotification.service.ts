@@ -27,7 +27,7 @@ import { Configuration }                                     from './configurati
 @Injectable()
 export class EmailNotificationService {
 
-    protected basePath = 'http://localhost:10644';
+    protected basePath = 'http://localhost:5002';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -90,7 +90,7 @@ export class EmailNotificationService {
             'application/_*+json'
         ];
 
-        return this.httpClient.post(`${this.basePath}/api/notification/email/registration/confirmation/${encodeURIComponent(String(uname))}`,
+        return this.httpClient.post(`${this.basePath}/notification/email/registration/confirmation/${encodeURIComponent(String(uname))}`,
             null,
             {
                 responseType: "blob",
@@ -131,7 +131,7 @@ export class EmailNotificationService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<Array<EmailNotification>>(`${this.basePath}/api/notification/email/all`,
+        return this.httpClient.get<Array<EmailNotification>>(`${this.basePath}/notification/email/all`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -175,7 +175,7 @@ export class EmailNotificationService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<Array<EmailNotification>>(`${this.basePath}/api/notification/email/users/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<Array<EmailNotification>>(`${this.basePath}/notification/email/users/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -25,24 +25,32 @@ namespace Notification.Logic.Services.NotificationService
 
 		public async Task AddUserNotifications(UserNotificationBulkRequest request)
 		{
-			IQueryable<User> users = m_context.Users.AsNoTracking().Where(x => request.UserIds.Any(id => id == x.Id));
+			IQueryable<User> users = m_context.Users.Where(x => request.UserIds.Any(id => id == x.Id));
 			Data.Models.Notification notification = m_mapper.Map<NotificationMessage, Data.Models.Notification>(request.Message);
-			DateTime date = DateTime.UtcNow;
-			m_context.ChangeTracker.AutoDetectChangesEnabled = false;
-			foreach (User user in users)
+			DateTime date = DateTime.UtcNow;          
+            foreach (User user in users)
 			{
-				m_context.Notifications.Add(new Data.Models.Notification
-				{
-					User = user,
-					Date = date,
-					IsClosed = false,
-					Type = NotificationType.Notification,
-					Text = notification.Text,
-					Title = notification.Title,
-					Severity = notification.Severity
-				});
+                Data.Models.Notification notification2 = new Data.Models.Notification
+                {
+                    User = user,
+                    Date = date,
+                    IsClosed = false,
+                    Type = NotificationType.Notification,
+                    Text = notification.Text,
+                    Title = notification.Title,
+                    Severity = notification.Severity
+                };
+                m_context.Notifications.Add(notification2);
 			}
-			await m_context.SaveChangesAsync();
+            try
+            {
+                await m_context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+            }
+			
 		}
 
 		public async Task EditNotification(UserNotification userNotification)

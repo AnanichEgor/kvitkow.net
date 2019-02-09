@@ -27,7 +27,7 @@ import { Configuration }                                     from './configurati
 @Injectable()
 export class SubscriptionService {
 
-    protected basePath = 'http://localhost:10644';
+    protected basePath = 'http://localhost:5002';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -90,7 +90,7 @@ export class SubscriptionService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<Array<Subscription>>(`${this.basePath}/api/notification/subscription/users/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<Array<Subscription>>(`${this.basePath}/notification/subscription/users/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -141,7 +141,7 @@ export class SubscriptionService {
             'application/_*+json'
         ];
 
-        return this.httpClient.post<Array<Subscription>>(`${this.basePath}/api/notification/subscription/test`,
+        return this.httpClient.post<Array<Subscription>>(`${this.basePath}/notification/subscription/test`,
             null,
             {
                 params: queryParameters,
@@ -192,7 +192,7 @@ export class SubscriptionService {
             'application/_*+json'
         ];
 
-        return this.httpClient.post<Array<Subscription>>(`${this.basePath}/api/notification/subscription/${encodeURIComponent(String(theme))}/users/${encodeURIComponent(String(id))}`,
+        return this.httpClient.post<Array<Subscription>>(`${this.basePath}/notification/subscription/${encodeURIComponent(String(theme))}/users/${encodeURIComponent(String(id))}`,
             null,
             {
                 withCredentials: this.configuration.withCredentials,
