@@ -3,9 +3,8 @@ import { SearchResult } from './../../models/searchResult';
 import { SearchTicket } from './../../models/searchTicket';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap, map, flatMap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { SearchTicketInfo } from '../../models/searchTicketInfo';
-import { Observable, from } from 'rxjs';
 
 @Component({
   selector: 'app-search-ticket-results',
