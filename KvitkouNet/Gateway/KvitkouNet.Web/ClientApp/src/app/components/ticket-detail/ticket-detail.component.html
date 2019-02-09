@@ -65,15 +65,18 @@
               </div>
               <div class="card-body">
                 <p class="card-text">{{ tickets.additionalData }}</p>
+                <p class="card-text">Type event: {{ tickets.typeEvent }}</p>
                 <p class="card-text">Link: {{ tickets.eventLink }}</p>
-              </div>
 
-              <div class="card-body">
+
+
+
                 <h5 class="card-title" *ngIf="tickets.price">
                   Price: {{ tickets.price }}
                 </h5>
+                <h5 class="card-title">Status: {{tickets.status}}</h5>
                 <h5 class="card-title" *ngIf="!tickets.price">Price: Free</h5>
-                <h5 class="card-title">Phone: {{ tickets.sellerPhone }}</h5>
+                <p class="card-title">Phone: {{ tickets.sellerPhone }}</p>
                 <p class="card-text">
                   Create: {{ tickets.createdDate | date: " MMMM d yyyy hh:mm" }}
                 </p>
