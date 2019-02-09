@@ -6,10 +6,12 @@ using System.Net;
 using System.Threading.Tasks;
 using Chat.Logic.Models;
 using Chat.Logic.Services;
+using Chat.Web.Hub;
 using EasyNetQ;
 using KvitkouNet.Messages.Chat;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using NSwag.Annotations;
 
 namespace Chat.Web.Controllers
@@ -24,11 +26,13 @@ namespace Chat.Web.Controllers
     {
         private IRoomService _roomService;
         private readonly IBus _bus;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        public RoomController(IRoomService roomService, IBus bus)
+        public RoomController(IRoomService roomService, IBus bus, IHubContext<NotificationHub> hubContext)
         {
             _roomService = roomService;
             _bus = bus;
+            _hubContext = hubContext;
         }
 
         /// <summary>
@@ -123,7 +127,7 @@ namespace Chat.Web.Controllers
                     SendedTime = message.SendedTime
                 });
             }
-
+            await _hubContext.Clients.All.SendAsync("alertOnSendedMessageAllUsers", message);
             return NoContent();
         }
 

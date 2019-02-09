@@ -6,6 +6,8 @@ import { ChatService } from './../../services/chat/chat.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
+
 
 @Component({
   selector: 'app-chat',
@@ -14,11 +16,32 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ChatComponent implements OnInit {
   chatForm: FormGroup;
-  message: Message[];
+  messages: Message[];
   templateMessage: string;
   userSettins: Settings;
+  newMessage: Message;
+  private connection: HubConnection;
+
   constructor(
-    private serviceChat: ChatService, private serviceRoom: RoomService) { }
+    private serviceChat: ChatService, private serviceRoom: RoomService
+    ) {
+      this.connection = new HubConnectionBuilder()
+      .withUrl('http://localhost:61936/chat/notification')
+      .build();
+
+      this.connection
+      .start()
+      .then(() => console.log('Connection established'))
+      .catch(err => console.error(err));
+      console.log('consrtructor');
+    this.connection.on('alertOnSendedMessageAllUsers', msg =>
+    (console.log('startMethodHub. Came in method  = ' + msg.Message ),
+      this.newMessage = msg.Message,
+      console.log('EndMethodHub')
+      ))
+    ;      console.log('consrtructorEnd');
+    console.log(this.newMessage);
+     }
 
   ngOnInit() {
 }
@@ -50,7 +73,7 @@ export class ChatComponent implements OnInit {
     this.templateMessage = templateMessageIn;
     this.serviceRoom.roomSearchMessage('1', this.templateMessage).subscribe(x =>
       {
-        this.message = x;
+        this.messages = x;
       });
   }
 }

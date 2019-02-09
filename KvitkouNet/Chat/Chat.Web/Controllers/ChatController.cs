@@ -5,8 +5,10 @@ using System.Net;
 using System.Threading.Tasks;
 using Chat.Logic.Models;
 using Chat.Logic.Services;
+using Chat.Web.Hub;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using NSwag.Annotations;
 
 namespace Chat.Web.Controllers
@@ -18,11 +20,14 @@ namespace Chat.Web.Controllers
     [Route("api/chat")]
     public class ChatController : Controller
     {
+        private readonly IHubContext<NotificationHub> _hubContext;
         private IChatService _chatService;
 
-        public ChatController(IChatService chatService)
+        public ChatController(IChatService chatService, IHubContext<NotificationHub> hubContext)
         {
             _chatService = chatService;
+            _hubContext = hubContext;
+
         }
 
         /// <summary>
@@ -42,6 +47,7 @@ namespace Chat.Web.Controllers
             }
             else
             {
+
                 return Ok(result);
             }
         }
