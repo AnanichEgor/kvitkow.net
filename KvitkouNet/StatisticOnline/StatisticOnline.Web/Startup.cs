@@ -34,7 +34,7 @@ namespace StatisticOnline.Web
         {
 
             app.UseCors(opt => opt
-                .WithOrigins("http://localhost:4200")
+                .AllowAnyOrigin()
                 .AllowCredentials()
                 .AllowAnyHeader()
                 .AllowAnyMethod());
