@@ -39,6 +39,9 @@
       <form class="form-inline my-2 my-lg-0">
         <a class="btn btn-success my-2 my-sm-0" [routerLink]="['/search-ticket']" routerLinkActive="active" >Search</a>
       </form>
+      <li *ngIf="name" class="breadcrumb-item active" aria-current="page">Hallo, {{name}}  !</li>
+      <button *ngIf="!name" type="button" class="btn btn-outline-primary" [routerLink]="['/login']" routerLinkActive="active">Log In</button>
+      <button *ngIf="name" type="button" class="btn btn-outline-secondary" (click)="logoff()">Log off</button>
     </div>
   </nav>
   <script src="/docs/4.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
