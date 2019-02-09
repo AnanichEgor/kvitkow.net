@@ -48,15 +48,8 @@ namespace IdentityServer
 			builder.AddInMemoryApiResources(AuthStorage.GetApis());
 			builder.AddInMemoryClients(AuthStorage.GetClients());
 
-			if (Environment.IsDevelopment())
-			{
-				builder.AddDeveloperSigningCredential();
-			}
-			else
-			{
-				throw new Exception("need to configure key material");
-			}
-
+			builder.AddDeveloperSigningCredential();
+			
 			services.AddAuthentication();
 		}
 

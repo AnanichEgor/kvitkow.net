@@ -20,6 +20,13 @@ services:
       - 5001:80
       - 5002:443
 
+   identityserver:
+    image: ${DOCKER_REGISTRY}identityserver
+    build:
+      context: IdentityServer
+      dockerfile: IdentityServer/Dockerfile
+    ports:
+      - 4999:80
 
    usermanagement.web:
     image: ${DOCKER_REGISTRY}usersweb
