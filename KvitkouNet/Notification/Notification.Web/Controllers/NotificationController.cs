@@ -7,6 +7,8 @@ using Notification.Logic.Models;
 using Notification.Logic.Services;
 using Notification.Logic.Models.Requests;
 using Microsoft.AspNetCore.Cors;
+using EasyNetQ;
+using KvitkouNet.Messages.UserManagement;
 
 namespace Notification.Web.Controllers
 {
@@ -19,11 +21,11 @@ namespace Notification.Web.Controllers
 	{
 		private INotificationService m_service;
 
-		/// <summary>
-		/// Конструктор
-		/// </summary>
-		/// <param name="service"></param>
-		public NotificationController(INotificationService service)
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="service"></param>
+        public NotificationController(INotificationService service)
 		{
 			m_service = service;
 		}
@@ -50,7 +52,7 @@ namespace Notification.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Notification not found")]
 		public async Task<IActionResult> GetNotification([FromRoute] string id)
 		{
-			return Ok(await m_service.GetNotification(id));
+            return Ok(await m_service.GetNotification(id));
 		}
 
 		/// <summary>

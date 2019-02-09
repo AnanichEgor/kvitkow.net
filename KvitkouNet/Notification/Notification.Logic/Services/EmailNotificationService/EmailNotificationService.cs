@@ -72,7 +72,7 @@ namespace Notification.Logic.Services.EmailNotificationService
 
 			await m_emailSenderService.SendEmailAsync(sendEmailRequest, m_senderConfig);
 
-			if (await m_context.TemporaryUsers.SingleOrDefaultAsync(x => x.Name == sendEmailRequest.ReceiverName) != null)
+			if (await m_context.TemporaryUsers.SingleOrDefaultAsync(x => x.Name == sendEmailRequest.ReceiverName) == null)
 			{
 				await m_context.TemporaryUsers.AddAsync(new TemporaryUser
 				{
@@ -90,13 +90,8 @@ namespace Notification.Logic.Services.EmailNotificationService
 
 			if (user == null) throw new NullReferenceException();
 
-			await m_context.AddAsync(new User
-			{
-                Name = user.Name,
-				Email = user.Email
-			});
-
 			m_context.TemporaryUsers.Remove(user);
+
 			await m_context.SaveChangesAsync();
 		}
 

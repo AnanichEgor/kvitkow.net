@@ -58,6 +58,7 @@ namespace Notification.Web
 			services.RegisterEmailNotificationService();
 			services.RegisterEmailSenderService();
             services.RegisterSubscriptionService();
+            services.RegisterUserService();
 
             services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=rabbit"));
 		}

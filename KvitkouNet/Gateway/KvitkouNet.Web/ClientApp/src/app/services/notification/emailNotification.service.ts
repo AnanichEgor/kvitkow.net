@@ -59,17 +59,17 @@ export class EmailNotificationService {
     /**
      *
      *
-     * @param userName
+     * @param uname
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public emailNotificationConfirmRegistration(userName: string, observe?: 'body', reportProgress?: boolean): Observable<Blob>;
-    public emailNotificationConfirmRegistration(userName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Blob>>;
-    public emailNotificationConfirmRegistration(userName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Blob>>;
-    public emailNotificationConfirmRegistration(userName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public emailNotificationConfirmRegistration(uname: string, observe?: 'body', reportProgress?: boolean): Observable<Blob>;
+    public emailNotificationConfirmRegistration(uname: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Blob>>;
+    public emailNotificationConfirmRegistration(uname: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Blob>>;
+    public emailNotificationConfirmRegistration(uname: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (userName === null || userName === undefined) {
-            throw new Error('Required parameter userName was null or undefined when calling emailNotificationConfirmRegistration.');
+        if (uname === null || uname === undefined) {
+            throw new Error('Required parameter uname was null or undefined when calling emailNotificationConfirmRegistration.');
         }
 
         let headers = this.defaultHeaders;
@@ -89,13 +89,9 @@ export class EmailNotificationService {
             'text/json',
             'application/_*+json'
         ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
 
-        return this.httpClient.post(`${this.basePath}/api/notification/email/registration/confirmation`,
-            userName,
+        return this.httpClient.post(`${this.basePath}/api/notification/email/registration/confirmation/${encodeURIComponent(String(uname))}`,
+            null,
             {
                 responseType: "blob",
                 withCredentials: this.configuration.withCredentials,

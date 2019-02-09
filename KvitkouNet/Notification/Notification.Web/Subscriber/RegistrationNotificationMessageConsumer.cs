@@ -28,7 +28,7 @@ namespace Notification.Web.Subscriber
 				ReceiverEmail = message.Name,
 				ReceiverName = message.Email,
 				Subject = "Подтверждение регистрации",
-				Text = $"Для подтверждения регистрации прейдите по ссылке {m_config[$"RegistrationUrl?userName={message.Name}"]}",
+				Text = $"Для подтверждения регистрации прейдите по ссылке {m_config[$"RegistrationUrl"]}/{message.Name}"
 			};
 
 			await m_service.SendRegistrationNotification(request);

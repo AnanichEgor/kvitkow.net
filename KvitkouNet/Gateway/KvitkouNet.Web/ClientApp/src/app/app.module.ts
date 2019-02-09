@@ -39,6 +39,7 @@ import { NotificationComponent } from './components/notification/notification.co
 import { EmailNotificationItemComponent } from './components/notification/email-notification-item/email-notification-item.component';
 import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
 import { SubscriptionItemComponent } from './components/notification/subscription-item/subscription-item.component';
+import { RegistrationConfirmationComponent } from './components/notification/registration-confirmation/registration-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { SubscriptionItemComponent } from './components/notification/subscriptio
     NotificationComponent,
     EmailNotificationItemComponent,
     NotificationItemComponent,
-    SubscriptionItemComponent
+    SubscriptionItemComponent,
+    RegistrationConfirmationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -1,3 +1,4 @@
+import { RegistrationConfirmationComponent } from './components/notification/registration-confirmation/registration-confirmation.component';
 import { SubscriptionItemComponent } from './components/notification/subscription-item/subscription-item.component';
 import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
 import { NotificationComponent } from './components/notification/notification.component';
@@ -48,6 +49,7 @@ const routes: Routes = [
   { path: 'chat', component: ChatComponent, pathMatch: 'full'},
   { path: 'settings', component: UserSettingsComponent, pathMatch: 'full'},
   { path: 'notification', component: NotificationComponent, pathMatch: 'full'},
+  { path: 'notification/registration-confirmation/:username', component: RegistrationConfirmationComponent, pathMatch: 'full'},
   { path: '**', component: NotFoundComponent, pathMatch: 'full'},
 ];
 

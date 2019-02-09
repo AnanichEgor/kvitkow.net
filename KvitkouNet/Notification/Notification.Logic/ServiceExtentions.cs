@@ -7,6 +7,7 @@ using Notification.Logic.Services.EmailNotificationService;
 using Notification.Logic.Services.EmailSenderService;
 using Notification.Logic.Services.Interfaces;
 using Notification.Logic.Services.SubscriptionService;
+using Notification.Logic.Services.UserServices;
 
 namespace Notification.Logic
 {
@@ -61,5 +62,15 @@ namespace Notification.Logic
         {
             return services.AddScoped<ISubscriptionService, SubscriptionService>();
         }
+
+        /// <summary>
+        /// Регистрация ISubscriptionService
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection RegisterUserService(this IServiceCollection services)
+        {
+            return services.AddScoped<IUserService, UserServices>();
+        }        
     }
 }

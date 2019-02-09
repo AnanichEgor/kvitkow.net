@@ -10,6 +10,8 @@ using Microsoft.Extensions.Options;
 using EasyNetQ;
 using KvitkouNet.Messages.Notification;
 using Microsoft.AspNetCore.Cors;
+using Notification.Logic.Models.Requests;
+using Microsoft.Extensions.Configuration;
 
 namespace Notification.Web.Controllers
 {
@@ -21,13 +23,13 @@ namespace Notification.Web.Controllers
 		private IEmailNotificationService m_emailService;
         private IBus m_bus;
         private SenderConfig m_config;
-        
-		public EmailNotificationController(IEmailNotificationService emailService, IBus bus, IOptionsMonitor<SenderConfig> config)
+
+        public EmailNotificationController(IEmailNotificationService emailService, IBus bus, IOptionsMonitor<SenderConfig> config)
 		{
 			m_emailService = emailService;
             m_bus = bus;
-            m_config = config.CurrentValue;            
-		}
+            m_config = config.CurrentValue;
+        }
 			   
 		/// <summary>
 		/// Получить все email уведомления
@@ -52,18 +54,18 @@ namespace Notification.Web.Controllers
 			return Ok(await m_emailService.GetEmailNotifications(id));
 		}
 
-		/// <summary>
-		/// Подтвержение регистрации
-		/// </summary>
-		/// <param name="userName">Имя пользователя</param>
-		[HttpPost, Route("registration/confirmation")]
+        /// <summary>
+        /// Подтвержение регистрации
+        /// </summary>
+        /// <param name="userName">Имя пользователя</param>
+        [HttpPost, Route("registration/confirmation/{uname}")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(NoContentResult))]
-		public async Task<IActionResult> ConfirmRegistration([FromBody] string userName)
+		public async Task<IActionResult> ConfirmRegistration([FromRoute] string uname)
 		{
-			await m_emailService.ConfirmRegistration(userName);
+			await m_emailService.ConfirmRegistration(uname);
             m_bus.Publish<ConfirmRegistrationMessage>(new ConfirmRegistrationMessage
             {
-                Name = userName
+                Name = uname
             });
 			return NoContent();
 		}
