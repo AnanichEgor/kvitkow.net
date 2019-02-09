@@ -10,7 +10,7 @@ namespace TicketManagement.Web.Filters
         {
             if (context.Exception is ValidationException)
             {
-                var errors = (ValidationException) context.Exception;
+                var errors = context.Exception as ValidationException;
 
                 context.Result = new BadRequestObjectResult(errors.Errors);
                 context.ExceptionHandled = true;

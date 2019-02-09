@@ -10,7 +10,7 @@ namespace TicketManagement.Web.Filters
         {
             if (context.Exception is EasyNetQSendException)
             {
-                var res = (EasyNetQSendException) context.Exception;
+                var res = context.Exception as EasyNetQSendException;
                 if (res.resultResponse != null)
                     context.Result = new OkObjectResult(res.resultResponse);
                 else
