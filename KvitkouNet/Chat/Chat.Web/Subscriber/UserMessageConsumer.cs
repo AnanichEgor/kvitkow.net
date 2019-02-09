@@ -23,9 +23,8 @@ namespace Chat.Web.Subscriber
         {
             var modelLogic = _mapper.Map<User>(message);
 
-            m_service.AddUser(modelLogic);
+            return m_service.AddUser(modelLogic);
 
-            return Task.CompletedTask;
         }
 
         [AutoSubscriberConsumer(SubscriptionId = "UserService.Updated")]
@@ -33,9 +32,8 @@ namespace Chat.Web.Subscriber
         {
             var modelLogic = _mapper.Map<User>(message);
 
-            m_service.EditUser(modelLogic);
+            return m_service.EditUser(modelLogic);
 
-            return Task.CompletedTask;
         }
     }
 }

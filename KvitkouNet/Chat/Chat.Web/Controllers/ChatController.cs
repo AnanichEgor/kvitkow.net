@@ -5,7 +5,10 @@ using System.Net;
 using System.Threading.Tasks;
 using Chat.Logic.Models;
 using Chat.Logic.Services;
+using Chat.Web.Hub;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using NSwag.Annotations;
 
 namespace Chat.Web.Controllers
@@ -13,14 +16,18 @@ namespace Chat.Web.Controllers
     /// <summary>
     /// Контроллер
     ///  </summary>
+    [EnableCors("CorsPolicy")]
     [Route("api/chat")]
     public class ChatController : Controller
     {
+        private readonly IHubContext<NotificationHub> _hubContext;
         private IChatService _chatService;
 
-        public ChatController(IChatService chatService)
+        public ChatController(IChatService chatService, IHubContext<NotificationHub> hubContext)
         {
             _chatService = chatService;
+            _hubContext = hubContext;
+
         }
 
         /// <summary>
@@ -40,6 +47,7 @@ namespace Chat.Web.Controllers
             }
             else
             {
+
                 return Ok(result);
             }
         }
@@ -48,7 +56,7 @@ namespace Chat.Web.Controllers
         /// Изменение пользовательских настроек
         /// </summary>
         [HttpPatch, Route("settings/{uid}")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "User Settings is updated")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "User Settings is updated")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> EditUserSettings([FromRoute] string uid, [FromBody] Settings settings)
         {

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using AutoMapper;
 using Chat.Logic;
+using Chat.Web.Hub;
 using Chat.Web.MappingProfiles;
 using Chat.Web.Subscriber;
 using EasyNetQ;
@@ -25,7 +26,16 @@ namespace Chat.Web
         public void ConfigureServices(IServiceCollection services)
         {
             var rabbitConnectionString = Configuration.GetConnectionString("RabbitConnection");
-
+            services.AddSignalR();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                        .WithOrigins("http://localhost:4200"));
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerDocument(settings => settings.Title = "Chat");
             services.RegisterChatService();
@@ -35,6 +45,7 @@ namespace Chat.Web
             services.AddAutoMapper(cfg => cfg.AddProfile<UserCreationProfile>());
             services.AddAutoMapper(cfg => cfg.AddProfile<UserUpdatedProfile>());
             services.AddSingleton<IBus>(RabbitHutch.CreateBus(rabbitConnectionString));
+
 
         }
 
@@ -46,10 +57,12 @@ namespace Chat.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors("CorsPolicy");
+            app.UseSignalR(builder => builder.MapHub<NotificationHub>("/chat/notification"));
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
 
-    //        app.UseSubscriber("UserService", Assembly.GetExecutingAssembly());
+        //    app.UseSubscriber("UserService", Assembly.GetExecutingAssembly());
         }
     }
 }

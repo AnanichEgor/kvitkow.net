@@ -14,14 +14,14 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams,
          HttpResponse, HttpEvent } from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec } from './encoder';
+import { CustomHttpUrlEncodingCodec } from '../../services/chat/encoder';
 
 import { Observable } from 'rxjs';
 
 import { Settings } from '../../models/chat/settings';
 
-import { BASE_PATH, COLLECTION_FORMATS } from './variables';
-import { Configuration } from './configuration';
+import { BASE_PATH, COLLECTION_FORMATS } from '../../services/chat/variables';
+import { Configuration } from '../../services/chat/configuration';
 
 
 @Injectable()
@@ -64,9 +64,9 @@ export class ChatService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public chatEditUserSettings(uid: string, settings: Settings, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public chatEditUserSettings(uid: string, settings: Settings, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public chatEditUserSettings(uid: string, settings: Settings, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public chatEditUserSettings(uid: string, settings: Settings, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public chatEditUserSettings(uid: string, settings: Settings, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public chatEditUserSettings(uid: string, settings: Settings, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public chatEditUserSettings(uid: string, settings: Settings, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (uid === null || uid === undefined) {
@@ -99,7 +99,7 @@ export class ChatService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.patch<string>(`${this.basePath}/api/chat/settings/${encodeURIComponent(String(uid))}`,
+        return this.httpClient.patch<any>(`${this.basePath}/api/chat/settings/${encodeURIComponent(String(uid))}`,
             settings,
             {
                 withCredentials: this.configuration.withCredentials,
