@@ -61,10 +61,13 @@ namespace Security.Logic.Implementations
                     };
                 }
 
+                var rights = await
+                    _securityContext.GetRights(itemsPerPage, pageNumber, mask?.Trim() ?? "");
+
                 return new AccessRightResponse
                 {
-                    AccessRights = _mapper.Map<AccessRight[]>( await
-                    _securityContext.GetRights(itemsPerPage, pageNumber, mask?.Trim()??"")),
+                    AccessRights = _mapper.Map<AccessRight[]>(rights.Rights),
+                    TotalCount = rights.TotalCount,
                     Status = ActionStatus.Success
                 };
             }

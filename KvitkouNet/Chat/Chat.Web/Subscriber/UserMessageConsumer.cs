@@ -9,10 +9,10 @@ namespace Chat.Web.Subscriber
 {
     public class UserMessageConsumer : IConsumeAsync<UserCreationMessage>
     {
-        private ChatService m_service;
+        private IChatService m_service;
         private readonly IMapper _mapper;
 
-        public UserMessageConsumer(ChatService service, IMapper mapper)
+        public UserMessageConsumer(IChatService service, IMapper mapper)
         {
             m_service = service;
             _mapper = mapper;

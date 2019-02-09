@@ -6,5 +6,7 @@
         /// Идентификатор функции
         /// </summary>
         public AccessFunction[] AccessFunctions { get; set; }
+
+        public int TotalCount { get; set; }
     }
 }

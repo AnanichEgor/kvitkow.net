@@ -1,6 +1,8 @@
 import { NotificationService } from './services/notification/notification.service';
 import { EmailNotificationService } from './services/notification/emailNotification.service';
 import { SubscriptionService } from './services/notification/subscription.service';
+import { RoomService } from './services/chat/room.service';
+import { ChatService } from './services/chat/chat.service';
 import { UsersService } from './services/users.service';
 import { EditGuard } from './services/editGuard';
 import { GetallticketsService } from './services/getalltickets.service';
@@ -28,8 +30,6 @@ import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.com
 import { AccountLogsComponent } from './components/admin/account-logs/account-logs.component';
 import { PaymentLogsComponent } from './components/admin/payment-logs/payment-logs.component';
 import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
-import { SecurityComponent } from './components/security/security.component';
-import { SecurityMenuComponent } from './components/security-menu/security-menu.component';
 import { SearchUserComponent } from './components/search-user/search-user.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
@@ -40,6 +40,14 @@ import { EmailNotificationItemComponent } from './components/notification/email-
 import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
 import { SubscriptionItemComponent } from './components/notification/subscription-item/subscription-item.component';
 import { RegistrationConfirmationComponent } from './components/notification/registration-confirmation/registration-confirmation.component';
+import { QueryLogsComponent } from './components/admin/query-logs/query-logs.component';
+import { TicketLogsComponent } from './components/admin/ticket-logs/ticket-logs.component';
+import { DealLogsComponent } from './components/admin/deal-logs/deal-logs.component';
+import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
+import { UserSettingsProfileComponent } from './components/user-settings/user-settings-profile/user-settings-profile.component';
+import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
+import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
+import { SecurityModule } from './components/security/security.module';
 
 @NgModule({
   declarations: [
@@ -56,15 +64,21 @@ import { RegistrationConfirmationComponent } from './components/notification/reg
     TicketDetailComponent,
     TicketEditComponent,
     ChatComponent,
-    ErrorLogsComponent,
-    AccountLogsComponent,
-    PaymentLogsComponent,
-    AdminMainComponent,
-    SecurityComponent,
-    SecurityMenuComponent,
     SearchUserComponent,
     SearchTicketComponent,
     SearchTicketResultsComponent,
+    AdminMainComponent,
+    ErrorLogsComponent,
+    AccountLogsComponent,
+    PaymentLogsComponent,
+    UserSettingsComponent,
+    QueryLogsComponent,
+    TicketLogsComponent,
+    DealLogsComponent,
+    AdminUserComponent,
+    UserSettingsProfileComponent,
+    UserSettingsSecurityComponent,
+    UserSettingsAdvancedComponent,
     SearchUserResultsComponent,
     UserSettingsComponent,
     NotificationComponent,
@@ -75,13 +89,15 @@ import { RegistrationConfirmationComponent } from './components/notification/reg
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    SecurityModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, NotificationService,
     EmailNotificationService, SubscriptionService, AppRoutingModule],
+  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, ChatService, RoomService, AppRoutingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

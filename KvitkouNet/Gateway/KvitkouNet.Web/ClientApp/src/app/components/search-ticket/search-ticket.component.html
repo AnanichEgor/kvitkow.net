@@ -1,5 +1,9 @@
 <div class="container">
-  <form class="form-horizontal" [formGroup]="searchTicketForm" (ngSubmit)="onSubmit()">
+  <form
+    class="form-horizontal"
+    [formGroup]="searchTicketForm"
+    (ngSubmit)="onSubmit()"
+  >
     <fieldset>
       <!-- Button -->
       <div class="form-group">
@@ -16,6 +20,10 @@
 
       <!-- Form Name -->
       <legend>Search Tickets</legend>
+
+      <div *ngIf="error">
+        Unable to get the last search.
+      </div>
 
       <!-- Text input-->
       <div class="form-group">
@@ -110,10 +118,13 @@
 
       <!-- Button -->
       <div class="form-group">
-        <label class="col-md-4 control-label" for="singlebutton"></label>
-        <div class="col-md-4">
+        <div class="col-md-8">
           <button type="submit" class="btn btn-info">
             Search
+          </button>
+          &nbsp;
+          <button class="btn btn-info" (click)="previousSearch()">
+            Previous search
           </button>
         </div>
       </div>

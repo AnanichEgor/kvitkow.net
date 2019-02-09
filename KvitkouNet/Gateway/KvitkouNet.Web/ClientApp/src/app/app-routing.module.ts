@@ -1,10 +1,7 @@
-import { RegistrationConfirmationComponent } from './components/notification/registration-confirmation/registration-confirmation.component';
-import { SubscriptionItemComponent } from './components/notification/subscription-item/subscription-item.component';
 import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
 import { NotificationComponent } from './components/notification/notification.component';
-import { SecurityMenuComponent } from './components/security-menu/security-menu.component';
-import { SecurityComponent } from './components/security/security.component';
-import { ChatComponent } from './components/chat/chat.component';
+import { SubscriptionItemComponent } from './components/notification/subscription-item/subscription-item.component';
+import { RegistrationConfirmationComponent } from './components/notification/registration-confirmation/registration-confirmation.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
 import { SearchUserComponent } from './components/search-user/search-user.component';
@@ -25,6 +22,14 @@ import { PaymentLogsComponent } from './components/admin/payment-logs/payment-lo
 import { AdminMainComponent } from './components/admin/admin-main/admin-main.component';
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { QueryLogsComponent } from './components/admin/query-logs/query-logs.component';
+import { TicketLogsComponent } from './components/admin/ticket-logs/ticket-logs.component';
+import { DealLogsComponent } from './components/admin/deal-logs/deal-logs.component';
+import { AdminUserComponent } from './components/admin/admin-user/admin-user.component';
+import { UserSettingsProfileComponent } from './components/user-settings/user-settings-profile/user-settings-profile.component';
+import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
+import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -33,7 +38,11 @@ const routes: Routes = [
       { path: '', component: AdminMainComponent },
       { path: 'logs/errors', component: ErrorLogsComponent },
       { path: 'logs/accounts', component: AccountLogsComponent },
-      { path: 'logs/payments', component: PaymentLogsComponent }
+      { path: 'logs/payments', component: PaymentLogsComponent },
+      { path: 'logs/queries', component: QueryLogsComponent },
+      { path: 'logs/tickets', component: TicketLogsComponent },
+      { path: 'logs/deals', component: DealLogsComponent },
+      { path: 'users', component: AdminUserComponent }
     ]},
   { path: 'tickets', component: TicketComponent,  pathMatch: 'full'  },
   { path: 'tickets/:id', component: TicketDetailComponent, pathMatch: 'full' },
@@ -44,17 +53,24 @@ const routes: Routes = [
   { path: 'search-ticket-results', component: SearchTicketResultsComponent, pathMatch: 'full' },
   { path: 'search-user-results', component: SearchUserResultsComponent, pathMatch: 'full' },
   { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
+  {path: 'security',
+  loadChildren: './components/security/security.module#SecurityModule'},
   { path: 'tickets/ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
-  { path: 'security', component: SecurityComponent, pathMatch: 'full' },
   { path: 'chat', component: ChatComponent, pathMatch: 'full'},
-  { path: 'settings', component: UserSettingsComponent, pathMatch: 'full'},
   { path: 'notification', component: NotificationComponent, pathMatch: 'full'},
   { path: 'notification/registration-confirmation/:username', component: RegistrationConfirmationComponent, pathMatch: 'full'},
-  { path: '**', component: NotFoundComponent, pathMatch: 'full'},
+  { path: 'settings', component: UserSettingsComponent,
+    children: [
+      { path: 'profile', component: UserSettingsProfileComponent, pathMatch: 'full'},
+      { path: 'security', component: UserSettingsSecurityComponent, pathMatch: 'full'},
+      { path: 'advanced', component: UserSettingsAdvancedComponent, pathMatch: 'full'},
+    ]},
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

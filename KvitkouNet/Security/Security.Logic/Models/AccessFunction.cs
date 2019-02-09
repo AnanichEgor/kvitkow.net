@@ -23,6 +23,11 @@ namespace Security.Logic.Models
         public int FeatureId { get; set; }
 
         /// <summary>
+        /// Имя фичи
+        /// </summary>
+        public string FeatureName { get; set; }
+
+        /// <summary>
         /// Список прав предоставляемых функцией
         /// </summary>
         public List<AccessRight> AccessRights { get; set; }

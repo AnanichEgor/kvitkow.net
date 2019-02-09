@@ -152,12 +152,12 @@ namespace Chat.Web.Controllers
         /// <summary>
         /// Удаление сообщения
         /// </summary>
-        [HttpDelete, Route("{rid}/messages/{mid}")]
+        [HttpDelete, Route("messages/{mid}")]
         [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "Message deleted")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> DeleteMessage([FromRoute] string rid, [FromRoute] string mid)
+        public async Task<IActionResult> DeleteMessage([FromRoute] string mid)
         {
-            await _roomService.DeleteMessage(rid, mid);
+            await _roomService.DeleteMessage(mid);
             return NoContent();
         }
     }

@@ -28,13 +28,17 @@ namespace Security.Data
             GC.SuppressFinalize(this);
         }
 
-        public async Task<IEnumerable<AccessRightDb>> GetRights(int itemsPerPage, int pageNumber, string mask)
+        public async Task<AccessRightsGetResult> GetRights(int itemsPerPage, int pageNumber, string mask)
         {
-            var rights = await _context.AccessRights
+            var rights = _context.AccessRights
                 .Where(l => l.Name.Contains(mask))
-                .OrderBy(l => l.Name)
-                .Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync();
-            return _mapper.Map<IEnumerable<AccessRightDb>>(rights);
+                .OrderBy(l => l.Name);
+
+            return new AccessRightsGetResult
+            {
+                TotalCount = rights.Count(),
+                Rights = _mapper.Map<IEnumerable<AccessRightDb>>(await rights.Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync())
+            };
         }
 
         public async Task<AccessRightDb[]> AddRights(string[] accessRights)
@@ -65,12 +69,20 @@ namespace Security.Data
             return true;
         }
 
-        public async Task<IEnumerable<AccessFunctionDb>> GetFunctions(int itemsPerPage, int pageNumber, string mask = null)
+        public async Task<AccessFunctionsGetResult> GetFunctions(int itemsPerPage, int pageNumber, string mask = null)
         {
-            return _mapper.Map<IEnumerable<AccessFunctionDb>>(await _context.AccessFunctions.Include(l=>l.AccessFunctionAccessRights).ThenInclude(l=>l.AccessFunction)
+            var functions = _context.AccessFunctions.Include(l => l.AccessFunctionAccessRights)
+                .ThenInclude(l => l.AccessRight)
+                .Include(l=>l.Feature)
                 .Where(l => l.Name.Contains(mask))
-                .OrderBy(l => l.Name)
-                .Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync());
+                .OrderBy(l => l.Name);
+
+            return new AccessFunctionsGetResult()
+            {
+                TotalCount = functions.Count(),
+                Functions = _mapper.Map<IEnumerable<AccessFunctionDb>>(await
+                    functions.Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync())
+            };
         }
 
         public async Task<int> AddFunction(string functionName, int featureId)
@@ -133,12 +145,17 @@ namespace Security.Data
             return true;
         }
 
-        public async Task<IEnumerable<FeatureDb>> GetFeatures(int itemsPerPage, int pageNumber, string mask = null)
+        public async Task<FeaturesGetResult> GetFeatures(int itemsPerPage, int pageNumber, string mask = null)
         {
-            return _mapper.Map<IEnumerable<FeatureDb>>(await _context.Features.Include(l => l.FeatureAccessRight).ThenInclude(l => l.AccessRight)
+            var feature = _context.Features.Include(l => l.FeatureAccessRight).ThenInclude(l => l.AccessRight)
                 .Where(l => l.Name.Contains(mask))
-                .OrderBy(l => l.Name)
-                .Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync());
+                .OrderBy(l => l.Name);
+            return new FeaturesGetResult()
+            {
+                TotalCount = feature.Count(),
+                Features = _mapper.Map<IEnumerable<FeatureDb>>(await 
+                    feature.Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync())
+            };
         }
 
         public async Task<int> AddFeature(string featureName)
@@ -194,14 +211,19 @@ namespace Security.Data
             return true;
         }
 
-        public async Task<IEnumerable<RoleDb>> GetRoles(int itemsPerPage, int pageNumber, string mask = null)
+        public async Task<RolesGetResult> GetRoles(int itemsPerPage, int pageNumber, string mask = null)
         {
-            return _mapper.Map<IEnumerable<RoleDb>>(await _context.Roles
-                .Include(l => l.RoleAccessRight).ThenInclude(l=>l.AccessRight)
-                .Include(l=>l.RoleAccessFunction).ThenInclude(l=>l.AccessFunction)
+            var roles = _context.Roles
+                .Include(l => l.RoleAccessRight).ThenInclude(l => l.AccessRight)
+                .Include(l => l.RoleAccessFunction).ThenInclude(l => l.AccessFunction).ThenInclude(l=>l.AccessFunctionAccessRights).ThenInclude(l=>l.AccessRight)
                 .Where(l => l.Name.Contains(mask))
-                .OrderBy(l => l.Name)
-                .Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync());
+                .OrderBy(l => l.Name);
+            return new RolesGetResult()
+            {
+                TotalCount = roles.Count(),
+                Roles = _mapper.Map<IEnumerable<RoleDb>>(await
+                    roles.Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync())
+            };
         }
 
         public async Task<int> AddRole(string roleName)
@@ -299,6 +321,19 @@ namespace Security.Data
 
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<UserInfoGetResult> GetUsers(int itemsPerPage, int pageNumber, string mask = null)
+        {
+            var users = _context.UsersRights
+                .Where(l => (l.LastName + l.FirstName + l.MiddleName).Contains(mask, StringComparison.InvariantCultureIgnoreCase))
+                .OrderBy(l => l.LastName);
+            return new UserInfoGetResult()
+            {
+                TotalCount = users.Count(),
+                UsersInfo = _mapper.Map<IEnumerable<UserInfoDb>>(await
+                    users.Skip(itemsPerPage * (pageNumber - 1)).Take(itemsPerPage).ToArrayAsync())
+            };
         }
 
         public async Task<UserRightsDb> GetUserRights(string userId)
