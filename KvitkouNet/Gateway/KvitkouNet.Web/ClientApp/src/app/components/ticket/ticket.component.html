@@ -1,25 +1,27 @@
-  <div class="album py-5 bg-light"></div>
-    <div class="container">
-      <div class="row">
-          <div class="col-md-4 mb-5" *ngFor="let ticket of tickets">
-          <div class="card h-100" >
-              <div class="card-header">
-                <p class="card-text text-left">User Name coming soon</p>
+<div class="album py-5"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 mb-5" *ngFor="let ticket of tickets">
+      <div class="card h-100">
+        <div class="card-header">
+          <p class="card-text text-left">User Name coming soon</p>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ ticket.name }}</h5>
 
-              </div>
-              <div class="card-body">
-            <h5 class="card-title">{{ticket.name}}</h5>
-
-                <button type="button" class="btn btn-sm btn-primary " (click)="goToTicket(ticket.id)">
-                    View
-                  </button>
-              </div>
-              <div class="card-footer">
-                  <small class="text-muted">{{ticket.createdDate | date: "hh:mm MMMM d yyyy"}}</small>
-              </div>
-            </div>
-          </div>
-
+          <button
+            type="button"
+            class="btn btn-sm btn-primary "
+            (click)="goToTicket(ticket.id)"
+          >
+            View
+          </button>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">{{
+            ticket.createdDate | date: "hh:mm MMMM d yyyy"
+          }}</small>
+        </div>
       </div>
     </div>
    <div class="pagination">
