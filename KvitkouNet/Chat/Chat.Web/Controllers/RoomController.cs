@@ -127,7 +127,7 @@ namespace Chat.Web.Controllers
                     SendedTime = message.SendedTime
                 });
             }
-            await _hubContext.Clients.All.SendAsync("alertOnSendedMessageAllUsers", message);
+            await _hubContext.Clients.All.SendAsync("alertOnSendedMessageAllUsers", message.Text);
             return NoContent();
         }
 

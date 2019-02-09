@@ -114,9 +114,16 @@
       <span class="chat-img1 pull-left">
                      <img src="https://lh6.googleusercontent.com/-y-MY2satK-E/AAAAAAAAAAI/AAAAAAAAAJU/ER_hFddBheQ/photo.jpg" alt="User Avatar" class="img-circle">
                      </span>
-                     <div class="chat-body1 clearfix">
-                        <p>{{newMessage}}</p>
-    					<div class="chat_time pull-right">09:40PM</div>
+                     <div class="chat-body1 clearfix" *ngIf="textMessage">
+                        <ul>
+                            <li *ngFor="let message of messagesForHus">
+                              <p>
+                                      {{message}}
+                                    </p>
+
+                            </li>
+                          </ul>
+
                      </div>
                   </li>
 			 </ul>

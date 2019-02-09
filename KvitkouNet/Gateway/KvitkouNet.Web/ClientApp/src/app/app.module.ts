@@ -40,6 +40,7 @@ import { UserSettingsProfileComponent } from './components/user-settings/user-se
 import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
 import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
 import { SecurityModule } from './components/security/security.module';
+import { MessageComponent } from './components/chat/message/message.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { SecurityModule } from './components/security/security.module';
     UserSettingsSecurityComponent,
     UserSettingsAdvancedComponent,
     SearchUserResultsComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

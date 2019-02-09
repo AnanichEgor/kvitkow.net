@@ -18,9 +18,11 @@ export class ChatComponent implements OnInit {
   chatForm: FormGroup;
   messages: Message[];
   templateMessage: string;
+  textFromMessage: string;
   userSettins: Settings;
   newMessage: Message;
   private connection: HubConnection;
+  public messagesForHus: Array<Message> = [];
 
   constructor(
     private serviceChat: ChatService, private serviceRoom: RoomService
@@ -35,8 +37,8 @@ export class ChatComponent implements OnInit {
       .catch(err => console.error(err));
       console.log('consrtructor');
     this.connection.on('alertOnSendedMessageAllUsers', msg =>
-    (console.log('startMethodHub. Came in method  = ' + msg.Message ),
-      this.newMessage = msg.Message,
+    (console.log('startMethodHub. Came in method  = ' + msg ),
+      this.messagesForHus.push(msg),
       console.log('EndMethodHub')
       ))
     ;      console.log('consrtructorEnd');
