@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TicketManagement.Logic.Models;
-using TicketManagement.Logic.Models.Enums;
 
 namespace TicketManagement.Logic.Services
 {

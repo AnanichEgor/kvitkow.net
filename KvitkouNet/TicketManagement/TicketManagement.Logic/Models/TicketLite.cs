@@ -1,5 +1,4 @@
 ﻿using System;
-using TicketManagement.Logic.Models.Enums;
 
 namespace TicketManagement.Logic.Models
 {
