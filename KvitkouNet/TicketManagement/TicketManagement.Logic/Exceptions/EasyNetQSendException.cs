@@ -3,7 +3,7 @@ using System;
 
 namespace TicketManagement.Logic.Exceptions
 {
-   public class EasyNetQSendException : EasyNetQException
+   public class EasyNetQSendException : TimeoutException
     {
         public EasyNetQSendException(string message, Exception exception) : base(message, exception)
         {
