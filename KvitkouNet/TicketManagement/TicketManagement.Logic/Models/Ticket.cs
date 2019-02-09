@@ -72,7 +72,7 @@ namespace TicketManagement.Logic.Models
         /// <summary>
         ///     Тип мероприятия
         /// </summary>
-        public TypeEventTicket TypeEvent { get; set; }
+        public string TypeEvent { get; set; }
 
         /// <summary>
         ///     Ссылка на мероприятие
@@ -82,7 +82,7 @@ namespace TicketManagement.Logic.Models
         /// <summary>
         ///     Статус билета
         /// </summary>
-        public TicketStatus Status { get; set; }
+        public string Status { get; set; }
 
         /// <summary>
         ///     Дата создания билета
