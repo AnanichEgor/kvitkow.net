@@ -1,6 +1,6 @@
 {
   "GlobalConfiguration": {
-    "BaseUrl": "https://api.mybusiness.com"
+    "BaseUrl": "https://localhost:5002"
   },
   "ReRoutes": [
     {
@@ -14,6 +14,18 @@
       ],
       "UpstreamPathTemplate": "/posts/{postId}",
       "UpstreamHttpMethod": [ "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/connect/token",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 
+        }
+      ],
+      "UpstreamPathTemplate": "/connect/token",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/errors",
@@ -109,7 +121,7 @@
         }
       ],
       "UpstreamPathTemplate": "/search/tickets",
-      "UpstreamHttpMethod": ["Get"]
+      "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/search/users",
@@ -121,7 +133,7 @@
         }
       ],
       "UpstreamPathTemplate": "/search/users",
-      "UpstreamHttpMethod": ["Get"]
+      "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/history/tickets",
@@ -133,7 +145,7 @@
         }
       ],
       "UpstreamPathTemplate": "/history/tickets",
-      "UpstreamHttpMethod": ["Get"]
+      "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/history/users",
@@ -145,7 +157,7 @@
         }
       ],
       "UpstreamPathTemplate": "/history/users",
-      "UpstreamHttpMethod": ["Get"]
+      "UpstreamHttpMethod": [ "Get" ]
     }
   ]
 }

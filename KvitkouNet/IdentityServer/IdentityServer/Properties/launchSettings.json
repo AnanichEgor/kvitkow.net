@@ -28,7 +28,7 @@
     },
     "Docker": {
       "commandName": "Docker",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "{Scheme}://localhost:{ServicePort}/api/values"
     }
   }
