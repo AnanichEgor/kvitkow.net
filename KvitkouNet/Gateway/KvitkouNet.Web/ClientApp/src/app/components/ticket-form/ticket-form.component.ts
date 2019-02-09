@@ -5,6 +5,7 @@ import { AddTicketService } from './../../services/add-ticket.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Ticket } from 'src/app/models/ticket';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-ticket-form',
@@ -14,7 +15,9 @@ import { Ticket } from 'src/app/models/ticket';
 export class TicketFormComponent implements OnInit {
   addTicketForm: FormGroup;
 
-  constructor(private ticketSrv: AddTicketService) {
+
+  constructor(private ticketSrv: AddTicketService, private _location: Location) {
+
     this.addTicketForm = new FormGroup({
       'name' : new FormControl(),
       'free' : new FormControl(),
@@ -26,6 +29,7 @@ export class TicketFormComponent implements OnInit {
         'flat' : new FormControl(),
       }),
       'additionalData' : new FormControl(),
+     // 'typeEvent' : new FormControl(),
       })
   }
 
@@ -35,5 +39,6 @@ export class TicketFormComponent implements OnInit {
     console.log(this.addTicketForm.value);
     //let body = JSON.stringify()
     this.ticketSrv.sendTicket(this.addTicketForm.value).subscribe(err => {return console.error(err)});
+    this._location.back();
   }
 }

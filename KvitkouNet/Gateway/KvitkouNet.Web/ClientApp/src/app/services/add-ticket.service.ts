@@ -8,7 +8,6 @@ import { Ticket } from '../models/ticket';
 })
 export class AddTicketService {
 
-
   private baseUrl = 'http://localhost:5007';
 
   constructor(private http: HttpClient) {}

@@ -22,7 +22,4 @@ export class Ticket {
     status?: TicketStatus;
     createdDate?: string;
 
-    public constructor(init?: Partial<Ticket>) {
-      Object.assign(this, init);
-    }
-}
+  }
