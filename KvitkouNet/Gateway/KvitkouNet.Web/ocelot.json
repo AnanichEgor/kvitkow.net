@@ -37,7 +37,11 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/errors",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "api" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/accounts",
