@@ -1,0 +1,39 @@
+<p>
+  statistic works!
+</p>
+<p>
+  statistic works!
+</p>
+<p>
+  statistic works!
+</p>
+<p>
+  statistic works!
+</p>
+<p>
+  statistic works!
+</p>
+<p>
+  statistic works!
+</p>
+<div>
+  <dx-chart
+    id="chart"
+    [dataSource]="userList"
+    palette="soft"
+    title="Статистика посещения за период"
+  >
+    <dxi-series valueField="countRegistered" name="Зарегистрированных"></dxi-series>
+    <dxi-series valueField="countGuest" name="Гостей"></dxi-series>
+
+    <dxo-common-series-settings
+      argumentField="createTime"
+      type="bar"
+      [ignoreEmptyPoints]="true"
+    >
+    </dxo-common-series-settings>
+    <dxo-legend verticalAlignment="bottom" horizontalAlignment="center">
+    </dxo-legend>
+    <dxo-export [enabled]="true"></dxo-export>
+  </dx-chart>
+</div>

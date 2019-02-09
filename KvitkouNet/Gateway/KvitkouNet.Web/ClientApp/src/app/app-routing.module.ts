@@ -1,3 +1,4 @@
+import { StatisticComponent } from './components/statistic/statistic.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
 import { SearchUserComponent } from './components/search-user/search-user.component';
@@ -40,6 +41,7 @@ const routes: Routes = [
       { path: 'logs/deals', component: DealLogsComponent },
       { path: 'users', component: AdminUserComponent }
     ]},
+  { path: 'statistic', component: StatisticComponent, pathMatch: 'full' },
   { path: 'tickets', component: TicketComponent,  pathMatch: 'full'  },
   { path: 'tickets/:id', component: TicketDetailComponent, pathMatch: 'full' },
   { path: 'users', component: UsersComponent, pathMatch: 'full' },
