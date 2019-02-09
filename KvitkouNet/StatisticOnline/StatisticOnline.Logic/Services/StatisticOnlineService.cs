@@ -27,9 +27,8 @@ namespace StatisticOnline.Logic.Services
 
         public async Task<OnlineModel> GetAllUsers()
         {
-            var item = new OnlineDb();
-            var dbItem = _context.StatisticOnline.OrderBy(p => p.CreateTime).Take(1);
-            return _mapper.Map<OnlineModel>(item);
+            var item = _context.StatisticOnline.OrderBy(p => p.CreateTime).Take(1);
+           return _mapper.Map<OnlineModel>(item);
         }
 
         public async Task<IEnumerable<OnlineModel>> GetDateRangeUsers(DateRange range)
