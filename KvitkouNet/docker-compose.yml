@@ -16,6 +16,7 @@ services:
     depends_on:
       - adminpanel.web
       - search.web
+      - tickets.web
     ports:
       - 5001:80
       - 5002:443
