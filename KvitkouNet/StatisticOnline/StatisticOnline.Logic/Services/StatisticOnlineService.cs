@@ -27,7 +27,7 @@ namespace StatisticOnline.Logic.Services
 
         public async Task<OnlineModel> GetAllUsers()
         {
-            var item = _context.StatisticOnline.OrderBy(p => p.CreateTime).Take(1);
+            var item = _context.StatisticOnline.OrderBy(p => p.CreateTime).Take(1).FirstOrDefault();
            return _mapper.Map<OnlineModel>(item);
         }
 
