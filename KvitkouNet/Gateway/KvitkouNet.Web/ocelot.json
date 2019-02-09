@@ -20,8 +20,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 
+          "Host": "identityserver",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/connect/token",
