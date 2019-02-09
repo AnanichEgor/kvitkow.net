@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Tickets } from '../models/tickets';
+import { Ticket } from '../models/ticket';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DeleteTicketByIdService {
 
-  private baseUrl = 'http://localhost:5000';
+  private baseUrl = 'http://localhost:5007';
 
   constructor(private http: HttpClient) {}
 

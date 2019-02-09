@@ -1,5 +1,9 @@
+import { Address } from './../../models/address';
+import { AddTicketService } from './../../services/add-ticket.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Ticket } from 'src/app/models/ticket';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-ticket-form',
@@ -7,41 +11,32 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./ticket-form.component.css']
 })
 export class TicketFormComponent implements OnInit {
-  firstName: FormControl;
-  lastName: FormControl;
-  userFormGroup: FormGroup;
-  id: number;
+  addTicketForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-   }
 
-  ngOnInit() {
-    // this.FirstName = new FormControl ('Rodion');
-     // this.FirstName.statusChanges.subscribe(data => console.log(data));
+  constructor(private ticketSrv: AddTicketService, private _location: Location) {
 
-   // this.userFormGroup = new FormGroup({
-   //   firstName: new FormControl('Ivan'),
-   //   lastName: new FormControl('Ivanov')
-   // });
-
-   this.userFormGroup = this.fb.group({
-     firstName: 'Ivan',
-     lastName: 'Ivanov',
-     addresses: this.fb.array([
-       {
-       street: '',
-       city: '',
-       building: ''
-
-     }
-    ])
-    });
-
-    this.userFormGroup.valueChanges.subscribe(data => console.log(data));
-    this.userFormGroup.statusChanges.subscribe(data => console.log(data));
-
+    this.addTicketForm = new FormGroup({
+      'name' : new FormControl(),
+      'free' : new FormControl(),
+      'locationEvent' : new FormGroup({
+        'country' : new FormControl(),
+        'city' : new FormControl(),
+        'street' : new FormControl(),
+        'house' : new FormControl(),
+        'flat' : new FormControl(),
+      }),
+      'additionalData' : new FormControl(),
+      'typeEvent' : new FormControl(),
+      })
   }
-  sendData() {
-  console.log();
+
+  ngOnInit() {}
+
+  onSubmit() {
+    console.log(this.addTicketForm.value);
+    //let body = JSON.stringify()
+    this.ticketSrv.sendTicket(this.addTicketForm.value).subscribe(err => {return console.error(err)});
+    this._location.back();
   }
 }

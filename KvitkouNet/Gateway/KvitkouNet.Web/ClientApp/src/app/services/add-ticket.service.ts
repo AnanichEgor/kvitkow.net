@@ -6,17 +6,13 @@ import { Ticket } from '../models/ticket';
 @Injectable({
   providedIn: 'root'
 })
-export class GetTicketByIdService {
+export class AddTicketService {
 
   private baseUrl = 'http://localhost:5007';
 
   constructor(private http: HttpClient) {}
 
-  getTicketById(id) {
-  return this.http.get<Ticket>(`${this.baseUrl}/api/tickets/${id}`);
-}
-delTicketById(id) {
-  return this.http.delete(`${this.baseUrl}/api/tickets/${id}`);
-}
-
+    sendTicket(body){
+      return this.http.post(`${this.baseUrl}/api/tickets`, body);
+  }
 }
