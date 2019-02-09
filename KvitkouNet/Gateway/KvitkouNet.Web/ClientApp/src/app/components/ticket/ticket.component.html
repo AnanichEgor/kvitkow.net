@@ -24,5 +24,13 @@
         </div>
       </div>
     </div>
-   <div class="pagination">
-      <a class="nav-link" *ngFor=" let page of pages" [routerLink]="['/tickets', page]" >{{page}}</a></div>
+  </div>
+</div>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" *ngFor="let page of pages">
+      <a class="page-link" [routerLink]="['/tickets', page]">{{ page }}</a>
+    </li>
+  </ul>
+</nav>
