@@ -29,7 +29,7 @@ export class TicketFormComponent implements OnInit {
         'flat' : new FormControl(),
       }),
       'additionalData' : new FormControl(),
-     // 'typeEvent' : new FormControl(),
+      'typeEvent' : new FormControl(),
       })
   }
 

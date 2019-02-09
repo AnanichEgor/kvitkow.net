@@ -87,6 +87,6 @@ namespace TicketManagement.Logic.Models
         /// <summary>
         ///     Дата создания билета
         /// </summary>
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }
