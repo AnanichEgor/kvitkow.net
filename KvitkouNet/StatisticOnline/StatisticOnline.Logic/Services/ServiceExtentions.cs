@@ -16,7 +16,7 @@ namespace StatisticOnline.Logic.Services
 {
     public static class ServiceExtentions
     {
-        public static IServiceCollection StatisticOnlineServices(this IServiceCollection services)
+        public static IServiceCollection StatisticOnlineServicesMoq(this IServiceCollection services)
         {
             var mock = new Mock<IStatisticOnlineService>();
 
@@ -66,6 +66,14 @@ namespace StatisticOnline.Logic.Services
 
             return services;
         }
+
+        public static IServiceCollection StatisticService(this IServiceCollection services)
+        {
+            services.AddScoped<IStatisticOnlineService, StatisticOnlineService>();
+
+            return services;
+        }
+
 
     }
 }

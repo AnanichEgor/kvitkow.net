@@ -21,7 +21,7 @@ namespace StatisticOnline.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext();
-            services.StatisticOnlineServices();
+            services.StatisticOnlineServicesMoq();
             services.RegisterValidators();
             services.AddSwaggerDocument();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
