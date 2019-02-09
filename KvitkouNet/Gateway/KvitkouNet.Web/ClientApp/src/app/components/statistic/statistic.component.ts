@@ -1,4 +1,9 @@
-import { StatisticService, StatisticArray, RangeDate } from './../../services/statistic.service';
+import {
+  StatisticService,
+  StatisticOnline,
+  RangeDate,
+  Areas
+} from './../../services/statistic.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,10 +12,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./statistic.component.css']
 })
 export class StatisticComponent implements OnInit {
-  userList: StatisticArray[] = [];
-  range: RangeDate = {startDate: new Date(), endDate: new Date()};
+
+  userList: StatisticOnline[] = [];
+  range: RangeDate = { startDate: new Date(), endDate: new Date() };
+  areas: Areas[] = [];
+  statisticIndex: number;
+
+
 
   constructor(private statisticService: StatisticService) {
+    this.statisticIndex = 0; // 0 - статистика посещений 1 - online и т.д.
     this.setDate(1);
   }
 
@@ -18,7 +29,7 @@ export class StatisticComponent implements OnInit {
     this.range.startDate.setFullYear(new Date().getFullYear() - year);
   }
 
-  ConvertDate(item: StatisticArray) {
+  ConvertDate(item: StatisticOnline) {
     const year = new Date(item.createTime).getFullYear();
     const month = new Date(item.createTime).getMonth() + 1;
 
@@ -26,9 +37,32 @@ export class StatisticComponent implements OnInit {
     return item;
   }
 
+  convertAreas(model: StatisticOnline) {
+    if (model) {
+      const item: Areas[] = [];
+      item.push({ legend: 'Гости', count: model.countGuest });
+      item.push({ legend: 'Зарегистрированные', count: model.countRegistered });
+      return item;
+    }
+    return [];
+  }
+
   getStatistic() {
-    this.statisticService.getRange(this.range)
-    .subscribe(result => (this.userList = result.map(this.ConvertDate)), err => console.log(err));
+    this.statisticService
+      .getRange(this.range)
+      .subscribe(
+        result => (this.userList = result.map(this.ConvertDate)),
+        err => console.log(err)
+      );
+  }
+
+  getOnlineAll() {
+    this.statisticService
+      .getAreas()
+      .subscribe(
+        result => (this.areas = this.convertAreas(result)),
+        err => console.log(err)
+      );
   }
 
   clickRange(year: number) {
@@ -36,10 +70,12 @@ export class StatisticComponent implements OnInit {
     this.getStatistic();
   }
 
+  clickButton(index: number) {
+     this.statisticIndex = index;
+  }
+
   ngOnInit() {
-    this.statisticService.getRange(this.range)
-      .subscribe(result => (this.userList = result.map(this.ConvertDate)), err => console.log(err));
+    this.getOnlineAll();
+    this.getStatistic();
   }
 }
-
-

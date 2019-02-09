@@ -8,7 +8,7 @@ export class CountryInfo {
   coal?: number;
 }
 
-export interface StatisticArray {
+export interface StatisticOnline {
   id: number;
   countAll: number;
   countRegistered: number;
@@ -21,11 +21,16 @@ export interface RangeDate {
   endDate: Date;
 }
 
+export interface Areas {
+  legend: string;
+  count: number;
+}
+
 @Injectable()
 export class StatisticService {
   constructor(private http: HttpClient) {}
 
-  myMap(item: StatisticArray) {
+  myMap(item: StatisticOnline) {
     const year = new Date(item.createTime).getFullYear();
     const month = new Date(item.createTime).getMonth();
 
@@ -34,9 +39,15 @@ export class StatisticService {
   }
 
   getRange(range: RangeDate) {
-    return this.http.post<StatisticArray[]>(
+    return this.http.post<StatisticOnline[]>(
       'http://localhost:5050/api/statistics/count/range',
       range
+    );
+  }
+
+  getAreas() {
+    return this.http.get<StatisticOnline>(
+      'http://localhost:5050/api/statistics/count/all'
     );
   }
 }
