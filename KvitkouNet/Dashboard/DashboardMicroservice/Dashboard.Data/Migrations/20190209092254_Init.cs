@@ -29,10 +29,10 @@ namespace Dashboard.Data.Migrations
                 {
                     TicketId = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    LocationEvent = table.Column<string>(nullable: true),
-                    Price = table.Column<decimal>(nullable: false),
-                    SellerPhone = table.Column<string>(nullable: true),
-                    EventLink = table.Column<string>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: false),
+                    City = table.Column<string>(nullable: true),
+                    Category = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(nullable: true),
                     NewsDbsNewsId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -52,41 +52,9 @@ namespace Dashboard.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Rating = table.Column<double>(nullable: true),
-                    NewsDbsNewsId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.UserId);
-                    table.ForeignKey(
-                        name: "FK_User_News_NewsDbsNewsId",
-                        column: x => x.NewsDbsNewsId,
-                        principalTable: "News",
-                        principalColumn: "NewsId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_User_News_UserId",
-                        column: x => x.UserId,
-                        principalTable: "News",
-                        principalColumn: "NewsId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Ticket_NewsDbsNewsId",
                 table: "Ticket",
-                column: "NewsDbsNewsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_User_NewsDbsNewsId",
-                table: "User",
                 column: "NewsDbsNewsId");
         }
 
@@ -94,9 +62,6 @@ namespace Dashboard.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Ticket");
-
-            migrationBuilder.DropTable(
-                name: "User");
 
             migrationBuilder.DropTable(
                 name: "News");

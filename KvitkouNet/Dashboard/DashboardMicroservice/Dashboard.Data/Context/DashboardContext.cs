@@ -13,16 +13,14 @@ namespace Dashboard.Data.Context
             : base(options)
         {
         }
-
+        
         public DbSet<NewsDb> News { get; set; }
         public DbSet<TicketInfoDb> TicketInfo { get; set; }
-        public DbSet<UserInfoDb> UserInfo { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new NewsTypeConfiguration());
             modelBuilder.ApplyConfiguration(new TicketTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
             base.OnModelCreating(modelBuilder);
         }
 

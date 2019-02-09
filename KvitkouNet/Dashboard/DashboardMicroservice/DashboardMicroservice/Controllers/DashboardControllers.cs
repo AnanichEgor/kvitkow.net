@@ -39,7 +39,7 @@ namespace Dashboard.Web.Controllers
             return Ok(result.Item1);
         }
 
-        
+
         /// <summary>
         ///     Удаление новости с определенным Id
         /// </summary>
@@ -67,7 +67,10 @@ namespace Dashboard.Web.Controllers
         public async Task<IActionResult> GetAll()
         {
             var result = await _service.GetAll();
-            if (result.Item2 != RequestStatus.Success) return BadRequest();
+
+            if (result.Item2 != RequestStatus.Success)
+                return BadRequest();
+
             return Ok(result);
         }
 

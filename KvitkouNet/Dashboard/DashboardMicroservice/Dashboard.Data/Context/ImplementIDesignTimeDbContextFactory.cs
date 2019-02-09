@@ -1,4 +1,4 @@
-﻿/*using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace Dashboard.Data.Context
@@ -17,4 +17,4 @@ namespace Dashboard.Data.Context
             return new DashboardContext(builder.Options);
         }
     }
-}*/
+}

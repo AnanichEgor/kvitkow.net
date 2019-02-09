@@ -42,42 +42,23 @@ namespace Dashboard.Data.Migrations
                 {
                     b.Property<string>("TicketId");
 
-                    b.Property<string>("EventLink");
+                    b.Property<string>("Category");
 
-                    b.Property<string>("LocationEvent");
+                    b.Property<string>("City");
+
+                    b.Property<DateTime>("Date");
 
                     b.Property<string>("Name");
 
                     b.Property<string>("NewsDbsNewsId");
 
-                    b.Property<decimal>("Price");
-
-                    b.Property<string>("SellerPhone");
+                    b.Property<decimal?>("Price");
 
                     b.HasKey("TicketId");
 
                     b.HasIndex("NewsDbsNewsId");
 
                     b.ToTable("Ticket");
-                });
-
-            modelBuilder.Entity("Dashboard.Data.DbModels.UserInfoDb", b =>
-                {
-                    b.Property<string>("UserId");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<string>("NewsDbsNewsId");
-
-                    b.Property<double?>("Rating");
-
-                    b.HasKey("UserId");
-
-                    b.HasIndex("NewsDbsNewsId");
-
-                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Dashboard.Data.DbModels.TicketInfoDb", b =>
@@ -89,18 +70,6 @@ namespace Dashboard.Data.Migrations
                     b.HasOne("Dashboard.Data.DbModels.NewsDb")
                         .WithOne("Ticket")
                         .HasForeignKey("Dashboard.Data.DbModels.TicketInfoDb", "TicketId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Dashboard.Data.DbModels.UserInfoDb", b =>
-                {
-                    b.HasOne("Dashboard.Data.DbModels.NewsDb", "NewsDbs")
-                        .WithMany()
-                        .HasForeignKey("NewsDbsNewsId");
-
-                    b.HasOne("Dashboard.Data.DbModels.NewsDb")
-                        .WithOne("User")
-                        .HasForeignKey("Dashboard.Data.DbModels.UserInfoDb", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

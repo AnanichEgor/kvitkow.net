@@ -24,12 +24,7 @@ namespace Dashboard.Logic.Models
         ///     Ссылка на мероприятие
         /// </summary>
         public string EventLink { get; set; }
-
-        /// <summary>
-        ///     Имя пользователя
-        /// </summary>
-        public virtual UserInfo User { get; set; }
-
+        
         /// <summary>
         ///     Цена билета
         /// </summary>

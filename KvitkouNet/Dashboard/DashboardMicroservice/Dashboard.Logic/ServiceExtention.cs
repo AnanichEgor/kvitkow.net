@@ -8,6 +8,7 @@ using Dashboard.Data.Repositories;
 using Dashboard.Logic.Services;
 using Dashboard.Logic.Validators;
 using Dashboard.Logic.MappingProfiles;
+using Dashboard.Data;
 
 namespace Dashboard.Logic
 {
@@ -20,21 +21,23 @@ namespace Dashboard.Logic
         /// <returns></returns>
         public static IServiceCollection RegisterDashboardService(this IServiceCollection services)
         {
-            services.AddDbContext<DashboardContext>(opt => opt.
-                UseLazyLoadingProxies().UseSqlite("Data Source=./NewsDatabase.db"));
-            services.AddScoped<IValidator<Models.News>, NewsValidator>();
-            services.AddScoped<IDashboardRepository, DashboardRepository>();
-            services.AddScoped<IDashboardService, DashboardService>();
+            services.RegisterDashboardServicesData();
 
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<NewsProfile>();
                 cfg.AddProfile<TicketInfoProfile>();
-                cfg.AddProfile<UserInfoProfile>();
             });
+            
+            services.AddScoped<IValidator<Models.News>, NewsValidator>();
+            services.AddScoped<IDashboardRepository, DashboardRepository>();
+            services.AddScoped<IDashboardService, DashboardService>();
+
             return services;
+
         }
 
+        #region Tests
         private static Mock<IDashboardService> DashboardServiceMock()
         {
             var newsServiceMock = new Mock<IDashboardService>();
@@ -42,5 +45,6 @@ namespace Dashboard.Logic
 
             return newsServiceMock;
         }
+        #endregion
     }
 }

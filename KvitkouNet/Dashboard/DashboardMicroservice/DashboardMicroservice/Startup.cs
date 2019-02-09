@@ -18,23 +18,25 @@ namespace DashboardMicroService
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {               
+        {
+            services.RegisterDashboardService();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
                         
-            services.AddSwaggerDocument(settings => settings.Title = "Dashboard Management");
-            services.RegisterDashboardService();
+            services.AddSwaggerDocument(settings => settings.Title = "Dashboard");
+            
             services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-                app.UseDeveloperExceptionPage();
+            if (env.IsDevelopment())app.UseDeveloperExceptionPage();
 
             app.UseCors(b => b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
                         
             app.UseSwagger().UseSwaggerUi3();
+
             app.UseMvc();
         }
     }

@@ -66,7 +66,10 @@ namespace Dashboard.Logic.Services
         public async Task<(IEnumerable<News>, RequestStatus)> GetAll()
         {
             var res = _mapper.Map<IEnumerable<News>>(await _context.GetAll());
-            return res == null ? (null, RequestStatus.Error) : (res, RequestStatus.Success);
+
+            var result = res == null ? (null, RequestStatus.Error) : (res, RequestStatus.Success);
+
+            return result;
         }
 
         /// <summary>

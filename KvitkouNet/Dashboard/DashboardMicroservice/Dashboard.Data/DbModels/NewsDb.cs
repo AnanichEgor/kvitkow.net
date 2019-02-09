@@ -36,11 +36,6 @@ namespace Dashboard.Data.DbModels
         public DateTime CreatedDate { get; set; }
 
         #region Связи между таблицами 
-        /// <summary>
-        ///     Id пользователя
-        /// </summary>
-        public virtual UserInfoDb User { get; set; }
-
 
         /// <summary>
         ///     Билет на мероприятие
