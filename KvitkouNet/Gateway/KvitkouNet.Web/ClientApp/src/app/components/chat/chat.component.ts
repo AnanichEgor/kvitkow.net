@@ -28,7 +28,7 @@ export class ChatComponent implements OnInit {
     private serviceChat: ChatService, private serviceRoom: RoomService
     ) {
       this.connection = new HubConnectionBuilder()
-      .withUrl('http://localhost:61936/chat/notification')
+      .withUrl('http://localhost:5002/chat/notification')
       .build();
 
       this.connection
@@ -54,7 +54,7 @@ export class ChatComponent implements OnInit {
       text: textMessage,
       sendedTime: new Date(),
       isEdit: false,
-      userId: '2'
+      userId: '1'
     };
      this.serviceRoom.roomAddMessage(message, '2' ).subscribe(
        (r) =>console.log(r)

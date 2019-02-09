@@ -22,6 +22,11 @@ namespace Notification.Data.Models
 		/// </summary>
 		public string Name { get; set; }
 
+        /// <summary>
+        /// Уведомления
+        /// </summary>
+        public ICollection<Notification> Notifications { get; set; }
+
 		/// <summary>
 		/// Подписки пользователя
 		/// </summary>

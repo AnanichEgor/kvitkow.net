@@ -70,7 +70,7 @@ namespace Chat.Logic.Services
             var ownerId =  _context.Rooms.SingleOrDefaultAsync(x => x.Id == roomId);
             var user = _context.Users.SingleOrDefaultAsync(x => x.Id == ownerId.Result.OwnerId);
 
-            return user.Result.IsOnline ? null :user.Result.UserName;
+            return user.Result.IsOnline ? null :user.Result.Id;
         }
 
         public async Task EditMessage(Message message, string roomId)

@@ -96,8 +96,7 @@ import { SecurityModule } from './components/security/security.module';
     AppRoutingModule,
   ],
   providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, NotificationService,
-    EmailNotificationService, SubscriptionService, AppRoutingModule],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, ChatService, RoomService, AppRoutingModule],
+    EmailNotificationService, SubscriptionService, ChatService, RoomService, AppRoutingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -28,7 +28,7 @@ import { Configuration } from '../../services/chat/configuration';
 @Injectable()
 export class RoomService {
 
-    protected basePath = 'http://localhost:61936';
+    protected basePath = 'http://localhost:5002';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -100,7 +100,7 @@ export class RoomService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/api/chat/rooms/${encodeURIComponent(String(rid))}/message`,
+        return this.httpClient.post<any>(`${this.basePath}/chat/rooms/${encodeURIComponent(String(rid))}/message`,
             message,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -154,7 +154,7 @@ export class RoomService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/api/chat/rooms/room/${encodeURIComponent(String(uid))}`,
+        return this.httpClient.post<any>(`${this.basePath}/chat/rooms/room/${encodeURIComponent(String(uid))}`,
             room,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -199,7 +199,7 @@ export class RoomService {
             'application/_*+json'
         ];
 
-        return this.httpClient.delete<any>(`${this.basePath}/api/chat/rooms/messages/${encodeURIComponent(String(mid))}`,
+        return this.httpClient.delete<any>(`${this.basePath}/chat/rooms/messages/${encodeURIComponent(String(mid))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -252,7 +252,7 @@ export class RoomService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.patch<any>(`${this.basePath}/api/chat/rooms/${encodeURIComponent(String(rid))}/message`,
+        return this.httpClient.patch<any>(`${this.basePath}/chat/rooms/${encodeURIComponent(String(rid))}/message`,
             message,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -302,7 +302,7 @@ export class RoomService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<Array<Message>>(`${this.basePath}/api/chat/rooms/${encodeURIComponent(String(rid))}/messages/history/${encodeURIComponent(String(historyCountsMessages))}`,
+        return this.httpClient.get<Array<Message>>(`${this.basePath}/chat/rooms/${encodeURIComponent(String(rid))}/messages/history/${encodeURIComponent(String(historyCountsMessages))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

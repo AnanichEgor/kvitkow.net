@@ -8,7 +8,7 @@ using Chat.Logic.Models;
 using Chat.Logic.Services;
 using Chat.Web.Hub;
 using EasyNetQ;
-using KvitkouNet.Messages.Chat;
+using KvitkouNet.Messages.Notification;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -115,17 +115,22 @@ namespace Chat.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> AddMessage([FromBody] Message message, [FromRoute] string rid)
         {
-            var nameUserIsOffline = await _roomService.AddMessage(message, rid);
+            var IdUserIsOffline = await _roomService.AddMessage(message, rid);
 
             //Если пользователь Offline отправим ему уведомление
-            if (nameUserIsOffline != null)
+            if (IdUserIsOffline != null)
             {
 
-                await _bus.PublishAsync(new OfflineChatMessage
+                await _bus.PublishAsync(new UserNotificationMessage
                 {
-                    UserName = nameUserIsOffline,
-                    SendedTime = message.SendedTime
-                });
+                    UserId = IdUserIsOffline,
+                    Creator = "Chat",
+                    Title = "У вас есть не прочитанное сообщение в чате",
+                    NotificationType = 0,
+                    Severity = 0,
+                    Text = message.Text                   
+
+                });                
             }
             await _hubContext.Clients.All.SendAsync("alertOnSendedMessageAllUsers", message.Text);
             return NoContent();

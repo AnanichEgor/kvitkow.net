@@ -115,7 +115,7 @@ namespace Notification.Data.Migrations
             modelBuilder.Entity("Notification.Data.Models.Notification", b =>
                 {
                     b.HasOne("Notification.Data.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Notifications")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

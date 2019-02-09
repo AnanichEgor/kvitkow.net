@@ -116,6 +116,8 @@ services:
     build:
       context: ./
       dockerfile: Chat/Chat.Web/Dockerfile
+    depends_on:
+      - rabbit
     ports:
       - 5010:80
 
@@ -128,3 +130,13 @@ services:
       - rabbit
     ports:
       - 5011:80
+
+   notification.web:
+    image: ${DOCKER_REGISTRY}notificationweb    
+    build:
+      context: ./
+      dockerfile: Notification/Notification.Web/Dockerfile
+    depends_on:
+      - rabbit
+    ports:
+      - 5012:80
