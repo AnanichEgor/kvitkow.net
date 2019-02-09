@@ -23,6 +23,7 @@ namespace StatisticOnline.Web
             services.AddDbContext();
             services.StatisticOnlineServicesMoq();
             services.RegisterValidators();
+            services.StatisticService();
             services.AddSwaggerDocument();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

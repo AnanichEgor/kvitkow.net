@@ -11,12 +11,12 @@ using StatisticOnline.Logic.Models;
 namespace StatisticOnline.Web.Controllers
 {
     [Route("api/statistics/count")]
-    public class StatistisOnlineController: ControllerBase
+    public class StatisticOnlineController: ControllerBase
     {
         private readonly IStatisticOnlineService _statisticService;
         private readonly IValidator<DateRange> _filterValidator;
 
-        public StatistisOnlineController(IStatisticOnlineService statisticService, IValidator<DateRange> filterValidator)
+        public StatisticOnlineController(IStatisticOnlineService statisticService, IValidator<DateRange> filterValidator)
         {
             _statisticService = statisticService;
             _filterValidator = filterValidator;

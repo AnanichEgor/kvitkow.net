@@ -37,7 +37,7 @@ namespace StatisticOnline.Logic.Services
                 .Where(db => db.CreateTime >= range.StartDate && db.CreateTime <= range.EndDate)
                 .ToList();
 
-            return Mapper.Map<IEnumerable<OnlineModel>>(result);
+            return _mapper.Map<IEnumerable<OnlineModel>>(result);
         }
 
         public async Task<int> GetRegisteredUser()
