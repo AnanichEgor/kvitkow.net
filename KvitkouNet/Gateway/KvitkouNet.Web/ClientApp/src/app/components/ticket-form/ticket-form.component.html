@@ -1,28 +1,40 @@
-
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
 <div class="container">
-    <div class="row">
-		<form role="form" class="col-md-9 go-right">
-			<h2>Form To Right</h2>
-            <p>To see how it works, you clink in a input field.</p>
-			<div class="form-group">
-			<input id="name" name="name" type="text" class="form-control" required [(ngModel)]="ticket.name"/>
-			<label for="name">Название мероприятия</label>
-		</div>
-		<div class="form-group">
-			<input id="phone" name="phone" type="tel" class="form-control" required [(ngModel)]="ticket.sellerPhone"/>
-			<label for="phone">Телефон</label>
-		</div>
-		<div class="form-group">
-			<textarea id="message" name="phone" class="form-control" required [(ngModel)]="ticket.additionalData"></textarea>
-			<label for="message">Дополнительная Информация</label>
-    </div>
-    <div class="form-group">
-      <button class="btn btn-default" (click)="sendData(ticket)">Отправить</button>
-  </div>
-		</form>
-	</div>
+  <form class="form-horizontal" [formGroup]="addTicketForm" (ngSubmit)="onSubmit()">
+  <fieldset>
+      <!-- Form Name -->
+      <legend>Добавление билета</legend>
+      <!-- Text input-->
+      <div> Название мероприятия: <input formControlName="name" type="text">
+      </div>
+
+      <div> Free: <input formControlName="free" type="checkbox">
+      </div>
+
+      <div formGroupName="locationEvent"> <legend>Где проходит:
+      </legend>
+
+        <div> Страна: <input formControlName="country" type="text">
+        </div>
+        <div> Город: <input formControlName="city" type="text">
+        </div>
+        <div> Улица: <input formControlName="street" type="text">
+        </div>
+        <div> Дом: <input formControlName="house" type="number">
+        </div>
+      </div>
+
+      <div> Ljg bbyaf: <input type="text" formControlName="additionalData" >
+      </div>
+
+       <!-- Button -->
+      <div class="">
+        <label class="col-md-4 control-label" for="singlebutton" ></label>
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-info">
+            Добавить билет
+          </button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
 </div>

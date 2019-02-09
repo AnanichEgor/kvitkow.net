@@ -58,19 +58,19 @@ namespace TicketManagement.Logic.Services
         {
             //WARNING используется для замены стандартных значений swagerr'a
             //при связи с фронтом надо убрать 
-            ticket.SellerPhone = "+375-29-76-23-371";
+            //ticket.SellerPhone = "+375-29-76-23-371";
             //WARNING
-            if (ticket.User.Rating < 0)
-                throw new UserBadRatingException("Bad user rating");
+            //if (ticket.User.Rating < 0)
+                //throw new UserBadRatingException("Bad user rating");
             var validationResultTicket = await _validatorTickets.ValidateAsync(ticket);
-            var validationResultUser = await _validatorUsers.ValidateAsync(ticket.User);
-            if (!validationResultTicket.IsValid | !validationResultUser.IsValid)
-            {
-                var errors = validationResultTicket.Errors.ToList();
-                errors.AddRange(validationResultUser.Errors.ToArray());
-                throw new ValidationException("Validation failed",
-                    errors);
-            }
+            //var validationResultUser = await _validatorUsers.ValidateAsync(ticket.User);
+            //if (!validationResultTicket.IsValid | !validationResultUser.IsValid)
+            //{
+            //    var errors = validationResultTicket.Errors.ToList();
+            //    errors.AddRange(validationResultUser.Errors.ToArray());
+            //    throw new ValidationException("Validation failed",
+            //        errors);
+            //}
 
             var res = await _context.Add(_mapper.Map<Data.DbModels.Ticket>(ticket));
             try

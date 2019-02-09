@@ -3,7 +3,7 @@ import { TypeEventTicket } from './../../models/typeEventTicket';
 import { Address } from './../../models/address';
 import { AddTicketService } from './../../services/add-ticket.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Ticket } from 'src/app/models/ticket';
 
 @Component({
@@ -12,23 +12,28 @@ import { Ticket } from 'src/app/models/ticket';
   styleUrls: ['./ticket-form.component.css']
 })
 export class TicketFormComponent implements OnInit {
-   ticket: Ticket;
-   adress: Address;
-   typeEventTicket: TypeEventTicket;
-   ticketStatus: TicketStatus;
+  addTicketForm: FormGroup;
 
-  constructor(
-   private ticketSrv: AddTicketService,
-
-  ) {   }
-
-  ngOnInit() {
+  constructor(private ticketSrv: AddTicketService) {
+    this.addTicketForm = new FormGroup({
+      'name' : new FormControl(),
+      'free' : new FormControl(),
+      'locationEvent' : new FormGroup({
+        'country' : new FormControl(),
+        'city' : new FormControl(),
+        'street' : new FormControl(),
+        'house' : new FormControl(),
+        'flat' : new FormControl(),
+      }),
+      'additionalData' : new FormControl(),
+      })
   }
 
-  sendData(ticket: Ticket){
+  ngOnInit() {}
 
-    this.ticketSrv.sendTicket(ticket).subscribe(err => {
-      return console.error(err);
-    });
+  onSubmit() {
+    console.log(this.addTicketForm.value);
+    //let body = JSON.stringify()
+    this.ticketSrv.sendTicket(this.addTicketForm.value).subscribe(err => {return console.error(err)});
   }
 }

@@ -13,18 +13,7 @@ export class AddTicketService {
 
   constructor(private http: HttpClient) {}
 
-    sendTicket(ticket: Ticket) {
-      var body = {
-        free: ticket.free,
-        name: ticket.name,
-        price: ticket.price,
-        additionalData: ticket.additionalData,
-        sellerPhone: ticket.sellerPhone,
-        paymentSystems: ticket.paymentSystems,
-        eventLink: ticket.eventLink,
-        createdDate: Date.now
-      };
-
+    sendTicket(body){
       return this.http.post(`${this.baseUrl}/api/tickets`, body);
   }
 }

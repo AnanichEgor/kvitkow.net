@@ -43,8 +43,8 @@ ngOnDestroy(): void {
 }
 
   goToTicket(id) {
-    this.router.navigate(['tickets/ticket', id]);
-    this.router.navigateByUrl('tickets/ticket/' + id);
+    this.router.navigate(['tickets-ticket', id]);
+    this.router.navigateByUrl('tickets-ticket/' + id);
   }
   goToPage(id) {
     this.router.navigate(['tickets', id]);

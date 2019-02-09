@@ -4,21 +4,25 @@ import { TicketStatus } from './ticketStatus';
 import { TypeEventTicket } from './typeEventTicket';
 import { TicketUserInfo } from './ticketUserInfo';
 
-export interface Ticket {
+export class Ticket {
     id?: string;
     user?: TicketUserInfo;
     respondedUsers?: Array<TicketUserInfo>;
     free: boolean;
-    name?: string;
+    name: string;
     locationEvent?: Address;
     price?: number;
     additionalData?: string;
     sellerPhone?: string;
     sellerAdress?: Address;
     paymentSystems?: string;
-    timeActual: Date;
-    typeEvent: TypeEventTicket;
+    timeActual?: string;
+    typeEvent?: TypeEventTicket;
     eventLink?: string;
-    status: TicketStatus;
-    createdDate: Date;
+    status?: TicketStatus;
+    createdDate?: string;
+
+    public constructor(init?: Partial<Ticket>) {
+      Object.assign(this, init);
+    }
 }

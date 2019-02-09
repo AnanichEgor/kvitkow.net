@@ -36,25 +36,25 @@ namespace TicketManagement.Data.Repositories
             //WARNING используется для замены стандартных значений swagerr'a
             //(чтобы рукчками каждый раз не править)
             //при связи с фронтом надо убрать 
-            ticket.Id = null;
-            ticket.User.UserInfoId = null;
-            ticket.RespondedUsers = null;
+            //ticket.Id = null;
+            //ticket.User.UserInfoId = null;
+            //ticket.RespondedUsers = null;
             //WARNING
-            var user = await _context.UserInfos.Include(info => info.UserTickets)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(info => info.UserInfoId == ticket.User.UserInfoId);
-            if (user == null)
-            {
+            //var user = await _context.UserInfos.Include(info => info.UserTickets)
+            //    .AsNoTracking()
+            //    .FirstOrDefaultAsync(info => info.UserInfoId == ticket.User.UserInfoId);
+            //if (user == null)
+            //{
                 _context.Tickets.Add(ticket);
                 await _context.SaveChangesAsync();
                 return _context.Tickets.Last()
                     .Id;
-            }
+            //}
 
-            user.UserTickets.Add(ticket);
-            await _context.SaveChangesAsync();
-            return _context.Tickets.Last()
-                .Id;
+            //user.UserTickets.Add(ticket);
+            //await _context.SaveChangesAsync();
+            //return _context.Tickets.Last()
+            //    .Id;
         }
 
         /// <summary>
