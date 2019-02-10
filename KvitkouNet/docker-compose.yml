@@ -17,6 +17,7 @@ services:
       - adminpanel.web
       - search.web
       - security.web
+      - tickets.web
     ports:
       - 5001:80
       - 5002:443
@@ -59,10 +60,6 @@ services:
     build:
       context: .
       dockerfile: TicketManagement/TicketManagement.Web/Dockerfile
-    environment:
-      RABBITMQ_DEFAULT_USER: "rabbitmq"
-      RABBITMQ_DEFAULT_PASS: "rabbitmq"
-      RABBITMQ_DEFAULT_VHOST: "/"
     env_file:
       - host.env
     ports:
@@ -129,3 +126,13 @@ services:
       - rabbit
     ports:
       - 5011:80
+
+   statisticonline.web:
+    image: ${DOCKER_REGISTRY}statisticonlineweb
+    build:
+      context: ./StatisticOnline
+      dockerfile: ./StatisticOnline.Web/Dockerfile
+    depends_on:
+      - rabbit
+    ports:
+      - 5050:80

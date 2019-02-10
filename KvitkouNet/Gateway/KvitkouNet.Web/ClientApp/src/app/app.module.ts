@@ -1,3 +1,4 @@
+import { StatisticService } from './services/statistic.service';
 import { RoomService } from './services/chat/room.service';
 import { ChatService } from './services/chat/chat.service';
 import { UsersService } from './services/users.service';
@@ -42,6 +43,8 @@ import { UserSettingsAdvancedComponent } from './components/user-settings/user-s
 import { SecurityModule } from './components/security/security.module';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { LoginComponent } from './components/login/login.component';
+import { StatisticComponent } from './components/statistic/statistic.component';
+import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
 
 @NgModule({
   declarations: [
@@ -75,6 +78,7 @@ import { LoginComponent } from './components/login/login.component';
     UserSettingsAdvancedComponent,
     SearchUserResultsComponent,
     LoginComponent,
+    StatisticComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -83,9 +87,20 @@ import { LoginComponent } from './components/login/login.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    DevExtremeModule,
+    DxChartModule
     OAuthModule.forRoot()
   ],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, ChatService, RoomService, AppRoutingModule],
+  providers: [
+    GetTicketByIdService,
+    GetallticketsService,
+    EditGuard, LogService,
+    UsersService,
+    ChatService,
+    RoomService,
+    AppRoutingModule,
+    StatisticService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

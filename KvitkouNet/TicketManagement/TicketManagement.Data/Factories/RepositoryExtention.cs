@@ -1,25 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using TicketManagement.Data.Context;
 using TicketManagement.Data.Fakes;
 
 namespace TicketManagement.Data.Factories
 {
-   public class RepositoryContextFactory
+    public static class RepositoryExtention
     {
-        private readonly IConfiguration _configuration;
-
-        public RepositoryContextFactory(IConfiguration configuration)
+        public static IServiceCollection RepositoryContext(this IServiceCollection collection, string connectionString)
         {
-            _configuration = configuration;
-        }
-        public TicketContext CreateDbContext()
-        {
-            var connectionString = _configuration.GetValue<string>("connectionString");
             var o = new DbContextOptionsBuilder<TicketContext>();
             o.UseSqlite(connectionString);
             using (var ctx = new TicketContext(o.Options))
@@ -32,7 +22,7 @@ namespace TicketManagement.Data.Factories
                 }
             }
 
-            return new TicketContext(o.Options);
+            return collection;
         }
     }
 }

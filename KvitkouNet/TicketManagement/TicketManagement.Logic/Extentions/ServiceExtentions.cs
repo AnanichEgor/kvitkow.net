@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using EasyNetQ.AutoSubscribe;
 using FluentValidation;
+using KvitkouNet.Messages.UserManagement;
+using KvitkouNet.Messages.UserSettings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using TicketManagement.Data.Context;
@@ -23,15 +26,21 @@ namespace TicketManagement.Logic.Extentions
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection RegisterTicketService(this IServiceCollection services)
+        public static IServiceCollection RegisterTicketService(this IServiceCollection services, string connetctionString)
         {
-            services.AddDbContext<TicketContext>(opt => opt.UseSqlite("Data Source=./TicketDatabase.db"));
+            services.AddDbContext<TicketContext>(opt => opt.UseSqlite(connetctionString));
             services.AddScoped<IValidator<Models.Ticket>, TicketValidator>();
-            services.AddSingleton<RepositoryContextFactory>();
+            services.AddScoped<IValidator<Models.UserInfo>, UserValidator>();
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<ITicketService, TicketService>();
+            services.RepositoryContext(connetctionString);
             services.AddScoped<Data.DbModels.Page<Ticket>>();
-            services.AddScoped<UserMessageConsumer>();
+            services.AddScoped<IConsumeAsync<UserUpdatedMessage>, UserUpdateMessageConsumer>();
+            services.AddScoped<IConsumeAsync<UserDeletedMessage>, UserDeleteMessageConsumer>();
+            services.AddScoped<IConsumeAsync<UserProfileUpdateMessage>, UserUpdateMessageConsumerFromSettings>();
+            services
+                .AddScoped<IConsumeAsync<DeleteUserProfileMessage>, UserDeleteMessageConsumerFromSettings
+                >();
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<TicketProfile>();

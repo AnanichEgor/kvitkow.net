@@ -3,28 +3,27 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav mr-auto">
-
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="[ '/tickets/ticket/add' ]" routerLinkActive="active">Добавить билет</a>
+          <a class="nav-link" [routerLink]="[ '/ticketadd' ]" routerLinkActive="active">Добавить билет</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="[ '/tickets/1' ]" routerLinkActive="active">Показать билеты</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/users']" routerLinkActive="active">Users</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="[ '/chat' ]" routerLinkActive="active">Chat</a>
-        <li class="nav-item">
+        </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/users/registration']" routerLinkActive="active">Registration</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" [routerLink]="['/admin']" routerLinkActive="active">Админка</a>
             </li>
-            <li>
+            <li class="nav-item">
           <a class="nav-link" [routerLink]="['/security']" routerLinkActive="active">Security</a>
         </li>
         <li class="nav-item dropdown">
