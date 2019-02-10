@@ -10,5 +10,7 @@ namespace KvitkouNet.Messages.UserSettings
 		/// Электронный адрес пользователя
 		/// </summary>
 		public string Email { get; set; }
+
+		public string UserId { get; set; }
 	}
 }

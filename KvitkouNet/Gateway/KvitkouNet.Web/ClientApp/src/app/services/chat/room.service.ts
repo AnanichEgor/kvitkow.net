@@ -14,21 +14,21 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams,
          HttpResponse, HttpEvent } from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec } from './encoder';
+import { CustomHttpUrlEncodingCodec } from '../../services/chat/encoder';
 
 import { Observable } from 'rxjs';
 
 import { Message } from '../../models/chat/message';
 import { Room } from '../../models/chat/room';
 
-import { BASE_PATH, COLLECTION_FORMATS } from './variables';
-import { Configuration } from './configuration';
+import { BASE_PATH, COLLECTION_FORMATS } from '../../services/chat/variables';
+import { Configuration } from '../../services/chat/configuration';
 
 
 @Injectable()
 export class RoomService {
 
-    protected basePath = 'http://localhost:61936';
+    protected basePath = 'http://localhost:5002';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -65,9 +65,9 @@ export class RoomService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public roomAddMessage(message: Message, rid: string, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public roomAddMessage(message: Message, rid: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public roomAddMessage(message: Message, rid: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public roomAddMessage(message: Message, rid: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public roomAddMessage(message: Message, rid: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public roomAddMessage(message: Message, rid: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public roomAddMessage(message: Message, rid: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (message === null || message === undefined) {
@@ -100,7 +100,7 @@ export class RoomService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<string>(`${this.basePath}/api/chat/rooms/${encodeURIComponent(String(rid))}/message`,
+        return this.httpClient.post<any>(`${this.basePath}/chat/rooms/${encodeURIComponent(String(rid))}/message`,
             message,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -119,9 +119,9 @@ export class RoomService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public roomAddRoom(room: Room, uid: string, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public roomAddRoom(room: Room, uid: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public roomAddRoom(room: Room, uid: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public roomAddRoom(room: Room, uid: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public roomAddRoom(room: Room, uid: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public roomAddRoom(room: Room, uid: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public roomAddRoom(room: Room, uid: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (room === null || room === undefined) {
@@ -154,7 +154,7 @@ export class RoomService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<string>(`${this.basePath}/api/chat/rooms/room/${encodeURIComponent(String(uid))}`,
+        return this.httpClient.post<any>(`${this.basePath}/chat/rooms/room/${encodeURIComponent(String(uid))}`,
             room,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -172,9 +172,9 @@ export class RoomService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public roomDeleteMessage(mid: string, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public roomDeleteMessage(mid: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public roomDeleteMessage(mid: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public roomDeleteMessage(mid: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public roomDeleteMessage(mid: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public roomDeleteMessage(mid: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public roomDeleteMessage(mid: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (mid === null || mid === undefined) {
@@ -199,7 +199,7 @@ export class RoomService {
             'application/_*+json'
         ];
 
-        return this.httpClient.delete<string>(`${this.basePath}/api/chat/rooms/messages/${encodeURIComponent(String(mid))}`,
+        return this.httpClient.delete<any>(`${this.basePath}/chat/rooms/messages/${encodeURIComponent(String(mid))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -217,9 +217,9 @@ export class RoomService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public roomEditMessage(message: Message, rid: string, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public roomEditMessage(message: Message, rid: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
-    public roomEditMessage(message: Message, rid: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
+    public roomEditMessage(message: Message, rid: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public roomEditMessage(message: Message, rid: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public roomEditMessage(message: Message, rid: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public roomEditMessage(message: Message, rid: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (message === null || message === undefined) {
@@ -252,7 +252,7 @@ export class RoomService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.patch<string>(`${this.basePath}/api/chat/rooms/${encodeURIComponent(String(rid))}/message`,
+        return this.httpClient.patch<any>(`${this.basePath}/chat/rooms/${encodeURIComponent(String(rid))}/message`,
             message,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -302,7 +302,7 @@ export class RoomService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<Array<Message>>(`${this.basePath}/api/chat/rooms/${encodeURIComponent(String(rid))}/messages/history/${encodeURIComponent(String(historyCountsMessages))}`,
+        return this.httpClient.get<Array<Message>>(`${this.basePath}/chat/rooms/${encodeURIComponent(String(rid))}/messages/history/${encodeURIComponent(String(historyCountsMessages))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -365,9 +365,7 @@ export class RoomService {
      * @param reportProgress flag to report request and response progress.
      */
     public roomSearchMessage(rid: string, template: string, observe?: 'body', reportProgress?: boolean): Observable<Array<Message>>;
-    // tslint:disable-next-line:max-line-length
     public roomSearchMessage(rid: string, template: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Message>>>;
-    // tslint:disable-next-line:max-line-length
     public roomSearchMessage(rid: string, template: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Message>>>;
     public roomSearchMessage(rid: string, template: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 

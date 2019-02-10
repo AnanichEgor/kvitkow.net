@@ -13,6 +13,6 @@
 		/// <summary>
 		/// Уведомление по почте
 		/// </summary>
-		EmailNotification,
+		EmailNotification
 	}
 }

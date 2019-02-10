@@ -1,15 +1,16 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using Notification.Data.Context;
+using EasyNetQ;
 using Notification.Logic;
 using Notification.Logic.MappingProfiles;
-using System.Linq;
-using Notification.Data.Fakers;
+using Notification.Web.Subscriber;
+using Notification.Logic.Configs;
+using Notification.Web.MappingProfiles;
 
 namespace Notification.Web
 {
@@ -25,34 +26,41 @@ namespace Notification.Web
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<NotificationContext>(
-				opt => opt.UseSqlite(connectionString: "Data Source = ./Notification.db"));
-
-			var o = new DbContextOptionsBuilder<NotificationContext>();
-			o.UseSqlite("Data Source=./Notification.db");
-
-			using (var ctx = new NotificationContext(o.Options))
-			{
-				ctx.Database.Migrate();
-
-				if (!ctx.Notifications.Any())
-				{
-					ctx.Notifications.AddRange(NotificationFaker.Generate(50));
-					ctx.SaveChanges();
-				}
-			}
-
 			services.AddAutoMapper(cfg =>
 			{
 				cfg.AddProfile<NotificationMessageProfile>();
 				cfg.AddProfile<UserNotificationProfile>();
-				cfg.AddProfile<EmailNotificationProfile>();				
+				cfg.AddProfile<EmailNotificationProfile>();
+                cfg.AddProfile<Logic.MappingProfiles.SubscriptionProfile>();
+                cfg.AddProfile<Logic.MappingProfiles.SeverityProfile>();
+                cfg.AddProfile<Web.MappingProfiles.SeverityProfile>();
 			});
 
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
+
+            services.AddMvc();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddSwaggerDocument();
+
+			services.Configure<SenderConfig>(Configuration.GetSection("SenderConfig"));
+			services.RegisterNotificationContext();
 			services.RegisterNotificationService();
+			services.RegisterEmailNotificationService();
+			services.RegisterEmailSenderService();
+            services.RegisterSubscriptionService();
+            services.RegisterUserService();
+
+            services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=rabbit"));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,7 +71,13 @@ namespace Notification.Web
 				app.UseDeveloperExceptionPage();
 			}
 
+            app.UseCors("CorsPolicy");
+
+            app.UseSwagger().UseSwaggerUi3();
+
 			app.UseMvc();
+
+			app.UseSubscriber("Notification", Assembly.GetExecutingAssembly());
 		}
 	}
 }
