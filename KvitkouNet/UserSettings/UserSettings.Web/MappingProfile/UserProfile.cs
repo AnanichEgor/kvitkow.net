@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using KvitkouNet.Messages.UserManagement;
 using KvitkouNet.Messages.UserSettings;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace UserSettings.Web.MappingProfile
 	{
 		public UserProfile()
 		{
-			CreateMap<UserProfileMessage, ProfileInfo>().ReverseMap();
+			CreateMap<UserCreationMessage, ProfileInfo>().ReverseMap();
 		}
 	}
 }

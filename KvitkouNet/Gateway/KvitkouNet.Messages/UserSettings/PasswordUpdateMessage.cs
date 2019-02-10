@@ -16,6 +16,8 @@ namespace KvitkouNet.Messages.UserSettings
 		/// </summary>
 		public string NewPassword { get; set; }
 
+		public string UserId { get; set; }
+
 		public PasswordUpdateMessage(string current, string newPass)
 		{
 			Current = current;
