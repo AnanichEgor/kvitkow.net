@@ -1,3 +1,4 @@
+import { LoginComponent } from './components/login/login.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
@@ -65,7 +66,7 @@ const routes: Routes = [
       { path: 'security', component: UserSettingsSecurityComponent, pathMatch: 'full'},
       { path: 'advanced', component: UserSettingsAdvancedComponent, pathMatch: 'full'},
     ]},
-
+  { path: 'login', component: LoginComponent, pathMatch: 'full'},
   { path: '**', component: NotFoundComponent },
 ];
 

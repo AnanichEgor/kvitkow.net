@@ -41,6 +41,8 @@ import { UserSettingsProfileComponent } from './components/user-settings/user-se
 import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
 import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
 import { SecurityModule } from './components/security/security.module';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { LoginComponent } from './components/login/login.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
 
@@ -75,6 +77,7 @@ import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
     UserSettingsSecurityComponent,
     UserSettingsAdvancedComponent,
     SearchUserResultsComponent,
+    LoginComponent,
     StatisticComponent,
   ],
   imports: [
@@ -86,6 +89,7 @@ import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
     AppRoutingModule,
     DevExtremeModule,
     DxChartModule
+    OAuthModule.forRoot()
   ],
   providers: [
     GetTicketByIdService,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private oauthService: OAuthService) {
+  }
 
-  ngOnInit() {
+  ngOnInit(): void {
+  }
+
+  public logoff() {
+      this.oauthService.logOut(true);
+  }
+
+  public get name() {
+      const claims = this.oauthService.getIdentityClaims();
+      if (!claims) { return null; }
+      return claims['given_name'];
   }
 
 }
