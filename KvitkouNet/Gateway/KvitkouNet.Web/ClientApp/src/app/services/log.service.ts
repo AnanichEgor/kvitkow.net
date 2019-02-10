@@ -25,18 +25,7 @@ export class LogService {
   }
 
   getAccountLogs(queryParams: string) {
-    var token = this.oauthService.getAccessToken();
-    var headers;
-    if (token != null) {
-      headers = new HttpHeaders({
-        "Authorization": "Bearer " + this.oauthService.getAccessToken()
-      });
-    }
-    else {
-      headers = new HttpHeaders();
-    }
-
-    console.log(headers);
+    var headers = this.getHttpHeaders();
     return this.http.get<AccountLogEntry[]>(`${this.baseUrl}admin/logs/accounts?${queryParams}`, { headers });
   }
 
@@ -55,4 +44,18 @@ export class LogService {
   getDealLogs(queryParams: string) {
     return this.http.get<DealLogEntry[]>(`${this.baseUrl}admin/logs/deals?${queryParams}`);
   }
+
+  private getHttpHeaders(): HttpHeaders {
+    var token = this.oauthService.getAccessToken();
+    if (token != null) {
+      return new HttpHeaders({
+        "Authorization": "Bearer " + this.oauthService.getAccessToken()
+      });
+    }
+    else {
+      return new HttpHeaders();
+    }
+
+  }
+
 }
