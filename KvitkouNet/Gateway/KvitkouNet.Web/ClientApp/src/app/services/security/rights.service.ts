@@ -28,7 +28,7 @@ import { Configuration } from './configuration';
 @Injectable()
 export class RightsService {
 
-    protected basePath = 'http://localhost:5000';
+    protected basePath = 'http://localhost:5011';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 

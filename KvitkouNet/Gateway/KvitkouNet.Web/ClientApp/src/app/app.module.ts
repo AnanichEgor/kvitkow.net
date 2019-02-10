@@ -1,3 +1,4 @@
+import { StatisticService } from './services/statistic.service';
 import { RoomService } from './services/chat/room.service';
 import { ChatService } from './services/chat/chat.service';
 import { UsersService } from './services/users.service';
@@ -40,6 +41,10 @@ import { UserSettingsProfileComponent } from './components/user-settings/user-se
 import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
 import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
 import { SecurityModule } from './components/security/security.module';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { LoginComponent } from './components/login/login.component';
+import { StatisticComponent } from './components/statistic/statistic.component';
+import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
 
 @NgModule({
   declarations: [
@@ -72,6 +77,8 @@ import { SecurityModule } from './components/security/security.module';
     UserSettingsSecurityComponent,
     UserSettingsAdvancedComponent,
     SearchUserResultsComponent,
+    LoginComponent,
+    StatisticComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -80,8 +87,20 @@ import { SecurityModule } from './components/security/security.module';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    DevExtremeModule,
+    DxChartModule
+    OAuthModule.forRoot()
   ],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, ChatService, RoomService, AppRoutingModule],
+  providers: [
+    GetTicketByIdService,
+    GetallticketsService,
+    EditGuard, LogService,
+    UsersService,
+    ChatService,
+    RoomService,
+    AppRoutingModule,
+    StatisticService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
