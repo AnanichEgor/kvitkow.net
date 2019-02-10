@@ -2,6 +2,8 @@ import { NotificationItemComponent } from './components/notification/notificatio
 import { NotificationComponent } from './components/notification/notification.component';
 import { SubscriptionItemComponent } from './components/notification/subscription-item/subscription-item.component';
 import { RegistrationConfirmationComponent } from './components/notification/registration-confirmation/registration-confirmation.component';
+import { LoginComponent } from './components/login/login.component';
+import { StatisticComponent } from './components/statistic/statistic.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
 import { SearchUserComponent } from './components/search-user/search-user.component';
@@ -44,7 +46,9 @@ const routes: Routes = [
       { path: 'logs/tickets', component: TicketLogsComponent },
       { path: 'logs/deals', component: DealLogsComponent },
       { path: 'users', component: AdminUserComponent }
-    ]},
+        ]
+    },
+  { path: 'statistic', component: StatisticComponent, pathMatch: 'full' },
   { path: 'tickets/:id', component: TicketComponent, pathMatch: 'full' },
   { path: 'tickets-ticket/:id', component: TicketDetailComponent, pathMatch: 'full' },
   { path: 'ticketadd', component: TicketFormComponent, pathMatch: 'full' },
@@ -68,6 +72,7 @@ const routes: Routes = [
       { path: 'security', component: UserSettingsSecurityComponent, pathMatch: 'full'},
       { path: 'advanced', component: UserSettingsAdvancedComponent, pathMatch: 'full'},
     ]},
+  { path: 'login', component: LoginComponent, pathMatch: 'full'},
   { path: '**', component: NotFoundComponent },
 ];
 

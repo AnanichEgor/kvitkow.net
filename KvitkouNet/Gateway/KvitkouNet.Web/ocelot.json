@@ -1,6 +1,6 @@
 {
   "GlobalConfiguration": {
-    "BaseUrl": "https://api.mybusiness.com"
+    "BaseUrl": "https://localhost:5002"
   },
   "ReRoutes": [
     {
@@ -16,6 +16,18 @@
       "UpstreamHttpMethod": [ "Put", "Delete" ]
     },
     {
+      "DownstreamPathTemplate": "/connect/token",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityserver",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/connect/token",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    {
       "DownstreamPathTemplate": "/api/admin/logs/errors",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -25,7 +37,11 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/errors",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "api" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/accounts",
