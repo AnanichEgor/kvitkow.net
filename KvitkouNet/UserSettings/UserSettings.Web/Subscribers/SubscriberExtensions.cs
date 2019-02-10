@@ -1,5 +1,6 @@
 ﻿using EasyNetQ;
 using EasyNetQ.AutoSubscribe;
+using KvitkouNet.Messages.UserManagement;
 using KvitkouNet.Messages.UserSettings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,7 +41,7 @@ namespace UserSettings.Web.Subscribers
 
 		public static IServiceCollection RegisterConsumers(this IServiceCollection services)
 		{
-			services.AddScoped<IConsumeAsync<UserProfileMessage>, UserProfileConsumer>();
+			services.AddScoped<IConsumeAsync<UserCreationMessage>, UserProfileConsumer>();
 			return services;
 		}
 	}

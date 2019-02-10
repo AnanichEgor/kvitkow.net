@@ -11,7 +11,7 @@ namespace UserSettings.Logic.MappingProfile
 	{
 		public VisibleProfile()
 		{
-			CreateMap<VisibleInfo, VisibleInfoDb>().ReverseMap();
+			CreateMap<VisibleInfoDb, VisibleInfo>().ReverseMap();
 		}
 	}
 }

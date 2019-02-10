@@ -10,6 +10,8 @@ namespace UserSettings.Data
 	{
 		Task<SettingsDb> Get(string id);
 
+		Task<bool> CreateSettings(string id);
+
 		/// <summary>
 		/// Обновление информации о том какие уведомления получать 
 		/// </summary>
@@ -27,13 +29,6 @@ namespace UserSettings.Data
 		/// <param name="place"></param>
 		/// <returns></returns>
 		Task<bool> UpdatePreferences(string id, string address, string region, string place);
-
-		/// <summary>
-		/// Удаление аккаунта
-		/// </summary>
-		/// <param name="id"></param>
-		/// <returns></returns>
-		Task DeleteAccount(string id);
 
 		/// <summary>
 		/// Обновление информации о том какая информация о пользователе доступна для при просмотре профиля

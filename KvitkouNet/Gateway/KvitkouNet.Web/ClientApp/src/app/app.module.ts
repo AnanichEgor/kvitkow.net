@@ -49,6 +49,10 @@ import { UserSettingsProfileComponent } from './components/user-settings/user-se
 import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
 import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
 import { SecurityModule } from './components/security/security.module';
+// tslint:disable-next-line:max-line-length
+import { UserSettingsEmailComponent } from './components/user-settings/user-settings-security/user-settings-email/user-settings-email.component';
+// tslint:disable-next-line:max-line-length
+import { UserSettingsPasswordComponent } from './components/user-settings/user-settings-security/user-settings-password/user-settings-password.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { LoginComponent } from './components/login/login.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
@@ -91,6 +95,8 @@ import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
     NotificationItemComponent,
     SubscriptionItemComponent,
     RegistrationConfirmationComponent,
+    UserSettingsEmailComponent,
+    UserSettingsPasswordComponent
     LoginComponent,
     StatisticComponent,
   ],
