@@ -37,6 +37,9 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/errors",
+      "RouteClaimsRequirement": {
+        "role": "admin"
+      },
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
