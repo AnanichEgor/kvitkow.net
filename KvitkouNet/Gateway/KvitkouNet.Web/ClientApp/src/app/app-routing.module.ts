@@ -27,6 +27,7 @@ import { UserSettingsProfileComponent } from './components/user-settings/user-se
 import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
 import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -40,20 +41,23 @@ const routes: Routes = [
       { path: 'logs/tickets', component: TicketLogsComponent },
       { path: 'logs/deals', component: DealLogsComponent },
       { path: 'users', component: AdminUserComponent }
-    ]},
+        ]
+    },
   { path: 'statistic', component: StatisticComponent, pathMatch: 'full' },
-  { path: 'tickets', component: TicketComponent,  pathMatch: 'full'  },
-  { path: 'tickets/:id', component: TicketDetailComponent, pathMatch: 'full' },
+  { path: 'tickets/:id', component: TicketComponent, pathMatch: 'full' },
+  { path: 'tickets-ticket/:id', component: TicketDetailComponent, pathMatch: 'full' },
+  { path: 'ticketadd', component: TicketFormComponent, pathMatch: 'full' },
+  { path: 'tickets-ticket/:id/edit', component: TicketEditComponent, canActivate: [EditGuard], pathMatch: 'full' },
   { path: 'users', component: UsersComponent, pathMatch: 'full' },
   { path: 'users/registration', component: RegistrationComponent, pathMatch: 'full' },
   { path: 'search-ticket', component: SearchTicketComponent, pathMatch: 'full' },
   { path: 'search-user', component: SearchUserComponent, pathMatch: 'full' },
   { path: 'search-ticket-results', component: SearchTicketResultsComponent, pathMatch: 'full' },
   { path: 'search-user-results', component: SearchUserResultsComponent, pathMatch: 'full' },
-  { path: 'tickets/ticket/add', component: TicketFormComponent, pathMatch: 'full' },
+
   {path: 'security',
   loadChildren: './components/security/security.module#SecurityModule'},
-  { path: 'tickets/ticket/edit', component: TicketFormComponent, canActivate: [EditGuard], pathMatch: 'full' },
+
   { path: 'chat', component: ChatComponent, pathMatch: 'full'},
   { path: 'settings', component: UserSettingsComponent,
     children: [
