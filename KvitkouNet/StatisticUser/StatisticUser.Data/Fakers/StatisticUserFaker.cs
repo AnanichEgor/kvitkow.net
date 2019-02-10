@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Bogus;
 using StatisticUser.Data.DbModels;
 
@@ -23,7 +21,7 @@ namespace StatisticUser.Data.Fakers
 
         }
 
-        public static IEnumerable<SummaryTableDB> Generate(int count = 10)
+        public static IEnumerable<SummaryTableDB> Generate(int count = 500)
         {
             return _faker.Generate(count);
         }
