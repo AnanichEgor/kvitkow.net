@@ -88,7 +88,7 @@ import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
     ReactiveFormsModule,
     AppRoutingModule,
     DevExtremeModule,
-    DxChartModule
+    DxChartModule,
     OAuthModule.forRoot()
   ],
   providers: [
