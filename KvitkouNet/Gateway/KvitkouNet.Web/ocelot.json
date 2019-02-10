@@ -234,7 +234,6 @@
       ],
       "UpstreamPathTemplate": "/tickets/actual/page/{index}",
       "UpstreamHttpMethod": [ "Get" ]
-      "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/chat/rooms/template",

@@ -90,7 +90,7 @@ import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
     EmailNotificationItemComponent,
     NotificationItemComponent,
     SubscriptionItemComponent,
-    RegistrationConfirmationComponent
+    RegistrationConfirmationComponent,
     LoginComponent,
     StatisticComponent,
   ],
@@ -102,11 +102,9 @@ import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
     ReactiveFormsModule,
     AppRoutingModule,
     DevExtremeModule,
-    DxChartModule
+    DxChartModule,
     OAuthModule.forRoot()
   ],
-  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, UsersService, NotificationService,
-    EmailNotificationService, SubscriptionService, ChatService, RoomService, AppRoutingModule],
   providers: [
     GetTicketByIdService,
     GetallticketsService,
@@ -115,7 +113,10 @@ import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
     ChatService,
     RoomService,
     AppRoutingModule,
-    StatisticService
+    StatisticService,
+    NotificationService,
+    EmailNotificationService,
+    SubscriptionService
   ],
   bootstrap: [AppComponent]
 })
