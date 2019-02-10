@@ -96,7 +96,7 @@ import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
     SubscriptionItemComponent,
     RegistrationConfirmationComponent,
     UserSettingsEmailComponent,
-    UserSettingsPasswordComponent
+    UserSettingsPasswordComponent,
     LoginComponent,
     StatisticComponent,
   ],
