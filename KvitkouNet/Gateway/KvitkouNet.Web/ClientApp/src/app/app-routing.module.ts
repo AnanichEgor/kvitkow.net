@@ -1,3 +1,7 @@
+import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { SubscriptionItemComponent } from './components/notification/subscription-item/subscription-item.component';
+import { RegistrationConfirmationComponent } from './components/notification/registration-confirmation/registration-confirmation.component';
 import { LoginComponent } from './components/login/login.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
@@ -64,6 +68,8 @@ const routes: Routes = [
   loadChildren: './components/security/security.module#SecurityModule'},
 
   { path: 'chat', component: ChatComponent, pathMatch: 'full'},
+  { path: 'notification', component: NotificationComponent, pathMatch: 'full'},
+  { path: 'notification/registration-confirmation/:username', component: RegistrationConfirmationComponent, pathMatch: 'full'},
   { path: 'settings', component: UserSettingsComponent,
     children: [
       { path: 'profile', component: UserSettingsProfileComponent, pathMatch: 'full'},
