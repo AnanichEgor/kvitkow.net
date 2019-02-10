@@ -1,3 +1,5 @@
+using IdentityModel;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +36,23 @@ namespace KvitkouNet.Web
             services.AddSwaggerDocument();
 
             services.AddOcelot();
+
+	        services.AddAuthentication()
+		        .AddIdentityServerAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme,
+			        opt =>
+			        {
+				        opt.Authority = "http://identityserver";
+				        opt.RequireHttpsMetadata = false;
+				        opt.IncludeErrorDetails = true;
+				        opt.TokenValidationParameters.NameClaimType = JwtClaimTypes.Name;
+				        opt.TokenValidationParameters.RoleClaimType = JwtClaimTypes.Role;
+				        opt.TokenValidationParameters.ValidIssuer = "http://identityserver";
+				        opt.TokenValidationParameters.ValidAudience = "http://identityserver/resources";
+				        opt.TokenValidationParameters.ValidateIssuer = true;
+				        opt.TokenValidationParameters.ValidateAudience = true;
+				        opt.TokenValidationParameters.ValidateIssuerSigningKey = false;
+				        opt.Validate();
+			        }, null);
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +68,7 @@ namespace KvitkouNet.Web
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             //app.UseSpaStaticFiles();
 

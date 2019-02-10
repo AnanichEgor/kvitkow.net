@@ -1,3 +1,6 @@
+import { NotificationService } from './services/notification/notification.service';
+import { EmailNotificationService } from './services/notification/emailNotification.service';
+import { SubscriptionService } from './services/notification/subscription.service';
 import { StatisticService } from './services/statistic.service';
 import { RoomService } from './services/chat/room.service';
 import { ChatService } from './services/chat/chat.service';
@@ -33,6 +36,11 @@ import { SearchTicketComponent } from './components/search-ticket/search-ticket.
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchUserResultsComponent } from './components/search-user-results/search-user-results.component';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { EmailNotificationItemComponent } from './components/notification/email-notification-item/email-notification-item.component';
+import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
+import { SubscriptionItemComponent } from './components/notification/subscription-item/subscription-item.component';
+import { RegistrationConfirmationComponent } from './components/notification/registration-confirmation/registration-confirmation.component';
 import { QueryLogsComponent } from './components/admin/query-logs/query-logs.component';
 import { TicketLogsComponent } from './components/admin/ticket-logs/ticket-logs.component';
 import { DealLogsComponent } from './components/admin/deal-logs/deal-logs.component';
@@ -41,6 +49,10 @@ import { UserSettingsProfileComponent } from './components/user-settings/user-se
 import { UserSettingsSecurityComponent } from './components/user-settings/user-settings-security/user-settings-security.component';
 import { UserSettingsAdvancedComponent } from './components/user-settings/user-settings-advanced/user-settings-advanced.component';
 import { SecurityModule } from './components/security/security.module';
+// tslint:disable-next-line:max-line-length
+import { UserSettingsEmailComponent } from './components/user-settings/user-settings-security/user-settings-email/user-settings-email.component';
+// tslint:disable-next-line:max-line-length
+import { UserSettingsPasswordComponent } from './components/user-settings/user-settings-security/user-settings-password/user-settings-password.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { LoginComponent } from './components/login/login.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
@@ -77,6 +89,14 @@ import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
     UserSettingsSecurityComponent,
     UserSettingsAdvancedComponent,
     SearchUserResultsComponent,
+    UserSettingsComponent,
+    NotificationComponent,
+    EmailNotificationItemComponent,
+    NotificationItemComponent,
+    SubscriptionItemComponent,
+    RegistrationConfirmationComponent,
+    UserSettingsEmailComponent,
+    UserSettingsPasswordComponent,
     LoginComponent,
     StatisticComponent,
   ],
@@ -99,7 +119,10 @@ import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
     ChatService,
     RoomService,
     AppRoutingModule,
-    StatisticService
+    StatisticService,
+    NotificationService,
+    EmailNotificationService,
+    SubscriptionService
   ],
   bootstrap: [AppComponent]
 })

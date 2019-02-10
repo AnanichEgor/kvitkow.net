@@ -1,4 +1,6 @@
-﻿namespace Notification.Data.Models
+﻿using System.Collections.Generic;
+
+namespace Notification.Data.Models
 {
 	/// <summary>
 	/// Пользователь
@@ -16,8 +18,18 @@
 		public string Email { get; set; }
 
 		/// <summary>
-		/// Имя пользователя
+		/// Ник пользователя
 		/// </summary>
-		public string FirstName { get; set; }
+		public string Name { get; set; }
+
+        /// <summary>
+        /// Уведомления
+        /// </summary>
+        public ICollection<Notification> Notifications { get; set; }
+
+		/// <summary>
+		/// Подписки пользователя
+		/// </summary>
+		public ICollection<UserSubscription> UserSubscriptions { get; set; }
 	}
 }

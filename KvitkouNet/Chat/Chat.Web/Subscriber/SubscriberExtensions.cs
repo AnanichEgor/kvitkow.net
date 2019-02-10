@@ -1,7 +1,9 @@
 ﻿
 using System.Reflection;
+using AutoMapper;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using Chat.Logic.Services;
 using EasyNetQ;
 using EasyNetQ.AutoSubscribe;
 using Microsoft.AspNetCore.Builder;
@@ -22,7 +24,15 @@ namespace Chat.Web.Subscriber
             //register our consumer with our IoC container
             var container = new WindsorContainer();
             container.Register(
-                Component.For<UserMessageConsumer>().ImplementedBy<UserMessageConsumer>());
+                //регистраци потребителей
+                Component.For<UserMessageConsumer>().ImplementedBy<UserMessageConsumer>(),
+
+                //сервисы
+                Component.For<IChatService>().Instance(services.GetService<IChatService>()),
+
+                //мапперы
+                Component.For<IMapper>().Instance(services.GetService<IMapper>())
+                );
 
             lifetime.ApplicationStarted.Register(() =>
             {

@@ -52,10 +52,10 @@ namespace UserSettings.Logic.Services
 				
 				if (await CheckExistEmail(email))
 				{
-					await _bus.PublishAsync(new EmailUpdateMessage()
-					{
-						Email = email
-					});
+					//await _bus.PublishAsync(new EmailUpdateMessage()
+					//{
+					//	Email = email
+					//});
 					return ResultEnum.Success;
 				}
 				else
@@ -65,7 +65,7 @@ namespace UserSettings.Logic.Services
 			}
 			catch
 			{
-				return ResultEnum.Error;
+				return ResultEnum.BadRequest;
 			}
 		}
 
@@ -73,33 +73,34 @@ namespace UserSettings.Logic.Services
 		{
 			if(String.Equals(newPass, confirm))
 			{
-				var temp = await _bus.RequestAsync<PasswordUpdateMessage, RespondUpdateMessage>(new PasswordUpdateMessage(current, newPass));
-				if (temp.UpdateResult)
-				{
-					return ResultEnum.Success;
-				}
+				await _bus.PublishAsync(new PasswordUpdateMessage(current, newPass) { UserId = id });
+				return ResultEnum.Success;
 			}
-			return ResultEnum.Error;
+			return ResultEnum.BadRequest;
 		}
 
 		public async Task<ResultEnum> UpdateProfile(string id, string first, string middle, string last, DateTime birthdate)
 		{
 			if (string.IsNullOrEmpty(first) || string.IsNullOrEmpty(last))
-				return ResultEnum.Error;
-			await _bus.PublishAsync(new UserProfileMessage()
+				return ResultEnum.BadRequest;
+			await _bus.PublishAsync(new UserProfileUpdateMessage()
 			{
 				FirstName = first,
 				LastName = last,
 				MiddleName = middle,
-				Birthday = birthdate
+				Birthday = birthdate,
+				UserId = id
 			});
 			return ResultEnum.Success;
 		}
 
 		private async Task<bool> CheckExistEmail(string email)
 		{
-			var temp = await _bus.RequestAsync<string, RespondUpdateMessage>(email);
-			return temp.UpdateResult;
+			await _bus.PublishAsync(new EmailUpdateMessage()
+			{
+				Email = email
+			});
+			return true;
 		}
 
 		public async Task<ResultEnum> UpdateNotifications(string id, Notifications notifications)
@@ -117,19 +118,18 @@ namespace UserSettings.Logic.Services
 			return true;
 		}
 
-		public async Task<ResultEnum> UpdatePhones()
+		public async Task<ResultEnum> UpdateVisible(string id, VisibleInfo visibleInfo)
 		{
-			var temp = await _bus.RequestAsync<PhonesUpdateMessage, RespondUpdateMessage>(new PhonesUpdateMessage());
-			if (temp.UpdateResult)
+			if (await _context.UpdateVisible(id, _mapper.Map<VisibleInfo, VisibleInfoDb>(visibleInfo)))
 			{
 				return ResultEnum.Success;
 			}
 			return ResultEnum.Error;
 		}
 
-		public async Task<ResultEnum> UpdateVisible(string id, VisibleInfo visibleInfo)
+		public async Task<ResultEnum> CreateSetting(string id)
 		{
-			if (await _context.UpdateVisible(id, _mapper.Map<VisibleInfo, VisibleInfoDb>(visibleInfo)))
+			if(await _context.CreateSettings(id))
 			{
 				return ResultEnum.Success;
 			}
