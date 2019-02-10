@@ -28,7 +28,7 @@ export class ChatComponent implements OnInit {
     private serviceChat: ChatService, private serviceRoom: RoomService
     ) {
       this.connection = new HubConnectionBuilder()
-      .withUrl('http://localhost:5002/chat/notification')
+      .withUrl('http://localhost:61936/chat/notification')
       .build();
 
       this.connection
@@ -37,7 +37,8 @@ export class ChatComponent implements OnInit {
       .catch(err => console.error(err));
       console.log('consrtructor');
     this.connection.on('alertOnSendedMessageAllUsers', msg =>
-    (console.log('startMethodHub. Came in method  = ' + msg ),
+    (console.log('startMethodHub. Came in method  = ' + msg.text ),
+    this.newMessage = msg.text,
       this.messagesForHus.push(msg),
       console.log('EndMethodHub')
       ))

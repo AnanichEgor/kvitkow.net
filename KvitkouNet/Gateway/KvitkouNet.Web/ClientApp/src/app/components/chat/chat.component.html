@@ -118,7 +118,9 @@
                         <ul>
                             <li *ngFor="let message of messagesForHus">
                               <p>
-                                      {{message}}
+                                Отправлено UserId = {{message.userId}}
+                                текст сообщения: {{message.text}}
+                                Время отправки: {{message.sendedTime}}
                                     </p>
 
                             </li>

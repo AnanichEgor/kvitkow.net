@@ -28,7 +28,7 @@ import { Configuration } from '../../services/chat/configuration';
 @Injectable()
 export class RoomService {
 
-    protected basePath = 'http://localhost:5002';
+    protected basePath = 'http://localhost:61936/api';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
