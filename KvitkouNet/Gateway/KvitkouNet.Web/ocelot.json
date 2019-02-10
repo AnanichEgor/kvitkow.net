@@ -145,6 +145,79 @@
         }
       ],
       "UpstreamPathTemplate": "/history/users",
+      "UpstreamHttpMethod": ["Get"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tickets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tickets.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/tickets",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tickets/{id}/add",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tickets.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/tickets/{id}/add",
+      "UpstreamHttpMethod": [ "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tickets/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tickets.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/tickets/{id}",
+      "UpstreamHttpMethod": [ "Put", "Delete", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tickets/actual",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tickets.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/tickets/actual",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tickets/page/{index}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tickets.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/tickets/page/{index}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tickets/actual/page/{index}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tickets.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/tickets/actual/page/{index}",
+      "UpstreamHttpMethod": [ "Get" ]
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
