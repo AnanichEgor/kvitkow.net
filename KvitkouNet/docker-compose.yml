@@ -164,5 +164,6 @@ services:
       dockerfile: ./StatisticUser.Web/Dockerfile
     depends_on:
       - rabbit
+      - statisticonline.web
     ports:
       - 5060:80
