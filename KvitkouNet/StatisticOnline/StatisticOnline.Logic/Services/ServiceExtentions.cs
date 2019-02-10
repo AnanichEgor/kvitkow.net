@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using AutoMapper;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -9,12 +10,13 @@ using StatisticOnline.Data.Context;
 using StatisticOnline.Logic.Interfaces;
 using StatisticOnline.Logic.MappingProfiles;
 using StatisticOnline.Logic.Models;
+using StatisticOnline.Logic.Validators;
 
 namespace StatisticOnline.Logic.Services
 {
     public static class ServiceExtentions
     {
-        public static IServiceCollection StatisticOnlineServices(this IServiceCollection services)
+        public static IServiceCollection StatisticOnlineServicesMoq(this IServiceCollection services)
         {
             var mock = new Mock<IStatisticOnlineService>();
 
@@ -57,5 +59,21 @@ namespace StatisticOnline.Logic.Services
             services.AddDbContext<WebApiContext>(opt => opt.UseSqlite(connectionString));
             return services;
         }
+
+        public static IServiceCollection RegisterValidators(this IServiceCollection services)
+        {
+            services.AddScoped<IValidator<DateRange>, RangeVaridator>();
+
+            return services;
+        }
+
+        public static IServiceCollection StatisticService(this IServiceCollection services)
+        {
+            services.AddScoped<IStatisticOnlineService, StatisticOnlineService>();
+
+            return services;
+        }
+
+
     }
 }

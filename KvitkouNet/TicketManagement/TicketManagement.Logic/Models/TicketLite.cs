@@ -1,5 +1,4 @@
 ﻿using System;
-using TicketManagement.Logic.Models.Enums;
 
 namespace TicketManagement.Logic.Models
 {
@@ -36,7 +35,7 @@ namespace TicketManagement.Logic.Models
         /// <summary>
         ///     Статус билета
         /// </summary>
-        public TicketStatus Status { get; set; }
+        public string Status { get; set; }
 
         /// <summary>
         ///     Дата создания билета
