@@ -41,27 +41,46 @@
       <div formGroupName="locationEvent"> <legend>Где проходит:
       </legend>
       <div class="form-row">
-          <div class="form-input-text form-group col-md-6">
+          <div class="form-input-text form-group col-md-4">
               <label> Страна: </label>
               <input type="text" formControlName="country" class="form-control">
             </div>
-            <div class="form-input-text form-group col-md-6">
+            <div class="form-input-text form-group col-md-3">
                 <label>Город: </label>
                 <input type="text" formControlName="city" class="form-control">
               </div>
-      </div>
-      <div class="form-row">
-
-          <div class="form-input-text form-group col-md-6">
+          <div class="form-input-text form-group col-md-4">
               <label>Улица: </label>
               <input type="text" formControlName="street" class="form-control">
             </div>
-
-          <div class="form-input-text form-group col-md-6">
+          <div class="form-input-text form-group col-md-1">
               <label>Дом: </label>
               <input type="number" formControlName="house" class="form-control">
             </div>
-      </div>
+          </div>
+
+          <div formGroupName="sellerAdress"> <legend>Адресс продавца:
+          </legend>
+          <div class="form-row">
+              <div class="form-input-text form-group col-md-4">
+                  <label> Страна: </label>
+                  <input type="text" formControlName="scountry" class="form-control">
+                </div>
+                <div class="form-input-text form-group col-md-3">
+                    <label>Город: </label>
+                    <input type="text" formControlName="scity" class="form-control">
+                  </div>
+              <div class="form-input-text form-group col-md-4">
+                  <label>Улица: </label>
+                  <input type="text" formControlName="sstreet" class="form-control">
+                </div>
+              <div class="form-input-text form-group col-md-1">
+                  <label>Дом: </label>
+                  <input type="number" formControlName="shouse" class="form-control">
+                </div>
+              </div>
+            </div>
+
 
       </div>
       <div class="form-group">
@@ -69,15 +88,29 @@
         <textarea class="form-control"  rows="2" input type="text" formControlName="additionalData"></textarea>
       </div>
 
+     <!-- Button trigger modal -->
+<button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Добавить Билет
+</button>
 
-       <!-- Button -->
-      <div class="">
-        <div>
-          <button type="submit" class="btn btn-info" >
-            Добавить билет
-          </button>
-        </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <div class="modal-body">
+       готово:) Нажмите Ок
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary" role="button" href='/tickets/1'  >Ok</a>
+      </div>
+    </div>
+  </div>
+</div>
     </fieldset>
   </form>
 </div>
