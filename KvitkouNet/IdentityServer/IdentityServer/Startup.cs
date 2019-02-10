@@ -62,9 +62,9 @@ namespace IdentityServer
 				app.UseDeveloperExceptionPage();
 			}
 
+			app.UseCors(_ => _.AllowAnyOrigin().AllowAnyMethod().AllowAnyMethod().AllowAnyHeader());
 			app.UseIdentityServer();
 			app.UseMvc();
-			app.UseCors(_ => _.AllowAnyOrigin().AllowAnyMethod().AllowAnyMethod());
 		}
 	}
 }
