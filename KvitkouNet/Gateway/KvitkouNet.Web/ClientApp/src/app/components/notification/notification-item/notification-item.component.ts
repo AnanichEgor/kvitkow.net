@@ -16,6 +16,11 @@ export class NotificationItemComponent implements OnInit {
     service.notificationGetAll().subscribe(data => this.userNotifications = data);
    }
 
+  closeNotification(id: string) {
+    this.service.notificationSetStatusClosed(id)
+      .subscribe({complete: () => this.userNotifications = this.userNotifications.filter(x => x.notificationId !== id)});
+  }
+
   ngOnInit() {
   }
 

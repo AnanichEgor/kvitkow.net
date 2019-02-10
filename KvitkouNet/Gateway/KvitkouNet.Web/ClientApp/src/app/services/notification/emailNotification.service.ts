@@ -20,7 +20,7 @@ import { Observable } from 'rxjs';
 
 import { EmailNotification } from '../../models/notification/emailNotification';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from './variables';
+import { BASE_NOTIFICATION_PATH, COLLECTION_FORMATS, NotificationInjector }                     from './variables';
 import { Configuration }                                     from './configuration';
 
 
@@ -31,8 +31,9 @@ export class EmailNotificationService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (basePath) {
+    constructor(protected httpClient: HttpClient, @Optional() configuration: Configuration) {
+      let basePath: string = NotificationInjector.get(BASE_NOTIFICATION_PATH);
+      if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {

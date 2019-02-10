@@ -22,9 +22,8 @@ import { NotificationMessage } from '../../models/notification/notificationMessa
 import { UserNotification } from '../../models/notification/userNotification';
 import { UserNotificationBulkRequest } from '../../models/notification/userNotificationBulkRequest';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from './variables';
+import { BASE_NOTIFICATION_PATH, COLLECTION_FORMATS, NotificationInjector }                     from './variables';
 import { Configuration }                                     from './configuration';
-
 
 @Injectable()
 export class NotificationService {
@@ -33,8 +32,9 @@ export class NotificationService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (basePath) {
+    constructor(protected httpClient: HttpClient, @Optional() configuration: Configuration) {
+      let basePath: string = NotificationInjector.get(BASE_NOTIFICATION_PATH);
+      if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {

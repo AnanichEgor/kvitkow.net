@@ -20,19 +20,20 @@ import { Observable } from 'rxjs';
 
 import { Subscription } from '../../models/notification/subscription';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from './variables';
+import { BASE_NOTIFICATION_PATH, COLLECTION_FORMATS, NotificationInjector }                     from './variables';
 import { Configuration }                                     from './configuration';
 
 
 @Injectable()
 export class SubscriptionService {
 
-    protected basePath = 'http://localhost:5002';
-    public defaultHeaders = new HttpHeaders();
-    public configuration = new Configuration();
+    protected basePath: string = 'http://localhost:5002';
+    public defaultHeaders: HttpHeaders = new HttpHeaders();
+    public configuration: Configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (basePath) {
+    constructor(protected httpClient: HttpClient, @Optional() configuration: Configuration) {
+      let basePath: string = NotificationInjector.get(BASE_NOTIFICATION_PATH);
+      if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
