@@ -146,7 +146,8 @@
                 class="btn btn-danger"
                 role="button"
                 (click)="deleteTicketById(tickets.id)"
-                href="tickets/1"
+                data-dismiss="modal"
+                [routerLink]="['/tickets/1']"
               >
               Remove ticket
               </a>
