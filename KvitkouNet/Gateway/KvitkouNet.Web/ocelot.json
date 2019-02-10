@@ -37,6 +37,9 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/errors",
+      "RouteClaimsRequirement": {
+        "role": "admin"
+      },
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
@@ -53,7 +56,11 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/accounts",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "api" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/payments",
@@ -65,7 +72,11 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/payments",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "api" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/queries",
@@ -77,7 +88,11 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/queries",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "api" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/tickets",
@@ -89,7 +104,11 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/tickets",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "api" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/deals",
@@ -101,7 +120,11 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/deals",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "api" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/admin/users",
@@ -113,7 +136,11 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/users",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "api" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/search/tickets",

@@ -46,8 +46,8 @@ namespace KvitkouNet.Web
 				        opt.IncludeErrorDetails = true;
 				        opt.TokenValidationParameters.NameClaimType = JwtClaimTypes.Name;
 				        opt.TokenValidationParameters.RoleClaimType = JwtClaimTypes.Role;
-				        opt.TokenValidationParameters.ValidIssuer = "http://identityserver";
-				        opt.TokenValidationParameters.ValidAudience = "http://identityserver/resources";
+				        opt.TokenValidationParameters.ValidIssuer = "http://localhost:4999";
+				        opt.TokenValidationParameters.ValidAudience = "http://localhost:4999/resources";
 				        opt.TokenValidationParameters.ValidateIssuer = true;
 				        opt.TokenValidationParameters.ValidateAudience = true;
 				        opt.TokenValidationParameters.ValidateIssuerSigningKey = false;
@@ -94,7 +94,7 @@ namespace KvitkouNet.Web
             //    }
             //});
 
-	        app.UseCors(_ => _.AllowAnyOrigin().AllowAnyMethod().AllowAnyMethod());
+	        app.UseCors(_ => _.AllowAnyOrigin().AllowAnyMethod().AllowAnyMethod().AllowAnyHeader());
             app.UseOcelot().GetAwaiter().GetResult();
         }
     }
