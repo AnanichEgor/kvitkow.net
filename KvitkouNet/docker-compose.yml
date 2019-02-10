@@ -136,3 +136,13 @@ services:
       - rabbit
     ports:
       - 5050:80
+
+   statisticuser.web:
+    image: ${DOCKER_REGISTRY}statisticuserweb
+    build:
+      context: ./StatisticUser
+      dockerfile: ./StatisticUser.Web/Dockerfile
+    depends_on:
+      - rabbit
+    ports:
+      - 5060:80
