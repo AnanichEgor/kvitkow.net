@@ -28,29 +28,30 @@ namespace UserSettings.Web
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<SettingsContext>(
-				opt => opt.UseSqlite(connectionString: "DataSource=./Database.db"));
-			var o = new DbContextOptionsBuilder<SettingsContext>();
-			o.UseSqlite("DataSource=./Database.db");
-			using (var ctx = new SettingsContext(o.Options))
-			{
-				ctx.Database.Migrate();
-				if (!ctx.Settings.Any())
-				{
-					ctx.SaveChanges();
-				}
-			}
-			services.AddAutoMapper(cfg =>
-			{
-				cfg.AddProfile<SettingsProfile>();
-				cfg.AddProfile<NotificationsProfile>();
-			});
-			//services.RegisterDataBase();
+			//services.AddDbContext<SettingsContext>(
+			//	opt => opt.UseSqlite(connectionString: "DataSource=./Database.db"));
+			//var o = new DbContextOptionsBuilder<SettingsContext>();
+			//o.UseSqlite("DataSource=./Database.db");
+			//using (var ctx = new SettingsContext(o.Options))
+			//{
+			//	ctx.Database.Migrate();
+			//	if (!ctx.Settings.Any())
+			//	{
+			//		ctx.SaveChanges();
+			//	}
+			//}
+			//services.AddAutoMapper(cfg =>
+			//{
+			//	cfg.AddProfile<SettingsProfile>();
+			//	cfg.AddProfile<NotificationsProfile>();
+			//});
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 			services.AddSwaggerDocument(setting => setting.Title = "User Setting");
-			services.AddSingleton(RabbitHutch.CreateBus("host=localhost;virtualHost=/;username=guest;password=guest"));
+			//services.AddSingleton(RabbitHutch.CreateBus("host=localhost;virtualHost=/;username=guest;password=guest"));
 			services.RegisterUserSettingsService();
-			//services.RegisterConsumers();
+			services.RegisterEasyNetQ("host=localhost");
+			services.RegisterConsumers();
+			services.AddCors();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,9 +61,10 @@ namespace UserSettings.Web
 			{
 				app.UseDeveloperExceptionPage();
 			}
+			app.UseCors(b => b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 			app.UseSwagger().UseSwaggerUi3();
+			app.UseSubscriber("UserSettings", Assembly.GetExecutingAssembly());
 			app.UseMvc();
-			//app.UseSubscriber("ErrorSettings", Assembly.GetExecutingAssembly());
 		}
 	}
 }

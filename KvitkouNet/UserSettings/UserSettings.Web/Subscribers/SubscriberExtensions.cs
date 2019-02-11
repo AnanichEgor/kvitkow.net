@@ -19,7 +19,7 @@ namespace UserSettings.Web.Subscribers
 
 		public static IBus SubscribeAll(this IBus bus, IServiceProvider services)
 		{
-			//bus.SubscribeAsync<UserProfileMessage>("GetUserProfile.Added", msg => services.GetService<IConsumeAsync<UserProfileMessage>>().ConsumeAsync(msg));
+			bus.SubscribeAsync<UserCreationMessage>("GetUserProfile.Added", msg => services.GetService<IConsumeAsync<UserCreationMessage>>().ConsumeAsync(msg));
 			return bus;
 		}
 		public  static IApplicationBuilder UseSubscriber(this IApplicationBuilder app, string prefix, params Assembly[] assembly)
@@ -31,7 +31,10 @@ namespace UserSettings.Web.Subscribers
 
 			lifetime.ApplicationStarted.Register(() =>
 			{
-				bus.SubscribeAll(services);
+				var subscriber = new AutoSubscriber(bus, prefix);
+				subscriber.Subscribe(assembly);
+				subscriber.SubscribeAsync(assembly);
+				//bus.SubscribeAll(services);
 			});
 
 			lifetime.ApplicationStopped.Register(() => bus.Dispose());

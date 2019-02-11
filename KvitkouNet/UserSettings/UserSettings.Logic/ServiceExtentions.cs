@@ -24,19 +24,16 @@ namespace UserSettings.Logic
 		/// <returns></returns>
 		public static IServiceCollection RegisterUserSettingsService(this IServiceCollection services)
 		{
+			services.RegisterUserServicesData();
+			services.AddAutoMapper(cfg =>
+			{
+				cfg.AddProfile<SettingsProfile>();
+				cfg.AddProfile<NotificationsProfile>();
+			});
 			services.AddScoped<IValidator<Settings>, SettingsValidator>();
 			services.AddScoped<IUserSettingsService, UserSettingsService>();
 			services.AddScoped<ISettingsRepo, SettingsRepo>();
 		
-			return services;
-		}
-
-		public static IServiceCollection RegisterDataBase(this IServiceCollection services)
-		{
-			services.AddDbContext<SettingsContext>(
-				opt => opt.UseSqlite(connectionString: "DataSource=./Database.db"));
-
-			
 			return services;
 		}
 	}
