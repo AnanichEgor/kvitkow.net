@@ -19,8 +19,8 @@ namespace Search.Logic.Services
         /// <param name="userId">The user identifier.</param>
         Task<TicketSearchEntity> GetLastTicketSearchAsync(string userId);
 
-        Task SaveLastSearchAsync(TicketSearchRequest request);
+        Task SaveLastSearchAsync(TicketSearchRequest request, string userId);
 
-        Task SaveLastSearchAsync(UserSearchRequest request);
+        Task SaveLastSearchAsync(UserSearchRequest request, string userId);
     }
 }
