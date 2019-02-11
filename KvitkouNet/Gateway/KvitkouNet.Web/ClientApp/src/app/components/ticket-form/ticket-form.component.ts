@@ -12,10 +12,10 @@ import { Location } from '@angular/common';
 })
 export class TicketFormComponent implements OnInit {
   addTicketForm: FormGroup;
-
+  authenticated: boolean;
 
   constructor(private ticketSrv: AddTicketService, private _location: Location) {
-
+    this.authenticated = this.ticketSrv.isAuthenticated();
     this.addTicketForm = new FormGroup({
       'name' : new FormControl(),
       'free' : new FormControl(),

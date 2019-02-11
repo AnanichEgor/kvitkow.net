@@ -1,5 +1,10 @@
 <div class="container col-8">
-  <form class="form-horizontal col-md-offset " [formGroup]="addTicketForm" (ngSubmit)="onSubmit()">
+    <div class="album py-5 " *ngIf="!authenticated"></div>
+    <div class="alert alert-danger" role="alert" *ngIf="!authenticated">
+
+        To add a ticket please <a [routerLink]="['/login']" >login</a>
+      </div>
+  <form class="form-horizontal col-md-offset " [formGroup]="addTicketForm" (ngSubmit)="onSubmit()" *ngIf="authenticated">
   <fieldset>
       <!-- Form Name -->
       <legend>Добавление билета</legend>
