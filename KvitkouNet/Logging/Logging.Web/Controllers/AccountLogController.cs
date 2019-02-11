@@ -32,15 +32,11 @@ namespace Logging.Web.Controllers
         [Route("")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<AccountLogEntry>), Description = "Account logs")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, typeof(string), Description = "Internal error")]
         public async Task<IActionResult> GetAccountLogs([FromQuery] AccountLogsFilter filter)
         {
-            // имитируем некоторую валидацию
-            //if (string.IsNullOrWhiteSpace(filter.UserName))
-            //{
-            //    return BadRequest($"Invalid filter! {nameof(AccountLogsFilter.UserName)} is empty or whitespace!");
-            //}
-
             var result = await _loggingService.GetLogsAsync(filter);
+
             return Ok(result);
         }
 

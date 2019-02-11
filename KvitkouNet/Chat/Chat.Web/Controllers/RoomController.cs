@@ -6,9 +6,12 @@ using System.Net;
 using System.Threading.Tasks;
 using Chat.Logic.Models;
 using Chat.Logic.Services;
+using Chat.Web.Hub;
 using EasyNetQ;
-using KvitkouNet.Messages.Chat;
+using KvitkouNet.Messages.Notification;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using NSwag.Annotations;
 
 namespace Chat.Web.Controllers
@@ -16,17 +19,20 @@ namespace Chat.Web.Controllers
     /// <summary>
     /// Контроллер
     ///  </summary>
+    [EnableCors("CorsPolicy")]
     [Route("api/chat/rooms")]
 
     public class RoomController : Controller
     {
         private IRoomService _roomService;
         private readonly IBus _bus;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        public RoomController(IRoomService roomService, IBus bus)
+        public RoomController(IRoomService roomService, IBus bus, IHubContext<NotificationHub> hubContext)
         {
             _roomService = roomService;
             _bus = bus;
+            _hubContext = hubContext;
         }
 
         /// <summary>
@@ -48,7 +54,7 @@ namespace Chat.Web.Controllers
         /// Создание комнаты.
         /// </summary>
         [HttpPost, Route("room/{uid}")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "Room created!")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "Room created!")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> AddRoom([FromBody] Room room, [FromRoute] string uid)
         {
@@ -105,23 +111,28 @@ namespace Chat.Web.Controllers
         /// Отправка сообщения
         /// </summary>
         [HttpPost, Route("{rid}/message")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "Message sended")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "Message sended")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> AddMessage([FromBody] Message message, [FromRoute] string rid)
         {
-            var userIsOnline = await _roomService.AddMessage(message, rid);
+            var IdUserIsOffline = await _roomService.AddMessage(message, rid);
 
             //Если пользователь Offline отправим ему уведомление
-            if (userIsOnline != null)
+            if (IdUserIsOffline != null)
             {
 
-                await _bus.PublishAsync(new OfflineChatMessage
+                await _bus.PublishAsync(new UserNotificationMessage
                 {
-                    UserName = userIsOnline,
-                    SendedTime = message.SendedTime
-                });
-            }
+                    UserId = IdUserIsOffline,
+                    Creator = "Chat",
+                    Title = "У вас есть не прочитанное сообщение в чате",
+                    NotificationType = 0,
+                    Severity = 0,
+                    Text = message.Text                   
 
+                });                
+            }
+            await _hubContext.Clients.All.SendAsync("alertOnSendedMessageAllUsers", message.Text);
             return NoContent();
         }
 
@@ -132,7 +143,7 @@ namespace Chat.Web.Controllers
         /// <param name="rid"></param>
         /// <returns></returns>
         [HttpPatch, Route("{rid}/message")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "Message updated")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "Message updated")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> EditMessage([FromBody] Message message, [FromRoute] string rid)
         {
@@ -152,12 +163,12 @@ namespace Chat.Web.Controllers
         /// <summary>
         /// Удаление сообщения
         /// </summary>
-        [HttpDelete, Route("{rid}/messages/{mid}")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "Message deleted")]
+        [HttpDelete, Route("messages/{mid}")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "Message deleted")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> DeleteMessage([FromRoute] string rid, [FromRoute] string mid)
+        public async Task<IActionResult> DeleteMessage([FromRoute] string mid)
         {
-            await _roomService.DeleteMessage(rid, mid);
+            await _roomService.DeleteMessage(mid);
             return NoContent();
         }
     }

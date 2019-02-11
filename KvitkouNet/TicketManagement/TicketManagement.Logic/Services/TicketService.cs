@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using EasyNetQ;
 using FluentValidation;
 using KvitkouNet.Messages.TicketManagement;
 using Microsoft.Extensions.Configuration;
-using TicketManagement.Data.DbModels;
+using Polly;
+using Polly.Retry;
 using TicketManagement.Data.Repositories;
-using TicketManagement.Logic.Extentions;
+using TicketManagement.Logic.Exceptions;
 using TicketManagement.Logic.Models;
-using TicketManagement.Logic.Models.Enums;
-using Ticket = TicketManagement.Data.DbModels.Ticket;
-using UserInfo = TicketManagement.Logic.Models.UserInfo;
 
 namespace TicketManagement.Logic.Services
 {
@@ -23,18 +23,30 @@ namespace TicketManagement.Logic.Services
     {
         private readonly ITicketRepository _context;
         private readonly IMapper _mapper;
-        private readonly IValidator _validator;
+        private readonly IValidator _validatorTickets;
         private readonly IConfiguration _configuration;
         private readonly IBus _bus;
+        private readonly IValidator<UserInfo> _validatorUsers;
+        private readonly RetryPolicy _policy;
 
-        public TicketService(ITicketRepository context, IMapper mapper, IValidator<Models.Ticket> validator,
-            IConfiguration configuration, IBus bus)
+        public TicketService(ITicketRepository context,
+            IMapper mapper,
+            IValidator<Ticket> validatorTickets,
+            IConfiguration configuration,
+            IBus bus,
+            IValidator<UserInfo> validatorUsers)
         {
             _context = context;
             _mapper = mapper;
-            _validator = validator;
+            _validatorTickets = validatorTickets;
             _configuration = configuration;
             _bus = bus;
+            _validatorUsers = validatorUsers;
+            _policy = Policy.Handle<TimeoutException>()
+                .WaitAndRetryAsync(new[]
+                {
+                    TimeSpan.FromSeconds(1)
+                });
         }
 
         /// <summary>
@@ -42,26 +54,48 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        public async Task<(string, RequestStatus)> Add(Models.Ticket ticket)
+        public async Task<string> Add(Ticket ticket)
         {
             //WARNING используется для замены стандартных значений swagerr'a
             //при связи с фронтом надо убрать 
-            ticket.SellerPhone = "+375-29-76-23-371";
+            //ticket.SellerPhone = "+375-29-76-23-371";
             //WARNING
+            //if (ticket.User.Rating < 0)
+                //throw new UserBadRatingException("Bad user rating");
+            var validationResultTicket = await _validatorTickets.ValidateAsync(ticket);
+            //var validationResultUser = await _validatorUsers.ValidateAsync(ticket.User);
+            //if (!validationResultTicket.IsValid | !validationResultUser.IsValid)
+            //{
+            //    var errors = validationResultTicket.Errors.ToList();
+            //    errors.AddRange(validationResultUser.Errors.ToArray());
+            //    throw new ValidationException("Validation failed",
+            //        errors);
+            //}
 
-            if (ticket.User.Rating < 0) return (null, RequestStatus.BadUserRating);
-            if (!_validator.Validate(ticket).IsValid) return (null, RequestStatus.InvalidModel);
-            var res = await _context.Add(_mapper.Map<Ticket>(ticket));
-            await _bus.PublishAsync(new TicketCreationMessage
+            var res = await _context.Add(_mapper.Map<Data.DbModels.Ticket>(ticket));
+            try
             {
-                TicketId = res,
-                Price = ticket.Price,
-                Name = ticket.Name,
-                City = ticket.LocationEvent.City,
-                Category = ticket.TypeEvent.ToString(),
-                Date = DateTime.Now
-            });
-            return (res, RequestStatus.Success);
+                await _policy.ExecuteAsync(async () =>
+                {
+                    await _bus.PublishAsync(new TicketCreationMessage
+                    {
+                        TicketId = res,
+                        Price = ticket.Price,
+                        Name = ticket.Name,
+                        City = ticket.LocationEvent.City,
+                        Category = ticket.TypeEvent.ToString(),
+                        Date = DateTime.Now
+                    });
+                });
+            }
+            catch (TimeoutException exception)
+            {
+                throw new EasyNetQSendException("Ticket added in db, but error sending message to RabbitMQ",
+                    exception,
+                    res);
+            }
+
+            return res;
         }
 
         /// <summary>
@@ -70,19 +104,31 @@ namespace TicketManagement.Logic.Services
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
         /// <returns></returns>
-        public async Task<RequestStatus> Update(string id, Models.Ticket ticket)
+        public async Task Update(string id,
+            Ticket ticket)
         {
-            await _context.Update(id, _mapper.Map<Ticket>(ticket));
-            await _bus.PublishAsync(new TicketUpdatedMessage()
+            await _context.Update(id,
+                _mapper.Map<Data.DbModels.Ticket>(ticket));
+            try
             {
-                TicketId = id,
-                Price = ticket.Price,
-                Name = ticket.Name,
-                City = ticket.LocationEvent.City,
-                Category = ticket.TypeEvent.ToString(),
-                Date = DateTime.Now
-            });
-            return RequestStatus.Success;
+                await _policy.ExecuteAsync(async () =>
+                {
+                    await _bus.PublishAsync(new TicketUpdatedMessage
+                    {
+                        TicketId = id,
+                        Price = ticket.Price,
+                        Name = ticket.Name,
+                        City = ticket.LocationEvent.City,
+                        Category = ticket.TypeEvent.ToString(),
+                        Date = DateTime.Now
+                    });
+                });
+            }
+            catch (TimeoutException exception)
+            {
+                throw new EasyNetQSendException("Ticket added in db, but error sending message to RabbitMQ",
+                    exception);
+            }
         }
 
         /// <summary>
@@ -90,23 +136,24 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<RequestStatus> AddRespondedUsers(string id, UserInfo user)
+        public async Task AddRespondedUsers(string id,
+            UserInfo user)
         {
-            
-            //if (!_validator.Validate(user).IsValid) return (RequestStatus.InvalidModel);
-            await _context.AddRespondedUsers(id, _mapper.Map<Data.DbModels.UserInfo>(user));
-            
-            return RequestStatus.Success;
+            var validateAct = _validatorTickets.Validate(user);
+            if (!validateAct.IsValid)
+                throw new ValidationException("Validation failed",
+                    validateAct.Errors);
+            await _context.AddRespondedUsers(id,
+                _mapper.Map<Data.DbModels.UserInfo>(user));
         }
 
         /// <summary>
         ///     Удаление всех билетов
         /// </summary>
         /// <returns></returns>
-        public async Task<RequestStatus> DeleteAll()
+        public async Task DeleteAll()
         {
             await _context.DeleteAll();
-            return RequestStatus.Success;
         }
 
         /// <summary>
@@ -114,46 +161,54 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<RequestStatus> Delete(string id)
+        public async Task Delete(string id)
         {
             await _context.Delete(id);
-            await _bus.PublishAsync(new TicketDeletedMessage
+            try
             {
-               TicketId = id
-            });
-            return RequestStatus.Success;
+                await _policy.ExecuteAsync(async () =>
+                {
+                    await _bus.PublishAsync(new TicketDeletedMessage
+                    {
+                        TicketId = id
+                    });
+                });
+            }
+            catch (TimeoutException exception)
+            {
+                throw new EasyNetQSendException("Ticket added in db, but error sending message to RabbitMQ",
+                    exception);
+            }
         }
 
         /// <summary>
         ///     Получение всех билет имеющихся в системе
         /// </summary>
         /// <returns></returns>
-        public async Task<(IEnumerable<Models.Ticket>, RequestStatus)> GetAll()
+        public async Task<IEnumerable<Ticket>> GetAll()
         {
-            var res = _mapper.Map<IEnumerable<Models.Ticket>>(await _context.GetAll());
-            return res == null ? (null, RequestStatus.Error) : (res, RequestStatus.Success);
+            var res = _mapper.Map<IEnumerable<Ticket>>(await _context.GetAll());
+            return res;
         }
 
         /// <summary>
         ///     Получение билета по Id
         /// </summary>
         /// <returns></returns>
-        public async Task<(Models.Ticket, RequestStatus)> Get(string id)
+        public async Task<Ticket> Get(string id)
         {
-            var res = await _context.Get(id);
-            return res == null ? (null, RequestStatus.InvalidModel) : (_mapper.Map<Models.Ticket>(res), RequestStatus.Success);
+            var res = _mapper.Map<Ticket>(await _context.Get(id));
+            return res;
         }
 
         /// <summary>
         ///     Получение только актуальных билетов
         /// </summary>
         /// <returns></returns>
-        public async Task<(IEnumerable<Models.Ticket>, RequestStatus)> GetAllActual()
+        public async Task<IEnumerable<Ticket>> GetAllActual()
         {
-            var res = await _context.GetAllActual();
-            return res == null
-                ? (null, RequestStatus.InvalidModel)
-                : (_mapper.Map<IEnumerable<Models.Ticket>>(res), RequestStatus.Success);
+            var res = _mapper.Map<IEnumerable<Ticket>>(await _context.GetAllActual());
+            return res;
         }
 
         /// <summary>
@@ -161,13 +216,12 @@ namespace TicketManagement.Logic.Services
         /// </summary>
         /// <param name="index">Номер текущей страницы</param>
         /// <returns></returns>
-        public async Task<(Models.Page<TicketLite>, RequestStatus)> GetAllPagebyPage(int index)
+        public async Task<Page<TicketLite>> GetAllPagebyPage(int index)
         {
             var pageSize = _configuration.GetValue<int>("pageSize");
-            var res = await _context.GetAllPagebyPage(index, pageSize);
-            return res == null
-                ? (null, RequestStatus.InvalidModel)
-                : (_mapper.Map<Models.Page<TicketLite>>(res), RequestStatus.Success);
+            var res = _mapper.Map<Page<TicketLite>>(await _context.GetAllPagebyPage(index,
+                pageSize));
+            return res;
         }
 
         /// <summary>
@@ -176,13 +230,14 @@ namespace TicketManagement.Logic.Services
         /// <param name="index">Номер текущей страницы</param>
         /// <param name="onlyActual">Только актуальные билеты</param>
         /// <returns></returns>
-        public async Task<(Models.Page<TicketLite>, RequestStatus)> GetAllPagebyPageActual(int index, bool onlyActual = true)
+        public async Task<Page<TicketLite>> GetAllPagebyPageActual(int index,
+            bool onlyActual = true)
         {
             var pageSize = _configuration.GetValue<int>("pageSize");
-            var res = await _context.GetAllPagebyPage(index, pageSize,onlyActual);
-            return res == null
-                ? (null, RequestStatus.InvalidModel)
-                : (_mapper.Map<Models.Page<TicketLite>>(res), RequestStatus.Success);
+            var res = _mapper.Map<Page<TicketLite>>(await _context.GetAllPagebyPage(index,
+                pageSize,
+                onlyActual));
+            return res;
         }
 
         /// <summary>

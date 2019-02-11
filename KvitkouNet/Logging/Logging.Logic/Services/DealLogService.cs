@@ -63,7 +63,7 @@ namespace Logging.Logic.Services
             if (filter.MaxPrice.HasValue)
                 exp = PredicateExtensions.And(exp, entry => entry.Price <= filter.MaxPrice.Value);
 
-            if (!filter.Type.HasFlag(DealType.Unknown))
+            if (filter.Type != DealType.Unknown)
                 exp = PredicateExtensions.And(exp, entry => filter.Type.HasFlag((DealType)entry.Type));
 
             return exp;

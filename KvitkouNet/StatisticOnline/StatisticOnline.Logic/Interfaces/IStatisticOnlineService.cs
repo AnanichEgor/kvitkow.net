@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StatisticOnline.Data.Models;
 using StatisticOnline.Logic.Models;
 
 namespace StatisticOnline.Logic.Interfaces
 {
-    public interface IStatisticOnlineService : IDisposable
+    public interface IStatisticOnlineService
     {
         /// <summary>
         /// число всех пользователей на сайте Online

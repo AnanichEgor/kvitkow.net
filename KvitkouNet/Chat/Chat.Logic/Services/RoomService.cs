@@ -62,12 +62,15 @@ namespace Chat.Logic.Services
             var modelDb = _mapper.Map<MessageDb>(message);
             modelDb.RoomId = roomId;
 
+            var maxMessageId = _context.Messages.LastOrDefaultAsync().Result.Id;
+            modelDb.Id = maxMessageId + 1;
+
             await _context.Messages.AddAsync(modelDb);
             await _context.SaveChangesAsync();
             var ownerId =  _context.Rooms.SingleOrDefaultAsync(x => x.Id == roomId);
-            var userIsOnline = _context.Users.SingleOrDefaultAsync(x => x.Id == ownerId.Result.OwnerId);
+            var user = _context.Users.SingleOrDefaultAsync(x => x.Id == ownerId.Result.OwnerId);
 
-            return !userIsOnline.Result.IsOnline ? ownerId.Result.Name : null;
+            return user.Result.IsOnline ? null :user.Result.Id;
         }
 
         public async Task EditMessage(Message message, string roomId)
@@ -89,9 +92,9 @@ namespace Chat.Logic.Services
             }
         }
 
-        public async Task DeleteMessage(string roomId, string messageId)
+        public async Task DeleteMessage(string messageId)
         {
-            var modelDb = await _context.Messages.SingleOrDefaultAsync(x => x.Id == messageId && x.RoomId == roomId);
+            var modelDb = await _context.Messages.SingleOrDefaultAsync(x => x.Id == messageId);
             _context.Messages.Remove(modelDb);
             await _context.SaveChangesAsync();
         }

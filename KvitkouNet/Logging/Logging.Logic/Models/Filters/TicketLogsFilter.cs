@@ -5,6 +5,8 @@ namespace Logging.Logic.Models.Filters
 {
 	public class TicketLogsFilter : BaseLogFilter
     {
+        public string UserId { get; set; }
+
         /// <summary>
         /// Id билета
         /// </summary>

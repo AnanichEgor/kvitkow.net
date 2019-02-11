@@ -25,5 +25,7 @@ namespace KvitkouNet.Messages.UserSettings
 		/// Дата рождения
 		/// </summary>
 		public DateTime Birthday { get; set; }
+
+		public string UserId { get; set; }
 	}
 }

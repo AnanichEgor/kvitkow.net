@@ -40,7 +40,8 @@ namespace UserSettings.Logic.Services
 		Task<ResultEnum> UpdateNotifications(string id, Notifications notifications);
 
 		Task<bool> DeleteAccount(string id);
-		Task<ResultEnum> UpdatePhones();
 		Task<ResultEnum> UpdateVisible(string id, VisibleInfo visibleInfo);
+
+		Task<ResultEnum> CreateSetting(string id);
 	}
 }
