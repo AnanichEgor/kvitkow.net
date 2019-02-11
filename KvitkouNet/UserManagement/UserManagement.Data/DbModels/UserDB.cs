@@ -6,7 +6,7 @@ using UserManagement.Data.DbModels.Tickets;
 
 namespace UserManagement.Data.DbModels
 {
-    public class UserD1B : IdentityUser
+    public class UserDB : IdentityUser
     {
         /// <summary>
         /// Уникальный идентификатор пользователя
