@@ -57,5 +57,6 @@ export class SearchUserComponent implements OnInit {
     }
     delete obj['id'];
     delete obj['searchTime'];
+    delete obj['userId'];
   }
 }

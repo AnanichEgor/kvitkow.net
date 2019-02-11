@@ -62,5 +62,6 @@ export class SearchTicketComponent implements OnInit {
     }
     delete obj['id'];
     delete obj['searchTime'];
+    delete obj['userId'];
   }
 }

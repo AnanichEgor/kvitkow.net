@@ -34,25 +34,21 @@ export class SearchService {
 
   getPreviousTicketSearch() {
     return this.http.get<SearchTicket>(
-      `${environment.searchServiceBaseUrl}/history/tickets?${this.toQueryString(
-        { headers: this.getHeaders() }
-      )}`
+      `${environment.searchServiceBaseUrl}/history/tickets`,
+      { headers: this.getHeaders() }
     );
   }
 
   getPreviousUserSearch() {
     return this.http.get<SearchUser>(
-      `${environment.searchServiceBaseUrl}/history/users?${this.toQueryString({
-        headers: this.getHeaders()
-      })}`
+      `${environment.searchServiceBaseUrl}/history/users`,
+      { headers: this.getHeaders() }
     );
   }
 
   isAuthenticated() {
     const token = this.oauthService.getAccessToken();
-    return !!token
-      ? true
-      : false;
+    return !!token ? true : false;
   }
 
   private toQueryString(obj) {
