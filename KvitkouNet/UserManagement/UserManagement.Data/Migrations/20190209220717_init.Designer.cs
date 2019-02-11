@@ -9,14 +9,66 @@ using UserManagement.Data.Context;
 namespace UserManagement.Data.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20190115115409_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190209220717_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("ProviderKey");
+
+                    b.Property<string>("ProviderDisplayName");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
 
             modelBuilder.Entity("UserManagement.Data.DbModels.AccountDB", b =>
                 {
@@ -112,10 +164,6 @@ namespace UserManagement.Data.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("MiddleName");
-
-                    b.Property<string>("ProfileSettingsId");
-
                     b.Property<double>("Rating");
 
                     b.Property<DateTime>("RegistrationDate");
@@ -126,52 +174,10 @@ namespace UserManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProfileSettingsId");
-
                     b.HasIndex("UserDBId")
                         .IsUnique();
 
                     b.ToTable("Profiles");
-                });
-
-            modelBuilder.Entity("UserManagement.Data.DbModels.Security.RoleDB", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("GroupDBId");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("UserDBId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupDBId");
-
-                    b.HasIndex("UserDBId");
-
-                    b.ToTable("RoleDB");
-                });
-
-            modelBuilder.Entity("UserManagement.Data.DbModels.Tickets.TicketDB", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("Free");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("TicketId");
-
-                    b.Property<string>("UserDBId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserDBId");
-
-                    b.ToTable("TicketDB");
                 });
 
             modelBuilder.Entity("UserManagement.Data.DbModels.UserDB", b =>
@@ -179,9 +185,49 @@ namespace UserManagement.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers");
                 });
 
             modelBuilder.Entity("UserManagement.Data.DbModels.UserGroupDB", b =>
@@ -197,43 +243,36 @@ namespace UserManagement.Data.Migrations
                     b.ToTable("UserGroupDB");
                 });
 
-            modelBuilder.Entity("UserManagement.Data.DbModels.UserSettings.ProfileSettings", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.HasOne("UserManagement.Data.DbModels.UserDB")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
 
-                    b.Property<string>("FirstName");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("UserManagement.Data.DbModels.UserDB")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
 
-                    b.Property<bool>("IsChangePassword");
-
-                    b.Property<bool>("IsGetTicketInfo");
-
-                    b.Property<bool>("IsPrivateAccount");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<string>("Login");
-
-                    b.Property<string>("MiddleName");
-
-                    b.Property<string>("PreferAddress");
-
-                    b.Property<string>("PreferPlace");
-
-                    b.Property<string>("PreferRegion");
-
-                    b.Property<byte[]>("UserImage");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProfileSettings");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("UserManagement.Data.DbModels.UserDB")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("UserManagement.Data.DbModels.AccountDB", b =>
                 {
                     b.HasOne("UserManagement.Data.DbModels.UserDB", "UserDB")
                         .WithOne("AccountDB")
-                        .HasForeignKey("UserManagement.Data.DbModels.AccountDB", "UserDBId");
+                        .HasForeignKey("UserManagement.Data.DbModels.AccountDB", "UserDBId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("UserManagement.Data.DbModels.AddressDB", b =>
@@ -252,32 +291,10 @@ namespace UserManagement.Data.Migrations
 
             modelBuilder.Entity("UserManagement.Data.DbModels.ProfileDB", b =>
                 {
-                    b.HasOne("UserManagement.Data.DbModels.UserSettings.ProfileSettings", "ProfileSettings")
-                        .WithMany()
-                        .HasForeignKey("ProfileSettingsId");
-
                     b.HasOne("UserManagement.Data.DbModels.UserDB", "UserDB")
                         .WithOne("ProfileDB")
                         .HasForeignKey("UserManagement.Data.DbModels.ProfileDB", "UserDBId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("UserManagement.Data.DbModels.Security.RoleDB", b =>
-                {
-                    b.HasOne("UserManagement.Data.DbModels.GroupDB")
-                        .WithMany("GroupRoles")
-                        .HasForeignKey("GroupDBId");
-
-                    b.HasOne("UserManagement.Data.DbModels.UserDB")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserDBId");
-                });
-
-            modelBuilder.Entity("UserManagement.Data.DbModels.Tickets.TicketDB", b =>
-                {
-                    b.HasOne("UserManagement.Data.DbModels.UserDB", "User")
-                        .WithMany("Tickets")
-                        .HasForeignKey("UserDBId");
                 });
 
             modelBuilder.Entity("UserManagement.Data.DbModels.UserGroupDB", b =>

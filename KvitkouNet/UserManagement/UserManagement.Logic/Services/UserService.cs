@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using EasyNetQ;
 using FluentValidation;
-using KvitkouNet.Messages.Logging;
 using KvitkouNet.Messages.Logging.Enums;
 using KvitkouNet.Messages.UserManagement;
 using KvitkouNet.Messages.UserSettings;
@@ -53,7 +52,7 @@ namespace UserManagement.Logic.Services
             var findUser = _unitOfWork.Users.FindAsync(x => x.AccountDB.Login == model.UserName).Result.FirstOrDefault();
             await _bus.PublishAsync(new UserCreationMessage
             {
-                UserId = findUser.Id,
+                UserId = findUser.Id.ToString(),
                 FirstName = findUser.ProfileDB.FirstName,
                 LastName = findUser.ProfileDB.LastName,
                 UserName = findUser.AccountDB.Login,
@@ -123,14 +122,15 @@ namespace UserManagement.Logic.Services
             return "Ok";
         }
 
-        public async Task<string> UpdateEmail(EmailUpdateMessage emailUpdateMessage)
+        public Task<string> UpdateEmail(EmailUpdateMessage emailUpdateMessage)
         {
             var findUser = _unitOfWork.Users.FindAsync(x => x.Id == emailUpdateMessage.Id).Result.FirstOrDefault();
-            //var findAcc = _unitOfWork.Accounts.FindAsync(x => x.Email == emailUpdateMessage.Email).Result.FirstOrDefault();
-            if (findUser == null) return "Not Found";
-            findUser.AccountDB.Email = emailUpdateMessage.Email;
-            await _context.SaveChangesAsync();
-            return "Ok";
+            var findAcc = _unitOfWork.Accounts.FindAsync(x => x.Email == emailUpdateMessage.Email).Result.FirstOrDefault();
+            //if (findUser == null) return "Not Found";
+            //findUser.AccountDB.Email = emailUpdateMessage.Email;
+            //await _context.SaveChangesAsync();
+            //return "Ok";
+            throw new NotImplementedException();
         }
 
         public Task<IEnumerable<GroupModel>> GetAllGroups()

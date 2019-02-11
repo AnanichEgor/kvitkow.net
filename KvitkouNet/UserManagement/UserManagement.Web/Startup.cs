@@ -23,6 +23,7 @@ namespace UserManagement.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddAuthentication().AddIdentityServerAuthentication();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerDocument(settings => settings.Title = "User Management");
             services.RegisterUserServices();
@@ -43,6 +44,7 @@ namespace UserManagement.Web
             app.UseCors(b => b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseSwagger().UseSwaggerUi3();
             app.UseSubscriber("UserSettingsService", Assembly.GetExecutingAssembly());
+            //app.UseAuthentication();
             app.UseMvc();
         }
     }
