@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
 using EasyNetQ;
 using FluentValidation;
+using KvitkouNet.Messages.UserManagement;
 using KvitkouNet.Messages.UserSettings;
-using MailKit.Net.Smtp;
-using MimeKit;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
 using System.Threading.Tasks;
 using UserSettings.Data;
 using UserSettings.Data.DbModels;
@@ -39,8 +35,8 @@ namespace UserSettings.Logic.Services
 
 		public async Task<Settings> Get(string id)
 		{
-			//var temp =_bus.RequestAsync<RequestId, UserProfileMessage>(new RequestId(id));
 			var res =  await _context.Get(id);
+			await _bus.PublishAsync(new UserCreationMessage() {  FirstName = "First", LastName = "Last", UserName = "UserName", Email = "my@mail.ru", Created = DateTime.Now, UserId = "11" }) ;
 			return _mapper.Map<Settings>(res);
 		}
 
@@ -52,10 +48,6 @@ namespace UserSettings.Logic.Services
 				
 				if (await CheckExistEmail(email))
 				{
-					//await _bus.PublishAsync(new EmailUpdateMessage()
-					//{
-					//	Email = email
-					//});
 					return ResultEnum.Success;
 				}
 				else

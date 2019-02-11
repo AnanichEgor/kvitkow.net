@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using EasyNetQ;
+using EasyNetQ.AutoSubscribe;
 using FluentValidation;
+using KvitkouNet.Messages.UserManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using System.Linq;
 using UserSettings.Data;
 using UserSettings.Data.Context;
-using UserSettings.Data.Faker;
 using UserSettings.Logic.MappingProfile;
 using UserSettings.Logic.Models;
 using UserSettings.Logic.Services;
@@ -22,9 +20,11 @@ namespace UserSettings.Logic
 		/// </summary>
 		/// <param name="services"></param>
 		/// <returns></returns>
-		public static IServiceCollection RegisterUserSettingsService(this IServiceCollection services)
+		public static IServiceCollection RegisterUserSettingsService(this IServiceCollection services, string connetctionString)
 		{
-			services.RegisterUserServicesData();
+			services.AddDbContext<SettingsContext>(
+				opt => opt.UseSqlite(connetctionString));
+			services.AddScoped<IConsumeAsync<UserCreationMessage>, UserProfileConsumer>();
 			services.AddAutoMapper(cfg =>
 			{
 				cfg.AddProfile<SettingsProfile>();
