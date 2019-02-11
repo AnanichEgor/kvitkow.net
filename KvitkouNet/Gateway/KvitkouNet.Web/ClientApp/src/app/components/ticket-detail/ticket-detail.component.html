@@ -124,7 +124,7 @@
           role="tabpanel"
           aria-labelledby="list-settings-list"
         >
-          <div class="col-md-4">
+          <div class="col-md-4" *ngIf="authenticated">
             <p><a class="btn btn-light" role="button"> Изменить </a></p>
 
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
