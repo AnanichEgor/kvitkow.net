@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using EasyNetQ;
@@ -42,8 +43,8 @@ namespace Search.Web.Controllers
         [HttpGet, Route("tickets")]
         public async Task<IActionResult> SearchTickets(TicketSearchRequest request)
         {
-            PublishSearchQueryLogMessage(request);
-            SearchResult<TicketInfo> result = await _ticketService.Search(request);
+            await PublishSearchQueryLogMessage(request);
+            SearchResult<TicketInfo> result = await _ticketService.Search(request, GetUserId());
             return Ok(result);
         }
 
@@ -56,13 +57,13 @@ namespace Search.Web.Controllers
         [HttpGet, Route("users")]
         public async Task<IActionResult> SearchUsers(UserSearchRequest request)
         {
-            PublishSearchQueryLogMessage(request);
-            SearchResult<UserInfo> result = await _userService.Search(request);
+            await PublishSearchQueryLogMessage(request).ConfigureAwait(false);
+            SearchResult<UserInfo> result = await _userService.Search(request, GetUserId()).ConfigureAwait(false);
             return Ok(result);
         }
 
         /// <summary>
-        /// Searches the tickets.
+        /// Push ticket.
         /// </summary>
         [SwaggerResponse(HttpStatusCode.OK, typeof(object), Description = "All OK")]
         [HttpPost, Route("pushTicket")]
@@ -73,7 +74,7 @@ namespace Search.Web.Controllers
         }
 
         /// <summary>
-        /// Searches the tickets.
+        /// Push user.
         /// </summary>
         [SwaggerResponse(HttpStatusCode.OK, typeof(object), Description = "All OK")]
         [HttpPost, Route("pushUser")]
@@ -83,11 +84,11 @@ namespace Search.Web.Controllers
             return Ok();
         }
 
-        private void PublishSearchQueryLogMessage(TicketSearchRequest request)
+        private Task PublishSearchQueryLogMessage(TicketSearchRequest request)
         {
-            _bus.Publish(new SearchQueryLogMessage
+            return _bus.PublishAsync(new SearchQueryLogMessage
             {
-                UserId = "",
+                UserId = GetUserId(),
                 SearchCriterium = request.Name,
                 FilterInfo = JsonConvert.SerializeObject(request, new JsonSerializerSettings
                 {
@@ -96,11 +97,11 @@ namespace Search.Web.Controllers
             });
         }
 
-        private void PublishSearchQueryLogMessage(UserSearchRequest request)
+        private Task PublishSearchQueryLogMessage(UserSearchRequest request)
         {
-            _bus.Publish(new SearchQueryLogMessage
+            return _bus.PublishAsync(new SearchQueryLogMessage
             {
-                UserId = "",
+                UserId = GetUserId(),
                 FilterInfo = JsonConvert.SerializeObject(request, new JsonSerializerSettings
                 {
                     DefaultValueHandling = DefaultValueHandling.Ignore
@@ -108,5 +109,17 @@ namespace Search.Web.Controllers
             });
         }
 
+        private string GetUserId()
+        {
+            if (Request.Headers.ContainsKey("Authorization"))
+            {
+                var handler = new JwtSecurityTokenHandler();
+                var header = Request.Headers["Authorization"].First().Substring(7);
+                var token = handler.ReadToken(header) as JwtSecurityToken;
+                return token?.Claims.First(claim => claim.Type == "sub").Value;
+            }
+
+            return null;
+        }
     }
 }

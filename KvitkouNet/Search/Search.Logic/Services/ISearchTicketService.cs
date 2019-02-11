@@ -9,6 +9,6 @@ namespace Search.Logic.Services
         /// <summary>
         /// Searches the tickets according to the specified <paramref name="request"/>.
         /// </summary>
-        Task<SearchResult<TicketInfo>> Search(TicketSearchRequest request);
+        Task<SearchResult<TicketInfo>> Search(TicketSearchRequest request, string userId);
     }
 }

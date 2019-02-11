@@ -22,8 +22,11 @@ export class SearchTicketComponent implements OnInit {
     maxPrice: new FormControl('')
   });
   error: boolean;
+  authenticated: boolean;
 
-  constructor(private router: Router, private service: SearchService) {}
+  constructor(private router: Router, private service: SearchService) {
+    this.authenticated = this.service.isAuthenticated();
+  }
 
   ngOnInit() {}
 
@@ -38,8 +41,7 @@ export class SearchTicketComponent implements OnInit {
 
   previousSearch() {
     const userId: Observable<string> = new BehaviorSubject('user');
-    userId
-      .pipe(mergeMap(t => this.service.getPreviousTicketSearch(t)))
+    this.service.getPreviousTicketSearch()
       .subscribe(
         result => {
           this.clearNullFields(result);
@@ -60,5 +62,6 @@ export class SearchTicketComponent implements OnInit {
     }
     delete obj['id'];
     delete obj['searchTime'];
+    delete obj['userId'];
   }
 }

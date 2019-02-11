@@ -30,18 +30,13 @@ namespace Logging.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<TicketActionLogEntry>), Description =
-            "Ticket action logs")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<TicketActionLogEntry>), Description = "Ticket action logs")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid filter")]
+        [SwaggerResponse(HttpStatusCode.InternalServerError, typeof(string), Description = "Internal error")]
         public async Task<IActionResult> GetTicketActionLogs([FromQuery] TicketLogsFilter filter)
         {
-            // имитируем некоторую валидацию
-            //if (string.IsNullOrWhiteSpace(filter.TicketId))
-            //{
-            //    return BadRequest($"Invalid filter! {nameof(TicketLogsFilter.TicketId)} is empty or whitespace!");
-            //}
-
             var result = await _loggingService.GetLogsAsync(filter);
+
             return Ok(result);
         }
 
