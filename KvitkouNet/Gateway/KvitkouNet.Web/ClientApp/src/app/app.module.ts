@@ -4,7 +4,7 @@ import { SubscriptionService } from './services/notification/subscription.servic
 import { StatisticService } from './services/statistic.service';
 import { RoomService } from './services/chat/room.service';
 import { ChatService } from './services/chat/chat.service';
-import { UsersService } from './services/users.service';
+import { UsersService } from './services/users/users.service';
 import { EditGuard } from './services/editGuard';
 import { GetallticketsService } from './services/getalltickets.service';
 import { GetTicketByIdService } from './services/get-ticket-by-id.service';
