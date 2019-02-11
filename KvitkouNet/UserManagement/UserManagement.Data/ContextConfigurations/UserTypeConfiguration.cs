@@ -8,7 +8,7 @@ namespace UserManagement.Data.ContextConfigurations
     {
         public void Configure(EntityTypeBuilder<UserDB> builder)
         {
-            builder.ToTable("Users")
+            builder//.ToTable("Users")
                 .HasKey(keyExpression: x => x.Id);
             builder.HasOne(navigationExpression: x => x.AccountDB)
                 .WithOne(u=>u.UserDB)
@@ -18,8 +18,6 @@ namespace UserManagement.Data.ContextConfigurations
                 .WithOne(u=>u.UserDB)
                 .HasForeignKey<ProfileDB>(x => x.UserDBId)
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(navigationExpression: x => x.Tickets)
-                .WithOne(x => x.User);
         }
     }
 }
