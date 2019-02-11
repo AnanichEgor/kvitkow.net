@@ -57,7 +57,7 @@ namespace Logging.Logic.Services
             if (!string.IsNullOrWhiteSpace(filter.Email))
                 exp = PredicateExtensions.And(exp, entry => entry.Email.ToLower().Contains(filter.Email.ToLower()));
 
-            if (!filter.Type.HasFlag(AccountActionType.Unknown))
+            if (filter.Type != AccountActionType.Unknown)
                 exp = PredicateExtensions.And(exp, entry => filter.Type.HasFlag((AccountActionType)entry.Type));
 
             return exp;

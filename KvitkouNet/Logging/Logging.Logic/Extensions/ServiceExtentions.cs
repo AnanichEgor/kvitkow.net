@@ -2,14 +2,9 @@
 using System.Linq;
 using System.Reflection;
 using AutoMapper;
-using FluentValidation;
-using KvitkouNet.Messages.Logging;
 using Logging.Data;
 using Logging.Logic.Infrastructure;
-using Logging.Logic.Models;
-using Logging.Logic.Models.Filters;
 using Logging.Logic.Services;
-using Logging.Logic.Validators;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,13 +25,6 @@ namespace Logging.Logic.Extensions
 			services.AddScoped<IPaymentLogService, PaymentLogService>();
 			services.AddScoped<ISearchLogService, SearchLogService>();
 			services.AddScoped<ITicketLogService, TicketLogService>();
-
-			return services;
-		}
-
-		public static IServiceCollection RegisterValidators(this IServiceCollection services)
-		{
-			services.AddScoped<IValidator<ErrorLogsFilter>, ErrorLogsFilterValidator>();
 
 			return services;
 		}

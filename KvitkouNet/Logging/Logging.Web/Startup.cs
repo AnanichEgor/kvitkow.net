@@ -1,7 +1,10 @@
 ﻿using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Logging.Logic.Extensions;
 using Logging.Web.Extensions;
 using Logging.Web.Subscriber;
+using Logging.Web.Validators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -24,13 +27,16 @@ namespace Logging.Web
 		{
 			services.RegisterDbContext();
 
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services
+			    .AddMvc(opts => opts.Filters.Add(typeof(ValidationFilterAttribute)))
+			    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+			    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
-			services.AddSwaggerDocument();
+		    services.AddSingleton<IValidatorFactory, ValidatorFactory>();
+
+            services.AddSwaggerDocument();
 
 			services.RegisterServices();
-
-			services.RegisterValidators();
 
 			services.RegisterAutoMapper();
 

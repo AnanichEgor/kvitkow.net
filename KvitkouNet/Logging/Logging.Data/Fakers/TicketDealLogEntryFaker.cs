@@ -16,7 +16,7 @@ namespace Logging.Data.Fakers
             _faker.RuleFor(_ => _.OwnerId, f => f.Lorem.Word());
             _faker.RuleFor(_ => _.RecieverId, f => f.Name.FirstName());
             _faker.RuleFor(_ => _.Price, f => f.Random.Double(10, 100));
-            //_faker.RuleFor(_ => _.Type, f => f.Random.Enum());
+            _faker.RuleFor(_ => _.Type, f => f.Random.ArrayElement(new[] { 2, 4 }));
             _faker.RuleFor(_ => _.EventDate, f => f.Date.Recent());
             _faker.RuleFor(_ => _.Created, f => f.Date.Recent());
         }
