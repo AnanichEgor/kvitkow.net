@@ -9,6 +9,6 @@ namespace Search.Logic.Services
         /// <summary>
         /// Searches the users according to the specified <paramref name="request"/>.
         /// </summary>
-        Task<SearchResult<UserInfo>> Search(UserSearchRequest request);
+        Task<SearchResult<UserInfo>> Search(UserSearchRequest request, string userId);
     }
 }
