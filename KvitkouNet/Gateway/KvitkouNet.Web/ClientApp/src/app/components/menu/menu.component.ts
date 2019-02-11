@@ -24,4 +24,8 @@ export class MenuComponent implements OnInit {
       return claims['given_name'];
   }
 
+  public isNeedToHideAdminPanel() : boolean{
+    return !this.oauthService.hasValidAccessToken();
+  }
+
 }
