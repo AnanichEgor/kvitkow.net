@@ -5,15 +5,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bogus" Version="25.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.1" />
+    <Compile Remove="Migrations\20190209204805_init.cs" />
+    <Compile Remove="Migrations\20190209205518_init.cs" />
+    <Compile Remove="Migrations\20190209210308_init.cs" />
+    <Compile Remove="Migrations\20190209211611_init.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="ef">
-      <HintPath>C:\Program Files\dotnet\sdk\2.1.500\DotnetTools\dotnet-ef\2.1.4\tools\netcoreapp2.1\any\tools\netcoreapp2.0\any\ef.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Bogus" Version="25.0.3" />
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="2.7.0" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.3.0" />
+    <PackageReference Include="IdentityServer4.EntityFramework" Version="2.3.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.1" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+
   </ItemGroup>
 
 </Project>
