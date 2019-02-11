@@ -57,6 +57,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { LoginComponent } from './components/login/login.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
+import { AdminAuthGuard } from './components/admin/admin-auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
     StatisticService,
     NotificationService,
     EmailNotificationService,
-    SubscriptionService
+    SubscriptionService,
+    AdminAuthGuard
   ],
   bootstrap: [AppComponent]
 })
