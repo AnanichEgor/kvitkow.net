@@ -13,7 +13,6 @@ namespace UserManagement.Logic.Subscriber
     public class UserSettingsMessageConsumer :
         IConsumeAsync<EmailUpdateMessage>,
         IConsumeAsync<PasswordUpdateMessage>,
-        IConsumeAsync<UserProfileMessage>,
         IConsumeAsync<DeleteUserProfileMessage>,
         IConsumeAsync<AccountMessage>,
         IConsumeAsync<TicketCreationMessage>
@@ -27,48 +26,37 @@ namespace UserManagement.Logic.Subscriber
             _userService = userService;
         }
 
-        [AutoSubscriberConsumer(SubscriptionId = "UserSettingsService.EmailUpdated")]
         public async Task ConsumeAsync(EmailUpdateMessage message)
         {
             await _userService.UpdateEmail(message);
         }
 
-        [AutoSubscriberConsumer(SubscriptionId = "UserSettingsService.PasswordUpdated")]
         public Task ConsumeAsync(PasswordUpdateMessage message)
         {
             throw new NotImplementedException();
         }
 
-        [AutoSubscriberConsumer(SubscriptionId = "UserSettingsService.UserProfileUpdated")]
-        public Task ConsumeAsync(UserProfileMessage message)
-        {
-            throw new NotImplementedException();
-        }
-
-        [AutoSubscriberConsumer(SubscriptionId = "UserSettingsService.UserProfileDeleted")]
         public Task ConsumeAsync(DeleteUserProfileMessage message)
         {
             throw new NotImplementedException();
         }
 
-        [AutoSubscriberConsumer(SubscriptionId = "UserService.AccountCreated")]
         public async Task ConsumeAsync(AccountMessage message)
         {
             Debug.WriteLine($"I've got message: {message.UserName} {message.Email} ");
             EmailUpdateMessage eum = new EmailUpdateMessage();
-            eum.Id = "2";//message.UserId;
+            eum.UserId = "2";//message.UserId;
             eum.Email = "1234@123.by";//message.Email;
 
             await _userService.UpdateEmail(eum);
             
         }
 
-        [AutoSubscriberConsumer(SubscriptionId = "Tickets.TicketCreated")]
         public async Task ConsumeAsync(TicketCreationMessage message)
         {
             Debug.WriteLine($"I've got message: {message.Name} {message.Price} ");
             EmailUpdateMessage eum = new EmailUpdateMessage();
-            eum.Id = "1";
+            eum.UserId = "1";
             eum.Email = "77777777@123.by";
             await _userService.UpdateEmail(eum);
         }

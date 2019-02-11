@@ -124,7 +124,7 @@ namespace UserManagement.Logic.Services
 
         public Task<string> UpdateEmail(EmailUpdateMessage emailUpdateMessage)
         {
-            var findUser = _unitOfWork.Users.FindAsync(x => x.Id == emailUpdateMessage.Id).Result.FirstOrDefault();
+            var findUser = _unitOfWork.Users.FindAsync(x => x.Id == emailUpdateMessage.UserId).Result.FirstOrDefault();
             var findAcc = _unitOfWork.Accounts.FindAsync(x => x.Email == emailUpdateMessage.Email).Result.FirstOrDefault();
             //if (findUser == null) return "Not Found";
             //findUser.AccountDB.Email = emailUpdateMessage.Email;

@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using UserManagement.Data.DbModels.Security;
 using UserManagement.Data.DbModels.Tickets;
 
 namespace UserManagement.Data.DbModels
 {
-    public class UserDB
+    public class UserD1B : IdentityUser
     {
         /// <summary>
         /// Уникальный идентификатор пользователя
         /// </summary>
-        public string Id { get; set; }
+        //public string Id { get; set; }
 
         #region Связи между таблицами  
         /// <summary>
@@ -36,7 +37,7 @@ namespace UserManagement.Data.DbModels
         /// <summary>
         /// Список билетов принадлежащих пользователю
         /// </summary>
-        public virtual ICollection<TicketDB> Tickets { get; set; }
+        //public virtual ICollection<TicketDB> Tickets { get; set; }
         #endregion 
     }
 }
