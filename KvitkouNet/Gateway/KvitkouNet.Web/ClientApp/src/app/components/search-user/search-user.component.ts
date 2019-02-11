@@ -6,7 +6,6 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { SearchService } from './../../services/search.service';
 
-
 @Component({
   selector: 'app-search-user',
   templateUrl: './search-user.component.html',
@@ -17,8 +16,11 @@ export class SearchUserComponent implements OnInit {
     minRating: new FormControl('')
   });
   error: boolean;
+  authenticated: boolean;
 
-  constructor(private router: Router, private service: SearchService) {}
+  constructor(private router: Router, private service: SearchService) {
+    this.authenticated = this.service.isAuthenticated();
+  }
 
   ngOnInit() {}
 
@@ -35,18 +37,16 @@ export class SearchUserComponent implements OnInit {
 
   previousSearch() {
     const userId: Observable<string> = new BehaviorSubject('user');
-    userId
-      .pipe(mergeMap(t => this.service.getPreviousUserSearch(t)))
-      .subscribe(
-        result => {
-          this.clearNullFields(result);
-          this.router.navigate(['search-user-results', result]);
-        },
-        err => {
-          console.error(err);
-          this.error = true;
-        }
-      );
+    this.service.getPreviousUserSearch().subscribe(
+      result => {
+        this.clearNullFields(result);
+        this.router.navigate(['search-user-results', result]);
+      },
+      err => {
+        console.error(err);
+        this.error = true;
+      }
+    );
   }
 
   private clearNullFields(obj: any) {
