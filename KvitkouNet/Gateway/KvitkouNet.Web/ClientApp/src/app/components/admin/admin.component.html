@@ -21,11 +21,11 @@
                     </div>
                   </li>
                     <li class="nav-item ">
-                        <a class="nav-link">Пользователи
+                        <a class="nav-link" [routerLink]="['/admin/users']" routerLinkActive="active">Пользователи
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" [routerLink]="['/statistic']" routerLinkActive="active">
                         <a class="nav-link">Статистика</a>
                     </li>
                 </ul>
