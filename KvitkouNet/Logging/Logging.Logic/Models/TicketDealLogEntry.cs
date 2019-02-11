@@ -8,10 +8,15 @@ namespace Logging.Logic.Models
 	/// </summary>
 	public class TicketDealLogEntry : BaseLogEntry
 	{
-		/// <summary>
-		/// Пользователь-владелец, разместивший билет
-		/// </summary>
-		public string OwnerId { get; set; }
+	    /// <summary>
+	    /// Id билета
+	    /// </summary>
+	    public string TicketId { get; set; }
+
+        /// <summary>
+        /// Пользователь-владелец, разместивший билет
+        /// </summary>
+        public string OwnerId { get; set; }
 
 		/// <summary>
 		/// Покупатель/получатель билета

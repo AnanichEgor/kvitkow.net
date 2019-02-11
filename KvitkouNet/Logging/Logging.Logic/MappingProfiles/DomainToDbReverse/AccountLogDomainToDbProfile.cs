@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Logging.Data.DbModels;
+using Logging.Logic.Enums;
 using Logging.Logic.Models;
 
 namespace Logging.Logic.MappingProfiles.DomainToDbReverse
@@ -9,7 +10,9 @@ namespace Logging.Logic.MappingProfiles.DomainToDbReverse
 		public AccountLogDomainToDbProfile()
 		{
 			CreateMap<AccountLogEntry, AccountLogEntryDbModel>()
-				.ReverseMap();
+			    .ForMember(dbm => dbm.Type, opts => opts.MapFrom(m => (int) m.Type))
+				.ReverseMap()
+			    .ForMember(m => m.Type, opts => opts.MapFrom(dbm => (AccountActionType) dbm.Type));
 		}
 	}
 }
