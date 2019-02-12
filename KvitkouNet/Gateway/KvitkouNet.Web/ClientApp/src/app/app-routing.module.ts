@@ -37,10 +37,12 @@ import { UserSettingsEmailComponent } from './components/user-settings/user-sett
 // tslint:disable-next-line:max-line-length
 import { UserSettingsPasswordComponent } from './components/user-settings/user-settings-security/user-settings-password/user-settings-password.component';
 import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
+import { AdminAuthGuard } from './components/admin/admin-auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'admin', component: AdminComponent,
+  { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard],
+  canActivateChild: [AdminAuthGuard],
     children: [
       { path: '', component: AdminMainComponent },
       { path: 'logs/errors', component: ErrorLogsComponent },
