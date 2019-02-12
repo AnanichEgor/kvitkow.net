@@ -15,6 +15,7 @@ namespace StatisticUser.Data
         public DbSet<RatingDB> Rating { get; set; }
         public DbSet<ResourcesUrlDB> ResourcesUrl { get; set; }
         public DbSet<TimeOnSiteDB> TimeOnSite { get; set; }
+        public DbSet<SummaryTableDB> SummaryTable { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +26,7 @@ namespace StatisticUser.Data
             modelBuilder.Entity<RatingDB>().ToTable("RatingDB");
             modelBuilder.Entity<ResourcesUrlDB>().ToTable("ResourcesUrlDB");
             modelBuilder.Entity<TimeOnSiteDB>().ToTable("TimeOnSiteDB");
+            modelBuilder.Entity<SummaryTableDB>().ToTable("SummaryTableDB");
         }
     }
 }

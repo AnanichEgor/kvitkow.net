@@ -64,7 +64,7 @@ namespace StatisticUser.Data.Migrations
                     Modified = table.Column<DateTime>(nullable: true),
                     UserId = table.Column<int>(nullable: false),
                     DataTimeAuthorization = table.Column<DateTime>(nullable: false),
-                    TimeOnline = table.Column<TimeSpan>(nullable: false)
+                    Timeuser = table.Column<TimeSpan>(nullable: false)
                 },
                 constraints: table =>
                 {
