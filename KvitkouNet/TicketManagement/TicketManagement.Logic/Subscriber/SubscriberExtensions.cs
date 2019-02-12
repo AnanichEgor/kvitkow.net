@@ -53,7 +53,7 @@ namespace TicketManagement.Logic.Subscriber
                             msg => services.GetService<IConsumeAsync<DeleteUserProfileMessage>>().ConsumeAsync(msg));
                     });
                 }
-                catch (TimeoutException e)
+                catch (TimeoutException)
                 {
 					//used to bypass RabbitMq subscription error
                 }

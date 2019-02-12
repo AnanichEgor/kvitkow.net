@@ -8,10 +8,21 @@ import { OAuthService } from 'angular-oauth2-oidc';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private oauthService: OAuthService) {
+  authenticated: boolean;
+
+  constructor(private oauthService: OAuthService)
+  {
+    this.authenticated = this.isAuthenticated();
   }
 
   ngOnInit(): void {
+    this.authenticated = this.isAuthenticated();
+  }
+
+ public isAuthenticated() {
+
+    const token = this.oauthService.getAccessToken();
+    return !! token ? true : false;
   }
 
   public logoff() {
