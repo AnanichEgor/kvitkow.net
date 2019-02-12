@@ -12,12 +12,14 @@ import { Location } from '@angular/common';
 export class TicketDetailComponent implements OnInit {
   id: number;
   tickets: Ticket;
+  authenticated: boolean;
   constructor(
     private ticketsSrv: GetTicketByIdService,
     private router: ActivatedRoute,
     private route: Router,
     private _location: Location
     ) {
+      this.authenticated = this.ticketsSrv.isAuthenticated();
     router.params.subscribe(params => this.id = params.id);
     }
 

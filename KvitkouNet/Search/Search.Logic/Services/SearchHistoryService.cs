@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using Search.Data.Models;
 using Search.Data.Repositories;
@@ -30,14 +27,18 @@ namespace Search.Logic.Services
             return _historyRepository.GetLastTicketSearch(userId);
         }
 
-        public Task SaveLastSearchAsync(TicketSearchRequest request)
+        public Task SaveLastSearchAsync(TicketSearchRequest request, string userId)
         {
-            return _historyRepository.SaveLastSearchAsync(_mapper.Map<TicketSearchEntity>(request));
+            var searchEntity = _mapper.Map<TicketSearchEntity>(request);
+            searchEntity.UserId = userId;
+            return _historyRepository.SaveLastSearchAsync(searchEntity);
         }
 
-        public Task SaveLastSearchAsync(UserSearchRequest request)
+        public Task SaveLastSearchAsync(UserSearchRequest request, string userId)
         {
-            return _historyRepository.SaveLastSearchAsync(_mapper.Map<UserSearchEntity>(request));
+            var searchEntity = _mapper.Map<UserSearchEntity>(request);
+            searchEntity.UserId = userId;
+            return _historyRepository.SaveLastSearchAsync(searchEntity);
         }
 
         public void Dispose()

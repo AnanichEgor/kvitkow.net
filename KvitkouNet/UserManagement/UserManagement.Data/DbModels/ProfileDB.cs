@@ -71,7 +71,7 @@ namespace UserManagement.Data.DbModels
         /// <summary>
         /// Настройки пользователя
         /// </summary>
-        public virtual ProfileSettings ProfileSettings { get; set; }
+        //public virtual ProfileSettings ProfileSettings { get; set; }
 
         /// <summary>
         /// Список адресов пользователя 
