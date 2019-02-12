@@ -9,9 +9,13 @@ using Notification.Logic.Configs;
 using Microsoft.Extensions.Options;
 using EasyNetQ;
 using KvitkouNet.Messages.Notification;
+using Microsoft.AspNetCore.Cors;
+using Notification.Logic.Models.Requests;
+using Microsoft.Extensions.Configuration;
 
 namespace Notification.Web.Controllers
 {
+    [EnableCors("CorsPolicy")]
     [Route("api/notification/email")]
     [ApiController]
     public class EmailNotificationController : ControllerBase
@@ -56,11 +60,10 @@ namespace Notification.Web.Controllers
         /// <param name="userName">Имя пользователя</param>
         [HttpPost, Route("registration/confirmation/{uname}")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(NoContentResult))]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(BadRequestObjectResult))]
 		public async Task<IActionResult> ConfirmRegistration([FromRoute] string uname)
 		{
 			await m_emailService.ConfirmRegistration(uname);
-            m_bus.Publish(new ConfirmRegistrationMessage
+            m_bus.Publish<ConfirmRegistrationMessage>(new ConfirmRegistrationMessage
             {
                 Name = uname
             });
