@@ -30,7 +30,7 @@ import { Configuration }                                     from './configurati
 @Injectable()
 export class NotificationService {
 
-    protected basePath = 'http://localhost:5002';
+    protected basePath = 'http://localhost:10644/api';//10644/api
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
