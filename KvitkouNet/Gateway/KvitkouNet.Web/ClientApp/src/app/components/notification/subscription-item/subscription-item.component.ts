@@ -16,6 +16,11 @@ export class SubscriptionItemComponent implements OnInit {
       .subscribe(data => this.subscriptions = data);
    }
 
+   closeSubscription(id: string, theme: string) {
+    this.service.subscriptionUnsubscribe(id, theme)
+      .subscribe({complete: () => this.subscriptions = this.subscriptions.filter(x => x.theme !== theme)});
+  }
+
   ngOnInit() {
   }
 

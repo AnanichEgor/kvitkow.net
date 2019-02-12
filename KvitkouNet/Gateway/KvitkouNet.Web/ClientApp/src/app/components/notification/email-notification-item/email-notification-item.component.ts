@@ -11,9 +11,13 @@ export class EmailNotificationItemComponent implements OnInit {
   public emailNotifications: Array<EmailNotification>;
 
   constructor(private service: EmailNotificationService) {
-    service.emailNotificationGetEmailNotifications('2323')
+    service.emailNotificationGetAllEmailNotifications()
       .subscribe(data => this.emailNotifications = data);
    }
+
+   closeNotification(id: string) {
+       this.emailNotifications = this.emailNotifications.filter(x => x.notificationId !== id);
+  }
 
   ngOnInit() {
   }

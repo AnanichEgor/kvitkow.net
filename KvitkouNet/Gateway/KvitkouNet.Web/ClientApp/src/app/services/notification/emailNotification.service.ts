@@ -16,6 +16,8 @@ import { HttpClient, HttpHeaders, HttpParams,
          HttpResponse, HttpEvent }                           from '@angular/common/http';
 import { CustomHttpUrlEncodingCodec }                        from './encoder';
 
+import { OAuthService } from 'angular-oauth2-oidc';
+
 import { Observable } from 'rxjs';
 
 import { EmailNotification } from '../../models/notification/emailNotification';
@@ -31,7 +33,7 @@ export class EmailNotificationService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() configuration: Configuration, private oauthService: OAuthService) {
       let basePath: string = NotificationInjector.get(BASE_NOTIFICATION_PATH);
       if (basePath) {
             this.basePath = basePath;
@@ -94,9 +96,7 @@ export class EmailNotificationService {
         return this.httpClient.post(`${this.basePath}/notification/email/registration/confirmation/${encodeURIComponent(String(uname))}`,
             null,
             {
-                responseType: "blob",
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -134,8 +134,7 @@ export class EmailNotificationService {
 
         return this.httpClient.get<Array<EmailNotification>>(`${this.basePath}/notification/email/all`,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -178,12 +177,20 @@ export class EmailNotificationService {
 
         return this.httpClient.get<Array<EmailNotification>>(`${this.basePath}/notification/email/users/${encodeURIComponent(String(id))}`,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
         );
+    }
+
+    private getHeaders() {
+      const token = this.oauthService.getAccessToken();
+      return !!token
+        ? new HttpHeaders({
+            Authorization: 'Bearer ' + token
+          })
+        : new HttpHeaders();
     }
 
 }

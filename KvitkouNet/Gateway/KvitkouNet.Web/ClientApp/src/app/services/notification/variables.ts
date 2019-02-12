@@ -9,4 +9,5 @@ export const COLLECTION_FORMATS = {
 };
 
 export const NotificationInjector: Injector =
-  Injector.create({providers: [{provide: BASE_NOTIFICATION_PATH, useValue: 'http://localhost:5012/api'}]});
+  Injector.create({providers: [{provide: BASE_NOTIFICATION_PATH, useValue: 'http://localhost:5002/'}]});
+
