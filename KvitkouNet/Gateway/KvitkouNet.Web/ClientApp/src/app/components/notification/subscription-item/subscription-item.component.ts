@@ -1,4 +1,6 @@
+import { Subscription } from './../../../models/notification/subscription';
 import { Component, OnInit } from '@angular/core';
+import { SubscriptionService } from 'src/app/services/notification';
 
 @Component({
   selector: 'app-subscription-item',
@@ -7,7 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubscriptionItemComponent implements OnInit {
 
-  constructor() { }
+  public subscriptions: Array<Subscription> = [];
+
+  constructor(private service: SubscriptionService) {
+    service.subscriptionGetAll('')
+      .subscribe(data => this.subscriptions = data);
+   }
+
+   closeSubscription(id: string, theme: string) {
+    this.service.subscriptionUnsubscribe(id, theme)
+      .subscribe({complete: () => this.subscriptions = this.subscriptions.filter(x => x.theme !== theme)});
+  }
 
   ngOnInit() {
   }

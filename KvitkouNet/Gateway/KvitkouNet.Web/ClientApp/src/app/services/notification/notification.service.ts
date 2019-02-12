@@ -18,23 +18,25 @@ import { CustomHttpUrlEncodingCodec }                        from './encoder';
 
 import { Observable } from 'rxjs';
 
+import { OAuthService } from 'angular-oauth2-oidc';
+
 import { NotificationMessage } from '../../models/notification/notificationMessage';
 import { UserNotification } from '../../models/notification/userNotification';
 import { UserNotificationBulkRequest } from '../../models/notification/userNotificationBulkRequest';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from './variables';
+import { BASE_NOTIFICATION_PATH, COLLECTION_FORMATS, NotificationInjector }                     from './variables';
 import { Configuration }                                     from './configuration';
-
 
 @Injectable()
 export class NotificationService {
 
-    protected basePath = 'http://localhost:5002';
+    protected basePath = 'http://localhost:10644/api';//10644/api
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (basePath) {
+    constructor(protected httpClient: HttpClient, @Optional() configuration: Configuration, private oauthService: OAuthService) {
+      let basePath: string = NotificationInjector.get(BASE_NOTIFICATION_PATH);
+      if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
@@ -99,9 +101,7 @@ export class NotificationService {
         return this.httpClient.post(`${this.basePath}/notification/users/ids`,
             request,
             {
-                responseType: "blob",
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -154,9 +154,7 @@ export class NotificationService {
         return this.httpClient.post(`${this.basePath}/notification/users/${encodeURIComponent(String(id))}`,
             messsage,
             {
-                responseType: "blob",
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -209,9 +207,7 @@ export class NotificationService {
         return this.httpClient.patch(`${this.basePath}/notification/${encodeURIComponent(String(id))}`,
             messsage,
             {
-                responseType: "blob",
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -249,8 +245,7 @@ export class NotificationService {
 
         return this.httpClient.get<Array<UserNotification>>(`${this.basePath}/notification/all`,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -293,8 +288,7 @@ export class NotificationService {
 
         return this.httpClient.get<UserNotification>(`${this.basePath}/notification/${encodeURIComponent(String(id))}`,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -345,8 +339,7 @@ export class NotificationService {
         return this.httpClient.get<Array<UserNotification>>(`${this.basePath}/notification/users/${encodeURIComponent(String(id))}`,
             {
                 params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -389,13 +382,20 @@ export class NotificationService {
 
         return this.httpClient.delete(`${this.basePath}/notification/users/${encodeURIComponent(String(id))}`,
             {
-                responseType: "blob",
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
         );
+    }
+
+    private getHeaders() {
+      const token = this.oauthService.getAccessToken();
+      return !!token
+        ? new HttpHeaders({
+            Authorization: 'Bearer ' + token
+          })
+        : new HttpHeaders();
     }
 
 }

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using AutoMapper;
 using Chat.Logic;
+using Chat.Web.Filters;
 using Chat.Web.Hub;
 using Chat.Web.MappingProfiles;
 using Chat.Web.Subscriber;
@@ -36,7 +37,11 @@ namespace Chat.Web
                         .AllowCredentials()
                         .WithOrigins("http://localhost:4200"));
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //services.AddCors();
+
+            services.AddMvc(opt => opt.Filters.Add(new CustomExceptionFilter()))
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerDocument(settings => settings.Title = "Chat");
             services.RegisterChatService();
             services.RegisterRoomService();
@@ -58,6 +63,7 @@ namespace Chat.Web
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors("CorsPolicy");
+            //app.UseCors(b => b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseSignalR(builder => builder.MapHub<NotificationHub>("/chat/notification"));
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();

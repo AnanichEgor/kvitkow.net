@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Dashboard.Data.Context;
 using Dashboard.Data.DbModels;
 using Dashboard.Data.DbModels.DbEnums;
+using System;
 
 namespace Dashboard.Data.Repositories
 {
@@ -22,8 +23,9 @@ namespace Dashboard.Data.Repositories
         /// </summary>
         /// <param name="news">Модель новости</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        public async Task<int> Add(NewsDb news)
+        public async Task<string> Add(NewsDb news)
         {
+
             _context.News.Add(news);
             await _context.SaveChangesAsync();
             return _context.News.Last().NewsId;
@@ -45,7 +47,7 @@ namespace Dashboard.Data.Repositories
         /// </summary>
         /// <param name="newsId"></param>
         /// <returns></returns>
-        public async Task Delete(int newsId)
+        public async Task Delete(string newsId)
         {
             var origin = await _context.News.FindAsync(newsId);
 
@@ -63,14 +65,11 @@ namespace Dashboard.Data.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<NewsDb>> GetAll()
         {
-            return await _context.News.Include(db => db.Description)
-                .Include(db => db.UserInfo)
-                .Include(db => db.TicketInfo)
-                .Include(db => db.TypeEvent)
-                .Include(db => db.Status)
-                .Include(db => db.EventLink)
-                .AsNoTracking()
-                .ToArrayAsync();
+            var res = _context.News
+               .Include(db => db.Ticket)
+               .AsNoTracking();
+            return await res.ToListAsync();
+
         }
 
         /// <summary>
@@ -78,14 +77,10 @@ namespace Dashboard.Data.Repositories
         /// </summary>
         /// <param name="newsIdGuid">Id новости</param>
         /// <returns></returns>
-        public Task<NewsDb> Get(int newsId)
+        public Task<NewsDb> Get(string newsId)
         {
-            return _context.News.Include(db => db.Description)
-                .Include(db => db.UserInfo)
-                .Include(db => db.TicketInfo)
-                .Include(db => db.TypeEvent)
-                .Include(db => db.Status)
-                .Include(db => db.EventLink)
+            return _context.News
+                .Include(db => db.Ticket)
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.NewsId == newsId);
         }
@@ -96,12 +91,8 @@ namespace Dashboard.Data.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<NewsDb>> GetAllActual()
         {
-            var res = _context.News.Include(db => db.Description)
-                .Include(db => db.UserInfo)
-                .Include(db => db.TicketInfo)
-                .Include(db => db.TypeEvent)
-                .Include(db => db.Status)
-                .Include(db => db.EventLink)
+            var res = _context.News
+                .Include(db => db.Ticket)
                 .AsNoTracking()
                 .Where(x => x.Status == (NewsStatusDb)2);
             return await res.ToListAsync();
