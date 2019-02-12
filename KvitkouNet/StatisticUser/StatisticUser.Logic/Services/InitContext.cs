@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using StatisticUser.Data;
+using StatisticUser.Data.Fakers;
 
 namespace StatisticUser.Logic.Services
 {
@@ -20,6 +22,11 @@ namespace StatisticUser.Logic.Services
             {
                 var context = serviceProvider.GetRequiredService<WebApiContext>();
                 context.Database.Migrate();
+                if (!context.SummaryTable.Any())
+                {
+                    context.SummaryTable.AddRange(StatisticUserFaker.Generate(500));
+                    context.SaveChanges();
+                }
             }
             catch (Exception)
             {

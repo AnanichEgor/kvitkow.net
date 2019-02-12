@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using DevExtreme.AspNet.Data.ResponseModel;
+using Microsoft.AspNetCore.Mvc;
+using StatisticUser.Data.DbModels;
 using StatisticUser.Logic.DTOs;
+using StatisticUser.Logic.Services;
 
 namespace StatisticUser.Logic.Interfaces
 {
@@ -46,5 +50,10 @@ namespace StatisticUser.Logic.Interfaces
         /// Количество сообщений пользователя
         /// </summary>
         Task<IUserMessages> GetUserMessages(int id);
+
+        /// <summary>
+        /// Количество сообщений пользователя
+        /// </summary>
+        Task<LoadResult> GetAllUser(DataSourceLoadOptions loadOptions);
     }
 }
