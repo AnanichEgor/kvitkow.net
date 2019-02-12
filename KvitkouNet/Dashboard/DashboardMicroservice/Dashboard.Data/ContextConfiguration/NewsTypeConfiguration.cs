@@ -8,15 +8,11 @@ namespace Dashboard.Data.ContextConfiguration
     {
         public void Configure(EntityTypeBuilder<NewsDb> builder)
         {
-            builder.ToTable("News")
+            builder
                 .HasKey(keyExpression: x => x.NewsId);
 
-            builder.Property(x => x.Description)
-                .IsRequired()
-                .HasMaxLength(300);
-
             builder.HasOne(navigationExpression: x => x.Ticket)
-                .WithOne()
+                .WithOne(x => x.NewsDbs)
                 .HasForeignKey<TicketInfoDb>(x => x.TicketId)
                 .OnDelete(DeleteBehavior.Cascade);
         }

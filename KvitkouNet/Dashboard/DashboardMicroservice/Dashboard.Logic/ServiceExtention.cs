@@ -21,7 +21,7 @@ namespace Dashboard.Logic
         /// <returns></returns>
         public static IServiceCollection RegisterDashboardService(this IServiceCollection services)
         {
-            services.RegisterDashboardServicesData();
+            services.AddDbContext<DashboardContext>(opt => opt.UseSqlite("Data Source=./NewsDatabase.db"));
 
             services.AddAutoMapper(cfg =>
             {

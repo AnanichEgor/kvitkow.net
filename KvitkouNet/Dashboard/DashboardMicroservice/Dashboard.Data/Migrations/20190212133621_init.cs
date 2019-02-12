@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Dashboard.Data.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace Dashboard.Data.Migrations
                 columns: table => new
                 {
                     NewsId = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(maxLength: 300, nullable: false),
+                    Description = table.Column<string>(nullable: true),
                     TypeEvent = table.Column<int>(nullable: false),
                     Status = table.Column<int>(nullable: false),
                     EventLink = table.Column<string>(nullable: true),
@@ -32,18 +32,11 @@ namespace Dashboard.Data.Migrations
                     Date = table.Column<DateTime>(nullable: false),
                     City = table.Column<string>(nullable: true),
                     Category = table.Column<string>(nullable: true),
-                    Price = table.Column<decimal>(nullable: true),
-                    NewsDbsNewsId = table.Column<string>(nullable: true)
+                    Price = table.Column<decimal>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ticket", x => x.TicketId);
-                    table.ForeignKey(
-                        name: "FK_Ticket_News_NewsDbsNewsId",
-                        column: x => x.NewsDbsNewsId,
-                        principalTable: "News",
-                        principalColumn: "NewsId",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Ticket_News_TicketId",
                         column: x => x.TicketId,
@@ -51,11 +44,6 @@ namespace Dashboard.Data.Migrations
                         principalColumn: "NewsId",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ticket_NewsDbsNewsId",
-                table: "Ticket",
-                column: "NewsDbsNewsId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

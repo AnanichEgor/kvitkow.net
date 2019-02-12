@@ -65,12 +65,6 @@ namespace Dashboard.Data.Repositories
         public async Task<IEnumerable<NewsDb>> GetAll()
         {
             var res = _context.News
-               .Include(db => db.NewsId)
-               .Include(db => db.Description)
-               .Include(db => db.TypeEvent)
-               .Include(db => db.Status)
-               .Include(db => db.EventLink)
-               .Include(db => db.CreatedDate)
                .Include(db => db.Ticket)
                .AsNoTracking();
             return await res.ToListAsync();
@@ -85,12 +79,6 @@ namespace Dashboard.Data.Repositories
         public Task<NewsDb> Get(string newsId)
         {
             return _context.News
-                .Include(db => db.NewsId)
-                .Include(db => db.Description)
-                .Include(db => db.TypeEvent)
-                .Include(db => db.Status)
-                .Include(db => db.EventLink)
-                .Include(db => db.CreatedDate)
                 .Include(db => db.Ticket)
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.NewsId == newsId);

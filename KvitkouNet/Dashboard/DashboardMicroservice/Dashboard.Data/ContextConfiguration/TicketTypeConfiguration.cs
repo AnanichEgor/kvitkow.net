@@ -8,7 +8,8 @@ namespace Dashboard.Data.ContextConfiguration
     {
         public void Configure(EntityTypeBuilder<TicketInfoDb> builder)
         {
-            builder.ToTable("Ticket")
+            builder
+                .ToTable("Ticket")
                 .HasKey(keyExpression: x => x.TicketId);
 
         }

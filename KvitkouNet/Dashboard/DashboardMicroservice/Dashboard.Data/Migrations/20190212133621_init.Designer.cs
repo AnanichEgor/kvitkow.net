@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dashboard.Data.Migrations
 {
     [DbContext(typeof(DashboardContext))]
-    [Migration("20190209092254_Init")]
-    partial class Init
+    [Migration("20190212133621_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,9 +25,7 @@ namespace Dashboard.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(300);
+                    b.Property<string>("Description");
 
                     b.Property<string>("EventLink");
 
@@ -52,13 +50,9 @@ namespace Dashboard.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("NewsDbsNewsId");
-
                     b.Property<decimal?>("Price");
 
                     b.HasKey("TicketId");
-
-                    b.HasIndex("NewsDbsNewsId");
 
                     b.ToTable("Ticket");
                 });
@@ -66,10 +60,6 @@ namespace Dashboard.Data.Migrations
             modelBuilder.Entity("Dashboard.Data.DbModels.TicketInfoDb", b =>
                 {
                     b.HasOne("Dashboard.Data.DbModels.NewsDb", "NewsDbs")
-                        .WithMany()
-                        .HasForeignKey("NewsDbsNewsId");
-
-                    b.HasOne("Dashboard.Data.DbModels.NewsDb")
                         .WithOne("Ticket")
                         .HasForeignKey("Dashboard.Data.DbModels.TicketInfoDb", "TicketId")
                         .OnDelete(DeleteBehavior.Cascade);
