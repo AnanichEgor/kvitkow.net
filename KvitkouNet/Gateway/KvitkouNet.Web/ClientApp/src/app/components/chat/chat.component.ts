@@ -33,7 +33,7 @@ export class ChatComponent implements OnInit {
 
       // установим соедениние для Hub
       this.connection = new HubConnectionBuilder()
-      .withUrl(`${environment.searchServiceBaseUrl}/chat/notification`)
+      .withUrl(`https://localhost:5002/chat/notification`)
       .build();
 
       // Откроем Hub

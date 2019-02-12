@@ -13,7 +13,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 @Injectable()
 export class ChatService {
 
-    protected basePath = 'http://localhost:61936/api';
+    protected basePath = 'https://localhost:5002/api';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -109,7 +109,7 @@ export class ChatService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.patch<any>(`${environment.searchServiceBaseUrl}/chat/settings/${encodeURIComponent(String(uid))}`,
+        return this.httpClient.patch<any>(`${this.basePath}/chat/settings/${encodeURIComponent(String(uid))}`,
             settings,
             {
                 // withCredentials: this.configuration.withCredentials,
@@ -154,7 +154,7 @@ export class ChatService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<Settings>(`${environment.searchServiceBaseUrl}/chat/settings/${encodeURIComponent(String(uid))}`,
+        return this.httpClient.get<Settings>(`${this.basePath}/chat/settings/${encodeURIComponent(String(uid))}`,
             {
                 // withCredentials: this.configuration.withCredentials,
                 headers: this.getHeaders(),

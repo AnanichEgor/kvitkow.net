@@ -395,16 +395,16 @@
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
-      "DownstreamPathTemplate": "/chat/notification",
+      "DownstreamPathTemplate": "/chat/notification/{catchAll}",
       "DownstreamScheme": "ws",
       "DownstreamHostAndPorts": [
         {
-          "Host": "chat.web",
-          "Port": 50000
+          "Host": "localhost",
+          "Port": 5000
         }
       ],
-      "UpstreamPathTemplate": "api/chat/notification",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
+      "UpstreamPathTemplate": "/chat/notification/{catchAll}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]     
     }
   ]
 }

@@ -14,7 +14,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 @Injectable()
 export class RoomService {
 
-    protected basePath = 'http://localhost:61936/api';
+    protected basePath = 'https://localhost:5002';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -97,7 +97,7 @@ export class RoomService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${environment.searchServiceBaseUrl}/chat/rooms/${encodeURIComponent(String(rid))}/message`,
+        return this.httpClient.post<any>(`${this.basePath}/chat/rooms/${encodeURIComponent(String(rid))}/message`,
             message,
             {
                 // withCredentials: this.configuration.withCredentials,

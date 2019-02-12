@@ -37,6 +37,9 @@ namespace Chat.Web
                         .AllowCredentials()
                         .WithOrigins("http://localhost:4200"));
             });
+
+            //services.AddCors();
+
             services.AddMvc(opt => opt.Filters.Add(new CustomExceptionFilter()))
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerDocument(settings => settings.Title = "Chat");
@@ -60,8 +63,8 @@ namespace Chat.Web
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors("CorsPolicy");
+            //app.UseCors(b => b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseSignalR(builder => builder.MapHub<NotificationHub>("/chat/notification"));
-            app.UseWebSockets();          
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
 
