@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
 using EasyNetQ.AutoSubscribe;
 using KvitkouNet.Messages.UserManagement;
-using KvitkouNet.Messages.UserSettings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UserSettings.Logic.Services;
-using UserSettings.Web.MappingProfile;
 
-namespace UserSettings.Web.Consumers
+namespace UserSettings.Logic
 {
 	public class UserProfileConsumer : IConsumeAsync<UserCreationMessage>
 	{
@@ -21,10 +16,9 @@ namespace UserSettings.Web.Consumers
 			_mapper = mapper;
 			_userSettingsService = userSettingsService;
 		}
-		public Task ConsumeAsync(UserCreationMessage message)
+		public async Task ConsumeAsync(UserCreationMessage message)
 		{
-			_userSettingsService.CreateSetting(message.UserId);
-			return null;
+			await _userSettingsService.CreateSetting(message.UserId);
 		}
 	}
 }

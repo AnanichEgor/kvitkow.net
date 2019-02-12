@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UserSettings.Logic.Models;
 using UserSettings.Logic.Models.Helper;
