@@ -42,7 +42,7 @@ export class TicketFormComponent implements OnInit {
 
   onSubmit() {
     console.log(this.addTicketForm.value);
-    //let body = JSON.stringify()
+
     this.ticketSrv.sendTicket(this.addTicketForm.value).subscribe(err => {return console.error(err)});
 
   }

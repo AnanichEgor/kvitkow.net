@@ -19,6 +19,7 @@ export class AddTicketService {
     );
   }
   isAuthenticated() {
+
     const token = this.oauthService.getAccessToken();
     return !!token ? true : false;
   }
