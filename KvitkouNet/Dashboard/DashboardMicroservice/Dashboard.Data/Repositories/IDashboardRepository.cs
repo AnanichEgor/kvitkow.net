@@ -11,7 +11,7 @@ namespace Dashboard.Data.Repositories
         /// </summary>
         /// <param name="news">Модель новости</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        Task<int> Add(NewsDb news);
+        Task<string> Add(NewsDb news);
 
         /// <summary>
         ///     Удаление всех новостей в БД
@@ -24,7 +24,7 @@ namespace Dashboard.Data.Repositories
         /// </summary>
         /// <param name="newsId"></param>
         /// <returns></returns>
-        Task Delete(int newsId);
+        Task Delete(string newsId);
 
         /// <summary>
         ///     Получение всех новостей имеющихся в системе в БД
@@ -37,7 +37,7 @@ namespace Dashboard.Data.Repositories
         /// </summary>
         /// <param name="newsId">Id новости</param>
         /// <returns></returns>
-        Task<NewsDb> Get(int newsId);
+        Task<NewsDb> Get(string newsId);
 
         /// <summary>
         ///     Получение только актуальных новостей в БД
