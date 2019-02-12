@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +29,7 @@ namespace IdentityServer
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddCors();
+		    services.AddCors();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 			services.Configure<IISOptions>(options =>
@@ -36,8 +37,7 @@ namespace IdentityServer
 				options.AutomaticAuthentication = false;
 				options.AuthenticationDisplayName = "Windows";
 			});
-
-			var builder = services.AddIdentityServer(options =>
+            var builder = services.AddIdentityServer(options =>
 				{
 					options.Events.RaiseErrorEvents = true;
 					options.Events.RaiseInformationEvents = true;
@@ -48,9 +48,12 @@ namespace IdentityServer
 			builder.AddInMemoryIdentityResources(AuthStorage.GetIdentityResources());
 			builder.AddInMemoryApiResources(AuthStorage.GetApis());
 			builder.AddInMemoryClients(AuthStorage.GetClients());
+		    builder.AddAspNetIdentity<IdentityUser>();
+
+		    services.AddIdentity<IdentityUser, IdentityRole>()
+		        .AddUserManager<CustomUserManager>();
 
 			builder.AddDeveloperSigningCredential();
-			
 			services.AddAuthentication();
 		}
 
