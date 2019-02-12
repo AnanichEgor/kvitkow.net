@@ -17,7 +17,7 @@ namespace Dashboard.Logic.Services
         /// </summary>
         /// <param name="news">Модель новости</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
-        Task<(int, RequestStatus)> Add(News news);
+        Task<(string, RequestStatus)> Add(News news);
 
         /// <summary>
         ///     Удаление всех новостей
@@ -30,7 +30,7 @@ namespace Dashboard.Logic.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<RequestStatus> Delete(int newsId);
+        Task<RequestStatus> Delete(string newsId);
 
         /// <summary>
         ///     Получение всех новостей имеющихся в системе
@@ -43,7 +43,7 @@ namespace Dashboard.Logic.Services
         /// </summary>
         /// <param name="newsId">Id билета</param>
         /// <returns></returns>
-        Task<(News, RequestStatus)> Get(int newsId);
+        Task<(News, RequestStatus)> Get(string newsId);
 
         /// <summary>
         ///     Получение только актуальных новостей
