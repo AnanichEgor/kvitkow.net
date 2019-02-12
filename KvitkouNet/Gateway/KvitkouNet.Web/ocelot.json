@@ -1,6 +1,6 @@
 {
   "GlobalConfiguration": {
-    "BaseUrl": "https://api.mybusiness.com"
+    "BaseUrl": "https://localhost:5002"
   },
   "ReRoutes": [
     {
@@ -16,6 +16,18 @@
       "UpstreamHttpMethod": [ "Put", "Delete" ]
     },
     {
+      "DownstreamPathTemplate": "/connect/token",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityserver",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/connect/token",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    {
       "DownstreamPathTemplate": "/api/admin/logs/errors",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -25,7 +37,14 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/errors",
-      "UpstreamHttpMethod": [ "Get" ]
+      "RouteClaimsRequirement": {
+        "role": "admin"
+      },
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "api" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/accounts",
@@ -37,7 +56,11 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/accounts",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "api" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/payments",
@@ -49,7 +72,11 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/payments",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "api" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/queries",
@@ -61,7 +88,11 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/queries",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "api" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/tickets",
@@ -73,7 +104,11 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/tickets",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "api" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/deals",
@@ -85,7 +120,11 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/deals",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "api" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/admin/users",
@@ -97,7 +136,11 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/users",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "api" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/search/tickets",
@@ -109,7 +152,7 @@
         }
       ],
       "UpstreamPathTemplate": "/search/tickets",
-      "UpstreamHttpMethod": ["Get"]
+      "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/search/users",
@@ -121,7 +164,7 @@
         }
       ],
       "UpstreamPathTemplate": "/search/users",
-      "UpstreamHttpMethod": ["Get"]
+      "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/history/tickets",
@@ -133,7 +176,7 @@
         }
       ],
       "UpstreamPathTemplate": "/history/tickets",
-      "UpstreamHttpMethod": ["Get"]
+      "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/history/users",
@@ -146,6 +189,210 @@
       ],
       "UpstreamPathTemplate": "/history/users",
       "UpstreamHttpMethod": ["Get"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tickets",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tickets.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/tickets",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tickets/{id}/add",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tickets.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/tickets/{id}/add",
+      "UpstreamHttpMethod": [ "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tickets/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tickets.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/tickets/{id}",
+      "UpstreamHttpMethod": [ "Put", "Delete", "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tickets/actual",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tickets.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/tickets/actual",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tickets/page/{index}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tickets.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/tickets/page/{index}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/tickets/actual/page/{index}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tickets.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/tickets/actual/page/{index}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/chat/rooms/template",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "chat.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/chat/rooms/template",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/chat/rooms/{rid}/message",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "chat.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/chat/rooms/{rid}/message",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/chat/settings/{uid}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "chat.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/chat/settings/{uid}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/notification/all",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/notification/all",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/notification/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/notification/{id}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/notification/users/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/notification/users/{id}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/notification/email/all",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/notification/email/all",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/notification/email/users/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/notification/email/users/{id}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/notification/email/registration/confirmation/{uname}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/notification/email/registration/confirmation/{uname}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/notification/subscription/users/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/notification/subscription/users/{id}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/notification/subscription/{theme}/users/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notification.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/notification/subscription/{theme}/users/{id}",
+      "UpstreamHttpMethod": [ "Post" ]
     }
   ]
 }

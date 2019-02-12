@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
@@ -29,6 +28,8 @@ namespace UserSettings.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> UpdateProfile([FromBody]ProfileDto model, [FromRoute] string id)
 		{
+			if (string.IsNullOrEmpty(id))
+				return BadRequest();
 			ResultEnum result = await _service.UpdateProfile(id, model.FirstName, model.MiddleName, model.LastName, model.Birthday);
 			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
 		}
@@ -43,8 +44,9 @@ namespace UserSettings.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> UpdatePassword([FromBody]PasswordDto model, [FromRoute] string id)
 		{
+			if (string.IsNullOrEmpty(id))
+				return BadRequest();
 			ResultEnum result = await _service.UpdatePassword(id, model.OldPassword, model.NewPassword, model.ConfirmPassword);
-
 			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
 		}
 
@@ -58,7 +60,8 @@ namespace UserSettings.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> UpdateEmail([FromBody]string email, [FromRoute]string id)
 		{
-
+			if (string.IsNullOrEmpty(id))
+				return BadRequest();
 			ResultEnum result = await _service.UpdateEmail(id, email);
 			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
 		}
@@ -73,6 +76,8 @@ namespace UserSettings.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> UpdateNotification([FromBody]Notifications notification, [FromRoute]string id)
 		{
+			if (string.IsNullOrEmpty(id))
+				return BadRequest();
 			ResultEnum result = await _service.UpdateNotifications(id, notification);
 			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
 		}
@@ -82,16 +87,9 @@ namespace UserSettings.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> UpdateVisibleInformation([FromBody]VisibleInfo visibleInfo, [FromRoute]string id)
 		{
+			if (string.IsNullOrEmpty(id))
+				return BadRequest();
 			ResultEnum result = await _service.UpdateVisible(id, visibleInfo);
-			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
-		}
-
-		[HttpPut, Route("{id}/phones")]
-		[SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
-		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-		public async Task<IActionResult> UpdatePhones()
-		{
-			ResultEnum result = await _service.UpdatePhones();
 			return result == ResultEnum.Success ? (IActionResult)Ok(result) : BadRequest();
 		}
 
@@ -105,6 +103,8 @@ namespace UserSettings.Web.Controllers
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> DeleteAccount([FromRoute] string id)
 		{
+			if (string.IsNullOrEmpty(id))
+				return BadRequest();
 			var result = await _service.DeleteAccount(id);
 			return result ? (IActionResult)Ok(result) : BadRequest();
 		}
@@ -115,13 +115,24 @@ namespace UserSettings.Web.Controllers
 		/// <param name="id"></param>
 		/// <returns></returns>
 		[HttpGet("{id}")]
-		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<Settings>), Description = "All Ok")]
-		[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
+		[SwaggerResponse(HttpStatusCode.OK, typeof(Settings), Description = "All Ok")]
 		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
 		public async Task<IActionResult> Get([FromRoute] string id)
 		{
+			if (string.IsNullOrEmpty(id))
+				return BadRequest();
 			var result = await _service.Get(id);
 			return Ok(result);
+		}
+
+		[HttpPost("{id}")]
+		[SwaggerResponse(HttpStatusCode.OK, typeof(Settings), Description = "All Ok")]
+		[SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
+		public async Task<IActionResult> CreateSettings(string id)
+		{
+			if (string.IsNullOrEmpty(id)) return BadRequest();
+			ResultEnum result = await _service.CreateSetting(id);
+			return result == ResultEnum.Success ? (IActionResult)Ok() : BadRequest();
 		}
 	}
 }

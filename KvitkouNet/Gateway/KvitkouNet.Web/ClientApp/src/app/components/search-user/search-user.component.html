@@ -21,6 +21,10 @@
       <!-- Form Name -->
       <legend>Search Users</legend>
 
+      <div *ngIf="error">
+        Unable to get the last search.
+      </div>
+
       <!-- Text input-->
       <div class="form-group">
         <label class="col-md-4 control-label" for="textinput">Rating</label>
@@ -35,14 +39,18 @@
       </div>
 
       <!-- Button -->
+
       <div class="form-group">
-        <label class="col-md-4 control-label" for="singlebutton"></label>
-        <div class="col-md-4">
-          <button type="submit" class="btn btn-info">
-            Search
-          </button>
+          <div class="col-md-8">
+            <button type="submit" class="btn btn-info">
+              Search
+            </button>
+            &nbsp;
+            <button class="btn btn-info" *ngIf="authenticated" (click)="previousSearch()">
+              Previous search
+            </button>
+          </div>
         </div>
-      </div>
     </fieldset>
   </form>
 </div>

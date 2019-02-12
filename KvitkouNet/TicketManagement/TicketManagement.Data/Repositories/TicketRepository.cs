@@ -5,27 +5,29 @@ using Microsoft.EntityFrameworkCore;
 using TicketManagement.Data.Context;
 using TicketManagement.Data.DbModels;
 using TicketManagement.Data.DbModels.DbEnums;
-using TicketManagement.Data.Extensions;
-using TicketManagement.Data.Factories;
+using TicketManagement.Data.Exceptions;
 
 namespace TicketManagement.Data.Repositories
 {
     /// <summary>
-    /// Класс для работы с базой
+    ///     Класс для работы с базой
     /// </summary>
     public class TicketRepository : ITicketRepository
     {
         private readonly TicketContext _context;
         private readonly Page<Ticket> _page;
 
-        public TicketRepository(RepositoryContextFactory context, Page<Ticket> page)
+        public TicketRepository(TicketContext context,
+            Page<Ticket> page)
         {
-            _context = context.CreateDbContext();
+            _context = context;
             _page = page;
         }
 
         /// <summary>
         ///     Добавляет билет в БД
+        ///     RespondedUser не должны сюда приходить!
+        ///     Используйте отдельный метод AddRespondedUsers
         /// </summary>
         /// <param name="ticket">Модель билета</param>
         /// <returns>Код ответа Create и добавленную модель</returns>
@@ -34,28 +36,33 @@ namespace TicketManagement.Data.Repositories
             //WARNING используется для замены стандартных значений swagerr'a
             //(чтобы рукчками каждый раз не править)
             //при связи с фронтом надо убрать 
-            ticket.Id = null;
-            ticket.User.UserInfoId = null;
-            ticket.RespondedUsers = null;
+            //ticket.Id = null;
+            //ticket.User.UserInfoId = null;
+            //ticket.RespondedUsers = null;
             //WARNING
-            var user = await _context.UserInfos.Include(info => info.UserTickets)
-                .FirstOrDefaultAsync(info => info.UserInfoId == ticket.User.UserInfoId);
-            if (user == null)
-            {
+            //var user = await _context.UserInfos.Include(info => info.UserTickets)
+            //    .AsNoTracking()
+            //    .FirstOrDefaultAsync(info => info.UserInfoId == ticket.User.UserInfoId);
+            //if (user == null)
+            //{
                 _context.Tickets.Add(ticket);
                 await _context.SaveChangesAsync();
                 return _context.Tickets.Last()
                     .Id;
-            }
+            //}
 
-            user.UserTickets.Add(ticket);
-            await _context.SaveChangesAsync();
-            return _context.Tickets.Last()
-                .Id;
+            //user.UserTickets.Add(ticket);
+            //await _context.SaveChangesAsync();
+            //return _context.Tickets.Last()
+            //    .Id;
         }
 
         /// <summary>
         ///     Обновление информации о билете в БД
+        ///     Т.к. это обновление билета свойства
+        ///     UserInfo, RespondedUser не должны приходить
+        ///     обновление UserInfo происходит через сервис UserManagement
+        ///     для обновления RespondedUser есть отдельный метод
         /// </summary>
         /// <param name="id"></param>
         /// <param name="ticket">Модель билета</param>
@@ -63,14 +70,13 @@ namespace TicketManagement.Data.Repositories
         public async Task Update(string id,
             Ticket ticket)
         {
-            var origin = await _context.Tickets.Include(db => db.User)
+            var origin = await _context.Tickets
                 .Include(db => db.LocationEvent)
                 .Include(db => db.SellerAdress)
-                .Include(db => db.RespondedUsers)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
-
-            if (origin == null) return;
-
+            if (origin == null)
+                throw new TicketNotFoundException();
             _context.Tickets.Remove(origin);
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
@@ -79,15 +85,18 @@ namespace TicketManagement.Data.Repositories
         /// <summary>
         ///     Добавление пользователя в "я пойду"
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">id билета</param>
+        /// <param name="user">Модель пользователя</param>
         /// <returns></returns>
-        public async Task AddRespondedUsers(string id, UserInfo user)
+        public async Task AddRespondedUsers(string id,
+            UserInfo user)
         {
-            user.UserInfoId = null;
             var origin = await _context.Tickets
                 .Include(db => db.RespondedUsers)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
-            if (origin == null) return;
+            if (origin == null)
+                throw new TicketNotFoundException();
             origin.RespondedUsers.Add(user);
             _context.Tickets.Update(origin);
             await _context.SaveChangesAsync();
@@ -95,6 +104,8 @@ namespace TicketManagement.Data.Repositories
 
         /// <summary>
         ///     Удаление всех билетов в БД
+        ///     Удаляются только тикеты!
+        ///     Вся остальная информация остается в базе
         /// </summary>
         /// <returns></returns>
         public async Task DeleteAll()
@@ -102,7 +113,8 @@ namespace TicketManagement.Data.Repositories
             _context.Tickets.RemoveRange(_context.Tickets.Include(db => db.User)
                 .Include(db => db.LocationEvent)
                 .Include(db => db.SellerAdress)
-                .Include(db => db.RespondedUsers));
+                .Include(db => db.RespondedUsers)
+                .AsNoTracking());
             await _context.SaveChangesAsync();
         }
 
@@ -117,13 +129,13 @@ namespace TicketManagement.Data.Repositories
                 .Include(db => db.LocationEvent)
                 .Include(db => db.SellerAdress)
                 .Include(db => db.RespondedUsers)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
 
-            if (origin != null)
-            {
-                _context.Tickets.Remove(origin);
-                await _context.SaveChangesAsync();
-            }
+            if (origin == null)
+                throw new TicketNotFoundException();
+            _context.Tickets.Remove(origin);
+            await _context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -143,16 +155,17 @@ namespace TicketManagement.Data.Repositories
         /// <summary>
         ///     Получение билета по Id в БД
         /// </summary>
-        /// <param name="ticketIdGuid">Id билета</param>
+        /// <param name="id">id билета</param>
         /// <returns></returns>
-        public Task<Ticket> Get(string id)
+        public async Task<Ticket> Get(string id)
         {
-            return _context.Tickets.Include(db => db.User)
+            var res = await _context.Tickets.Include(db => db.User)
                 .Include(db => db.LocationEvent)
                 .Include(db => db.SellerAdress)
                 .Include(db => db.RespondedUsers)
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
+            return res ?? throw new TicketNotFoundException();
         }
 
         /// <summary>
@@ -181,15 +194,20 @@ namespace TicketManagement.Data.Repositories
             int pageSize,
             bool onlyActual = false)
         {
+            if (index < 1)
+                throw new PageNotFoundException();
+            index = index - 1;
             _page.CurrentPage = index;
             _page.PageSize = pageSize;
-            var query = _context.Tickets.AsQueryable();
+            var query = _context.Tickets.AsQueryable()
+                .AsNoTracking();
             if (onlyActual)
             {
                 _page.Tickets = await query.Include(db => db.User)
                     .Include(db => db.LocationEvent)
                     .Include(db => db.SellerAdress)
                     .Include(db => db.RespondedUsers)
+                    .AsNoTracking()
                     .Where(x => x.Status == (TicketStatusDb) 2)
                     .OrderByDescending(p => p.CreatedDate)
                     .Skip(index * pageSize)
@@ -198,6 +216,8 @@ namespace TicketManagement.Data.Repositories
                 _page.TotalPages = await query.Where(x => x.Status == (TicketStatusDb) 2)
                                        .CountAsync() /
                                    pageSize;
+                if (index > _page.TotalPages)
+                    throw new PageNotFoundException();
             }
             else
             {
@@ -205,11 +225,14 @@ namespace TicketManagement.Data.Repositories
                     .Include(db => db.LocationEvent)
                     .Include(db => db.SellerAdress)
                     .Include(db => db.RespondedUsers)
+                    .AsNoTracking()
                     .OrderByDescending(p => p.CreatedDate)
                     .Skip(index * pageSize)
                     .Take(pageSize)
                     .ToListAsync();
                 _page.TotalPages = await query.CountAsync() / pageSize;
+                if (index > _page.TotalPages)
+                    throw new PageNotFoundException();
             }
 
             return _page;

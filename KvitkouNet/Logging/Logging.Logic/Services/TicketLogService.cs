@@ -48,13 +48,16 @@ namespace Logging.Logic.Services
         {
             var exp = base.ComposeBaseFilter<TicketActionLogEntryDbModel>(filter);
 
+            if (!string.IsNullOrWhiteSpace(filter.UserId))
+                exp = PredicateExtensions.And(exp, entry => entry.UserId.ToLower().Contains(filter.UserId.ToLower()));
+
             if (!string.IsNullOrWhiteSpace(filter.TicketId))
                 exp = PredicateExtensions.And(exp, entry => entry.TicketId.ToLower().Contains(filter.TicketId.ToLower()));
 
             if (!string.IsNullOrWhiteSpace(filter.TicketName))
                 exp = PredicateExtensions.And(exp, entry => entry.TicketName.ToLower().Contains(filter.TicketName.ToLower()));
 
-            if (!filter.ActionType.HasFlag(TicketActionType.Unknown))
+            if (filter.ActionType != TicketActionType.Unknown)
                 exp = PredicateExtensions.And(exp, entry => filter.ActionType.HasFlag((TicketActionType)entry.Type));
 
             if (!string.IsNullOrWhiteSpace(filter.Description))

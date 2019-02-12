@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UserSettings.Data.DbModels
+﻿namespace UserSettings.Data.DbModels
 {
 	public class VisibleInfoDb
 	{

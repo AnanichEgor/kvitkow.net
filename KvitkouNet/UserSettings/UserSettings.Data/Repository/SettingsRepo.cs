@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using UserSettings.Data.Context;
 using UserSettings.Data.DbModels;
@@ -22,12 +19,16 @@ namespace UserSettings.Data
 
 		public async Task<SettingsDb> Get(string id)
 		{
-			return await _context.Settings.SingleOrDefaultAsync(x => x.SettingsId == id);
+			var result = await _context.Settings.FirstOrDefaultAsync(x => x.SettingsId == id);
+			_context.Notifications.Load();
+			_context.VisibleInformations.Load();
+			return result;
 		}
 
 		public async Task<bool> UpdateNotifications(string id, NotificationDb notifications)
 		{
-			var origin = await _context.Settings.SingleOrDefaultAsync(x => x.SettingsId == id);
+			var origin = await _context.Settings.FirstOrDefaultAsync(x => x.SettingsId == id);
+			_context.Notifications.Load();
 			if (origin != null)
 			{
 				origin.Notifications.IsLikeMyTicket = notifications.IsLikeMyTicket;
@@ -44,14 +45,10 @@ namespace UserSettings.Data
 			throw new NotImplementedException();
 		}
 
-		public Task DeleteAccount(string id)
-		{
-			throw new NotImplementedException();
-		}
-
 		public async Task<bool> UpdateVisible(string id, VisibleInfoDb visibleInfoDb)
 		{
-			var origin = await _context.Settings.SingleOrDefaultAsync(x => x.SettingsId == id);
+			var origin = await _context.Settings.FirstOrDefaultAsync(x => x.SettingsId == id);
+			_context.VisibleInformations.Load();
 			if (origin != null)
 			{
 				origin.VisibleInfo.VisibleAllPhones = visibleInfoDb.VisibleAllPhones;
@@ -60,6 +57,32 @@ namespace UserSettings.Data
 				return true;
 			}
 			return false;
+		}
+
+		public async Task<bool> CreateSettings(string id)
+		{
+			await _context.Settings.AddAsync(new SettingsDb()
+			{
+				SettingsId = id,
+				IsGetTicketInfo = false,
+				IsPrivateAccount = false,
+				PreferAddress = "preferAddres",
+				PreferPlace = "preferPlace",
+				PreferRegion = "preferRegion",
+				Notifications = new NotificationDb()
+				{
+					IsLikeMyTicket = false,
+					IsWantBuy = false,
+					IsOtherNotification = false,
+				},
+				VisibleInfo = new VisibleInfoDb()
+				{
+					VisibleAllPhones = false,
+					VisibleEmail = false
+				}
+			});
+			await _context.SaveChangesAsync();
+			return true;
 		}
 	}
 }

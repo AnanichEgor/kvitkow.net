@@ -19,12 +19,12 @@
               <span>{{ ticket.category }}</span>
               <div><i class="fas fa-map-marker-alt"></i> {{ ticket.city }}</div>
               <div>{{ ticket.date | date: "MMM d, y, H:mm" }}</div>
-              <div>{{ ticket.price | currency: "USD":true:"1.1-2" }}</div>
+              <div>{{ ticket.price | currency: "USD":'symbol':"1.1-2" }}</div>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a
                     class="btn btn-outline-info"
-                    [routerLink]="['/tickets', ticket.id]"
+                    [routerLink]="['/tickets-ticket', ticket.id]"
                     routerLinkActive="active"
                     >View details</a
                   >

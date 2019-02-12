@@ -17,7 +17,7 @@ namespace StatisticOnline.Data.Fakers
             _faker.RuleFor(online => online.CountAll, faker => faker.Random.Int(100, 200));
             _faker.RuleFor(online => online.CountRegistered, faker => faker.Random.Int(0, 100));
             _faker.RuleFor(online => online.CountGuest, faker => faker.Random.Int(0, 100));
-            _faker.RuleFor(online => online.CreateTime, faker => faker.Date.Between(DateTime.MinValue, DateTime.Now));
+            _faker.RuleFor(online => online.CreateTime, faker => faker.Date.Past(3));
         }
 
         public static IEnumerable<OnlineDb> Generate(int count = 10)

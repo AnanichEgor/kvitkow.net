@@ -15,9 +15,13 @@ namespace Search.Logic.Services
             _historyService = historyService;
         }
 
-        public async Task<SearchResult<UserInfo>> Search(UserSearchRequest request)
+        public async Task<SearchResult<UserInfo>> Search(UserSearchRequest request, string userId)
         {
-            await _historyService.SaveLastSearchAsync(request);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                await _historyService.SaveLastSearchAsync(request, userId);
+            }
+
             return await _userRepository.SearchAsync(request);
         }
 

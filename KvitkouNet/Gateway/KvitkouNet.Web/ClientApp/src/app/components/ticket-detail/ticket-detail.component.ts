@@ -1,6 +1,6 @@
 import { GetTicketByIdService } from './../../services/get-ticket-by-id.service';
 import { Component, OnInit } from '@angular/core';
-import { Tickets } from '../../models/tickets';
+import { Ticket } from '../../models/ticket';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -11,13 +11,15 @@ import { Location } from '@angular/common';
 })
 export class TicketDetailComponent implements OnInit {
   id: number;
-  tickets: Tickets;
+  tickets: Ticket;
+  authenticated: boolean;
   constructor(
     private ticketsSrv: GetTicketByIdService,
     private router: ActivatedRoute,
     private route: Router,
     private _location: Location
     ) {
+      this.authenticated = this.ticketsSrv.isAuthenticated();
     router.params.subscribe(params => this.id = params.id);
     }
 

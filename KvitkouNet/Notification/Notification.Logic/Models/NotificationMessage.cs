@@ -7,10 +7,15 @@ namespace Notification.Logic.Models
 	/// </summary>
 	public class NotificationMessage
 	{
-		/// <summary>
-		/// Заголовок уведомления
-		/// </summary>
-		public string Title { get; set; }
+        /// <summary>
+        /// Создатель уведомления
+        /// </summary>
+        public string Creator { get; set; }
+
+        /// <summary>
+        /// Заголовок уведомления
+        /// </summary>
+        public string Title { get; set; }
 
 		/// <summary>
 		/// Текст уведомления
