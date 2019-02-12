@@ -20,19 +20,21 @@ import { Observable } from 'rxjs';
 
 import { Subscription } from '../../models/notification/subscription';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from './variables';
+import { BASE_NOTIFICATION_PATH, COLLECTION_FORMATS, NotificationInjector }                     from './variables';
 import { Configuration }                                     from './configuration';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 
 @Injectable()
 export class SubscriptionService {
 
-    protected basePath = 'http://localhost:5002';
-    public defaultHeaders = new HttpHeaders();
-    public configuration = new Configuration();
+    protected basePath: string = 'http://localhost:5002';
+    public defaultHeaders: HttpHeaders = new HttpHeaders();
+    public configuration: Configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (basePath) {
+    constructor(protected httpClient: HttpClient, @Optional() configuration: Configuration, private oauthService: OAuthService) {
+      let basePath: string = NotificationInjector.get(BASE_NOTIFICATION_PATH);
+      if (basePath) {
             this.basePath = basePath;
         }
         if (configuration) {
@@ -92,8 +94,7 @@ export class SubscriptionService {
 
         return this.httpClient.get<Array<Subscription>>(`${this.basePath}/notification/subscription/users/${encodeURIComponent(String(id))}`,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -145,8 +146,7 @@ export class SubscriptionService {
             null,
             {
                 params: queryParameters,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -195,12 +195,20 @@ export class SubscriptionService {
         return this.httpClient.post<Array<Subscription>>(`${this.basePath}/notification/subscription/${encodeURIComponent(String(theme))}/users/${encodeURIComponent(String(id))}`,
             null,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
         );
+    }
+
+    private getHeaders() {
+      const token = this.oauthService.getAccessToken();
+      return !!token
+        ? new HttpHeaders({
+            Authorization: 'Bearer ' + token
+          })
+        : new HttpHeaders();
     }
 
 }

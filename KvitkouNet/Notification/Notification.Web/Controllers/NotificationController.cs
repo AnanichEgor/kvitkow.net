@@ -15,7 +15,6 @@ namespace Notification.Web.Controllers
     /// <summary>
     /// api для уведомлений
     /// </summary>
-    [EnableCors("CorsPolicy")]
     [Route("api/notification")]
 	public class NotificationController : Controller
 	{
@@ -63,7 +62,7 @@ namespace Notification.Web.Controllers
 		/// <remarks>email уведомления не обновляются</remarks>
 		[HttpPatch, Route("{id}")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(NoContentResult))]
-		[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Notification not found")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(BadRequestResult))]
 		public async Task<IActionResult> EditNotification([FromRoute] string id, [FromBody] NotificationMessage messsage)
 		{
 			await m_service.EditNotification(new UserNotification
@@ -83,8 +82,8 @@ namespace Notification.Web.Controllers
 		/// <returns>возвращает список уведомлений для пользователя</returns>
 		[HttpGet, Route("users/{id}")]
 		[SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<UserNotification>), Description = "All OK")]
-		[SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "User not found")]
-		public async Task<IActionResult> GetUserNotifications([FromRoute] string id, [FromQuery] bool onlyOpen = true)
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(BadRequestResult))]
+        public async Task<IActionResult> GetUserNotifications([FromRoute] string id, [FromQuery] bool onlyOpen = true)
 		{			
 			return Ok(await m_service.GetUserNotifications(id, onlyOpen));
 		}
@@ -96,7 +95,8 @@ namespace Notification.Web.Controllers
 		/// <param name="messsage">Сообщение уведомления</param>
 		[HttpPost, Route("users/{id}")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(NoContentResult))]
-		public async Task<IActionResult> AddUserNotification([FromRoute] string id, [FromBody] NotificationMessage messsage)
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(BadRequestResult))]
+        public async Task<IActionResult> AddUserNotification([FromRoute] string id, [FromBody] NotificationMessage messsage)
 		{
 			await m_service.AddUserNotifications(new UserNotificationBulkRequest
 			{
@@ -111,7 +111,8 @@ namespace Notification.Web.Controllers
 		/// </summary>
 		[HttpDelete, Route("users/{id}")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(NoContentResult))]
-		public async Task<IActionResult> SetStatusClosed([FromRoute] string id)
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(BadRequestResult))]
+        public async Task<IActionResult> SetStatusClosed([FromRoute] string id)
 		{
 			await m_service.SetStatusClosed(id);
 			return NoContent();
@@ -124,7 +125,8 @@ namespace Notification.Web.Controllers
 		/// <remarks>Для ненайденных пользователей уведомление не будет создано</remarks>
 		[HttpPost, Route("users/ids")]
 		[SwaggerResponse(HttpStatusCode.NoContent, typeof(NoContentResult))]
-		public async Task<IActionResult> AddNotifications([FromBody] UserNotificationBulkRequest request)
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(BadRequestResult))]
+        public async Task<IActionResult> AddNotifications([FromBody] UserNotificationBulkRequest request)
 		{
 			await m_service.AddUserNotifications(request);
 			return NoContent();
