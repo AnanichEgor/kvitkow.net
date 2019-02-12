@@ -62,7 +62,7 @@ namespace TicketManagement.Logic.Services
             //WARNING
             //if (ticket.User.Rating < 0)
                 //throw new UserBadRatingException("Bad user rating");
-            var validationResultTicket = await _validatorTickets.ValidateAsync(ticket);
+            //var validationResultTicket = await _validatorTickets.ValidateAsync(ticket);
             //var validationResultUser = await _validatorUsers.ValidateAsync(ticket.User);
             //if (!validationResultTicket.IsValid | !validationResultUser.IsValid)
             //{

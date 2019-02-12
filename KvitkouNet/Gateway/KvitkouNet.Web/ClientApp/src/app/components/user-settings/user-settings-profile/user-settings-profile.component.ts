@@ -11,7 +11,7 @@ export class UserSettingsProfileComponent implements OnInit {
     first: new FormControl(''),
     middle: new FormControl(''),
     last: new FormControl('')
-  })
+  });
   constructor() { }
 
   ngOnInit() {
