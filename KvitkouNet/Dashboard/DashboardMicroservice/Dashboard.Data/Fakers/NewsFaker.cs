@@ -11,6 +11,7 @@ namespace Dashboard.Data.Fakers
         static NewsFaker()
         {
             _fakerNews = new Faker<NewsDb>();
+            _fakerNews.RuleFor(db => db.NewsId, faker => faker.Random.String(7));
             _fakerNews.RuleFor(db => db.Description, faker => faker.Lorem.Sentences(10));
             _fakerNews.RuleFor(db => db.EventLink, faker => faker.Internet.Url());  
             _fakerNews.RuleFor(db => db.CreatedDate, faker => faker.Date.Soon());
@@ -18,6 +19,7 @@ namespace Dashboard.Data.Fakers
             _fakerNews.RuleFor(db => db.Ticket, f =>
             {
                 var fakerTicketInfo = new Faker<TicketInfoDb>();
+                fakerTicketInfo.RuleFor(db => db.TicketId, faker => faker.Random.String(7));
                 fakerTicketInfo.RuleFor(db => db.Name, faker => faker.Lorem.Word());
                 fakerTicketInfo.RuleFor(db => db.Date, faker => faker.Date.Soon());
                 fakerTicketInfo.RuleFor(db => db.City, faker => faker.Address.City());

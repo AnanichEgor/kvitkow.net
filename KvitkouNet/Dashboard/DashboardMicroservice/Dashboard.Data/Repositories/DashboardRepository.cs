@@ -25,6 +25,7 @@ namespace Dashboard.Data.Repositories
         /// <returns>Код ответа Create и добавленную модель</returns>
         public async Task<string> Add(NewsDb news)
         {
+
             _context.News.Add(news);
             await _context.SaveChangesAsync();
             return _context.News.Last().NewsId;
@@ -91,12 +92,6 @@ namespace Dashboard.Data.Repositories
         public async Task<IEnumerable<NewsDb>> GetAllActual()
         {
             var res = _context.News
-                .Include(db => db.NewsId)
-                .Include(db => db.Description)
-                .Include(db => db.TypeEvent)
-                .Include(db => db.Status)
-                .Include(db => db.EventLink)
-                .Include(db => db.CreatedDate)
                 .Include(db => db.Ticket)
                 .AsNoTracking()
                 .Where(x => x.Status == (NewsStatusDb)2);
