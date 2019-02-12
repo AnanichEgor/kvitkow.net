@@ -8,7 +8,7 @@ import { EmailNotificationService, EmailNotification } from 'src/app/services/no
 })
 export class EmailNotificationItemComponent implements OnInit {
 
-  public emailNotifications: Array<EmailNotification> = [];
+  public emailNotifications: Array<EmailNotification>;
 
   constructor(private service: EmailNotificationService) {
     service.emailNotificationGetAllEmailNotifications()

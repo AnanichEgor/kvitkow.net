@@ -11,7 +11,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 })
 export class NotificationItemComponent implements OnInit {
 
-  public userNotifications: Array<UserNotification> = [];
+  public userNotifications: Array<UserNotification>;
 
   constructor(private service: NotificationService, private oauthService: OAuthService) {
     service.notificationGetAll().subscribe(data => this.userNotifications = data);

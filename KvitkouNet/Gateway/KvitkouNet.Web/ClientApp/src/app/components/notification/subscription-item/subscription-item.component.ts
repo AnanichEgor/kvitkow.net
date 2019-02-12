@@ -9,10 +9,10 @@ import { SubscriptionService } from 'src/app/services/notification';
 })
 export class SubscriptionItemComponent implements OnInit {
 
-  public subscriptions: Array<Subscription> = [];
+  public subscriptions: Array<Subscription>;
 
   constructor(private service: SubscriptionService) {
-    service.subscriptionGetAll('')
+    service.subscriptionGetAll('2323')
       .subscribe(data => this.subscriptions = data);
    }
 

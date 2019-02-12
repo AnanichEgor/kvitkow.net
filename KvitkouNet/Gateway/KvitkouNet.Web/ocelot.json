@@ -188,7 +188,7 @@
         }
       ],
       "UpstreamPathTemplate": "/history/users",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": ["Get"]
     },
     {
       "DownstreamPathTemplate": "/api/tickets",
@@ -263,7 +263,7 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "/api/chat/rooms/{template}",
+      "DownstreamPathTemplate": "/api/chat/rooms/template",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -271,7 +271,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/chat/rooms/{template}",
+      "UpstreamPathTemplate": "/chat/rooms/template",
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
@@ -393,18 +393,6 @@
       ],
       "UpstreamPathTemplate": "/notification/subscription/{theme}/users/{id}",
       "UpstreamHttpMethod": [ "Post" ]
-    },
-    {
-      "DownstreamPathTemplate": "/chat/notification/{catchAll}",
-      "DownstreamScheme": "ws",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5000
-        }
-      ],
-      "UpstreamPathTemplate": "/chat/notification/{catchAll}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]     
     }
   ]
 }
