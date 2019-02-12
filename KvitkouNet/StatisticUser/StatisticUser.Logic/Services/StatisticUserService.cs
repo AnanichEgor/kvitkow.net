@@ -50,7 +50,7 @@ namespace StatisticUser.Logic.Services
             throw new System.NotImplementedException();
         }
 
-        public async Task<LoadResult> GetAllUser(DataSourceLoadOptions loadOptions)
+        public LoadResult GetAllUser(DataSourceLoadOptions loadOptions)
         {
             var result= DataSourceLoader.Load(
                 _service.SummaryTable,
