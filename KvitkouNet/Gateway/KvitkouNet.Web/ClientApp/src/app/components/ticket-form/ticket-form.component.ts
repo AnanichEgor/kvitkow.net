@@ -12,10 +12,10 @@ import { Location } from '@angular/common';
 })
 export class TicketFormComponent implements OnInit {
   addTicketForm: FormGroup;
-
+  authenticated: boolean;
 
   constructor(private ticketSrv: AddTicketService, private _location: Location) {
-
+    this.authenticated = this.ticketSrv.isAuthenticated();
     this.addTicketForm = new FormGroup({
       'name' : new FormControl(),
       'free' : new FormControl(),
@@ -26,6 +26,13 @@ export class TicketFormComponent implements OnInit {
         'house' : new FormControl(),
         'flat' : new FormControl(),
       }),
+      'sellerAdress' : new FormGroup({
+        'scountry' : new FormControl(),
+        'scity' : new FormControl(),
+        'sstreet' : new FormControl(),
+        'shouse' : new FormControl(),
+        'sflat' : new FormControl(),
+      }),
       'additionalData' : new FormControl(),
       'typeEvent' : new FormControl(),
       })
@@ -35,8 +42,8 @@ export class TicketFormComponent implements OnInit {
 
   onSubmit() {
     console.log(this.addTicketForm.value);
-    //let body = JSON.stringify()
+
     this.ticketSrv.sendTicket(this.addTicketForm.value).subscribe(err => {return console.error(err)});
-    this._location.back();
+
   }
 }

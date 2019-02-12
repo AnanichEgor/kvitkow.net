@@ -26,6 +26,7 @@
     "core-js": "^2.5.4",
     "devextreme": "18.2.5",
     "devextreme-angular": "18.2.5",
+    "jwt-decode": "^2.2.0",
     "ms-rest-azure": "^2.6.0",
     "oidc-client": "^1.6.1",
     "rxjs": "~6.3.3",

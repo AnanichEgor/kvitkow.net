@@ -4,7 +4,7 @@ using UserSettings.Logic.Models;
 
 namespace UserSettings.Logic.MappingProfile
 {
-	public class SettingsProfile: AutoMapper.Profile
+	public class SettingsProfile: Profile
 	{
 		public SettingsProfile()
 		{

@@ -21,7 +21,7 @@ namespace Search.Web.Filters
             {
                 ServiceName = "SearchMicroService",
                 ExceptionType = context.Exception.GetType().FullName,
-                InnerExceptionString = context.Exception.InnerException.ToString(),
+                InnerExceptionString = context.Exception.InnerException?.ToString(),
                 HResult = context.Exception.HResult,
                 Message = context.Exception.Message,
                 StackTrace = context.Exception.StackTrace,
