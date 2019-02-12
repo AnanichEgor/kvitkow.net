@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NSwag.Annotations;
@@ -43,10 +44,10 @@ namespace StatisticUser.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<ITimeOnResouces>), Description = "Statistics of users")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public object All([FromQuery] DataSourceLoadOptions loadOptions)
+        public ActionResult<LoadResult> All([FromQuery] DataSourceLoadOptions loadOptions)
         {
             var  result = _statisticService.GetAllUser(loadOptions);
-            return result.Result;
+            return result;
         }
 
     }
