@@ -12,7 +12,6 @@ namespace TicketManagement.Logic.Validators
         {
             RuleFor(ticket => ticket.FirstName).NotEmpty().Length(3, 15);
             RuleFor(ticket => ticket.LastName).NotEmpty().Length(3, 15);
-            RuleFor(ticket => ticket.Rating).NotEmpty().LessThanOrEqualTo(50);
         }
     }
 }
