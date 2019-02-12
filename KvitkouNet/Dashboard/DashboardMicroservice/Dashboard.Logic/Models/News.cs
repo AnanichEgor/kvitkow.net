@@ -1,25 +1,20 @@
 ﻿using Dashboard.Logic.Models.Enums;
+using System.Collections.Generic;
 
 namespace Dashboard.Logic.Models
 {
     public class News
     {
         /// <summary>
+        ///     Id билета
+        /// </summary>
+        public string NewsId { get; set; }
+    
+        /// <summary>
         ///     Краткое описание события
         /// </summary>
         public string Description { get; set; }
-
-        /// <summary>
-        ///     Имя пользователя
-        /// </summary>
-        public UserInfo UserInfo { get; set; }
-                 
-        /// <summary>
-        ///     Цена билета
-        /// </summary>
-        public TicketInfo TicketInfo { get; set; }
-
-        
+                
         /// <summary>
         ///     Тип мероприятия
         /// </summary>
@@ -34,5 +29,10 @@ namespace Dashboard.Logic.Models
         ///     Ссылка на мероприятие
         /// </summary>
         public string EventLink { get; set; }
+        
+        /// <summary>
+        ///     Цена билета
+        /// </summary>
+        public virtual TicketInfo Ticket { get; set; }
     }
 }
