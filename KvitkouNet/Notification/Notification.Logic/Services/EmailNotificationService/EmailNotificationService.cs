@@ -11,7 +11,6 @@ using Notification.Logic.Models;
 using Notification.Logic.Models.Requests;
 using Notification.Data.Models.Enums;
 using Microsoft.Extensions.Options;
-using Notification.Logic.Exceptions;
 
 namespace Notification.Logic.Services.EmailNotificationService
 {
@@ -69,7 +68,7 @@ namespace Notification.Logic.Services.EmailNotificationService
 			//валидация
 			User user = await m_context.Users.SingleOrDefaultAsync(x => x.Name == sendEmailRequest.ReceiverName);
 
-			if (user != null) throw new UserNotFound($"Пользователь {sendEmailRequest.ReceiverName} не найден");
+			if (user != null) throw new Exception();
 
 			await m_emailSenderService.SendEmailAsync(sendEmailRequest, m_senderConfig);
 
@@ -89,7 +88,7 @@ namespace Notification.Logic.Services.EmailNotificationService
 		{
 			TemporaryUser user = await m_context.TemporaryUsers.SingleOrDefaultAsync(x => x.Name == userName);
 
-			if (user == null) throw new UserNotFound($"Пользователь {userName} не найден");
+			if (user == null) throw new NullReferenceException();
 
 			m_context.TemporaryUsers.Remove(user);
 
@@ -99,8 +98,8 @@ namespace Notification.Logic.Services.EmailNotificationService
 		private async Task SendEmailForUsers(IEnumerable<User> users, string creator, string subject, string text, Data.Models.Enums.Severity severity)
 		{
             User sender = await m_context.Users.SingleOrDefaultAsync(x => x.Name == m_senderConfig.Name);
-            if (sender == null) throw new UserNotFound($"Пользователь {m_senderConfig.Name} не найден");
-            foreach (User user in users)
+            if (sender == null) throw new Exception();
+			foreach (User user in users)
 			{
 				await m_emailSenderService.SendEmailAsync(new SendEmailRequest
 				{

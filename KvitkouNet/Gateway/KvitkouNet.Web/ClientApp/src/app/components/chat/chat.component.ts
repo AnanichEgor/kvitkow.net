@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
-import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -24,29 +23,21 @@ export class ChatComponent implements OnInit {
   newMessage: Message;
   private connection: HubConnection;
   public messagesForHus: Array<Message> = [];
-  authenticated: boolean;
 
   constructor(
     private serviceChat: ChatService, private serviceRoom: RoomService
     ) {
-      this.authenticated = this.serviceChat.isAuthenticated();
-
-      // установим соедениние для Hub
       this.connection = new HubConnectionBuilder()
-      .withUrl(`https://localhost:5002/chat/notification`)
+      .withUrl('http://localhost:5002/chat/notification')
       .build();
 
-      // Откроем Hub
       this.connection
       .start()
       .then(() => console.log('Connection established'))
       .catch(err => console.error(err));
       console.log('consrtructor');
-
-// подпишемся на метод alertOnSendedMessageAllUsers на беке (показывает всем отправленое сообщение)
     this.connection.on('alertOnSendedMessageAllUsers', msg =>
-    (console.log('startMethodHub. Came in method  = ' + msg.text ),
-    this.newMessage = msg.text,
+    (console.log('startMethodHub. Came in method  = ' + msg ),
       this.messagesForHus.push(msg),
       console.log('EndMethodHub')
       ))
@@ -57,7 +48,6 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
 }
 
-// Отправка сообщение
   onAddMessage(textMessage: string) {
 
      const message: Message = {
@@ -66,12 +56,11 @@ export class ChatComponent implements OnInit {
       isEdit: false,
       userId: '1'
     };
-     this.serviceRoom.roomAddMessage(message, this.serviceChat.getUserIdFromClaims()).subscribe(
+     this.serviceRoom.roomAddMessage(message, '2' ).subscribe(
        (r) =>console.log(r)
      , err => console.log('err'));
   }
 
-  // получение пользовательских настроек
   onGetUserSetting() {
 
      this.serviceChat.chatGetUserSettings('1').subscribe(x =>
@@ -82,7 +71,6 @@ export class ChatComponent implements OnInit {
   );
   }
 
-  // поиск сообщения по шаблону
   onSearchMessage(templateMessageIn: string){
     this.templateMessage = templateMessageIn;
     this.serviceRoom.roomSearchMessage('1', this.templateMessage).subscribe(x =>

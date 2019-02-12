@@ -10,10 +10,7 @@ using Notification.Logic;
 using Notification.Logic.MappingProfiles;
 using Notification.Web.Subscriber;
 using Notification.Logic.Configs;
-using Notification.Web.Validators;
-using FluentValidation.AspNetCore;
-using FluentValidation;
-using Notification.Web.Validators.Filters;
+using Notification.Web.MappingProfiles;
 
 namespace Notification.Web
 {
@@ -39,20 +36,21 @@ namespace Notification.Web
                 cfg.AddProfile<Web.MappingProfiles.SeverityProfile>();
 			});
 
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
 
-            services.AddMvc(opts =>
-                {
-                    opts.Filters.Add(typeof(ValidationFilterAttribute));
-                    opts.Filters.Add(new NotificationNotFoundExceptionFilter());
-                    opts.Filters.Add(new UserNotFoundExceptionFilter());
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
-            services.AddSingleton<IValidatorFactory, ValidatorFactory>();
+            services.AddMvc();
 
-            services.AddSwaggerDocument();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+			services.AddSwaggerDocument();
 
 			services.Configure<SenderConfig>(Configuration.GetSection("SenderConfig"));
 			services.RegisterNotificationContext();
@@ -61,8 +59,6 @@ namespace Notification.Web
 			services.RegisterEmailSenderService();
             services.RegisterSubscriptionService();
             services.RegisterUserService();
-            
-            //services.RegisterNotificationMessageFilterValidator();
 
             services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=rabbit"));
 		}
@@ -72,18 +68,16 @@ namespace Notification.Web
 		{
 			if (env.IsDevelopment())
 			{
-				app.UseDeveloperExceptionPage();                
-            }
-            else
-            {
-                app.UseSubscriber("Notification", Assembly.GetExecutingAssembly());
-            }
+				app.UseDeveloperExceptionPage();
+			}
 
-            app.UseCors(b => b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            app.UseCors("CorsPolicy");
 
             app.UseSwagger().UseSwaggerUi3();
 
-			app.UseMvc();			
+			app.UseMvc();
+
+			app.UseSubscriber("Notification", Assembly.GetExecutingAssembly());
 		}
 	}
 }

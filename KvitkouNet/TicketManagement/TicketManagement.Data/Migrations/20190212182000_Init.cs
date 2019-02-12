@@ -43,10 +43,10 @@ namespace TicketManagement.Data.Migrations
                 name: "Tickets",
                 columns: table => new
                 {
+                    Id = table.Column<string>(nullable: false),
                     UserInfoId = table.Column<string>(nullable: true),
                     Free = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Id = table.Column<string>(nullable: false),
                     LocationEventLocationAddressId = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: true),
                     AdditionalData = table.Column<string>(nullable: true),
@@ -83,7 +83,6 @@ namespace TicketManagement.Data.Migrations
                     UserInfoId = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    Rating = table.Column<double>(nullable: true),
                     TicketId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
