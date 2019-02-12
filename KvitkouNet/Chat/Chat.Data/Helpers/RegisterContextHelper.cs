@@ -9,7 +9,7 @@ namespace Chat.Data.Helpers
 {
     public class RegisterContextHelper
     {
-        private string m_dataSource = @"Data Source=f:\Git\kvitkou-net\KvitkouNet\Chat\Chat.Web\ChatDB.db";
+        private string m_dataSource = @"Data Source=./ChatDB.db";
 
         public RegisterContextHelper()
         {
