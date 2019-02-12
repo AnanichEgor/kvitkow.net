@@ -18,7 +18,7 @@ namespace Chat.Data.Helpers
 
             using (var ctx = new ChatContext(o.Options))
             {
-               // ctx.Database.EnsureCreated();
+                ctx.Database.EnsureCreated();
 
                 //if (!ctx.Rooms.Any())
                 //{

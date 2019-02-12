@@ -132,7 +132,7 @@ namespace Chat.Web.Controllers
 
                 });                
             }
-            await _hubContext.Clients.All.SendAsync("alertOnSendedMessageAllUsers", (object)message);
+            await _hubContext.Clients.All.SendAsync("alertOnSendedMessageAllUsers", message.Text);
             return NoContent();
         }
 

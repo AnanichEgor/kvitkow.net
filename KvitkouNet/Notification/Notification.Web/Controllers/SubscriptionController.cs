@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Cors;
 
 namespace Notification.Web.Controllers
 {
+    [EnableCors("CorsPolicy")]
     [Route("api/notification/subscription")]
     [ApiController]
     public class SubscriptionController : ControllerBase

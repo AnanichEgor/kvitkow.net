@@ -31,7 +31,6 @@
     "core-js": "^2.5.4",
     "jwt-decode": "^2.2.0",
     "ms-rest-azure": "^2.6.0",
-    "oidc-client": "^1.6.1",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"

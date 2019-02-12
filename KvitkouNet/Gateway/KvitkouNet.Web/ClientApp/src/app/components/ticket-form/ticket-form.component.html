@@ -16,14 +16,15 @@
             </div>
       </div>
 
-      <div class="form-group">
-          <div class="form-check">
-              <label class="form-check-label">
-                <input formControlName="free" value="true" type="checkbox">
-                Free ticket?
-              </label>
+      <div class="form-group" input type="text">
+          <label class=" control-label" for="selectbasic">Free ticket?</label>
+          <div input type="text">
+            <select id="selectbasic" name="selectbasic" formControlName="free" class="form-control">
+              <option value="false" input type="text">true</option>
+              <option value="true" input type="text">false</option>
+            </select>
           </div>
-      </div>
+        </div>
 
 
       <div class="form-group" input type="text">
@@ -69,19 +70,19 @@
           <div class="form-row">
               <div class="form-input-text form-group col-md-4">
                   <label> Страна: </label>
-                  <input type="text" formControlName="scountry" class="form-control">
+                  <input type="text" formControlName="country" class="form-control">
                 </div>
                 <div class="form-input-text form-group col-md-3">
                     <label>Город: </label>
-                    <input type="text" formControlName="scity" class="form-control">
+                    <input type="text" formControlName="city" class="form-control">
                   </div>
               <div class="form-input-text form-group col-md-4">
                   <label>Улица: </label>
-                  <input type="text" formControlName="sstreet" class="form-control">
+                  <input type="text" formControlName="street" class="form-control">
                 </div>
               <div class="form-input-text form-group col-md-1">
                   <label>Дом: </label>
-                  <input type="number" formControlName="shouse" class="form-control">
+                  <input type="number" formControlName="house" class="form-control">
                 </div>
               </div>
 

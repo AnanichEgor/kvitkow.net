@@ -9,7 +9,6 @@ using Notification.Logic.Models;
 using Notification.Logic.Models.Requests;
 using Notification.Data.Models;
 using Notification.Data.Models.Enums;
-using Notification.Logic.Exceptions;
 
 namespace Notification.Logic.Services.NotificationService
 {
@@ -28,8 +27,7 @@ namespace Notification.Logic.Services.NotificationService
 		{
 			IQueryable<User> users = m_context.Users.Where(x => request.UserIds.Any(id => id == x.Id));
 			Data.Models.Notification notification = m_mapper.Map<NotificationMessage, Data.Models.Notification>(request.Message);
-            if (notification == null) throw new NotificationNotFound($"Уведомление не найдено");
-            DateTime date = DateTime.UtcNow;          
+			DateTime date = DateTime.UtcNow;          
             foreach (User user in users)
 			{
                 Data.Models.Notification notification2 = new Data.Models.Notification
@@ -58,8 +56,7 @@ namespace Notification.Logic.Services.NotificationService
 		public async Task EditNotification(UserNotification userNotification)
 		{
 			Data.Models.Notification oldNotification = await m_context.Notifications.SingleOrDefaultAsync(x => x.Id == userNotification.NotificationId);
-            if (oldNotification == null) throw new NotificationNotFound($"Уведомление не найдено");
-            m_mapper.Map(userNotification, oldNotification);
+			m_mapper.Map(userNotification, oldNotification);
 
 			//m_context.Attach(notification);
 			//m_context.Entry(notification).State = EntityState.Modified;
@@ -70,7 +67,7 @@ namespace Notification.Logic.Services.NotificationService
 		public async Task<IEnumerable<UserNotification>> GetAll()
 		{
 			Data.Models.Notification[] result = m_context.Notifications.AsNoTracking()
-				.Include(x => x.User).Where(x => x.IsClosed == false).ToArray();
+				.Include(x => x.User).ToArray();
 
             UserNotification[] mapped = m_mapper.Map<UserNotification[]>(result);
 
@@ -79,11 +76,7 @@ namespace Notification.Logic.Services.NotificationService
 
 		public async Task<UserNotification> GetNotification(string notificationId)
 		{
-            Data.Models.Notification notification = await m_context.Notifications
-                .AsNoTracking()
-                .SingleOrDefaultAsync(x => x.Id == notificationId);
-            if (notification == null) throw new NotificationNotFound($"Уведомление не найдено");
-            return m_mapper.Map<UserNotification>(notification);
+			return m_mapper.Map<UserNotification>(await m_context.Notifications.AsNoTracking().FirstAsync(x => x.Id == notificationId));
 		}
 
 		public async Task<IEnumerable<UserNotification>> GetUserNotifications(string userId, bool onlyOpen)
@@ -99,8 +92,7 @@ namespace Notification.Logic.Services.NotificationService
 		public async Task SetStatusClosed(string notificationId)
 		{
 			Data.Models.Notification notification = await m_context.Notifications.SingleOrDefaultAsync(x => x.Id == notificationId);
-            if (notification == null) throw new NotificationNotFound($"Уведомление не найдено");
-            notification.IsClosed = true;
+			notification.IsClosed = true;
 			await m_context.SaveChangesAsync();
 		}
 
