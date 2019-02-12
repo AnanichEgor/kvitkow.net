@@ -61,6 +61,7 @@ namespace Chat.Web
             }
             app.UseCors("CorsPolicy");
             app.UseSignalR(builder => builder.MapHub<NotificationHub>("/chat/notification"));
+            app.UseWebSockets();          
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();
 

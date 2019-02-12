@@ -45,11 +45,11 @@ export class ChatService {
   }
 
   // достаем userId
-  private getUserIdFromClaims() {
+  public getUserIdFromClaims() {
     const claims = this.oauthService.getIdentityClaims();
     if (claims) {
   }
-    return claims['userID'];
+    return claims['sub'];
   }
     /**
      * @param consumes string[] mime-types
@@ -112,8 +112,8 @@ export class ChatService {
         return this.httpClient.patch<any>(`${environment.searchServiceBaseUrl}/chat/settings/${encodeURIComponent(String(uid))}`,
             settings,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                // withCredentials: this.configuration.withCredentials,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -156,8 +156,8 @@ export class ChatService {
 
         return this.httpClient.get<Settings>(`${environment.searchServiceBaseUrl}/chat/settings/${encodeURIComponent(String(uid))}`,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                // withCredentials: this.configuration.withCredentials,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }

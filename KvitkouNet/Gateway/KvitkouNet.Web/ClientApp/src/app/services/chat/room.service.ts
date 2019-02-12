@@ -45,6 +45,14 @@ export class RoomService {
         return false;
     }
 
+    private getHeaders() {
+      const token = this.oauthService.getAccessToken();
+      return !!token
+        ? new HttpHeaders({
+            Authorization: 'Bearer ' + token
+          })
+        : new HttpHeaders();
+    }
 
     /**
      *
@@ -92,8 +100,8 @@ export class RoomService {
         return this.httpClient.post<any>(`${environment.searchServiceBaseUrl}/chat/rooms/${encodeURIComponent(String(rid))}/message`,
             message,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                // withCredentials: this.configuration.withCredentials,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -146,8 +154,8 @@ export class RoomService {
         return this.httpClient.post<any>(`${environment.searchServiceBaseUrl}/chat/rooms/room/${encodeURIComponent(String(uid))}`,
             room,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                // withCredentials: this.configuration.withCredentials,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -190,8 +198,8 @@ export class RoomService {
 
         return this.httpClient.delete<any>(`${environment.searchServiceBaseUrl}/chat/rooms/messages/${encodeURIComponent(String(mid))}`,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                // withCredentials: this.configuration.withCredentials,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -244,8 +252,8 @@ export class RoomService {
         return this.httpClient.patch<any>(`${environment.searchServiceBaseUrl}/chat/rooms/${encodeURIComponent(String(rid))}/message`,
             message,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                // withCredentials: this.configuration.withCredentials,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -293,8 +301,8 @@ export class RoomService {
 
         return this.httpClient.get<Array<Message>>(`${environment.searchServiceBaseUrl}/chat/rooms/${encodeURIComponent(String(rid))}/messages/history/${encodeURIComponent(String(historyCountsMessages))}`,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                // withCredentials: this.configuration.withCredentials,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -337,8 +345,8 @@ export class RoomService {
 
         return this.httpClient.get<Array<Room>>(`${environment.searchServiceBaseUrl}/api/chat/rooms/users/${encodeURIComponent(String(uid))}`,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                // withCredentials: this.configuration.withCredentials,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -386,8 +394,8 @@ export class RoomService {
 
         return this.httpClient.get<Array<Message>>(`${environment.searchServiceBaseUrl}/api/chat/rooms/${encodeURIComponent(String(rid))}/messages/${encodeURIComponent(String(template))}`,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                // withCredentials: this.configuration.withCredentials,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -430,8 +438,8 @@ export class RoomService {
 
         return this.httpClient.get<Array<Room>>(`${environment.searchServiceBaseUrl}/api/chat/rooms/${encodeURIComponent(String(template))}`,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                // withCredentials: this.configuration.withCredentials,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }

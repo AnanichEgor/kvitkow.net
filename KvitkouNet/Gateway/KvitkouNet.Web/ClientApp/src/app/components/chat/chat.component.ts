@@ -66,7 +66,7 @@ export class ChatComponent implements OnInit {
       isEdit: false,
       userId: '1'
     };
-     this.serviceRoom.roomAddMessage(message, '2' ).subscribe(
+     this.serviceRoom.roomAddMessage(message, this.serviceChat.getUserIdFromClaims()).subscribe(
        (r) =>console.log(r)
      , err => console.log('err'));
   }

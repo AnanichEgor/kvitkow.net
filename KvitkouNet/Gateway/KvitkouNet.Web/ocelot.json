@@ -188,7 +188,7 @@
         }
       ],
       "UpstreamPathTemplate": "/history/users",
-      "UpstreamHttpMethod": ["Get"]
+      "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/tickets",
@@ -393,6 +393,18 @@
       ],
       "UpstreamPathTemplate": "/notification/subscription/{theme}/users/{id}",
       "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/chat/notification",
+      "DownstreamScheme": "ws",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "chat.web",
+          "Port": 50000
+        }
+      ],
+      "UpstreamPathTemplate": "api/chat/notification",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
     }
   ]
 }
