@@ -123,7 +123,7 @@
             Search
           </button>
           &nbsp;
-          <button class="btn btn-info" (click)="previousSearch()">
+          <button class="btn btn-info" *ngIf="authenticated" (click)="previousSearch()">
             Previous search
           </button>
         </div>

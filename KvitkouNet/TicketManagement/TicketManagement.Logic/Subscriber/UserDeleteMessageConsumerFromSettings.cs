@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using EasyNetQ.AutoSubscribe;
 using KvitkouNet.Messages.UserSettings;
+using Microsoft.EntityFrameworkCore;
 using TicketManagement.Data.Context;
 using TicketManagement.Data.DbModels;
 
@@ -24,6 +26,15 @@ namespace TicketManagement.Logic.Subscriber
         public async Task ConsumeAsync(DeleteUserProfileMessage message)
         {
             var modelDb = _mapper.Map<UserInfo>(message);
+            var userDb = await _ticketContext.UserInfos.FindAsync(modelDb.UserInfoId);
+            if (userDb == null) return;
+            var origin = _ticketContext.Tickets.Include(db => db.User)
+                .Include(db => db.LocationEvent)
+                .Include(db => db.SellerAdress)
+                .Include(db => db.RespondedUsers)
+                .AsNoTracking()
+                .Where(x => x.User.UserInfoId == modelDb.UserInfoId);
+            _ticketContext.Tickets.RemoveRange(origin);
             _ticketContext.UserInfos.Remove(modelDb);
             await _ticketContext.SaveChangesAsync();
         }
