@@ -5,12 +5,14 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using IdentityServer.SecurityClient.Model;
+using IdentityServer.UserManagmentClient.Model;
+using Microsoft.AspNetCore.Identity;
 
 namespace IdentityServer
 {
     public class UserManagerHelper
     {
-        public static async Task<IList<Claim>> GetClaims(UserRightsResponse userRightsResponse, CancellationToken cancellationToken)
+        public static IList<Claim> GetClaims(UserRightsResponse userRightsResponse, CancellationToken cancellationToken)
         {
             var userRights = userRightsResponse.UserRights;
             if (userRights == null)
@@ -38,6 +40,52 @@ namespace IdentityServer
             result.AddRange(functions);
             result.AddRange(rights);
             return result;
+        }
+
+        internal static string GetEmail(ForViewModel userGet, CancellationToken cancellationToken)
+        {
+            if (userGet == null)
+            {
+                throw new InvalidOperationException("User not found");
+            }
+            return userGet.Email;
+        }
+
+        public static bool GetEmailConfirmed(ForViewModel userGet, CancellationToken cancellationToken)
+        {
+            if (userGet == null)
+            {
+                throw new InvalidOperationException("User not found");
+            }
+            return true;
+        }
+
+        public static string GetPhoneNumber(ForViewModel userGet, CancellationToken cancellationToken)
+        {
+            if (userGet == null)
+            {
+                throw new InvalidOperationException("User not found");
+            }
+            return String.Empty;
+        }
+
+        public static bool GetPhoneNumberConfirmed(ForViewModel userGet, CancellationToken cancellationToken)
+        {
+            if (userGet == null)
+            {
+                throw new InvalidOperationException("User not found");
+            }
+            return true;
+        }
+
+        public static IdentityUser FindByName(ForViewModel userGet, CancellationToken cancellationToken)
+        {
+            return new IdentityUser(userGet.Login)
+            {
+                Email = userGet.Email,
+                Id = userGet.Id,
+                UserName = userGet.Login
+            };
         }
     }
 }

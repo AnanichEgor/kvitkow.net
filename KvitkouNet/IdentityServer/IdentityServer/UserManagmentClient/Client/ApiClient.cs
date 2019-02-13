@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Extensions;
 
-namespace IdentityServer.SecurityClient.Client
+namespace IdentityServer.UserManagmentClient.Client
 {
     /// <summary>
     /// API client is mainly responible for making the HTTP call to the API backend.
@@ -20,7 +20,7 @@ namespace IdentityServer.SecurityClient.Client
         /// Initializes a new instance of the <see cref="ApiClient" /> class.
         /// </summary>
         /// <param name="basePath">The base path.</param>
-        public ApiClient(String basePath="http://localhost:5011")
+        public ApiClient(String basePath= "http://localhost:5003")
         {
             BasePath = basePath;
             RestClient = new RestClient(BasePath);
@@ -82,8 +82,7 @@ namespace IdentityServer.SecurityClient.Client
             // add form parameter, if any
             foreach(var param in formParams)
                 request.AddParameter(param.Key, param.Value, ParameterType.GetOrPost);
-
-            // add file parameter, if any
+            
             if (postBody != null) // http body (model) parameter
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
 
