@@ -43,9 +43,10 @@ namespace TicketManagement.Data.Repositories
             //var user = await _context.UserInfos.Include(info => info.UserTickets)
             //    .AsNoTracking()
             //    .FirstOrDefaultAsync(info => info.UserInfoId == ticket.User.UserInfoId);
+            ticket.Status = DateTime.Now > ticket.TimeActual ? TicketStatusDb.Expired:TicketStatusDb.Actual;
             //if (user == null)
             //{
-                _context.Tickets.Add(ticket);
+            _context.Tickets.Add(ticket);
                 await _context.SaveChangesAsync();
                 return _context.Tickets.Last()
                     .Id;
@@ -78,6 +79,7 @@ namespace TicketManagement.Data.Repositories
             if (origin == null)
                 throw new TicketNotFoundException();
             _context.Tickets.Remove(origin);
+            ticket.Status = DateTime.Now > ticket.TimeActual ? TicketStatusDb.Expired : TicketStatusDb.Actual;
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
         }
