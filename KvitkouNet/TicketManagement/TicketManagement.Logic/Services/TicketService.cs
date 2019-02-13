@@ -139,7 +139,7 @@ namespace TicketManagement.Logic.Services
         public async Task AddRespondedUsers(string id,
             UserInfo user)
         {
-            var validateAct = _validatorTickets.Validate(user);
+            var validateAct = _validatorUsers.Validate(user);
             if (!validateAct.IsValid)
                 throw new ValidationException("Validation failed",
                     validateAct.Errors);
