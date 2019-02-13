@@ -33,9 +33,10 @@ export class TicketFormComponent implements OnInit {
         'house' : new FormControl(),
         'flat' : new FormControl(),
       }),
+      'eventLink' : new FormControl(),
       'additionalData' : new FormControl(),
       'typeEvent' : new FormControl(),
-      })
+      });
   }
 
   ngOnInit() {}
