@@ -42,12 +42,19 @@
       <div class="form-group">
         <label class="col-md-4 control-label" for="textinput">Category</label>
         <div class="col-md-4">
-          <input
-            formControlName="category"
-            type="text"
-            placeholder="Enter Ticket Category"
-            class="form-control input-md"
-          />
+          <select formControlName="category" class="form-control input-md">
+            <option value="" selected>Enter Ticket Category</option>
+            <option value="0">Unknown</option>
+            <option value="1">Movie</option>
+            <option value="2">Concerts</option>
+            <option value="4">Theater</option>
+            <option value="8">Ballet</option>
+            <option value="16">Sport</option>
+            <option value="32">Parties</option>
+            <option value="64">Trainings</option>
+            <option value="128">Exhibitions</option>
+            <option value="256">Circus</option>
+          </select>
         </div>
       </div>
 
