@@ -19,7 +19,7 @@ export class SearchTicketResultsComponent implements OnInit {
     limit: this.defaultLimit
   });
   error: boolean;
-  categotyType = {
+  categoryType = {
     '0': 'Unknown',
     '1': 'Movie',
     '2': 'Concerts',
