@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserSettings } from 'src/app/models/user-settings/userSettings';
+import { AdvancedSettingsService } from 'src/app/services/user-settings/advanced-settings.service';
 
 
 @Component({
@@ -7,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-settings-advanced.component.css']
 })
 export class UserSettingsAdvancedComponent implements OnInit {
-
-  constructor() { }
+  userSettings: UserSettings
+  constructor(private advansedService: AdvancedSettingsService) { }
 
   ngOnInit() {
   }
+  onSubmit() {
+    console.log(this.userSettings.PreferAddress);
 
+    this.advansedService.get(11).subscribe(err => {return console.error(err)});
+
+  }
 }
