@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EasyNetQ;
 using FluentValidation;
+using KvitkouNet.Messages.Logging;
 using KvitkouNet.Messages.Logging.Enums;
 using KvitkouNet.Messages.UserManagement;
 using KvitkouNet.Messages.UserSettings;
@@ -67,6 +68,18 @@ namespace UserManagement.Logic.Services
                     Email = findUser.AccountDB.Email,
                     Type = AccountActionType.Registration,
                 });
+                await _bus.PublishAsync(new AccountLogMessage
+                {
+                    UserId = findUser.Id,
+                    UserName = findUser.AccountDB.Login,
+                    Email = findUser.AccountDB.Email,
+                    Type = AccountActionType.Registration,
+                });
+                await _bus.PublishAsync(new RegistrationMessage
+                {
+                    Name = findUser.AccountDB.Login,
+                    Email = findUser.AccountDB.Email,
+                });
             }
             return "Ok";
         }
@@ -84,10 +97,10 @@ namespace UserManagement.Logic.Services
             return temp;
         }
 
-        public async Task<ForViewModel> GetByLogin(string login)
+        public async Task<ModelWithHashPassw> GetByLogin(string login)
         {
             var model = await _unitOfWork.Users.GetByLoginAsync(login);
-            return model != null ? (_mapper.Map<ForViewModel>(model)):(null);
+            return model != null ? (_mapper.Map<ModelWithHashPassw>(model)):(null);
         }
 
         public async Task<ForViewModel> Get(string id)
@@ -101,7 +114,15 @@ namespace UserManagement.Logic.Services
             var findUser = _unitOfWork.Users.FindAsync(x => x.Id == id).Result.FirstOrDefault().ProfileDB;
             if (findUser == null) return "Not Found";
             var profileDB = _mapper.Map<ForUpdateModel, ProfileDB>(userModel);
-            profileDB.Id = findUser.Id;
+            await _unitOfWork.Profiles.UpdateProfileAsync(profileDB, findUser.Id);
+            return "Ok";
+        }
+
+        public async Task<string> UpdateByLogin(string login, ForUpdateModel userModel)
+        {
+            var findUser = _unitOfWork.Users.FindAsync(x => x.AccountDB.Login == login).Result.FirstOrDefault().ProfileDB;
+            if (findUser == null) return "Not Found";
+            var profileDB = _mapper.Map<ForUpdateModel, ProfileDB>(userModel);
             await _unitOfWork.Profiles.UpdateProfileAsync(profileDB, findUser.Id);
             return "Ok";
         }
@@ -133,6 +154,15 @@ namespace UserManagement.Logic.Services
             var findUser = _unitOfWork.Users.FindAsync(x => x.Id == emailUpdateMessage.UserId).Result.FirstOrDefault();
             if (findUser == null) return false;
             findUser.AccountDB.Email = emailUpdateMessage.Email;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateEmailStatus(string login)
+        {
+            var findUser = _unitOfWork.Users.FindAsync(x => x.AccountDB.Login == login).Result.FirstOrDefault();
+            if (findUser == null) return false;
+            findUser.EmailConfirmed = true;
             await _context.SaveChangesAsync();
             return true;
         }

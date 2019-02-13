@@ -2,7 +2,7 @@
 
 namespace UserManagement.Logic.Models
 {
-    public class ForViewModel
+    public class ModelWithHashPassw
     {
         /// <summary>
         /// Уникальный идентификатор пользователя
@@ -58,5 +58,10 @@ namespace UserManagement.Logic.Models
         /// Подтверждение email
         /// </summary>
         public bool EmailConfirmed { get; set; }
+
+        /// <summary>
+        /// Зашифрованный пароль
+        /// </summary>
+        public string HashPassword { get; set; }
     }
 }
