@@ -324,7 +324,9 @@ namespace Security.Logic.Implementations
             }
         }
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async Task<IEnumerable<AccessRight>> SetDefaultRoleToNewUser()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             throw new System.NotImplementedException();
         }
