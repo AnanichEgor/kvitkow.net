@@ -28,6 +28,18 @@
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
+      "DownstreamPathTemplate": "/connect/userinfo",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityserver",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/connect/userinfo",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+    {
       "DownstreamPathTemplate": "/.well-known/openid-configuration",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -39,7 +51,6 @@
       "UpstreamPathTemplate": "/.well-known/openid-configuration",
       "UpstreamHttpMethod": [ "Get" ]
     },
-
     {
       "DownstreamPathTemplate": "/connect/endsession",
       "DownstreamScheme": "http",
@@ -53,7 +64,7 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "/connect/token",
+      "DownstreamPathTemplate": "/.well-known/openid-configuration/jwks",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -61,8 +72,8 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/connect/token",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+      "UpstreamPathTemplate": "/.well-known/openid-configuration/jwks",
+      "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/errors",

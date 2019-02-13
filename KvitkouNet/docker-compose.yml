@@ -14,7 +14,10 @@ services:
     volumes:
       - ./aspnetapp.pfx:/https/aspnetapp.pfx
     depends_on:
+      - rabbit
       - identityserver
+      - logging.web
+      - usermanagement.web
       - adminpanel.web
       - search.web
       - security.web
@@ -36,8 +39,6 @@ services:
     build:
       context: .
       dockerfile: UserManagement/UserManagement.Web/Dockerfile
-    depends_on:
-      - rabbit
     ports:
       - 5003:80
 
@@ -46,10 +47,6 @@ services:
     build:
       context: ./
       dockerfile: AdminPanel/AdminPanel.Web/Dockerfile
-    depends_on:
-      - logging.web
-      - usermanagement.web
-      - rabbit
     ports:
       - 5005:80
 
@@ -58,8 +55,6 @@ services:
     build:
       context: ./
       dockerfile: Logging/Logging.Web/Dockerfile
-    depends_on:
-      - rabbit
     ports:
       - 5006:80
 
@@ -72,8 +67,6 @@ services:
       - host.env
     ports:
       - 5007:80
-    depends_on:
-      - rabbit
 
    search.web:
     image: ${DOCKER_REGISTRY}searchweb
@@ -86,7 +79,6 @@ services:
     ports:
       - 5008:80
     depends_on:
-      - rabbit
       - elasticsearch
 
    usersettings.web:
@@ -94,8 +86,6 @@ services:
     build:
       context: ./
       dockerfile: UserSettings/UserSettings.Web/Dockerfile
-    depends_on:
-      - rabbit
     ports:
       - 5009:80
 
@@ -132,8 +122,6 @@ services:
     build:
       context: ./
       dockerfile: Security/Security.Web/Dockerfile
-    depends_on:
-      - rabbit
     ports:
       - 5011:80
 
