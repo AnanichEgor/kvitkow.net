@@ -20,7 +20,7 @@ namespace IdentityServer.UserManagmentClient.Client
         /// Initializes a new instance of the <see cref="ApiClient" /> class.
         /// </summary>
         /// <param name="basePath">The base path.</param>
-        public ApiClient(String basePath= "http://localhost:5003")
+        public ApiClient(String basePath= "http://usermanagement.web")
         {
             BasePath = basePath;
             RestClient = new RestClient(BasePath);
