@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using KvitkouNet.Messages.UserSettings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
@@ -84,9 +85,9 @@ namespace UserManagement.Web.Controllers
         }
 
         /// <summary>
-        /// Удаление пользователя по логину
+        /// Удаление пользователя по id
         /// </summary>
-        /// <param name="login"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete, Route("{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(string), Description = "User delete")]
@@ -103,13 +104,13 @@ namespace UserManagement.Web.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet, Route("{email}")]
+        [HttpGet, Route("email")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User is returned")]
         [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid id")]
-        public async Task<IActionResult> GetEmail(string id)
+        public async Task<IActionResult> UpdateEmail([FromBody] EmailUpdateMessage emailUpdateMessage)
         {
-            var result = await _service.GetEmail(id);
+            var result = await _service.UpdateEmail(emailUpdateMessage);
             return Ok(result);
         }
     }
