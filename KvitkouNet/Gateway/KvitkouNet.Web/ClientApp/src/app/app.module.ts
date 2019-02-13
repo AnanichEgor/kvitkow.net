@@ -118,7 +118,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
   providers: [
     GetTicketByIdService,
     GetallticketsService,
-    EditGuard, LogService,
+    EditGuard,
+    LogService,
     UsersService,
     ChatService,
     RoomService,

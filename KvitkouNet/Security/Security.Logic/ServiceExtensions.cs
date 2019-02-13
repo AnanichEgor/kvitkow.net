@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Security.Data;
 using Security.Logic.Implementations;
@@ -19,9 +20,9 @@ namespace Security.Logic
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection RegisterSecurityService(this IServiceCollection services)
+        public static IServiceCollection RegisterSecurityService(this IServiceCollection services, IConfiguration configuration)
         {
-            services.RegisterSecurityData();
+            services.RegisterSecurityData(configuration);
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<AccessRightProfile>();

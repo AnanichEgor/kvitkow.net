@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Security.Data.ConfigModels;
 using Security.Data.Context;
 using Security.Data.MapperProfiles;
 
@@ -39,19 +41,8 @@ namespace Security.Data
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection RegisterSecurityData(this IServiceCollection services)
+        public static IServiceCollection RegisterSecurityData(this IServiceCollection services, IConfiguration configuration)
         {
-            var o = new DbContextOptionsBuilder<SecurityContext>();
-            o.UseSqlite("Data Source=./SecurityDatabase.db");
-
-            using (var ctx = new SecurityContext(o.Options))
-            {
-                ctx.Database.EnsureCreated();
-                var can = ctx.Database.CanConnect();
-            }
-
-            services.AddDbContext<SecurityContext>(
-                opt => opt.UseSqlite("Data Source=./SecurityDatabase.db"));
 
             services.AddAutoMapper(cfg =>
             {
@@ -62,6 +53,31 @@ namespace Security.Data
                 cfg.AddProfile<UserRightsProfile>();
                 cfg.AddProfile<UserInfoProfile>();
             });
+
+            var o = new DbContextOptionsBuilder<SecurityContext>();
+            o.UseSqlite("Data Source=./SecurityDatabase.db");
+
+            using (var ctx = new SecurityContext(o.Options))
+            {
+                if (ctx.Database.EnsureCreated())
+                {
+                    var senderConfig = configuration.GetSection("DefaultRulesAll").Get<DefaultRulesAll>();
+
+                    DataBaseHelper.CreateDefault(senderConfig, new SecurityData(ctx, new Mapper(new MapperConfiguration(cfg =>
+                    {
+                        cfg.AddProfile<AccessRightProfile>();
+                        cfg.AddProfile<AccessFunctionProfile>();
+                        cfg.AddProfile<FeatureProfile>();
+                        cfg.AddProfile<RoleProfile>();
+                        cfg.AddProfile<UserRightsProfile>();
+                        cfg.AddProfile<UserInfoProfile>();
+                    }))));
+                }
+            }
+
+            services.AddDbContext<SecurityContext>(
+                opt => opt.UseSqlite("Data Source=./SecurityDatabase.db"));
+
 
             services.AddScoped<ISecurityData, SecurityData>();
 
