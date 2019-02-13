@@ -50,21 +50,24 @@ namespace UserManagement.Logic.Services
             }
             var res = await _unitOfWork.Users.AddAsync(_mapper.Map<UserDB>(model));
             var findUser = _unitOfWork.Users.FindAsync(x => x.AccountDB.Login == model.UserName).Result.FirstOrDefault();
-            await _bus.PublishAsync(new UserCreationMessage
+            if (_bus.IsConnected==true)
             {
-                UserId = findUser.Id.ToString(),
-                FirstName = findUser.ProfileDB.FirstName,
-                LastName = findUser.ProfileDB.LastName,
-                UserName = findUser.AccountDB.Login,
-                Email = findUser.AccountDB.Email
-            });
-            await _bus.PublishAsync(new AccountMessage
-            {
-                UserId = findUser.Id,
-                UserName = findUser.AccountDB.Login,
-                Email = findUser.AccountDB.Email,
-                Type = AccountActionType.Registration,
-            });
+                await _bus.PublishAsync(new UserCreationMessage
+                {
+                    UserId = findUser.Id.ToString(),
+                    FirstName = findUser.ProfileDB.FirstName,
+                    LastName = findUser.ProfileDB.LastName,
+                    UserName = findUser.AccountDB.Login,
+                    Email = findUser.AccountDB.Email,
+                });
+                await _bus.PublishAsync(new AccountMessage
+                {
+                    UserId = findUser.Id,
+                    UserName = findUser.AccountDB.Login,
+                    Email = findUser.AccountDB.Email,
+                    Type = AccountActionType.Registration,
+                });
+            }
             return "Ok";
         }
 
@@ -108,29 +111,36 @@ namespace UserManagement.Logic.Services
             var findUser = _unitOfWork.Users.FindAsync(x => x.Id == id).Result.FirstOrDefault();
             if (findUser == null) return "Not Found";
             await _unitOfWork.Users.DeleteAsync(findUser);
-            await _bus.PublishAsync(new AccountMessage
+            if (_bus.IsConnected == true)
             {
-                UserId = findUser.Id,
-                UserName = findUser.AccountDB.Login,
-                Email = findUser.AccountDB.Email,
-                Type = AccountActionType.Delete,
-            });
-            await _bus.PublishAsync(new UserDeletedMessage
-            {
-                UserId = findUser.Id
-            });
+                await _bus.PublishAsync(new AccountMessage
+                {
+                    UserId = findUser.Id,
+                    UserName = findUser.AccountDB.Login,
+                    Email = findUser.AccountDB.Email,
+                    Type = AccountActionType.Delete,
+                });
+                await _bus.PublishAsync(new UserDeletedMessage
+                {
+                    UserId = findUser.Id
+                });
+            }
             return "Ok";
         }
 
-        public Task<string> UpdateEmail(EmailUpdateMessage emailUpdateMessage)
+        public async Task<bool> UpdateEmail(EmailUpdateMessage emailUpdateMessage)
         {
             var findUser = _unitOfWork.Users.FindAsync(x => x.Id == emailUpdateMessage.UserId).Result.FirstOrDefault();
-            var findAcc = _unitOfWork.Accounts.FindAsync(x => x.Email == emailUpdateMessage.Email).Result.FirstOrDefault();
-            //if (findUser == null) return "Not Found";
-            //findUser.AccountDB.Email = emailUpdateMessage.Email;
-            //await _context.SaveChangesAsync();
-            //return "Ok";
-            throw new NotImplementedException();
+            if (findUser == null) return false;
+            findUser.AccountDB.Email = emailUpdateMessage.Email;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> GetEmail(string email)
+        {
+            var findEmail = await _unitOfWork.Accounts.FindAsync(x => x.Email == email);
+            return findEmail.FirstOrDefault() != null ? true : false;
         }
 
         public Task<IEnumerable<GroupModel>> GetAllGroups()
