@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EasyNetQ.AutoSubscribe;
+using KvitkouNet.Messages.Notification;
 using KvitkouNet.Messages.TicketManagement;
 using KvitkouNet.Messages.UserManagement;
 using KvitkouNet.Messages.UserSettings;
@@ -12,7 +13,8 @@ namespace UserManagement.Logic.Subscriber
 {
     public class UserSettingsMessageConsumer :
         IConsumeAsync<PasswordUpdateMessage>,
-        IConsumeAsync<DeleteUserProfileMessage>
+        IConsumeAsync<DeleteUserProfileMessage>,
+        IConsumeAsync<ConfirmRegistrationMessage>
 
     {
         private readonly IUserService _userService;
@@ -34,5 +36,9 @@ namespace UserManagement.Logic.Subscriber
             throw new NotImplementedException();
         }
 
+        public async Task ConsumeAsync(ConfirmRegistrationMessage message)
+        {
+            await _userService.UpdateEmailStatus(message.Name);
+        }
     }
 }

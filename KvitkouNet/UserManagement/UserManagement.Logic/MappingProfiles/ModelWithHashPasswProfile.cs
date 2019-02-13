@@ -4,11 +4,11 @@ using UserManagement.Logic.Models;
 
 namespace UserManagement.Logic.MappingProfiles
 {
-    public class ForViewModelProfile : AutoMapper.Profile
+    public class ModelWithHashPasswProfile : AutoMapper.Profile
     {
-        public ForViewModelProfile()
+        public ModelWithHashPasswProfile()
         {
-            CreateMap<ForViewModel, UserDB>()
+            CreateMap<ModelWithHashPassw, UserDB>()
                 .ForPath(x => x.AccountDB.Login,
                     map => map.MapFrom(u => u.Login))
                 .ForPath(x => x.ProfileDB.FirstName,
@@ -29,6 +29,8 @@ namespace UserManagement.Logic.MappingProfiles
                     map => map.MapFrom(u => u.PhoneNumber))
                 .ForPath(x => x.EmailConfirmed,
                     map => map.MapFrom(u => u.EmailConfirmed))
+                .ForPath(x => x.AccountDB.Password,
+                    map => map.MapFrom(u => u.HashPassword))
                 .ReverseMap()
                 .ForPath(y=>y.Login, 
                     map=>map.MapFrom(u=>u.AccountDB.Login))
@@ -47,7 +49,11 @@ namespace UserManagement.Logic.MappingProfiles
                 .ForPath(y => y.Email,
                     map => map.MapFrom(u => u.AccountDB.Email))
                 .ForPath(y => y.PhoneNumber,
-                    map => map.MapFrom(u => u.PhoneNumber));
+                    map => map.MapFrom(u => u.PhoneNumber))
+                .ForPath(y => y.EmailConfirmed,
+                    map => map.MapFrom(u => u.EmailConfirmed))
+                .ForPath(y => y.HashPassword,
+                    map => map.MapFrom(u => u.AccountDB.Password));
 
 
             
