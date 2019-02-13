@@ -21,12 +21,7 @@ namespace TicketManagement.Data.DbModels
         ///     Фамилия юзера
         /// </summary>
         public string LastName { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the user rating.
-        /// </summary>
-        public double? Rating { get; set; }
-
+        
         /// <summary>
         ///     Список билетов пользователя
         /// </summary>

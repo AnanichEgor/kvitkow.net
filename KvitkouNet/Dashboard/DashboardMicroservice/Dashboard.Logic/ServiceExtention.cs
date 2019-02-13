@@ -5,18 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Dashboard.Data.Context;
 using Dashboard.Data.Repositories;
-<<<<<<< HEAD
-using Dashboard.Logic.Models;
 using Dashboard.Logic.Services;
 using Dashboard.Logic.Validators;
 using Dashboard.Logic.MappingProfiles;
-=======
-using Dashboard.Logic.MappingProfiles;
-using Dashboard.Logic.Models;
-using Dashboard.Logic.Services;
-using Dashboard.Logic.Validators;
-using Dashboard.Logic.MppingProfiles;
->>>>>>> DashboardMicroservice
+using Dashboard.Data;
 
 namespace Dashboard.Logic
 {
@@ -30,20 +22,22 @@ namespace Dashboard.Logic
         public static IServiceCollection RegisterDashboardService(this IServiceCollection services)
         {
             services.AddDbContext<DashboardContext>(opt => opt.UseSqlite("Data Source=./NewsDatabase.db"));
-            
-            services.AddScoped<IValidator<News>, NewsValidator>();
-            services.AddScoped<IDashboardRepository, DashboardRepository>();
-            services.AddScoped<IDashboardService, DashboardService>();
 
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<NewsProfile>();
                 cfg.AddProfile<TicketInfoProfile>();
-                cfg.AddProfile<UserInfoProfile>();
             });
+            
+            services.AddScoped<IValidator<Models.News>, NewsValidator>();
+            services.AddScoped<IDashboardRepository, DashboardRepository>();
+            services.AddScoped<IDashboardService, DashboardService>();
+
             return services;
+
         }
 
+        #region Tests
         private static Mock<IDashboardService> DashboardServiceMock()
         {
             var newsServiceMock = new Mock<IDashboardService>();
@@ -51,5 +45,6 @@ namespace Dashboard.Logic
 
             return newsServiceMock;
         }
+        #endregion
     }
 }

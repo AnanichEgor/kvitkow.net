@@ -57,7 +57,6 @@ namespace TicketManagement.Data.Fakes
                 var fakeaddress = new Faker<UserInfo>();
                 fakeaddress.RuleFor(db => db.FirstName, faker => faker.Lorem.Word());
                 fakeaddress.RuleFor(db => db.LastName, faker => faker.Lorem.Word());
-                fakeaddress.RuleFor(db => db.Rating, faker => faker.Random.Int(0, 50));
                 return fakeaddress.Generate();
             });
             _fakerTicket.RuleFor(db => db.RespondedUsers, f =>
@@ -65,7 +64,6 @@ namespace TicketManagement.Data.Fakes
                 var fakeusercoll = new Faker<UserInfo>();
                 fakeusercoll.RuleFor(db => db.FirstName, faker => faker.Lorem.Word());
                 fakeusercoll.RuleFor(db => db.LastName, faker => faker.Lorem.Word());
-                fakeusercoll.RuleFor(db => db.Rating, faker => faker.Random.Int(-50, 50));
                 return fakeusercoll.Generate(f.Random.Int(0, 10));
             });
         }
