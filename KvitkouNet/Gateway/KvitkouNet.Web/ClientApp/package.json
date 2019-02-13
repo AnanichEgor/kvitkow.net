@@ -27,8 +27,6 @@
     "devextreme": "18.2.5",
     "devextreme-angular": "18.2.5",
     "devextreme-aspnet-data-nojquery": "^2.1.1",
-    "bootstrap": "^4.2.1",
-    "core-js": "^2.5.4",
     "jwt-decode": "^2.2.0",
     "ms-rest-azure": "^2.6.0",
     "rxjs": "~6.3.3",

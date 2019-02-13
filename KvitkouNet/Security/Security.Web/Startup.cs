@@ -34,7 +34,7 @@ namespace Security.Web
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerDocument();
-            services.RegisterSecurityService();
+            services.RegisterSecurityService(Configuration);
 
             services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=rabbit"));
         }
@@ -56,7 +56,7 @@ namespace Security.Web
                     template: "{controller}/{action=Index}/{id?}");
             });
 
-            app.UseSubscriber("Notification", Assembly.GetExecutingAssembly());
+            //app.UseSubscriber("Notification", Assembly.GetExecutingAssembly());
         }
     }
 }
