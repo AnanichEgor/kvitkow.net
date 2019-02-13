@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using EasyNetQ;
-using UserManagement.Logic.Subscriber;
 using System.Reflection;
+using UserManagement.Logic.Subscriber;
+using EasyNetQ.ConnectionString;
 
 namespace UserManagement.Web
 {
@@ -22,10 +23,14 @@ namespace UserManagement.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //services.AddAuthentication().AddIdentityServerAuthentication();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerDocument(settings => settings.Title = "User Management");
             services.RegisterUserServices();
-            services.RegisterEasyNetQ("host=rabbit");
+            services.AddOptions();
+            services.AddSingleton(Configuration);
+            var value = Configuration["Hostname"];
+            services.AddSingleton(RabbitHutch.CreateBus(value));
             services.AddCors(); 
         }
 
@@ -39,6 +44,7 @@ namespace UserManagement.Web
             app.UseCors(b => b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseSwagger().UseSwaggerUi3();
             app.UseSubscriber("UserSettingsService", Assembly.GetExecutingAssembly());
+            //app.UseAuthentication();
             app.UseMvc();
         }
     }

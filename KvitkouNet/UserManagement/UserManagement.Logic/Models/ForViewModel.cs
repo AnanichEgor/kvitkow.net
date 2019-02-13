@@ -48,5 +48,10 @@ namespace UserManagement.Logic.Models
         /// Электронный адрес пользователя
         /// </summary>
         public string Email { get; set; }
+
+        /// <summary>
+        /// Телефон пользователя
+        /// </summary>
+        public string PhoneNumber { get; set; }
     }
 }

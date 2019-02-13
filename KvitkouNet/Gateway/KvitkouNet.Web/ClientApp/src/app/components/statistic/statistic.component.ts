@@ -1,9 +1,11 @@
+import { Subscription } from 'rxjs';
 import {
   StatisticService,
   StatisticOnline,
   RangeDate,
   Areas
 } from './../../services/statistic.service';
+import * as AspNetData from 'devextreme-aspnet-data-nojquery';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -12,17 +14,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./statistic.component.css']
 })
 export class StatisticComponent implements OnInit {
-
   userList: StatisticOnline[] = [];
   range: RangeDate = { startDate: new Date(), endDate: new Date() };
   areas: Areas[] = [];
   statisticIndex: number;
-
-
+  gridDataSource: any;
+  gridDataSource2: any;
+  customersData: any;
+  url: string;
 
   constructor(private statisticService: StatisticService) {
     this.statisticIndex = 0; // 0 - статистика посещений 1 - online и т.д.
     this.setDate(1);
+    this.url = 'http://localhost:5060/api/statistic/user';
+
+    this.gridDataSource = AspNetData.createStore({
+      key: 'userId',
+      loadUrl: this.url + '/all',
+      onBeforeSend: function(method, ajaxOptions) {
+        ajaxOptions.xhrFields = { withCredentials: true };
+      }
+    });
   }
 
   setDate(year: number) {
@@ -71,7 +83,7 @@ export class StatisticComponent implements OnInit {
   }
 
   clickButton(index: number) {
-     this.statisticIndex = index;
+    this.statisticIndex = index;
   }
 
   ngOnInit() {

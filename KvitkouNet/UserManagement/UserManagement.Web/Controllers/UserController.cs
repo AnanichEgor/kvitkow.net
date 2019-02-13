@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using KvitkouNet.Messages.UserSettings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NSwag.Annotations;
@@ -25,7 +26,8 @@ namespace UserManagement.Web.Controllers
         }
         
         [HttpPost, Route("register")]
-        [SwaggerResponse(HttpStatusCode.NoContent, typeof(void), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(string), Description = "All OK")]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Register([FromBody]UserRegisterModel model)
         {
@@ -43,6 +45,7 @@ namespace UserManagement.Web.Controllers
         /// <returns></returns>
         [HttpGet, Route("")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<ForViewModel>), Description = "All Ok")]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> GetAll()
         {
@@ -55,40 +58,13 @@ namespace UserManagement.Web.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet, Route("{id:int}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User is returned")]
+        [HttpGet, Route("{id}")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<ForViewModel>), Description = "User is returned")]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid id")]
         public async Task<IActionResult> Get(string id)
         {
             var result = await _service.Get(id);
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Получение пользователя по id
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        [HttpGet, Route("{ids:minlength(16)}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User is returned")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid id")]
-        public async Task<IActionResult> GetByString(string ids)
-        {
-            var result = await _service.Get(ids);
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Получение пользователя по логину
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet, Route("{login:maxlength(15)}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User is returned")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid login")]
-        public async Task<IActionResult> GetByLogin(string login)
-        {
-            var result = await _service.GetByLogin(login);
             return Ok(result);
         }
 
@@ -99,7 +75,8 @@ namespace UserManagement.Web.Controllers
         /// <param name="userModel"></param>
         /// <returns></returns>
         [HttpPut, Route("{id}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User updated")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(string), Description = "User updated")]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> Update(string id, [FromBody] ForUpdateModel userModel)
         {
@@ -108,16 +85,32 @@ namespace UserManagement.Web.Controllers
         }
 
         /// <summary>
-        /// Удаление пользователя по логину
+        /// Удаление пользователя по id
         /// </summary>
-        /// <param name="login"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete, Route("{id}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User delete")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(string), Description = "User delete")]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid login")]
         public async Task<IActionResult> Delete(string id)
         {
             var result = await _service.Delete(id);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Нахождение Email
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet, Route("email")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User is returned")]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(void), Description = "Requires authentication")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid id")]
+        public async Task<IActionResult> UpdateEmail([FromBody] EmailUpdateMessage emailUpdateMessage)
+        {
+            var result = await _service.UpdateEmail(emailUpdateMessage);
             return Ok(result);
         }
     }

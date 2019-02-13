@@ -16,7 +16,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ ticket.name }}</h5>
               <label>Category:&nbsp;</label>
-              <span>{{ ticket.category }}</span>
+              <span>{{ categoryType[ticket.category] || ticket.category }}</span>
               <div><i class="fas fa-map-marker-alt"></i> {{ ticket.city }}</div>
               <div>{{ ticket.date | date: "MMM d, y, H:mm" }}</div>
               <div>{{ ticket.price | currency: "USD":'symbol':"1.1-2" }}</div>
@@ -24,7 +24,7 @@
                 <div class="btn-group">
                   <a
                     class="btn btn-outline-info"
-                    [routerLink]="['/tickets', ticket.id]"
+                    [routerLink]="['/tickets-ticket', ticket.id]"
                     routerLinkActive="active"
                     >View details</a
                   >

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using EasyNetQ;
 using FluentValidation;
-using KvitkouNet.Messages.Logging;
 using KvitkouNet.Messages.Logging.Enums;
 using KvitkouNet.Messages.UserManagement;
 using KvitkouNet.Messages.UserSettings;
@@ -23,11 +22,12 @@ namespace UserManagement.Logic.Services
         private readonly IMapper _mapper;
         private readonly IValidator<UserRegisterModel> _validator;
         private readonly IUnitOfWork _unitOfWork;
-        //private readonly UserContext _context;
+        private readonly UserContext _context;
         private readonly IBus _bus;
 
-        public UserService(IMapper mapper, IValidator<UserRegisterModel> validator, IUnitOfWork unitOfWork, IBus bus)
+        public UserService(IMapper mapper, IValidator<UserRegisterModel> validator, IUnitOfWork unitOfWork, IBus bus, UserContext context)
         {
+            _context = context;
             _mapper = mapper;
             _validator = validator;
             _unitOfWork = unitOfWork;
@@ -50,21 +50,24 @@ namespace UserManagement.Logic.Services
             }
             var res = await _unitOfWork.Users.AddAsync(_mapper.Map<UserDB>(model));
             var findUser = _unitOfWork.Users.FindAsync(x => x.AccountDB.Login == model.UserName).Result.FirstOrDefault();
-            await _bus.PublishAsync(new UserCreationMessage
+            if (_bus.IsConnected==true)
             {
-                UserId = findUser.Id,
-                FirstName = findUser.ProfileDB.FirstName,
-                LastName = findUser.ProfileDB.LastName,
-                UserName = findUser.AccountDB.Login,
-                Email = findUser.AccountDB.Email
-            });
-            await _bus.PublishAsync(new AccountMessage
-            {
-                UserId = findUser.Id,
-                UserName = findUser.AccountDB.Login,
-                Email = findUser.AccountDB.Email,
-                Type = AccountActionType.Registration,
-            });
+                await _bus.PublishAsync(new UserCreationMessage
+                {
+                    UserId = findUser.Id.ToString(),
+                    FirstName = findUser.ProfileDB.FirstName,
+                    LastName = findUser.ProfileDB.LastName,
+                    UserName = findUser.AccountDB.Login,
+                    Email = findUser.AccountDB.Email,
+                });
+                await _bus.PublishAsync(new AccountMessage
+                {
+                    UserId = findUser.Id,
+                    UserName = findUser.AccountDB.Login,
+                    Email = findUser.AccountDB.Email,
+                    Type = AccountActionType.Registration,
+                });
+            }
             return "Ok";
         }
 
@@ -108,26 +111,36 @@ namespace UserManagement.Logic.Services
             var findUser = _unitOfWork.Users.FindAsync(x => x.Id == id).Result.FirstOrDefault();
             if (findUser == null) return "Not Found";
             await _unitOfWork.Users.DeleteAsync(findUser);
-            await _bus.PublishAsync(new AccountMessage
+            if (_bus.IsConnected == true)
             {
-                UserId = findUser.Id,
-                UserName = findUser.AccountDB.Login,
-                Email = findUser.AccountDB.Email,
-                Type = AccountActionType.Delete,
-            });
-            await _bus.PublishAsync(new UserDeletedMessage
-            {
-                UserId = findUser.Id
-            });
+                await _bus.PublishAsync(new AccountMessage
+                {
+                    UserId = findUser.Id,
+                    UserName = findUser.AccountDB.Login,
+                    Email = findUser.AccountDB.Email,
+                    Type = AccountActionType.Delete,
+                });
+                await _bus.PublishAsync(new UserDeletedMessage
+                {
+                    UserId = findUser.Id
+                });
+            }
             return "Ok";
         }
 
-        public async Task<string> UpdateEmail(EmailUpdateMessage emailUpdateMessage)
+        public async Task<bool> UpdateEmail(EmailUpdateMessage emailUpdateMessage)
         {
-            //var findAcc = _unitOfWork.Accounts.FindAsync(x => x.Email == emailUpdateMessage.Email).Result.FirstOrDefault();
-            //if (findAcc == null) return "Not Found";
-            //await _context.Accounts;
-            return "Ok";
+            var findUser = _unitOfWork.Users.FindAsync(x => x.Id == emailUpdateMessage.UserId).Result.FirstOrDefault();
+            if (findUser == null) return false;
+            findUser.AccountDB.Email = emailUpdateMessage.Email;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> GetEmail(string email)
+        {
+            var findEmail = await _unitOfWork.Accounts.FindAsync(x => x.Email == email);
+            return findEmail.FirstOrDefault() != null ? true : false;
         }
 
         public Task<IEnumerable<GroupModel>> GetAllGroups()

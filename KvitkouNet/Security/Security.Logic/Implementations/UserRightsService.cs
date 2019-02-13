@@ -146,43 +146,6 @@ namespace Security.Logic.Implementations
             }
         }
 
-        public async Task<ActionResponse> AddNewUser(UserInfo userInfo)
-        {
-            try
-            {
-                var validationResult = await _userRightsValidator.ValidateAsync(userInfo);
-                if (!validationResult.IsValid)
-                {
-                    return ValidationResponseHelper.GetResponse(validationResult);
-                }
-
-                
-                await _securityContext.AddUser(_mapper.Map<UserInfoDb>(userInfo));
-
-                return new ActionResponse
-                {
-                    Status = ActionStatus.Success
-                };
-            }
-            catch (SecurityDbException e)
-            {
-                return new ActionResponse
-                {
-                    Status = ActionStatus.Warning,
-                    Message = PrettyExceptionHelper.GetMessage(e)
-                };
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return new ActionResponse
-                {
-                    Status = ActionStatus.Error,
-                    Message = "Something went wrong!"
-                };
-            }
-        }
-
         public async Task<ActionResponse> EditUserRights(string userId, int[] roleIds, int[] functionIds,
             int[] accessedRightsIds, int[] deniedRightsIds)
         {
@@ -215,6 +178,64 @@ namespace Security.Logic.Implementations
                     functionIds,
                     accessedRightsIds,
                     deniedRightsIds);
+
+                return new ActionResponse
+                {
+                    Status = ActionStatus.Success
+                };
+
+            }
+            catch (SecurityDbException e)
+            {
+                return new ActionResponse
+                {
+                    Status = ActionStatus.Warning,
+                    Message = PrettyExceptionHelper.GetMessage(e)
+                };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new ActionResponse
+                {
+                    Status = ActionStatus.Error,
+                    Message = "Something went wrong!"
+                };
+            }
+        }
+
+        public async Task<ActionResponse> EditUserRightsByNames(string userId, string[] roles, string[] functions, string[] accessedRights,
+            string[] deniedRights)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return new ActionResponse
+                    {
+                        Message = "Wrong id",
+                        Status = ActionStatus.Warning
+                    };
+                }
+
+                roles = roles ?? new string[0];
+                functions = functions ?? new string[0];
+                accessedRights = accessedRights ?? new string[0];
+                deniedRights = deniedRights ?? new string[0];
+
+                if (accessedRights.Intersect(deniedRights).Any())
+                {
+                    return new ActionResponse
+                    {
+                        Status = ActionStatus.Warning,
+                        Message = "Accessed and denied must not have same Rights"
+                    };
+                }
+
+                await _securityContext.EditUserRightsByNames(userId, roles,
+                    functions,
+                    accessedRights,
+                    deniedRights);
 
                 return new ActionResponse
                 {
@@ -323,10 +344,42 @@ namespace Security.Logic.Implementations
                 };
             }
         }
-
-        public async Task<IEnumerable<AccessRight>> SetDefaultRoleToNewUser()
+        
+        public async Task<ActionResponse> SetDefaultRoleToNewUser(UserInfo userInfo, UserRights rights)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var validationResult = await _userRightsValidator.ValidateAsync(userInfo);
+                if (!validationResult.IsValid)
+                {
+                    return ValidationResponseHelper.GetResponse(validationResult);
+                }
+
+
+                await _securityContext.AddUser(_mapper.Map<UserInfoDb>(userInfo), _mapper.Map<UserRightsDb>(rights));
+
+                return new ActionResponse
+                {
+                    Status = ActionStatus.Success
+                };
+            }
+            catch (SecurityDbException e)
+            {
+                return new ActionResponse
+                {
+                    Status = ActionStatus.Warning,
+                    Message = PrettyExceptionHelper.GetMessage(e)
+                };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new ActionResponse
+                {
+                    Status = ActionStatus.Error,
+                    Message = "Something went wrong!"
+                };
+            }
         }
 
         public async Task<ActionResponse> UpdateUserInfo(UserInfo userInfo)

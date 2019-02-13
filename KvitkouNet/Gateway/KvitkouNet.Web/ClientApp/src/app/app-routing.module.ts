@@ -7,6 +7,7 @@ import { StatisticComponent } from './components/statistic/statistic.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
 import { SearchUserComponent } from './components/search-user/search-user.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -37,10 +38,12 @@ import { UserSettingsEmailComponent } from './components/user-settings/user-sett
 // tslint:disable-next-line:max-line-length
 import { UserSettingsPasswordComponent } from './components/user-settings/user-settings-security/user-settings-password/user-settings-password.component';
 import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
+import { AdminAuthGuard } from './components/admin/admin-auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'admin', component: AdminComponent,
+  { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard],
+  canActivateChild: [AdminAuthGuard],
     children: [
       { path: '', component: AdminMainComponent },
       { path: 'logs/errors', component: ErrorLogsComponent },
@@ -81,6 +84,7 @@ const routes: Routes = [
       { path: 'advanced', component: UserSettingsAdvancedComponent, pathMatch: 'full'},
     ]},
   { path: 'login', component: LoginComponent, pathMatch: 'full'},
+  { path: 'dashboard', component: DashboardComponent, pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 ];
 

@@ -30,7 +30,7 @@ namespace UserManagement.Data.DbModels
         /// <summary>
         /// Роли группы
         /// </summary>
-        public virtual ICollection<RoleDB> GroupRoles { get; set; }
+        //public virtual ICollection<RoleDB> GroupRoles { get; set; }
         #endregion  
     }
 }

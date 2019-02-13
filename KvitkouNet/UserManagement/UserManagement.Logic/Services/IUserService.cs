@@ -54,7 +54,7 @@ namespace UserManagement.Logic.Services
         /// </summary>
         /// <param name="emailUpdateMessage"></param>
         /// <returns></returns>
-        Task<string> UpdateEmail(EmailUpdateMessage emailUpdateMessage);
+        Task<bool> UpdateEmail(EmailUpdateMessage emailUpdateMessage);
 
         /// <summary>
         /// Удаление пользователя по id
@@ -62,6 +62,13 @@ namespace UserManagement.Logic.Services
         /// <param name="id"></param>
         /// <returns></returns>
         Task<string> Delete(string id);
+
+        /// <summary>
+        /// Нахождение Email
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<bool> GetEmail(string email);
 
         /// <summary>
         /// Добавление группы

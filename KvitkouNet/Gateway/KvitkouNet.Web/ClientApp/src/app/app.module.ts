@@ -4,7 +4,8 @@ import { SubscriptionService } from './services/notification/subscription.servic
 import { StatisticService } from './services/statistic.service';
 import { RoomService } from './services/chat/room.service';
 import { ChatService } from './services/chat/chat.service';
-import { UsersService } from './services/users.service';
+import { UsersService } from './services/users/users.service';
+import { DashboardService } from './services/dashboard.service';
 import { EditGuard } from './services/editGuard';
 import { GetallticketsService } from './services/getalltickets.service';
 import { GetTicketByIdService } from './services/get-ticket-by-id.service';
@@ -57,6 +58,8 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { LoginComponent } from './components/login/login.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
+import { AdminAuthGuard } from './components/admin/admin-auth-guard.service';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +102,7 @@ import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
     UserSettingsPasswordComponent,
     LoginComponent,
     StatisticComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -114,7 +118,8 @@ import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
   providers: [
     GetTicketByIdService,
     GetallticketsService,
-    EditGuard, LogService,
+    EditGuard,
+    LogService,
     UsersService,
     ChatService,
     RoomService,
@@ -122,7 +127,9 @@ import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
     StatisticService,
     NotificationService,
     EmailNotificationService,
-    SubscriptionService
+    SubscriptionService,
+    AdminAuthGuard,
+    DashboardService
   ],
   bootstrap: [AppComponent]
 })

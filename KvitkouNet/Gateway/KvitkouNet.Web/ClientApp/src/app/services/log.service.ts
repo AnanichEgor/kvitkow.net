@@ -18,9 +18,7 @@ export class LogService {
   }
 
   getErrorLogs(queryParams: string) {
-    var headers = new HttpHeaders();
-    headers.set('Accept', 'text/json');
-    headers.set('Authorization', 'Bearer ' + this.oauthService.getAccessToken());
+    var headers = this.getHttpHeaders();
     return this.http.get<ErrorLogEntry[]>(`${this.baseUrl}admin/logs/errors?${queryParams}`, { headers });
   }
 
@@ -30,19 +28,23 @@ export class LogService {
   }
 
   getPaymentLogs(queryParams: string) {
-    return this.http.get<PaymentLogEntry[]>(`${this.baseUrl}admin/logs/payments?${queryParams}`);
+    var headers = this.getHttpHeaders();
+    return this.http.get<PaymentLogEntry[]>(`${this.baseUrl}admin/logs/payments?${queryParams}`, { headers });
   }
 
   getQueryLogs(queryParams: string) {
-    return this.http.get<QueryLogEntry[]>(`${this.baseUrl}admin/logs/queries?${queryParams}`);
+    var headers = this.getHttpHeaders();
+    return this.http.get<QueryLogEntry[]>(`${this.baseUrl}admin/logs/queries?${queryParams}`, { headers });
   }
 
   getTicketLogs(queryParams: string) {
-    return this.http.get<TicketLogEntry[]>(`${this.baseUrl}admin/logs/tickets?${queryParams}`);
+    var headers = this.getHttpHeaders();
+    return this.http.get<TicketLogEntry[]>(`${this.baseUrl}admin/logs/tickets?${queryParams}`, { headers });
   }
 
   getDealLogs(queryParams: string) {
-    return this.http.get<DealLogEntry[]>(`${this.baseUrl}admin/logs/deals?${queryParams}`);
+    var headers = this.getHttpHeaders();
+    return this.http.get<DealLogEntry[]>(`${this.baseUrl}admin/logs/deals?${queryParams}`, { headers });
   }
 
   private getHttpHeaders(): HttpHeaders {
@@ -55,7 +57,6 @@ export class LogService {
     else {
       return new HttpHeaders();
     }
-
   }
 
 }

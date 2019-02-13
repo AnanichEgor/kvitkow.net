@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using System;
 
 namespace Dashboard.Data.DbModels
 {
@@ -10,38 +9,40 @@ namespace Dashboard.Data.DbModels
     public class TicketInfoDb
     {
         /// <summary>
-        ///     Id билета
+        /// Gets or sets the identifier.
         /// </summary>
-<<<<<<< HEAD
-        public int TicketId { get; set; }
-=======
         public string TicketId { get; set; }
->>>>>>> DashboardMicroservice
 
         /// <summary>
-        ///     Название билета
+        /// Gets or sets the name of ticket.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        ///     Адрес проведения мероприятия
+        /// Gets or sets the date of event.
         /// </summary>
-        public string LocationEvent { get; set; }
+        public DateTime Date { get; set; }
 
         /// <summary>
-        ///     Цена билета
+        /// Gets or sets the city where the event will be held.
         /// </summary>
-        public decimal Price { get; set; }
-
-
-        /// <summary>
-        ///     Телефон продавца
-        /// </summary>
-        public string SellerPhone { get; set; }
+        public string City { get; set; }
 
         /// <summary>
-        ///     Ссылка на мероприятие
+        /// Gets or sets the category of the event.
         /// </summary>
-        public string EventLink { get; set; }
+        public string Category { get; set; }
+
+        /// <summary>
+        /// Gets or sets the price of the even.
+        /// </summary>
+        public decimal? Price { get; set; }
+
+        #region Связи между таблицами 
+        /// <summary>
+        ///     Новость
+        /// </summary>
+        public virtual NewsDb NewsDbs { get; set; }
+        #endregion 
     }
 }

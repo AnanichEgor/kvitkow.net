@@ -19,6 +19,9 @@ namespace UserManagement.Web
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(b => b.AddJsonFile("appsettings.json",
+                    true,
+                    true))
                 .UseStartup<Startup>();
     }
 }

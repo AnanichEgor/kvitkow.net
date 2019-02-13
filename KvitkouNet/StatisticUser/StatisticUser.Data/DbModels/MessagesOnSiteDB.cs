@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using StatisticUser.Data.DbModels.AbstractionsDB;
+﻿using StatisticUser.Data.DbModels.AbstractionsDB;
 
 namespace StatisticUser.Data.DbModels
 {
