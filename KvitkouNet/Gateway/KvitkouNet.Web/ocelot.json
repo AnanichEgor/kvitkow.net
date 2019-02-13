@@ -263,7 +263,7 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "/api/chat/rooms/template",
+      "DownstreamPathTemplate": "/api/chat/rooms/{template}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {

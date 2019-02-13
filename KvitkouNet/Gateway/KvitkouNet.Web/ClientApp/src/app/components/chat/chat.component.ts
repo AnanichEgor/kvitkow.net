@@ -28,7 +28,7 @@ export class ChatComponent implements OnInit {
     private serviceChat: ChatService, private serviceRoom: RoomService
     ) {
       this.connection = new HubConnectionBuilder()
-      .withUrl('http://localhost:5002/chat/notification')
+      .withUrl('https://localhost:5002/chat/notification')
       .build();
 
       this.connection

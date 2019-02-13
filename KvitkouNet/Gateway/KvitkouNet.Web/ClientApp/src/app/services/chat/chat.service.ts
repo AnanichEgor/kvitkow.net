@@ -27,7 +27,7 @@ import { Configuration } from '../../services/chat/configuration';
 @Injectable()
 export class ChatService {
 
-    protected basePath = 'http://localhost:5002';
+    protected basePath = 'https://localhost:5002';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
