@@ -188,7 +188,7 @@
         }
       ],
       "UpstreamPathTemplate": "/history/users",
-      "UpstreamHttpMethod": ["Get"]
+      "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/tickets",
@@ -271,7 +271,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/chat/rooms/template",
+      "UpstreamPathTemplate": "/chat/rooms/{template}",
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
@@ -393,6 +393,23 @@
       ],
       "UpstreamPathTemplate": "/notification/subscription/{theme}/users/{id}",
       "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamHostAndPorts": [
+        {
+          "Port": 5000,
+          "Host": "chat.web"
+        }
+      ],
+      "DownstreamScheme": "ws",
+      "DownstreamPathTemplate": "/{catchAll}",
+      "UpstreamPathTemplate": "/{catchAll}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "OPTIONS",
+        "GET"
+      ],
+      "ReRouteIsCaseSensitive": false
     }
   ]
 }

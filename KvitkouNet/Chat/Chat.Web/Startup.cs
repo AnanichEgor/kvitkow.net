@@ -26,16 +26,12 @@ namespace Chat.Web
         public void ConfigureServices(IServiceCollection services)
         {
             var rabbitConnectionString = Configuration.GetConnectionString("RabbitConnection");
+            services.AddCors(opt => opt.AddPolicy("CorsPolicy", builder =>
+                builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .WithOrigins("http://localhost:4200")
+                    .AllowCredentials()));
             services.AddSignalR();
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials()
-                        .WithOrigins("http://localhost:4200"));
-            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerDocument(settings => settings.Title = "Chat");
             services.RegisterChatService();
