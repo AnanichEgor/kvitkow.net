@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -33,13 +34,6 @@ namespace TicketManagement.Data.Repositories
         /// <returns>Код ответа Create и добавленную модель</returns>
         public async Task<string> Add(Ticket ticket)
         {
-            //WARNING используется для замены стандартных значений swagerr'a
-            //(чтобы рукчками каждый раз не править)
-            //при связи с фронтом надо убрать 
-            //ticket.Id = null;
-            //ticket.User.UserInfoId = null;
-            //ticket.RespondedUsers = null;
-            //WARNING
             //var user = await _context.UserInfos.Include(info => info.UserTickets)
             //    .AsNoTracking()
             //    .FirstOrDefaultAsync(info => info.UserInfoId == ticket.User.UserInfoId);

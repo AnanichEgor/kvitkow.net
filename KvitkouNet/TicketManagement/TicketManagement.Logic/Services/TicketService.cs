@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using EasyNetQ;
 using FluentValidation;
+using KvitkouNet.Messages.Logging;
+using KvitkouNet.Messages.Logging.Enums;
 using KvitkouNet.Messages.TicketManagement;
 using Microsoft.Extensions.Configuration;
 using Polly;
@@ -56,12 +58,6 @@ namespace TicketManagement.Logic.Services
         /// <returns>Код ответа Create и добавленную модель</returns>
         public async Task<string> Add(Ticket ticket)
         {
-            //WARNING используется для замены стандартных значений swagerr'a
-            //при связи с фронтом надо убрать 
-            //ticket.SellerPhone = "+375-29-76-23-371";
-            //WARNING
-            //if (ticket.User.Rating < 0)
-                //throw new UserBadRatingException("Bad user rating");
             //var validationResultTicket = await _validatorTickets.ValidateAsync(ticket);
             //var validationResultUser = await _validatorUsers.ValidateAsync(ticket.User);
             //if (!validationResultTicket.IsValid | !validationResultUser.IsValid)
@@ -71,7 +67,7 @@ namespace TicketManagement.Logic.Services
             //    throw new ValidationException("Validation failed",
             //        errors);
             //}
-
+            
             var res = await _context.Add(_mapper.Map<Data.DbModels.Ticket>(ticket));
             try
             {
