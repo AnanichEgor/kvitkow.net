@@ -18,13 +18,14 @@ namespace UserManagement.Data
         {
             services.AddDbContext<UserContext>(opt => opt.UseLazyLoadingProxies().UseSqlite("Data Source=./UserDatabase.db"))
                 .AddIdentity<UserDB, IdentityRole>()
+                .AddEntityFrameworkStores<UserContext>()
                 .AddDefaultTokenProviders();
             var o = new DbContextOptionsBuilder<UserContext>();
             o.UseLazyLoadingProxies().UseSqlite("Data Source=./UserDatabase.db");
             
             using (var context = new UserContext(o.Options))
             {
-                context.Database.Migrate();
+                context.Database.EnsureCreated();
                 if (!context.Users.Any())
                 {
                     context.Users.AddRange(UserFaker.Generate());
@@ -32,6 +33,7 @@ namespace UserManagement.Data
                 }
             }
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUpdateIdentityUsers, UpdateIdentityUsers>();
             return services;
         }
     }

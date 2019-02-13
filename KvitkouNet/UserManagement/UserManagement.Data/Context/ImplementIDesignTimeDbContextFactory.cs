@@ -10,7 +10,7 @@ namespace UserManagement.Data.Context
 
             var builder = new DbContextOptionsBuilder<UserContext>();
 
-            var connectionString = "Data Source = ./Users.db";
+            var connectionString = "Data Source = ./UserDatabase.db";
 
             builder.UseLazyLoadingProxies().UseSqlite(connectionString);
 

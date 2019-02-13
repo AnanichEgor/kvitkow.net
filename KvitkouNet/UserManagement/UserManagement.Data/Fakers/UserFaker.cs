@@ -14,7 +14,7 @@ namespace UserManagement.Data.Fakers
         static UserFaker()
         {
             _faker = new Faker<UserDB>();
-            _faker.RuleFor(x => x.Id, f => f.IndexFaker.ToString());
+            _faker.RuleFor(x => x.PhoneNumber, f => f.Phone.PhoneNumber("+### ## ###-##-##"));
             _faker.RuleFor(x => x.AccountDB, a =>
             {
                 var fakeAcc = new Faker<AccountDB>();
