@@ -18,6 +18,7 @@ namespace Chat.Web.Subscriber
             _mapper = mapper;
         }
 
+        //добавим нового пользователя в системе к нам в базу
         [AutoSubscriberConsumer(SubscriptionId = "UserService.Created")]
         public Task ConsumeAsync(UserCreationMessage message)
         {

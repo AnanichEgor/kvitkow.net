@@ -18,13 +18,9 @@ namespace Chat.Data.Helpers
 
             using (var ctx = new ChatContext(o.Options))
             {
+                //если нету DB - создадим
                 ctx.Database.EnsureCreated();
 
-                //if (!ctx.Rooms.Any())
-                //{
-                //    ctx.Rooms.AddRange(RoomFaker.Generate(50));
-                //    ctx.SaveChanges();
-                //}
             }
         }
 

@@ -9,9 +9,10 @@ namespace Chat.Web.Filters
 {
     public class CustomExceptionFilter : IExceptionFilter
     {
+        //добавим общий фильтр
         public void OnException(ExceptionContext context)
         {
-            if (context.Exception.GetType() == typeof(ArgumentException))
+            if (context.Exception.GetType() == typeof(Exception))
             {
                 context.Result = new BadRequestObjectResult(context.Exception.Message);
                 context.ExceptionHandled = true;

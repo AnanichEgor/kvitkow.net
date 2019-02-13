@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,10 +34,15 @@ namespace Chat.Logic.Services
 
         public async Task AddRoom(Room room, string userId)
         {
-            var modelDb = _mapper.Map<RoomDb>(room);
-            modelDb.OwnerId = userId;
-            await _context.Rooms.AddAsync(modelDb);
-            await _context.SaveChangesAsync();
+            //создать можно только одну Main комнату
+            if (!_context.Rooms.Any())
+            {
+                var modelDb = _mapper.Map<RoomDb>(room);
+                modelDb.OwnerId = userId;
+                await _context.Rooms.AddAsync(modelDb);
+                await _context.SaveChangesAsync();
+            }
+
         }
 
         public async Task<IEnumerable<Room>> SearchRoom(string template)
@@ -62,9 +68,9 @@ namespace Chat.Logic.Services
             var modelDb = _mapper.Map<MessageDb>(message);
             modelDb.RoomId = roomId;
 
-            var maxMessageId = _context.Messages.LastOrDefaultAsync().Result.Id;
-            modelDb.Id = maxMessageId + 1;
-
+            //var maxMessageId = _context.Messages.LastOrDefaultAsync().Result.Id;
+            //modelDb.Id = maxMessageId + 1;
+            //id автоинкрементируется
             await _context.Messages.AddAsync(modelDb);
             await _context.SaveChangesAsync();
             var ownerId =  _context.Rooms.SingleOrDefaultAsync(x => x.Id == roomId);

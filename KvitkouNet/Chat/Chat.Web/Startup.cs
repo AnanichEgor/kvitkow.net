@@ -26,21 +26,27 @@ namespace Chat.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var rabbitConnectionString = Configuration.GetConnectionString("RabbitConnection");
+            //настраиваем Cors
             services.AddCors(opt => opt.AddPolicy("CorsPolicy", builder =>
                 builder.AllowAnyHeader()
                     .AllowAnyMethod()
                     .WithOrigins("http://localhost:4200")
                     .AllowCredentials()));
+
             services.AddSignalR();
             services.AddMvc(opt => opt.Filters.Add(new CustomExceptionFilter())).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSwaggerDocument(settings => settings.Title = "Chat");
+
+            //регистрируем
             services.RegisterChatService();
             services.RegisterRoomService();
             services.RegisterDbContext();
             services.RegisterAutoMapperLogic();
             services.AddAutoMapper(cfg => cfg.AddProfile<UserCreationProfile>());
             services.AddAutoMapper(cfg => cfg.AddProfile<UserUpdatedProfile>());
+
+            //достаем строку подключения к rabbit
+            var rabbitConnectionString = Configuration.GetConnectionString("RabbitConnection");
             services.AddSingleton<IBus>(RabbitHutch.CreateBus(rabbitConnectionString));
 
 
@@ -54,7 +60,10 @@ namespace Chat.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseCors("CorsPolicy");
+
+            //маппим сообщение для Hub
             app.UseSignalR(builder => builder.MapHub<NotificationHub>("/chat/notification"));
             app.UseSwagger().UseSwaggerUi3();
             app.UseMvc();

@@ -13,7 +13,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 @Injectable()
 export class RoomService {
 
-    protected basePath = 'https://localhost:5002';
+    protected basePath = 'https://localhost:5002';  // смотрим на Ocelot
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -47,8 +47,8 @@ export class RoomService {
   public getUserIdFromClaims() {
     const claims = this.oauthService.getIdentityClaims();
     if (claims) {
-  }
     return claims['sub'];
+  }
   }
 
     /**

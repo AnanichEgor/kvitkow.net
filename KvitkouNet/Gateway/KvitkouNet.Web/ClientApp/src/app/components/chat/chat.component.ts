@@ -1,3 +1,4 @@
+import { Room } from './../../models/chat/room';
 import { Settings } from './../../models/chat/settings';
 import { Observable } from 'rxjs';
 import { Message } from './../../models/chat/message';
@@ -16,24 +17,22 @@ import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 })
 export class ChatComponent implements OnInit {
   chatForm: FormGroup;
-  messages: Message[];
-  templateMessage: string;
-  textFromMessage: string;
+  messagesOnTemplate: Message[] = []; // результат найденых сообщений по шаблону
+  templateMessage: string;  // шаблон сообщения для поиска
   userSettins: Settings;
-  newMessage: Message;
   private connection: HubConnection;
-  public messagesForHus: Array<Message> = [];
+  public messagesForHub: Array<Message> = []; // сообщения переданные на форму через Hub
   authenticated: boolean;
 
   constructor(
     private serviceChat: ChatService, private serviceRoom: RoomService
     ) {
       // прошел ли пользователь Authenticat
-    //  this.authenticated = this.serviceChat.isAuthenticated();
+      this.authenticated = this.serviceChat.isAuthenticated();
       console.log('настраиваем коннект для Hub');
       // настроим коннект для Hub
       this.connection = new HubConnectionBuilder()
-      .withUrl('https://localhost:5002/chat/notification')
+      .withUrl('https://localhost:5002/chat/notification')  // смотрим на Ocelot
       .build();
       console.log('стартуем коннект для Hub');
       this.connection
@@ -44,7 +43,7 @@ export class ChatComponent implements OnInit {
     // регистрируемся на метод alertOnSendedMessageAllUsers
     this.connection.on('alertOnSendedMessageAllUsers', msg =>
     (console.log('startMethodHub. Came in method  = ' + msg ),
-      this.messagesForHus.push(msg),
+      this.messagesForHub.push(msg),
       console.log('EndMethodHub')
       ));
      }
@@ -55,15 +54,16 @@ export class ChatComponent implements OnInit {
 // отправка сообщения
   onAddMessage(textMessage: string) {
 
+// формируем сообщение
      const message: Message = {
       text: textMessage,
       sendedTime: new Date(),
       isEdit: false,
-      userId: '2' // this.serviceChat.getUserIdFromClaims()
+      userId: this.serviceChat.getUserIdFromClaims() // получаем UserId
     };
-    // '2' - это номер комнаты
-     this.serviceRoom.roomAddMessage(message, '2').subscribe(
-       (r) => console.log(r)
+    // '1' - это номер комнаты(на данный момент будет только одна комната)
+     this.serviceRoom.roomAddMessage(message, '1').subscribe(
+       (r) => console.log('сообщение успешно отправлено')
      , err => console.log('err'));
   }
 
@@ -79,8 +79,24 @@ export class ChatComponent implements OnInit {
   // выполним поиск сообщения по шаблону
   onSearchMessage(templateMessageIn: string) {
     this.templateMessage = templateMessageIn;
-    this.serviceRoom.roomSearchMessage('2', this.templateMessage).subscribe(x => {
-        this.messages = x;
+
+        // '1' - это номер комнаты(на данный момент будет только одна комната)
+    this.serviceRoom.roomSearchMessage('1', this.templateMessage).subscribe(x => {
+        this.messagesOnTemplate = x;
       });
+  }
+
+  // создадим комнату
+  onCreateRoom() {
+    // формируем Main комнату
+    const mainRoom: Room = {
+      id: '1',  // у главной комнаты будет id =1
+      name: 'MainRoom',
+      isPrivat: false
+    };
+
+    this.serviceRoom.roomAddRoom(mainRoom, this.serviceChat.getUserIdFromClaims()).subscribe(
+      (r) => console.log('Комната успешно создана')
+      , err => console.log('Комната не создана'));
   }
 }

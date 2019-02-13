@@ -9,6 +9,7 @@ using Chat.Logic.Services;
 using Chat.Web.Hub;
 using EasyNetQ;
 using KvitkouNet.Messages.Notification;
+using KvitkouNet.Messages.UserManagement;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -100,9 +101,10 @@ namespace Chat.Web.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
         public async Task<IActionResult> SearchMessage([FromRoute] string rid, [FromRoute] string template)
         {
+
             var result = await _roomService.SearchMessage(rid, template);
             if (result.Count() != 0)
-                return Ok(result);
+            return Ok(result);
 
             return BadRequest("The message not exist");
         }
@@ -132,6 +134,7 @@ namespace Chat.Web.Controllers
 
                 });                
             }
+
             await _hubContext.Clients.All.SendAsync("alertOnSendedMessageAllUsers", (object)message);
             return NoContent();
         }
