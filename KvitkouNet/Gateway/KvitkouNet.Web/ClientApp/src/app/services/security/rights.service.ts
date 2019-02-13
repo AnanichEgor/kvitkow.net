@@ -28,7 +28,7 @@ import { Configuration } from './configuration';
 @Injectable()
 export class RightsService {
 
-    protected basePath = 'http://localhost:5011';
+    protected basePath = 'https://localhost:5002';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -95,7 +95,7 @@ export class RightsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<AccessRightResponse>(`${this.basePath}/api/security/rights`,
+        return this.httpClient.post<AccessRightResponse>(`${this.basePath}/security/rights`,
             rightNames,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -140,7 +140,7 @@ export class RightsService {
             'application/_*+json'
         ];
 
-        return this.httpClient.delete<ActionResponse>(`${this.basePath}/api/security/right/${encodeURIComponent(String(id))}`,
+        return this.httpClient.delete<ActionResponse>(`${this.basePath}/security/right/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -196,7 +196,7 @@ export class RightsService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<AccessRightResponse>(`${this.basePath}/api/security/rights/${encodeURIComponent(String(perPage))}/${encodeURIComponent(String(page))}`,
+        return this.httpClient.get<AccessRightResponse>(`${this.basePath}/security/rights/${encodeURIComponent(String(perPage))}/${encodeURIComponent(String(page))}`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
