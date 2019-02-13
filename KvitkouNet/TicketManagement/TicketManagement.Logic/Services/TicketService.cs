@@ -82,6 +82,13 @@ namespace TicketManagement.Logic.Services
                         Category = ticket.TypeEvent.ToString(),
                         Date = DateTime.Now
                     });
+                    await _bus.PublishAsync(new TicketActionLogMessage
+                    {
+                        TicketId = res,
+                        UserId = ticket.User.UserInfoId,
+                        ActionType = TicketAction.Add,
+                        EventDate = DateTime.Now
+                    });
                 });
             }
             catch (TimeoutException exception)
@@ -115,8 +122,14 @@ namespace TicketManagement.Logic.Services
                         Price = ticket.Price,
                         Name = ticket.Name,
                         City = ticket.LocationEvent.City,
-                        Category = ticket.TypeEvent.ToString(),
+                        Category = ticket.TypeEvent,
                         Date = DateTime.Now
+                    });
+                    await _bus.PublishAsync(new TicketActionLogMessage
+                    {
+                        TicketId = id,
+                        UserId = ticket.User.UserInfoId,
+                        ActionType = TicketAction.Update
                     });
                 });
             }
@@ -168,11 +181,16 @@ namespace TicketManagement.Logic.Services
                     {
                         TicketId = id
                     });
+                    await _bus.PublishAsync(new TicketActionLogMessage
+                    {
+                        TicketId = id,
+                        ActionType = TicketAction.Delete
+                    });
                 });
             }
             catch (TimeoutException exception)
             {
-                throw new EasyNetQSendException("Ticket added in db, but error sending message to RabbitMQ",
+                throw new EasyNetQSendException("Error sending message to RabbitMQ",
                     exception);
             }
         }
@@ -194,6 +212,22 @@ namespace TicketManagement.Logic.Services
         public async Task<Ticket> Get(string id)
         {
             var res = _mapper.Map<Ticket>(await _context.Get(id));
+            try
+            {
+                await _policy.ExecuteAsync(async () =>
+                {
+                    await _bus.PublishAsync(new TicketActionLogMessage
+                    {
+                        TicketId = id,
+                        ActionType = TicketAction.Gaze
+                    });
+                });
+            }
+            catch (TimeoutException exception)
+            {
+                throw new EasyNetQSendException("Error sending message to RabbitMQ",
+                    exception,res);
+            }
             return res;
         }
 
