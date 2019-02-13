@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EasyNetQ.AutoSubscribe;
+using KvitkouNet.Messages.Notification;
 using KvitkouNet.Messages.TicketManagement;
 using KvitkouNet.Messages.UserManagement;
 using KvitkouNet.Messages.UserSettings;
@@ -11,11 +12,10 @@ using UserManagement.Logic.Services;
 namespace UserManagement.Logic.Subscriber
 {
     public class UserSettingsMessageConsumer :
-        IConsumeAsync<EmailUpdateMessage>,
         IConsumeAsync<PasswordUpdateMessage>,
         IConsumeAsync<DeleteUserProfileMessage>,
-        IConsumeAsync<AccountMessage>,
-        IConsumeAsync<TicketCreationMessage>
+        IConsumeAsync<ConfirmRegistrationMessage>
+
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
@@ -24,11 +24,6 @@ namespace UserManagement.Logic.Subscriber
         {
             _mapper = mapper;
             _userService = userService;
-        }
-
-        public async Task ConsumeAsync(EmailUpdateMessage message)
-        {
-            await _userService.UpdateEmail(message);
         }
 
         public Task ConsumeAsync(PasswordUpdateMessage message)
@@ -41,24 +36,9 @@ namespace UserManagement.Logic.Subscriber
             throw new NotImplementedException();
         }
 
-        public async Task ConsumeAsync(AccountMessage message)
+        public async Task ConsumeAsync(ConfirmRegistrationMessage message)
         {
-            Debug.WriteLine($"I've got message: {message.UserName} {message.Email} ");
-            EmailUpdateMessage eum = new EmailUpdateMessage();
-            eum.UserId = "2";//message.UserId;
-            eum.Email = "1234@123.by";//message.Email;
-
-            await _userService.UpdateEmail(eum);
-            
-        }
-
-        public async Task ConsumeAsync(TicketCreationMessage message)
-        {
-            Debug.WriteLine($"I've got message: {message.Name} {message.Price} ");
-            EmailUpdateMessage eum = new EmailUpdateMessage();
-            eum.UserId = "1";
-            eum.Email = "77777777@123.by";
-            await _userService.UpdateEmail(eum);
+            await _userService.UpdateEmailStatus(message.Name);
         }
     }
 }

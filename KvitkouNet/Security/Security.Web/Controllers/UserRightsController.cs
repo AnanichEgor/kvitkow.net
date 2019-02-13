@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
-using Security.Logic.Models;
 using Security.Logic.Models.Requests;
 using Security.Logic.Models.Responses;
 using Security.Logic.Services;

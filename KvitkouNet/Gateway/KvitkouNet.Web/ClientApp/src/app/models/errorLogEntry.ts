@@ -1,12 +1,12 @@
-export class ErrorLogEntry{
-    id : string;
+export class ErrorLogEntry {
+    id: string;
     eventDate: Date;
-    serviceName : string;
-    exceptionType : string;
-    hResult : number;
-    innerExceptionString : string;
-    message : string;
-    source : string;
-    stackTrace : string;
-    targetSiteName : string;
+    serviceName: string;
+    typeName: string;
+    hResult: number;
+    innerExceptionString: string;
+    message: string;
+    source: string;
+    stackTrace: string;
+    targetSiteName: string;
 }

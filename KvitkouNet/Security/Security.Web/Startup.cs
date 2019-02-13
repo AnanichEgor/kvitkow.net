@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Reflection;
+using EasyNetQ;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Security.Logic;
+using Security.Web.Subscriber;
 
 namespace Security.Web
 {
@@ -31,7 +34,9 @@ namespace Security.Web
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerDocument();
-            services.RegisterSecurityService();
+            services.RegisterSecurityService(Configuration);
+
+            services.AddSingleton<IBus>(RabbitHutch.CreateBus("host=rabbit"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +55,8 @@ namespace Security.Web
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
+
+            app.UseSubscriber("Notification", Assembly.GetExecutingAssembly());
         }
     }
 }

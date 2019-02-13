@@ -14,12 +14,12 @@ namespace UserManagement.Data.Fakers
         static UserFaker()
         {
             _faker = new Faker<UserDB>();
-            _faker.RuleFor(x => x.Id, f => f.IndexFaker.ToString());
+            _faker.RuleFor(x => x.PhoneNumber, f => f.Phone.PhoneNumber("+### ## ###-##-##"));
             _faker.RuleFor(x => x.AccountDB, a =>
             {
                 var fakeAcc = new Faker<AccountDB>();
                 fakeAcc.RuleFor(x => x.Login, f => f.Person.UserName);//Lorem.Word());
-                fakeAcc.RuleFor(x => x.Password, f => f.Lorem.Word());
+                fakeAcc.RuleFor(x => x.Password, f => f.Lorem.Word().GetHashCode().ToString());
                 fakeAcc.RuleFor(x => x.Email, f => f.Person.Email);
                 return fakeAcc.Generate();
             });

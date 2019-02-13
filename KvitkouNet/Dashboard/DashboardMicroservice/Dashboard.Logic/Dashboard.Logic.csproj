@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DashboardNet.Messages\KvitkouNet.Messages.csproj" />
     <ProjectReference Include="..\Dashboard.Data\Dashboard.Data.csproj" />
   </ItemGroup>
 

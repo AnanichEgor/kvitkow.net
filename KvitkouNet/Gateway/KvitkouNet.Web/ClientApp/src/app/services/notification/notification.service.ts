@@ -11,10 +11,10 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec }                        from './encoder';
+         HttpResponse, HttpEvent } from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from './encoder';
 
 import { Observable } from 'rxjs';
 
@@ -22,8 +22,8 @@ import { NotificationMessage } from '../../models/notification/notificationMessa
 import { UserNotification } from '../../models/notification/userNotification';
 import { UserNotificationBulkRequest } from '../../models/notification/userNotificationBulkRequest';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from './variables';
-import { Configuration }                                     from './configuration';
+import { BASE_PATH, COLLECTION_FORMATS } from './variables';
+import { Configuration } from './configuration';
 
 
 @Injectable()

@@ -27,7 +27,6 @@ namespace TicketManagement.Web
             services.AddMvc(options =>
                 {
                     options.Filters.Add(new EasyNetQSendExceptionFilter());
-                    options.Filters.Add(new UserBadRatingExceptionFilter());
                     options.Filters.Add(new ValidationExceptionFilter());
                     options.Filters.Add(new TicketNotFoundExceptionFilter());
                     options.Filters.Add(new PageNotFoundExceptionFilter());

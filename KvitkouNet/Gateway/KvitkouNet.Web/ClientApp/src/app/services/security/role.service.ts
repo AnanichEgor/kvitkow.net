@@ -29,7 +29,7 @@ import { Configuration } from './configuration';
 @Injectable()
 export class RoleService {
 
-    protected basePath = 'http://localhost:5011';
+    protected basePath = 'https://localhost:5002';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -96,7 +96,7 @@ export class RoleService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<ActionResponse>(`${this.basePath}/api/security/role`,
+        return this.httpClient.post<ActionResponse>(`${this.basePath}/security/role`,
             roleName,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -141,7 +141,7 @@ export class RoleService {
             'application/_*+json'
         ];
 
-        return this.httpClient.delete<ActionResponse>(`${this.basePath}/api/security/role/${encodeURIComponent(String(id))}`,
+        return this.httpClient.delete<ActionResponse>(`${this.basePath}/security/role/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -189,7 +189,7 @@ export class RoleService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<ActionResponse>(`${this.basePath}/api/security/role`,
+        return this.httpClient.put<ActionResponse>(`${this.basePath}/security/role`,
             request,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -246,7 +246,7 @@ export class RoleService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<RoleResponse>(`${this.basePath}/api/security/roles/${encodeURIComponent(String(perPage))}/${encodeURIComponent(String(page))}`,
+        return this.httpClient.get<RoleResponse>(`${this.basePath}/security/roles/${encodeURIComponent(String(perPage))}/${encodeURIComponent(String(page))}`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

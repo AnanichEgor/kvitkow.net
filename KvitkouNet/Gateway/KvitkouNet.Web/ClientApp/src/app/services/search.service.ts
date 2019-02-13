@@ -16,7 +16,7 @@ export class SearchService {
 
   getTickets(request: SearchTicket) {
     return this.http.get<SearchResult<SearchTicketInfo>>(
-      `${environment.searchServiceBaseUrl}/search/tickets?${this.toQueryString(
+      `${environment.baseUrl}/search/tickets?${this.toQueryString(
         request
       )}`,
       { headers: this.getHeaders() }
@@ -25,7 +25,7 @@ export class SearchService {
 
   getUsers(request: SearchUser) {
     return this.http.get<SearchResult<SearchUserInfo>>(
-      `${environment.searchServiceBaseUrl}/search/users?${this.toQueryString(
+      `${environment.baseUrl}/search/users?${this.toQueryString(
         request
       )}`,
       { headers: this.getHeaders() }
@@ -34,21 +34,21 @@ export class SearchService {
 
   getPreviousTicketSearch() {
     return this.http.get<SearchTicket>(
-      `${environment.searchServiceBaseUrl}/history/tickets`,
+      `${environment.baseUrl}/history/tickets`,
       { headers: this.getHeaders() }
     );
   }
 
   getPreviousUserSearch() {
     return this.http.get<SearchUser>(
-      `${environment.searchServiceBaseUrl}/history/users`,
+      `${environment.baseUrl}/history/users`,
       { headers: this.getHeaders() }
     );
   }
 
   isAuthenticated() {
     const token = this.oauthService.getAccessToken();
-    return !!token ? true : false;
+    return !!token;
   }
 
   private toQueryString(obj) {

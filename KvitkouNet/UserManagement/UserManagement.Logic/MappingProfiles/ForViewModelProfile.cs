@@ -25,6 +25,10 @@ namespace UserManagement.Logic.MappingProfiles
                     map => map.MapFrom(u => u.RegistrationDate))
                 .ForPath(x => x.AccountDB.Email,
                     map => map.MapFrom(u => u.Email))
+                .ForPath(x => x.PhoneNumber,
+                    map => map.MapFrom(u => u.PhoneNumber))
+                .ForPath(x => x.EmailConfirmed,
+                    map => map.MapFrom(u => u.EmailConfirmed))
                 .ReverseMap()
                 .ForPath(y=>y.Login, 
                     map=>map.MapFrom(u=>u.AccountDB.Login))
@@ -41,7 +45,9 @@ namespace UserManagement.Logic.MappingProfiles
                 .ForPath(y => y.RegistrationDate,
                     map => map.MapFrom(u => u.ProfileDB.RegistrationDate))
                 .ForPath(y => y.Email,
-                    map => map.MapFrom(u => u.AccountDB.Email));
+                    map => map.MapFrom(u => u.AccountDB.Email))
+                .ForPath(y => y.PhoneNumber,
+                    map => map.MapFrom(u => u.PhoneNumber));
 
 
             

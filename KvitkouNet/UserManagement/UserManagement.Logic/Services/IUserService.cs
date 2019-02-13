@@ -39,7 +39,7 @@ namespace UserManagement.Logic.Services
         /// </summary>
         /// <param name="login"></param>
         /// <returns></returns>
-        Task<ForViewModel> GetByLogin(string login);
+        Task<ModelWithHashPassw> GetByLogin(string login);
 
         /// <summary>
         /// Обновление пользователя по id
@@ -50,11 +50,26 @@ namespace UserManagement.Logic.Services
         Task<string> Update(string id, ForUpdateModel userModel);
 
         /// <summary>
+        /// Обновление пользователя по login
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="userModel"></param>
+        /// <returns></returns>
+        Task<string> UpdateByLogin(string id, ForUpdateModel userModel);
+
+        /// <summary>
         /// Обновление почтового адреса
         /// </summary>
         /// <param name="emailUpdateMessage"></param>
         /// <returns></returns>
-        Task<string> UpdateEmail(EmailUpdateMessage emailUpdateMessage);
+        Task<bool> UpdateEmail(EmailUpdateMessage emailUpdateMessage);
+
+        /// <summary>
+        /// Обновление почтового адреса
+        /// </summary>
+        /// <param name="emailUpdateMessage"></param>
+        /// <returns></returns>
+        Task<bool> UpdateEmailStatus(string login);
 
         /// <summary>
         /// Удаление пользователя по id
@@ -62,6 +77,13 @@ namespace UserManagement.Logic.Services
         /// <param name="id"></param>
         /// <returns></returns>
         Task<string> Delete(string id);
+
+        /// <summary>
+        /// Нахождение Email
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<bool> GetEmail(string email);
 
         /// <summary>
         /// Добавление группы

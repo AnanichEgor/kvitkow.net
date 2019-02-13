@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data.ResponseModel;
-using Microsoft.AspNetCore.Mvc;
-using StatisticUser.Data.DbModels;
 using StatisticUser.Logic.DTOs;
 using StatisticUser.Logic.Services;
 
@@ -54,6 +50,6 @@ namespace StatisticUser.Logic.Interfaces
         /// <summary>
         /// Количество сообщений пользователя
         /// </summary>
-        Task<LoadResult> GetAllUser(DataSourceLoadOptions loadOptions);
+        LoadResult GetAllUser(DataSourceLoadOptions loadOptions);
     }
 }

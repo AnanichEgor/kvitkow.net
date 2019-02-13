@@ -15,8 +15,7 @@ namespace TicketManagement.Logic.Validators
             RuleFor(ticket => ticket.SellerPhone).NotEmpty().Length(6, 20).Matches(@"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$");
             RuleFor(ticket => ticket.LocationEvent).SetValidator(new AddressValidator());
             RuleFor(ticket => ticket.SellerAdress).SetValidator(new AddressValidator());
-            RuleFor(ticket => ticket.TypeEvent).IsInEnum();
-            RuleFor(ticket => ticket.Status).IsInEnum();
+            RuleFor(ticket => ticket.TypeEvent).NotEmpty();
         }
     }
 }

@@ -7,6 +7,7 @@ import { StatisticComponent } from './components/statistic/statistic.component';
 import { SearchTicketResultsComponent } from './components/search-ticket-results/search-ticket-results.component';
 import { SearchTicketComponent } from './components/search-ticket/search-ticket.component';
 import { SearchUserComponent } from './components/search-user/search-user.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -83,6 +84,7 @@ const routes: Routes = [
       { path: 'advanced', component: UserSettingsAdvancedComponent, pathMatch: 'full'},
     ]},
   { path: 'login', component: LoginComponent, pathMatch: 'full'},
+  { path: 'dashboard', component: DashboardComponent, pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 ];
 

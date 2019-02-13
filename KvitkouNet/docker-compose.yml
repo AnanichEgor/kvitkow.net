@@ -76,6 +76,8 @@ services:
     environment:
       - ConnectionStrings__ElasticSearchConnection=http://elasticsearch:9200
       - ConnectionStrings__RabbitConnection=host=rabbit
+    volumes:
+      - searchdata:/app/Database   
     ports:
       - 5008:80
     depends_on:
@@ -103,6 +105,8 @@ services:
 
    elasticsearch:
     image: elasticsearch:6.4.3
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
       - 9300:9300
@@ -112,8 +116,6 @@ services:
     build:
       context: ./
       dockerfile: Chat/Chat.Web/Dockerfile
-    depends_on:
-      - rabbit
     ports:
       - 5010:80
 
@@ -130,8 +132,6 @@ services:
     build:
       context: ./
       dockerfile: Notification/Notification.Web/Dockerfile
-    depends_on:
-      - rabbit
     ports:
       - 5012:80
 
@@ -140,7 +140,19 @@ services:
     build:
       context: ./StatisticOnline
       dockerfile: ./StatisticOnline.Web/Dockerfile
-    depends_on:
-      - rabbit
     ports:
       - 5050:80
+
+   statisticuser.web:
+    image: ${DOCKER_REGISTRY}statisticuserweb
+    build:
+      context: ./StatisticUser
+      dockerfile: ./StatisticUser.Web/Dockerfile
+    ports:
+      - 5060:80
+
+volumes:
+  esdata:
+    driver: local
+  searchdata:
+    driver: local

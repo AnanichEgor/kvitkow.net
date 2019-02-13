@@ -459,6 +459,18 @@
       ],
       "UpstreamPathTemplate": "/notification/subscription/{theme}/users/{id}",
       "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/security/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "security.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/security/{catchAll}",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
     }
   ]
 }

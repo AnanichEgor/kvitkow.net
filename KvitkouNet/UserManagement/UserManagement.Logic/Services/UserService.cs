@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EasyNetQ;
 using FluentValidation;
+using KvitkouNet.Messages.Logging;
 using KvitkouNet.Messages.Logging.Enums;
 using KvitkouNet.Messages.UserManagement;
 using KvitkouNet.Messages.UserSettings;
@@ -50,21 +51,36 @@ namespace UserManagement.Logic.Services
             }
             var res = await _unitOfWork.Users.AddAsync(_mapper.Map<UserDB>(model));
             var findUser = _unitOfWork.Users.FindAsync(x => x.AccountDB.Login == model.UserName).Result.FirstOrDefault();
-            await _bus.PublishAsync(new UserCreationMessage
+            if (_bus.IsConnected==true)
             {
-                UserId = findUser.Id.ToString(),
-                FirstName = findUser.ProfileDB.FirstName,
-                LastName = findUser.ProfileDB.LastName,
-                UserName = findUser.AccountDB.Login,
-                Email = findUser.AccountDB.Email
-            });
-            await _bus.PublishAsync(new AccountMessage
-            {
-                UserId = findUser.Id,
-                UserName = findUser.AccountDB.Login,
-                Email = findUser.AccountDB.Email,
-                Type = AccountActionType.Registration,
-            });
+                await _bus.PublishAsync(new UserCreationMessage
+                {
+                    UserId = findUser.Id.ToString(),
+                    FirstName = findUser.ProfileDB.FirstName,
+                    LastName = findUser.ProfileDB.LastName,
+                    UserName = findUser.AccountDB.Login,
+                    Email = findUser.AccountDB.Email,
+                });
+                await _bus.PublishAsync(new AccountMessage
+                {
+                    UserId = findUser.Id,
+                    UserName = findUser.AccountDB.Login,
+                    Email = findUser.AccountDB.Email,
+                    Type = AccountActionType.Registration,
+                });
+                await _bus.PublishAsync(new AccountLogMessage
+                {
+                    UserId = findUser.Id,
+                    UserName = findUser.AccountDB.Login,
+                    Email = findUser.AccountDB.Email,
+                    Type = AccountActionType.Registration,
+                });
+                await _bus.PublishAsync(new RegistrationMessage
+                {
+                    Name = findUser.AccountDB.Login,
+                    Email = findUser.AccountDB.Email,
+                });
+            }
             return "Ok";
         }
 
@@ -81,10 +97,10 @@ namespace UserManagement.Logic.Services
             return temp;
         }
 
-        public async Task<ForViewModel> GetByLogin(string login)
+        public async Task<ModelWithHashPassw> GetByLogin(string login)
         {
             var model = await _unitOfWork.Users.GetByLoginAsync(login);
-            return model != null ? (_mapper.Map<ForViewModel>(model)):(null);
+            return model != null ? (_mapper.Map<ModelWithHashPassw>(model)):(null);
         }
 
         public async Task<ForViewModel> Get(string id)
@@ -98,7 +114,15 @@ namespace UserManagement.Logic.Services
             var findUser = _unitOfWork.Users.FindAsync(x => x.Id == id).Result.FirstOrDefault().ProfileDB;
             if (findUser == null) return "Not Found";
             var profileDB = _mapper.Map<ForUpdateModel, ProfileDB>(userModel);
-            profileDB.Id = findUser.Id;
+            await _unitOfWork.Profiles.UpdateProfileAsync(profileDB, findUser.Id);
+            return "Ok";
+        }
+
+        public async Task<string> UpdateByLogin(string login, ForUpdateModel userModel)
+        {
+            var findUser = _unitOfWork.Users.FindAsync(x => x.AccountDB.Login == login).Result.FirstOrDefault().ProfileDB;
+            if (findUser == null) return "Not Found";
+            var profileDB = _mapper.Map<ForUpdateModel, ProfileDB>(userModel);
             await _unitOfWork.Profiles.UpdateProfileAsync(profileDB, findUser.Id);
             return "Ok";
         }
@@ -108,29 +132,45 @@ namespace UserManagement.Logic.Services
             var findUser = _unitOfWork.Users.FindAsync(x => x.Id == id).Result.FirstOrDefault();
             if (findUser == null) return "Not Found";
             await _unitOfWork.Users.DeleteAsync(findUser);
-            await _bus.PublishAsync(new AccountMessage
+            if (_bus.IsConnected == true)
             {
-                UserId = findUser.Id,
-                UserName = findUser.AccountDB.Login,
-                Email = findUser.AccountDB.Email,
-                Type = AccountActionType.Delete,
-            });
-            await _bus.PublishAsync(new UserDeletedMessage
-            {
-                UserId = findUser.Id
-            });
+                await _bus.PublishAsync(new AccountMessage
+                {
+                    UserId = findUser.Id,
+                    UserName = findUser.AccountDB.Login,
+                    Email = findUser.AccountDB.Email,
+                    Type = AccountActionType.Delete,
+                });
+                await _bus.PublishAsync(new UserDeletedMessage
+                {
+                    UserId = findUser.Id
+                });
+            }
             return "Ok";
         }
 
-        public Task<string> UpdateEmail(EmailUpdateMessage emailUpdateMessage)
+        public async Task<bool> UpdateEmail(EmailUpdateMessage emailUpdateMessage)
         {
             var findUser = _unitOfWork.Users.FindAsync(x => x.Id == emailUpdateMessage.UserId).Result.FirstOrDefault();
-            var findAcc = _unitOfWork.Accounts.FindAsync(x => x.Email == emailUpdateMessage.Email).Result.FirstOrDefault();
-            //if (findUser == null) return "Not Found";
-            //findUser.AccountDB.Email = emailUpdateMessage.Email;
-            //await _context.SaveChangesAsync();
-            //return "Ok";
-            throw new NotImplementedException();
+            if (findUser == null) return false;
+            findUser.AccountDB.Email = emailUpdateMessage.Email;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateEmailStatus(string login)
+        {
+            var findUser = _unitOfWork.Users.FindAsync(x => x.AccountDB.Login == login).Result.FirstOrDefault();
+            if (findUser == null) return false;
+            findUser.EmailConfirmed = true;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> GetEmail(string email)
+        {
+            var findEmail = await _unitOfWork.Accounts.FindAsync(x => x.Email == email);
+            return findEmail.FirstOrDefault() != null ? true : false;
         }
 
         public Task<IEnumerable<GroupModel>> GetAllGroups()
