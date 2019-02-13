@@ -35,7 +35,7 @@ export class ChatComponent implements OnInit {
       this.connection = new HubConnectionBuilder()
       .withUrl('https://localhost:5002/chat/notification')
       .build();
-
+      console.log('стартуем коннект для Hub');
       this.connection
       .start()
       .then(() => console.log('Connection established'))
