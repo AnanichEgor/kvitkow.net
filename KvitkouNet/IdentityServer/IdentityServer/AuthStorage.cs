@@ -54,8 +54,10 @@ namespace IdentityServer
 					{
 						new Secret("superSecretPassword".Sha256())
 					},
-					AllowedScopes = new List<string> {"openid", "api"}
-				}
+					AllowedScopes = new List<string> {"openid", "api"},
+
+                    AlwaysIncludeUserClaimsInIdToken = true
+                }
 			};
 		}
 		public static List<TestUser> Users = new List<TestUser>
@@ -75,9 +77,30 @@ namespace IdentityServer
 				Password = "user1",
 				Claims = new List<Claim> {
 					new Claim(JwtClaimTypes.Email, "bob@bobbrady91.com"),
-					new Claim(JwtClaimTypes.Role, "user")
-				}
-			}
-		};
+					new Claim(JwtClaimTypes.Role, "user"),
+                    new Claim(JwtClaimTypes.Subject, "user1")
+                }
+			},
+            new TestUser {
+                SubjectId = "5BE86359-073C-434B-AD2D-A3932222DAEB",
+                Username = "user2",
+                Password = "user2",
+                Claims = new List<Claim> {
+                    new Claim(JwtClaimTypes.Email, "bob@bobbrady91.com"),
+                    new Claim(JwtClaimTypes.Role, "user"),
+                    new Claim(JwtClaimTypes.Subject, "user2")
+                }
+            },
+            new TestUser {
+                SubjectId = "5BE86359-073C-434B-AD2D-A3932222DAEB",
+                Username = "user3",
+                Password = "user3",
+                Claims = new List<Claim> {
+                    new Claim(JwtClaimTypes.Email, "bob@bobbrady91.com"),
+                    new Claim(JwtClaimTypes.Role, "user"),
+                    new Claim(JwtClaimTypes.Subject, "user3")
+                }
+            }
+        };
 	}
 }

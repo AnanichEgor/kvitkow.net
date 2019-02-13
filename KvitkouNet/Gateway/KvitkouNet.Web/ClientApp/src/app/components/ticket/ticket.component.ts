@@ -36,6 +36,7 @@ export class TicketComponent implements OnInit, OnDestroy {
     }
 }, err => console.error(err));
 });
+this.ticketsSrv.getSubId();
 
 }
 ngOnDestroy(): void {
