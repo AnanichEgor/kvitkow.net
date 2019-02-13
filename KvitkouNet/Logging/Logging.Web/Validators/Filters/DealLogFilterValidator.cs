@@ -8,7 +8,7 @@ namespace Logging.Web.Validators.Filters
         public DealLogFilterValidator()
         {
             RuleFor(f => f.Type)
-                .NotEmpty();
+                .IsInEnum();
 
             When(f => f.MinPrice.HasValue, () =>
             {
