@@ -395,7 +395,7 @@
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
-      "DownstreamPathTemplate": "/api/security/{everything}",
+      "DownstreamPathTemplate": "/api/security/{catchAll}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -403,7 +403,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/security/{everything}",
+      "UpstreamPathTemplate": "/security/{catchAll}",
       "UpstreamHttpMethod": [ "Get", "Post" ]
     }
   ]
