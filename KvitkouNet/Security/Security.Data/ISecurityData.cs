@@ -156,6 +156,17 @@ namespace Security.Data
         /// <param name="deniedRightsIds">Запрещённые права</param>
         /// <returns></returns>
         Task<bool> EditUserRights(string userId, int[]roleIds, int[] functionIds, int[] accessedRightsIds, int[] deniedRightsIds);
+        
+        /// <summary>
+        /// Изменение прав доступа пользователя
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя</param>
+        /// <param name="roles">Набор ролей</param>
+        /// <param name="functions">Набор функций</param>
+        /// <param name="accessedRights">Разрешенные права</param>
+        /// <param name="deniedRights">Запрещённые права</param>
+        /// <returns></returns>
+        Task<bool> EditUserRightsByNames(string userId, string[] roles, string[] functions, string[] accessedRights, string[] deniedRights);
 
         /// <summary>
         /// Удаление пользователя
@@ -169,7 +180,7 @@ namespace Security.Data
         /// </summary>
         /// <param name="userInfo">Информация пользователя</param>
         /// <returns></returns>
-        Task<bool> AddUser(UserInfoDb userInfo);
+        Task<bool> AddUser(UserInfoDb userInfo, UserRightsDb userRightsDb);
 
         /// <summary>
         /// Обновление пользователя

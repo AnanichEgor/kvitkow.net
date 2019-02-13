@@ -410,6 +410,18 @@
         "GET"
       ],
       "ReRouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/security/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "security.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/security/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
     }
   ]
 }

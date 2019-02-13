@@ -35,7 +35,10 @@ namespace Security.Web.Subscriber
                     Component.For<IUserRightsService>().Instance(services.GetService<IUserRightsService>()),
 
                     //Потребители
-                    Component.For<RegistrationNotificationMessageConsumer>().ImplementedBy<RegistrationNotificationMessageConsumer>(),
+                    Component.For<ConfirmRegistrationNotificationMessageConsumer>().ImplementedBy<ConfirmRegistrationNotificationMessageConsumer>(),
+                    Component.For<CreationNotificationMessageConsumer>().ImplementedBy<CreationNotificationMessageConsumer>(),
+                    Component.For<UpdateUserNotificationMessageConsumer>().ImplementedBy<UpdateUserNotificationMessageConsumer>(),
+                    Component.For<DeleteUserNotificationMessageConsumer>().ImplementedBy<DeleteUserNotificationMessageConsumer>(),
 
                     //Конфиг
                     Component.For<IConfiguration>().Instance(services.GetService<IConfiguration>()));

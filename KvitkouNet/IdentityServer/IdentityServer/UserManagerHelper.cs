@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
-using System.Threading.Tasks;
 using IdentityServer.SecurityClient.Model;
 using IdentityServer.UserManagmentClient.Model;
 using Microsoft.AspNetCore.Identity;
@@ -84,7 +83,8 @@ namespace IdentityServer
             {
                 Email = userGet.Email,
                 Id = userGet.Id,
-                UserName = userGet.Login
+                UserName = userGet.Login,
+                //PasswordHash = userGet.PasswordHash
             };
         }
     }
