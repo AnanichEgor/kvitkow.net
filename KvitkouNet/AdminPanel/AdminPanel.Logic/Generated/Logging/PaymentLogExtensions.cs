@@ -7,7 +7,8 @@
 namespace AdminPanel.Logic.Generated.Logging
 {
     using Models;
-    using System.Threading;
+	using System;
+	using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -55,6 +56,8 @@ namespace AdminPanel.Logic.Generated.Logging
             /// </param>
             public static async Task<object> GetPaymentLogsAsync(this IPaymentLog operations, string senderId = default(string), string recieverId = default(string), double? minTransfer = default(double?), double? maxTransfer = default(double?), System.DateTime? dateFrom = default(System.DateTime?), System.DateTime? dateTo = default(System.DateTime?), CancellationToken cancellationToken = default(CancellationToken))
             {
+				// fake exception for testing global exception filter
+				throw new InvalidOperationException("Can't get payments");
                 using (var _result = await operations.GetPaymentLogsWithHttpMessagesAsync(senderId, recieverId, minTransfer, maxTransfer, dateFrom, dateTo, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
