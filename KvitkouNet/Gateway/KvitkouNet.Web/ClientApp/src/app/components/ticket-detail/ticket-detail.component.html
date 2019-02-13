@@ -78,11 +78,11 @@
                 <h5 class="card-title" *ngIf="!tickets.price">Price: Free</h5>
                 <p class="card-title">Phone: {{ tickets.sellerPhone }}</p>
                 <p class="card-text">
-                  Create: {{ tickets.createdDate | date: " MMMM d yyyy hh:mm" }}
+                    Создан: {{ tickets.createdDate | date: " MMMM d yyyy H:MM" }}
                 </p>
                 <p class="card-text">
-                  Valid until:
-                  {{ tickets.timeActual | date: "MMMM d yyyy hh:mm " }}
+                  Дата события:
+                  {{ tickets.timeActual | date: "MMMM d yyyy H:MM " }}
                 </p>
               </div>
               <div class="card-body">

@@ -38,8 +38,8 @@ export class TicketFormComponent implements OnInit {
       'additionalData' : new FormControl(),
       'typeEvent' : new FormControl(),
       'sellerPhone' : new FormControl(),
-      'eventLink' : new FormControl()
-      })
+      'timeActual' : new FormControl()
+      });
   }
 
   ngOnInit() {}

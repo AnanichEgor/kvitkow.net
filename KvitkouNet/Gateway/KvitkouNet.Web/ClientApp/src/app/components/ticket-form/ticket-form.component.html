@@ -1,4 +1,4 @@
-<div class="container col-8">
+<div class="container col-7">
     <div class="album py-5 " *ngIf="!authenticated"></div>
     <div class="alert alert-danger" role="alert" *ngIf="!authenticated">
 
@@ -16,8 +16,8 @@
             </div>
       </div>
 
-      <div class="form-group" input type="text">
-          <label class=" control-label" for="selectbasic">Free ticket?</label>
+      <div class="form-group row" input type="text">
+          <label class=" control-label col-3 col-form-label " for="selectbasic">Бесплатный билет?</label>
           <div input type="text">
             <select id="selectbasic" name="selectbasic" formControlName="free" class="form-control">
               <option value="true" input type="text">Free</option>
@@ -27,8 +27,8 @@
         </div>
 
 
-      <div class="form-group" input type="text">
-          <label class=" control-label" for="selectbasic">Выберете тип мероприятия</label>
+        <div class="form-group row" input type="text">
+            <label class=" control-label col-4 col-form-label" for="selectbasic">Выберете тип мероприятия</label>
           <div input type="text">
             <select id="selectbasic" name="selectbasic" formControlName="typeEvent" class="form-control">
               <option value="0" input type="text">Unknown</option>
@@ -44,31 +44,40 @@
             </select>
           </div>
         </div>
+        <div class="form-group row">
+
+            <label for="example-datetime-local-input" class="col-2 col-form-label">Дата события</label>
+            <div>
+              <input class="form-control" type="datetime-local" formControlName="timeActual" value="2019-02-12T19:00:00" >
+            </div>
+          </div>
+
       <div formGroupName="locationEvent"> <legend>Где проходит:
       </legend>
       <div class="form-row">
           <div class="form-input-text form-group col-md-4">
-              <label> Страна: </label>
-              <input type="text" formControlName="country" class="form-control">
+
+              <input type="text" formControlName="country" placeholder="Страна" class="form-control">
             </div>
             <div class="form-input-text form-group col-md-3">
-                <label>Город: </label>
-                <input type="text" formControlName="city" class="form-control">
+
+                <input type="text" formControlName="city" placeholder="Город" class="form-control">
               </div>
-          <div class="form-input-text form-group col-md-4">
-              <label>Улица: </label>
-              <input type="text" formControlName="street" class="form-control">
+          <div class="form-input-text form-group col-md-3">
+
+              <input type="text" formControlName="street" placeholder="Улица" class="form-control">
             </div>
-          <div class="form-input-text form-group col-md-1">
-              <label>Дом: </label>
-              <input type="number" formControlName="house" class="form-control">
+          <div class="form-input-text form-group col-md-2">
+
+              <input type="number" formControlName="house" placeholder="Дом" class="form-control">
             </div>
           </div>
         </div>
 
-        <div class="form-group">
-          <div class="form-input-text">
-              <label>Ссылка на мероприятие: </label>
+        <div class="form-group row">
+            <label class="col-4 col-form-label">Ссылка на мероприятие: </label>
+          <div class="form-input-text col-8">
+
               <input type="text" formControlName="eventLink" class="form-control">
             </div>
       </div>
@@ -77,30 +86,30 @@
           </legend>
           <div class="form-row">
               <div class="form-input-text form-group col-md-4">
-                  <label> Страна: </label>
-                  <input type="text" formControlName="country" class="form-control">
+
+                  <input type="text" formControlName="country" placeholder="Страна" class="form-control">
                 </div>
                 <div class="form-input-text form-group col-md-3">
-                    <label>Город: </label>
-                    <input type="text" formControlName="city" class="form-control">
+
+                    <input type="text" formControlName="city" placeholder="Город" class="form-control">
                   </div>
-              <div class="form-input-text form-group col-md-4">
-                  <label>Улица: </label>
-                  <input type="text" formControlName="street" class="form-control">
+              <div class="form-input-text form-group col-md-3">
+
+                  <input type="text" formControlName="street" placeholder="Улица" class="form-control">
                 </div>
-              <div class="form-input-text form-group col-md-1">
-                  <label>Дом: </label>
-                  <input type="number" formControlName="house" class="form-control">
+              <div class="form-input-text form-group col-md-2">
+
+                  <input type="number" formControlName="house" placeholder="Дом" class="form-control">
                 </div>
               </div>
             </div>
-              <div class="form-group">
-                <div class="form-input-text">
-                    <label>Телефон продавца: </label>
-                    <input type="text" formControlName="sellerPhone" class="form-control">
-                  </div>
-            </div>
 
+            <div class="form-group row">
+                <label for="example-tel-input" class="col-2 col-form-label">Телефон</label>
+                <div>
+                  <input class="form-control" type="tel" formControlName="sellerPhone" placeholder="+375*********">
+                </div>
+              </div>
 
 
 
