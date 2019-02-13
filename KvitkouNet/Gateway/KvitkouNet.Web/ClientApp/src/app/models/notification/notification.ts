@@ -17,7 +17,6 @@ export interface Notification {
 
 
     notificationId?: string;
-    creator?: string;
     message?: NotificationMessage;
     date: Date;
 }
