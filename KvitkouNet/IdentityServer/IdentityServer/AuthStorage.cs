@@ -31,7 +31,7 @@ namespace IdentityServer
 					Name = "apiResource",
 					DisplayName = "Custom API",
 					Description = "Custom API Access",
-					UserClaims = new List<string> {"role"},
+					UserClaims = new List<string> {"role", "name", "email", "id"},
 					ApiSecrets = new List<Secret> {new Secret("scopeSecret".Sha256())},
 					Scopes = new List<Scope>
 					{
@@ -75,8 +75,10 @@ namespace IdentityServer
 				Password = "user1",
 				Claims = new List<Claim> {
 					new Claim(JwtClaimTypes.Email, "bob@bobbrady91.com"),
-					new Claim(JwtClaimTypes.Role, "user")
-				}
+					new Claim(JwtClaimTypes.Role, "user"),
+                    new Claim(JwtClaimTypes.Name, "Bob"),
+                    new Claim(JwtClaimTypes.Id, "12345678"),
+                }
 			}
 		};
 	}
