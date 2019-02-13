@@ -23,10 +23,15 @@ export class ChatComponent implements OnInit {
   newMessage: Message;
   private connection: HubConnection;
   public messagesForHus: Array<Message> = [];
+  authenticated: boolean;
 
   constructor(
     private serviceChat: ChatService, private serviceRoom: RoomService
     ) {
+      // прошел ли пользователь Authenticat
+      this.authenticated = this.serviceChat.isAuthenticated();
+
+      // настроим коннект для Hub
       this.connection = new HubConnectionBuilder()
       .withUrl('https://localhost:5002/chat/notification')
       .build();
@@ -35,14 +40,13 @@ export class ChatComponent implements OnInit {
       .start()
       .then(() => console.log('Connection established'))
       .catch(err => console.error(err));
-      console.log('consrtructor');
+
+    // регистрируемся на метод alertOnSendedMessageAllUsers
     this.connection.on('alertOnSendedMessageAllUsers', msg =>
     (console.log('startMethodHub. Came in method  = ' + msg ),
       this.messagesForHus.push(msg),
       console.log('EndMethodHub')
-      ))
-    ;      console.log('consrtructorEnd');
-    console.log(this.newMessage);
+      ));
      }
 
   ngOnInit() {

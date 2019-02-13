@@ -22,6 +22,7 @@ import { Settings } from '../../models/chat/settings';
 
 import { BASE_PATH, COLLECTION_FORMATS } from '../../services/chat/variables';
 import { Configuration } from '../../services/chat/configuration';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 
 @Injectable()
@@ -31,7 +32,8 @@ export class ChatService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string,
+    @Optional() configuration: Configuration, private oauthService: OAuthService) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -39,6 +41,19 @@ export class ChatService {
             this.configuration = configuration;
             this.basePath = basePath || configuration.basePath || this.basePath;
         }
+    }
+
+    isAuthenticated() {
+      const token = this.oauthService.getAccessToken();
+      return !!token;
+    }
+    private getHeaders() {
+      const token = this.oauthService.getAccessToken();
+      return !!token
+        ? new HttpHeaders({
+            Authorization: 'Bearer ' + token
+          })
+        : new HttpHeaders();
     }
 
     /**
