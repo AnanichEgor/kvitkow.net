@@ -16,7 +16,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ ticket.name }}</h5>
               <label>Category:&nbsp;</label>
-              <span>{{ ticket.category }}</span>
+              <span>{{ categotyType[ticket.category] || ticket.category }}</span>
               <div><i class="fas fa-map-marker-alt"></i> {{ ticket.city }}</div>
               <div>{{ ticket.date | date: "MMM d, y, H:mm" }}</div>
               <div>{{ ticket.price | currency: "USD":'symbol':"1.1-2" }}</div>

@@ -19,6 +19,18 @@ export class SearchTicketResultsComponent implements OnInit {
     limit: this.defaultLimit
   });
   error: boolean;
+  categotyType = {
+    '0': 'Unknown',
+    '1': 'Movie',
+    '2': 'Concerts',
+    '4': 'Theater',
+    '8': 'Ballet',
+    '16': 'Sport',
+    '32': 'Parties',
+    '64': 'Trainings',
+    '128': 'Exhibitions',
+    '256': 'Circus'
+  };
 
   constructor(
     private route: ActivatedRoute,
