@@ -10,7 +10,7 @@ namespace IdentityServer.UserManagmentClient.Model {
   /// 
   /// </summary>
   [DataContract]
-  public class ForViewModel {
+  public class ModelWithHashPassw {
     /// <summary>
     /// Gets or Sets Id
     /// </summary>
@@ -88,6 +88,13 @@ namespace IdentityServer.UserManagmentClient.Model {
     [JsonProperty(PropertyName = "emailConfirmed")]
     public bool? EmailConfirmed { get; set; }
 
+    /// <summary>
+    /// Gets or Sets HashPassword
+    /// </summary>
+    [DataMember(Name="hashPassword", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "hashPassword")]
+    public string HashPassword { get; set; }
+
 
     /// <summary>
     /// Get the string presentation of the object
@@ -95,7 +102,7 @@ namespace IdentityServer.UserManagmentClient.Model {
     /// <returns>String presentation of the object</returns>
     public override string ToString()  {
       var sb = new StringBuilder();
-      sb.Append("class ForViewModel {\n");
+      sb.Append("class ModelWithHashPassw {\n");
       sb.Append("  Id: ").Append(Id).Append("\n");
       sb.Append("  Login: ").Append(Login).Append("\n");
       sb.Append("  FirstName: ").Append(FirstName).Append("\n");
@@ -107,6 +114,7 @@ namespace IdentityServer.UserManagmentClient.Model {
       sb.Append("  Email: ").Append(Email).Append("\n");
       sb.Append("  PhoneNumber: ").Append(PhoneNumber).Append("\n");
       sb.Append("  EmailConfirmed: ").Append(EmailConfirmed).Append("\n");
+      sb.Append("  HashPassword: ").Append(HashPassword).Append("\n");
       sb.Append("}\n");
       return sb.ToString();
     }
