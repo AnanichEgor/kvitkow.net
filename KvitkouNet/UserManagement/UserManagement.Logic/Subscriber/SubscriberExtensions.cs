@@ -20,11 +20,10 @@ namespace UserManagement.Logic.Subscriber
 
             lifetime.ApplicationStarted.Register(() =>
             {
-                //var subscriber = new AutoSubscriber(bus, prefix);
-                //subscriber.Subscribe(assembly);
-                //subscriber.SubscribeAsync(assembly);
-                //bus.SubscribeAllConsumers(services);
-                bus.SubscribeAsync<AccountMessage>("UserService.AccountCreated", msg => services.GetService<IConsumeAsync<AccountMessage>>().ConsumeAsync(msg));
+                if (bus.IsConnected)
+                {
+                    bus.SubscribeAsync<AccountMessage>("UserService.AccountCreated", msg => services.GetService<IConsumeAsync<AccountMessage>>().ConsumeAsync(msg));
+                }
             });
 
             lifetime.ApplicationStopped.Register(() => bus.Dispose());

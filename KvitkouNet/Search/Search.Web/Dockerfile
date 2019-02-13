@@ -17,4 +17,5 @@ RUN dotnet publish "Search.Web.csproj" -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
+VOLUME /app/Database
 ENTRYPOINT ["dotnet", "Search.Web.dll"]
