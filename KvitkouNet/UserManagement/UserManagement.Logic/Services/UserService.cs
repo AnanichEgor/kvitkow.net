@@ -133,6 +133,12 @@ namespace UserManagement.Logic.Services
             throw new NotImplementedException();
         }
 
+        public async Task<bool> GetEmail(string email)
+        {
+            var findEmail = await _unitOfWork.Accounts.FindAsync(x => x.Email == email);
+            return findEmail.FirstOrDefault() != null ? true : false;
+        }
+
         public Task<IEnumerable<GroupModel>> GetAllGroups()
         {
             throw new NotImplementedException();
