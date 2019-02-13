@@ -27,26 +27,27 @@ export class TicketEditComponent implements OnInit {
   ) {
     this.authenticated = this.ticketSrv.isAuthenticated();
     this.addTicketForm = new FormGroup({
-      name: new FormControl(),
-      free: new FormControl(),
-      locationEvent: new FormGroup({
-        country: new FormControl(),
-        city: new FormControl(),
-        street: new FormControl(),
-        house: new FormControl(),
-        flat: new FormControl()
+      'name' : new FormControl(),
+      'free' : new FormControl(),
+      'locationEvent' : new FormGroup({
+        'country' : new FormControl(),
+        'city' : new FormControl(),
+        'street' : new FormControl(),
+        'house' : new FormControl(),
+        'flat' : new FormControl(),
       }),
-      sellerAdress: new FormGroup({
-        country: new FormControl(),
-        city: new FormControl(),
-        street: new FormControl(),
-        house: new FormControl(),
-        flat: new FormControl()
+      'sellerAdress' : new FormGroup({
+        'country' : new FormControl(),
+        'city' : new FormControl(),
+        'street' : new FormControl(),
+        'house' : new FormControl(),
+        'flat' : new FormControl(),
       }),
-      additionalData: new FormControl(),
-      typeEvent: new FormControl(),
-      sellerPhone: new FormControl(),
-      eventLink: new FormControl()
+      'eventLink' : new FormControl(),
+      'additionalData' : new FormControl(),
+      'typeEvent' : new FormControl(),
+      'sellerPhone' : new FormControl(),
+      'timeActual' : new FormControl()
     });
   }
 
