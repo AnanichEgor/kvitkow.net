@@ -33,7 +33,6 @@ namespace UserManagement.Data
                 }
             }
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IUpdateIdentityUsers, UpdateIdentityUsers>();
             return services;
         }
     }
