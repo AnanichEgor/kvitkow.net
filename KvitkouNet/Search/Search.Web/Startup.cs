@@ -12,6 +12,7 @@ using Search.Data.Context;
 using Search.Logic;
 using Search.Logic.MappingProfiles;
 using Search.Web.Filters;
+using Search.Web.MappingProfiles;
 using Search.Web.Subscriber;
 
 namespace Search.Web
@@ -46,6 +47,8 @@ namespace Search.Web
             services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile<SearchProfile>();
+                cfg.AddProfile<TicketProfile>();
+                cfg.AddProfile<UserProfile>();
             });
 
             services.AddMvc(opt => opt.Filters.Add(typeof(ExceptionFilter)))

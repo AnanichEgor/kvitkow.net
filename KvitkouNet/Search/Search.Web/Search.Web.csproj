@@ -28,4 +28,10 @@
     <ProjectReference Include="..\Search.Logic\Search.Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Database\.gitignore">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
