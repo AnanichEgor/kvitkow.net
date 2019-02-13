@@ -20,7 +20,7 @@ namespace IdentityServer.SecurityClient.Client
         /// Initializes a new instance of the <see cref="ApiClient" /> class.
         /// </summary>
         /// <param name="basePath">The base path.</param>
-        public ApiClient(String basePath="http://localhost:5011")
+        public ApiClient(String basePath= "http://security.web")
         {
             BasePath = basePath;
             RestClient = new RestClient(BasePath);

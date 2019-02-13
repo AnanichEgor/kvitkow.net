@@ -51,7 +51,6 @@ namespace IdentityServer
 			builder.AddInMemoryIdentityResources(AuthStorage.GetIdentityResources());
 			builder.AddInMemoryApiResources(AuthStorage.GetApis());
 			builder.AddInMemoryClients(AuthStorage.GetClients());
-		    builder.AddAspNetIdentity<IdentityUser>();
             
             services.AddIdentity<IdentityUser, IdentityRole>()
 		        .AddUserManager<CustomUserManager>();
