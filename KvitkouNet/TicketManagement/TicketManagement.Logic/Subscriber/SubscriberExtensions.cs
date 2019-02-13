@@ -27,31 +27,21 @@ namespace TicketManagement.Logic.Subscriber
             var lifetime = services.GetService<IApplicationLifetime>();
             var bus = services.GetService<IBus>();
             
-            lifetime.ApplicationStarted.Register(async () =>
+            lifetime.ApplicationStarted.Register( () =>
             {
                 try
                 {
-                    await policy.ExecuteAsync(async () =>
-                    {
                         bus.SubscribeAsync<UserDeletedMessage>(userDeletedPreffix,
                             msg => services.GetService<IConsumeAsync<UserDeletedMessage>>().ConsumeAsync(msg));
-                    });
-
-                    await policy.ExecuteAsync(async () =>
-                    {
+                 
                         bus.SubscribeAsync<UserUpdatedMessage>(userUpdatedPreffix,
                             msg => services.GetService<IConsumeAsync<UserUpdatedMessage>>().ConsumeAsync(msg));
-                    });
-                    await policy.ExecuteAsync(async () =>
-                    {
+                  
                         bus.SubscribeAsync<UserProfileUpdateMessage>(userSetUpdatedPreffix,
                             msg => services.GetService<IConsumeAsync<UserProfileUpdateMessage>>().ConsumeAsync(msg));
-                    });
-                    await policy.ExecuteAsync(async () =>
-                    {
+                  
                         bus.SubscribeAsync<DeleteUserProfileMessage>(userSetDeletedPreffix,
                             msg => services.GetService<IConsumeAsync<DeleteUserProfileMessage>>().ConsumeAsync(msg));
-                    });
                 }
                 catch (TimeoutException)
                 {

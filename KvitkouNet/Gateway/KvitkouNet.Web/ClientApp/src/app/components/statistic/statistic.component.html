@@ -17,6 +17,14 @@
       >
         Статистика Online &raquo;
       </button>
+      <button
+      type="button"
+      class="btn btn-success"
+      (click)="clickButton(2)"
+      role="button"
+    >
+      Статистика Пользователи &raquo;
+    </button>
     </div>
     <div class="container-flex-setings">
       <button
@@ -45,6 +53,7 @@
       </button>
     </div>
   </div>
+  <p></p>
   <div>
     <dx-chart
       id="chart"
@@ -85,4 +94,45 @@
       <dxo-export [enabled]="true"></dxo-export>
     </dx-pie-chart>
   </div>
+
+  <dx-data-grid
+    [dataSource]="gridDataSource"
+    [remoteOperations]="true"
+    showBorders="true"
+    [height]="400"
+    [wordWrapEnabled]="true"
+    [allowColumnResizing]="true"
+    *ngIf="statisticIndex == 2"
+  >
+    <dxo-sorting mode="multiple"></dxo-sorting>
+    <dxo-state-storing
+      [enabled]="true"
+      type="localStorage"
+      storageKey="organisations"
+    ></dxo-state-storing>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+    <dxo-scrolling mode="virtual" rowRenderingMode="virtual"></dxo-scrolling>
+    <dxo-column-chooser
+      [enabled]="true"
+      mode="dragAndDrop"
+    ></dxo-column-chooser>
+    <dxo-selection mode="single"></dxo-selection>
+    <dxo-search-panel [visible]="true" [width]="250"></dxo-search-panel>
+    <dxo-export
+      [enabled]="true"
+      fileName="Пользователи"
+      [allowExportSelectedData]="true"
+    ></dxo-export>
+
+    <dxi-column dataField="userName" caption="Login"> </dxi-column>
+    <dxi-column dataField="messagesCount" caption="Сообщений"> </dxi-column>
+    <dxi-column dataField="ratingPositive" caption="Негативный рейтинг">
+    </dxi-column>
+    <dxi-column dataField="ratingNegative" caption="Позитивный рейтинг">
+    </dxi-column>
+    <dxi-column dataField="registrationDate" caption="Дата регистрации">
+    </dxi-column>
+    <dxi-column dataField="lastOnWebsite" caption="Дата последнего посещения">
+    </dxi-column>
+  </dx-data-grid>
 </div>

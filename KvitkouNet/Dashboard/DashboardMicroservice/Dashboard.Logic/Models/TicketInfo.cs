@@ -6,34 +6,33 @@ namespace Dashboard.Logic.Models
     public class TicketInfo
     {
         /// <summary>
-        ///     Название билета
+        /// Gets or sets the identifier.
+        /// </summary>
+        public string TicketId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of ticket.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        ///     Адрес проведения мероприятия
+        /// Gets or sets the date of event.
         /// </summary>
-        public string LocationEvent { get; set; }
+        public DateTime Date { get; set; }
 
         /// <summary>
-        ///     Цена билета
+        /// Gets or sets the city where the event will be held.
+        /// </summary>
+        public string City { get; set; }
+
+        /// <summary>
+        /// Gets or sets the category of the event.
+        /// </summary>
+        public string Category { get; set; }
+
+        /// <summary>
+        /// Gets or sets the price of the even.
         /// </summary>
         public decimal? Price { get; set; }
-
-
-        /// <summary>
-        ///     Телефон продавца
-        /// </summary>
-        public string SellerPhone { get; set; }
-
-        /// <summary>
-        ///     Ссылка на мероприятие
-        /// </summary>
-        public string EventLink { get; set; }
-
-        /// <summary>
-        ///     Время проведения мероприятия
-        /// </summary>
-        public DateTime TimeActual { get; set; }
     }
 }

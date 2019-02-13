@@ -105,7 +105,7 @@ namespace StatisticUser.Data.Migrations
 
                     b.Property<DateTime?>("Modified");
 
-                    b.Property<TimeSpan>("TimeOnline");
+                    b.Property<TimeSpan>("Timeuser");
 
                     b.Property<int>("UserId");
 
