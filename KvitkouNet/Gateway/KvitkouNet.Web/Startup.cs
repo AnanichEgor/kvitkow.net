@@ -37,7 +37,7 @@ namespace KvitkouNet.Web
 
 			services.AddSwaggerDocument();
 
-            //��� ���������� ��� ���������� ������ Hub
+            //this need for Hub
             services.AddOcelot();
             services.AddWebSockets(opt => opt.AllowedOrigins.Add("*"));
 
@@ -87,20 +87,20 @@ namespace KvitkouNet.Web
 					template: "{controller}/{action=Index}/{id?}");
 			});
 
-			//app.UseSpa(spa =>
-			//{
-			//    // To learn more about options for serving an Angular SPA from ASP.NET Core,
-			//    // see https://go.microsoft.com/fwlink/?linkid=864501
-			//
-			//    spa.Options.SourcePath = "ClientApp";
-			//
-			//    if (env.IsDevelopment())
-			//    {
-			//        spa.UseAngularCliServer(npmScript: "start");
-			//    }
-			//});
+            //app.UseSpa(spa =>
+            //{
+            //    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+            //    // see https://go.microsoft.com/fwlink/?linkid=864501
+            //
+            //    spa.Options.SourcePath = "ClientApp";
+            //
+            //    if (env.IsDevelopment())
+            //    {
+            //        spa.UseAngularCliServer(npmScript: "start");
+            //    }
+            //});
 
-            //��� ���������� ��� ���������� ������ Hub
+		    //this need for Hub
             app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowCredentials().AllowAnyHeader()
                 .AllowAnyMethod());
             app.UseOcelot().GetAwaiter().GetResult();
