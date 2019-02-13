@@ -279,8 +279,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "chat.web",
-          "Port": 80
+          "Host": "localhost",
+          "Port": 5010
         }
       ],
       "UpstreamPathTemplate": "/chat/rooms/{rid}/message",
@@ -291,8 +291,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "chat.web",
-          "Port": 80
+          "Host": "localhost",
+          "Port": 5010
         }
       ],
       "UpstreamPathTemplate": "/chat/settings/{uid}",
@@ -397,8 +397,8 @@
     {
       "DownstreamHostAndPorts": [
         {
-          "Port": 5000,
-          "Host": "chat.web"
+          "Port": 5010,
+          "Host": "localhost"
         }
       ],
       "DownstreamScheme": "ws",

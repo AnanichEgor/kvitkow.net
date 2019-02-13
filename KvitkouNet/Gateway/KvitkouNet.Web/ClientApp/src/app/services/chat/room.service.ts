@@ -43,6 +43,14 @@ export class RoomService {
         : new HttpHeaders();
     }
 
+    // достаем userId
+  public getUserIdFromClaims() {
+    const claims = this.oauthService.getIdentityClaims();
+    if (claims) {
+  }
+    return claims['sub'];
+  }
+
     /**
      * @param consumes string[] mime-types
      * @return true: consumes contains 'multipart/form-data', false: otherwise
@@ -105,7 +113,7 @@ export class RoomService {
             message,
             {
                 withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -159,7 +167,7 @@ export class RoomService {
             room,
             {
                 withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -203,7 +211,7 @@ export class RoomService {
         return this.httpClient.delete<any>(`${this.basePath}/chat/rooms/messages/${encodeURIComponent(String(mid))}`,
             {
                 withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -257,7 +265,7 @@ export class RoomService {
             message,
             {
                 withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -306,7 +314,7 @@ export class RoomService {
         return this.httpClient.get<Array<Message>>(`${this.basePath}/chat/rooms/${encodeURIComponent(String(rid))}/messages/history/${encodeURIComponent(String(historyCountsMessages))}`,
             {
                 withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -350,7 +358,7 @@ export class RoomService {
         return this.httpClient.get<Array<Room>>(`${this.basePath}/api/chat/rooms/users/${encodeURIComponent(String(uid))}`,
             {
                 withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -399,7 +407,7 @@ export class RoomService {
         return this.httpClient.get<Array<Message>>(`${this.basePath}/api/chat/rooms/${encodeURIComponent(String(rid))}/messages/${encodeURIComponent(String(template))}`,
             {
                 withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }
@@ -443,7 +451,7 @@ export class RoomService {
         return this.httpClient.get<Array<Room>>(`${this.basePath}/api/chat/rooms/${encodeURIComponent(String(template))}`,
             {
                 withCredentials: this.configuration.withCredentials,
-                headers: headers,
+                headers: this.getHeaders(),
                 observe: observe,
                 reportProgress: reportProgress
             }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.AspNetCore.WebSockets;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ocelot.DependencyInjection;
@@ -36,8 +37,9 @@ namespace KvitkouNet.Web
             services.AddSwaggerDocument();
 
             services.AddOcelot();
+            services.AddWebSockets(opt => opt.AllowedOrigins.Add("*"));
 
-	        services.AddAuthentication()
+            services.AddAuthentication()
 		        .AddIdentityServerAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme,
 			        opt =>
 			        {
@@ -94,7 +96,8 @@ namespace KvitkouNet.Web
             //    }
             //});
 
-	        app.UseCors(_ => _.AllowAnyOrigin().AllowAnyMethod().AllowAnyMethod().AllowAnyHeader());
+	        app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowCredentials().AllowAnyHeader()
+                .AllowAnyMethod());
             app.UseOcelot().GetAwaiter().GetResult();
         }
     }

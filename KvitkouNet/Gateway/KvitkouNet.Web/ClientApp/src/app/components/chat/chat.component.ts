@@ -29,8 +29,8 @@ export class ChatComponent implements OnInit {
     private serviceChat: ChatService, private serviceRoom: RoomService
     ) {
       // прошел ли пользователь Authenticat
-      this.authenticated = this.serviceChat.isAuthenticated();
-
+    //  this.authenticated = this.serviceChat.isAuthenticated();
+      console.log('настраиваем коннект для Hub');
       // настроим коннект для Hub
       this.connection = new HubConnectionBuilder()
       .withUrl('https://localhost:5002/chat/notification')
@@ -39,7 +39,7 @@ export class ChatComponent implements OnInit {
       this.connection
       .start()
       .then(() => console.log('Connection established'))
-      .catch(err => console.error(err));
+      .catch(err => console.error('ошибка коннекта'));
 
     // регистрируемся на метод alertOnSendedMessageAllUsers
     this.connection.on('alertOnSendedMessageAllUsers', msg =>
@@ -52,33 +52,34 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
 }
 
+// отправка сообщения
   onAddMessage(textMessage: string) {
 
      const message: Message = {
       text: textMessage,
       sendedTime: new Date(),
       isEdit: false,
-      userId: '1'
+      userId: '2' // this.serviceChat.getUserIdFromClaims()
     };
-     this.serviceRoom.roomAddMessage(message, '2' ).subscribe(
-       (r) =>console.log(r)
+    // '2' - это номер комнаты
+     this.serviceRoom.roomAddMessage(message, '2').subscribe(
+       (r) => console.log(r)
      , err => console.log('err'));
   }
 
+  // получим пользовательские настройки для чата
   onGetUserSetting() {
 
-     this.serviceChat.chatGetUserSettings('1').subscribe(x =>
-      {
-
+     this.serviceChat.chatGetUserSettings(this.serviceChat.getUserIdFromClaims()).subscribe(x => {
         this.userSettins = x;
       }
   );
   }
 
-  onSearchMessage(templateMessageIn: string){
+  // выполним поиск сообщения по шаблону
+  onSearchMessage(templateMessageIn: string) {
     this.templateMessage = templateMessageIn;
-    this.serviceRoom.roomSearchMessage('1', this.templateMessage).subscribe(x =>
-      {
+    this.serviceRoom.roomSearchMessage('2', this.templateMessage).subscribe(x => {
         this.messages = x;
       });
   }
