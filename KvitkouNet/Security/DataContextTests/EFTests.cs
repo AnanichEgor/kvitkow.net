@@ -66,7 +66,6 @@ namespace Tests
                 },
                 AccessRights = new List<AccessRightDb>() { new AccessRightDb() { Name = "1" } },
                 DeniedRights = new List<AccessRightDb>() { new AccessRightDb() { Name = "3" } }
-
             }));
         }
 
@@ -103,7 +102,6 @@ namespace Tests
             Assert.IsTrue(!userRights2.DeniedRights.Any());
             Assert.IsTrue(userRights2.AccessFunctions.Count() == 1);
             Assert.IsTrue(userRights2.Roles.Count() == 2);
-
         }
     }
 }
