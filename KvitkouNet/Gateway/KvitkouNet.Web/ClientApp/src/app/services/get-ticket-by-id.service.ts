@@ -21,6 +21,11 @@ export class GetTicketByIdService {
       headers: this.getHeaders()
     });
   }
+    editTicketById(id) {
+      return this.http.put(`${this.baseUrl}/api/tickets/${id}`, {
+        headers: this.getHeaders()
+      });
+  }
   isAuthenticated() {
     const token = this.oauthService.getAccessToken();
     return !!token ? true : false;

@@ -1,3 +1,4 @@
+import { OAuthService } from 'angular-oauth2-oidc';
 import { Address } from './../../models/address';
 import { AddTicketService } from './../../services/add-ticket.service';
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +15,7 @@ export class TicketFormComponent implements OnInit {
   addTicketForm: FormGroup;
   authenticated: boolean;
 
-  constructor(private ticketSrv: AddTicketService, private _location: Location) {
+  constructor(private ticketSrv: AddTicketService, private _location: Location, private oauthService: OAuthService) {
     this.authenticated = this.ticketSrv.isAuthenticated();
     this.addTicketForm = new FormGroup({
       'name' : new FormControl(),
@@ -35,10 +36,18 @@ export class TicketFormComponent implements OnInit {
       }),
       'additionalData' : new FormControl(),
       'typeEvent' : new FormControl(),
+      'sellerPhone' : new FormControl(),
+      'eventLink' : new FormControl()
       })
   }
 
   ngOnInit() {}
+
+  public get userId() {
+    const claims = this.oauthService.getIdentityClaims();
+    if (!claims) { return null; }
+    return claims;
+}
 
   onSubmit() {
     console.log(this.addTicketForm.value);
