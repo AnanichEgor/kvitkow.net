@@ -56,7 +56,7 @@ namespace IdentityServer
             {
                 throw new InvalidOperationException("User not found");
             }
-            return true;
+            return userGet.EmailConfirmed == true;
         }
 
         public static string GetPhoneNumber(ForViewModel userGet, CancellationToken cancellationToken)
@@ -65,7 +65,7 @@ namespace IdentityServer
             {
                 throw new InvalidOperationException("User not found");
             }
-            return String.Empty;
+            return userGet.PhoneNumber;
         }
 
         public static bool GetPhoneNumberConfirmed(ForViewModel userGet, CancellationToken cancellationToken)
@@ -77,14 +77,16 @@ namespace IdentityServer
             return true;
         }
 
-        public static IdentityUser FindByName(ForViewModel userGet, CancellationToken cancellationToken)
+        public static IdentityUser FindByName(ModelWithHashPassw userGet, CancellationToken cancellationToken)
         {
             return new IdentityUser(userGet.Login)
             {
                 Email = userGet.Email,
                 Id = userGet.Id,
                 UserName = userGet.Login,
-                //PasswordHash = userGet.PasswordHash
+                PhoneNumber = userGet.PhoneNumber,
+                EmailConfirmed = userGet.EmailConfirmed == true,
+                PasswordHash = userGet.HashPassword
             };
         }
     }

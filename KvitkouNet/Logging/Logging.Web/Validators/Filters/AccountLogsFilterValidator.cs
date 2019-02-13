@@ -8,7 +8,7 @@ namespace Logging.Web.Validators.Filters
         public AccountLogsFilterValidator()
         {
             RuleFor(f => f.Type)
-                .NotEmpty();
+                .IsInEnum();
         }
     }
 }

@@ -19,7 +19,7 @@ export class QueryLogsComponent implements OnInit {
       dateFrom: new FormControl('2018-12-12'),
       dateTo: new FormControl('2018-12-13'),
       userId: new FormControl('userId'),
-      criterium: new FormControl('criterium')
+      searchCriterium: new FormControl('searchCriterium')
     })
   }
 

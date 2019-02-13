@@ -16,6 +16,8 @@ services:
     depends_on:
       - rabbit
       - identityserver
+      - logging.web
+      - usermanagement.web
       - adminpanel.web
       - search.web
       - security.web
@@ -45,9 +47,6 @@ services:
     build:
       context: ./
       dockerfile: AdminPanel/AdminPanel.Web/Dockerfile
-    depends_on:
-      - logging.web
-      - usermanagement.web
     ports:
       - 5005:80
 
