@@ -32,7 +32,7 @@ namespace UserManagement.Logic
 
             });
             services.AddScoped<UserSettingsMessageConsumer>();
-            services.AddScoped<IConsumeAsync<AccountMessage>, UserSettingsMessageConsumer>();
+            //services.AddScoped<IConsumeAsync<AccountMessage>, UserSettingsMessageConsumer>();
 
             return services;
         }
