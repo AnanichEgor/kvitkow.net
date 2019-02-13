@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -55,13 +56,18 @@ namespace Tests
                 FirstName = "FirstName",
                 LastName = "LastName",
                 MiddleName = "MiddleName"
+            }, new UserRightsDb()
+            {
+                Roles = new List<RoleDb>(){new RoleDb(){Name = "r1" } },
+                AccessFunctions = new List<AccessFunctionDb>()
+                {
+                    new AccessFunctionDb() { Name = "2fu" },
+                    new AccessFunctionDb() { Name = "3fu" }
+                },
+                AccessRights = new List<AccessRightDb>() { new AccessRightDb() { Name = "1" } },
+                DeniedRights = new List<AccessRightDb>() { new AccessRightDb() { Name = "3" } }
+
             }));
-            Assert.IsTrue(await _data.EditUserRights("1",
-                new[] {1},
-                new[] {2, 3},
-                new[] {1},
-                new[] {3}
-            ));
         }
 
         [Test]

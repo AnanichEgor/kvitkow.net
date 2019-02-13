@@ -368,6 +368,33 @@ namespace Security.Data
             return await EditUserRightsCtx(userRightsDb, roleIds, functionIds, accessedRightsIds, deniedRightsIds);
         }
 
+        public async Task<bool> EditUserRightsByNames(string userId, string[] rolesNames, string[] functionsNames, string[] accessedRightsNames,
+            string[] deniedRightsNames)
+        {
+            var roles = new int[0];
+            if (rolesNames != null && rolesNames.Any())
+            {
+                roles = _context.Roles.Where(l => rolesNames.Contains(l.Name)).Select(l => l.Id).ToArray();
+            }
+            var functions = new int[0];
+            if (functionsNames != null && functionsNames.Any())
+            {
+                functions = _context.AccessFunctions.Where(l => functionsNames.Contains(l.Name)).Select(l => l.Id).ToArray();
+            }
+            var accessRights = new int[0];
+            if (accessedRightsNames != null && accessedRightsNames.Any())
+            {
+                accessRights = _context.AccessRights.Where(l => accessedRightsNames.Contains(l.Name)).Select(l => l.Id).ToArray();
+            }
+            var deniedRights = new int[0];
+            if (deniedRightsNames != null && deniedRightsNames.Any())
+            {
+                deniedRights = _context.AccessRights.Where(l => deniedRightsNames.Contains(l.Name)).Select(l => l.Id).ToArray();
+            }
+
+            return await EditUserRights(userId, roles, functions, accessRights, deniedRights);
+        }
+
         public async Task<bool> DeleteUserRights(string userId)
         {
             var userRights = await _context.UsersRights.SingleOrDefaultAsync(l => l.UserId == userId);
@@ -381,7 +408,7 @@ namespace Security.Data
             return true;
         }
 
-        public async Task<bool> AddUser(UserInfoDb userInfo)
+        public async Task<bool> AddUser(UserInfoDb userInfo, UserRightsDb userRightsDb)
         {
             if (await _context.UsersRights.AnyAsync(l => userInfo.UserId.Equals(l.UserId)))
             {
@@ -391,7 +418,12 @@ namespace Security.Data
             var userRightsMapped = _mapper.Map<UserRights>(userInfo);
             await _context.UsersRights.AddAsync(userRightsMapped);
             await _context.SaveChangesAsync();
-            return true;
+
+            return await EditUserRightsByNames(userInfo.UserId,
+                userRightsDb.Roles.Select(l => l.Name).ToArray(),
+                userRightsDb.AccessFunctions.Select(l => l.Name).ToArray(),
+                userRightsDb.AccessRights.Select(l => l.Name).ToArray(),
+                userRightsDb.DeniedRights.Select(l => l.Name).ToArray());
         }
 
         public async Task<bool> UpdateUser(UserInfoDb userInfo)

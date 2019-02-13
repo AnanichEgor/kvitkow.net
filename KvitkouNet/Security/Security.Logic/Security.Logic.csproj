@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Security.Data\Security.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ConfigModels\" />
-  </ItemGroup>
-
 </Project>
