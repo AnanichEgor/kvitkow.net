@@ -1,7 +1,7 @@
-import { Registration } from './../models/registration';
+import { Registration } from '../../models/registration';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Users } from '../models/users';
+import { Users } from '../../models/users';
 
 @Injectable({
   providedIn: 'root'
@@ -12,5 +12,8 @@ export class UsersService {
   constructor(private http: HttpClient) { }
   getUsers() {
     return this.http.get<Users[]>(`${this.baseUrl}/api/users`);
+  }
+  sendUser(body) {
+    return this.http.post(`${this.baseUrl}/api/users/register`, body);
   }
 }
