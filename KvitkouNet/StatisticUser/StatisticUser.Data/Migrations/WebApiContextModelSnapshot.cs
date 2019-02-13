@@ -14,7 +14,7 @@ namespace StatisticUser.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
 
             modelBuilder.Entity("StatisticUser.Data.DbModels.MessagesUsersOnSiteDB", b =>
                 {
@@ -92,6 +92,34 @@ namespace StatisticUser.Data.Migrations
                     b.ToTable("ResourcesUrlDB");
                 });
 
+            modelBuilder.Entity("StatisticUser.Data.DbModels.SummaryTableDB", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<DateTime>("LastOnWebsite");
+
+                    b.Property<int>("MessagesCount");
+
+                    b.Property<DateTime?>("Modified");
+
+                    b.Property<int>("RatingNegative");
+
+                    b.Property<int>("RatingPositive");
+
+                    b.Property<DateTime>("RegistrationDate");
+
+                    b.Property<int>("UserId");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SummaryTableDB");
+                });
+
             modelBuilder.Entity("StatisticUser.Data.DbModels.TimeOnSiteDB", b =>
                 {
                     b.Property<string>("Id")
@@ -103,7 +131,7 @@ namespace StatisticUser.Data.Migrations
 
                     b.Property<DateTime?>("Modified");
 
-                    b.Property<TimeSpan>("TimeOnline");
+                    b.Property<TimeSpan>("Timeuser");
 
                     b.Property<int>("UserId");
 

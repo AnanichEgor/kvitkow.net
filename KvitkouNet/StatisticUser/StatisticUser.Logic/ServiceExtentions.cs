@@ -18,11 +18,22 @@ namespace StatisticUser.Logic.Services
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection StatisticUserServices(this IServiceCollection services)
+        public static IServiceCollection StatisticUserServicesMoq(this IServiceCollection services)
         {
             var mock = new Mock<IStatisticUserService>();
 
             services.AddScoped<IStatisticUserService>(_ => mock.Object);
+            return services;
+        }
+
+        /// <summary>
+        /// StatisticUserServices
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IServiceCollection StatisticUserServices(this IServiceCollection services)
+        {
+            services.AddScoped<IStatisticUserService, StatisticUserService>();
             return services;
         }
 

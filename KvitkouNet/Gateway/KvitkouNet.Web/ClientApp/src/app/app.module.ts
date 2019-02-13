@@ -1,10 +1,14 @@
+<<<<<<< HEAD
 import { NotificationService } from './services/notification/notification.service';
 import { EmailNotificationService } from './services/notification/emailNotification.service';
 import { SubscriptionService } from './services/notification/subscription.service';
 import { StatisticService } from './services/statistic.service';
 import { RoomService } from './services/chat/room.service';
 import { ChatService } from './services/chat/chat.service';
-import { UsersService } from './services/users/users.service';
+import { UsersService } from './services/users.service';
+=======
+import { DashboardService } from './services/dashboard.service';
+>>>>>>> dashboard-gateway
 import { EditGuard } from './services/editGuard';
 import { GetallticketsService } from './services/getalltickets.service';
 import { GetTicketByIdService } from './services/get-ticket-by-id.service';
@@ -26,6 +30,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TicketEditComponent } from './components/ticket-edit/ticket-edit.component';
+<<<<<<< HEAD
 import { ChatComponent } from './components/chat/chat.component';
 import { ErrorLogsComponent } from './components/admin/error-logs/error-logs.component';
 import { AccountLogsComponent } from './components/admin/account-logs/account-logs.component';
@@ -58,6 +63,9 @@ import { LoginComponent } from './components/login/login.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { DxChartModule, DevExtremeModule } from 'devextreme-angular';
 import { AdminAuthGuard } from './components/admin/admin-auth-guard.service';
+=======
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+>>>>>>> dashboard-gateway
 
 @NgModule({
   declarations: [
@@ -73,6 +81,7 @@ import { AdminAuthGuard } from './components/admin/admin-auth-guard.service';
     RegistrationComponent,
     TicketDetailComponent,
     TicketEditComponent,
+<<<<<<< HEAD
     ChatComponent,
     SearchUserComponent,
     SearchTicketComponent,
@@ -100,6 +109,9 @@ import { AdminAuthGuard } from './components/admin/admin-auth-guard.service';
     UserSettingsPasswordComponent,
     LoginComponent,
     StatisticComponent,
+=======
+    DashboardComponent
+>>>>>>> dashboard-gateway
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -126,6 +138,10 @@ import { AdminAuthGuard } from './components/admin/admin-auth-guard.service';
     SubscriptionService,
     AdminAuthGuard
   ],
+<<<<<<< HEAD
+=======
+  providers: [GetTicketByIdService, GetallticketsService, EditGuard, LogService, DashboardService],
+>>>>>>> dashboard-gateway
   bootstrap: [AppComponent]
 })
 export class AppModule {}

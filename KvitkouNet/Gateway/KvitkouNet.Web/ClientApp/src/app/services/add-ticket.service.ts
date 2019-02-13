@@ -14,8 +14,9 @@ export class AddTicketService {
   sendTicket(body) {
     return this.http.post(
       `${this.baseUrl}/api/tickets`,
-      { headers: this.getHeaders() },
-      body
+
+      body,
+      { headers: this.getHeaders() }
     );
   }
   isAuthenticated() {
