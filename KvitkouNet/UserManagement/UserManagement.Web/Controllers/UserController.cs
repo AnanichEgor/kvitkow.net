@@ -55,40 +55,12 @@ namespace UserManagement.Web.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet, Route("{id:int}")]
+        [HttpGet, Route("{id}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User is returned")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid id")]
         public async Task<IActionResult> Get(string id)
         {
             var result = await _service.Get(id);
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Получение пользователя по id
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        [HttpGet, Route("{ids:minlength(16)}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User is returned")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid id")]
-        public async Task<IActionResult> GetByString(string ids)
-        {
-            var result = await _service.Get(ids);
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Получение пользователя по логину
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet, Route("{login:maxlength(15)}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "User is returned")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid login")]
-        public async Task<IActionResult> GetByLogin(string login)
-        {
-            var result = await _service.GetByLogin(login);
             return Ok(result);
         }
 

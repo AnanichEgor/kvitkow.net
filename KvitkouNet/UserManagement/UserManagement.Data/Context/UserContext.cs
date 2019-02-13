@@ -5,7 +5,7 @@ using UserManagement.Data.DbModels;
 
 namespace UserManagement.Data.Context
 {
-    public class UserContext : IdentityUserContext<UserDB>
+    public class UserContext : IdentityDbContext<UserDB>
     {
         public UserContext(DbContextOptions<UserContext> options)
        : base(options)
