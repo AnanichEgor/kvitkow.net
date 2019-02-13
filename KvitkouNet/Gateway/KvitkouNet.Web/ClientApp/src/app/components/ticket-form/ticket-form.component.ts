@@ -5,6 +5,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Ticket } from 'src/app/models/ticket';
 import { Location } from '@angular/common';
+import * as jwt_decode from "jwt-decode";
+import { CanActivate } from '@angular/router/src/utils/preactivation';
+
 
 @Component({
   selector: 'app-ticket-form',
@@ -14,6 +17,7 @@ import { Location } from '@angular/common';
 export class TicketFormComponent implements OnInit {
   addTicketForm: FormGroup;
   authenticated: boolean;
+
 
   constructor(private ticketSrv: AddTicketService, private _location: Location, private oauthService: OAuthService) {
     this.authenticated = this.ticketSrv.isAuthenticated();
@@ -38,17 +42,15 @@ export class TicketFormComponent implements OnInit {
       'additionalData' : new FormControl(),
       'typeEvent' : new FormControl(),
       'sellerPhone' : new FormControl(),
-      'timeActual' : new FormControl()
+      'timeActual' : new FormControl(),
+      'user' : new FormGroup({
+      'userInfoId':   new FormControl(this.getUserId()),
+      'firstName' : new FormControl(this.getUserName())
+    }),
       });
   }
 
   ngOnInit() {}
-
-  public get userId() {
-    const claims = this.oauthService.getIdentityClaims();
-    if (!claims) { return null; }
-    return claims;
-}
 
   onSubmit() {
     console.log(this.addTicketForm.value);
@@ -56,4 +58,25 @@ export class TicketFormComponent implements OnInit {
     this.ticketSrv.sendTicket(this.addTicketForm.value).subscribe(err => {return console.error(err)});
 
   }
+
+  getUserId(): string {
+    var decodedToken = this.getDecodedAccessToken(this.oauthService.getAccessToken());
+    return decodedToken['id'];
+
+    }
+    getUserName(): string {
+      var decodedToken = this.getDecodedAccessToken(this.oauthService.getAccessToken());
+      return decodedToken['name'];
+
+      }
+
+
+    getDecodedAccessToken(token: string): any {
+      try{
+          return jwt_decode(token);
+      }
+      catch(Error){
+          return null;
+      }
+    }
 }
