@@ -61,11 +61,13 @@ export class TicketFormComponent implements OnInit {
 
   getUserId(): string {
     var decodedToken = this.getDecodedAccessToken(this.oauthService.getAccessToken());
+    if (decodedToken == null) return null;
     return decodedToken['id'];
 
     }
     getUserName(): string {
       var decodedToken = this.getDecodedAccessToken(this.oauthService.getAccessToken());
+      if (decodedToken == null) return null;
       return decodedToken['name'];
 
       }
