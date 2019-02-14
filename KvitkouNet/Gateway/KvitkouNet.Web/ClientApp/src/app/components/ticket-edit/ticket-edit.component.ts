@@ -71,7 +71,7 @@ export class TicketEditComponent implements OnInit {
   onSubmit() {
     console.log(this.addTicketForm.value);
 
-    //this.ticketaddSrv.updateTicket(this.addTicketForm.value, this.id).subscribe(err => {return console.error(err);});
+    this.ticketaddSrv.updateTicket(this.addTicketForm.value, this.id).subscribe(err => {return console.error(err);});
   }
   getUserId(): string {
     var decodedToken = this.getDecodedAccessToken(this.oauthService.getAccessToken());

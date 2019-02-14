@@ -26,10 +26,12 @@ export class GetTicketByIdService {
         headers: this.getHeaders()
       });
   }
-  subscribe(id, body){
-    return this.http.put(`${this.baseUrl}/api/tickets/${id}/add`,body, {
-      headers: this.getHeaders()
-    });
+  subsсribe(body, id: string) {
+    return this.http.put(
+      `${this.baseUrl}/api/tickets/${id}/add`,
+      body,
+      { headers: this.getHeaders() }
+    );
   }
   isAuthenticated() {
     const token = this.oauthService.getAccessToken();

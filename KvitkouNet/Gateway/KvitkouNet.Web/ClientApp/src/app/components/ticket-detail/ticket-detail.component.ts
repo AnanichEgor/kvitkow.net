@@ -44,11 +44,11 @@ export class TicketDetailComponent implements OnInit {
   }
   subscribe(id){
     this.addTicketForm = new FormGroup({
-
-      'userInfoId':   new FormControl(this.getUserId()),
-      'firstName' : new FormControl(this.getUserName())
+      'UserInfoId':   new FormControl(this.getUserId()),
+      'FirstName' : new FormControl(this.getUserName())
       });
-      this.ticketsSrv.subscribe(id,this.addTicketForm.value).subscribe(err => console.error(err));
+      console.log(this.addTicketForm.value)
+      this.ticketsSrv.subsсribe(this.addTicketForm.value, id).subscribe(err => console.error(err));
   }
   getUserId(): string {
     var decodedToken = this.getDecodedAccessToken(
