@@ -13,10 +13,12 @@ export class NotificationItemComponent implements OnInit {
 
   public userNotifications: Array<UserNotification> = [];
 
-  constructor(private service: NotificationService, private oauthService: OAuthService) {
-    service.notificationGetAll().subscribe(data => this.userNotifications = data);
+  private userid: string;
 
-    console.log(this.getUserIdFromClaims());
+  constructor(private service: NotificationService, private oauthService: OAuthService) {
+    const authenticated = this.isAuthenticated();
+    this.userid = authenticated ? this.getUserIdFromClaims() : 'BE86359-073C-434B-AD2D-A3932222DABE';
+    service.notificationGetUserNotifications(this.userid).subscribe(data => this.userNotifications = data);
    }
 
   closeNotification(id: string) {
@@ -32,5 +34,10 @@ export class NotificationItemComponent implements OnInit {
     if (claims) {
       return claims['sub'];
     }
+  }
+
+  private isAuthenticated() {
+    const token = this.oauthService.getAccessToken();
+    return !! token ? true : false;
   }
 }

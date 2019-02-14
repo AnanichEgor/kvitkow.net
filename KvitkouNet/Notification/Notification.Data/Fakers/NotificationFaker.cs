@@ -14,11 +14,6 @@ namespace Notification.Data.Fakers
 		{
 			m_faker = new Faker<Data.Models.Notification>();
 
-			Faker<User> userFaker = new Faker<User>();
-			userFaker.RuleFor(x => x.Email, x => x.Internet.Email());
-			userFaker.RuleFor(x => x.Name, x => x.Name.FirstName());
-
-			m_faker.RuleFor(x => x.User, x => userFaker);
 			m_faker.RuleFor(x => x.Title, x => x.Lorem.Sentence(10));
 			m_faker.RuleFor(x => x.Text, x => x.Lorem.Sentence(50));
 			m_faker.RuleFor(x => x.Severity, x => x.Random.Enum<Severity>());

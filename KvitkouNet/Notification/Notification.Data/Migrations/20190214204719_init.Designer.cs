@@ -9,7 +9,7 @@ using Notification.Data.Context;
 namespace Notification.Data.Migrations
 {
     [DbContext(typeof(NotificationContext))]
-    [Migration("20190214033330_init")]
+    [Migration("20190214204719_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,8 +43,7 @@ namespace Notification.Data.Migrations
 
                     b.Property<int>("Type");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
@@ -120,8 +119,7 @@ namespace Notification.Data.Migrations
                 {
                     b.HasOne("Notification.Data.Models.User", "User")
                         .WithMany("Notifications")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Notification.Data.Models.UserSubscription", b =>
