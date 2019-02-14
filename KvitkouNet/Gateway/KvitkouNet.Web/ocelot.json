@@ -365,6 +365,18 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
+      "DownstreamPathTemplate": "/api/chat/rooms/room/{uid}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "chat.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/chat/rooms/room/{uid}",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
       "DownstreamPathTemplate": "/api/notification/all",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
