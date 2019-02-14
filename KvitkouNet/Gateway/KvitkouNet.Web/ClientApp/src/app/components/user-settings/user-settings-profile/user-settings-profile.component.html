@@ -1,5 +1,5 @@
 <div class="container">
-  <form class="form-horizontal" [formGroup]="userSettingsProfile" (ngSubmit)="onSubmit()">
+  <form class="form-horizontal" [formGroup]="userSettingsProfile">
   <fieldset>
 
     <div class="form-group">
@@ -12,19 +12,7 @@
           class="form-control input-md"
           name="firstname"
           id="textinput1"
-        />
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput2">Отчество</label>
-      <div class="col-md-4">
-        <input
-          formControlName="middle"
-          type="text"
-          placeholder=""
-          class="form-control input-md"
-          id="textinput2"
+          value={{user.firstName}}
         />
       </div>
     </div>
@@ -39,12 +27,13 @@
           placeholder=""
           class="form-control input-md"
           id="textinput3"
+          value={{user.lastName}}
         />
       </div>
     </div>
 
     <div  class="col-md-4">
-      <button class="btn btn-primary" type="submit">Сохранить</button>
+      <button class="btn btn-primary" (click)="onPut()" type="submit">Сохранить</button>
     </div>
 </fieldset>
   </form>

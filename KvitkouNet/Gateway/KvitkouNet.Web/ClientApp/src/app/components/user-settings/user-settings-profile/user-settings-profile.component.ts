@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { ProfileModel } from 'src/app/models/user-settings/update-fio';
+import { Users } from 'src/app/models/users';
 
 @Component({
   selector: 'app-user-settings-profile',
@@ -8,7 +8,7 @@ import { ProfileModel } from 'src/app/models/user-settings/update-fio';
   styleUrls: ['./user-settings-profile.component.css']
 })
 export class UserSettingsProfileComponent implements OnInit {
-  profileModel: ProfileModel
+  user: Users
   userSettingsProfile = new FormGroup({
     first: new FormControl(''),
     middle: new FormControl(''),
