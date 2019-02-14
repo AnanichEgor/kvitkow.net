@@ -11,7 +11,7 @@ namespace TicketManagement.Logic.Validators
         public UserValidator()
         {
             RuleFor(ticket => ticket.FirstName).NotEmpty().Length(3, 15);
-            RuleFor(ticket => ticket.LastName).NotEmpty().Length(3, 15);
+            RuleFor(ticket => ticket.LastName).Length(3, 15);
         }
     }
 }

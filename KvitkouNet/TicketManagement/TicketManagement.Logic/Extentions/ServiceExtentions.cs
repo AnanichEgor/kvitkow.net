@@ -9,10 +9,10 @@ using TicketManagement.Data.Context;
 using TicketManagement.Data.Factories;
 using TicketManagement.Data.Repositories;
 using TicketManagement.Logic.MappingProfiles;
+using TicketManagement.Logic.Models;
 using TicketManagement.Logic.Services;
 using TicketManagement.Logic.Subscriber;
 using TicketManagement.Logic.Validators;
-using Ticket = TicketManagement.Data.DbModels.Ticket;
 
 namespace TicketManagement.Logic.Extentions
 {
@@ -26,15 +26,16 @@ namespace TicketManagement.Logic.Extentions
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection RegisterTicketService(this IServiceCollection services, string connetctionString)
+        public static IServiceCollection RegisterTicketService(this IServiceCollection services,
+            string connetctionString)
         {
             services.AddDbContext<TicketContext>(opt => opt.UseSqlite(connetctionString));
-            services.AddScoped<IValidator<Models.Ticket>, TicketValidator>();
-            services.AddScoped<IValidator<Models.UserInfo>, UserValidator>();
+            services.AddScoped<IValidator<Ticket>, TicketValidator>();
+            services.AddScoped<IValidator<UserInfo>, UserValidator>();
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<ITicketService, TicketService>();
             services.RepositoryContext(connetctionString);
-            services.AddScoped<Data.DbModels.Page<Ticket>>();
+            services.AddScoped<Data.DbModels.Page<Data.DbModels.Ticket>>();
             services.AddScoped<IConsumeAsync<UserUpdatedMessage>, UserUpdateMessageConsumer>();
             services.AddScoped<IConsumeAsync<UserDeletedMessage>, UserDeleteMessageConsumer>();
             services.AddScoped<IConsumeAsync<UserProfileUpdateMessage>, UserUpdateMessageConsumerFromSettings>();

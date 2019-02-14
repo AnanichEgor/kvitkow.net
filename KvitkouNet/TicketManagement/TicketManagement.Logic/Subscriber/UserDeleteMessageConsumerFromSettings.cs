@@ -32,10 +32,9 @@ namespace TicketManagement.Logic.Subscriber
                 .Include(db => db.LocationEvent)
                 .Include(db => db.SellerAdress)
                 .Include(db => db.RespondedUsers)
-                .AsNoTracking()
-                .Where(x => x.User.UserInfoId == modelDb.UserInfoId);
+                .Where(x => x.User.UserInfoId == modelDb.UserInfoId)
+                .ToArray();
             _ticketContext.Tickets.RemoveRange(origin);
-            _ticketContext.UserInfos.Remove(modelDb);
             await _ticketContext.SaveChangesAsync();
         }
     }

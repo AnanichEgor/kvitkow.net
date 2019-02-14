@@ -6,7 +6,6 @@ namespace TicketManagement.Data.Exceptions
     {
         public PageNotFoundException(string message = "Page with this number not found") : base(message)
         {
-
         }
     }
 }

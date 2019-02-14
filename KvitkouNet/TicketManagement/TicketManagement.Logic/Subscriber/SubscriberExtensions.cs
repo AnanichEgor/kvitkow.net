@@ -26,29 +26,29 @@ namespace TicketManagement.Logic.Subscriber
                 });
             var lifetime = services.GetService<IApplicationLifetime>();
             var bus = services.GetService<IBus>();
-            
-            lifetime.ApplicationStarted.Register( () =>
+
+            lifetime.ApplicationStarted.Register(() =>
             {
                 try
                 {
-                        bus.SubscribeAsync<UserDeletedMessage>(userDeletedPreffix,
-                            msg => services.GetService<IConsumeAsync<UserDeletedMessage>>().ConsumeAsync(msg));
-                 
-                        bus.SubscribeAsync<UserUpdatedMessage>(userUpdatedPreffix,
-                            msg => services.GetService<IConsumeAsync<UserUpdatedMessage>>().ConsumeAsync(msg));
-                  
-                        bus.SubscribeAsync<UserProfileUpdateMessage>(userSetUpdatedPreffix,
-                            msg => services.GetService<IConsumeAsync<UserProfileUpdateMessage>>().ConsumeAsync(msg));
-                  
-                        bus.SubscribeAsync<DeleteUserProfileMessage>(userSetDeletedPreffix,
-                            msg => services.GetService<IConsumeAsync<DeleteUserProfileMessage>>().ConsumeAsync(msg));
+                    bus.SubscribeAsync<UserDeletedMessage>(userDeletedPreffix,
+                        msg => services.GetService<IConsumeAsync<UserDeletedMessage>>().ConsumeAsync(msg));
+
+                    bus.SubscribeAsync<UserUpdatedMessage>(userUpdatedPreffix,
+                        msg => services.GetService<IConsumeAsync<UserUpdatedMessage>>().ConsumeAsync(msg));
+
+                    bus.SubscribeAsync<UserProfileUpdateMessage>(userSetUpdatedPreffix,
+                        msg => services.GetService<IConsumeAsync<UserProfileUpdateMessage>>().ConsumeAsync(msg));
+
+                    bus.SubscribeAsync<DeleteUserProfileMessage>(userSetDeletedPreffix,
+                        msg => services.GetService<IConsumeAsync<DeleteUserProfileMessage>>().ConsumeAsync(msg));
                 }
                 catch (TimeoutException)
                 {
-					//used to bypass RabbitMq subscription error
+                    //used to bypass RabbitMq subscription error
                 }
             });
-            
+
             lifetime.ApplicationStopped.Register(() => bus.Dispose());
 
             return app;

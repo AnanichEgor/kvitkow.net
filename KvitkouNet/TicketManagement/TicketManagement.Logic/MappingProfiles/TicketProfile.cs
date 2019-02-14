@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using TicketManagement.Data.DbModels;
 using TicketManagement.Logic.Models;
-using Ticket = TicketManagement.Data.DbModels.Ticket;
 
 namespace TicketManagement.Logic.MappingProfiles
 {
@@ -12,8 +10,8 @@ namespace TicketManagement.Logic.MappingProfiles
     {
         public TicketProfile()
         {
-            CreateMap<Models.Ticket, Ticket>().ReverseMap();
-            CreateMap<Ticket, TicketLite>().ReverseMap();
+            CreateMap<Ticket, Data.DbModels.Ticket>().ReverseMap();
+            CreateMap<Data.DbModels.Ticket, TicketLite>().ReverseMap();
         }
     }
 }
