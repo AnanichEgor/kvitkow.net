@@ -497,18 +497,6 @@
       "UpstreamHttpMethod": [ "Put" ]
     },
     {
-      "DownstreamPathTemplate": "/api/settings/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "usersettings.web",
-          "Port": 80
-        }
-      ],
-      "UpstreamPathTemplate": "/settings/{id}",
-      "UpstreamHttpMethod": [ "Get", "Post" ]
-    },
-    {
       "DownstreamPathTemplate": "/api/users/register",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
