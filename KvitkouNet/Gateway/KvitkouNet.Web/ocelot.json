@@ -471,6 +471,66 @@
       ],
       "UpstreamPathTemplate": "/security/{catchAll}",
       "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/statistics/count/all",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "statisticonline.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/statistics/count/all",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/statistics/count/range",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "statisticonline.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/statistics/count/range",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/statistics/count/registered",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "statisticonline.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/statistics/count/registered",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/statistics/count/guests",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "statisticonline.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/statistics/count/guests",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/statistic/user/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "statisticuser.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/statistic/user/{catchAll}",
+      "UpstreamHttpMethod": [ "Get" ]
     }
   ]
 }
