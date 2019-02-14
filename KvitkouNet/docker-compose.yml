@@ -22,6 +22,8 @@ services:
       - search.web
       - security.web
       - tickets.web
+      - statisticonline.web
+      - statisticuser.web
     ports:
       - 5001:80
       - 5002:443
