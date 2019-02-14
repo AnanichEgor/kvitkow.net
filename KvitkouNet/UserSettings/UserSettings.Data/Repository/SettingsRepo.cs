@@ -68,9 +68,9 @@ namespace UserSettings.Data
 				SettingsId = id,
 				IsGetTicketInfo = false,
 				IsPrivateAccount = false,
-				PreferAddress = "preferAddres",
-				PreferPlace = "preferPlace",
-				PreferRegion = "preferRegion",
+				PreferAddress = "",
+				PreferPlace = "",
+				PreferRegion = "",
 				Notifications = new NotificationDb()
 				{
 					IsLikeMyTicket = false,

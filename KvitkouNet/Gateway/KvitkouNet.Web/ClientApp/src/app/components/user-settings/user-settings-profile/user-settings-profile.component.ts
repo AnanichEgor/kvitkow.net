@@ -14,7 +14,8 @@ import * as jwt_decode from "jwt-decode";
 export class UserSettingsProfileComponent implements OnInit {
   user: Users
   model: ForUpdateModel
-  id: string = this.getUserId()
+  id: string
+  response: boolean = true
   userSettingsProfile = new FormGroup({
     first: new FormControl(''),
     middle: new FormControl(''),
@@ -22,22 +23,35 @@ export class UserSettingsProfileComponent implements OnInit {
   });
   constructor(private updateFioService: UpdateFioService, private oauthService: OAuthService) { 
     this.id = this.getUserId();
+    if(this.user == null)
+    {
+      this.user = new Users()
+      this.user.firstName = ""
+      this.user.lastName = ""
+    }
+    if(this.model == null)
+    {
+      this.model = new ForUpdateModel()
+    }
   }
 
   ngOnInit() {
-    
-    console.log(this.id)
-    this.updateFioService.getProfile(this.id).subscribe(result=>(this.user = result), err => console.log(err))
+    console.log(this.response)
+    this.updateFioService.getProfile(this.id).subscribe(result=>(this.user = result), err => console.log(err));
   }
   onPut(){
+    this.response = false
+    console.log(this.response)
     this.model.firstName = this.user.firstName;
-    this.model.lastName = this.user.firstName;
+    this.model.lastName = this.user.lastName;
     this.model.birthday = this.user.birthday;
-    this.updateFioService.putProfile(this.id, this.model).subscribe(err => console.log(err));
+    this.updateFioService.putProfile(this.id, this.model).subscribe((data: boolean)=>this.response = data);
+    
   }
   getUserId(): string {
     var decodedToken = this.getDecodedAccessToken(this.oauthService.getAccessToken());
-    return decodedToken['id'];
+    var result = decodedToken == null ? 11 : decodedToken['id'];
+    return result;
 
     }
   getDecodedAccessToken(token: string): any {

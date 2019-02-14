@@ -1,18 +1,16 @@
 <div class="container">
-  <form class="form-horizontal" [formGroup]="userSettingsProfile">
-  <fieldset>
-
-    <div class="form-group">
+    <form class="form-horizontal" [formGroup]="userSettingsProfile">  
+  <div class="form-group">
+      
       <label class="col-md-4 control-label" for="textinput1">Имя</label>
       <div class="col-md-4">
         <input
-          formControlName="first"
+        formControlName="first"
+        class="form-control input-md"
           type="text"
           placeholder=""
-          class="form-control input-md"
-          name="firstname"
           id="textinput1"
-          value={{user.firstName}}
+          [(ngModel)]="user.firstName"
         />
       </div>
     </div>
@@ -22,19 +20,21 @@
       <br />
       <div class="col-md-4">
         <input
-          formControlName="last"
+        formControlName="last"
           type="text"
-          placeholder=""
           class="form-control input-md"
+          placeholder=""
           id="textinput3"
-          value={{user.lastName}}
+          [(ngModel)]="user.lastName"
         />
       </div>
-    </div>
 
+    </div>
+    <h6 *ngIf="!response">
+        Имя и фамилия не могут быть пустыми
+    </h6>
     <div  class="col-md-4">
       <button class="btn btn-primary" (click)="onPut()" type="submit">Сохранить</button>
     </div>
-</fieldset>
   </form>
 </div>
