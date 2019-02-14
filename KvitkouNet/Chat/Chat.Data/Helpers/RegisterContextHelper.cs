@@ -29,7 +29,7 @@ namespace Chat.Data.Helpers
                     ctx.Rooms.AddAsync(new RoomDb()
                     {
                         Id = "1",
-                        OwnerId = "1",
+                        OwnerId = "5BE86359-073C-434B-AD2D-A3932222DABE",
                         Name = "тестовая комната номер 1",
                         UpdateDate = DateTime.Now,
                         IsPrivat = false                     
@@ -41,7 +41,7 @@ namespace Chat.Data.Helpers
                         Id = "1",
                         RoomId = "1",
                         Text = "тестовое сообщение номер 1",
-                        UserId = "1",
+                        UserId = "5BE86359-073C-434B-AD2D-A3932222DABE",
                         UpdateDate = DateTime.Now,
                         IsEdit = false,
                         SendedTime = DateTime.Now
@@ -66,7 +66,7 @@ namespace Chat.Data.Helpers
                     //создадим тестового пользователя номер 1. Он будет владельцем комнаты номер 1 и ему пренадлежит сообщение номер 1.
                     ctx.Users.AddAsync(new UserDb()
                     {
-                        Id = "1",
+                        Id = "5BE86359-073C-434B-AD2D-A3932222DABE",
                         IsOnline = false,
                         RoomId = "1",
                         SettingsId = "1",
