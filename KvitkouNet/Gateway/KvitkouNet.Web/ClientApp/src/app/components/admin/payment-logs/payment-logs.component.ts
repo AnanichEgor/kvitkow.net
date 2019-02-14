@@ -16,12 +16,12 @@ export class PaymentLogsComponent implements OnInit {
 
   ngOnInit() {
     this.paymentLogsFormGroup = new FormGroup({
-      dateFrom: new FormControl('2018-12-12'),
-      dateTo: new FormControl('2018-12-13'),
-      senderId: new FormControl('senderid'),
-      reciverId: new FormControl('receiverId'),
-      minTransfer: new FormControl(10),
-      maxTransfer: new FormControl(20)
+      dateFrom: new FormControl(),
+      dateTo: new FormControl(),
+      senderId: new FormControl(''),
+      reciverId: new FormControl(''),
+      minTransfer: new FormControl(),
+      maxTransfer: new FormControl()
     })
   }
 
