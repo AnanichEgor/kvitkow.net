@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import * as jwt_decode from 'jwt-decode';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -15,6 +16,7 @@ export class TicketDetailComponent implements OnInit {
   id: string;
   tickets: Ticket;
   authenticated: boolean;
+  addTicketForm: FormGroup;
   constructor(
     private ticketsSrv: GetTicketByIdService,
     private router: ActivatedRoute,
@@ -39,6 +41,14 @@ export class TicketDetailComponent implements OnInit {
       this.route.navigate(['tickets-ticket', id, 'edit']);
       this.route.navigateByUrl('tickets-ticket/' + id + '/edit');
     }
+  }
+  subscribe(id){
+    this.addTicketForm = new FormGroup({
+
+      'userInfoId':   new FormControl(this.getUserId()),
+      'firstName' : new FormControl(this.getUserName())
+      });
+      this.ticketsSrv.subscribe(id,this.addTicketForm.value);
   }
   getUserId(): string {
     var decodedToken = this.getDecodedAccessToken(
@@ -72,4 +82,11 @@ export class TicketDetailComponent implements OnInit {
       return null;
     }
   }
+    getUserName(): string {
+      var decodedToken = this.getDecodedAccessToken(this.oauthService.getAccessToken());
+      if (decodedToken == null) return null;
+      return decodedToken['name'];
+
+      }
+
 }

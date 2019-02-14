@@ -22,9 +22,14 @@ export class GetTicketByIdService {
     });
   }
     editTicketById(id) {
-      return this.http.put(`${this.baseUrl}/api/tickets/${id}`, {
+      return this.http.put(`${this.baseUrl}/api/tickets/${id}/add`, {
         headers: this.getHeaders()
       });
+  }
+  subscribe(id, body){
+    return this.http.put(`${this.baseUrl}/api/tickets/${id}/add`,body, {
+      headers: this.getHeaders()
+    });
   }
   isAuthenticated() {
     const token = this.oauthService.getAccessToken();
