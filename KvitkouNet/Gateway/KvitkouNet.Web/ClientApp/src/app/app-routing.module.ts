@@ -76,11 +76,6 @@ const routes: Routes = [
   { path: 'settings', component: UserSettingsComponent,
     children: [
       { path: 'profile', component: UserSettingsProfileComponent, pathMatch: 'full'},
-      { path: 'security', component: UserSettingsSecurityComponent,
-      children: [
-      { path: 'email', component: UserSettingsEmailComponent, pathMatch: 'full'},
-      { path: 'password', component: UserSettingsPasswordComponent, pathMatch: 'full'}
-      ]},
       { path: 'advanced', component: UserSettingsAdvancedComponent, pathMatch: 'full'},
     ]},
   { path: 'login', component: LoginComponent, pathMatch: 'full'},

@@ -3,7 +3,7 @@
     <input
       class="form-check-input"
       type="checkbox"
-      [checked]="userSettingsModel.isGetTicketInfo"
+      [checked]="userSettingsModel?.isGetTicketInfo"
       (click)="onGetInfoChanged($event.target.checked)"
       id="defaultCheck1"
     />
@@ -16,28 +16,14 @@
     <input
       class="form-check-input"
       type="checkbox"
-      [checked] ="userSettingsModel.isPrivateAccount"
+      [checked] ="userSettingsModel?.isPrivateAccount"
       (click)="onPrivateChanged($event.target.checked)"
       id="defaultCheck2"
     />
     <label class="form-check-label" for="defaultCheck2">
       Не отображать мой почтовый адрес при просмотре профиля.
     </label>
-  </div>
-
-  <div class="form-group">
-    <label class="col-md-4 control-label" for="textinput1">Адрес</label>
-    <div class="col-md-4">
-      <input
-        type="text"
-        placeholder=""
-        class="form-control input-md"
-        id="textinput1"
-        value={{userSettingsModel.preferAddress}}
-      />
-    </div>
-  </div>
-  
+  </div> 
   <br />
   <div>
     <button class="btn btn-primary" (click)="onPut()" type="submit">Сохранить</button>
