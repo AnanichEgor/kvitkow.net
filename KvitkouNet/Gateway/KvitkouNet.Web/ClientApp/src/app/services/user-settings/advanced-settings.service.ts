@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class AdvancedSettingsService {
   private baseUrl = 'http://localhost:5009';
   constructor(private http: HttpClient) { }
-  get(id) {
+  getSettings(id) {
     return this.http.get<UserSettings>(`${this.baseUrl}/api/settings/${id}`);
   }
 }
