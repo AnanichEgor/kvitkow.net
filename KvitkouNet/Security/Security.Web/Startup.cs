@@ -56,7 +56,7 @@ namespace Security.Web
                     template: "{controller}/{action=Index}/{id?}");
             });
 
-            //app.UseSubscriber("Notification", Assembly.GetExecutingAssembly());
+            app.UseSubscriber("Notification", Assembly.GetExecutingAssembly());
         }
     }
 }

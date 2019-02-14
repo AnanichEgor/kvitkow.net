@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using AdminPanel.Web.Extensions;
+using AdminPanel.Web.Filters;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,7 +32,7 @@ namespace AdminPanel.Web
 
 			services.AddAutoMapper(cfg => cfg.AddProfiles(assemblyNamesToScan));
 
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.AddMvc(cfg => cfg.Filters.Add(new PollyActionFilter())).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 			services.AddSwaggerDocument();
 

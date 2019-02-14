@@ -25,7 +25,55 @@
         }
       ],
       "UpstreamPathTemplate": "/connect/token",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/connect/userinfo",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityserver",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/connect/userinfo",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/.well-known/openid-configuration",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityserver",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/.well-known/openid-configuration",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/connect/endsession",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityserver",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/connect/endsession",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/.well-known/openid-configuration/jwks",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityserver",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/.well-known/openid-configuration/jwks",
+      "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/errors",
@@ -56,6 +104,9 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/accounts",
+      "RouteClaimsRequirement": {
+        "role": "admin"
+      },
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
@@ -72,6 +123,9 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/payments",
+      "RouteClaimsRequirement": {
+        "role": "admin"
+      },
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
@@ -88,6 +142,9 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/queries",
+      "RouteClaimsRequirement": {
+        "role": "admin"
+      },
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
@@ -104,6 +161,9 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/tickets",
+      "RouteClaimsRequirement": {
+        "role": "admin"
+      },
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
@@ -120,6 +180,9 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/deals",
+      "RouteClaimsRequirement": {
+        "role": "admin"
+      },
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
@@ -136,6 +199,9 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/users",
+      "RouteClaimsRequirement": {
+        "role": "admin"
+      },
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
@@ -188,7 +254,7 @@
         }
       ],
       "UpstreamPathTemplate": "/history/users",
-      "UpstreamHttpMethod": ["Get"]
+      "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/tickets",
@@ -393,6 +459,174 @@
       ],
       "UpstreamPathTemplate": "/notification/subscription/{theme}/users/{id}",
       "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/security/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "security.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/security/{catchAll}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/settings/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "usersettings.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/settings/{id}",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/settings/{id}/update",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "usersettings.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/settings/{id}/update",
+      "UpstreamHttpMethod": [ "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/settings/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "usersettings.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/settings/{id}",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "usermanagement.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/users/register",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "usermanagement.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/users",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "usermanagement.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/users/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/email",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "usermanagement.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/users/email",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/{login}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "usermanagement.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/users/{login}",
+      "UpstreamHttpMethod": [ "Get", "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/statistics/count/all",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "statisticonline.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/statistics/count/all",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/statistics/count/range",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "statisticonline.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/statistics/count/range",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/statistics/count/registered",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "statisticonline.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/statistics/count/registered",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/statistics/count/guests",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "statisticonline.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/statistics/count/guests",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/statistic/user/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "statisticuser.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/statistic/user/{catchAll}",
+      "UpstreamHttpMethod": [ "Get" ]
     }
   ]
 }

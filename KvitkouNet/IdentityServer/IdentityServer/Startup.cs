@@ -42,6 +42,7 @@ namespace IdentityServer
 			});
             var builder = services.AddIdentityServer(options =>
 				{
+					options.IssuerUri = "http://identityserver";
 					options.Events.RaiseErrorEvents = true;
 					options.Events.RaiseInformationEvents = true;
 					options.Events.RaiseFailureEvents = true;
@@ -51,9 +52,8 @@ namespace IdentityServer
 			builder.AddInMemoryIdentityResources(AuthStorage.GetIdentityResources());
 			builder.AddInMemoryApiResources(AuthStorage.GetApis());
 			builder.AddInMemoryClients(AuthStorage.GetClients());
-		    builder.AddAspNetIdentity<IdentityUser>();
-
-		    services.AddIdentity<IdentityUser, IdentityRole>()
+            
+            services.AddIdentity<IdentityUser, IdentityRole>()
 		        .AddUserManager<CustomUserManager>();
 
 			builder.AddDeveloperSigningCredential();

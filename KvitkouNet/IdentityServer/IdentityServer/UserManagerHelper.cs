@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
-using System.Threading.Tasks;
 using IdentityServer.SecurityClient.Model;
 using IdentityServer.UserManagmentClient.Model;
 using Microsoft.AspNetCore.Identity;
@@ -57,7 +56,7 @@ namespace IdentityServer
             {
                 throw new InvalidOperationException("User not found");
             }
-            return true;
+            return userGet.EmailConfirmed == true;
         }
 
         public static string GetPhoneNumber(ForViewModel userGet, CancellationToken cancellationToken)
@@ -66,7 +65,7 @@ namespace IdentityServer
             {
                 throw new InvalidOperationException("User not found");
             }
-            return String.Empty;
+            return userGet.PhoneNumber;
         }
 
         public static bool GetPhoneNumberConfirmed(ForViewModel userGet, CancellationToken cancellationToken)
@@ -78,13 +77,16 @@ namespace IdentityServer
             return true;
         }
 
-        public static IdentityUser FindByName(ForViewModel userGet, CancellationToken cancellationToken)
+        public static IdentityUser FindByName(ModelWithHashPassw userGet, CancellationToken cancellationToken)
         {
             return new IdentityUser(userGet.Login)
             {
                 Email = userGet.Email,
                 Id = userGet.Id,
-                UserName = userGet.Login
+                UserName = userGet.Login,
+                PhoneNumber = userGet.PhoneNumber,
+                EmailConfirmed = userGet.EmailConfirmed == true,
+                PasswordHash = userGet.HashPassword
             };
         }
     }

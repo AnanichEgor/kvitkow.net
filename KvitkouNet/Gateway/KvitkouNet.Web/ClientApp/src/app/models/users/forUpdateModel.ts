@@ -1,6 +1,6 @@
 
 
-export interface ForUpdateModel {
+export class ForUpdateModel {
 
 
     firstName?: string;

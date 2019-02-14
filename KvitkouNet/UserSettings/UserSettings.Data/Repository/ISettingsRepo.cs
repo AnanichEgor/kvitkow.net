@@ -34,5 +34,7 @@ namespace UserSettings.Data
 		/// <param name="visibleInfoDb"></param>
 		/// <returns></returns>
 		Task<bool> UpdateVisible(string id, VisibleInfoDb visibleInfoDb);
+
+		Task<bool> UpdateSettings(string id, bool isPrivate, bool isGetInfo);
 	}
 }

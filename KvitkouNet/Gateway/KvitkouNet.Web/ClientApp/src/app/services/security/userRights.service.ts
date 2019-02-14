@@ -32,7 +32,7 @@ import { Configuration } from './configuration';
 @Injectable()
 export class UserRightsService {
 
-    protected basePath = 'http://localhost:5011';
+    protected basePath = 'https://localhost:5002';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -99,7 +99,7 @@ export class UserRightsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<AccessResponse>(`${this.basePath}/api/security/rights/check`,
+        return this.httpClient.put<AccessResponse>(`${this.basePath}/security/rights/check`,
             accessRequest,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -148,7 +148,7 @@ export class UserRightsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<ActionResponse>(`${this.basePath}/api/security/rights/user`,
+        return this.httpClient.put<ActionResponse>(`${this.basePath}/security/rights/user`,
             request,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -193,7 +193,7 @@ export class UserRightsService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<UserRightsResponse>(`${this.basePath}/api/security/rights/user/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<UserRightsResponse>(`${this.basePath}/security/rights/user/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -249,7 +249,7 @@ export class UserRightsService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<UserInfoResponse>(`${this.basePath}/api/security/users/${encodeURIComponent(String(perPage))}/${encodeURIComponent(String(page))}`,
+        return this.httpClient.get<UserInfoResponse>(`${this.basePath}/security/users/${encodeURIComponent(String(perPage))}/${encodeURIComponent(String(page))}`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

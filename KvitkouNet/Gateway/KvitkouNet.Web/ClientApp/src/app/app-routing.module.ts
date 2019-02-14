@@ -59,7 +59,7 @@ const routes: Routes = [
   { path: 'tickets/:id', component: TicketComponent, pathMatch: 'full' },
   { path: 'tickets-ticket/:id', component: TicketDetailComponent, pathMatch: 'full' },
   { path: 'ticketadd', component: TicketFormComponent, pathMatch: 'full' },
-  { path: 'tickets-ticket/:id/edit', component: TicketEditComponent, canActivate: [EditGuard], pathMatch: 'full' },
+  { path: 'tickets-ticket/:id/edit', component: TicketEditComponent, pathMatch: 'full' },
   { path: 'users', component: UsersComponent, pathMatch: 'full' },
   { path: 'users/registration', component: RegistrationComponent, pathMatch: 'full' },
   { path: 'search-ticket', component: SearchTicketComponent, pathMatch: 'full' },
@@ -76,11 +76,6 @@ const routes: Routes = [
   { path: 'settings', component: UserSettingsComponent,
     children: [
       { path: 'profile', component: UserSettingsProfileComponent, pathMatch: 'full'},
-      { path: 'security', component: UserSettingsSecurityComponent,
-      children: [
-      { path: 'email', component: UserSettingsEmailComponent, pathMatch: 'full'},
-      { path: 'password', component: UserSettingsPasswordComponent, pathMatch: 'full'}
-      ]},
       { path: 'advanced', component: UserSettingsAdvancedComponent, pathMatch: 'full'},
     ]},
   { path: 'login', component: LoginComponent, pathMatch: 'full'},

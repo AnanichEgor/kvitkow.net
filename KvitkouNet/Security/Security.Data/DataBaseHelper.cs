@@ -40,7 +40,7 @@ namespace Security.Data
                 functionResult.Add(function.Name, await securityData.AddFunction(function.Name, featureResult[function.FeatureName]));
                 if(function.AccessRights!=null)
                 {
-                    await securityData.EditFeatureRights(functionResult[function.Name],
+                    await securityData.EditFunctionRights(functionResult[function.Name],
                     function.AccessRights.Select(l => rightsResult[l.Name]).ToArray());
                 }
             }
@@ -52,7 +52,7 @@ namespace Security.Data
                     await securityData.AddFunction(function.Name, featureResult[function.FeatureName]));
                 if (function.AccessRights != null)
                 {
-                    await securityData.EditFeatureRights(functionResult[function.Name],
+                    await securityData.EditFunctionRights(functionResult[function.Name],
                         function.AccessRights.Select(l => rightsResult[l.Name]).ToArray());
                 }
             }

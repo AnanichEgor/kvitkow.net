@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using EasyNetQ;
 using FluentValidation;
+using KvitkouNet.Messages.Logging;
+using KvitkouNet.Messages.Logging.Enums;
 using KvitkouNet.Messages.TicketManagement;
 using Microsoft.Extensions.Configuration;
 using Polly;
@@ -56,12 +58,6 @@ namespace TicketManagement.Logic.Services
         /// <returns>Код ответа Create и добавленную модель</returns>
         public async Task<string> Add(Ticket ticket)
         {
-            //WARNING используется для замены стандартных значений swagerr'a
-            //при связи с фронтом надо убрать 
-            //ticket.SellerPhone = "+375-29-76-23-371";
-            //WARNING
-            //if (ticket.User.Rating < 0)
-                //throw new UserBadRatingException("Bad user rating");
             //var validationResultTicket = await _validatorTickets.ValidateAsync(ticket);
             //var validationResultUser = await _validatorUsers.ValidateAsync(ticket.User);
             //if (!validationResultTicket.IsValid | !validationResultUser.IsValid)
@@ -71,7 +67,7 @@ namespace TicketManagement.Logic.Services
             //    throw new ValidationException("Validation failed",
             //        errors);
             //}
-
+            
             var res = await _context.Add(_mapper.Map<Data.DbModels.Ticket>(ticket));
             try
             {
@@ -85,6 +81,13 @@ namespace TicketManagement.Logic.Services
                         City = ticket.LocationEvent.City,
                         Category = ticket.TypeEvent.ToString(),
                         Date = DateTime.Now
+                    });
+                    await _bus.PublishAsync(new TicketActionLogMessage
+                    {
+                        TicketId = res,
+                        UserId = ticket.User.UserInfoId,
+                        ActionType = TicketAction.Add,
+                        EventDate = DateTime.Now
                     });
                 });
             }
@@ -119,8 +122,14 @@ namespace TicketManagement.Logic.Services
                         Price = ticket.Price,
                         Name = ticket.Name,
                         City = ticket.LocationEvent.City,
-                        Category = ticket.TypeEvent.ToString(),
+                        Category = ticket.TypeEvent,
                         Date = DateTime.Now
+                    });
+                    await _bus.PublishAsync(new TicketActionLogMessage
+                    {
+                        TicketId = id,
+                        UserId = ticket.User.UserInfoId,
+                        ActionType = TicketAction.Update
                     });
                 });
             }
@@ -139,7 +148,7 @@ namespace TicketManagement.Logic.Services
         public async Task AddRespondedUsers(string id,
             UserInfo user)
         {
-            var validateAct = _validatorTickets.Validate(user);
+            var validateAct = _validatorUsers.Validate(user);
             if (!validateAct.IsValid)
                 throw new ValidationException("Validation failed",
                     validateAct.Errors);
@@ -172,11 +181,16 @@ namespace TicketManagement.Logic.Services
                     {
                         TicketId = id
                     });
+                    await _bus.PublishAsync(new TicketActionLogMessage
+                    {
+                        TicketId = id,
+                        ActionType = TicketAction.Delete
+                    });
                 });
             }
             catch (TimeoutException exception)
             {
-                throw new EasyNetQSendException("Ticket added in db, but error sending message to RabbitMQ",
+                throw new EasyNetQSendException("Error sending message to RabbitMQ",
                     exception);
             }
         }
@@ -198,6 +212,22 @@ namespace TicketManagement.Logic.Services
         public async Task<Ticket> Get(string id)
         {
             var res = _mapper.Map<Ticket>(await _context.Get(id));
+            try
+            {
+                await _policy.ExecuteAsync(async () =>
+                {
+                    await _bus.PublishAsync(new TicketActionLogMessage
+                    {
+                        TicketId = id,
+                        ActionType = TicketAction.Gaze
+                    });
+                });
+            }
+            catch (TimeoutException exception)
+            {
+                throw new EasyNetQSendException("Error sending message to RabbitMQ",
+                    exception,res);
+            }
             return res;
         }
 

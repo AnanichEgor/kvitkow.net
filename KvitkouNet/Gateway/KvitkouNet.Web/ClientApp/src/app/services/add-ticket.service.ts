@@ -19,6 +19,14 @@ export class AddTicketService {
       { headers: this.getHeaders() }
     );
   }
+
+    updateTicket(body, id: string) {
+      return this.http.put(
+        `${this.baseUrl}/api/tickets/${id}`,
+        body,
+        { headers: this.getHeaders() }
+      );
+  }
   isAuthenticated() {
 
     const token = this.oauthService.getAccessToken();

@@ -8,7 +8,7 @@ namespace Logging.Web.Validators.Filters
         public TicketLogsFilterValidator()
         {
             RuleFor(f => f.ActionType)
-                .NotEmpty();
+                .IsInEnum();
         }
     }
 }

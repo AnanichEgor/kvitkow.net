@@ -14,12 +14,7 @@ export class LoginComponent implements OnInit {
   userProfile: object;
 
   constructor(private oauthService: OAuthService) {
-    // Tweak config for password flow
-    // This is just needed b/c this demo uses both,
-    // implicit flow as well as password flow
-
     this.oauthService.configure(authPasswordFlowConfig);
-    this.oauthService.loadDiscoveryDocument();
   }
 
   ngOnInit() {
