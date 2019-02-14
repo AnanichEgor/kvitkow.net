@@ -33,8 +33,6 @@ services:
     build:
       context: IdentityServer
       dockerfile: IdentityServer/Dockerfile
-    ports:
-      - 4999:80
 
    usermanagement.web:
     image: ${DOCKER_REGISTRY}usersweb
@@ -49,16 +47,12 @@ services:
     build:
       context: ./
       dockerfile: AdminPanel/AdminPanel.Web/Dockerfile
-    ports:
-      - 5005:80
 
    logging.web:
     image: ${DOCKER_REGISTRY}loggingweb
     build:
       context: ./
       dockerfile: Logging/Logging.Web/Dockerfile
-    ports:
-      - 5006:80
 
    tickets.web:
     image: ${DOCKER_REGISTRY}ticketsweb
