@@ -6,7 +6,6 @@ namespace TicketManagement.Data.Exceptions
     {
         public TicketNotFoundException(string message = "Ticket not found") : base(message)
         {
-
         }
     }
 }

@@ -7,10 +7,8 @@ namespace UserSettings.Web.Models
 {
 	public class PreferncesDto
 	{
-		public string Addres { get; set; }
+		public bool IsPrivate { get; set; }
 
-		public string Region { get; set; }
-
-		public string Place { get; set; }
+		public bool IsGetInfo { get; set; }
 	}
 }

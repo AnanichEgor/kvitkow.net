@@ -16,14 +16,14 @@ export class DealLogsComponent implements OnInit {
 
   ngOnInit() {
     this.dealLogsFormGroup = new FormGroup({
-      dateFrom: new FormControl('2018-12-12'),
-      dateTo: new FormControl('2018-12-13'),
-      ticketId: new FormControl('ticketId'),
-      ownerId: new FormControl('ownerId'),
-      recieverId: new FormControl('recieverId'),
-      minPrice: new FormControl(0),
-      maxPrice: new FormControl(1),
-      type: new FormControl(0)
+      dateFrom: new FormControl(),
+      dateTo: new FormControl(),
+      ticketId: new FormControl(''),
+      ownerId: new FormControl(''),
+      recieverId: new FormControl(''),
+      minPrice: new FormControl(),
+      maxPrice: new FormControl(),
+      type: new FormControl()
     })
   }
 

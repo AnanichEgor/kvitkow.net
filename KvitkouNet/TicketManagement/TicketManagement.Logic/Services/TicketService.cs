@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -23,13 +22,13 @@ namespace TicketManagement.Logic.Services
     /// </summary>
     public class TicketService : ITicketService
     {
+        private readonly IBus _bus;
+        private readonly IConfiguration _configuration;
         private readonly ITicketRepository _context;
         private readonly IMapper _mapper;
-        private readonly IValidator _validatorTickets;
-        private readonly IConfiguration _configuration;
-        private readonly IBus _bus;
-        private readonly IValidator<UserInfo> _validatorUsers;
         private readonly RetryPolicy _policy;
+        private readonly IValidator _validatorTickets;
+        private readonly IValidator<UserInfo> _validatorUsers;
 
         public TicketService(ITicketRepository context,
             IMapper mapper,
@@ -58,16 +57,16 @@ namespace TicketManagement.Logic.Services
         /// <returns>Код ответа Create и добавленную модель</returns>
         public async Task<string> Add(Ticket ticket)
         {
-            //var validationResultTicket = await _validatorTickets.ValidateAsync(ticket);
-            //var validationResultUser = await _validatorUsers.ValidateAsync(ticket.User);
-            //if (!validationResultTicket.IsValid | !validationResultUser.IsValid)
-            //{
-            //    var errors = validationResultTicket.Errors.ToList();
-            //    errors.AddRange(validationResultUser.Errors.ToArray());
-            //    throw new ValidationException("Validation failed",
-            //        errors);
-            //}
-            
+            var validationResultTicket = await _validatorTickets.ValidateAsync(ticket);
+            var validationResultUser = await _validatorUsers.ValidateAsync(ticket.User);
+            if (!validationResultTicket.IsValid | !validationResultUser.IsValid)
+            {
+                var errors = validationResultTicket.Errors.ToList();
+                errors.AddRange(validationResultUser.Errors.ToArray());
+                throw new ValidationException("Validation failed",
+                    errors);
+            }
+
             var res = await _context.Add(_mapper.Map<Data.DbModels.Ticket>(ticket));
             try
             {
@@ -79,7 +78,7 @@ namespace TicketManagement.Logic.Services
                         Price = ticket.Price,
                         Name = ticket.Name,
                         City = ticket.LocationEvent.City,
-                        Category = ticket.TypeEvent.ToString(),
+                        Category = ticket.TypeEvent,
                         Date = DateTime.Now
                     });
                     await _bus.PublishAsync(new TicketActionLogMessage
@@ -226,8 +225,9 @@ namespace TicketManagement.Logic.Services
             catch (TimeoutException exception)
             {
                 throw new EasyNetQSendException("Error sending message to RabbitMQ",
-                    exception,res);
+                    exception, res);
             }
+
             return res;
         }
 

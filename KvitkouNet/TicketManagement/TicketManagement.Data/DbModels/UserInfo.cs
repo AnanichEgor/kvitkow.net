@@ -21,7 +21,7 @@ namespace TicketManagement.Data.DbModels
         ///     Фамилия юзера
         /// </summary>
         public string LastName { get; set; }
-        
+
         /// <summary>
         ///     Список билетов пользователя
         /// </summary>

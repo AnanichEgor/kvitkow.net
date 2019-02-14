@@ -7,17 +7,25 @@ import { OAuthService } from 'angular-oauth2-oidc';
   providedIn: 'root'
 })
 export class AddTicketService {
-  private baseUrl = 'http://localhost:5007';
+  private baseUrl = 'https://localhost:5002';
 
   constructor(private http: HttpClient, private oauthService: OAuthService) {}
 
   sendTicket(body) {
     return this.http.post(
-      `${this.baseUrl}/api/tickets`,
+      `${this.baseUrl}/tickets`,
 
       body,
       { headers: this.getHeaders() }
     );
+  }
+
+    updateTicket(body, id: string) {
+      return this.http.put(
+        `${this.baseUrl}/tickets/${id}`,
+        body,
+        { headers: this.getHeaders() }
+      );
   }
   isAuthenticated() {
 

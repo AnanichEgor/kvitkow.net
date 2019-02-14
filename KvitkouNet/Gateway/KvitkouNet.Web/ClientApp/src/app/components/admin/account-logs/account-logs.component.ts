@@ -16,12 +16,12 @@ export class AccountLogsComponent implements OnInit {
 
   ngOnInit() {
     this.accountLogsFormGroup = new FormGroup({
-      dateFrom: new FormControl('2018-12-12'),
-      dateTo: new FormControl('2018-12-13'),
-      userId: new FormControl('userId'),
-      userName: new FormControl('userName'),
-      email: new FormControl('email'),
-      type: new FormControl(0)
+      dateFrom: new FormControl(),
+      dateTo: new FormControl(),
+      userId: new FormControl(''),
+      userName: new FormControl(''),
+      email: new FormControl(''),
+      type: new FormControl()
     })
   }
 

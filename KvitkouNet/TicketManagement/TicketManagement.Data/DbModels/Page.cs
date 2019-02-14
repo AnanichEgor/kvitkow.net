@@ -9,6 +9,23 @@ namespace TicketManagement.Data.DbModels
     public class Page<T>
     {
         /// <summary>
+        ///     Конструктор по умолчанию
+        /// </summary>
+        public Page()
+        {
+            Tickets = new List<T>();
+        }
+
+        /// <summary>
+        ///     Инициализация коллекции сразу тикетами
+        /// </summary>
+        /// <param name="tickets"></param>
+        public Page(IEnumerable<T> tickets)
+        {
+            Tickets = new List<T>(tickets);
+        }
+
+        /// <summary>
         ///     Текущая страница (приходит с фронта)
         /// </summary>
         public int CurrentPage { get; set; }
@@ -27,22 +44,5 @@ namespace TicketManagement.Data.DbModels
         ///     Список тикетов
         /// </summary>
         public List<T> Tickets { get; set; }
-
-        /// <summary>
-        ///     Конструктор по умолчанию
-        /// </summary>
-        public Page()
-        {
-            Tickets = new List<T>();
-        }
-
-        /// <summary>
-        ///     Инициализация коллекции сразу тикетами
-        /// </summary>
-        /// <param name="tickets"></param>
-        public Page(IEnumerable<T> tickets)
-        {
-            Tickets = new List<T>(tickets);
-        }
     }
 }
