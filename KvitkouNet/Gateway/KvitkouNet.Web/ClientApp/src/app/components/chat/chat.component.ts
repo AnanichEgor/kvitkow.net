@@ -87,7 +87,7 @@ export class ChatComponent implements OnInit {
         // '1' - это номер комнаты(на данный момент будет только одна комната)
     this.serviceRoom.roomSearchMessage('1', this.templateMessage).subscribe(x => {
 console.log('пришло ', x);
-      if (x != null) {
+      if (x !== null) {
         this.messagesOnTemplate = x;
       } else { this.messageNotExist = 'Сообщение не найдено!'; }
 
