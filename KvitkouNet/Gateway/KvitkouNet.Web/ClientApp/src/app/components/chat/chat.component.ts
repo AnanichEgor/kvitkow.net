@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
+import { stringify } from '@angular/compiler/src/util';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class ChatComponent implements OnInit {
   public messagesForHub: Array<Message> = []; // сообщения переданные на форму через Hub
   authenticated: boolean;
   roomCreated: string;
+  messageNotExist: string;
 
   constructor(
     private serviceChat: ChatService, private serviceRoom: RoomService
@@ -84,7 +86,11 @@ export class ChatComponent implements OnInit {
 
         // '1' - это номер комнаты(на данный момент будет только одна комната)
     this.serviceRoom.roomSearchMessage('1', this.templateMessage).subscribe(x => {
+console.log('пришло ', x);
+      if (x != null) {
         this.messagesOnTemplate = x;
+      } else { this.messageNotExist = 'Сообщение не найдено!'; }
+
       });
   }
 
