@@ -17,8 +17,10 @@
         <div class="row">
           <div class="col">
             <ul class="list-group">
-              <li class="list-group-item" [class.active]="item === selectedRole" *ngFor="let item of roles"
-                (click)="onSelectRole(item)">{{ item.name }}</li>
+              <li class="list-group-item d-flex justify-content-between align-items-center" [class.active]="item === selectedRole" *ngFor="let item of roles"
+                (click)="onSelectRole(item)">{{ item.name }}
+                <button type="button" (click)="onDeleteRole(item)" class="btn btn-outline-danger btn-sm">-</button>
+              </li>
             </ul>
             <nav aria-label="Page navigation example" *ngIf="pages > 1">
               <ul class="pagination">
