@@ -16,10 +16,10 @@ export class QueryLogsComponent implements OnInit {
 
   ngOnInit() {
     this.queryLogsFormGroup = new FormGroup({
-      dateFrom: new FormControl('2018-12-12'),
-      dateTo: new FormControl('2018-12-13'),
-      userId: new FormControl('userId'),
-      searchCriterium: new FormControl('searchCriterium')
+      dateFrom: new FormControl(),
+      dateTo: new FormControl(),
+      userId: new FormControl(''),
+      searchCriterium: new FormControl('')
     })
   }
 
