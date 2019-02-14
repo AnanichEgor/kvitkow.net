@@ -17,7 +17,7 @@ namespace UserSettings.Logic
 			bus.SubscribeAsync<UserCreationMessage>("GetUserProfile.Added", msg => services.GetService<IConsumeAsync<UserCreationMessage>>().ConsumeAsync(msg));
 			return bus;
 		}
-		public  static IApplicationBuilder UseSubscriber(this IApplicationBuilder app)
+		public static IApplicationBuilder UseSubscriber(this IApplicationBuilder app)
 		{
 			string UserCreationPrefix = "UserCreation.Created";
 			var services = app.ApplicationServices.CreateScope().ServiceProvider;
@@ -30,15 +30,12 @@ namespace UserSettings.Logic
 			var lifetime = services.GetService<IApplicationLifetime>();
 			var bus = services.GetService<IBus>();
 
-			lifetime.ApplicationStarted.Register(async() =>
+			lifetime.ApplicationStarted.Register(() =>
 			{
 				try
 				{
-					await policy.ExecuteAsync(async () =>
-					{
 						bus.SubscribeAsync<UserCreationMessage>(UserCreationPrefix,
 								msg => services.GetService<IConsumeAsync<UserCreationMessage>>().ConsumeAsync(msg));
-					});
 				}
 				catch
 				{
