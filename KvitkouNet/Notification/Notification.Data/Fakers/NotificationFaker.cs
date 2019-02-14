@@ -26,7 +26,8 @@ namespace Notification.Data.Fakers
 			m_faker.RuleFor(x => x.Type, x => x.Random.Enum<NotificationType>());
 			m_faker.RuleFor(x => x.IsClosed, x => x.Random.Bool());
 			m_faker.RuleFor(x => x.Creator, x => x.Lorem.Sentence(10));
-		}
+            m_faker.RuleFor(x => x.Email, x => x.Internet.Email());
+        }
 
 		public static IEnumerable<Models.Notification> Generate(int count = 10)
 		{

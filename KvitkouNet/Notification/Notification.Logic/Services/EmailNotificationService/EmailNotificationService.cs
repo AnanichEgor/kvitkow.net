@@ -98,8 +98,6 @@ namespace Notification.Logic.Services.EmailNotificationService
 
 		private async Task SendEmailForUsers(IEnumerable<User> users, string creator, string subject, string text, Data.Models.Enums.Severity severity)
 		{
-            User sender = await m_context.Users.SingleOrDefaultAsync(x => x.Name == m_senderConfig.Name);
-            if (sender == null) throw new UserNotFound($"Пользователь {m_senderConfig.Name} не найден");
             foreach (User user in users)
 			{
 				await m_emailSenderService.SendEmailAsync(new SendEmailRequest
@@ -119,7 +117,8 @@ namespace Notification.Logic.Services.EmailNotificationService
                     Text = text,
                     Severity = severity,
                     Type = NotificationType.EmailNotification,
-                    IsClosed = true
+                    IsClosed = true,
+                    Email = user.Email
                 });
 			}
             await m_context.SaveChangesAsync();

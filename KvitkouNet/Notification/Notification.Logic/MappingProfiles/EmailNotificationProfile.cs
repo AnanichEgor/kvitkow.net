@@ -9,7 +9,9 @@ namespace Notification.Logic.MappingProfiles
 			CreateMap<Logic.Models.EmailNotification, Data.Models.Notification>()
 				.ForMember(data => data.Id,
 					opt => opt.MapFrom(logic => logic.NotificationId))
-				.ForPath(data => data.Creator,
+                .ForMember(data => data.Email,
+                    opt => opt.MapFrom(logic => logic.Email))
+                .ForPath(data => data.Creator,
 					opt => opt.MapFrom(logic => logic.Message.Creator))
 				.ForPath(data => data.Title,
 					opt => opt.MapFrom(logic => logic.Message.Title))
@@ -20,7 +22,9 @@ namespace Notification.Logic.MappingProfiles
 				.ReverseMap()
 				.ForMember(logic => logic.NotificationId,
 					opt => opt.MapFrom(data => data.Id))
-				.ForPath(logic => logic.Message.Creator,
+                .ForMember(logic => logic.Email,
+                    opt => opt.MapFrom(data => data.Email))
+                .ForPath(logic => logic.Message.Creator,
 					opt => opt.MapFrom(data => data.Creator))
 				.ForPath(logic => logic.Message.Title,
 					opt => opt.MapFrom(logic => logic.Title))

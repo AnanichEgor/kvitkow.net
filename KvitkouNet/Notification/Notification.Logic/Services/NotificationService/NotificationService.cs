@@ -40,19 +40,12 @@ namespace Notification.Logic.Services.NotificationService
                     Type = NotificationType.Notification,
                     Text = notification.Text,
                     Title = notification.Title,
-                    Severity = notification.Severity
+                    Severity = notification.Severity,
+                    Creator = request.Message.Creator
                 };
                 m_context.Notifications.Add(notification2);
 			}
-            try
-            {
-                await m_context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                string s = ex.Message;
-            }
-			
+            await m_context.SaveChangesAsync();			
 		}
 
 		public async Task EditNotification(UserNotification userNotification)

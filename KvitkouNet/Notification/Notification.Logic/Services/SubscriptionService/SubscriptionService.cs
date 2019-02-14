@@ -83,7 +83,7 @@ namespace Notification.Logic.Services.SubscriptionService
             Data.Models.Subscription subscription = await m_context.Subscriptions.SingleOrDefaultAsync(x => x.Theme == request.Theme);
             if(subscription == null)
             {
-                subscription = new Data.Models.Subscription { Theme = request.Theme };
+                subscription = new Data.Models.Subscription { Theme = request.Theme, Creator = request.Creator };
             }
 
             if (subscription.Id == null || !(await m_context.UserSubscriptions.AnyAsync(x => x.UserId == request.UserId && x.SubscriptionId == subscription.Id)))
@@ -93,7 +93,7 @@ namespace Notification.Logic.Services.SubscriptionService
                     UserId = request.UserId,
                     Subscription = subscription,
                     EmailNotificationNeeded = request.EmailNotificationNeeded,
-                    ClientNotificationNeeded = request.ClientNotificationNeeded,
+                    ClientNotificationNeeded = request.ClientNotificationNeeded,                    
                     IsSubscribed = true
                 });
                 await m_context.SaveChangesAsync();

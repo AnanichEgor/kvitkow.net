@@ -48,10 +48,15 @@ namespace Notification.Data.Models
 		/// </summary>
 		public string Creator { get; set; }
 
-		/// <summary>
-		/// Тип уведомления
-		/// </summary>
-		public NotificationType Type { get; set; }
+        /// <summary>
+        /// Отправлено на почту
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Тип уведомления
+        /// </summary>
+        public NotificationType Type { get; set; }
 
 		/// <summary>
 		/// Отметка для прочитанных уведомлений
