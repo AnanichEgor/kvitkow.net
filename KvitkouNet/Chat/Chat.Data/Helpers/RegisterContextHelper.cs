@@ -51,7 +51,7 @@ namespace Chat.Data.Helpers
                     ctx.Settings.AddAsync(new SettingsDb()
                     {
                         Id = "1",
-                        UserId = "1",
+                        UserId = "5BE86359-073C-434B-AD2D-A3932222DABE",
                         UpdateDate = DateTime.Now,
                         DisablePrivateMessages = false,
                         ViewTimestampsMessage = false,
