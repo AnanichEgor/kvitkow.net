@@ -14,7 +14,7 @@ namespace UserManagement.Logic.MappingProfiles
                     {
                         Login = a.UserName,
                         Email = a.Email,
-                        Password = a.Password
+                        Password = a.Password.GetHashCode().ToString()
                     }))
                 .ForMember(c => c.ProfileDB,
                 map => map.MapFrom(

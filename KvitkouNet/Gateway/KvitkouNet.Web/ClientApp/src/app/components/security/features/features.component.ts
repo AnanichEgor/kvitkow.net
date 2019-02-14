@@ -100,4 +100,12 @@ export class FeaturesComponent implements OnInit {
         this.selectedFeature.availableAccessRights = rights;
       } });
   }
+  onDeleteFeature(feature: Feature) {
+    this.featureService.featureDeleteFeature(feature.id).subscribe(result => {
+      this.errorMessage = result.message;
+      if (result.status === 0) {
+      this.features = this.features.filter(r => r.id !== feature.id);
+      this.selectedFeature = null;
+     }});
+  }
 }

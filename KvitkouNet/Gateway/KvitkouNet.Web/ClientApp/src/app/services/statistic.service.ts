@@ -40,14 +40,14 @@ export class StatisticService {
 
   getRange(range: RangeDate) {
     return this.http.post<StatisticOnline[]>(
-      'http://localhost:5050/api/statistics/count/range',
+      'http://localhost:5001/statistics/count/range',
       range
     );
   }
 
   getAreas() {
     return this.http.get<StatisticOnline>(
-      'http://localhost:5050/api/statistics/count/all'
+      'http://localhost:5001/statistics/count/all'
     );
   }
 }

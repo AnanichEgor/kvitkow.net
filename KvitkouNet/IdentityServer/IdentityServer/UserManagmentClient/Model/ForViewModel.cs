@@ -74,6 +74,20 @@ namespace IdentityServer.UserManagmentClient.Model {
     [JsonProperty(PropertyName = "email")]
     public string Email { get; set; }
 
+    /// <summary>
+    /// Gets or Sets PhoneNumber
+    /// </summary>
+    [DataMember(Name="phoneNumber", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "phoneNumber")]
+    public string PhoneNumber { get; set; }
+
+    /// <summary>
+    /// Gets or Sets EmailConfirmed
+    /// </summary>
+    [DataMember(Name="emailConfirmed", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "emailConfirmed")]
+    public bool? EmailConfirmed { get; set; }
+
 
     /// <summary>
     /// Get the string presentation of the object
@@ -91,6 +105,8 @@ namespace IdentityServer.UserManagmentClient.Model {
       sb.Append("  RegistrationDate: ").Append(RegistrationDate).Append("\n");
       sb.Append("  Rating: ").Append(Rating).Append("\n");
       sb.Append("  Email: ").Append(Email).Append("\n");
+      sb.Append("  PhoneNumber: ").Append(PhoneNumber).Append("\n");
+      sb.Append("  EmailConfirmed: ").Append(EmailConfirmed).Append("\n");
       sb.Append("}\n");
       return sb.ToString();
     }

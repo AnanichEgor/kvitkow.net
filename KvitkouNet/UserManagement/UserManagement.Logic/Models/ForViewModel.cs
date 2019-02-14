@@ -53,5 +53,10 @@ namespace UserManagement.Logic.Models
         /// Телефон пользователя
         /// </summary>
         public string PhoneNumber { get; set; }
+
+        /// <summary>
+        /// Подтверждение email
+        /// </summary>
+        public bool EmailConfirmed { get; set; }
     }
 }
