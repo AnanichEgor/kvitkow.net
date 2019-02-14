@@ -104,7 +104,8 @@
             <div class="card">
               <h5 class="card-header">Responded users</h5>
               <div class="card-body">
-                  <h5 class="card-text" *ngIf="respondedUsernull(tickets)==false|| !respondedUsernull(tickets)">No one signed up for this ticket.</h5>
+
+                  <h5 class="card-text" *ngIf="respondedUsernull(tickets)==false">No one signed up for this ticket.</h5>
                 <div class="row" *ngIf="respondedUsernull(tickets)==true">
                   <div
                     class="col-sm-6"

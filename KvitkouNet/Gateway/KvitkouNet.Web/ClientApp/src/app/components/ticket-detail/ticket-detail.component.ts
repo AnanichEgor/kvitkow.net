@@ -58,7 +58,7 @@ export class TicketDetailComponent implements OnInit {
   }
   respondedUsernull(ticket: Ticket) {
     try {
-      if (ticket.respondedUsers != null) { return true; }
+      if (ticket.respondedUsers != null &&ticket.respondedUsers.length!=0 ) { return true; }
     } catch { return false; }
     return false;
   }
