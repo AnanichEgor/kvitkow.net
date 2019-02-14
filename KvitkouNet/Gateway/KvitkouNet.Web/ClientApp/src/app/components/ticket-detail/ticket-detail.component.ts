@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./ticket-detail.component.css']
 })
 export class TicketDetailComponent implements OnInit {
-  id: number;
+  id: string;
   tickets: Ticket;
   authenticated: boolean;
   constructor(
@@ -34,6 +34,7 @@ export class TicketDetailComponent implements OnInit {
      {
       this.route.navigate(['tickets-ticket', id, 'edit']);
       this.route.navigateByUrl('tickets-ticket/' + id +'/edit');
+
      }
 
   }
