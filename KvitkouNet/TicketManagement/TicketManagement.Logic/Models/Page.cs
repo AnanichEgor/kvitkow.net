@@ -1,15 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace TicketManagement.Logic.Models
 {
     /// <summary>
-    ///  Класс описывающий страницу
+    ///     Класс описывающий страницу
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class Page<T>
     {
+        public Page()
+        {
+            Tickets = new List<T>();
+        }
+
+        public Page(IEnumerable<T> records)
+        {
+            Tickets = new List<T>(records);
+        }
+
         /// <summary>
         ///     Текущая страница (приходит с фронта)
         /// </summary>
@@ -29,15 +37,5 @@ namespace TicketManagement.Logic.Models
         ///     Список тикетов
         /// </summary>
         public List<T> Tickets { get; set; }
-
-        public Page()
-        {
-            Tickets = new List<T>();
-        }
-
-        public Page(IEnumerable<T> records)
-        {
-            Tickets = new List<T>(records);
-        }
     }
 }

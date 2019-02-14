@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using EasyNetQ;
+﻿using EasyNetQ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Mvc.Filters;
 using TicketManagement.Logic.Extentions;
 using TicketManagement.Logic.Subscriber;
 using TicketManagement.Web.Filters;

@@ -3,7 +3,7 @@
 namespace TicketManagement.Data.DbModels
 {
     /// <summary>
-    /// Класс описывающий адресс нахождения продавца
+    ///     Класс описывающий адресс нахождения продавца
     /// </summary>
     public class SellerAddress
     {

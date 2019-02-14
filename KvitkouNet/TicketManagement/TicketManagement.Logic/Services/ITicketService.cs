@@ -77,6 +77,6 @@ namespace TicketManagement.Logic.Services
         /// <param name="index"></param>
         /// <param name="onlyActual">Только актуальные билеты</param>
         /// <returns></returns>
-        Task<Page<TicketLite>> GetAllPagebyPageActual(int index, bool onlyActual=true);
+        Task<Page<TicketLite>> GetAllPagebyPageActual(int index, bool onlyActual = true);
     }
 }
