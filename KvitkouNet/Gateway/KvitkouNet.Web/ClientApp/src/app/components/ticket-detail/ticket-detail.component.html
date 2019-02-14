@@ -15,15 +15,6 @@
         >
         <a
           class="list-group-item list-group-item-action"
-          id="list-profile-list"
-          data-toggle="list"
-          href="#list-profile"
-          role="tab"
-          aria-controls="profile"
-          >Profile</a
-        >
-        <a
-          class="list-group-item list-group-item-action"
           id="list-messages-list"
           data-toggle="list"
           href="#list-messages"
@@ -102,21 +93,35 @@
             </div>
           </div>
         </div>
-        <div
-          class="tab-pane fade"
-          id="list-profile"
-          role="tabpanel"
-          aria-labelledby="list-profile-list"
-        >
-          <div class="col-md-15">user info coming soon</div>
-        </div>
+
         <div
           class="tab-pane fade"
           id="list-messages"
           role="tabpanel"
           aria-labelledby="list-messages-list"
         >
-          ...
+        <div class="col-md-15">
+            <div class="card">
+              <h5 class="card-header">Responded users</h5>
+              <div class="card-body">
+                  <h5 class="card-text" *ngIf="respondedUsernull(tickets)==false|| !respondedUsernull(tickets)">No one signed up for this ticket.</h5>
+                <div class="row" *ngIf="respondedUsernull(tickets)==true">
+                  <div
+                    class="col-sm-6"
+                    *ngFor="let userRes of tickets.respondedUsers"
+                  >
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">
+                          {{ userRes.firstName }} {{ userRes.lastName }}
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div
           class="tab-pane fade"
@@ -131,12 +136,16 @@
               </h5>
 
               <div class="card-body">
+
                   <div class="alert alert-danger" role="alert" *ngIf="!authenticated">
 
                       Not logged in user has no rights to configure the ticket. Please <a [routerLink]="['/login']" >login</a>
                     </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="isTicketCreator()==false">
 
-                  <div class="col-md-4" *ngIf="authenticated">
+                      У вас нет прав на доступ к настройкам.
+                    </div>
+                  <div class="col-md-4" *ngIf="authenticated && isTicketCreator()==true">
                       <p><a class="btn btn-light" role="button" (click)='goEditTicket(tickets.id)'> Изменить </a></p>
 
                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
@@ -172,7 +181,6 @@
               </div>
             </div>
           </div>
-
 
 
 
