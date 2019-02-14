@@ -12,20 +12,20 @@
       <div class="form-group">
           <div class="form-input-text">
               <label>Название мероприятия: </label>
-              <input type="text" formControlName="name" class="form-control">
-              <p class="help_outline">{{ticket.name}}</p>
+              <input type="text" formControlName="name" value="{{ticket.name}}" class="form-control">
             </div>
       </div>
 
       <div class="form-group row" input type="text">
           <label class=" control-label col-3 col-form-label " for="selectbasic">Бесплатный билет?</label>
           <div input type="text">
-            <select id="selectbasic" name="selectbasic" formControlName="free" class="form-control">
+            <select id="selectbasic" name="selectbasic" formControlName="free"  class="form-control">
               <option value="true" input type="text">Free</option>
               <option value="false" input type="text">Cash</option>
             </select>
 
           </div>
+          <small class="help_outline text-muted">{{ticket.free}}</small>
         </div>
 
 
@@ -45,14 +45,13 @@
               <option value="256" input type="text">Circus</option>
             </select>
           </div>
-          <p class="help_outline">{{ticket.typeEvent}}</p>
+          <small class="help_outline text-muted">{{ticket.typeEvent}}</small>
         </div>
         <div class="form-group row">
 
             <label for="example-datetime-local-input" class="col-2 col-form-label">Дата события</label>
             <div>
-              <input class="form-control" type="datetime-local" formControlName="timeActual" value="2019-02-12T19:00:00" >
-              <p class="help_outline">{{ticket.timeActual}}</p>
+              <input class="form-control" type="datetime-local" formControlName="timeActual" value="{{ticket.timeActual}}" >
             </div>
           </div>
 
@@ -61,23 +60,23 @@
       <div class="form-row">
           <div class="form-input-text form-group col-md-4">
 
-              <input type="text" formControlName="country" placeholder="Страна" class="form-control">
-              <p class="help_outline">{{ticket.locationEvent.country}}</p>
+              <input type="text" formControlName="country" placeholder="Страна" value="{{ticket.locationEvent.country}}" class="form-control">
+
             </div>
             <div class="form-input-text form-group col-md-3">
 
-                <input type="text" formControlName="city" placeholder="Город" class="form-control">
-                <p class="help_outline">{{ticket.locationEvent.city}}</p>
+                <input type="text" formControlName="city" placeholder="Город" value="{{ticket.locationEvent.city}}" class="form-control">
+
               </div>
           <div class="form-input-text form-group col-md-3">
 
-              <input type="text" formControlName="street" placeholder="Улица" class="form-control">
-              <p class="help_outline">{{ticket.locationEvent.street}}</p>
+              <input type="text" formControlName="street" placeholder="Улица" value="{{ticket.locationEvent.street}}" class="form-control">
+
             </div>
           <div class="form-input-text form-group col-md-2">
 
-              <input type="number" formControlName="house" placeholder="Дом" class="form-control">
-              <p class="help_outline">{{ticket.locationEvent.house}}</p>
+              <input type="number" formControlName="house" placeholder="Дом" value="{{ticket.locationEvent.house}}" class="form-control">
+
             </div>
           </div>
         </div>
@@ -86,8 +85,8 @@
             <label class="col-4 col-form-label">Ссылка на мероприятие: </label>
           <div class="form-input-text col-8">
 
-              <input type="text" formControlName="eventLink" class="form-control">
-              <p class="help_outline">{{ticket.eventLink}}</p>
+              <input type="text" formControlName="eventLink" value="{{ticket.eventLink}}" class="form-control">
+
             </div>
       </div>
 
@@ -96,24 +95,23 @@
           <div class="form-row">
               <div class="form-input-text form-group col-md-4">
 
-                  <input type="text" formControlName="country" placeholder="Страна" class="form-control">
-                  <p class="help_outline">{{ticket.sellerAdress.country}}</p>
+                  <input type="text" formControlName="country" placeholder="Страна" value="{{ticket.sellerAdress.country}}" class="form-control">
+
                 </div>
                 <div class="form-input-text form-group col-md-3">
 
-                    <input type="text" formControlName="city" placeholder="Город" class="form-control">
-                    <p class="help_outline">{{ticket.sellerAdress.city}}</p>
+                    <input type="text" formControlName="city" placeholder="Город" value="{{ticket.sellerAdress.city}}" class="form-control">
+
                   </div>
               <div class="form-input-text form-group col-md-3">
 
-                  <input type="text" formControlName="street" placeholder="Улица" class="form-control">
-                  <p class="help_outline">{{ticket.sellerAdress.street}}</p>
+                  <input type="text" formControlName="street" placeholder="Улица" value="{{ticket.sellerAdress.street}}" class="form-control">
+
                 </div>
               <div class="form-input-text form-group col-md-2">
 
-                  <input type="number" formControlName="house" placeholder="Дом" class="form-control" id="fee"/>
+                  <input type="number" formControlName="house" placeholder="Дом" value="{{ticket.sellerAdress.house}}" class="form-control" id="fee"/>
 
-                  <p class="help_outline">{{ticket.sellerAdress.house}}</p>
                 </div>
               </div>
             </div>
@@ -121,8 +119,8 @@
             <div class="form-group row">
                 <label for="example-tel-input" class="col-2 col-form-label">Телефон</label>
                 <div>
-                  <input class="form-control" type="tel" formControlName="sellerPhone" placeholder="+375*********">
-                  <p class="help_outline">{{ticket.sellerPhone}}</p>
+                  <input class="form-control" type="tel" formControlName="sellerPhone" value="{{ticket.sellerPhone}}" placeholder="+375*********">
+
                 </div>
               </div>
 
@@ -130,8 +128,8 @@
 
       <div class="form-group">
           <label class=" control-label">Дополнительная информация</label>
-        <textarea class="form-control"  rows="2" input type="text" formControlName="additionalData"></textarea>
-        <p class="help_outline">{{ticket.additionalData}}</p>
+        <textarea class="form-control"  rows="2" input type="text" value="{{ticket.additionalData}}" formControlName="additionalData"></textarea>
+
       </div>
 
      <!-- Button trigger modal -->
