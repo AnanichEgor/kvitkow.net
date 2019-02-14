@@ -42,5 +42,7 @@ namespace UserSettings.Logic.Services
 		Task<ResultEnum> UpdateVisible(string id, VisibleInfo visibleInfo);
 
 		Task<ResultEnum> CreateSetting(string id);
+
+		Task<ResultEnum> UpdateSettings(string id, bool isPrivate, bool isGetInfo);
 	}
 }

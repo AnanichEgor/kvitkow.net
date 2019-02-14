@@ -134,5 +134,13 @@ namespace UserSettings.Web.Controllers
 			ResultEnum result = await _service.CreateSetting(id);
 			return result == ResultEnum.Success ? (IActionResult)Ok() : BadRequest();
 		}
+
+		[HttpPut, Route("{id}/update")]
+		public async Task<IActionResult> UpdateSettings([FromRoute] string id, [FromBody]Settings model)
+		{
+			if (string.IsNullOrEmpty(id)) return BadRequest();
+			ResultEnum result = await _service.UpdateSettings(id, model.IsPrivateAccount, model.IsGetTicketInfo);
+			return result == ResultEnum.Success ? (IActionResult)Ok() : BadRequest();
+		}
 	}
 }

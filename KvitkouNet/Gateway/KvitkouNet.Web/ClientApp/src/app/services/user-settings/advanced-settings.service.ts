@@ -11,4 +11,7 @@ export class AdvancedSettingsService {
   getSettings(id) {
     return this.http.get<UserSettings>(`${this.baseUrl}/api/settings/${id}`);
   }
+  putSettings(id, body) {
+    return this.http.put(`${this.baseUrl}/api/settings/${id}/update`, body)
+  }
 }

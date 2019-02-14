@@ -36,7 +36,6 @@ namespace UserSettings.Logic.Services
 		public async Task<Settings> Get(string id)
 		{
 			var res =  await _context.Get(id);
-			//await _bus.PublishAsync(new UserCreationMessage() {  FirstName = "First", LastName = "Last", UserName = "UserName", Email = "my@mail.ru", Created = DateTime.Now, UserId = "11" }) ;
 			return _mapper.Map<Settings>(res);
 		}
 
@@ -127,5 +126,15 @@ namespace UserSettings.Logic.Services
 			}
 			return ResultEnum.Error;
 		}
+
+		public async Task<ResultEnum> UpdateSettings(string id, bool isPrivate, bool isGetInfo)
+		{
+			if (await _context.UpdateSettings(id, isPrivate, isGetInfo))
+			{
+				return ResultEnum.Success;
+			}
+			return ResultEnum.Error;
+		}
+
 	}
 }

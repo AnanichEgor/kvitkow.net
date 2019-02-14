@@ -10,12 +10,23 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class UserSettingsAdvancedComponent implements OnInit {
   userSettingsModel: UserSettings
+  private isPrivate: boolean;
+  private isGetInfo: boolean;
   constructor(private advansedService: AdvancedSettingsService) { }
 
   ngOnInit() {
-    this.advansedService.getSettings(11).subscribe(result=>(this.userSettingsModel = result), err => console.log(err));
+    this.advansedService.getSettings(11).subscribe(result=>(this.userSettingsModel = result, this.isPrivate = result.isPrivateAccount,
+      this.isGetInfo = result.isGetTicketInfo), err => console.log(err));
+    console.log(this.userSettingsModel)
   }
   onGet() {
-    this.advansedService.getSettings(11).subscribe(result=>(this.userSettingsModel = result), err => console.log(err));
+    this.advansedService.putSettings(11, this.userSettingsModel).subscribe(err => console.log(err));
+    console.log(this.userSettingsModel)
+  }
+  onPrivateChanged(value:boolean){
+    this.userSettingsModel.isPrivateAccount = value;
+  }
+  onGetInfoChanged(value:boolean){
+    this.userSettingsModel.isGetTicketInfo = value;
   }
 }
