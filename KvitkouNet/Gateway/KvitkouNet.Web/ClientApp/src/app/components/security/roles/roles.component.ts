@@ -200,5 +200,13 @@ export class RolesComponent implements OnInit {
         this.selectedRole.accessRights = accessRights;
         this.selectedRole.deniedRights = deniedRights;
       } });
+  }  
+  onDeleteRole(role: Role) {
+    this.roleService.roleDeleteRole(role.id).subscribe(result => {
+      this.errorMessage = result.message;
+      if (result.status === 0) {
+      this.roles = this.roles.filter(r => r.id !== role.id);
+      this.selectedRole = null;
+     }});
   }
 }

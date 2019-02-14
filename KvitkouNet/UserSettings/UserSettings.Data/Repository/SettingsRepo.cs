@@ -61,6 +61,8 @@ namespace UserSettings.Data
 
 		public async Task<bool> CreateSettings(string id)
 		{
+			var origin = await _context.Settings.FirstOrDefaultAsync(x => x.SettingsId == id);
+			if (origin != null) return false;
 			await _context.Settings.AddAsync(new SettingsDb()
 			{
 				SettingsId = id,
@@ -83,6 +85,19 @@ namespace UserSettings.Data
 			});
 			await _context.SaveChangesAsync();
 			return true;
+		}
+
+		public async Task<bool> UpdateSettings(string id, bool isPrivate, bool isGetInfo)
+		{
+			var origin = await _context.Settings.FirstOrDefaultAsync(x => x.SettingsId == id);
+			if (origin != null)
+			{
+				origin.IsGetTicketInfo = isGetInfo;
+				origin.IsPrivateAccount = isPrivate;
+				await _context.SaveChangesAsync();
+				return true;
+			}
+			return false;
 		}
 	}
 }

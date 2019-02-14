@@ -3,7 +3,8 @@
     <input
       class="form-check-input"
       type="checkbox"
-      value=""
+      [checked]="userSettingsModel.isGetTicketInfo"
+      (click)="onGetInfoChanged($event.target.checked)"
       id="defaultCheck1"
     />
     <label class="form-check-label" for="defaultCheck1">
@@ -15,7 +16,8 @@
     <input
       class="form-check-input"
       type="checkbox"
-      value=""
+      [checked] ="userSettingsModel.isPrivateAccount"
+      (click)="onPrivateChanged($event.target.checked)"
       id="defaultCheck2"
     />
     <label class="form-check-label" for="defaultCheck2">
@@ -31,12 +33,13 @@
         placeholder=""
         class="form-control input-md"
         id="textinput1"
+        value={{userSettingsModel.preferAddress}}
       />
     </div>
   </div>
-
+  
   <br />
   <div>
-    <button class="btn btn-primary" type="submit">Сохранить</button>
+    <button class="btn btn-primary" (click)="onPut()" type="submit">Сохранить</button>
   </div>
 </div>
