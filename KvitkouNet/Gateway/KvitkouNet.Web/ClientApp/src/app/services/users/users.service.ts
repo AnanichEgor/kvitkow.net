@@ -53,12 +53,10 @@ export class UsersService {
   }
 
 
-  /**
-     *
-     *
-     * @param id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
+  /*
+      @param id
+      @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+      @param reportProgress flag to report request and response progress.
      */
     public userDelete(id: string, observe?: 'body', reportProgress?: boolean): Observable<string>;
     public userDelete(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
@@ -72,10 +70,10 @@ export class UsersService {
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
+        const httpHeaderAccepts: string[] = [
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
+        if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
@@ -97,12 +95,10 @@ export class UsersService {
         );
     }
 
-    /**
-     *
-     *
-     * @param id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
+    /*
+      @param id
+      @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+      @param reportProgress flag to report request and response progress.
      */
     public userGet(id: string, observe?: 'body', reportProgress?: boolean): Observable<Array<ForViewModel>>;
     public userGet(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ForViewModel>>>;
@@ -116,10 +112,10 @@ export class UsersService {
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
+        const httpHeaderAccepts: string[] = [
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
+        if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
@@ -155,10 +151,10 @@ export class UsersService {
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
+        const httpHeaderAccepts: string[] = [
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
+        if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
@@ -180,12 +176,10 @@ export class UsersService {
         );
     }
 
-    /**
-     *
-     *
-     * @param model
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
+    /*
+      @param model
+      @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+      @param reportProgress flag to report request and response progress.
      */
     public userRegister(model: UserRegisterModel, observe?: 'body', reportProgress?: boolean): Observable<string>;
     public userRegister(model: UserRegisterModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
@@ -199,10 +193,10 @@ export class UsersService {
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
+        const httpHeaderAccepts: string[] = [
         ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected = undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
@@ -214,7 +208,7 @@ export class UsersService {
             'application/_*+json'
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
+        if (httpContentTypeSelected !== undefined) {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
@@ -229,16 +223,15 @@ export class UsersService {
         );
     }
 
-    /**
-     *
-     *
+    /*
      * @param id
      * @param userModel
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
     public userUpdate(id: string, userModel: ForUpdateModel, observe?: 'body', reportProgress?: boolean): Observable<string>;
-    public userUpdate(id: string, userModel: ForUpdateModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public userUpdate(id: string, userModel: ForUpdateModel, observe?: 'response', reportProgress?: boolean)
+    : Observable<HttpResponse<string>>;
     public userUpdate(id: string, userModel: ForUpdateModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
     public userUpdate(id: string, userModel: ForUpdateModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
@@ -253,10 +246,10 @@ export class UsersService {
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
+        const httpHeaderAccepts: string[] = [
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
+        if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
@@ -268,7 +261,7 @@ export class UsersService {
             'application/_*+json'
         ];
         const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
+        if (httpContentTypeSelected !== undefined) {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
@@ -283,17 +276,18 @@ export class UsersService {
         );
     }
 
-    /**
-     *
-     *
+    /*
      * @param emailUpdateMessage
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
     public userUpdateEmail(emailUpdateMessage: EmailUpdateMessage, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
-    public userUpdateEmail(emailUpdateMessage: EmailUpdateMessage, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
-    public userUpdateEmail(emailUpdateMessage: EmailUpdateMessage, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
-    public userUpdateEmail(emailUpdateMessage: EmailUpdateMessage, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public userUpdateEmail(emailUpdateMessage:
+      EmailUpdateMessage, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public userUpdateEmail(emailUpdateMessage:
+      EmailUpdateMessage, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public userUpdateEmail(emailUpdateMessage:
+      EmailUpdateMessage, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (emailUpdateMessage === null || emailUpdateMessage === undefined) {
             throw new Error('Required parameter emailUpdateMessage was null or undefined when calling userUpdateEmail.');
@@ -302,10 +296,10 @@ export class UsersService {
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
+        const httpHeaderAccepts: string[] = [
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
+        if (httpHeaderAcceptSelected !== undefined) {
             headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
