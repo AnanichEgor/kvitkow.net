@@ -10,6 +10,9 @@ import {
 } from '@angular/forms';
 import { Ticket } from 'src/app/models/ticket';
 import { Location } from '@angular/common';
+import { GetTicketByIdService } from 'src/app/services/get-ticket-by-id.service';
+import { ActivatedRoute } from '@angular/router';
+import * as jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-ticket-edit',
@@ -19,13 +22,18 @@ import { Location } from '@angular/common';
 export class TicketEditComponent implements OnInit {
   addTicketForm: FormGroup;
   authenticated: boolean;
+  id: string;
+  ticket: Ticket;
 
   constructor(
-    private ticketSrv: AddTicketService,
+    private ticketaddSrv: AddTicketService,
     private _location: Location,
-    private oauthService: OAuthService
+    private oauthService: OAuthService,
+    private ticketsSrv: GetTicketByIdService,
+    private router: ActivatedRoute,
   ) {
-    this.authenticated = this.ticketSrv.isAuthenticated();
+    this.authenticated = this.ticketaddSrv.isAuthenticated();
+    router.params.subscribe(params => this.id = params.id);
     this.addTicketForm = new FormGroup({
       'name' : new FormControl(),
       'free' : new FormControl(),
@@ -47,25 +55,44 @@ export class TicketEditComponent implements OnInit {
       'additionalData' : new FormControl(),
       'typeEvent' : new FormControl(),
       'sellerPhone' : new FormControl(),
-      'timeActual' : new FormControl()
+      'timeActual' : new FormControl(),
+      'user' : new FormGroup({
+        'userInfoId':   new FormControl(this.getUserId()),
+        'firstName' : new FormControl(this.getUserName())
+      }),
     });
   }
 
-  ngOnInit() {}
-
-  public get userId() {
-    const claims = this.oauthService.getIdentityClaims();
-    if (!claims) {
-      return null;
-    }
-    return claims;
+  ngOnInit() {
+    this.ticketsSrv.getTicketById(this.id).subscribe(result => (this.ticket = result), err => console.error(err));
+    console.log(this.id);
   }
 
   onSubmit() {
     console.log(this.addTicketForm.value);
 
-    this.ticketSrv.sendTicket(this.addTicketForm.value).subscribe(err => {
-      return console.error(err);
-    });
+    //this.ticketaddSrv.updateTicket(this.addTicketForm.value, this.id).subscribe(err => {return console.error(err);});
   }
+  getUserId(): string {
+    var decodedToken = this.getDecodedAccessToken(this.oauthService.getAccessToken());
+    if (decodedToken == null) return null;
+    return decodedToken['id'];
+
+    }
+    getUserName(): string {
+      var decodedToken = this.getDecodedAccessToken(this.oauthService.getAccessToken());
+      if (decodedToken == null) return null;
+      return decodedToken['name'];
+
+      }
+
+
+    getDecodedAccessToken(token: string): any {
+      try{
+          return jwt_decode(token);
+      }
+      catch(Error){
+          return null;
+      }
+    }
 }

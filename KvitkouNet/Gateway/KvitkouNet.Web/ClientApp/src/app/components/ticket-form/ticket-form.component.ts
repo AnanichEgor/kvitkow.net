@@ -1,12 +1,12 @@
 import { OAuthService } from 'angular-oauth2-oidc';
-import { Address } from './../../models/address';
+
 import { AddTicketService } from './../../services/add-ticket.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { Ticket } from 'src/app/models/ticket';
+import { FormControl, FormGroup } from '@angular/forms';
+
 import { Location } from '@angular/common';
 import * as jwt_decode from "jwt-decode";
-import { CanActivate } from '@angular/router/src/utils/preactivation';
+
 
 
 @Component({
