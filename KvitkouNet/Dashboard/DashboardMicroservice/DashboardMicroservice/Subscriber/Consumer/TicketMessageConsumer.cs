@@ -1,18 +1,18 @@
-﻿/*using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using EasyNetQ.AutoSubscribe;
 using KvitkouNet.Messages.TicketManagement;
-using Dashboard.Data.Repositories;
 using Dashboard.Logic.Models;
+using Dashboard.Logic.Services;
 
 namespace Dashboard.Subscriber.Cunsumer
 {
-    public class TicketMessageConsumer : IConsumeAsync<TicketCreationMessage>,IConsumeAsync<TicketUpdatedMessage> IConsumeAsync<TicketDeletedMessage>
+    public class TicketMessageConsumer : IConsumeAsync<TicketCreationMessage>, IConsumeAsync<TicketDeletedMessage>
     {
-        private readonly IDashboardRepository _NewsRepository;
+        private readonly IDashboardService _NewsRepository;
         private readonly IMapper _mapper;
 
-        public TicketMessageConsumer(IDashboardRepository ticketRepository, IMapper mapper)
+        public TicketMessageConsumer(IDashboardService ticketRepository, IMapper mapper)
         {
             _NewsRepository = ticketRepository;
             _mapper = mapper;
@@ -21,14 +21,14 @@ namespace Dashboard.Subscriber.Cunsumer
         [AutoSubscriberConsumer(SubscriptionId = "TicketService.Created")]
         public async Task ConsumeAsync(TicketCreationMessage message)
         {
-            await _NewsRepository.Add(_mapper.Map<News>(message));
+            await _NewsRepository.AddAutoNews(_mapper.Map<TicketInfo>(message));
         }
-        
+        /*
         [AutoSubscriberConsumer(SubscriptionId = "TicketService.Updated")]
         public async Task ConsumeAsync(TicketUpdatedMessage message)
         {
             await _NewsRepository.SaveAsync(_mapper.Map<TicketInfo>(message));
-        }
+        }*/
 
         [AutoSubscriberConsumer(SubscriptionId = "TicketService.Deleted")]
         public async Task ConsumeAsync(TicketDeletedMessage message)
@@ -36,5 +36,5 @@ namespace Dashboard.Subscriber.Cunsumer
             await _NewsRepository.Delete(message.TicketId);
         }
     }
-}*/
+}
 

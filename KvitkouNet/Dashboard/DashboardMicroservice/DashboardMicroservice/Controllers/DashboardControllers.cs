@@ -41,22 +41,6 @@ namespace Dashboard.Web.Controllers
 
 
         /// <summary>
-        ///     Удаление новости с определенным Id
-        /// </summary>
-        /// <param name="NewsId"></param>
-        /// <returns></returns>
-        [HttpDelete]
-        [Route("{id}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(bool), Description = "News delete")]
-        [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Error")]
-        public IActionResult Delete([FromRoute] string NewsId)
-        {
-            var result = _service.Delete(NewsId);
-            return Ok();
-        }
-
-        /// <summary>
         ///     Получение всех новостей имеющихся в системе
         /// </summary>
         /// <returns></returns>
@@ -80,7 +64,7 @@ namespace Dashboard.Web.Controllers
         /// <param name="NewsId">Id новости</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{id}")]
+        [Route("{NewsId}")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(News), Description = "All Ok")]
         [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
@@ -91,18 +75,20 @@ namespace Dashboard.Web.Controllers
         }
 
         /// <summary>
-        ///     Получение только актуальных новостей
+        ///     Удаление новости с определенным Id
         /// </summary>
+        /// <param name="NewsId"></param>
         /// <returns></returns>
-        [HttpGet]
-        [Route("actual")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(IEnumerable<News>), Description = "All Ok")]
-        [SwaggerResponse(HttpStatusCode.Forbidden, typeof(void), Description = "Access error")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Invalid model")]
-        public async Task<IActionResult> GetAllActual()
+        [HttpDelete]
+        [Route("{NewsId}")]
+        [SwaggerResponse(HttpStatusCode.NoContent, typeof(News), Description = "News delete")]
+        [SwaggerResponse(HttpStatusCode.NotFound, typeof(void), Description = "News not found")]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(string), Description = "Unauthorized user")]
+        public IActionResult Delete([FromRoute] string NewsId)
         {
-            var result = await _service.GetAllActual();
-            return Ok(result);
+            var result = _service.Delete(NewsId);
+            return Ok();
         }
+
     }
 }

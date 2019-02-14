@@ -25,10 +25,18 @@ namespace Dashboard.Data.Repositories
         /// <returns>Код ответа Create и добавленную модель</returns>
         public async Task<string> Add(NewsDb news)
         {
+            try
+            {
+                news.CreatedDate = DateTime.UtcNow;
 
-            _context.News.Add(news);
-            await _context.SaveChangesAsync();
-            return _context.News.Last().NewsId;
+                _context.News.Add(news);
+                await _context.SaveChangesAsync();
+                return _context.News.Last().NewsId;
+            }
+            catch (Exception)
+            {
+                return ("Exception Data");
+            }
         }
 
         /// <summary>
@@ -86,16 +94,15 @@ namespace Dashboard.Data.Repositories
         }
 
         /// <summary>
-        ///     Получение только актуальных новостей в БД
+        ///     Автоматически добавляет новость в БД
         /// </summary>
-        /// <returns></returns>
-        public async Task<IEnumerable<NewsDb>> GetAllActual()
+        /// <param name="news">Модель новости</param>
+        /// <returns>Код ответа Create и добавленную модель</returns>
+        public async Task AddAutoNews(NewsDb news)
         {
-            var res = _context.News
-                .Include(db => db.Ticket)
-                .AsNoTracking()
-                .Where(x => x.Status == (NewsStatusDb)2);
-            return await res.ToListAsync();
+            news.CreatedDate = DateTime.UtcNow;
+            _context.News.Add(news);
+            await _context.SaveChangesAsync();
         }
     }
 }

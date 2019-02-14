@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Dashboard.Data.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,10 +12,6 @@ namespace Dashboard.Data.Migrations
                 columns: table => new
                 {
                     NewsId = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    TypeEvent = table.Column<int>(nullable: false),
-                    Status = table.Column<int>(nullable: false),
-                    EventLink = table.Column<string>(nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>

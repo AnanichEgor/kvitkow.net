@@ -23,14 +23,6 @@ namespace Dashboard.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<string>("Description");
-
-                    b.Property<string>("EventLink");
-
-                    b.Property<int>("Status");
-
-                    b.Property<int>("TypeEvent");
-
                     b.HasKey("NewsId");
 
                     b.ToTable("News");
