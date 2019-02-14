@@ -4,6 +4,7 @@ using FluentValidation;
 using KvitkouNet.Messages.UserManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 using UserSettings.Data;
 using UserSettings.Data.Context;
 using UserSettings.Logic.MappingProfile;
@@ -22,8 +23,7 @@ namespace UserSettings.Logic
 		/// <returns></returns>
 		public static IServiceCollection RegisterUserSettingsService(this IServiceCollection services, string connetctionString)
 		{
-			services.AddDbContext<SettingsContext>(
-				opt => opt.UseSqlite(connetctionString));
+			services.RegisterDbService(connetctionString);
 			services.AddScoped<IConsumeAsync<UserCreationMessage>, UserProfileConsumer>();
 			services.AddAutoMapper(cfg =>
 			{
@@ -33,7 +33,24 @@ namespace UserSettings.Logic
 			services.AddScoped<IValidator<Settings>, SettingsValidator>();
 			services.AddScoped<IUserSettingsService, UserSettingsService>();
 			services.AddScoped<ISettingsRepo, SettingsRepo>();
-		
+
+			return services;
+		}
+		public static IServiceCollection RegisterDbService(this IServiceCollection services, string connetctionString)
+		{
+			services.AddDbContext<SettingsContext>(
+					opt => opt.UseSqlite(connetctionString));
+			var o = new DbContextOptionsBuilder<SettingsContext>();
+			o.UseSqlite(connetctionString);
+			using (var ctx = new SettingsContext(o.Options))
+			{
+				ctx.Database.Migrate();
+				if (!ctx.Settings.Any())
+				{
+
+					ctx.SaveChanges();
+				}
+			}
 			return services;
 		}
 	}

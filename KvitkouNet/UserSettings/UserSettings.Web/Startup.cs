@@ -27,7 +27,7 @@ namespace UserSettings.Web
 			var connectionStringDb = Configuration["connectionString"];
 			services.AddSwaggerDocument(setting => setting.Title = "User Setting");
 
-			services.AddSingleton(RabbitHutch.CreateBus(value));
+			services.AddSingleton(RabbitHutch.CreateBus("host=rabbit"));
 			services.RegisterUserSettingsService(connectionStringDb);
 			services.AddCors();
 		}

@@ -1,4 +1,4 @@
 export class VisibleSettings {
-  visibleEmail: boolean;
   visibleAllPhones: boolean;
+  visibleEmail: boolean;
 }
