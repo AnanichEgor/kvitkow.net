@@ -57,10 +57,11 @@
 
 
                  <div class="member_list">
+
                     <ul class="list-unstyled">
                      <li *ngFor="let message of messagesOnTemplate">
                        <p>
-                               {{message.text}}
+                               {{message.text + ' отправлено в ' + message.sendedTime}}
                              </p>
 
                      </li>
@@ -72,6 +73,7 @@
          <div class="p-4">
            <div>пользовательские настрйоки:</div>
           <div>{{'UserId = ' + userSettins.id + userSettins.backgroundColor + userSettins.sound + userSettins.hideChat + userSettins.tab + userSettins.toast + userSettins.viewTimestampsMessage}}</div>
+        <div>{{messageNotExist}}</div>
         </div>
         </div>
       </div>

@@ -106,7 +106,8 @@ namespace Chat.Web.Controllers
             if (result.Count() != 0)
             return Ok(result);
 
-            return BadRequest("The message not exist");
+            return Ok(null);
+            //return BadRequest("The message not exist");
         }
 
         /// <summary>
