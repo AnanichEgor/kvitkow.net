@@ -103,4 +103,12 @@ export class FunctionsComponent implements OnInit {
         this.selectedFunction.accessRights = rights;
       } });
   }
+  onDeleteFunction(fun: AccessFunction) {
+    this.functionsService.functionsDeleteFunction(fun.id).subscribe(result => {
+      this.errorMessage = result.message;
+      if (result.status === 0) {
+      this.functions = this.functions.filter(r => r.id !== fun.id);
+      this.selectedFunction = null;
+     }});
+  }
 }
