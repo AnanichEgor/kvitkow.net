@@ -1,30 +1,32 @@
 <main role="main">
     <form [formGroup]="paymentLogsFormGroup" (ngSubmit)="onSubmit()">
-        <label>
-          Начальная дата:
-          <input type="date" formControlName="dateFrom">
-        </label>
-        <label>
-          Конечная дата:
-          <input type="date" formControlName="dateTo">
-        </label>
-        <label>
-          Id отправителя:
-          <input type="text" formControlName="senderId">
-        </label>
-        <label>
-          Id получателя:
-          <input type="text" formControlName="reciverId">
-        </label>
-        <label>
-            Min cумма:
-            <input type="text" formControlName="minTransfer">
-        </label>
-        <label>
-            Max сумма:
-            <input type="text" formControlName="maxTransfer">
-        </label>
-        <button type="submit">Submit</button>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="dateFrom">Начальная дата:</label>
+          <input type="date" class="form-control" id="dateFrom" formControlName="dateFrom">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="dateTo">Конечная дата:</label>
+            <input type="date" class="form-control" id="dateTo" formControlName="dateTo">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="senderId">Id отправителя:</label>
+          <input type="text" class="form-control" id="senderId" formControlName="senderId" placeholder="senderId">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="reciverId">Id получателя:</label>
+        <input type="text" class="form-control" id="reciverId" formControlName="reciverId" placeholder="reciverId">
+      </div>
+      <div class="form-group col-md-4">
+          <label for="minTransfer">Min cумма:</label>
+          <input type="number" class="form-control" id="minTransfer" formControlName="minTransfer" placeholder="minTransfer">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="maxTransfer">Max сумма:</label>
+        <input type="number" class="form-control" id="maxTransfer" formControlName="maxTransfer" placeholder="maxTransfer">
+    </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 <div class="album py-5 bg-light">
   <table mdbTable>
