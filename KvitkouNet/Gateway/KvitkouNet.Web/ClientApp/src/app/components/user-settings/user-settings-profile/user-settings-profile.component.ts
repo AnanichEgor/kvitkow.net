@@ -37,10 +37,7 @@ export class UserSettingsProfileComponent implements OnInit {
   }
   getUserId(): string {
     var decodedToken = this.getDecodedAccessToken(this.oauthService.getAccessToken());
-    
-    var result = decodedToken == null ? 11 : decodedToken['id'];
-
-    return result == null ? 11 : result;
+    return decodedToken['id'];
 
     }
   getDecodedAccessToken(token: string): any {
