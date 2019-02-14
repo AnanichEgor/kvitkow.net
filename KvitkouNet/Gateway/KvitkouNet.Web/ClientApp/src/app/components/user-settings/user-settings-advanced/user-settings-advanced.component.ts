@@ -13,6 +13,7 @@ export class UserSettingsAdvancedComponent implements OnInit {
   constructor(private advansedService: AdvancedSettingsService) { }
 
   ngOnInit() {
+    this.advansedService.get(11).subscribe(err => {return console.error(err)});
   }
   onSubmit() {
     console.log(this.userSettings.PreferAddress);
