@@ -48,7 +48,7 @@ export class TicketDetailComponent implements OnInit {
       'userInfoId':   new FormControl(this.getUserId()),
       'firstName' : new FormControl(this.getUserName())
       });
-      this.ticketsSrv.subscribe(id,this.addTicketForm.value);
+      this.ticketsSrv.subscribe(id,this.addTicketForm.value).subscribe(err => console.error(err));
   }
   getUserId(): string {
     var decodedToken = this.getDecodedAccessToken(
