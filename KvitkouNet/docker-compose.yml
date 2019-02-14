@@ -61,8 +61,6 @@ services:
       dockerfile: TicketManagement/TicketManagement.Web/Dockerfile
     env_file:
       - host.env
-    ports:
-      - 5007:80
 
    search.web:
     image: ${DOCKER_REGISTRY}searchweb
