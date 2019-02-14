@@ -404,7 +404,7 @@
         }
       ],
       "UpstreamPathTemplate": "/security/{catchAll}",
-      "UpstreamHttpMethod": [ "Get", "Post" ]
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     }
   ]
 }

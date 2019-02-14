@@ -41,4 +41,11 @@ export class RightsComponent implements OnInit {
   onPreviosePage() {
     this.onSearchRightsPage(this.currentPage - 1);
   }
+  onDeleteRight(right: AccessRight) {
+    this.service.rightsDeleteRight(right.id).subscribe(result => {
+      this.errorMessage = result.message;
+      if (result.status === 0) {
+      this.rights = this.rights.filter(r => r.id !== right.id);
+     }});
+  }
 }
