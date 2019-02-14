@@ -26,13 +26,13 @@ export class StatisticComponent implements OnInit {
   constructor(private statisticService: StatisticService) {
     this.statisticIndex = 0; // 0 - статистика посещений 1 - online и т.д.
     this.setDate(1);
-    this.url = 'http://localhost:5060/api/statistic/user';
+    this.url = 'http://localhost:5001/statistic/user';
 
     this.gridDataSource = AspNetData.createStore({
       key: 'userId',
       loadUrl: this.url + '/all',
       onBeforeSend: function(method, ajaxOptions) {
-        ajaxOptions.xhrFields = { withCredentials: true };
+        ajaxOptions.xhrFields = { withCredentials: false };
       }
     });
   }
