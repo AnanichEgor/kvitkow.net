@@ -16,12 +16,12 @@ export class TicketLogsComponent implements OnInit {
 
   ngOnInit() {
     this.ticketLogsFormGroup = new FormGroup({
-      dateFrom: new FormControl('2018-12-12'),
-      dateTo: new FormControl('2018-12-13'),
-      ticketId: new FormControl('ticketId'),
-      ticketName: new FormControl('ticketName'),
-      actionType: new FormControl(0),
-      description: new FormControl('description')
+      dateFrom: new FormControl(),
+      dateTo: new FormControl(),
+      ticketId: new FormControl(''),
+      ticketName: new FormControl(''),
+      actionType: new FormControl(),
+      description: new FormControl('')
     })
   }
   onSubmit() {
