@@ -25,7 +25,55 @@
         }
       ],
       "UpstreamPathTemplate": "/connect/token",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/connect/userinfo",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityserver",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/connect/userinfo",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/.well-known/openid-configuration",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityserver",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/.well-known/openid-configuration",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/connect/endsession",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityserver",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/connect/endsession",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/.well-known/openid-configuration/jwks",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identityserver",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/.well-known/openid-configuration/jwks",
+      "UpstreamHttpMethod": [ "Get" ]
     },
     {
       "DownstreamPathTemplate": "/api/admin/logs/errors",
@@ -56,6 +104,9 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/accounts",
+      "RouteClaimsRequirement": {
+        "role": "admin"
+      },
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
@@ -72,6 +123,9 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/payments",
+      "RouteClaimsRequirement": {
+        "role": "admin"
+      },
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
@@ -88,6 +142,9 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/queries",
+      "RouteClaimsRequirement": {
+        "role": "admin"
+      },
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
@@ -104,6 +161,9 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/tickets",
+      "RouteClaimsRequirement": {
+        "role": "admin"
+      },
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
@@ -120,6 +180,9 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/logs/deals",
+      "RouteClaimsRequirement": {
+        "role": "admin"
+      },
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
@@ -136,6 +199,9 @@
         }
       ],
       "UpstreamPathTemplate": "/admin/users",
+      "RouteClaimsRequirement": {
+        "role": "admin"
+      },
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",

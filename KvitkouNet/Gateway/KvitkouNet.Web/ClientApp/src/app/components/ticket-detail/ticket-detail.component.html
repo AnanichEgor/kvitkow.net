@@ -78,11 +78,11 @@
                 <h5 class="card-title" *ngIf="!tickets.price">Price: Free</h5>
                 <p class="card-title">Phone: {{ tickets.sellerPhone }}</p>
                 <p class="card-text">
-                  Create: {{ tickets.createdDate | date: " MMMM d yyyy hh:mm" }}
+                    Создан: {{ tickets.createdDate | date: " MMMM d yyyy H:MM" }}
                 </p>
                 <p class="card-text">
-                  Valid until:
-                  {{ tickets.timeActual | date: "MMMM d yyyy hh:mm " }}
+                  Дата события:
+                  {{ tickets.timeActual | date: "MMMM d yyyy H:MM " }}
                 </p>
               </div>
               <div class="card-body">
@@ -137,7 +137,7 @@
                     </div>
 
                   <div class="col-md-4" *ngIf="authenticated">
-                      <p><a class="btn btn-light" role="button"> Изменить </a></p>
+                      <p><a class="btn btn-light" role="button" (click)='goEditTicket(tickets.id)'> Изменить </a></p>
 
                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
                           Remove ticket
