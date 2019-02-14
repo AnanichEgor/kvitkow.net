@@ -25,11 +25,11 @@ export class ErrorLogsComponent implements OnInit {
 
   ngOnInit() {
     this.errorLogsFormGroup = new FormGroup({
-      dateFrom: new FormControl('2018-12-12'),
-      dateTo: new FormControl('2018-12-13'),
-      serviceName: new FormControl('serviceName'),
-      exceptionTypeName: new FormControl('exceptionTypeName'),
-      message: new FormControl('message')
+      dateFrom: new FormControl(),
+      dateTo: new FormControl(),
+      serviceName: new FormControl(''),
+      exceptionTypeName: new FormControl(''),
+      message: new FormControl('')
     })
   }
 
