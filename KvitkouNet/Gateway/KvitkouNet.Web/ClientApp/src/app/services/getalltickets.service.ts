@@ -7,12 +7,12 @@ import { OAuthService } from 'angular-oauth2-oidc';
   providedIn: 'root'
 })
 export class GetallticketsService {
-  private baseUrl = 'http://localhost:5007';
+  private baseUrl = 'https://localhost:5002';
 
   constructor(private http: HttpClient, private oauthService: OAuthService) {}
 
   getAllTickets(id) {
-    return this.http.get<Ticket[]>(`${this.baseUrl}/api/tickets/page/${id}`, {
+    return this.http.get<Ticket[]>(`${this.baseUrl}/tickets/page/${id}`, {
       headers: this.getHeaders()
     });
   }
