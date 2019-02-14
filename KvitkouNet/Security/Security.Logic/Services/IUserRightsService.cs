@@ -27,14 +27,7 @@ namespace Security.Logic.Services
         /// <param name="userId">Идентификатор пользователя</param>
         /// <returns></returns>
         Task<UserRightsResponse> GetUserRights(string userId);
-
-        /// <summary>
-        /// Добавление нового пользователя
-        /// </summary>
-        /// <param name="userInfo">Информация пользователя</param>
-        /// <returns></returns>
-        Task<ActionResponse> AddNewUser(UserInfo userInfo);
-
+        
         /// <summary>
         /// Изменение прав доступа пользователя
         /// </summary>
@@ -45,6 +38,17 @@ namespace Security.Logic.Services
         /// <param name="deniedRightsIds">Набор запрещённых прав</param>
         /// <returns></returns>
         Task<ActionResponse> EditUserRights(string userId, int[] roleIds, int[] functionIds, int[] accessedRightsIds, int[] deniedRightsIds);
+
+        /// <summary>
+        /// Изменение прав доступа пользователя
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя</param>
+        /// <param name="roles">Набор ролей</param>
+        /// <param name="functions">Набор функций</param>
+        /// <param name="accessedRights">Набор доступных прав</param>
+        /// <param name="deniedRights">Набор запрещённых прав</param>
+        /// <returns></returns>
+        Task<ActionResponse> EditUserRightsByNames(string userId, string[] roles, string[] functions, string[] accessedRights, string[] deniedRights);
 
         /// <summary>
         /// Удаление пользователя из системы
@@ -66,7 +70,7 @@ namespace Security.Logic.Services
         /// Предоставление прав доступа новому пользователю
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<AccessRight>> SetDefaultRoleToNewUser();
+        Task<ActionResponse> SetDefaultRoleToNewUser(UserInfo userInfo, UserRights rights);
 
         /// <summary>
         /// Предоставление прав доступа новому пользователю

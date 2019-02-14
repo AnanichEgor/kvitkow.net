@@ -14,7 +14,10 @@ services:
     volumes:
       - ./aspnetapp.pfx:/https/aspnetapp.pfx
     depends_on:
+      - rabbit
       - identityserver
+      - logging.web
+      - usermanagement.web
       - adminpanel.web
       - search.web
       - security.web
@@ -36,8 +39,6 @@ services:
     build:
       context: .
       dockerfile: UserManagement/UserManagement.Web/Dockerfile
-    depends_on:
-      - rabbit
     ports:
       - 5003:80
 
@@ -46,10 +47,6 @@ services:
     build:
       context: ./
       dockerfile: AdminPanel/AdminPanel.Web/Dockerfile
-    depends_on:
-      - logging.web
-      - usermanagement.web
-      - rabbit
     ports:
       - 5005:80
 
@@ -58,8 +55,6 @@ services:
     build:
       context: ./
       dockerfile: Logging/Logging.Web/Dockerfile
-    depends_on:
-      - rabbit
     ports:
       - 5006:80
 
@@ -72,8 +67,6 @@ services:
       - host.env
     ports:
       - 5007:80
-    depends_on:
-      - rabbit
 
    search.web:
     image: ${DOCKER_REGISTRY}searchweb
@@ -83,10 +76,11 @@ services:
     environment:
       - ConnectionStrings__ElasticSearchConnection=http://elasticsearch:9200
       - ConnectionStrings__RabbitConnection=host=rabbit
+    volumes:
+      - searchdata:/app/Database   
     ports:
       - 5008:80
     depends_on:
-      - rabbit
       - elasticsearch
 
    usersettings.web:
@@ -94,8 +88,6 @@ services:
     build:
       context: ./
       dockerfile: UserSettings/UserSettings.Web/Dockerfile
-    depends_on:
-      - rabbit
     ports:
       - 5009:80
 
@@ -113,6 +105,8 @@ services:
 
    elasticsearch:
     image: elasticsearch:6.4.3
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
       - 9300:9300
@@ -122,8 +116,6 @@ services:
     build:
       context: ./
       dockerfile: Chat/Chat.Web/Dockerfile
-    depends_on:
-      - rabbit
     ports:
       - 5010:80
 
@@ -132,8 +124,6 @@ services:
     build:
       context: ./
       dockerfile: Security/Security.Web/Dockerfile
-    depends_on:
-      - rabbit
     ports:
       - 5011:80
 
@@ -142,8 +132,6 @@ services:
     build:
       context: ./
       dockerfile: Notification/Notification.Web/Dockerfile
-    depends_on:
-      - rabbit
     ports:
       - 5012:80
 
@@ -152,8 +140,6 @@ services:
     build:
       context: ./StatisticOnline
       dockerfile: ./StatisticOnline.Web/Dockerfile
-    depends_on:
-      - rabbit
     ports:
       - 5050:80
 
@@ -162,7 +148,11 @@ services:
     build:
       context: ./StatisticUser
       dockerfile: ./StatisticUser.Web/Dockerfile
-    depends_on:
-      - rabbit
     ports:
       - 5060:80
+
+volumes:
+  esdata:
+    driver: local
+  searchdata:
+    driver: local

@@ -9,12 +9,12 @@ namespace TicketManagement.Logic.Exceptions
         {
            
         }
-        public EasyNetQSendException(string message, Exception exception, string resultResponse) : base(message, exception)
+        public EasyNetQSendException(string message, Exception exception, object resultResponse) : base(message, exception)
         {
             this.resultResponse = resultResponse;
         }
 
-        public string resultResponse { get; private set; }
+        public object resultResponse { get; private set; }
         
     }
 }

@@ -30,6 +30,13 @@ export class TicketDetailComponent implements OnInit {
     this.ticketsSrv.delTicketById(id).subscribe(err => console.error(err));
 
   }
+  goEditTicket(id){
+     {
+      this.route.navigate(['tickets-ticket', id, 'edit']);
+      this.route.navigateByUrl('tickets-ticket/' + id +'/edit');
+     }
+
+  }
   backClicked() {
     this._location.back();
   }
