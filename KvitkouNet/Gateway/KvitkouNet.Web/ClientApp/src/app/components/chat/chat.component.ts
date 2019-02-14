@@ -23,6 +23,7 @@ export class ChatComponent implements OnInit {
   private connection: HubConnection;
   public messagesForHub: Array<Message> = []; // сообщения переданные на форму через Hub
   authenticated: boolean;
+  roomCreated: string;
 
   constructor(
     private serviceChat: ChatService, private serviceRoom: RoomService
@@ -59,7 +60,7 @@ export class ChatComponent implements OnInit {
       text: textMessage,
       sendedTime: new Date(),
       isEdit: false,
-      userId: this.serviceChat.getUserIdFromClaims() // получаем UserId
+      userId: this.serviceChat.getUserIdFromClaims() // получаем UserId если не работает нужно указать - '1'
     };
     // '1' - это номер комнаты(на данный момент будет только одна комната)
      this.serviceRoom.roomAddMessage(message, '1').subscribe(
@@ -70,7 +71,8 @@ export class ChatComponent implements OnInit {
   // получим пользовательские настройки для чата
   onGetUserSetting() {
 
-     this.serviceChat.chatGetUserSettings(this.serviceChat.getUserIdFromClaims()).subscribe(x => {
+    // если не будет работать нужно указать UserId = 1
+     this.serviceChat.chatGetUserSettings(this.serviceChat.getUserIdFromClaims() ).subscribe(x => {
         this.userSettins = x;
       }
   );
@@ -94,9 +96,11 @@ export class ChatComponent implements OnInit {
       name: 'MainRoom',
       isPrivat: false
     };
-
-    this.serviceRoom.roomAddRoom(mainRoom, this.serviceChat.getUserIdFromClaims()).subscribe(
-      (r) => console.log('Комната успешно создана')
-      , err => console.log('Комната не создана'));
+// если не будет работать нужно указать UserId = 1
+    this.serviceRoom.roomAddRoom(mainRoom, this.serviceChat.getUserIdFromClaims() ).subscribe(x => {
+      this.roomCreated = '!!!КОМНАТА УЖЕ СОЗДАНА!!!';
+    });
+      // r => console.log('Комната успешно создана')
+      // ,err => console.log('Комната не создана'));
   }
 }

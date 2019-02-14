@@ -355,7 +355,7 @@ export class RoomService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<Array<Room>>(`${this.basePath}/api/chat/rooms/users/${encodeURIComponent(String(uid))}`,
+        return this.httpClient.get<Array<Room>>(`${this.basePath}/chat/rooms/users/${encodeURIComponent(String(uid))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: this.getHeaders(),
@@ -404,7 +404,7 @@ export class RoomService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<Array<Message>>(`${this.basePath}/api/chat/rooms/${encodeURIComponent(String(rid))}/messages/${encodeURIComponent(String(template))}`,
+        return this.httpClient.get<Array<Message>>(`${this.basePath}/chat/rooms/${encodeURIComponent(String(rid))}/messages/${encodeURIComponent(String(template))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: this.getHeaders(),
@@ -448,7 +448,7 @@ export class RoomService {
             'application/_*+json'
         ];
 
-        return this.httpClient.get<Array<Room>>(`${this.basePath}/api/chat/rooms/${encodeURIComponent(String(template))}`,
+        return this.httpClient.get<Array<Room>>(`${this.basePath}/chat/rooms/${encodeURIComponent(String(template))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: this.getHeaders(),

@@ -120,7 +120,8 @@ namespace Chat.Web.Controllers
             var IdUserIsOffline = await _roomService.AddMessage(message, rid);
 
             //Если пользователь Offline отправим ему уведомление
-            if (IdUserIsOffline != null)
+            //if (IdUserIsOffline != null)
+            //будем отправлять всем уведомления
             {
 
                 await _bus.PublishAsync(new UserNotificationMessage
