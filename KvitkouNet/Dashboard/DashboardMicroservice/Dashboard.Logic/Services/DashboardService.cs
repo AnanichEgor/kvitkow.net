@@ -32,9 +32,23 @@ namespace Dashboard.Logic.Services
         /// <returns>Код ответа Create и добавленную модель</returns>
         public async Task<(string, RequestStatus)> Add(News news)
         {
-            if (!_validator.Validate(news).IsValid) return ("0", RequestStatus.BadRequest);
+           if (!_validator.Validate(news).IsValid) return ("0", RequestStatus.BadRequest);
             var res = await _context.Add(_mapper.Map<NewsDb>(news));
             return (res, RequestStatus.Success);
+        }
+
+
+        /// <summary>
+        ///     Получение всех новостей имеющихся в системе
+        /// </summary>
+        /// <returns></returns>
+        public async Task<(IEnumerable<News>, RequestStatus)> GetAll()
+        {
+            var res = _mapper.Map<IEnumerable<News>>(await _context.GetAll());
+
+            var result = res == null ? (null, RequestStatus.Error) : (res, RequestStatus.Success);
+
+            return result;
         }
 
 
@@ -60,19 +74,6 @@ namespace Dashboard.Logic.Services
         }
 
         /// <summary>
-        ///     Получение всех новостей имеющихся в системе
-        /// </summary>
-        /// <returns></returns>
-        public async Task<(IEnumerable<News>, RequestStatus)> GetAll()
-        {
-            var res = _mapper.Map<IEnumerable<News>>(await _context.GetAll());
-
-            var result = res == null ? (null, RequestStatus.Error) : (res, RequestStatus.Success);
-
-            return result;
-        }
-
-        /// <summary>
         ///     Получение новости по Id
         /// </summary>
         /// <param name="ticketIdGuid">Id билета</param>
@@ -84,15 +85,20 @@ namespace Dashboard.Logic.Services
         }
 
         /// <summary>
-        ///     Получение только актуальных новостей
+        ///     Автоматическое добавление новости
         /// </summary>
-        /// <returns></returns>
-        public async Task<(IEnumerable<News>, RequestStatus)> GetAllActual()
+        /// <param name="news">Модель новости</param>
+        /// <returns>Код ответа Create и добавленную модель</returns>
+        public async Task<RequestStatus> AddAutoNews(TicketInfo message)
         {
-            var res = await _context.GetAllActual();
-            return res == null
-                ? (null, RequestStatus.BadRequest)
-                : (_mapper.Map<IEnumerable<News>>(res), RequestStatus.Success);
+            var news = new News();
+
+            news.NewsStatus = NewsStatus.Hot;
+            news.Ticket = message;
+            
+            if (!_validator.Validate(news).IsValid) return (RequestStatus.BadRequest);
+            var res = await _context.Add(_mapper.Map<NewsDb>(news));
+            return (RequestStatus.Success);
         }
 
         #region IDisposable Support

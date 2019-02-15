@@ -6,30 +6,10 @@ namespace Dashboard.Logic.Models
     public class News
     {
         /// <summary>
-        ///     Id билета
-        /// </summary>
-        public string NewsId { get; set; }
-    
-        /// <summary>
-        ///     Краткое описание события
-        /// </summary>
-        public string Description { get; set; }
-                
-        /// <summary>
-        ///     Тип мероприятия
-        /// </summary>
-        public TypeEventTicket TypeEvent { get; set; }
-
-        /// <summary>
         ///     Статус новости
         /// </summary>
-        public NewsStatus Status { get; set; }
-
-        /// <summary>
-        ///     Ссылка на мероприятие
-        /// </summary>
-        public string EventLink { get; set; }
-        
+        public NewsStatus NewsStatus { get; set; }
+    
         /// <summary>
         ///     Цена билета
         /// </summary>

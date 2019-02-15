@@ -1,5 +1,5 @@
-import { DashboardService } from './../../services/dashboard.service';
-import {News} from '../../models/dashboard';
+import { DashboardService } from '../../services/dashboard//dashboard.service';
+import {News} from '../../models/dashboard/models';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   news: News[] = [];
+
   constructor(private newsSrv: DashboardService) { }
 
   ngOnInit() {
@@ -17,3 +18,4 @@ export class DashboardComponent implements OnInit {
    }
 
 }
+

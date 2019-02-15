@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dashboard.Data.Migrations
 {
     [DbContext(typeof(DashboardContext))]
-    [Migration("20190212133621_init")]
-    partial class init
+    [Migration("20190215022605_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,13 +25,7 @@ namespace Dashboard.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<string>("Description");
-
-                    b.Property<string>("EventLink");
-
-                    b.Property<int>("Status");
-
-                    b.Property<int>("TypeEvent");
+                    b.Property<int>("NewsStatus");
 
                     b.HasKey("NewsId");
 

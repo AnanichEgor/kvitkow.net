@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Dashboard.Logic;
+using EasyNetQ;
+using Dashboard.Subscriber;
+using System.Reflection;
 
 namespace DashboardMicroService
 {
@@ -19,12 +22,18 @@ namespace DashboardMicroService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.RegisterDashboardService();
+            var connectionString = Configuration["connectionString"];
+
+            var rabbitConnectionString = Configuration["RabbitConnection"];
+
+            services.RegisterDashboardService(connectionString);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
                         
             services.AddSwaggerDocument(settings => settings.Title = "Dashboard");
-            
+
+            //services.AddSingleton<IBus>(RabbitHutch.CreateBus(rabbitConnectionString));
+
             services.AddCors();
         }
 
@@ -38,6 +47,8 @@ namespace DashboardMicroService
             app.UseSwagger().UseSwaggerUi3();
 
             app.UseMvc();
+
+           // app.UseSubscriber("TicketService", Assembly.GetExecutingAssembly());
         }
     }
 }

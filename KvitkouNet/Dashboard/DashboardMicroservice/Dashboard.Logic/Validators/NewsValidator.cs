@@ -7,7 +7,10 @@ namespace Dashboard.Logic.Validators
     {
         public NewsValidator()
         {
-            RuleFor(news => news.EventLink).NotEmpty();
+            RuleFor(news => news.Ticket.TicketId).NotEmpty();
+            RuleFor(news => news.Ticket.Name).NotEmpty().Length(2, 100);
+            RuleFor(news => news.Ticket.City).NotEmpty().Length(2, 100);
+            RuleFor(news => news.Ticket.Category).NotEmpty();
         }
     }
 }

@@ -12,18 +12,14 @@ namespace Dashboard.Data.DbModels.DbEnums
         Unknown = 0,
 
         /// <summary>
-        ///     Куплен
+        ///     Обыкновенная
         /// </summary>
-        Purchased = 1,
+        Delivery = 1,
 
         /// <summary>
-        ///     Актуален
+        ///     Горящая
         /// </summary>
-        Actual = 2,
-
-        /// <summary>
-        ///     Просрочен
-        /// </summary>
-        Expired = 3
+        Hot = 2
     }
 }
+

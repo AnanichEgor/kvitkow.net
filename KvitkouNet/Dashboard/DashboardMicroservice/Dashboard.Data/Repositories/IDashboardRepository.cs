@@ -40,9 +40,10 @@ namespace Dashboard.Data.Repositories
         Task<NewsDb> Get(string newsId);
 
         /// <summary>
-        ///     Получение только актуальных новостей в БД
+        ///     Автоматическое добовление новости
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<NewsDb>> GetAllActual();
+        Task AddAutoNews(NewsDb message);
+
     }
 }

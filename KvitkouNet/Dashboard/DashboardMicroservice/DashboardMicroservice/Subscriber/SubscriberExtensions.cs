@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Dashboard.Subscriber.Cunsumer;
 //using Dashboard.Subscriber.Cunsumer;
 using EasyNetQ;
 using EasyNetQ.AutoSubscribe;
@@ -39,7 +40,7 @@ namespace Dashboard.Subscriber
 
         public static IServiceCollection RegisterConsumers(this IServiceCollection services)
         {
-          // services.AddScoped<TicketMessageConsumer>();
+             services.AddScoped<TicketMessageConsumer>();
 
             return services;
         }

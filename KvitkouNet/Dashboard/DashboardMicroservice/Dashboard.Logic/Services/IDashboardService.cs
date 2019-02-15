@@ -46,9 +46,9 @@ namespace Dashboard.Logic.Services
         Task<(News, RequestStatus)> Get(string newsId);
 
         /// <summary>
-        ///     Получение только актуальных новостей
+        ///     Автоматическое добовление новости
         /// </summary>
         /// <returns></returns>
-        Task<(IEnumerable<News>, RequestStatus)> GetAllActual();
+        Task<RequestStatus> AddAutoNews(TicketInfo message);
     }
 }
