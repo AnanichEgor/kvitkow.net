@@ -12,6 +12,7 @@ namespace Chat.Web.Hub
             await this.Clients.All.SendAsync("alertOnComingMessageAllUsers", message);
         }
 
+        //test
         public async Task NotifyUsers(string[] ids)
         {
             await this.Clients.Users(ids.ToList().AsReadOnly()).SendAsync("getAlert", "asdasdasd");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Chat.Data.Context;
@@ -26,6 +27,21 @@ namespace Chat.Logic.Services
         {
             var modelDb = _mapper.Map<UserDb>(newUser);
             await _context.Users.AddAsync(modelDb);
+
+            //добавим дефолтные настрйоки для пользователя
+            await _context.Settings.AddAsync(new SettingsDb()
+            {
+                BackgroundColor =  BackgroundColorType.Black,
+                DisablePrivateMessages = false,
+                HideChat = false,
+                HistoryCountsMessages = 15,
+                Sound = false,
+                Tab = false,
+                Toast = false,
+                UpdateDate = DateTime.Now,
+                UserId = modelDb.Id,
+                ViewTimestampsMessage = false
+            });
             await _context.SaveChangesAsync();
         }
 

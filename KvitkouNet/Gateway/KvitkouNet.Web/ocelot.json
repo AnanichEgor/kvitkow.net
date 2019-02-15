@@ -329,7 +329,7 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "/api/chat/rooms/template",
+      "DownstreamPathTemplate": "/api/chat/rooms/{rid}/messages/{template}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -337,7 +337,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/chat/rooms/template",
+      "UpstreamPathTemplate": "/chat/rooms/{rid}/messages/{template}",
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
@@ -363,6 +363,18 @@
       ],
       "UpstreamPathTemplate": "/chat/settings/{uid}",
       "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/chat/rooms/room/{uid}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "chat.web",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/chat/rooms/room/{uid}",
+      "UpstreamHttpMethod": [ "Post" ]
     },
     {
       "DownstreamPathTemplate": "/api/notification/all",
@@ -459,6 +471,23 @@
       ],
       "UpstreamPathTemplate": "/notification/subscription/{theme}/users/{id}",
       "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamHostAndPorts": [
+        {
+          "Port": 80,
+          "Host": "chat.web"
+        }
+      ],
+      "DownstreamScheme": "ws",
+      "DownstreamPathTemplate": "/{catchAll}",
+      "UpstreamPathTemplate": "/{catchAll}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "OPTIONS",
+        "GET"
+      ],
+      "ReRouteIsCaseSensitive": false
     },
     {
       "DownstreamPathTemplate": "/api/security/{catchAll}",

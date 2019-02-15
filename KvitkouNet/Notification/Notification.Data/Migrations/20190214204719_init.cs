@@ -51,12 +51,13 @@ namespace Notification.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    UserId = table.Column<string>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
                     Title = table.Column<string>(maxLength: 200, nullable: false),
                     Text = table.Column<string>(maxLength: 2000, nullable: false),
                     Severity = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     Creator = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
                     Type = table.Column<int>(nullable: false),
                     IsClosed = table.Column<bool>(nullable: false)
                 },
@@ -68,7 +69,7 @@ namespace Notification.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

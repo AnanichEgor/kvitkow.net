@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.AspNetCore.WebSockets;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ocelot.DependencyInjection;
@@ -36,7 +37,9 @@ namespace KvitkouNet.Web
 
 			services.AddSwaggerDocument();
 
-			services.AddOcelot();
+            //this need for Hub
+            services.AddOcelot();
+            services.AddWebSockets(opt => opt.AllowedOrigins.Add("*"));
 
 			services.AddAuthentication()
 				.AddIdentityServerAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme,
@@ -84,21 +87,23 @@ namespace KvitkouNet.Web
 					template: "{controller}/{action=Index}/{id?}");
 			});
 
-			//app.UseSpa(spa =>
-			//{
-			//    // To learn more about options for serving an Angular SPA from ASP.NET Core,
-			//    // see https://go.microsoft.com/fwlink/?linkid=864501
-			//
-			//    spa.Options.SourcePath = "ClientApp";
-			//
-			//    if (env.IsDevelopment())
-			//    {
-			//        spa.UseAngularCliServer(npmScript: "start");
-			//    }
-			//});
+            //app.UseSpa(spa =>
+            //{
+            //    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+            //    // see https://go.microsoft.com/fwlink/?linkid=864501
+            //
+            //    spa.Options.SourcePath = "ClientApp";
+            //
+            //    if (env.IsDevelopment())
+            //    {
+            //        spa.UseAngularCliServer(npmScript: "start");
+            //    }
+            //});
 
-			app.UseCors(_ => _.AllowAnyOrigin().AllowAnyMethod().AllowAnyMethod().AllowAnyHeader());
-			app.UseOcelot().GetAwaiter().GetResult();
-		}
-	}
+		    //this need for Hub
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowCredentials().AllowAnyHeader()
+                .AllowAnyMethod());
+            app.UseOcelot().GetAwaiter().GetResult();
+        }
+    }
 }
