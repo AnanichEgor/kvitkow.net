@@ -12,13 +12,13 @@ namespace Dashboard.Logic.Models.Enums
         Unknown = 0,
 
         /// <summary>
-        ///     Актуальна
+        ///     Обыкновенная
         /// </summary>
-        Actual = 1,
+        Delivery = 1,
 
         /// <summary>
-        ///     Просрочена
+        ///     Горящая
         /// </summary>
-        Expired = 2
+        Hot = 2
     }
 }

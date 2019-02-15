@@ -93,7 +93,7 @@ namespace Dashboard.Logic.Services
         {
             var news = new News();
 
-            news.NewsId = message.TicketId;
+            news.NewsStatus = NewsStatus.Hot;
             news.Ticket = message;
             
             if (!_validator.Validate(news).IsValid) return (RequestStatus.BadRequest);

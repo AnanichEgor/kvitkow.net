@@ -23,7 +23,7 @@ namespace Dashboard.Data.Factories
                 context.Database.EnsureCreated();
                 if (!context.News.Any())
                 {
-                    context.News.AddRange(NewsFaker.Generate(5));
+                    context.News.AddRange(NewsFaker.Generate(15));
                     context.SaveChanges();
                 }
             }

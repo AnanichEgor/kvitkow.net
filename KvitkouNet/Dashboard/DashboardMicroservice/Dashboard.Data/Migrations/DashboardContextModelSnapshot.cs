@@ -23,6 +23,8 @@ namespace Dashboard.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
+                    b.Property<int>("NewsStatus");
+
                     b.HasKey("NewsId");
 
                     b.ToTable("News");

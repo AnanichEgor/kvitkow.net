@@ -12,6 +12,7 @@ namespace Dashboard.Data.Migrations
                 columns: table => new
                 {
                     NewsId = table.Column<string>(nullable: false),
+                    NewsStatus = table.Column<int>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>

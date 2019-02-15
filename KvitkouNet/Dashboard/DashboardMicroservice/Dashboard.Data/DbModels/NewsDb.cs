@@ -11,6 +11,11 @@ namespace Dashboard.Data.DbModels
         public string NewsId { get; set; }
 
         /// <summary>
+        ///     Id билета
+        /// </summary>
+        public NewsStatusDb NewsStatus { get; set; }
+
+        /// <summary>
         ///     Дата создания билета
         /// </summary>
         public DateTime CreatedDate { get; set; }

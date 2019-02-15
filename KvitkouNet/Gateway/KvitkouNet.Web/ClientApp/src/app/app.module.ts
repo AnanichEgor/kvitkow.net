@@ -5,7 +5,7 @@ import { StatisticService } from './services/statistic.service';
 import { RoomService } from './services/chat/room.service';
 import { ChatService } from './services/chat/chat.service';
 import { UsersService } from './services/users/users.service';
-import { DashboardService } from './services/dashboard.service';
+import { DashboardService } from './services/dashboard/dashboard.service';
 import { EditGuard } from './services/editGuard';
 import { GetallticketsService } from './services/getalltickets.service';
 import { GetTicketByIdService } from './services/get-ticket-by-id.service';

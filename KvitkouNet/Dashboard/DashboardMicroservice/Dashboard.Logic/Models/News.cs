@@ -6,9 +6,9 @@ namespace Dashboard.Logic.Models
     public class News
     {
         /// <summary>
-        ///     Id билета
+        ///     Статус новости
         /// </summary>
-        public string NewsId { get; set; }
+        public NewsStatus NewsStatus { get; set; }
     
         /// <summary>
         ///     Цена билета
