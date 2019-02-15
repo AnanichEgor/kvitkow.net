@@ -32,7 +32,7 @@ namespace Notification.Data.Context
 			notification.Property(p => p.Date).IsRequired();
 			notification.Property(p => p.Severity).IsRequired();
 			notification.Property(p => p.Type).IsRequired();
-			//notification.Property(p => p.UserId).IsRequired();
+			notification.Property(p => p.UserId).IsRequired();
 
 			EntityTypeBuilder<UserSubscription> userSubscription = modelBuilder.Entity<UserSubscription>();
 			userSubscription.HasKey(x => new { x.UserId, x.SubscriptionId });

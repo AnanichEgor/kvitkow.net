@@ -24,8 +24,6 @@ namespace Notification.Data.Helpers
 
 				if (!ctx.Users.Any())
 				{
-					ctx.Notifications.AddRange(NotificationFaker.Generate(50));
-
                     //создадим тестового пользователя номер 1. Он будет владельцем комнаты номер 1 и ему пренадлежит сообщение номер 1.
                     User user = ctx.Users.Add(new Models.User()
                     {
@@ -44,7 +42,7 @@ namespace Notification.Data.Helpers
                     }
                     user.UserSubscriptions = new List<UserSubscription>();
 
-                    List<UserSubscription> userSubscriptions = new List<UserSubscription>(UserSubscriptionFaker.Generate(6));
+                    List<UserSubscription> userSubscriptions = new List<UserSubscription>(UserSubscriptionFaker.Generate(10));
                     foreach (UserSubscription userSubscription in userSubscriptions)
                     {
                         user.UserSubscriptions.Add(userSubscription);
