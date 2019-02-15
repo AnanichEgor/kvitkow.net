@@ -32,12 +32,11 @@ namespace Notification.Logic.Services.SubscriptionService
 
 		public async Task<IEnumerable<Logic.Models.Subscription>> GetAll(string userId)
 		{
-            List<Data.Models.Subscription> subscriptions = 
-                m_context.Subscriptions
-                .Include(x => x.UserSubscriptions).ToList();
-            subscriptions = subscriptions.Where(x => x.UserSubscriptions.Any(y => y.UserId == userId)).ToList();
-
-
+            IQueryable<Data.Models.Subscription> subscriptions = m_context.UserSubscriptions
+                .AsNoTracking()                
+                .Include(x => x.Subscription)                
+                .Where(x => x.UserId == userId).Select(x => x.Subscription);            
+            
             return await Task.FromResult(m_mapper.Map<IEnumerable<Data.Models.Subscription>, IEnumerable<Logic.Models.Subscription>>(subscriptions));
 		}
 

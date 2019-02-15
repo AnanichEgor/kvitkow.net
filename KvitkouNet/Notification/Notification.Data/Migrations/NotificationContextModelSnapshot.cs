@@ -41,7 +41,8 @@ namespace Notification.Data.Migrations
 
                     b.Property<int>("Type");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -117,7 +118,8 @@ namespace Notification.Data.Migrations
                 {
                     b.HasOne("Notification.Data.Models.User", "User")
                         .WithMany("Notifications")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Notification.Data.Models.UserSubscription", b =>

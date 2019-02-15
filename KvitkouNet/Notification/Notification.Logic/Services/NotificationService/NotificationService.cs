@@ -81,8 +81,8 @@ namespace Notification.Logic.Services.NotificationService
 
 		public async Task<IEnumerable<UserNotification>> GetUserNotifications(string userId, bool onlyOpen)
 		{
-			Data.Models.Notification[] result = m_context.Notifications.AsNoTracking()
-				.Include(x => x.User).Where(x => x.User.Id == userId && x.IsClosed != onlyOpen).ToArray();
+            Data.Models.Notification[] result = m_context.Notifications.AsNoTracking()
+				.Where(x => x.User.Id == userId && x.IsClosed != onlyOpen).ToArray();
 
 			UserNotification[] mapped = m_mapper.Map<UserNotification[]>(result);
 
