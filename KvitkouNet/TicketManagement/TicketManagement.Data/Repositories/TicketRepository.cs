@@ -47,6 +47,7 @@ namespace TicketManagement.Data.Repositories
             }
 
             user.UserTickets.Add(ticket);
+            _context.UserInfos.Update(user);
             await _context.SaveChangesAsync();
             return _context.Tickets.Last()
                 .Id;
@@ -65,6 +66,7 @@ namespace TicketManagement.Data.Repositories
         public async Task Update(string id,
             Ticket ticket)
         {
+            ticket.Id = id;
             var origin = await _context.Tickets
                 .Include(db => db.LocationEvent)
                 .Include(db => db.SellerAdress)
@@ -72,6 +74,7 @@ namespace TicketManagement.Data.Repositories
                 .SingleOrDefaultAsync(x => x.Id == id);
             if (origin == null)
                 throw new TicketNotFoundException();
+            ticket.User = origin.User;
             _context.Tickets.Remove(origin);
             ticket.Status = DateTime.Now > ticket.TimeActual ? TicketStatusDb.Expired : TicketStatusDb.Actual;
             _context.Tickets.Add(ticket);
