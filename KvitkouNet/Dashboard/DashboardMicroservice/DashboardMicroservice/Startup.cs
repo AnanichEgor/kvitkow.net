@@ -22,9 +22,11 @@ namespace DashboardMicroService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string rabbitConnectionString = Configuration.GetConnectionString("RabbitConnection");
+            var connectionString = Configuration["connectionString"];
 
-            services.RegisterDashboardService();
+            var rabbitConnectionString = Configuration["RabbitConnection"];
+
+            services.RegisterDashboardService(connectionString);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
                         

@@ -9,6 +9,7 @@ using Dashboard.Logic.Services;
 using Dashboard.Logic.Validators;
 using Dashboard.Logic.MappingProfiles;
 using Dashboard.Data;
+using Dashboard.Data.Factories;
 
 namespace Dashboard.Logic
 {
@@ -19,9 +20,9 @@ namespace Dashboard.Logic
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection RegisterDashboardService(this IServiceCollection services)
+        public static IServiceCollection RegisterDashboardService(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<DashboardContext>(opt => opt.UseSqlite("Data Source=./NewsDatabase.db"));
+            services.AddDbContext<DashboardContext>(opt => opt.UseSqlite(connectionString));
 
             services.AddAutoMapper(cfg =>
             {
@@ -32,6 +33,7 @@ namespace Dashboard.Logic
             services.AddScoped<IValidator<Models.News>, NewsValidator>();
             services.AddScoped<IDashboardRepository, DashboardRepository>();
             services.AddScoped<IDashboardService, DashboardService>();
+            services.RepositoryContext(connectionString);
 
             return services;
 
