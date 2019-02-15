@@ -1,6 +1,6 @@
+import { News } from './../models/dashboard/news';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { News } from '../models/dashboard';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
